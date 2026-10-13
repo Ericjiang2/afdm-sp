@@ -28,3 +28,9 @@ Managed by Trellis. Edits outside this block are preserved; edits inside may be 
 - 每次分派提供紧凑交接：任务/CSV 路径、子任务目标、文件所有权、验收条件、必需约束与待读文件。已注入内容不再读一遍；缺少具体约束时只补读对应文件或向主会话索取。
 - 同一子代理优先复用；follow-up 只发送变化、证据与下一步，子代理保留已读上下文。新代理仍须获得必要代码规范和科学/服务器安全边界，不把未读取的内容谎报为已加载。
 - 后续简单查找、搜索和代码查看交给 gpt-6-luna / xhigh；实现和正式审查使用 gpt-6-sol / high，除非用户对具体任务另有明确指定。已有代理按当前工作收尾，保留前任代码、结果、审计记录；不因换模型重新仿真。
+
+## GitHub 只读镜像（2026-10-13）
+
+- `Ericjiang2/afdm-sp`（私有）= 本项目供网页 GPT 阅读的只读镜像，非备份、非协作仓库；不在其中直接改动。
+- 本地镜像：`/Users/guoyikun/Downloads/share/claode_birain/afdm-sp-mirror/`（bare `repo.git` + `sync.sh`）。内容 = vault `trans/tcom-main` 已提交的本目录，排除 `.mission/`（保留 `*.csv`）、`.claude/` `.codex/` `.agents/`、不可读二进制、>50MB 文件。
+- 按需同步：仅当用户明确说「推 GitHub / 同步镜像」时，先确认相关改动已在 vault commit，再运行 `sync.sh`（会 push）。不得主动推送，不得把 vault 本身推到该仓库。
