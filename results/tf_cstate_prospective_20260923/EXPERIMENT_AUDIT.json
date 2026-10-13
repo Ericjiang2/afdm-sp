@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-23",
+  "auditor": "gpt-5.6-sol/high; independent read-only source and artifact review",
+  "overall_verdict": "warn",
+  "integrity_status": "pass_for_user_authorized_recovery",
+  "original_campaign_status": "invalid",
+  "recovery_status": "completed",
+  "checks": {
+    "gt_provenance": {"status": "pass", "type": "simulator_generated_message_channel_noise"},
+    "score_normalization": {"status": "pass", "type": "fixed_full_population_denominators"},
+    "result_existence": {"status": "pass", "type": "receipt_hashes_and_independent_recount_match"},
+    "executed_metric_path": {"status": "pass", "scope": "reported_metrics_only"},
+    "scope": {"status": "warn", "reason": "single_simulated_population_per_snr; only_6p5_db_confirmatory"},
+    "eval_type": "simulation_only"
+  },
+  "claims": [
+    {"id": "primary_numeric_gate_on_sealed_data", "impact": "supported_with_postfailure_recovery_qualifier"},
+    {"id": "descriptive_6_and_7_db_effects", "impact": "supported_within_simulation"},
+    {"id": "unqualified_clean_one_shot_completion", "impact": "unsupported"}
+  ]
+}

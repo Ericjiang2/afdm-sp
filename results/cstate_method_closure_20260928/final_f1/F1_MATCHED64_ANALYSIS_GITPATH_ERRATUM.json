@@ -1,0 +1,20 @@
+{
+  "schema": "f1-matched64-offline-reader-gitpath-erratum/1",
+  "status": "prepared_not_analyzed",
+  "original_reader_path": "experiments/cstate_method_closure_20260928/final_f1/analyze_matched_timing.py",
+  "original_reader_sha256": "c9b99e7f82fde74cead3dd92e7ae71dc1ce6251e406e160bccbfe83c1ec78b52",
+  "first_analysis_failure": "Git show at observed commit 09abb05632a682176954250b783b787a5cfdddac failed because the reader omitted the vault-relative prefix 00_Inbox/AFDM-channel-estimation/ from observed and registration paths; no analysis output was created.",
+  "replacement_reader_path": "experiments/cstate_method_closure_20260928/final_f1/analyze_matched_timing_v2.py",
+  "replacement_reader_sha256": "00abfe4aba23fa272e3e501ffad033aed1847f307eac25a98a303e4ef1523683",
+  "sole_code_change": "Resolve Git repository prefix using git rev-parse --show-prefix and prepend it to both existing Git show paths in git_gate; no statistics, filters, input rows or timing metrics change.",
+  "observed_commit": "09abb05632a682176954250b783b787a5cfdddac",
+  "observed_seal_sha256": "765fb8147fd20ba4673681578716656ea1f030138bcbfa45f160d5791283a6a4",
+  "registration_commit": "64dbd9904d060c17e5faff6bd9f64b8b323f5ca4",
+  "registration_sha256": "22c5bb944ea26106fa2860fcba3a23a185e420eab4000257b9915d9bda8b50af",
+  "preanalysis_git_gate_test": "Actual observed seal Git blob, registration Git blob and ancestry passed with the replacement reader; no result statistics were computed in this test.",
+  "output_path": "results/cstate_method_closure_20260928/final_f1/analysis_matched64_v2",
+  "receiver_calls": 0,
+  "decoder_calls": 0,
+  "truth_reads": 0,
+  "requires_git_freeze_before_analysis": true
+}

@@ -1,0 +1,199 @@
+{
+  "schema": "higher-order-attempt/1",
+  "stage": "llr_v1",
+  "config": {
+    "seed": [
+      20261004,
+      213705,
+      60
+    ],
+    "new_observations": 12,
+    "n": 3,
+    "p": 2,
+    "exogenous_draws": 3,
+    "priors": [
+      "Gaussian",
+      "sphere"
+    ],
+    "noise": [
+      0.15,
+      1.2
+    ],
+    "cavities": [
+      "uniform",
+      "nonuniform"
+    ],
+    "objects": [
+      "QPSK",
+      "Gaussian-outside"
+    ],
+    "cases": 48,
+    "budgets": [
+      256,
+      1024,
+      4096
+    ],
+    "replicates": 4,
+    "arms": [
+      "fixed_common_qmc",
+      "common_prior_iid",
+      "independent_prior_iid",
+      "defensive_contrast_iid"
+    ],
+    "candidate_pilot_nodes": 64,
+    "defensive_prior_fraction": 0.5,
+    "proposal_regularization": 0.1,
+    "reference": {
+      "gaussian_hermite_order": 33,
+      "hermite_point_cap": 1200000,
+      "sphere_orders": [
+        13,
+        21
+      ],
+      "sobol_exponents": [
+        18,
+        19
+      ],
+      "independent_sobol_exponent": 19,
+      "llr_tolerance": 0.008,
+      "probability_tolerance": 0.002,
+      "log_density_tolerance": 0.015
+    },
+    "precision": {
+      "llr_rmse": 0.05,
+      "llr_p95_absolute": 0.1,
+      "side_relative_density_rmse": 0.05
+    },
+    "input_amplitude": 0.5,
+    "pilot_amplitude": 0.55,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "candidate_object": "same integral; independent pilot adaptation followed by fresh defensive importance samples",
+    "cost": "node generation, proposal fitting, all likelihood sides, covariance factorizations, raw persistence; external scoring/reference separately",
+    "pairing": "12 y shared across object/cavity;3 shared gain/data/noise exogenous draws; no independent-frame count inflation"
+  },
+  "_config": {
+    "seed": [
+      20261004,
+      213705,
+      60
+    ],
+    "new_observations": 12,
+    "n": 3,
+    "p": 2,
+    "exogenous_draws": 3,
+    "priors": [
+      "Gaussian",
+      "sphere"
+    ],
+    "noise": [
+      0.15,
+      1.2
+    ],
+    "cavities": [
+      "uniform",
+      "nonuniform"
+    ],
+    "objects": [
+      "QPSK",
+      "Gaussian-outside"
+    ],
+    "cases": 48,
+    "budgets": [
+      256,
+      1024,
+      4096
+    ],
+    "replicates": 4,
+    "arms": [
+      "fixed_common_qmc",
+      "common_prior_iid",
+      "independent_prior_iid",
+      "defensive_contrast_iid"
+    ],
+    "candidate_pilot_nodes": 64,
+    "defensive_prior_fraction": 0.5,
+    "proposal_regularization": 0.1,
+    "reference": {
+      "gaussian_hermite_order": 33,
+      "hermite_point_cap": 1200000,
+      "sphere_orders": [
+        13,
+        21
+      ],
+      "sobol_exponents": [
+        18,
+        19
+      ],
+      "independent_sobol_exponent": 19,
+      "llr_tolerance": 0.008,
+      "probability_tolerance": 0.002,
+      "log_density_tolerance": 0.015
+    },
+    "precision": {
+      "llr_rmse": 0.05,
+      "llr_p95_absolute": 0.1,
+      "side_relative_density_rmse": 0.05
+    },
+    "input_amplitude": 0.5,
+    "pilot_amplitude": 0.55,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "candidate_object": "same integral; independent pilot adaptation followed by fresh defensive importance samples",
+    "cost": "node generation, proposal fitting, all likelihood sides, covariance factorizations, raw persistence; external scoring/reference separately",
+    "pairing": "12 y shared across object/cavity;3 shared gain/data/noise exogenous draws; no independent-frame count inflation"
+  },
+  "argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_higher_order_information/llr_study.py",
+    "--stage",
+    "llr_v1"
+  ],
+  "_argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_higher_order_information/llr_study.py",
+    "--stage",
+    "llr_v1"
+  ],
+  "seed": [
+    20261004,
+    213705,
+    60
+  ],
+  "source_sha256": {
+    ".mission/20261001_23-33-35-afdm-innovation-space/controls/thread_binding.py": "d54170644d336fe6b0eb383ff533e5863857f1bbdc8dd0a873a1c233f50846ac",
+    ".mission/20261004_21-37-05-afdm-higher-order-information/run_contract.json": "1e91b5c570ea22169451937293a15a4f81e45fdaa1c3949421f34cbc1f30eac3",
+    "experiments/afdm_higher_order_information/LLR.md": "ab9bc5d808440b899486a0913ef9777a1b4f2d82e4d5d92fdc7948bbf9499315",
+    "experiments/afdm_higher_order_information/__init__.py": "00ec0fce13d3db63195bf81e021bbf9b3abad69b9ba7781be9327c3b86b52b75",
+    "experiments/afdm_higher_order_information/llr.py": "e0f192018716939ac478dd8210d7ae24221c9d9a2c0067a64b9d34c9ae1e909a",
+    "experiments/afdm_higher_order_information/llr_study.py": "a8b8516647fa00285740524dc760014fb9bd101cd8111069314f7818804f0b3e",
+    "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+    "experiments/afdm_higher_order_information/test_llr.py": "db0a7000c9ee8cea463fa41a8a4de5c289f42f4591632f6f03441b97dfb5e94d",
+    "experiments/afdm_inference_causal_20261002/exact_oracle.py": "d6fae6c9d0e708db9fb2ab6c3809729f12146bb307802f2cb892be6f795b5b77",
+    "experiments/afdm_inference_causal_20261002/oracle_comparison.py": "571b6d080379299f0e8a342e5b1d2c964c4a99d689f735fc0d4b6b83d1ef2df6",
+    "experiments/afdm_shared_channel_20261004/common.py": "705cb6103442cdb122fbce0e58f091c6d42d64cce2e0f39cd24e8dfe095e758d",
+    "experiments/afdm_shared_channel_20261004/probability.py": "0468df47f9026feed266bf4148e66a61ec7a046e5e820101924f02b6988fbcbc",
+    "experiments/afdm_shared_channel_20261004/quadrature.py": "32844f8ee051f8a4c2eb614443c2e3814a69183e7a6bd08195d8d6ac5610d257",
+    "experiments/afdm_structured_inference_20261003/collapsed.py": "80a0bcb227e324b7c3b605fd05634e7e5f2740edd4655378d0e6b693207a27c7",
+    "experiments/afdm_structured_inference_20261003/potential.py": "63bb6d4da304d3f2753a915a177762156532b24fa7f29de97d09ce7ec7585e68",
+    "experiments/sp_afdm_frozen_20260920/src/messages.py": "9b19937c90a6e2b15f30d4e326320a38cd2635f9c0c5b14814406991da25ec95",
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "experiments/sp_afdm_native_joint_20260921/src/twofft.py": "c54e832716d72530e38a9b1090ca24f8f8b3c8f4185db0914d30e5f7e2ab9ff0"
+  },
+  "git": {
+    "head": "09bfc7bc7fd54e7134e2d3c3a26c0aaf0710d3df",
+    "committed_task_source_sha256": {
+      "experiments/afdm_higher_order_information/__init__.py": "00ec0fce13d3db63195bf81e021bbf9b3abad69b9ba7781be9327c3b86b52b75",
+      "experiments/afdm_higher_order_information/llr.py": "e0f192018716939ac478dd8210d7ae24221c9d9a2c0067a64b9d34c9ae1e909a",
+      "experiments/afdm_higher_order_information/llr_study.py": "a8b8516647fa00285740524dc760014fb9bd101cd8111069314f7818804f0b3e",
+      "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+      "experiments/afdm_higher_order_information/test_llr.py": "db0a7000c9ee8cea463fa41a8a4de5c289f42f4591632f6f03441b97dfb5e94d"
+    },
+    "other_sources": "frozen helpers and artifacts independently SHA-256 bound"
+  },
+  "git_head": "09bfc7bc7fd54e7134e2d3c3a26c0aaf0710d3df",
+  "pid": 55042,
+  "wall_cap_seconds": 600,
+  "started_utc": "2026-10-04T16:26:54.447899+00:00",
+  "deadline_utc": "2026-10-04T16:36:54.447899+00:00",
+  "cumulative_reserved_new_observations": 8204,
+  "evidence_level": "local mathematical/development; no receiver/decoder/confirmation"
+}

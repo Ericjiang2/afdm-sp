@@ -1,0 +1,200 @@
+\documentclass[a4paper,12pt,oneside]{article}
+
+\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[scaled]{helvet}
+\usepackage{courier}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric,fit,backgrounds}
+\usepackage{hyperref}
+
+\input{math_commands}
+
+\graphicspath{{../figures/}{../figures/ai_generated/}{Figures/}{./}}
+
+\newcommand{\thesistitle}{AFDM Transceiver Design for Underwater Acoustic Communication System}
+\newcommand{\GUID}{\mbox{}}
+\newcommand{\student}{\mbox{}}
+\newcommand{\studentnumber}{\mbox{}}
+\newcommand{\firstsupervisor}{\mbox{}}
+\newcommand{\secondsupervisor}{\mbox{}}
+\newcommand{\academicyear}{2025--2026}
+\newcommand{\keywords}{AFDM, underwater acoustic communication, superimposed pilots, orthogonal matching pursuit, message passing, deep unfolding, support refinement, complexity-preserving receiver}
+
+\newenvironment{declaration}{
+    \newgeometry{left=4em,right=4em,bottom=6em,top=6em}
+    \section*{Coursework Declaration and Feedback Form}
+    \addcontentsline{toc}{section}{Coursework Declaration and Feedback Form}
+}{
+    \clearpage\restoregeometry
+}
+
+\renewenvironment{abstract}{
+    \section*{Abstract}
+    \bigskip
+    \addcontentsline{toc}{section}{Abstract}
+}{
+    \clearpage
+}
+
+\newenvironment{acknowledgement}{
+    \section*{Acknowledgements}
+    \bigskip
+    \addcontentsline{toc}{section}{Acknowledgements}
+}{
+    \clearpage
+}
+
+\geometry{
+    paper=a4paper,
+    inner=6em,
+    outer=6em,
+    bindingoffset=0em,
+    top=6em,
+    bottom=6em
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=black,
+    pdftitle=\thesistitle,
+    pdfauthor={},
+    pdfkeywords=\keywords
+}
+
+\onehalfspacing
+
+\begin{document}
+
+\pagestyle{plain}
+\hypersetup{pageanchor=false}
+
+\begin{titlepage}
+\begin{center}
+\includegraphics[width=0.28\textwidth]{Badge}
+\vspace*{0.08\textheight}
+
+\textsc{\Large Final Year Project Report\\Bachelor of Engineering}\\[1.0cm]
+
+{\huge \bfseries \thesistitle\par}\vspace{2.6cm}
+
+\begin{minipage}[t]{0.44\textwidth}
+\begin{flushleft}\huge
+Student:\\
+\vspace*{0.02\textheight}
+GUID:\\
+\vspace*{0.02\textheight}
+$1^{st}$ Supervisor:\\
+\vspace*{0.02\textheight}
+$2^{nd}$ Supervisor:\\
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.44\textwidth}
+\begin{flushright}\huge
+\student\\
+\vspace*{0.02\textheight}
+\GUID\\
+\vspace*{0.02\textheight}
+\firstsupervisor\\
+\vspace*{0.02\textheight}
+\secondsupervisor\\
+\end{flushright}
+\end{minipage}\\[1.4cm]
+
+\vfill
+
+{\huge \academicyear}\\[1.6cm]
+\end{center}
+\end{titlepage}
+
+\pagenumbering{roman}
+
+\renewcommand{\arraystretch}{1.3}
+\begin{declaration}
+\emph{This student should complete and sign this part.}
+
+\begin{table}[h!]
+\centering
+\resizebox{0.90\textwidth}{!}{
+\begin{tabular}{|p{6.2cm}|l|}
+\hline
+Student Name: \student & Student GUID: \GUID \\ \hline
+Course Code: UESTC4006P & Course Name: INDIVIDUAL PROJECT 4 \\ \hline
+UESTC No.: \studentnumber & Academic Year: \academicyear \\ \hline
+Name of 1st Supervisor: \firstsupervisor & Name of 2nd Supervisor: \secondsupervisor \\ \hline
+\multicolumn{2}{|l|}{\begin{tabular}[c]{@{}l@{}}Title of Project:\\{\large\textbf{AFDM Transceiver Design for Underwater Acoustic}}\\{\large\textbf{Communication System}}\end{tabular}} \\ \hline
+\multicolumn{2}{|l|}{\textbf{Declaration of Originality and Submission Information}} \\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}I affirm that this submission is all my\\own work in accordance with the\\University of Glasgow Regulations and\\the School of Engineering requirements.\\Signed (Student):\ \mbox{}\end{tabular}}
+&
+\multicolumn{1}{c|}{\includegraphics[scale=0.6]{BarCode}}\\ \hline
+\multicolumn{2}{|l|}{Date of Submission:} \\ \hline
+\multicolumn{2}{|l|}{\textit{Feedback from Lecturer to Student - to be completed by Lecturer or Demonstrator}} \\ \hline
+\multicolumn{2}{|l|}{\begin{tabular}[c]{@{}l@{}}Grade Awarded:\\Feedback (as appropriate to the coursework which was assessed):\\ \\ \\ \\ \\ \\ \\ \\\end{tabular}}\\ \hline
+Lecturer / Demonstrator: & Date returned to the Teaching Office: \\ \hline
+\end{tabular}
+}
+\end{table}
+\end{declaration}
+
+\begin{abstract}
+\input{sections/Abstract}
+\end{abstract}
+
+\begin{acknowledgement}
+I would like to express my sincere gratitude to my supervisor, Associate Professor Yusha Liu, whose guidance has been instrumental at every stage of this project. Her technical insight shaped the trajectory of this work from an early prototype into the complexity-preserving learned-head receiver reported here, and her patience in working through the mathematical details of the AFDM signal model, the Dirichlet expansion, and the deep-unfolding architecture has fundamentally strengthened my understanding of communications signal processing. Beyond the technical supervision, she introduced me to the discipline of formulating a research question, designing an experiment that can answer it, and reading the resulting evidence honestly --- the habits of mind that I now consider the most valuable outcome of this year's work. Her willingness to engage with both early-stage uncertainty and late-stage detailed revisions has been a model of academic mentorship, and it is in no small part due to her example that I now intend to pursue research as a career.
+
+I am also grateful to the University of Electronic Science and Technology of China (UESTC) and to Glasgow College, UESTC, for providing the academic environment within which this project was carried out. The four-year UESTC--University of Glasgow joint curriculum has given me a research training that bridges two academic traditions, exposing me to the rigour of the British engineering education system while remaining grounded in the strong technical foundations of Chinese undergraduate engineering, and I am thankful to both institutions for the opportunity.
+
+I would like to thank the lecturers in the Glasgow College, UESTC programme whose courses laid the technical groundwork on which this thesis is built --- in particular those teaching digital signal processing, communication theory, and probability and random processes, without which the OMP, MP-BP, and statistical-significance machinery used in this work would have been inaccessible. I am equally grateful to my fellow students and friends in the programme for the daily discussions, debugging sessions, and mutual encouragement that made the long stretches of simulation and writing far less solitary than they might otherwise have been; their willingness to listen to half-formed ideas and to push back with sharper questions has improved this work in ways that are difficult to itemise but easy to feel.
+
+Finally, I would like to thank my family for their unwavering support throughout my undergraduate studies. Their confidence in my choices, their patience during the long hours of work that this project demanded, and their steady encouragement at the moments when progress was slowest, have been the foundation on which everything else stands. This thesis is, in a real sense, as much theirs as it is mine.
+\end{acknowledgement}
+
+\tableofcontents
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+\clearpage
+
+\hypersetup{pageanchor=true}
+\pagenumbering{arabic}
+
+\include{sections/Section1}
+\include{sections/Section2}
+\include{sections/Section3}
+\include{sections/Section4}
+\include{sections/Section5}
+
+\clearpage
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\appendix
+\include{Appendices/Appendix}
+
+\end{document}

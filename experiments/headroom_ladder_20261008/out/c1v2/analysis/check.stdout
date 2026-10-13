@@ -1,0 +1,12 @@
+PASS error_rows {"n": 0, "first": null}
+PASS S1_stored_c1_boot {"n_rows": 240, "max_abs_diff": {"eps_det1": 0.0, "eps_ce1": 0.0, "r1_ll_in": 0.0, "r1_cerr": 0, "r1_syn": 0}}
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/check_c1v2.py", line 65, in <module>
+    ctx = c1.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver_c1.py", line 323, in load_context
+    ctx = base.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 176, in load_context
+    ctx.environment = evidence.bind_runtime_environment()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/evidence.py", line 125, in bind_runtime_environment
+    raise ValueError("all BLAS/OpenMP thread environment variables must equal one")
+ValueError: all BLAS/OpenMP thread environment variables must equal one

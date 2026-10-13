@@ -1,0 +1,93 @@
+{
+  "status": "pass",
+  "scope": "Independent offline audit of the fixed 75-observation, 225-call CSTATE validation; no receiver or optimizer calls were made.",
+  "observed_seal_sha256": "0ce16dae4113dbef7152448bd2186898088c86470cacfee8eac38297a4ce761d",
+  "seal_commit": "8eb250e68b3a773cf60ba1c01b6c16779f345976",
+  "seal_git_binding": {
+    "committed_blob_sha1": "45fcdd6edd85687c1a0d11606228849ca8fde7ac",
+    "git_show_bytes_equal_local_seal": true,
+    "analysis_launch_after_seal_commit": true
+  },
+  "integrity": {
+    "sealed_files_rehashed_read_only_on_deinlab": 903,
+    "sealed_file_hash_mismatches": 0,
+    "inventory_files_including_seal": 904,
+    "inventory_matches_seal_and_local_metadata": true,
+    "analysis_output_hashes_match_receipt": true,
+    "source_hashes_match_observed_manifest_and_analysis_receipt": true,
+    "qualification_and_local_audit_receipts_bound": true,
+    "receiver_calls": 225,
+    "checkpoint_artifacts": 675,
+    "successful_ledger_rows": 225,
+    "replay_max_difference_nonzero_rows": 0
+  },
+  "independent_raw_audit": {
+    "original_tf_cell": 1024,
+    "selected_triggers_exact_from_original_syndrome": 43,
+    "selected_controls_exact_first_32": 32,
+    "prior_missed_both_witnesses": 23,
+    "checkpoint_truth_recounts": 675,
+    "checkpoint_syndrome_or_error_mismatches": 0,
+    "parity_check_shape": [1026, 2048],
+    "free_information_columns": 1024,
+    "original_vs_replay_checkpoint_bit_comparisons": 450,
+    "raw_baseline_vs_replay_checkpoint_bit_comparisons": 450,
+    "baseline_bit_mismatches": 0,
+    "prior_local_or_global_final_output_comparisons": 150,
+    "prior_final_mismatches": 0,
+    "global_vs_compact_paired_observations": 75,
+    "full_grid_steps_per_arm": 145,
+    "top20_entries_per_arm": 2900,
+    "local_trial_pairs": 8417,
+    "max_valid_grid_score_absolute_difference": 1.1482370609883219e-11,
+    "max_local_trial_score_absolute_difference": 0.0,
+    "max_final_geometry_absolute_difference": 0.0,
+    "max_final_detector_absolute_difference": 0.0,
+    "top20_rank_and_full_geometry_checks": 5800,
+    "top20_rank_or_full_geometry_mismatches": 0,
+    "final_decoder_bit_mismatches": 0
+  },
+  "recomputed_outcomes": {
+    "trigger_rescues": {"LOCAL20": 10, "GLOBAL20": 31, "CSTATE20": 31},
+    "old23_rescues": {"LOCAL20": 0, "GLOBAL20": 15, "CSTATE20": 15},
+    "forced_control_harms": {"LOCAL20": 0, "GLOBAL20": 0, "CSTATE20": 0},
+    "global_vs_compact_trigger_pairs": {
+      "neither_correct": 12,
+      "global_only_correct": 0,
+      "compact_only_correct": 0,
+      "both_correct": 31
+    },
+    "numerical_fallbacks_all_arms": 0,
+    "discarded_compact_evaluations": 0
+  },
+  "timing": {
+    "exclusive_stage_count_per_row": 17,
+    "rows_with_stage_or_parent_clock_discrepancy_above_1e-7_seconds": 0,
+    "cstate_trigger_complete_branch_seconds": {
+      "count": 43,
+      "mean": 0.2412517071325267,
+      "p95": 0.2785533272603061,
+      "max": 0.2924897379707545
+    },
+    "cstate_trigger_full_wrapper_seconds": {
+      "mean": 0.562355083,
+      "p95": 0.591504257,
+      "max": 0.622365926
+    },
+    "mean_complete_branch_gate_seconds": 0.6,
+    "gate_pass": true,
+    "native_checkpoint_write_nested_in_native_two_rounds": true,
+    "ledger_append_excluded_from_wrapper": true
+  },
+  "recomputed_trigger_deadlines": {
+    "LOCAL20": {"0.5s_correct": 9, "0.5s_baseline_fallback": 1, "1.0s_correct": 10, "1.0s_baseline_fallback": 0},
+    "GLOBAL20": {"0.5s_correct": 0, "0.5s_baseline_fallback": 43, "1.0s_correct": 31, "1.0s_baseline_fallback": 0},
+    "CSTATE20": {"0.5s_correct": 30, "0.5s_baseline_fallback": 3, "1.0s_correct": 31, "1.0s_baseline_fallback": 0}
+  },
+  "evidence_boundary": [
+    "Full raw and checkpoint bytes were inspected read-only on deinlab; they were not copied locally.",
+    "Source hashes and saved outputs were verified, but receiver operators and the compact optimizer were not re-executed in this audit.",
+    "The seal Git object, launch records, and analyzer control flow support seal-before-truth ordering; process chronology is not independently notarized.",
+    "The 75 observations are previously examined development data; these counts do not estimate population FER or undetected-error risk."
+  ]
+}

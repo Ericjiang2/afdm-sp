@@ -1,0 +1,255 @@
+{
+  "case": {
+    "name": "platform_g0_actual_marginal",
+    "model": "g0",
+    "pdp": "marginal",
+    "delta": 0.015,
+    "mu": 0.04
+  },
+  "classification": "exact_zero",
+  "refined": true,
+  "refinement_checks": {
+    "node_rules": true,
+    "derivative_steps": true,
+    "direct_finite_difference": true,
+    "quadrature_mass": true,
+    "effective_information": true
+  },
+  "comparisons": [
+    {
+      "logpdf_max": 0.0,
+      "score_relative_rms": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "logpdf_max": 0.0,
+      "score_relative_rms": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "derivative_steps": [
+    {
+      "step": 5e-05,
+      "comparison": {
+        "logpdf_max": 0.0,
+        "score_relative_rms": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "step": 2e-05,
+      "comparison": {
+        "logpdf_max": 0.0,
+        "score_relative_rms": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  ],
+  "finite_difference_relative_rms": [
+    0.0,
+    0.0,
+    1.3436041922104994e-10,
+    1.2459932208947569e-10
+  ],
+  "effective_rule_relative_error": 0.0,
+  "quadrature_mass_errors": {
+    "coarse": 0.0,
+    "fine": 0.0,
+    "independent": 0.0
+  },
+  "information": {
+    "coarse": {
+      "train": {
+        "raw": 0.0,
+        "effective": 0.0,
+        "effective_batch_se": 0.0,
+        "coefficient": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nuisance_rank": 2,
+        "nuisance_singular_values": [
+          21.44643840461202,
+          8.293416180078374,
+          0.0
+        ],
+        "score_mean": [
+          0.0,
+          0.0,
+          -0.006307249954739336,
+          0.005062640405404127
+        ]
+      },
+      "validation": {
+        "raw": 0.0,
+        "effective": 0.0,
+        "effective_batch_se": 0.0,
+        "coefficient": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nuisance_rank": 2,
+        "nuisance_singular_values": [
+          21.44643840461202,
+          8.293416180078374,
+          0.0
+        ],
+        "score_mean": [
+          0.0,
+          0.0,
+          -0.04931747209074251,
+          -0.09965600901959246
+        ]
+      },
+      "q_information_factor": 1111.111111111111
+    },
+    "fine": {
+      "train": {
+        "raw": 0.0,
+        "effective": 0.0,
+        "effective_batch_se": 0.0,
+        "coefficient": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nuisance_rank": 2,
+        "nuisance_singular_values": [
+          21.44643840461202,
+          8.293416180078374,
+          0.0
+        ],
+        "score_mean": [
+          0.0,
+          0.0,
+          -0.006307249954739336,
+          0.005062640405404127
+        ]
+      },
+      "validation": {
+        "raw": 0.0,
+        "effective": 0.0,
+        "effective_batch_se": 0.0,
+        "coefficient": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nuisance_rank": 2,
+        "nuisance_singular_values": [
+          21.44643840461202,
+          8.293416180078374,
+          0.0
+        ],
+        "score_mean": [
+          0.0,
+          0.0,
+          -0.04931747209074251,
+          -0.09965600901959246
+        ]
+      },
+      "q_information_factor": 1111.111111111111
+    },
+    "independent": {
+      "train": {
+        "raw": 0.0,
+        "effective": 0.0,
+        "effective_batch_se": 0.0,
+        "coefficient": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nuisance_rank": 2,
+        "nuisance_singular_values": [
+          21.44643840461202,
+          8.293416180078374,
+          0.0
+        ],
+        "score_mean": [
+          0.0,
+          0.0,
+          -0.006307249954739336,
+          0.005062640405404127
+        ]
+      },
+      "validation": {
+        "raw": 0.0,
+        "effective": 0.0,
+        "effective_batch_se": 0.0,
+        "coefficient": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "nuisance_rank": 2,
+        "nuisance_singular_values": [
+          21.44643840461202,
+          8.293416180078374,
+          0.0
+        ],
+        "score_mean": [
+          0.0,
+          0.0,
+          -0.04931747209074251,
+          -0.09965600901959246
+        ]
+      },
+      "q_information_factor": 1111.111111111111
+    }
+  },
+  "costs": {
+    "coarse": {
+      "response_evaluations": 64,
+      "logpdf_observations": 256,
+      "component_observation_pairs": 16384,
+      "tracked_branch_eigvalsh": 5
+    },
+    "fine": {
+      "response_evaluations": 64,
+      "logpdf_observations": 256,
+      "component_observation_pairs": 16384,
+      "tracked_branch_eigvalsh": 5
+    },
+    "independent": {
+      "response_evaluations": 64,
+      "logpdf_observations": 256,
+      "component_observation_pairs": 16384,
+      "tracked_branch_eigvalsh": 5
+    }
+  },
+  "final_teacher_cost": {
+    "response_evaluations": 704,
+    "logpdf_observations": 336,
+    "component_observation_pairs": 21504,
+    "tracked_branch_eigvalsh": 23
+  },
+  "sampler_cost": {
+    "response_evaluations": 0,
+    "logpdf_observations": 0,
+    "component_observation_pairs": 0,
+    "tracked_branch_eigvalsh": 2
+  },
+  "case_wall_seconds": 0.04132079100236297,
+  "independent_train": 128,
+  "independent_validation": 128,
+  "target": "observed actual-prior delta information projected against mu,log_tau,log_sigma2"
+}

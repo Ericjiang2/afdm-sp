@@ -1,0 +1,370 @@
+{
+  "schema": "coherent-structure-attempt/1",
+  "stage": "raw_audit_v1",
+  "config": {
+    "study": {
+      "schema": "coherent-structure-study/1",
+      "seed": [
+        20261006,
+        103038
+      ],
+      "prefixes": [
+        64,
+        256,
+        1024,
+        4096
+      ],
+      "alpha": 0.05,
+      "confidence_alpha": 0.05,
+      "comparison_family_size": 12,
+      "calibration": {
+        "mode": "iid",
+        "groups": 256,
+        "conditions": [
+          {
+            "mu": 0.27,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.27,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          },
+          {
+            "mu": 0.35,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.35,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          }
+        ]
+      },
+      "evaluation": {
+        "groups": 512,
+        "modes": [
+          "coherent",
+          "iid"
+        ],
+        "conditions": [
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.005,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.015,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.025,
+            "tau": 1.0,
+            "noise": 0.2
+          }
+        ]
+      },
+      "geometry": {
+        "probes": 64
+      },
+      "calibration_stages": [
+        "calibration_00_v1",
+        "calibration_01_v1",
+        "calibration_02_v1",
+        "calibration_03_v1",
+        "calibration_04_v1",
+        "calibration_05_v1"
+      ],
+      "evaluation_stages": [
+        "evaluation_00_v1",
+        "evaluation_01_v1",
+        "evaluation_02_v1",
+        "evaluation_03_v1"
+      ],
+      "scope": "independent development comparison of different cross-symbol dependence with identical one-observation marginals; not same-model algorithm superiority",
+      "null_pool": "same null power-process law under coherent and iid modes, different nuisance grid points kept distinct",
+      "failure_policy": "retain groups, failed evaluation nonrejection, any relevant failure blocks superiority claims; calibration failure explicit",
+      "new_confirmation_stream": false,
+      "receiver_calls": 0,
+      "decoder_calls": 0
+    },
+    "phase": "independent_raw_audit",
+    "seed": [
+      20261006,
+      103038
+    ],
+    "new_observations": 0,
+    "new_geometry_probes": 0,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "new_confirmation_stream": false,
+    "summary_stage": "summary_v1",
+    "numerical_tolerance": {
+      "rtol": 5e-10,
+      "atol": 5e-11
+    }
+  },
+  "_config": {
+    "study": {
+      "schema": "coherent-structure-study/1",
+      "seed": [
+        20261006,
+        103038
+      ],
+      "prefixes": [
+        64,
+        256,
+        1024,
+        4096
+      ],
+      "alpha": 0.05,
+      "confidence_alpha": 0.05,
+      "comparison_family_size": 12,
+      "calibration": {
+        "mode": "iid",
+        "groups": 256,
+        "conditions": [
+          {
+            "mu": 0.27,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.27,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          },
+          {
+            "mu": 0.35,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.35,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          }
+        ]
+      },
+      "evaluation": {
+        "groups": 512,
+        "modes": [
+          "coherent",
+          "iid"
+        ],
+        "conditions": [
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.005,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.015,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.025,
+            "tau": 1.0,
+            "noise": 0.2
+          }
+        ]
+      },
+      "geometry": {
+        "probes": 64
+      },
+      "calibration_stages": [
+        "calibration_00_v1",
+        "calibration_01_v1",
+        "calibration_02_v1",
+        "calibration_03_v1",
+        "calibration_04_v1",
+        "calibration_05_v1"
+      ],
+      "evaluation_stages": [
+        "evaluation_00_v1",
+        "evaluation_01_v1",
+        "evaluation_02_v1",
+        "evaluation_03_v1"
+      ],
+      "scope": "independent development comparison of different cross-symbol dependence with identical one-observation marginals; not same-model algorithm superiority",
+      "null_pool": "same null power-process law under coherent and iid modes, different nuisance grid points kept distinct",
+      "failure_policy": "retain groups, failed evaluation nonrejection, any relevant failure blocks superiority claims; calibration failure explicit",
+      "new_confirmation_stream": false,
+      "receiver_calls": 0,
+      "decoder_calls": 0
+    },
+    "phase": "independent_raw_audit",
+    "seed": [
+      20261006,
+      103038
+    ],
+    "new_observations": 0,
+    "new_geometry_probes": 0,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "new_confirmation_stream": false,
+    "summary_stage": "summary_v1",
+    "numerical_tolerance": {
+      "rtol": 5e-10,
+      "atol": 5e-11
+    }
+  },
+  "argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/source_v1/experiments/afdm_coherent_structure_20261006/audit.py",
+    "--artifact-root",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006",
+    "--config",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/control/STUDY_CONFIG.json",
+    "--summary-stage",
+    "summary_v1",
+    "--stage",
+    "raw_audit_v1",
+    "--wall-seconds",
+    "1200"
+  ],
+  "_argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/source_v1/experiments/afdm_coherent_structure_20261006/audit.py",
+    "--artifact-root",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006",
+    "--config",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/control/STUDY_CONFIG.json",
+    "--summary-stage",
+    "summary_v1",
+    "--stage",
+    "raw_audit_v1",
+    "--wall-seconds",
+    "1200"
+  ],
+  "seed": [
+    20261006,
+    103038
+  ],
+  "source_sha256": {
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/control/STUDY_CONFIG.json": "6bf5814c22315e3fe2a23116c7ec75dcd77fc3750b68d0de742fbf97040cc801",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/control/run_contract.json": "7c41647f131e6709615e347d7821ed8972fefddc0614046145c0983caab5b044",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_00_v1/attempt.json": "a042feb99c94bd12358ecfa696645420c1da29adbaad3a35116802fc9d5cd759",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_00_v1/records.json": "6bfdb06b172227df3641fa2da68a66fbedf619b6f7a63bf0f48f8d3074339883",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_00_v1/registration.json": "55d2361ee40e26ce6e9c733b553689aa01370275420bfe78a89822a7ed7a8d44",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_00_v1/results.json": "22e4046e1feca477677e1acfe4a53e1ffae95b09697572c74f472d773c0b60fd",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_01_v1/attempt.json": "7873f922ba383708dfd54c2cf1c056fd62788acfe51bfc8c5b881022afb17c95",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_01_v1/records.json": "412f8523c4e7d3fa75bd46b17b2e5b5b047de939f3fe823946bece552c4e9b95",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_01_v1/registration.json": "0650e7b739b8134edc10e7f508c60bb67b02ba0fdab66104028eb27b863b8aa1",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_01_v1/results.json": "c36ffae2f14bf0f771e00e3676a5a6002de20154acd4e55955a77c12cbe923c8",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_02_v1/attempt.json": "278d20b9916eb97ba0267bdb74af226ba0438b5c064cfbe45d39c9ab7cc5b136",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_02_v1/records.json": "ddcb7248e42cdae04f7baf67e4eedc572eb1623a82fa37c79a2a2804614296bd",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_02_v1/registration.json": "7b2aef517398b4deb62bbecc1916743b1f032494ee6cf80e342fe91a04334f39",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_02_v1/results.json": "2153d427c026a914b716f6ca441997e8b788ce71629e718f1967ba72da409447",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_03_v1/attempt.json": "4e7445ee163859f98c45e895067425c4c0e54a38bb66c01a58a3620a32fc3f67",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_03_v1/records.json": "36184278d2ec9ff72e2d37e1594f60f514f188a05f5ea21a3631344336d0f690",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_03_v1/registration.json": "e1c9d09ba36c2cda5b516eade2f575933797fc021e1bb789749c9e45a8d65e21",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_03_v1/results.json": "1b7039f8f3f740b48f170182b37fa2567f37cf5ee7716f98b1aa655f095d0f91",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_04_v1/attempt.json": "30d57c2f1eb1f9c964a662ca14547e94d964355fa70c10f5e960920f3c28d692",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_04_v1/records.json": "dc339882323865e577893d853b3e25fac87307dc13ce7c95f0cbe50a60c26871",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_04_v1/registration.json": "639c706b840c1cc7cf153dae6168347033304f94fe19522e557f4ef14aa0f5ba",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_04_v1/results.json": "de7d77e8471220749fab2814f71b29a5cb7e47c2701df421b429d090d90eb20e",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_05_v1/attempt.json": "4765b83961f1a725d5d62f187912983efa2a66d643114e9d56490f022c02ec10",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_05_v1/records.json": "9cd140909889c20a4f1a8367c3ba6995bf6ac850c0d36d12f91f578d2d9e158f",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_05_v1/registration.json": "009833bf834c4277fd99dfa86cd46643b95f8334297025f467f8681574b4c31a",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_05_v1/results.json": "52f6ec0d244446792abe0a47a4b45c4bf30a52f455f0ceb66e5f20254762b546",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_00_v1/attempt.json": "7d7967524187827d30c6590d1d48c1fcb41c7d4fcc30cf692067aad5ff2850ac",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_00_v1/records.json": "ffb51a99f2387329530fc2eab92fbc18305c3bc3679a744ca027b3417c8610a2",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_00_v1/registration.json": "777d95bf5ac7360eb4fa141868fe18dacf50bbc44d4007c516186976d1e7f9c4",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_00_v1/results.json": "cf9f309eddf9a2b69cd69dd54e7e9200051a1022d44c1d70593cd12e678fff9c",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_01_v1/attempt.json": "3a626ce995b045c8e7dbcc043aa73ccca884d73b9f02d2d41245813d9f4377f9",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_01_v1/records.json": "4bac1b96e45348b0a62ada5dc8e127243e5bd80781180e9435e0e72cb6b2a837",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_01_v1/registration.json": "cc68c50197756ba7d828e99b588669d0c400398d501895254848724ace2da5c5",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_01_v1/results.json": "8236d562811fc2d3aab0dccd1b71983a860d6b5f9caf924ed74ddbf215325149",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_02_v1/attempt.json": "37128c3bf6693eae03337349ea9cbaf5c27dd9c59e0f00c4c61035a05bd47b04",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_02_v1/records.json": "8826b9041be6f1cb043889e07a63421eb29440a48667380a922cc68f67216671",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_02_v1/registration.json": "a7cc45e2c649702fb177133b56f21f00bddc3ee5487fdda81e142c622401a6c9",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_02_v1/results.json": "3241a24e7862cf758db37da220f0746d753396d99a15356aa4c05725547d9906",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_03_v1/attempt.json": "acb872203684608e3aae7d9485c20abdcff9c4626b7c870e2ac468a734f7daaa",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_03_v1/records.json": "a9753946c7b6db053b92ff7522a2816eebdf4a9b47f597570ba2658ea568eb1d",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_03_v1/registration.json": "e8a0b9e6da1eedae8599b995472724c9e98aa87bf6a8edb843793ae187314cb0",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/evaluation_03_v1/results.json": "eb5ba1c8ec47c15def06d7f31447002b6f1ed76a6f746a9deb80e50caccf7b60",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/summary_v1/attempt.json": "b65dc3e434b0d6e50312fc1b88f73e75fd6a91cd291f9c9707fad6cc809a823b",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/summary_v1/registration.json": "2d357bcd0a32a82a0e4a55c9038fb2ca4471d1fdf0f22237ea2e784251909318",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/summary_v1/results.json": "4d1d323e0726c482741ddcdecd30e10f19856b8689b51041650abec69a10c7de",
+    "experiments/afdm_coherent_structure_20261006/__init__.py": "f83a9ab2491d9b00c37336f7fd607d8a6515072f4162461a9ea6b12f159254a7",
+    "experiments/afdm_coherent_structure_20261006/audit.py": "51b4a216d64c40953154befc440f795058861e39c818723ca39f9287e037f9da",
+    "experiments/afdm_coherent_structure_20261006/protocol.py": "0ef2f526b1ad225861bb0d33c0a55562fee8dc51c57e9aae690b1ee51e945963",
+    "experiments/afdm_coherent_structure_20261006/thread_binding.py": "eedb5af57ce5cd6a752da90cbcbb4f3bc0084d083d6ff852f606b3b2431f4710",
+    "experiments/afdm_efficient_information/protocol.py": "ecfb800796f418924640ce8e98c7b1797c92fa27e9f480715c30115b56a67498",
+    "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+    "experiments/afdm_shared_channel_20261004/common.py": "705cb6103442cdb122fbce0e58f091c6d42d64cce2e0f39cd24e8dfe095e758d"
+  },
+  "git": {
+    "head": "6ace60dc0bd8912ae9cbe8b89b2ff50d9ee5aaec",
+    "committed_task_source_sha256": {
+      "experiments/afdm_coherent_structure_20261006/__init__.py": "f83a9ab2491d9b00c37336f7fd607d8a6515072f4162461a9ea6b12f159254a7",
+      "experiments/afdm_coherent_structure_20261006/audit.py": "51b4a216d64c40953154befc440f795058861e39c818723ca39f9287e037f9da",
+      "experiments/afdm_coherent_structure_20261006/protocol.py": "0ef2f526b1ad225861bb0d33c0a55562fee8dc51c57e9aae690b1ee51e945963",
+      "experiments/afdm_coherent_structure_20261006/thread_binding.py": "eedb5af57ce5cd6a752da90cbcbb4f3bc0084d083d6ff852f606b3b2431f4710"
+    },
+    "other_sources": "frozen helpers and artifacts independently SHA-256 bound"
+  },
+  "git_head": "6ace60dc0bd8912ae9cbe8b89b2ff50d9ee5aaec",
+  "pid": 1109612,
+  "wall_cap_seconds": 1200,
+  "started_utc": "2026-10-06T03:22:03.358606+00:00",
+  "deadline_utc": "2026-10-06T03:42:03.358606+00:00",
+  "cumulative_reserved_new_observations": 23068672,
+  "evidence_level": "registered mathematical/development study; no receiver or decoder",
+  "cumulative_reserved_wall_seconds": 7800.0,
+  "deterministic_geometry_reservation": 0,
+  "excluded_virtual_modules": []
+}

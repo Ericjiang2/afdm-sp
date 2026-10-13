@@ -1,0 +1,132 @@
+{
+  "status": "PASS",
+  "tag": "terminal-controls-development-recovery-v1",
+  "calls": {
+    "D": 160,
+    "F": 128,
+    "T": 32
+  },
+  "raw_records": 320,
+  "arrays": 15694,
+  "run_seconds": 113.44323301315308,
+  "raw_audit_seconds": 80.20322442054749,
+  "aggregates": [
+    {
+      "snr": 7,
+      "arm": "UNTEMPERED",
+      "n": 32,
+      "failed_blocks": [
+        20
+      ],
+      "info_bit_errors": 120,
+      "rescued_vs_old": [
+        4,
+        6,
+        15
+      ],
+      "new_failures_vs_old": [],
+      "early_stops": 0,
+      "wrong_valid_stops": 0,
+      "actual_resources": {
+        "LDPC_calls": 128,
+        "CE_solves": 288,
+        "outer_BP_calls": 320,
+        "outer_BP_iterations": 3840,
+        "terminal_BP_calls": 32,
+        "terminal_BP_iterations": 640
+      },
+      "mean_NLL": 0.1875525399154003,
+      "instrumented_full_seconds": 1.6639932363868866
+    },
+    {
+      "snr": 7,
+      "arm": "UNTEMPERED_STOP",
+      "n": 32,
+      "failed_blocks": [
+        20
+      ],
+      "info_bit_errors": 120,
+      "rescued_vs_old": [
+        4,
+        6,
+        15
+      ],
+      "new_failures_vs_old": [],
+      "early_stops": 25,
+      "wrong_valid_stops": 0,
+      "actual_resources": {
+        "LDPC_calls": 84,
+        "CE_solves": 181,
+        "outer_BP_calls": 213,
+        "outer_BP_iterations": 2556,
+        "terminal_BP_calls": 7,
+        "terminal_BP_iterations": 140
+      },
+      "mean_NLL": 0.27055396311819263,
+      "instrumented_full_seconds": 1.1544739714299794
+    },
+    {
+      "snr": 8,
+      "arm": "UNTEMPERED",
+      "n": 32,
+      "failed_blocks": [],
+      "info_bit_errors": 0,
+      "rescued_vs_old": [],
+      "new_failures_vs_old": [],
+      "early_stops": 0,
+      "wrong_valid_stops": 0,
+      "actual_resources": {
+        "LDPC_calls": 128,
+        "CE_solves": 288,
+        "outer_BP_calls": 320,
+        "outer_BP_iterations": 3840,
+        "terminal_BP_calls": 32,
+        "terminal_BP_iterations": 640
+      },
+      "mean_NLL": 0.1165321468075066,
+      "instrumented_full_seconds": 1.604643145121372
+    },
+    {
+      "snr": 8,
+      "arm": "UNTEMPERED_STOP",
+      "n": 32,
+      "failed_blocks": [],
+      "info_bit_errors": 0,
+      "rescued_vs_old": [],
+      "new_failures_vs_old": [],
+      "early_stops": 32,
+      "wrong_valid_stops": 0,
+      "actual_resources": {
+        "LDPC_calls": 55,
+        "CE_solves": 101,
+        "outer_BP_calls": 133,
+        "outer_BP_iterations": 1596,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0
+      },
+      "mean_NLL": 0.22696206882628975,
+      "instrumented_full_seconds": 0.7151681784343964
+    }
+  ],
+  "source_sha256": "5c0fac1eab2b9d8d55c54110c988b0906661bc85be4de8d8d5e3502f1c0602b0",
+  "script_sha256": "7c40a60ab41661ab1aa3593eb87822d226c94434d6848a05eaaecf0de944b85a",
+  "summary_sha256": "f576b1cdd3dc3a3cbeba2066cfe2a4e003c18d5a5d8310c1cbe2824a7521a828",
+  "raw_audit_sha256": "53c1f05d63ea8cd8558964c567518abc3d25f8a1267b4ac5525f94729ade292c",
+  "contract_sha256": "cfad6e906423866525ba54b7ba9ed1e862f3b2efc0588b44cc2db0671af86441",
+  "scope": "Recover existing full-chain development dataset without new receiver/terminal calls. Preserve original failed128F32T150D-attempt batch (149D completed), only11 missing decoder replays on exact original LLR. Completed dataset128F32T160D, plus1 preserved failedD reservation. Same32 development blocks, no CONF/COST/new algorithm.",
+  "limitations": "Same old development blocks. Ordinary classical controls; no new method, CONF, formal COST, G1 or cross-scene claim. Self-review independence weak.",
+  "new_calls": {
+    "D": 11
+  },
+  "recovered_calls": {
+    "D": 149,
+    "F": 128,
+    "T": 32
+  },
+  "preserved_failed_attempts": {
+    "D": 1
+  },
+  "original_batch_status": "FAILED",
+  "original_failed_batch_seconds": 367.76066541671753,
+  "run_seconds_scope": "Recovery only; original failed batch time is reported separately, not discarded."
+}

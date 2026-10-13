@@ -1,0 +1,72 @@
+{
+  "campaign_id": "afdm-supplement-20260909-090115",
+  "rng": {
+    "namespace_words": [
+      20260909,
+      90115,
+      419173
+    ],
+    "components": {
+      "channel": 1,
+      "data": 2,
+      "noise": 3,
+      "code": 4,
+      "interleaver": 5,
+      "pilot-design": 6,
+      "order": 7
+    }
+  },
+  "splits": {
+    "engineering": 1,
+    "design": 2,
+    "mechanism": 3,
+    "confirm": 4,
+    "counterexample": 5,
+    "timing": 6
+  },
+  "scenarios": {
+    "G0": {
+      "id": 0,
+      "generator": "truncated_daft",
+      "system": {
+        "N_total": 1024,
+        "P_paths": 8,
+        "rho": 0.5,
+        "k_max_cap": 2,
+        "l_max_cap": 102,
+        "k_leak": 2,
+        "frac_prune_rel_thres": 0.01,
+        "use_frac_doppler": true,
+        "gen_h_daft_convention": "python",
+        "v_mean": 2.0,
+        "tau_spread": 0.01,
+        "fs": 16000.0
+      }
+    }
+  },
+  "system": {
+    "ldpc": {
+      "n": 2048,
+      "dv": 3,
+      "dc": 6,
+      "seed": 20260726,
+      "maxiter": 50,
+      "G_sha256": "bfd4247263adedc9a095b87603c2a7a4c2f2e8cb83f7e78bad721c5b06eaa6af"
+    },
+    "interleaver": "identity"
+  },
+  "bounds": {
+    "engineering": 32,
+    "design": 192,
+    "mechanism": 256
+  },
+  "confirmation": "content-bound, family-specific source/config/n and authorization before any frame generation",
+  "sealed_data": "D_old and D_test never exposed",
+  "failure_policy": "keep failures and retry only same identity in distinct attempt; no seed substitution",
+  "reserved_streams": [
+    "code",
+    "interleaver",
+    "pilot-design",
+    "order"
+  ]
+}

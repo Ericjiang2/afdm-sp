@@ -1,0 +1,37 @@
+Please perform the final closure task for this project.
+
+Only do two things:
+
+1. F1-fast equivalence / timing
+- Resolve the remaining F1-fast equivalence issue without changing the frozen F1 algorithm.
+- Distinguish true algorithmic differences from Python/vectorization/ordering artifacts.
+- Prove full-population semantic equivalence to frozen F1 before using timing.
+- Then measure F0, reference F1, and F1-fast acquisition/complete latency under the same environment.
+- Conclude how much of the previous F1 cost was implementation overhead versus intrinsic algorithmic cost.
+
+2. Closure theorem verification
+- Independently verify the proposed geometry–covariance compatibility theorem derived from
+  Gamma_ij(V) = tr(U_i^H U_j V).
+- Check the necessary-and-sufficient conditions for isotropic, diagonal, and general PSD covariance families.
+- Verify the same-delay doublet result, including
+  min_c ||R-cI||_2 = |D_N(Delta nu)|
+  and the exact AFDM sign/normalization/asymptotic convention.
+- Correct any mathematical overstatement.
+- Produce a compact theorem/proof suitable for the manuscript and clearly state its validity boundary.
+
+Hard stop:
+- Do not run F2 again.
+- Do not design a new receiver.
+- Do not modify TF, CSTATE, CGR, F0, or frozen F1.
+- Do not start fresh Monte Carlo experiments.
+- Do not add another algorithmic contribution.
+
+Final output:
+1. F1-fast equivalence verdict.
+2. F1 timing verdict: Python-bound vs intrinsically heavier.
+3. Verified closure theorem and proof.
+4. Exact manuscript-safe wording.
+5. Remaining unresolved issues, if any.
+6. Repository artifacts/hashes.
+
+The purpose is to close the method/theory stage, not reopen the research tree.

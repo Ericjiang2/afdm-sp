@@ -1,0 +1,16 @@
+{
+  "schema": "cstate-pilot-replay-precall-failure/1",
+  "stage": "source-module import before output-root creation and before OMP",
+  "remote_script_sha256": "5319f9a2c5fc8dd618e0ed8529e6041efd6221e60f7b56322394d01ffbb8a288",
+  "probe_id": "s650_f0044",
+  "error": "ModuleNotFoundError: No module named 'evidence'",
+  "cause": "The script initially assumed the local frozen_20260920 baseline directory; sealed population manifest.argv names the remote reviewed_20260921 baseline directory.",
+  "observed_state": "remote replay_v1 output root absent after failure; no ledger or raw artifact",
+  "acquisition_calls": 0,
+  "receiver_calls": 0,
+  "decoder_calls": 0,
+  "new_observations": 0,
+  "startup_wall_seconds_approximate": 15.6,
+  "charge_scope": "pre-call import/setup wall time only; not counted as one of 72 unique pilot acquisition calls",
+  "repair": "Resolve source roots only from SHA-bound original population manifest.argv, then verify registered source file hashes; no algorithm change"
+}

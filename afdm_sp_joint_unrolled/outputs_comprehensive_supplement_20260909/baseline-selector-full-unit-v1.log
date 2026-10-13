@@ -1,0 +1,37 @@
+test_supplement_baseline_select (unittest.loader._FailedTest.test_supplement_baseline_select) ... ERROR
+
+======================================================================
+ERROR: test_supplement_baseline_select (unittest.loader._FailedTest.test_supplement_baseline_select)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_supplement_baseline_select
+Traceback (most recent call last):
+  File "/Users/guoyikun/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/test_supplement_baseline_select.py", line 8, in <module>
+    from . import supplement_baseline_select as select
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/supplement_baseline_select.py", line 15, in <module>
+    from .supplement_data import CAMPAIGN_ID
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/supplement_data.py", line 12, in <module>
+    from .budgeted_support_eval import make_frame
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/budgeted_support_eval.py", line 19, in <module>
+    from afdm_sp_joint_unrolled import e1_ldpc_coded_eval as e1
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/e1_ldpc_coded_eval.py", line 76, in <module>
+    from afdm_sp_joint_unrolled.paired_learned_eval import VARIANT_HEADS
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/paired_learned_eval.py", line 38, in <module>
+    from afdm_sp_joint_unrolled.eval_classical_joint_unrolled import (
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py", line 71, in <module>
+    from afdm_sp_joint_unrolled.run_classical_baselines_python import (
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/run_classical_baselines_python.py", line 38, in <module>
+    from afdm_sp_joint_unrolled.system_config import AFDMSystem, _make_system, _sync_l_max_cap
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/system_config.py", line 16, in <module>
+    from .afdm_trainer import AFDMTrainerMixin
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/afdm_trainer.py", line 17, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

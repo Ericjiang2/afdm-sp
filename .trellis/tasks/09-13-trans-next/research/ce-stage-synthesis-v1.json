@@ -1,0 +1,187 @@
+{
+  "schema": "ce-stage-synthesis-v1",
+  "status": "SYN02_EVIDENCE_SYNTHESIZED_PENDING_INDEPENDENT_STAGE_REVIEW",
+  "review_independence": "main-session synthesis of exposed development evidence; weak",
+  "scope": "SYN-02 stage synthesis, not method CONF, formal COST, PAPER or full-project REVIEW-01",
+  "cost_ledger": "ce-stage-cost-final-v1.json COMPLETE_FOR_RECORDED_STAGE_SUPERVISOR_EXITS, 33 exits; pilot 607.643s, O3 excluding default 312.670s, SYN saved-state/read-only 219.691s; local tests/summary CPU excluded and formal COST deferred",
+  "prediction_matrix": [
+    {
+      "id": "P1",
+      "registered_kind": "restricted algebraic pilot-only Gram condition",
+      "registered_direction": "gamma=1 only if actual pilot-only K24 Gram is orthogonal",
+      "current_result": "actual C33/C54 K24 Gram full-rank, equal-energy and orthogonal 64/64 each (P02/P03/P04 premise 0/64); corrected gamma ~1; four complete-H NMSE contrasts all positive with simultaneous intervals crossing zero, no promotion",
+      "hit_failure_indeterminate": "restricted algebra P1 holds in 128 qualifying saved C33/C54 states, but no nontrivial predictive win; original producer auxiliary gamma omitted /K and reads ~24, corrected by read-only Gram extraction with original raw preserved; original gamma24 is not prediction failure",
+      "exposure": "old G1/N256/DIR retrospective; new five-arm same exposed 32 G1 channels is development",
+      "source": [
+        "ce-state-predictions-v1.json",
+        "pred-results-v1.md",
+        "pilot-stage-result-review-v1.md",
+        "pilot_initial_promotion_result_v1.json",
+        "m3-final-plan-v1.md:52",
+        "pilot_initial_runner_v6.py:408-496",
+        "pilot-initial-development-results-v1.md",
+        "afdm_sp_joint_unrolled/outputs_trans_next_20260913/evidence/pilot-initial-mechanism-extract-v1.json"
+      ]
+    },
+    {
+      "id": "P2",
+      "registered_kind": "continuous fixed-support true-data CE intervention",
+      "registered_direction": null,
+      "current_result": "O2 64 points: coefficient squared error 7dB 0.0349685 to 0.00775748, 8dB 0.0119782 to 0.00633986; O3 64F: 7dB FULL25/32 to11/32, 8dB6/32 to1/32",
+      "hit_failure_indeterminate": "positive O2 response and O3 exposed-development FER change, no frozen direction to count as prediction success or independent confirmation",
+      "causal_boundary": "A/B/c, tail and projected disturbance change jointly; no 50/20 dominant-cause labels",
+      "exposure": "intervention on already exposed G1 development inputs, not independent confirmation",
+      "source": [
+        "oracle-ce-results-v1.md",
+        "oracle-ce-results-v1.json",
+        "oracle-one-shot-results-v1.md",
+        "ce-state-predictions-v1.json",
+        "oracle_ce_runner_v1.py:22-50"
+      ]
+    },
+    {
+      "id": "P3",
+      "registered_kind": "retrospective fixed-penalty risk-ranking question",
+      "registered_direction": null,
+      "current_result": "original fixed strength 0.1 Dirichlet 7dB 21/32 wrong versus ridge 13/32; 8dB 4/32 versus ridge 2/32 with paired interval crossing zero; correlated shrinkage not qualified",
+      "hit_failure_indeterminate": "no prospective ranking existed; no prediction-success or falsification label",
+      "identifiability": "conditional means and gain-disturbance cross covariance after same-y support/feedback not estimated by supplied prior; realized true-g risk is oracle-only",
+      "exposure": "DIR endpoints partly read before freeze, retrospective",
+      "source": [
+        "ce-state-predictions-v1.json",
+        "pred-results-v1.md",
+        "dirichlet-shrinkage-results-v1.md",
+        "dirichlet-shrinkage-results-v1.json"
+      ]
+    }
+  ],
+  "evidence_matrix": [
+    {
+      "id": "O1_S_O1_F",
+      "status": "COMPLETE_RAW_AUDITS_PASS",
+      "population": "same 32 exposed G1 physical channels, 7/8dB",
+      "risk_or_FER": "7dB FULL/O1_S/O1_F wrong blocks 25/14/1 of32; 8dB 6/0/0; complete-H graph has 1048576 terminal edges versus O1_S about14336-14528",
+      "cost": "each oracle arm 64 terminal BP plus 64 LDPC terminal replay, zero new full receiver; dense graph changes computation and approximation",
+      "boundary": "O1_F is complete physical-H terminal intervention with different graph density, not isolated CE gain or global upper bound",
+      "source": "oracle-terminal-O1-results-v1.md"
+    },
+    {
+      "id": "O2",
+      "status": "COMPLETE_RAW_AUDIT_PASS",
+      "population": "64 already exposed G1 work points",
+      "risk_or_FER": "fixed-S one true-data CE improves coefficient error at both SNRs; no BP/LDPC or full-chain FER measured",
+      "cost": "64 CE plus 64 algebra-analysis states; production 337.932s, audit 44.021s; decompositions and extra algebra solves separately metered",
+      "boundary": "no error-source dominance, attraction basin or FER conclusion",
+      "source": "oracle-ce-results-v1.md"
+    },
+    {
+      "id": "O3",
+      "status": "COMPLETE_TWO_STAGE_RAW_AUDITS_PASS",
+      "population": "same exposed G1 32 physical channels by 7/8dB; engineering 0/20 included",
+      "risk_or_FER": "7dB FULL25/32 to O3 11/32, paired delta -0.4375 descriptive95 [-0.625,-0.28125]; 8dB6/32 to1/32, delta -0.15625 [-0.28125,-0.03125]",
+      "cost": "64 new F, 576 total CE states (64 one-shot t1 plus 512 ordinary), 640 outer BP, 64 terminal BP, 256 LDPC; development 235.941s plus audit 48.583s, engineering within 64F",
+      "boundary": "only t1 post-ce(1) local mu becomes true d; t0 and later legal receiver stages preserved",
+      "source": [
+        "oracle-one-shot-results-v1.md",
+        "oracle-one-shot-results-v1.json",
+        "oracle_one_shot_v1.py"
+      ]
+    },
+    {
+      "id": "NSIZE_01_EXISTING_CE",
+      "status": "COMPLETE_SAVED_STATE_ANALYSIS",
+      "population": "N1024 UWA uncoded, 16 physical channels, p0/pZ by 10/20dB; not pure N effect or G1 coded confirmation",
+      "risk_or_FER": "64 saved full chains, 576 CE states; multi-coordinate trajectories, first-last 40-symbol error correlation; no independent Gamma in original raw",
+      "cost": "0 new F/BP/LDPC in synthesis; 576 Gram spectra, inverse solves and diagnostic Q constructions counted",
+      "boundary": "diagnostic Q was not consumed by original mean CE; scalar transfer and threshold theorem not established",
+      "source": [
+        "ce-synthesis-nsize-results-v1.md",
+        "afdm_sp_joint_unrolled/outputs_ce_state_20260915/evidence/ce-synthesis-nsize-v1.json"
+      ]
+    },
+    {
+      "id": "GAMMA_CROSSFIT",
+      "status": "COMPLETE_RAW_AUDIT_PASS",
+      "population": "same N1024 UWA 16 channels, 128 folds, fixed 40 symbols at t1/t9",
+      "risk_or_FER": "5120 offline real-candidate differences: frozen C(mu) versus candidate-varying C each 658 real-component errors; 20 changes, 10 rescued and 10 new errors",
+      "cost": "128 calibration fits and frozen C(mu), 10240 candidate covariance factors; 37.104s run plus 29.486s audit; 0 new F/BP/LDPC",
+      "boundary": "leave-one-whole-physical-channel-out oracle calibration, same-y plug-in proper-complex low-rank working score; not Gamma=0, true posterior, FER or deployment",
+      "source": [
+        "gamma-crossfit-results-v1.md",
+        "gamma-crossfit-results-v1.json"
+      ]
+    },
+    {
+      "id": "DIR_01_DIR_02",
+      "status": "COMPLETE_RAW_AUDIT_PASS",
+      "population": "same exposed G1 32 channels, 7/8dB, W2 K24",
+      "risk_or_FER": "fixed 0.1 ridge/diagonal/Dirichlet wrong blocks 7dB 13/21/21, 8dB 2/5/4 of32; no qualified correlated shrinkage",
+      "cost": "192 new full chains plus 4 default replays, 5184 offline CE solves; original failed meter retained and recovery not rerun",
+      "boundary": "ordinary ridge strong classical reference; timing with instrumentation is batch description, not formal deployment cost or method confirmation",
+      "source": "dirichlet-shrinkage-results-v1.md"
+    },
+    {
+      "id": "PILOT_02_PILOT_03",
+      "status": "PILOT02_RUN_AUDIT_PASS_PILOT03_CONDITIONALLY_EXCLUDED",
+      "population": "same G1 32 channels by 7/8dB; five-arm initial K24 CE, then conditional same-W full FER",
+      "risk_or_FER": "C33-P03 +0.005542 CI[-0.005851,0.016536], C33-P02 +0.005040 CI[-0.004982,0.015065], C54-P04 +0.001826 CI[-0.008353,0.011640], C54-P02 +0.005383 CI[-0.004506,0.014985]; four intervals cross zero and both SNR points positive; no promotion or conditional FER",
+      "cost": "PILOT02 320 logical initializations incl 64 reused P02, 256 new initialization CE, 320 A; all engineering/failed/recovery/development/audit/mechanism supervisor exits total 607.643s; PILOT03 0 new F/BP/LDPC",
+      "boundary": "same exposed 32 channels, joint pilot/W configurations; no pure pilot or pure W effect from cross-W contrast; no universal-null or 0.2dB confirmation; C33/C54 actual Gram geometry qualified 64/64 each yet complete-H NMSE did not promote; corrected P1 gamma from saved Gram, original producer metric (~24) preserved and not used by receiver or contrast",
+      "source": [
+        "pilot-stage-result-review-v1.md",
+        "pilot_initial_promotion_result_v1.json",
+        "pilot-conditional-disposition-v1.md",
+        "m3-final-plan-v1.md:107-145",
+        "pilot-initial-development-results-v1.md",
+        "afdm_sp_joint_unrolled/outputs_trans_next_20260913/evidence/pilot-initial-mechanism-extract-v1.json"
+      ]
+    }
+  ],
+  "mechanism_coverage": [
+    {
+      "diagnostic": "O2 full actual-S affine error vectors and cross terms",
+      "saved": true,
+      "aggregate_in_current_report": "64 paired states re-read; 448 square-vector and 576 real-cross validations, closure and SNR aggregates PASS; 0 new CE/BP/LDPC",
+      "fields": "O2 analysis NPZ: ordinary/oracle.terms, squared, cross, actual_error, affine_error; B,c,R,gS,H,x_old/x_new; Q_plugin_mean_unused, Q_true_data_consumed, schur, coefficient_histogram",
+      "source": "ce-stage-mechanism-results-v1.md/json; afdm_sp_joint_unrolled/outputs_ce_state_20260915/runs/ce-stage-mechanism-v1/raw-audit.json",
+      "result": "7dB coefficient error 0.03496849→0.00775748, ordinary noise²0.01394072 feedback²0.00850774 and noise:feedback cross0.00561920; 8dB 0.01197816→0.00633986, ordinary noise²0.00589814 feedback²0.00222393 and cross0.00081350; Q mean CE unused"
+    },
+    {
+      "diagnostic": "NSIZE saved CE energy, feedback, Gram/Q, error correlation",
+      "saved": true,
+      "aggregate_in_current_report": "64x9 states already analyzed, multi-state retained",
+      "fields": "ce-synthesis-nsize-v1.json rows[].trajectory[].pilot_energy, feedback_energy, pilot_feedback_cross, Gram, Q_diagnostic_mean_unused, selected40_error_squared, finite_variance_mean; rows[].first_last_error_correlation",
+      "source": "afdm_sp_joint_unrolled/outputs_ce_state_20260915/evidence/ce-synthesis-nsize-v1.json"
+    },
+    {
+      "diagnostic": "PILOT02 actual-S Q/Schur/omission/coefficient histogram and six crosses",
+      "saved": "320A/256E read-only mechanism extraction PASS, actual four squares/six crosses, Schur, Q, histogram and corrected gamma all aggregated",
+      "fields": "pilot E NPZ: error.terms/squares/cross, schur, Q_initial_model_unused, Q_colored_probe_only, Q_consumed, histogram, metrics.selected_true_coefficient_energy, omitted_energy_floor, best_vs_selected_omission_energy, actual Gram spectrum",
+      "source": "pilot-initial-development-results-v1.md; afdm_sp_joint_unrolled/outputs_trans_next_20260913/evidence/pilot-initial-mechanism-extract-v1.json",
+      "result": "C33/C54 actual Gram P1 premise 64/64 each, corrected gamma≈1; producer saved gamma/contract≈24 because omitted /K; original gamma did not affect E/H-NMSE/four contrasts; Q unused, geometry does not yield promotion"
+    },
+    {
+      "diagnostic": "legacy coded-bit error pattern for interleaving description",
+      "saved": "old G1 FULL 64 F plus 32 physical A re-read; 128 lag1 profiles and 64 same-channel cross-SNR overlap records PASS",
+      "fields": "original F terminal info_hat or decoded, exogenous raw info/coded truth as passed to decoder_scores",
+      "source": "ce-stage-mechanism-results-v1.md/json; afdm_sp_joint_unrolled/outputs_ce_state_20260915/runs/ce-stage-mechanism-v1/raw-audit.json",
+      "result": "post-hoc coded lag1 joint-error fraction 7/8dB 0.01977/0.00347; coded same-channel 7/8 overlap 623 intersection/7228 union, mean defined-channel Jaccard 0.05339; exact code/interleaver map and randomized/JSG comparator absent"
+    }
+  ],
+  "remaining_gate": "SYN mechanisms and 33 recorded supervisor exits are aggregated/source-bound; independent STAGE-REVIEW-02 remains. Exact code/interleaver mapping, randomized/JSG comparator and independent CONF are outside current identification.",
+  "deferred": "predictive independent validation and method CONF separately scoped; formal COST, second code, continuous M2, tracking, structural acceleration, interleaver FER and PAPER not activated",
+  "additional_mechanism_accounting": {
+    "SYN_O2_FULL_supervisor_exit0_seconds": 122.71193146705627,
+    "same_process_raw_audit": "PASS, weak independence",
+    "peak_resident_bytes": 693239808,
+    "new_F_CE_BP_LDPC": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "pilot_mechanism_supervisor_exit0_seconds": 20.614,
+    "pilot_total_supervisor_seconds": 607.643,
+    "stage_cost_record_count": 33
+  }
+}

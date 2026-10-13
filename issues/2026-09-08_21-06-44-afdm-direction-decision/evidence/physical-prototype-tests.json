@@ -1,0 +1,69 @@
+{
+  "status": "implemented_and_real_engineering_verified_with_documented_soft_precision_limit",
+  "issue": "M-03",
+  "scope": "Actual4arm observed-only physical refit; sameS0<=40 and receiver-selected<=8 centers;14server numerical/routing tests and18full N1024 BP/LDPC calls. No performance benefit or final cost acceptance claimed.",
+  "audit": {
+    "path": "evidence/physical-engineering-audit-v9-v3.json",
+    "sha256": "95c7091cccd2b8f6277d94d5f5f262d76e0ae3d0427825ca3e1c911e10318a06"
+  },
+  "source": {
+    "path": "evidence/source-snapshot-runtime-v9.json",
+    "sha256": "4467f66b3231c52261b36db480467cb686b5acecc4873c121461fcd2447d6134"
+  },
+  "configuration": {
+    "path": "evidence/physical-algorithm-preregister.json",
+    "sha256": "a935882dca5bf6d7face0df68a8010481f698b82ef0ae39c2f784608f16bf084"
+  },
+  "actual_full_jobs": {
+    "physical-baseline-v8": {
+      "complete_sha256": "a49b1070cdcc4654129a5a9bcf89e09be8b5cacc6f1be4a5fbfed69dc10974ea",
+      "wall_seconds": 4.287171445030253,
+      "CPU_seconds": 4.153768688,
+      "peak_gpu_bytes": 113359360,
+      "calls": 1
+    },
+    "physical-baseline-v9": {
+      "complete_sha256": "4be2ed9785346e455abc146eadbc50ba9d3152e314b6e5798a48f2122097d657",
+      "wall_seconds": 4.22462535102386,
+      "CPU_seconds": 4.14983069,
+      "peak_gpu_bytes": 113359360,
+      "calls": 1
+    },
+    "physical-engineering-v9": {
+      "complete_sha256": "869e28824cd2e079fe6dc14ed4ac16915d6691cf9deddf82045e1756e7ea5e0e",
+      "wall_seconds": 27.920675487956032,
+      "CPU_seconds": 27.445971354,
+      "peak_gpu_bytes": 113359360,
+      "calls": 16
+    }
+  },
+  "input_range": "engineering blocks22..25 at8dB; v8/v9 B_star controls block22; no design/confirm/counterexample data",
+  "verification": {
+    "commands": [
+      "/home/guoyikun/.conda/envs/AFDM/bin/python",
+      "/data/guoyikun/tmp/audit-physical-engineering-v9-v3.py"
+    ],
+    "exit_code": 0,
+    "single_terminal_consumption": true,
+    "independent_H_assembly": true,
+    "same_parent_state_each_arm": true,
+    "baseline_raw_inputs_H_and_hard_outputs_bit_exact": true,
+    "baseline_soft_outputs_bit_exact": false,
+    "baseline_max_LLR_difference": 5.329070518200751e-15
+  },
+  "limitations": [
+    "Original all-array-bit-exact audit failed and remains recorded, not retrospectively passed.",
+    "Soft output numerical criterion1e-12 is a disclosed engineering exception after diagnosis; not a scientific threshold or FER evidence.",
+    "Group reference converged on4 engineering blocks; population convergence still unverified.",
+    "Budget parameterization and soft geometry intentionally bounded; not finite-grid converged on measured3blocks. High-compute reference converged, reported separately.",
+    "Engineering timing n3 cannot satisfy final COST-02; M-soft p95 point estimate exceeds1.1 times old A2 micro p95, so formal deployability remains uncertain."
+  ],
+  "independent_review": {
+    "agent": "/root/m_review",
+    "model": "gpt-6-astra",
+    "effort": "low",
+    "finding": "No observed algorithm behavior shift from soft differences; no development-blocking implementation defect found; preserve failed bit-exact claim."
+  },
+  "theory_explanation_selected": false,
+  "theory_reason": "No new unbiasedness/variance-reduction theorem is selected. Use implemented objective identities and numerical checks only; physical oracle is not a deployable variance guarantee."
+}

@@ -1,0 +1,55 @@
+{
+  "status": "admitted_not_yet_dispatched",
+  "source_archive_sha256": "0144440c78147693f58e16e4c67eb2c1f303e5776af92dfc6011c189a56c734c",
+  "source_manifest_sha256": "566d2137d6eb73ff3370876b297af7f3dd22db8cdf46c4189463e3e1c7c14565",
+  "input_manifest_sha256": "81093a39359cedc21f924932b9d21dfa2101fb904bc28a8ec520f5b81be6f3b0",
+  "launcher_sha256": "89094ecbd1db445de2d32327e8b20d93bab0bab45075836fb0a37c98b39900ae",
+  "shell_sha256": "2bbdf33a0137dd407f35da48a5bcdd268606390c2b0576c2647639269d6581b5",
+  "deadline_unix": 1788966822,
+  "cpu_load": [
+    0.11328125,
+    0.05224609375,
+    0.0380859375
+  ],
+  "cpu_count": 128,
+  "disk_free": 5746604552192,
+  "calls": {
+    "F": 0,
+    "T": 0,
+    "E": 8
+  },
+  "policy": "runner atomically reserves shared ledger; no retries",
+  "session": "g_afdm_supp_a02_e_quote_v2",
+  "out": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/a02-e-quote-v2",
+  "environment": {
+    "PYTHONPATH": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-a02-e-quote-v2/source",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "TMPDIR": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/tmp",
+    "MPLCONFIGDIR": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/tmp/matplotlib",
+    "XDG_CACHE_HOME": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/tmp/cache"
+  },
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=15s",
+    "2715s",
+    "/home/guoyikun/.conda/envs/AFDM/bin/python",
+    "-m",
+    "afdm_sp_joint_unrolled.supplement_bridge_quote",
+    "--input-manifest",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-a02-e-quote-v2/inputs/a02-e-quote-cache-bindings-v1.json",
+    "--input-manifest-sha256",
+    "81093a39359cedc21f924932b9d21dfa2101fb904bc28a8ec520f5b81be6f3b0",
+    "--out",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/a02-e-quote-v2",
+    "--deadline-unix",
+    "1788966822",
+    "--device",
+    "cpu"
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "status": "algorithm_frozen_engineering_not_admitted",
+  "created_utc": "2026-09-08T16:44:07.365320+00:00",
+  "route": "M",
+  "parent_baseline": "sbl-s0.5",
+  "information": "raw y, power-scaled pilot+x_soft, S0 and aligned final estimated gains; no truth or decoder feedback",
+  "placement": "one terminal channel refit after unchanged10 outer iterations and before single20BP/LDPC50; no extra terminal decode",
+  "capacity": 40,
+  "maximum_receiver_center_slots": 8,
+  "center_selection": {
+    "sort": "descending abs(final estimated gain)^2, ties ascending atom ID",
+    "dedup": "skip candidate if same delay and integer Doppler distance <=1 from an already selected center",
+    "domain": "center Doppler + [-0.5,0.5], intersect [-2,2]; delay fixed; center count <=min(8,K), never read true physical path count",
+    "source": "S0 from existing OMP nomination and unchanged outer receiver, not truth support"
+  },
+  "observation": "A=construct_sensing_matrix(pilot+x_soft)[:,S0], raw y",
+  "template": "physical_cluster_weights with observed centers and queried Doppler only; full normalization/prune/clip then restrict S0, no renormalization after restriction",
+  "arms": {
+    "m-group": {
+      "solver": "reuse direction_structure.fit(group) ADMM",
+      "groups": "disjoint partition of all S0 by observed delay label",
+      "lambda": "sqrt(sigma_terminal)*median(norm(A[:,j]))",
+      "rho": "mean(norm(A[:,j])**2)",
+      "iterations_max": 2000,
+      "absolute_tolerance": 1e-07,
+      "relative_tolerance": 1e-06,
+      "nonconvergence": "explicit failed frame, not a beaten classical method",
+      "dual_protocol": "Converged reference may also serve same-budget only if actual full timing satisfies allocation; otherwise no same-budget assertion."
+    },
+    "m-param-budget": {
+      "solver": "separable least squares via shared SVD minimum-norm _fit_ls",
+      "initial_offsets": "all0",
+      "offset_grid": [
+        -0.5,
+        -0.375,
+        -0.25,
+        -0.125,
+        0,
+        0.125,
+        0.25,
+        0.375,
+        0.5
+      ],
+      "sweeps_max": 1,
+      "queries_max": 73,
+      "selection": "one deterministic coordinate sweep, centers in frozen selection order; evaluate clipped unique local-grid values including current value; choose strictly lower raw squared residual, ties keep current",
+      "reference_scope": "bounded local grid adaptation, not full NOMP or global optimum"
+    },
+    "m-param-reference": {
+      "same_centers_and_domain": true,
+      "initializations": [
+        0,
+        -0.25,
+        0.25
+      ],
+      "offset_grid": [
+        -0.5,
+        -0.375,
+        -0.25,
+        -0.125,
+        0,
+        0.125,
+        0.25,
+        0.375,
+        0.5
+      ],
+      "sweeps_max_per_initialization": 15,
+      "queries_max": 3243,
+      "stop": "whole sweep accepts no coordinate change; otherwise cap is explicit unconverged reference",
+      "selection": "minimum raw residual across initializations, ties earlier initialization",
+      "reference_scope": "coordinate-stationary on registered finite grid only; not continuous optimum; report nonconvergence and budget failure"
+    },
+    "m-soft": {
+      "geometry": "exact m-param-budget one-sweep selection; no extra query",
+      "solver": "soft subspace-constrained LS: min ||y-A g||² + lambda_soft||(I-U U^H)g||², U retained left singular vectors of restricted W",
+      "lambda_soft": "0.01*trace(A^H A).real/K",
+      "interpretation": "finite quadratic relaxation preserves S0 coefficients outside estimated physical span; classical regularization form, no novelty claim",
+      "solve": "shared SVD minimum-norm on augmented [A;sqrt(lambda_soft)*(I-U U^H)] and [y;0]",
+      "instability": "rank-deficient/overlapping W allowed with explicit SVD rank; no extra slots, hard fallback or hidden jitter"
+    }
+  },
+  "SVD": "reuse _fit_ls/_svd eps*max(shape)*largest_singular_value rank threshold; report rank/singular values",
+  "edge_cases": {
+    "K0": "zero channel and zero gains, retain frame, no query",
+    "zero_basis": "budget/reference return declared zero minimum-norm channel with rank0; soft solve uses U empty and classical ridge; label zero basis and fallback-to-ridge explicitly",
+    "nonfinite": "raise, preserve failed frame and debit attempted calls",
+    "rank_deficiency": "minimum-norm solution and explicit rank, no redrawing or hidden damping"
+  },
+  "engineering_plan": {
+    "new_full_cap": 18,
+    "proposed": "4 new arms x4 engineering blocks=16, two spare calls; no design launch before actual costs and independent review",
+    "blocks": [
+      22,
+      23,
+      24,
+      25
+    ],
+    "SNR": [
+      8
+    ],
+    "warmup_block": 22,
+    "timing_status": "small engineering measurement only, cannot satisfy COST-02",
+    "admission_required": true
+  },
+  "population": "Not admitted by this file. Remaining prototype_full1728; freeze full configurations, pairing and resource allocation after engineering; no automatic neighbor/design extension."
+}

@@ -1,0 +1,58 @@
+{
+  "loop_topic": "FYP Thesis Improvement — NEW LOOP via Oracle GPT-5.5 Pro (browser engine)",
+  "round": 3,
+  "status": "completed",
+  "target_grade_band": "push_beyond_B3 (achieved: A5 Excellent, weighted 86.7); post-close narrative polish pass applied",
+  "max_rounds": 3,
+  "difficulty": "NIGHTMARE",
+  "effort": "MAX",
+  "reviewer": "oracle-pro via oracle CLI v0.9.0 browser engine, ChatGPT web UI, user-selected GPT-5.5 Pro (--browser-model-strategy current --browser-attachments always --browser-bundle-files)",
+  "final_score": {"P": 88, "S": 84, "T": 87, "weighted": 86.7, "band": "A5", "descriptor": "Excellent", "verdict": "Accept as A-band final BEng FYP report"},
+  "score_progression_full": {
+    "prior_loop_R1": {"P": 62, "S": 68, "T": 65, "weighted": 65, "band": "C3"},
+    "prior_loop_R2": {"P": 66, "S": 72, "T": 73, "weighted": 72, "band": "C1"},
+    "prior_loop_R3": {"P": 71, "S": 74, "T": 76, "weighted": 75, "band": "B3"},
+    "new_loop_R1": {"P": 77, "S": 81, "T": 78, "weighted": 78.3, "band": "B2"},
+    "new_loop_R2": {"P": 80, "S": 86, "T": 85, "weighted": 84.4, "band": "B1 borderline A5"},
+    "new_loop_R3": {"P": 88, "S": 84, "T": 87, "weighted": 86.7, "band": "A5"}
+  },
+  "stop_reason": "target_massively_exceeded (weighted 86.7 >> 75 and verdict = 'Accept as A-band final BEng FYP report'); A-band threshold crossed at R3. All 3 rounds consumed cleanly.",
+  "total_improvement": {
+    "from_prior_loop_close": "+11.7 points (75 -> 86.7); B3 -> A5; band-descriptor Very Good -> Excellent.",
+    "grade_letters": "B3 -> A5"
+  },
+  "r3_residual_weaknesses_deferred": [
+    "R3 W-1 (S, XL): no reproduced external SP-AFDM / AFDM-SP baseline on paired seed blocks",
+    "R3 W-2 (T, L): single trained checkpoint, no multi-training-seed retraining variance",
+    "R3 W-3 (T, M): BCE + rank-hinge training vs deterministic top-K_add deployment; listwise loss would align them",
+    "R3 W-4 (T, XL): UWA-style sparse-DD only; MSML / per-path time-scaling stress test not run",
+    "R3 W-5 (T, M): no wall-clock / memory / embedded-runtime measurements; title still reads 'low-complexity' while abstract softened to 'arithmetic-class preserving'",
+    "R3 W-6 (P, S): prose still somewhat metric-dense and caveat-heavy (partially addressed by post-R3 polish pass below)"
+  ],
+  "post_r3_polish_pass": {
+    "timestamp": "2026-04-24T13:56:00+0800",
+    "trigger": "user asked about contribution #1 validity and Theme A-F label style",
+    "scope": "non-substantive narrative restructure; no new numbers, no new claims",
+    "changes": [
+      "Contributions 4 -> 3 (deleted 'estimation-limited floor' item, folded numerical anchor into §1.1 motivation)",
+      "Conclusions 4 -> 3 (deleted old bullet 1, mirror of the demoted contribution)",
+      "In-text Claim references renumbered: Claim 4 -> Claim 3 (§1 line 57), Claim 3 -> Claim 2 (§3 line 161)",
+      "Literature-survey `\\paragraph{Theme X --- …}` headings stripped of A-F letter-labels (6 headings); cross-reference updated"
+    ],
+    "verification": "latexmk rebuild ok; 51 pages; 886 653 bytes; grep sweep clean; no undefined refs",
+    "output_pdf": "paper/oracle_io/new_loop/main_after_cleanup.pdf"
+  },
+  "deliverables": {
+    "final_pdf_after_polish": "paper/oracle_io/new_loop/main_after_cleanup.pdf",
+    "final_pdf_at_r3_close": "paper/oracle_io/new_loop/main_final_newloop_r3.pdf",
+    "prior_loop_final_pdf": "paper/oracle_io/main_final_r3.pdf",
+    "r1_prompt": "paper/oracle_io/new_loop/R1_PROMPT.md",
+    "r1_response": "paper/oracle_io/new_loop/R1_RESPONSE.md",
+    "r2_prompt": "paper/oracle_io/new_loop/R2_PROMPT.md",
+    "r2_response": "paper/oracle_io/new_loop/R2_RESPONSE.md",
+    "r3_prompt": "paper/oracle_io/new_loop/R3_PROMPT.md",
+    "r3_response": "paper/oracle_io/new_loop/R3_RESPONSE.md",
+    "auto_review_log": "AUTO_REVIEW.md"
+  },
+  "timestamp": "2026-04-24T13:56:00+0800"
+}

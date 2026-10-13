@@ -1,0 +1,119 @@
+{
+  "schema": "oracle-ce-P2-analysis-v1",
+  "audit_sha256": "8a9d2e11241bcb2647fd85fa9108ba363123cb0a42b5e654e582e340c49670f6",
+  "predictions_sha256": "43af7798d79530dbab59ae61ee1fd8cec700bd273f4483eb7bca19cdafab6941",
+  "bootstrap": {
+    "unit": "32 independent channel clusters retaining both SNRs",
+    "draws": 20000,
+    "seed": 202609150302,
+    "primary_family_size": 4,
+    "method": "percentile Bonferroni simultaneous 95% for 2 SNR x absolute/ratio",
+    "subgroup_intervals": "95% descriptive, subgroup labels fixed before intervention"
+  },
+  "primary": {
+    "7": {
+      "n": 32,
+      "before_mean": 0.03496849038277184,
+      "after_mean": 0.007757483370289306,
+      "absolute_after_minus_before": -0.027211007012482535,
+      "absolute_ci": [
+        -0.03790470988223056,
+        -0.018248558761670964
+      ],
+      "proportional_reduction": 0.7781578991436463,
+      "ratio_ci": [
+        0.7034149062277532,
+        0.8335402199171686
+      ],
+      "undefined_ratio_bootstrap_draws": 0
+    },
+    "8": {
+      "n": 32,
+      "before_mean": 0.011978156954964146,
+      "after_mean": 0.006339856342121431,
+      "absolute_after_minus_before": -0.005638300612842715,
+      "absolute_ci": [
+        -0.013078152610911517,
+        -0.001223394724676965
+      ],
+      "proportional_reduction": 0.4707152055230013,
+      "ratio_ci": [
+        0.16055172036947643,
+        0.6830345081566149
+      ],
+      "undefined_ratio_bootstrap_draws": 0
+    }
+  },
+  "subgroups": {
+    "7": {
+      "original_FULL_failure": {
+        "n": 25,
+        "before_mean": 0.042114661724790406,
+        "after_mean": 0.00798761643524977,
+        "absolute_after_minus_before": -0.034127045289540636,
+        "absolute_ci": [
+          -0.04268825149163969,
+          -0.026863179832461722
+        ],
+        "proportional_reduction": 0.8103364455959068,
+        "ratio_ci": [
+          0.767102305509538,
+          0.8471609395511716
+        ],
+        "undefined_ratio_bootstrap_draws": 0
+      },
+      "original_FULL_success": {
+        "n": 7,
+        "before_mean": 0.00944644987556267,
+        "after_mean": 0.006935579566859079,
+        "absolute_after_minus_before": -0.0025108703087035923,
+        "absolute_ci": [
+          -0.006617888143019153,
+          3.081441781057239e-05
+        ],
+        "proportional_reduction": 0.2658004162176357,
+        "ratio_ci": [
+          -0.004572177719423642,
+          0.48778013921167784
+        ],
+        "undefined_ratio_bootstrap_draws": 0
+      }
+    },
+    "8": {
+      "original_FULL_failure": {
+        "n": 6,
+        "before_mean": 0.0333366765009706,
+        "after_mean": 0.006801525287618374,
+        "absolute_after_minus_before": -0.02653515121335222,
+        "absolute_ci": [
+          -0.04589047723608467,
+          -0.013215126046668963
+        ],
+        "proportional_reduction": 0.7959747040944425,
+        "ratio_ci": [
+          0.6257328133548966,
+          0.8959265358634638
+        ],
+        "undefined_ratio_bootstrap_draws": 0
+      },
+      "original_FULL_success": {
+        "n": 26,
+        "before_mean": 0.007049267828962657,
+        "after_mean": 0.0062333173546990596,
+        "absolute_after_minus_before": -0.0008159504742635984,
+        "absolute_ci": [
+          -0.001788532153730121,
+          -8.268214673451654e-05
+        ],
+        "proportional_reduction": 0.11574967699640792,
+        "ratio_ci": [
+          0.013260407112422415,
+          0.22605642410201596
+        ],
+        "undefined_ratio_bootstrap_draws": 0
+      }
+    }
+  },
+  "new_receiver_calls": 0,
+  "scope": "Undirected intervention on exposed development channels; A/B/c and projected disturbances change jointly; no dominant-cause attribution."
+}

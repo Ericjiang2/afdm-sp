@@ -1,0 +1,56 @@
+{
+  "config": {
+    "N": 1024,
+    "frames": 250,
+    "snr_list": [
+      15,
+      20,
+      25
+    ],
+    "ckpt": "afdm_sp_joint_unrolled/outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt",
+    "seed": 20260419,
+    "cand_topm": 96,
+    "refine_rounds": 2,
+    "protect_added": 2,
+    "k_leak": 2,
+    "out": "afdm_sp_joint_unrolled/outputs_attribution"
+  },
+  "by_snr": {
+    "15": {
+      "counts": {
+        "main_lobe_collision": 1,
+        "dirichlet_sidelobe": 316,
+        "virtual_tap": 183,
+        "false_positive": 0
+      },
+      "added_total": 500,
+      "frames": 250,
+      "frames_with_addition": 250,
+      "mean_added_per_frame": 2.0
+    },
+    "20": {
+      "counts": {
+        "main_lobe_collision": 3,
+        "dirichlet_sidelobe": 303,
+        "virtual_tap": 195,
+        "false_positive": 0
+      },
+      "added_total": 501,
+      "frames": 250,
+      "frames_with_addition": 250,
+      "mean_added_per_frame": 2.004
+    },
+    "25": {
+      "counts": {
+        "main_lobe_collision": 0,
+        "dirichlet_sidelobe": 302,
+        "virtual_tap": 196,
+        "false_positive": 2
+      },
+      "added_total": 500,
+      "frames": 250,
+      "frames_with_addition": 250,
+      "mean_added_per_frame": 2.0
+    }
+  }
+}

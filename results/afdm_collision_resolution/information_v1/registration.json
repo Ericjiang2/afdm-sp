@@ -1,0 +1,211 @@
+{
+  "schema": "efficient-information-attempt/1",
+  "stage": "information_v1",
+  "config": {
+    "schema": "afdm-collision-information/1",
+    "seed": [
+      20261005,
+      152129,
+      31
+    ],
+    "new_observations": 8192,
+    "observations_per_point": 2048,
+    "train_size": 1024,
+    "heldout_size": 1024,
+    "points": [
+      {
+        "mu": 0.27,
+        "tau": 1.0,
+        "sigma2": 0.2
+      },
+      {
+        "mu": 0.27,
+        "tau": 1.0,
+        "sigma2": 1.0
+      },
+      {
+        "mu": 0.35,
+        "tau": 1.0,
+        "sigma2": 0.2
+      },
+      {
+        "mu": 0.35,
+        "tau": 1.0,
+        "sigma2": 1.0
+      }
+    ],
+    "wall_seconds": 600,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "new_confirmation_stream": false,
+    "new_integration_nodes": 0,
+    "n": 4,
+    "model": "actual normalized G0 P2/common rounded delay zero, symmetric marginal PDP fixed branch",
+    "score_columns": [
+      "r=q log(1/q)",
+      "mu",
+      "log_tau",
+      "log_sigma2"
+    ],
+    "nuisance_fd_steps": [
+      0.0001,
+      5e-05,
+      2.5e-05
+    ],
+    "nuisance_fd_abs_tolerance": 3e-05,
+    "batch_count": 8,
+    "rcond": 1e-10,
+    "positive_standard_errors": 4.0,
+    "feature_spaces": [
+      "powers_degree1",
+      "powers_degree1_and2"
+    ],
+    "feature_selection": "fixed before sampling, 4 power and all 10 quadratic power products",
+    "positivity_scope": "batch-SE diagnostic only; no population Fisher or global numerical certificate",
+    "scientific_admission": "teacher formula qualifications and density/nuisance theory reviewed before GO",
+    "failure_rule": "retain every base point, sample, failed FD qualification and unstable estimate without replacement"
+  },
+  "_config": {
+    "schema": "afdm-collision-information/1",
+    "seed": [
+      20261005,
+      152129,
+      31
+    ],
+    "new_observations": 8192,
+    "observations_per_point": 2048,
+    "train_size": 1024,
+    "heldout_size": 1024,
+    "points": [
+      {
+        "mu": 0.27,
+        "tau": 1.0,
+        "sigma2": 0.2
+      },
+      {
+        "mu": 0.27,
+        "tau": 1.0,
+        "sigma2": 1.0
+      },
+      {
+        "mu": 0.35,
+        "tau": 1.0,
+        "sigma2": 0.2
+      },
+      {
+        "mu": 0.35,
+        "tau": 1.0,
+        "sigma2": 1.0
+      }
+    ],
+    "wall_seconds": 600,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "new_confirmation_stream": false,
+    "new_integration_nodes": 0,
+    "n": 4,
+    "model": "actual normalized G0 P2/common rounded delay zero, symmetric marginal PDP fixed branch",
+    "score_columns": [
+      "r=q log(1/q)",
+      "mu",
+      "log_tau",
+      "log_sigma2"
+    ],
+    "nuisance_fd_steps": [
+      0.0001,
+      5e-05,
+      2.5e-05
+    ],
+    "nuisance_fd_abs_tolerance": 3e-05,
+    "batch_count": 8,
+    "rcond": 1e-10,
+    "positive_standard_errors": 4.0,
+    "feature_spaces": [
+      "powers_degree1",
+      "powers_degree1_and2"
+    ],
+    "feature_selection": "fixed before sampling, 4 power and all 10 quadratic power products",
+    "positivity_scope": "batch-SE diagnostic only; no population Fisher or global numerical certificate",
+    "scientific_admission": "teacher formula qualifications and density/nuisance theory reviewed before GO",
+    "failure_rule": "retain every base point, sample, failed FD qualification and unstable estimate without replacement"
+  },
+  "argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_collision_resolution/information_study.py",
+    "--stage",
+    "information_v1"
+  ],
+  "_argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_collision_resolution/information_study.py",
+    "--stage",
+    "information_v1"
+  ],
+  "seed": [
+    20261005,
+    152129,
+    31
+  ],
+  "source_sha256": {
+    ".mission/20261001_23-33-35-afdm-innovation-space/controls/thread_binding.py": "d54170644d336fe6b0eb383ff533e5863857f1bbdc8dd0a873a1c233f50846ac",
+    ".mission/20261005_15-21-29-afdm-collision-resolution/run_contract.json": "c8f991b7ac3a69dd777ed834cbc5f9ad5e6d35a4803f6484c63bc4969883ac20",
+    "experiments/afdm_collision_resolution/DENSITY_THEORY.md": "7c3addbbbd7fbc7391d10a6320289818c9c5df10ed00b4bb385ac9e7f2a8e45a",
+    "experiments/afdm_collision_resolution/INFORMATION.md": "21c88b3a02f69fc962d062a717a03dfcd7372a6ccd318aba6db9c8d324736971",
+    "experiments/afdm_collision_resolution/NUISANCE_THEORY.md": "a170cf99cbeb3e2ce294e94a39c06a3cff5b37fc684179cd5ede437f037e6f2a",
+    "experiments/afdm_collision_resolution/TEACHER.md": "971044137614d2e010cc01846068f595cea9abda35df743b6915727f52b41459",
+    "experiments/afdm_collision_resolution/__init__.py": "e7b17fd85e1f5e1ac6c0d189084d0c34bcc0d391ff7b3ecff63b993adc963c9d",
+    "experiments/afdm_collision_resolution/collision_teacher.py": "b1c42040ac0e45c8f4716c4ad475c06a161bfa5a3075cf5726252476ab9493b5",
+    "experiments/afdm_collision_resolution/information_study.py": "40340c188e1abc9a33070035f6b291ce2902544d97a2265687967bdd8480ebbb",
+    "experiments/afdm_collision_resolution/protocol.py": "7c92fc9b99a3dca5137759cdff8cd3727ec14c66907b6b17ce62bdb9f80827f5",
+    "experiments/afdm_collision_resolution/test_collision_teacher.py": "b13dabab90ebe04ba6886310aebe77402714b7cdae9cb29072056014c165d100",
+    "experiments/afdm_collision_resolution/test_information_study.py": "837212d6118ee466e83e08d478cc0fdaa92f608d54eaec3ecb40d40cdbd296a7",
+    "experiments/afdm_efficient_information/__init__.py": "86b4e0eb26b4a781a374db0addad1e9fbc485c7c653a3bc54868ad3d7c0cbedd",
+    "experiments/afdm_efficient_information/audit.py": "4e95e00ffed8b43320bcd7359f97d248644de14c558231c0adfada37a937fcd4",
+    "experiments/afdm_efficient_information/prior_likelihood.py": "c8251b53da6fb715f850d906c2251aa664bd32eb8500607c8250e8625f5342ee",
+    "experiments/afdm_efficient_information/protocol.py": "ecfb800796f418924640ce8e98c7b1797c92fa27e9f480715c30115b56a67498",
+    "experiments/afdm_higher_order_information/__init__.py": "00ec0fce13d3db63195bf81e021bbf9b3abad69b9ba7781be9327c3b86b52b75",
+    "experiments/afdm_higher_order_information/prior.py": "497595b55de826af2046a352be4a5915316bbd5bb8c8d59d5162dc2d853c8ce6",
+    "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+    "experiments/afdm_inference_causal_20261002/exact_oracle.py": "d6fae6c9d0e708db9fb2ab6c3809729f12146bb307802f2cb892be6f795b5b77",
+    "experiments/afdm_inference_causal_20261002/oracle_comparison.py": "571b6d080379299f0e8a342e5b1d2c964c4a99d689f735fc0d4b6b83d1ef2df6",
+    "experiments/afdm_shared_channel_20261004/common.py": "705cb6103442cdb122fbce0e58f091c6d42d64cce2e0f39cd24e8dfe095e758d",
+    "experiments/afdm_shared_channel_20261004/production_diagnostic.py": "4842465dc41faf45a78876374ab46d37b1ae8da9ae79ab121b2d2fc8a9d6d054",
+    "experiments/afdm_shared_channel_20261004/production_prior.py": "d8dcecdadbbc7483449f3a1e99f61a757b0065e9b0df509c29423b32b5694c69",
+    "experiments/afdm_shared_channel_20261004/quadrature.py": "32844f8ee051f8a4c2eb614443c2e3814a69183e7a6bd08195d8d6ac5610d257",
+    "experiments/afdm_structured_inference_20261003/common.py": "ae611fc20333affb939692a25da0c025476ad8cd16cbc74f917afce120d17ef9",
+    "experiments/afdm_structured_inference_20261003/potential.py": "63bb6d4da304d3f2753a915a177762156532b24fa7f29de97d09ce7ec7585e68",
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_baselines.py": "bc2457e5f21259df65fb1537021c50ea929991672ef1d9fb851213cb88f2d36a",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_env.py": "933ea6d8ac168f5af054754a6f58c41e378992a29a79fab91106b48209285487",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_layers.py": "2f242722450e4ad71820ab737e872f0bcbed1980f6ad0a545c81f659415a60c6",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_models.py": "af2186ebfceb744dab7a86efb76271724d7e4f9194a1adba52101487bead00c2",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_trainer.py": "41149471f5158566494a5a36e4143d1d06ed64f19a3b02b255153ecf2b3b7475",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_diagnostics.py": "c11c43d1353024a9ea873239b843743c9999a6cdf5f88644611282315c3999b9",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/classical_joint_unrolled.py": "412004661b718da8d6842ce37b48a090d528319211df2931c1940fafffafdec5",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py": "3fd7031da28dec0ef917b4a1ac1a3e47552d981c8f0d0a3027b1d6aa693c76ef",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/loop9_cache_features.py": "56b0e444db72c1f7bd18dad6b4a403b0667d3d5fa41cec7e0e99602e0e03410b",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/mp_detect_bp_torch.py": "5c3ef90babb745c887f90863f434960c2feeed90d802720de767b1fd8b684ec0",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/physical_stride.py": "abcb9950f53afa9eafa74cbb25ab9e708f551b92568078406c450aef63a69cdf",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/run_classical_baselines_python.py": "0a7eb3fef1252c7c776682a87dd2606a80249bd2f2152597838e287e1caefc98",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/system_config.py": "3b8d1db067a0682b3c6620268ed5219e15025290c94d48350324dd61bd133656",
+    "results/afdm_collision_resolution/INFORMATION_CONFIG.json": "13d58abd559e97621db5ff2237cec2d41a82c14d7c80f8623704297a02a327f4"
+  },
+  "git": {
+    "head": "7ca1086219fb37a64e5e62b9e75131d29509fc72",
+    "committed_task_source_sha256": {
+      "experiments/afdm_collision_resolution/__init__.py": "e7b17fd85e1f5e1ac6c0d189084d0c34bcc0d391ff7b3ecff63b993adc963c9d",
+      "experiments/afdm_collision_resolution/collision_teacher.py": "b1c42040ac0e45c8f4716c4ad475c06a161bfa5a3075cf5726252476ab9493b5",
+      "experiments/afdm_collision_resolution/information_study.py": "40340c188e1abc9a33070035f6b291ce2902544d97a2265687967bdd8480ebbb",
+      "experiments/afdm_collision_resolution/protocol.py": "7c92fc9b99a3dca5137759cdff8cd3727ec14c66907b6b17ce62bdb9f80827f5",
+      "experiments/afdm_collision_resolution/test_collision_teacher.py": "b13dabab90ebe04ba6886310aebe77402714b7cdae9cb29072056014c165d100",
+      "experiments/afdm_collision_resolution/test_information_study.py": "837212d6118ee466e83e08d478cc0fdaa92f608d54eaec3ecb40d40cdbd296a7"
+    },
+    "other_sources": "frozen helpers and artifacts independently SHA-256 bound"
+  },
+  "git_head": "7ca1086219fb37a64e5e62b9e75131d29509fc72",
+  "pid": 67018,
+  "wall_cap_seconds": 600,
+  "started_utc": "2026-10-05T08:02:14.807532+00:00",
+  "deadline_utc": "2026-10-05T08:12:14.807532+00:00",
+  "cumulative_reserved_new_observations": 8192,
+  "evidence_level": "local mathematical/development; no receiver/decoder/confirmation",
+  "cumulative_reserved_wall_seconds": 720.0
+}

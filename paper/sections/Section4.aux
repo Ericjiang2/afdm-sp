@@ -1,0 +1,85 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion}{31}{section.4}\protected@file@percent }
+\newlabel{sec:discussion}{{4}{31}{Discussion}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Mechanism of the serial-receiver error floor}{31}{subsection.4.1}\protected@file@percent }
+\newlabel{ssec:disc_serial}{{4.1}{31}{Mechanism of the serial-receiver error floor}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}OMP-once: empirical justification}{31}{subsection.4.2}\protected@file@percent }
+\newlabel{ssec:disc_complexity}{{4.2}{31}{OMP-once: empirical justification}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Mechanism of the learned head's high-SNR contribution}{32}{subsection.4.3}\protected@file@percent }
+\newlabel{ssec:disc_head}{{4.3}{32}{Mechanism of the learned head's high-SNR contribution}{subsection.4.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Single-frame OMP support and learned-head additions on a representative frame at $\mathrm  {SNR}= 20$~dB, drawn from a $300$-seed online replay at the paper-canonical operating point ($P= 8$, top-$M = 96$, $K_{\mathrm  {add}}= 4$, $f_s= 4B$, $N= 1024$) and selected by the disclosed deterministic rule \emph  {(above-median oracle-missed count, top-$K_{\mathrm  {add}}$ head additions overlap with at least one oracle-missed atom, per-frame BER closest to the cache median)}. Gray dots: the $M = 96$ candidate pool surfaced to the ranker; blue circles: the OMP-once support of size $|\hat  {S}_\text  {OMP}| = P= 8$; red stars: Dirichlet-expanded oracle-missed atoms; green crosses: the top-$K_{\mathrm  {add}}= 4$ atoms promoted by the learned head. Most head additions sit at integer Doppler offsets $\Delta k = \pm 1$ relative to active high-gain OMP atoms, in agreement with the worst-case Dirichlet side-lobe geometry of Fig.~\ref {fig:dirichlet}. The frame is provided as a representative attribution example and is not a substitute for the population-level support-recall and oracle-headroom analyses of \S  \ref {ssec:probes}.}}{33}{figure.caption.40}\protected@file@percent }
+\newlabel{fig:singleframe}{{9}{33}{Single-frame OMP support and learned-head additions on a representative frame at $\snr = 20$~dB, drawn from a $300$-seed online replay at the paper-canonical operating point ($\Ppath = 8$, top-$M = 96$, $\Kadd = 4$, $\fs = 4B$, $\Nsub = 1024$) and selected by the disclosed deterministic rule \emph {(above-median oracle-missed count, top-$\Kadd $ head additions overlap with at least one oracle-missed atom, per-frame BER closest to the cache median)}. Gray dots: the $M = 96$ candidate pool surfaced to the ranker; blue circles: the OMP-once support of size $|\hat {S}_\text {OMP}| = \Ppath = 8$; red stars: Dirichlet-expanded oracle-missed atoms; green crosses: the top-$\Kadd = 4$ atoms promoted by the learned head. Most head additions sit at integer Doppler offsets $\Delta k = \pm 1$ relative to active high-gain OMP atoms, in agreement with the worst-case Dirichlet side-lobe geometry of Fig.~\ref {fig:dirichlet}. The frame is provided as a representative attribution example and is not a substitute for the population-level support-recall and oracle-headroom analyses of \S \ref {ssec:probes}}{figure.caption.40}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Population-level per-candidate attribution: classification of every head-added atom across a $250$-frame paired evaluation run at the canonical operating point ($N= 1024$, $P= 8$, $f_s= 4B$, $K_{\mathrm  {add}}= 4$ effective $K_\text  {add,used} = 2$ on average per refine pass), against the simulator's known $(l_p, k_p)$ physical paths. ``Side+Virt\%'' is the fraction of head additions falling on a Dirichlet side-lobe or virtual tap of an active physical path; the complementary $1 -$``Side+Virt\%'' is split between main-lobe collisions and false positives.}}{34}{table.caption.41}\protected@file@percent }
+\newlabel{tab:attribution}{{9}{34}{Population-level per-candidate attribution: classification of every head-added atom across a $250$-frame paired evaluation run at the canonical operating point ($\Nsub = 1024$, $\Ppath = 8$, $\fs = 4B$, $\Kadd = 4$ effective $K_\text {add,used} = 2$ on average per refine pass), against the simulator's known $(l_p, k_p)$ physical paths. ``Side+Virt\%'' is the fraction of head additions falling on a Dirichlet side-lobe or virtual tap of an active physical path; the complementary $1 -$``Side+Virt\%'' is split between main-lobe collisions and false positives}{table.caption.41}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Population-level per-candidate attribution}{34}{subsection.4.4}\protected@file@percent }
+\newlabel{ssec:disc_attribution}{{4.4}{34}{Population-level per-candidate attribution}{subsection.4.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Loss-form and head-capacity ablations}{35}{subsection.4.5}\protected@file@percent }
+\newlabel{ssec:disc_lossform}{{4.5}{35}{Loss-form and head-capacity ablations}{subsection.4.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Loss-form ablation.}{35}{section*.42}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Head-capacity ablation.}{35}{section*.43}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Implication.}{36}{section*.44}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Training-stochasticity envelope as partial retraining-variance evidence.}{36}{section*.45}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Cross-train-seed retraining-variance envelope of the canonical C2-rel head's relative paired-BER reduction at $\mathrm  {SNR}= 20$~dB. Each cell is a single paired-eval run of $600$ paired frames at $f_s= 4B$, $N= 1024$, $P= 8$, F2-P deployment with \texttt  {--use-hard --refine-rounds 2} and the force-topk bias patch. Per-train-seed pooled rel-$\Delta $ aggregates the three eval seed cells; mean $\pm $ std is across the three training seeds.}}{37}{table.caption.46}\protected@file@percent }
+\newlabel{tab:varenv}{{10}{37}{Cross-train-seed retraining-variance envelope of the canonical C2-rel head's relative paired-BER reduction at $\snr = 20$~dB. Each cell is a single paired-eval run of $600$ paired frames at $\fs = 4B$, $\Nsub = 1024$, $\Ppath = 8$, F2-P deployment with \texttt {--use-hard --refine-rounds 2} and the force-topk bias patch. Per-train-seed pooled rel-$\Delta $ aggregates the three eval seed cells; mean $\pm $ std is across the three training seeds}{table.caption.46}{}}
+\@writefile{toc}{\contentsline {paragraph}{Reconciliation: variance bar transfers via rank invariance.}{37}{section*.47}\protected@file@percent }
+\citation{ma2024oversampledafdm}
+\citation{benzine2023sparseafdm}
+\citation{qing2024spafdm}
+\citation{zhao2024gifreeafdm}
+\citation{yin2024drceafdm}
+\citation{ma2024oversampledafdm}
+\citation{zhou2024msmlafdm}
+\citation{zhou2024msmlafdm}
+\citation{monga2021unrolling}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Justification of the 4\,B oversampled operating point}{38}{subsection.4.6}\protected@file@percent }
+\newlabel{ssec:disc_oversampling}{{4.6}{38}{Justification of the 4\,B oversampled operating point}{subsection.4.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Position relative to prior AFDM and UWA work}{38}{subsection.4.7}\protected@file@percent }
+\newlabel{ssec:disc_priorart}{{4.7}{38}{Position relative to prior AFDM and UWA work}{subsection.4.7}{}}
+\citation{bemani2023afdm}
+\citation{benzine2023sparseafdm}
+\citation{qing2024spafdm}
+\citation{zhao2024gifreeafdm}
+\citation{yin2024drceafdm}
+\citation{ma2024oversampledafdm}
+\citation{zhou2024msmlafdm}
+\citation{afdm2025jointcesd}
+\citation{qing2024spafdm}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Structural comparison of the closest published AFDM / AFDM-SP / UWA-AFDM receivers and the present work. ``SP'' = superimposed pilots, ``EP'' = embedded pilots, ``MSML'' = multi-scale multi-lag, ``stat.\ disc.'' = whether the published evaluation uses paired seeds and a formal significance test. The Huang \emph  {et al.}\ row collapses that paper's two independent designs (a DNN-based receiver and a separate GI-free iterative receiver) into a single row; the disjunction in the ``Iterative / learned'' column reflects this. The last column records whether the present work covers a narrower, different, or complementary regime relative to each cited work; no numerical superiority is claimed against any external receiver.}}{39}{table.caption.48}\protected@file@percent }
+\newlabel{tab:priorart}{{11}{39}{Structural comparison of the closest published AFDM / AFDM-SP / UWA-AFDM receivers and the present work. ``SP'' = superimposed pilots, ``EP'' = embedded pilots, ``MSML'' = multi-scale multi-lag, ``stat.\ disc.'' = whether the published evaluation uses paired seeds and a formal significance test. The Huang \emph {et al.}\ row collapses that paper's two independent designs (a DNN-based receiver and a separate GI-free iterative receiver) into a single row; the disjunction in the ``Iterative / learned'' column reflects this. The last column records whether the present work covers a narrower, different, or complementary regime relative to each cited work; no numerical superiority is claimed against any external receiver}{table.caption.48}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Limitations}{39}{subsection.4.8}\protected@file@percent }
+\newlabel{ssec:weaknesses}{{4.8}{39}{Limitations}{subsection.4.8}{}}
+\citation{zhou2024msmlafdm}
+\citation{qing2024spafdm}
+\citation{zhao2024gifreeafdm}
+\citation{yin2024drceafdm}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Summary}{41}{subsection.4.9}\protected@file@percent }
+\@setckpt{sections/Section4}{
+\setcounter{page}{42}
+\setcounter{equation}{23}
+\setcounter{enumi}{7}
+\setcounter{enumii}{4}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{section}{4}
+\setcounter{subsection}{9}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{9}
+\setcounter{table}{11}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{8}
+\setcounter{algorithm}{1}
+\setcounter{section@level}{2}
+\setcounter{Item}{17}
+\setcounter{Hfootnote}{0}
+\setcounter{bookmark@seq@number}{39}
+}

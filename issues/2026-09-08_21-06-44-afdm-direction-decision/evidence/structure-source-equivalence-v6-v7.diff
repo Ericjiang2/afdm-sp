@@ -1,0 +1,51 @@
+--- v6/direction_structure_replay.py
++++ v7/direction_structure_replay.py
+@@ -78,7 +78,7 @@
+     start=time.perf_counter();cpu=time.process_time()
+     result=terminal_decode(z,H,float(s['sigma2_terminal']),s['constellation'],code,device=dev,audit=True)
+     if dev.type=='cuda':torch.cuda.synchronize(dev)
+-    result.update(arm_id='M_'+arm,atom_ids=I.tolist(),coefficients=gains,Hfit=H,
++    result.update(device=str(dev),arm_id='M_'+arm,atom_ids=I.tolist(),coefficients=gains,Hfit=H,
+         fit_diagnostics=fitted['diagnostics'],fit_seconds=fit_seconds,fit_cpu_seconds=fit_cpu,
+         terminal_seconds=time.perf_counter()-start,terminal_cpu_seconds=time.process_time()-cpu,
+         peak_gpu_bytes=int(torch.cuda.max_memory_allocated(dev)) if dev.type=='cuda' else 0,
+--- v6/direction_structure_run.py
++++ v7/direction_structure_run.py
+@@ -66,6 +66,7 @@
+     norm=float(np.linalg.norm(s['Htrue'])**2)
+     if norm<=0:raise ValueError('channel NMSE needs nonzero truth')
+     r.update(run_id=run_id,config_sha256=config_hash,source_sha256=sources,
++        device=result['device'],dtype={'fit':'complex128','terminal':'complex128'},
+         arm_id=result['arm_id'],call_type='terminal',candidate_eligible=False,
+         truth_access_level='geometry_oracle',oracle_information=result['oracle_information'],
+         H_cancel_source={'source':'restricted_Hfit','sha256':result['Hfit_sha256']},
+--- v6/test_direction_structure_run.py
++++ v7/test_direction_structure_run.py
+@@ -30,4 +30,27 @@
+             with self.assertRaises(ValueError):locate_normal([root],17,'engineering',8,'wrong')
+ 
+ 
++    def test_actual_cpu_device_replaces_normal_cuda_metadata(self):
++        import numpy as np
++        from unittest.mock import patch
++        from afdm_sp_joint_unrolled.direction_structure_run import terminal_record
++        normal={'device':'cuda','dtype':'inherited_outer_complex64','S_submitted':[1,2],
++                'arm_id':'Bstar-fixture','input_hashes':{}}
++        snapshot={'Htrue':np.eye(2,dtype=complex),'coded':np.zeros(4,int)}
++        prepared={'normal':normal,'snapshot':snapshot,'basis':np.eye(2), 'normal_record_sha256':'fixture'}
++        result={'device':'cpu','atom_ids':[1,2],'Hfit':np.eye(2,dtype=complex),
++            'sigma2_terminal':.1,'llr':np.ones(4),'x_hard':np.ones(2,complex),
++            'arm_id':'M_free','oracle_information':'support','Hfit_sha256':'fixture',
++            'coefficients':np.ones(2),'graphs':[],'info_errors':0,'FER':0,
++            'decoded':np.zeros(4,int),'decode_ok':True,'mu':np.ones(2,complex),'var':np.ones(2),
++            'residual':{'relative_vector_closure':0.,'energies':{'pilot_channel_error':0.}},
++            'terminal_seconds':.1,'terminal_cpu_seconds':.1,'peak_gpu_bytes':0,
++            'fit_seconds':.1,'fit_cpu_seconds':.1,'fit_diagnostics':{},'z_sha256':'fixture'}
++        with patch('afdm_sp_joint_unrolled.direction_structure_run.validate_record',side_effect=lambda x,**k:x):
++            row=terminal_record(prepared,result,'fixture','fixture',{}, {}, {})
++        self.assertEqual(row['device'],'cpu')
++        self.assertEqual(row['dtype'],{'fit':'complex128','terminal':'complex128'})
++        self.assertEqual(normal['device'],'cuda')
++
++
+ if __name__=='__main__':unittest.main()

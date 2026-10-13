@@ -1,0 +1,212 @@
+{
+  "expected_claim_checks": {
+    "all_declared_arms_present": {
+      "expected": [
+        "F0",
+        "B",
+        "F0_LOCAL",
+        "F2T",
+        "F2E"
+      ],
+      "missing": [],
+      "observed": [
+        "B",
+        "F0",
+        "F0_LOCAL",
+        "F2E",
+        "F2T"
+      ],
+      "pass": true
+    },
+    "branch_attempts_120": {
+      "expected": 120,
+      "observed": 120,
+      "pass": true
+    },
+    "no_excluded_arm": {
+      "all_five_each_1024": true,
+      "expected_policy_names": [
+        "F0",
+        "B",
+        "F0_LOCAL",
+        "F2T",
+        "F2E"
+      ],
+      "missing_policy_names": [],
+      "pass": true,
+      "policy_rows_by_declared_arm": {
+        "B": 1024,
+        "F0": 1024,
+        "F0_LOCAL": 1024,
+        "F2E": 1024,
+        "F2T": 1024
+      },
+      "unexpected_policy_names": []
+    },
+    "observed_seal_all_members_match": {
+      "expected": 8557,
+      "observed": 8557,
+      "pass": true
+    },
+    "policy_rows_5120": {
+      "expected": 5120,
+      "observed": 5120,
+      "pass": true
+    },
+    "prefix_attempts_2048": {
+      "expected": 2048,
+      "observed": 2048,
+      "pass": true
+    },
+    "trigger_unique_observations_40": {
+      "all_three_branch_policies_per_trigger": true,
+      "branch_ids_equal_f0_trigger_ids": true,
+      "definition": "distinct F0 prefix ledger observations with final_syndrome_weight != 0; branch policy arm distribution must be 40 each for B/F0_LOCAL/F2T and branch observation IDs must equal trigger IDs",
+      "observed_branch_arm_counts": {
+        "B": 40,
+        "F0_LOCAL": 40,
+        "F2T": 40
+      },
+      "observed_branch_calls": 120,
+      "observed_branch_observations": 40,
+      "observed_f0_trigger_observations": 40,
+      "pass": true
+    }
+  },
+  "limitation": "The seal authenticates bytes and metadata counts; this recount does not inspect decoded bits, FER, or truth.",
+  "manifest": {
+    "declared_fields": {},
+    "declared_policy_names": [
+      "F0",
+      "B",
+      "F0_LOCAL",
+      "F2T",
+      "F2E"
+    ],
+    "path": "manifest.json",
+    "schema": "f2-stage-b-five-policy/1",
+    "status": "running"
+  },
+  "metadata_counts": {
+    "attempt_arm_counts": {
+      "B": 40,
+      "F0": 1024,
+      "F0_LOCAL": 40,
+      "F2E": 1024,
+      "F2T": 40
+    },
+    "attempt_kind_counts": {
+      "continuation": 120,
+      "prefix": 2048
+    },
+    "attempt_observation_count": 1024,
+    "attempt_rows": 2168,
+    "attempt_status_counts": {
+      "<missing>": 2168
+    },
+    "branch_arm_counts": {
+      "B": 40,
+      "F0_LOCAL": 40,
+      "F2T": 40
+    },
+    "branch_observation_count": 40,
+    "branch_policy_sets_complete_per_trigger": true,
+    "expected_policy_names": [
+      "F0",
+      "B",
+      "F0_LOCAL",
+      "F2T",
+      "F2E"
+    ],
+    "explicit_trigger_metadata_counts": [
+      {
+        "field": "triggered",
+        "source": "policy_ledger",
+        "true_rows": 1181,
+        "unique_observation_ids": 1021
+      }
+    ],
+    "f0_prefix_trigger_ids": [
+      "s650_f0044",
+      "s650_f0064",
+      "s650_f0089",
+      "s650_f0113",
+      "s650_f0127",
+      "s650_f0160",
+      "s650_f0197",
+      "s650_f0240",
+      "s650_f0275",
+      "s650_f0285",
+      "s650_f0390",
+      "s650_f0391",
+      "s650_f0413",
+      "s650_f0415",
+      "s650_f0456",
+      "s650_f0462",
+      "s650_f0464",
+      "s650_f0519",
+      "s650_f0579",
+      "s650_f0593",
+      "s650_f0644",
+      "s650_f0647",
+      "s650_f0678",
+      "s650_f0718",
+      "s650_f0720",
+      "s650_f0740",
+      "s650_f0761",
+      "s650_f0770",
+      "s650_f0797",
+      "s650_f0810",
+      "s650_f0815",
+      "s650_f0824",
+      "s650_f0827",
+      "s650_f0871",
+      "s650_f0882",
+      "s650_f0938",
+      "s650_f0955",
+      "s650_f0965",
+      "s650_f0996",
+      "s650_f1008"
+    ],
+    "f0_prefix_trigger_observations": 40,
+    "f2e_prefix_nonzero_syndrome_observations": 1021,
+    "ledger_arm_counts": {
+      "B": 40,
+      "F0": 1024,
+      "F0_LOCAL": 40,
+      "F2E": 1024,
+      "F2T": 40
+    },
+    "ledger_kind_counts": {
+      "continuation": 120,
+      "prefix": 2048
+    },
+    "ledger_observation_count": 1024,
+    "ledger_rows": 2168,
+    "ledger_status_counts": {
+      "ok": 2168
+    },
+    "missing_expected_policies": [],
+    "policy_counts": {
+      "B": 1024,
+      "F0": 1024,
+      "F0_LOCAL": 1024,
+      "F2E": 1024,
+      "F2T": 1024
+    },
+    "policy_field": "policy",
+    "policy_observation_count": 1024,
+    "policy_rows": 5120,
+    "policy_status_counts": {
+      "ok": 5120
+    },
+    "unexpected_policies": []
+  },
+  "producer_rule_locator": "experiments/cstate_necessity_stageB_resume_20260928/f2_run_population.py:640-645",
+  "schema": "f2-five-observed-independent-recount/1",
+  "scope": "Observed metadata only: seal and JSON/JSONL ledgers. Raw/checkpoint/decision NPZ/JSON payloads were hashed as opaque files only; no NPZ arrays or truth paths were opened. No receiver was run.",
+  "seal_inventory_pass": true,
+  "seal_sha256": "69bc4006a814fd5946c3810209d9d9b24db9c64df34aa4129fa4a2abf554c3fc",
+  "seal_status": "pass",
+  "trigger_field_semantics_limit": "The policy_ledger.triggered boolean repeats the triggering prefix state across each policy row; it is not a unique frame-event count. The 40 historical F0 triggers are independently counted from the 1024 F0 prefix ledger rows where final_syndrome_weight != 0, and matched to three F0 continuation arms per triggered observation."
+}

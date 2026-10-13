@@ -1,0 +1,47 @@
+{
+  "schema": "f2-preflight-failures/1",
+  "original_git_freeze": "d94372445b1ad397f682cb849200c9126500ecd3",
+  "original_manifest_sha256": "413150d11462ca9304650364ef5c9d1ac56006a0883adc0835192700e59774ca",
+  "launch_attempts": 2,
+  "receiver_attempts": 0,
+  "new_observations": 0,
+  "truth_read": false,
+  "cases": [
+    {
+      "preserved_launch": "results/cstate_necessity_stageB_resume_20260928/branch_qualification_preflight_missing_contract_v1",
+      "failure": "Missing already-frozen F2_METHOD_CONTRACT.md in deployment; no scientific/source change.",
+      "exit": {
+        "exit_code": 1,
+        "end_epoch": 1790612961,
+        "wall_seconds": 0
+      },
+      "receiver_attempts": 0,
+      "stage": "preflight before output/attempt ledger creation",
+      "files": {
+        "branch_qualification_preflight_missing_contract_v1/runner.log": "d840da8fa30b4935415957c55a04df828c3978b4f33374323992e5e9c38a37e7",
+        "branch_qualification_preflight_missing_contract_v1/launch_exit.json": "b3645432b4617135f7cf2d1b20204a3e250cbb1cadd1753c00db3eb4be5935d0",
+        "branch_qualification_preflight_missing_contract_v1/argv.txt": "f7639d147591ceb38abeac910f5fe17e3094ececb8dbff7d7915d19ca573614b",
+        "branch_qualification_preflight_missing_contract_v1/launch_started.json": "ce661dd3fdaeed3c998c5597a00c07c94f7194f17632bdebe4f20d1fe09264c5"
+      }
+    },
+    {
+      "preserved_launch": "results/cstate_necessity_stageB_resume_20260928/branch_qualification_launch_v1",
+      "failure": "Preflight incorrectly treated the three-SNR observed ledger as the 6.5-dB subset. Requires explicit frozen 650-centi-dB selection.",
+      "exit": {
+        "exit_code": 1,
+        "end_epoch": 1790613299,
+        "wall_seconds": 0
+      },
+      "receiver_attempts": 0,
+      "stage": "preflight before output/attempt ledger creation",
+      "files": {
+        "branch_qualification_launch_v1/runner.log": "b4c3ed633f8301e58ce36066dc9c54dd46c4f9c769d9fa96746c287ca161683e",
+        "branch_qualification_launch_v1/launch_exit.json": "a1af94cd0917b70503b1a607a355abda36c2b753bd56244135c5412d157c2a21",
+        "branch_qualification_launch_v1/argv.txt": "f7639d147591ceb38abeac910f5fe17e3094ececb8dbff7d7915d19ca573614b",
+        "branch_qualification_launch_v1/launch_started.json": "ae747c7e17ab53bcd6be343fc5680419a7f1fd777baac77d1d61a3d9a83cccd9"
+      }
+    }
+  ],
+  "remaining_qualification_budget": 3,
+  "next": "Correct only fixed-population selection; preserve old source and register v2 before real continuation calls."
+}

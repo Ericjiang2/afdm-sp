@@ -1,0 +1,46 @@
+{
+  "schema": "adjacent-route-selection-v1",
+  "status": "frozen_route_selection",
+  "frozen_at_utc": "2026-09-11T19:38:00.280632+00:00",
+  "selected_route": null,
+  "decision": "NO_CURRENT_ROUTE_PROMOTED",
+  "cost_question_relevant": true,
+  "precheck_release_sha256": "5d828fd682fe0a50a639c1bc2d613cb43dd3ed244047b92c21063fc05b9e35be",
+  "confirmation_audit_sha256": "e93c9b3964718706666683b810d87b844cb15a5fd748e8daa98d7c4229ff9d93",
+  "confirmation_reference": {
+    "arm": "I1",
+    "recipe": "B0-p2-s0.5",
+    "strong_reference_rule_met": true,
+    "scope": "G0/N1024; fixed A2 and B_star_1 references; no broad classical optimality"
+  },
+  "route_A": {
+    "decision": "STOP_CURRENT_RULE",
+    "basis": "Fitted budget-020 was 34.34% slower than full local update on heldout frozen states despite meeting its LLR error threshold; this implementation has no cost advantage.",
+    "evidence": ".mission/20260911_19-55-51-afdm-i1-cost-adjacent-pivots/evidence/route-a-precheck.md",
+    "sha256": "cf4c439f8a4b75f0b19b5f1b548c1386b27ccfdd10c4616b3533998b2bfb2daa"
+  },
+  "route_B": {
+    "decision": "INCONCLUSIVE_NOT_PROMOTED",
+    "basis": "The fixed heldout pool and legal selector did not establish potential oracle improvement over I1 or deployable advantage over equal-budget multistart; simultaneous paired intervals remain wide.",
+    "evidence": ".mission/20260911_19-55-51-afdm-i1-cost-adjacent-pivots/evidence/route-b-precheck.md",
+    "sha256": "ae66f48eff69f4d9a780aff6ad54d574a9910bef07c9c717bbd1288c2fa2887b"
+  },
+  "cost_decision_pending": "Formal COST chooses whether the next research objective should emphasize performance or reduced computation; no outcome-based change to this frozen route selection.",
+  "not_started": [
+    "A/B further parameter changes or receiver calls",
+    "C causal tracking without a real continuous-link motivation and generator",
+    "D joint CSI prediction-error extension",
+    "E power/coding bootstrap design",
+    "F hardware identifiability extension",
+    "G1 confirmation",
+    "D_test",
+    "old deferred CONF mechanisms"
+  ],
+  "numerical_budget_extensions": {
+    "F": 0,
+    "E": 0,
+    "T": 0,
+    "local_updates": 0
+  },
+  "scope": "Frozen before formal COST; permits no main-route promotion and no new experiment authority."
+}

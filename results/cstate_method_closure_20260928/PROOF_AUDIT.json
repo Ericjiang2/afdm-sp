@@ -1,0 +1,52 @@
+{
+  "schema": "cstate-closure-proof-audit/1",
+  "date": "2026-09-28",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "high",
+  "verdict": "PASS",
+  "scope": "independent static mathematical and frozen-source-convention audit; no numerical tests or receiver calls",
+  "input_sha256": {
+    "CLOSURE_COMPATIBILITY_THEORY.md": "aea50d09a09cf25cc16126050797988933982d6a0fc0fa725b2294e12c896c50",
+    "CLOSURE_COMPATIBILITY_PROOF.md": "b1b10cb126efb14fa2e3b5d0e1b5bfc60baab8cdb10e8060bb98aaa2ad705122",
+    "MANUSCRIPT_THEOREM_TEXT.md": "4bc3d1b94687ee93de814dc4206e418af72526a849a25d20bfa9df51ef98f492",
+    "SOURCE_LOOKUP.md": "f4c37ff5b9d81a8c231380dfd48f7c934e307b527bea7d949ec360200a959645",
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "SCALAR_CLOSURE_DERIVATION_20260924.md": "1bc833d81c908ea18731835d106063b2e33c627f9540fba72311744df8f0c556"
+  },
+  "obligations": {
+    "MC1": "PASS",
+    "MC2": "PASS",
+    "MC3": "PASS",
+    "MC4": "PASS",
+    "MC5": "PASS",
+    "MC6": "PASS",
+    "MC7": "PASS",
+    "MC8": "PASS",
+    "MC9": "PASS",
+    "MC10": "PASS"
+  },
+  "counterexample_attempts": [
+    "zero-only covariance family",
+    "unitary swap under fixed and Hadamard covariance bases",
+    "non-Hermitian real skew-unitary tested with complex rank-one PSD covariance",
+    "same-delay r=0 and r=1 integer/alias limits",
+    "distinct-delay nonuniform AF-diagonal covariance"
+  ],
+  "issues": [],
+  "not_verified": [
+    "main-agent finite-dimensional receipt not independently rerun by this reviewer",
+    "actual receiver covariance reachability",
+    "inference dynamics or FER"
+  ],
+  "new_receiver_calls": 0,
+  "new_decoder_calls": 0,
+  "new_observations": 0,
+  "external_numerical_receipt": {
+    "path": "results/cstate_method_closure_20260928/CLOSURE_COMPATIBILITY_TESTS.json",
+    "sha256": "0092e48d119ae0e8ba7a8e63cc2d5f907436e640b1cf9da555e344996de778b8",
+    "reported_status": "pass",
+    "reported_comparison_count": 525,
+    "executed_by": "main agent",
+    "independently_rerun_by_this_reviewer": false
+  }
+}

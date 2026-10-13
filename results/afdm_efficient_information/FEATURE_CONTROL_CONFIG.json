@@ -1,0 +1,21 @@
+{
+  "seed": [20261005, 104835, 20],
+  "new_observations": 10240,
+  "n": 4,
+  "public_points": [[0.0, 0.0, 1.0, 0.5], [0.0, 0.4, 1.3, 0.7]],
+  "score_columns": ["q", "mu", "tau", "sigma2"],
+  "split_sizes": [2048, 1024, 2048],
+  "levels": ["energy", "old_T", "powers", "phase", "gauge"],
+  "ridges": [0.0, 0.0001, 0.01, 0.1, 1.0],
+  "bootstrap_replicates": 128,
+  "wall_seconds": 300,
+  "receiver_calls": 0,
+  "decoder_calls": 0,
+  "feature_design": "first four levels nested; gauge is separate O(N) sufficient-orbit input in circular models",
+  "covariance_rank_tolerance": 1e-10,
+  "primary_model_for_transfer": "point1_phase chosen before data",
+  "independence": "each point has 5120 independent channel/data/noise frames; disjoint train/validation/test; points use distinct seeds; feature levels share identical observations",
+  "teacher_scope": "exact finite QPSK Gaussian-control likelihood; public local teacher is conditional known statistical point, not unknown-nuisance deployment",
+  "information_scope": "heldout score-moment plug-in lower-bound estimates with bootstrap uncertainty; not certified feature Fisher or an exact retention rate",
+  "selection": "ridge chosen by validation standardized four-score MSE; test cannot select levels or transfer point"
+}

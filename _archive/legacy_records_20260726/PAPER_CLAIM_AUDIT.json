@@ -1,0 +1,117 @@
+{
+  "date": "2026-04-25",
+  "auditor": "codex-gpt-5.4-xhigh-fresh-thread",
+  "auditor_thread_id": "019dc079-ccb4-7c60-8a91-b9b6de470b44",
+  "overall_verdict": "fail",
+  "totals": {
+    "total": 38,
+    "exact_match": 4,
+    "rounding_ok": 18,
+    "ambiguous_mapping": 1,
+    "missing_evidence": 2,
+    "number_mismatch": 4,
+    "aggregation_mismatch": 5,
+    "config_mismatch": 3,
+    "caption_mismatch": 1,
+    "delta_error": 0,
+    "scope_overclaim": 0
+  },
+  "priority_issues": [
+    {
+      "id": "P1",
+      "severity": "fail",
+      "summary": "Table 3 pooled row absolute BERs do not match the 3 pooled source JSONs (deltas OK, but absolute values appear to be from a different — probably 4B — pool that is not in the evidence set).",
+      "claims_affected": ["C05", "C06", "C07", "C08", "C09"],
+      "fix_options": [
+        "Replace absolute columns with 2B pooled reconstruction from outputs_loop12_{r3_official, matched_f2p_s20_30, seed2_s20_s25_s30}",
+        "Rerun 3-seed pool at 4B and point to that JSON",
+        "Change Table 3 caption to state pooled delta/frames are 2B, absolute BER is the 4B single-seed illustrative"
+      ]
+    },
+    {
+      "id": "P2",
+      "severity": "fail",
+      "summary": "'Single-seed 400-frame' row label is actually 350-frame adaptive (80 frames at 15 dB, 350 at 20/25 dB). The printed '5/8.19e5 = 5.58e-6' at 25 dB is arithmetically wrong: actual is 4/716800 = 5.58e-6.",
+      "claims_affected": ["C13", "C14", "C15", "C16", "C32"],
+      "fix_options": [
+        "Rename label '400-frame' -> '350-frame (adaptive)' in Table 3 + Table 8 captions",
+        "Fix count: '5 / 8.19e5' -> '4 / 7.17e5'",
+        "Verify 'same bit budget' PCSI sentence"
+      ]
+    },
+    {
+      "id": "P3",
+      "severity": "fail",
+      "summary": "Pooled McNemar p-value at 30 dB is under-reported: paper says p=4e-3, pooled reconstruction gives p ≈ 3e-59. Direction: conservative (paper understates significance). Number is still wrong.",
+      "claims_affected": ["C11"],
+      "fix_options": [
+        "Recompute and cite correct p (≈1e-59 or similar)",
+        "Replace 'p = 4e-3' with 'p << 10^-3' and abstract 'worst-case p ≤ 4e-3' with 'worst-case p < 10^-3'"
+      ]
+    },
+    {
+      "id": "P4",
+      "severity": "warn",
+      "summary": "Serial-floor BER 4.1e-2 claim not supported by raw evidence (actual: 5.78e-2 / 4.93e-2 / 4.94e-2 at 15/20/25 dB).",
+      "claims_affected": ["C37"],
+      "fix_options": [
+        "Change '4.1e-2' -> '4-6 × 10^-2' or cite specific SNR"
+      ]
+    },
+    {
+      "id": "P5",
+      "severity": "warn",
+      "summary": "'2.5 orders of magnitude at 25 dB' not supported by raw pairs. Available pairs: 4B = 3.0 decades, 2B pool = 1.83 decades.",
+      "claims_affected": ["C38"],
+      "fix_options": [
+        "Change '2.5 orders' -> '2-3 orders' or '≈3 orders' with named receiver pair"
+      ]
+    },
+    {
+      "id": "P6",
+      "severity": "warn",
+      "summary": "Table 8 (tab:oraclehead) caption says 'learned column from the separate single-seed 400-frame F2-P run'. The source is 350-frame.",
+      "claims_affected": ["C32"],
+      "fix_options": [
+        "Change '400-frame' -> '350-frame (adaptive)'"
+      ]
+    }
+  ],
+  "minor_issues": [
+    {
+      "id": "C28",
+      "severity": "warn",
+      "summary": "Support-Jaccard > 0.94 from iter 2 onwards: no raw trace JSON in the audit set.",
+      "fix_options": [
+        "Add a per-iteration Jaccard JSON from the same probe",
+        "Soften to 'support overlap between successive OMP passes is high'"
+      ]
+    },
+    {
+      "id": "C36",
+      "severity": "warn",
+      "summary": "MAC-count table (tab:complexity) has no profiler-raw backing JSON in the audit set.",
+      "fix_options": [
+        "If analytical, add a note in §2 or Table caption stating 'closed-form complex-op counts, derived from the receiver block diagram'"
+      ]
+    }
+  ],
+  "what_is_correct": [
+    "All pooled delta percentages (-37.7%/-40.2%/-37.6%) exactly reconstruct from the 3 seed JSONs",
+    "All pooled frame counts (600/773/1300) exact match",
+    "All iter-convergence table cells (t=1..5, SNR 15 and 20) rounding_ok",
+    "All four support-recall table rows rounding_ok",
+    "All three oracle-headroom Table 8 rows with gap-closed 61/81/98% rounding_ok",
+    "Physical-oracle censored-zero CP 95% UB ≈ 5.86e-6 correctly computed",
+    "Clean-pilot sign-flip 30f vs 250f (1.6σ) supported",
+    "All parameter counts (1,041 = 384 + 657) internally consistent",
+    "All _config parameters (N=1024, P=8, fs=16 kHz at 4B, (l_max,k_max,Q)=(160,2,800)) match JSON _config blocks"
+  ],
+  "implication": "Thesis headline story is data-supported. FAIL verdict comes from Table-presentation issues (P1, P2, P3) and cosmetic claim tightness (P4, P5). No scientific fabrication. Most fixes are LaTeX-only (~1 hour).",
+  "artifacts": {
+    "paper_claim_audit_md": "PAPER_CLAIM_AUDIT.md",
+    "audit_prompt": "oracle_io/paper_claim_audit/AUDIT_PROMPT.md",
+    "oracle_failed_response": "oracle_io/paper_claim_audit/ORACLE_RESPONSE.md",
+    "oracle_log": "oracle_io/paper_claim_audit/oracle_run.log"
+  }
+}

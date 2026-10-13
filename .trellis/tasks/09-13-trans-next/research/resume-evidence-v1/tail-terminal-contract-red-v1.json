@@ -1,0 +1,17 @@
+{
+  "stage": "red_contract_before_implementation",
+  "command": [
+    "/private/tmp/afdm-resume-validation-20260915/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    ".trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py"
+  ],
+  "exit_code": 2,
+  "wall_seconds": 0.8184506248217076,
+  "stdout": "\n==================================== ERRORS ====================================\n_ ERROR collecting .trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py _\nImportError while importing test module '/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/.trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/Users/guoyikun/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py:15: in <module>\n    import tail_terminal_v1 as terminal\nE   ModuleNotFoundError: No module named 'tail_terminal_v1'\n=========================== short test summary info ============================\nERROR .trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 0.33s\n",
+  "stderr": ""
+}

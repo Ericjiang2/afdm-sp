@@ -1,0 +1,26 @@
+🧿 oracle 0.9.0 — We babysit the bot; you ship the build.
+Launching browser mode (gpt-5.4-pro) with ~7,124 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+Q1. **Yes — close Loop 10 on v2.** It clears the stated user rubric end-to-end: low-SNR null, high-SNR paired wins at 20/25/30, monotone learned waterfall, below torch-ref at high SNR, adaptive stopping respected, visible figure separation.
+
+Q2. **H2 is more likely than H1.** Why: retrain matches v2 at SNR=20, then specifically falls apart at 25/30, which looks more like **inference-calibration / logit-range mismatch** than a broad ranking-quality failure. Better cache metrics but worse BER also fits "wrong operating point."
+**Do one cheap probe only if non-blocking:** inspect P=8 logit histograms / top-k margins at 25/30 and test a bias sweep; but this should be **post-close**, not a gate.
+
+Q3. **No, not worth a gating round.** Safe-swap already smoked negative on the same class of heads and appears dominated by **force-topk + tau-cutoff** here. Unless you are willing to retune safe-swap thresholds specifically for the retrained head, I would not spend Loop-10 budget on it.
+
+Q4. **Paper framing is honest if you call it transfer/calibrated inference, not P=8-specialized training.**
+Recommended phrasing: **"ranking-informed support augmentation with SNR-adaptive commit calibration; a head trained in the harder P=10 regime transfers to P=8 and improves BER when commit aggressiveness is calibrated by SNR."**
+Do **not** imply the P=8 retrain was the winning model; say the successful P=8 result is a **cross-regime generalization** result.
+
+Q5. **Choose (a): v2 sufficient — close now.**
+Not (b): requiring Variant A to pass would turn a successful loop into a retrain-debug loop.
+Not (c): requiring Variant B to beat v2 by >5% at 25 is unnecessary once the shipped config already satisfies the rubric with significance.
+
+**v2 close score: 9/10.**
+Why not 10: the winning config is cross-applied rather than same-regime-trained, and Variant A instability leaves one unresolved mechanism question.
+**Decision: CLOSE LOOP 10 now, ship v2 as the headline P=8 figure, and log the P=8 bias-range probe as optional follow-up rather than a blocker.**
+
+
+7m49s · gpt-5.4-pro[browser] · ↑7.12k ↓516 ↻0 Δ7.64k
+files=4

@@ -1,0 +1,61 @@
+test_ce_checkpoint_injection_is_replaced_by_next_detector_capture (afdm_sp_joint_unrolled.test_bottleneck_feedback_consumers.ConsumerTests) ... ok
+test_default_matches_explicit_both_and_domain_is_strict (afdm_sp_joint_unrolled.test_bottleneck_feedback_consumers.ConsumerTests) ... ok
+test_real_decoder_delivery_goes_only_to_declared_direct_consumers (afdm_sp_joint_unrolled.test_bottleneck_feedback_consumers.ConsumerTests) ... ok
+test_zero_control_has_no_legal_code_information (afdm_sp_joint_unrolled.test_bottleneck_feedback_consumers.ConsumerTests) ... ok
+test_information_error_is_not_decoder_success_and_replay_checks_decisions (afdm_sp_joint_unrolled.test_bottleneck_pilot.PilotTests) ... ok
+test_new_namespace_and_split_are_distinct_and_snr_reuses_exogenous (afdm_sp_joint_unrolled.test_bottleneck_pilot.PilotTests) ... ok
+test_raw_readback_binds_inventory_dtype_shape_and_bytes (afdm_sp_joint_unrolled.test_bottleneck_pilot.PilotTests) ... ok
+test_reservation_precedes_work_and_deadline_and_limits_stop_new_calls (afdm_sp_joint_unrolled.test_bottleneck_pilot.PilotTests) ... ok
+test_terminal_cancellation_and_sigma_follow_the_declared_factor (afdm_sp_joint_unrolled.test_bottleneck_pilot.PilotTests) ... ok
+test_all_diagonal_exact_llr_and_discrete_moments (afdm_sp_joint_unrolled.test_supplement_detectors.SupplementDetectorTests) ... ok
+test_catalogue_eight_configs_two_distinct_algorithms (afdm_sp_joint_unrolled.test_supplement_detectors.SupplementDetectorTests) ... ok
+test_complex_unitary_columns_exact_and_no_input_mutation (afdm_sp_joint_unrolled.test_supplement_detectors.SupplementDetectorTests) ... ok
+test_coupled_four_symbol_exact_comparison_is_finite_not_exact_claim (afdm_sp_joint_unrolled.test_supplement_detectors.SupplementDetectorTests) ... ok
+test_invalid_inputs_and_truth_arguments_rejected (afdm_sp_joint_unrolled.test_supplement_detectors.SupplementDetectorTests) ... ok
+test_mf_energy_monotone_and_coupled_exact_difference_recordable (afdm_sp_joint_unrolled.test_supplement_detectors.SupplementDetectorTests) ... ok
+test_real_short_code_doubling_and_failure_threshold (afdm_sp_joint_unrolled.test_supplement_detectors.SupplementDetectorTests) ... ok
+test_unavailable_cuda_does_not_fall_back (afdm_sp_joint_unrolled.test_supplement_detectors.SupplementDetectorTests) ... ok
+test_zero_channel_has_prior_not_fake_gaussian_noise (afdm_sp_joint_unrolled.test_supplement_detectors.SupplementDetectorTests) ... ok
+test_checkpoint_and_control_domains (afdm_sp_joint_unrolled.test_supplement_feedback_controller.ControllerBoundaryTests) ... ok
+test_zero_control_cannot_inject_legal_app_into_ce (afdm_sp_joint_unrolled.test_supplement_feedback_controller.ControllerBoundaryTests) ... ok
+test_complete_disabled_chain_matches_frozen_forward (afdm_sp_joint_unrolled.test_supplement_feedback_controller.ControllerTests) ... FAIL
+test_enabled_changes_actual_next_detector_and_ce (afdm_sp_joint_unrolled.test_supplement_feedback_controller.ControllerTests) ... ok
+test_enabled_feedback_ce_audit_matches_consumed_moments (afdm_sp_joint_unrolled.test_supplement_feedback_controller.ControllerTests) ... ok
+test_diagonal_exact_posterior_and_excluded_channel (afdm_sp_joint_unrolled.test_supplement_feedback_bp.FeedbackBPTests) ... ok
+test_invalid_prior_and_observer_rejected (afdm_sp_joint_unrolled.test_supplement_feedback_bp.FeedbackBPTests) ... ok
+test_no_edges_returns_code_prior_and_zero_channel (afdm_sp_joint_unrolled.test_supplement_feedback_bp.FeedbackBPTests) ... ok
+test_default_disabled_and_none_preserve_numerical_chain (afdm_sp_joint_unrolled.test_supplement_feedback_adapter.FeedbackAdapterTests) ... ok
+test_illegal_feedback_and_truth_rejected (afdm_sp_joint_unrolled.test_supplement_feedback_adapter.FeedbackAdapterTests) ... ok
+test_legal_zero_sham_real_consumers_and_terminal (afdm_sp_joint_unrolled.test_supplement_feedback_adapter.FeedbackAdapterTests) ... ok
+test_default_and_explicit_original_and_reduced_calls (afdm_sp_joint_unrolled.test_supplement_feedback_schedule.ScheduleTests) ... ok
+test_schedule_domain_immutable (afdm_sp_joint_unrolled.test_supplement_feedback_schedule.ScheduleTests) ... ok
+
+======================================================================
+FAIL: test_complete_disabled_chain_matches_frozen_forward (afdm_sp_joint_unrolled.test_supplement_feedback_controller.ControllerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_i1_bottleneck_20260912/source-current/afdm_sp_joint_unrolled/test_supplement_feedback_controller.py", line 30, in test_complete_disabled_chain_matches_frozen_forward
+    np.testing.assert_array_equal(before[key],after[key],err_msg=key)
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/site-packages/numpy/testing/_private/utils.py", line 920, in assert_array_equal
+    assert_array_compare(operator.__eq__, x, y, err_msg=err_msg,
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/site-packages/numpy/testing/_private/utils.py", line 797, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Arrays are not equal
+H
+Mismatched elements: 31 / 256 (12.1%)
+Max absolute difference: 8.8817842e-16
+Max relative difference: 5.23324401e-16
+ x: array([[-0.428608+0.370298j,  0.      +0.j      ,  0.      +0.j      ,
+         0.      +0.j      ,  0.      +0.j      ,  0.      +0.j      ,
+         0.      +0.j      ,  0.      +0.j      ,  0.      +0.j      ,...
+ y: array([[-0.428608+0.370298j,  0.      +0.j      ,  0.      +0.j      ,
+         0.      +0.j      ,  0.      +0.j      ,  0.      +0.j      ,
+         0.      +0.j      ,  0.      +0.j      ,  0.      +0.j      ,...
+
+----------------------------------------------------------------------
+Ran 31 tests in 0.779s
+
+FAILED (failures=1)

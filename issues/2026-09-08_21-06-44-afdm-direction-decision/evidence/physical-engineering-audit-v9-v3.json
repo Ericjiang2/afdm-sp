@@ -1,0 +1,390 @@
+{
+  "status": "integration_passed_with_soft_bit_exact_exception",
+  "records": 18,
+  "jobs": {
+    "physical-baseline-v8": {
+      "complete_sha256": "a49b1070cdcc4654129a5a9bcf89e09be8b5cacc6f1be4a5fbfed69dc10974ea",
+      "wall_seconds": 4.287171445030253,
+      "CPU_seconds": 4.153768688,
+      "peak_gpu_bytes": 113359360,
+      "calls": 1
+    },
+    "physical-baseline-v9": {
+      "complete_sha256": "4be2ed9785346e455abc146eadbc50ba9d3152e314b6e5798a48f2122097d657",
+      "wall_seconds": 4.22462535102386,
+      "CPU_seconds": 4.14983069,
+      "peak_gpu_bytes": 113359360,
+      "calls": 1
+    },
+    "physical-engineering-v9": {
+      "complete_sha256": "869e28824cd2e079fe6dc14ed4ac16915d6691cf9deddf82045e1756e7ea5e0e",
+      "wall_seconds": 27.920675487956032,
+      "CPU_seconds": 27.445971354,
+      "peak_gpu_bytes": 113359360,
+      "calls": 16
+    }
+  },
+  "cost": {
+    "m-group": {
+      "n": 3,
+      "raw": [
+        0.7631258600158617,
+        0.7666091430000961,
+        0.7680328119895421
+      ],
+      "mean": 0.7659226050018333,
+      "p95": 0.7678904450905975,
+      "queries": [
+        0,
+        0,
+        0
+      ],
+      "converged": [
+        true,
+        true,
+        true
+      ]
+    },
+    "m-param-budget": {
+      "n": 3,
+      "raw": [
+        0.7812300429795869,
+        0.7941836040117778,
+        0.7987184479716234
+      ],
+      "mean": 0.7913773649876626,
+      "p95": 0.7982649635756388,
+      "queries": [
+        69,
+        69,
+        73
+      ],
+      "converged": [
+        false,
+        false,
+        false
+      ]
+    },
+    "m-param-reference": {
+      "n": 3,
+      "raw": [
+        1.0584386009722948,
+        1.0558834670227952,
+        1.1310028040315956
+      ],
+      "mean": 1.0817749573422286,
+      "p95": 1.1237463837256656,
+      "queries": [
+        411,
+        411,
+        507
+      ],
+      "converged": [
+        true,
+        true,
+        true
+      ]
+    },
+    "m-soft": {
+      "n": 3,
+      "raw": [
+        0.8921810089959763,
+        0.8066354990005493,
+        0.8018501210026443
+      ],
+      "mean": 0.8335555429997233,
+      "p95": 0.8836264579964336,
+      "queries": [
+        69,
+        69,
+        73
+      ],
+      "converged": [
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "diagnostic_input_hash_dtype": "complex128 conversion at callback boundary; raw before snapshots retain complex64",
+  "baseline_all_snapshot_arrays_bit_exact": false,
+  "baseline_differences": {
+    "Hhat": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "Htrue": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "y": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "pilot": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "constellation": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "sigma2": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "sigma2_terminal": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "sigma2_thermal": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "info": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "coded": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "data": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "noise": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "support": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "mu": {
+      "bit_exact": false,
+      "maximum_absolute_difference": 4.965068306494546e-16
+    },
+    "var": {
+      "bit_exact": false,
+      "maximum_absolute_difference": 8.326672684688674e-17
+    },
+    "llr": {
+      "bit_exact": false,
+      "maximum_absolute_difference": 5.329070518200751e-15
+    },
+    "decoded": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "info_hat": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "x_soft": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "x_hard": {
+      "bit_exact": true,
+      "maximum_absolute_difference": 0.0
+    }
+  },
+  "baseline_soft_regression": "Numerical agreement at rtol/atol1e-12; explicit post-diagnostic engineering criterion, not a retroactive bit-exact pass. Original exact check remains failed; direct independent review found no development-blocking behavior shift. No performance claim.",
+  "baseline_arrays_compared": [
+    "Hhat",
+    "Htrue",
+    "y",
+    "pilot",
+    "constellation",
+    "sigma2",
+    "sigma2_terminal",
+    "sigma2_thermal",
+    "info",
+    "coded",
+    "data",
+    "noise",
+    "support",
+    "mu",
+    "var",
+    "llr",
+    "decoded",
+    "info_hat",
+    "x_soft",
+    "x_hard"
+  ],
+  "same_parent_state_each_block": true,
+  "single_terminal_graph_and_H_consumption_verified": true,
+  "independent_H_assembly_and_fitted_residual_verified": true,
+  "source_snapshot_sha256": "4467f66b3231c52261b36db480467cb686b5acecc4873c121461fcd2447d6134",
+  "raw_evidence": [
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-baseline-v8/frame-000022-sbl-s0.5.json",
+      "sha256": "92a59796ed2c043edb2f8afb7543e518b8a9e1899e13f2066190dd115cb26768",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-baseline-v8/terminal-000022-sbl-s0.5.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "e2b49bb36d3c1ecf5c8fd16c75e7d367df9a6ebdd6cbb8d13d2e18d4f9942afd"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-baseline-v9/frame-000022-sbl-s0.5.json",
+      "sha256": "976064f0cf673d06425b95bad35675fa2779d29708a96db8826b7a3dc892d0dd",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-baseline-v9/terminal-000022-sbl-s0.5.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "6893a318a62e19a09f4cca59cc1a75cb1c170de250910cd35344558e595bd8e6"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000022-m-group.json",
+      "sha256": "0798de728df1130cd70b69c53ae787f48357e6509122783b48d92bfcb042b5d6",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000022-m-group.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "214d6713e0cba63c8f9e22a274dbaa3289f5f12bb20437eb7ef91043a5f171e2"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000022-m-param-budget.json",
+      "sha256": "8fcc1f46978f571659e99f579b376e1e890fb76505f8afd211c74fab5dcfcd2d",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000022-m-param-budget.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "928486ad2f3c04ca48fb4c619ef4be749e5858bcc9b814a5ff0c05b4d1990375"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000022-m-param-reference.json",
+      "sha256": "03993ca3c111b1fab266c253729a3c767cc736873c77f2aeb5cf29893053b1d3",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000022-m-param-reference.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "7e86e3964d4a261d14d000f9ae3beda079c44d342654d3416f4d9184106de7eb"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000022-m-soft.json",
+      "sha256": "9c74c62960b050ea5859d7b9a90302b94c998cf95b1c9b237ca7422e34019788",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000022-m-soft.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "bdf0f4b41089b2d0b9b05bcce202dfab7f06f941a6c621c84eb5d41303b40d84"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000023-m-group.json",
+      "sha256": "2fe47e9819da9740f9f61ec7101b0e45cfcbc3ed808c7fa5eddc7eebf3ec8744",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000023-m-group.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "e9c8e2b875e430b9727a05c23869f9e8feec11505d06d39587e8e159cb24d545"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000023-m-param-budget.json",
+      "sha256": "ffbfc021767c92c763a94290677b0a10f6f6245c265287c8724a157702ba5e11",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000023-m-param-budget.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "541340917333343f0ac545601ed8a100ae90bfae1cb385448ff37454ecd7b804"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000023-m-param-reference.json",
+      "sha256": "fa943cca8a4fe88bfd581bf5940b1c4a1bae1ad4dbfab67e4fff91528e807ba6",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000023-m-param-reference.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "aaacede42c9deb77c8943a00181d00d43c04541c2e435db45d9e4937f6648018"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000023-m-soft.json",
+      "sha256": "1fe88fffa226adffb5848e66f7a1da151506b6a8b13f0b489735f52f9414761c",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000023-m-soft.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "9e03625604318e1ca810d6fb3b85e35750d420661b6f032d45067096b66ad85a"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000024-m-group.json",
+      "sha256": "97627187c74bee8273efb6df8dd11804ec160a7987b9c227202efcc03e56e38d",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000024-m-group.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "c948322577d7bd1d457b18df1de37f9e0efeca3ebf866f40f326b7b51dffa275"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000024-m-param-budget.json",
+      "sha256": "e1311f7dae9b31927c38aa07bac67d7a4383410654902571f31102bc9b3bf952",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000024-m-param-budget.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "cb3296f74c555766c52aecd3890054f2ffdd7b8d24fa70af8ab8f2b4e69f4c2a"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000024-m-param-reference.json",
+      "sha256": "1a101d3ec22bda32f2453039700483941b3e360d2892d6e0dd8a33fb9a617489",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000024-m-param-reference.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "f4e20476e4e7890b1405a8860f46ab2ca0dc23ffb469f4045359b452e6756c7f"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000024-m-soft.json",
+      "sha256": "0a75380b00e4242f4380f196d494a75d00a6a441045c2cb257044251c94e2b79",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000024-m-soft.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "581b231e34562434bafefbe3d6e5beaf1b135e46da1340764e2c422ad476e7f2"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000025-m-group.json",
+      "sha256": "730c803550574a77a9459271d6c90f18f778342cebf8502cb8a28162c00fe78a",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000025-m-group.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "deb7de3fb382f8ee50aa3f64068e6e592d8201e74f6c3837ee828f133f5f7d2c"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000025-m-param-budget.json",
+      "sha256": "dbb06e26ac890096ecea9c99d89c4c6a3234974bb650122c79a6008ee6ad3e74",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000025-m-param-budget.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "8d0e596666c86fdc89e2e838845c614d2bff7f902ae979ec0d859f09752cb859"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000025-m-param-reference.json",
+      "sha256": "a79a8154c47a4da3ff0d875dba95f9637597df2761dba98a8692329efdd9b963",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000025-m-param-reference.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "79eb0bbdff8610789e84062498b01fd2dcb2b3a1150a65712c138985d714d98f"
+      }
+    },
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/frame-000025-m-soft.json",
+      "sha256": "71626cb2a52d6c7d8deefee38885b2a1579bfd09b91a2881bbf6e47f95e92d0b",
+      "snapshot": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/physical-engineering-v9/terminal-000025-m-soft.npz",
+        "scope": "offline evidence with truth; observed receiver does not receive this path",
+        "sha256": "aba31e18f8d0842cdb4871f08cee4debb686eca3fde4c240d8a3fbef6ebc291f"
+      }
+    }
+  ],
+  "command": [
+    "/home/guoyikun/.conda/envs/AFDM/bin/python",
+    "/data/guoyikun/tmp/audit-physical-engineering-v9-v3.py"
+  ],
+  "exit_code": 0,
+  "scope": "Real18full engineering integration; no new CE/terminal calls; n3 timing is provisional, no FER selection or formal A2 cost gate."
+}

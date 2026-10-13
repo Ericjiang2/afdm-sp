@@ -1,0 +1,40 @@
+Approved for a narrowly scoped offline recovery.
+
+The failure is an independent-recount schema-access bug, not a receiver or numerical-method failure.
+
+Please preserve the failed attempt and its receipt exactly as-is.
+
+You are authorized to:
+
+1. patch only the independent recount / reader code necessary to read the already-frozen primary timing schema correctly;
+2. specifically reconcile the reader with the actual primary nesting under `timing.complete_latency_seconds`;
+3. rerun the independent saved-output recount and summary comparison using only the already preserved outputs, checkpoints, raw arrays, manifests and seals;
+4. emit the completed recount JSON and comparison receipt;
+5. verify all previously intended FER, BER, trigger, deadline, timing and policy-level aggregates from saved outputs;
+6. retain an explicit diff / provenance record showing exactly what line(s) of recount code changed and why.
+
+Hard boundaries:
+
+- receiver calls = 0
+- decoder calls = 0
+- new observations = 0
+- no Monte Carlo rerun
+- no primary policy rerun
+- no F0/F2/CSTATE/LOCAL parameter or algorithm change
+- no primary analyzer change unless you first stop and ask
+- no selective replacement of failed or inconvenient outputs
+- no reuse of partial results from a different policy run unless already part of the frozen five-policy dataset
+- do not alter the primary result files
+
+The previously failed recount attempt must remain preserved as provenance.
+
+After the patched recount finishes, return:
+
+1. whether the independent recount fully matches the primary results;
+2. exact FER/BER/trigger/deadline/timing aggregates for all five policies;
+3. any discrepancy, however small;
+4. whether the five-policy Stage-B result is now admissible for scientific interpretation;
+5. the final systems verdict only if the independent recount passes;
+6. hashes/paths for the patched reader, new recount receipt, comparison report, and unchanged primary results.
+
+Do not run any receiver computation in this recovery.

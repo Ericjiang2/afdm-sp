@@ -1,0 +1,37 @@
+% === Fig. 1: Hero illustration ===
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.96\textwidth]{figures/ai_generated/fig1_hero_pipeline.png}
+    \caption{Diagnostic-plus-method overview. In the corrected AFDM evaluation, useful headroom is concentrated in sparse decision-boundary crossings rather than smooth mean-level residual shifts. This motivates a frozen observable bit-level corrector, which improves BER across untouched and shifted regimes while retaining an explicit failure boundary under severe path-count shift.}
+    \label{fig:hero_overview}
+\end{figure*}
+
+% === Fig. 2: Regime gains ===
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.48\textwidth]{figures/fig2_regime_gains.pdf}
+    \caption{BER gain of the frozen corrector across evaluation regimes. Error bars show paired-bootstrap 95\% confidence intervals. Positive regimes remain above zero, while the severe path-count shift is cleanly negative.}
+    \label{fig:regime_gains}
+\end{figure}
+
+% === Fig. 3: Packet-level impact ===
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.48\textwidth]{figures/fig3_system_impact.pdf}
+    \caption{Relative goodput gains for 64-bit and 256-bit contiguous packets. Small BER gains can amplify into meaningful endpoint gains in the positive regimes, while the severe path shift loses packet-level benefit.}
+    \label{fig:system_impact}
+\end{figure}
+
+% === Fig. 4: Feature ablation ===
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.48\textwidth]{figures/fig4_feature_ablation.pdf}
+    \caption{Feature-group ablation of the frozen corrector. The full observable feature set is strongest, and LLR-only retains only a small fraction of the full gain.}
+    \label{fig:feature_ablation}
+\end{figure}
+
+% === Table I ===
+\input{figures/TABLE_method_comparison}
+
+% === Table II ===
+\input{figures/TABLE_claim_scope}

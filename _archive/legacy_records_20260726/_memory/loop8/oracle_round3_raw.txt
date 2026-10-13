@@ -1,0 +1,75 @@
+🧿 oracle 0.9.0 — Detached runs, tethered results.
+Launching browser mode (gpt-5.4-pro) with ~3,881 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+**Q1 — Pick: D3-lite = BP-informed 2nd-pass OMP re-scoring**
+
+This is the **smallest interface I put above the revised bar**.
+`multi-restart + learned selector` is smaller in code, but I put it **below** the bar because it adds search noise, not new observability.
+
+**Code point**
+
+* Add `BPRescoreLiteHead` under `VARIANT_HEADS`.
+* Insert **once** after `classical OMP -> LS -> BP(return_soft=True)` and before final output.
+
+**Recipe**
+
+1. **Pass 1 (unchanged):** pilot-only OMP → LS → BP. Get `H0`, soft symbol means `mu`, reliabilities `rho`.
+2. **Build pass-2 evidence per atom `j`:**
+
+   * `p_j = log(|Phi_p^H r_p| + eps)`  (classical pilot score)
+   * `e = y - yhat(H0, mu)`
+   * `d_j = log(|A(mu)_j^H ((1-rho) ⊙ e)| + eps)`  (decision-directed data score)
+   * `u_j = log(sum_i |A(mu)_{ij}| (1-rho_i) + eps)`  (unreliability mass on atom footprint)
+3. **Tiny learned mixer**
+
+   * `g = sigmoid(a * (mean(rho) - tau))`
+   * `score_j = p_j + g * (alpha * d_j + beta * u_j)`
+4. **Pass 2:** rerun OMP from scratch with `score_j`, same `P`, standard LS on chosen support, then BP again.
+
+**Identity-at-init**
+
+* `alpha = 0`, `beta = 0`, set `tau > 1` so `g ≈ 0`.
+* Then `score_j = p_j` and the whole model is **bit-exact classical** at init.
+
+**Loss**
+
+* Cached-feature training first.
+* Off-support/support **BCE to oracle-dict support** + `0.5 *` pairwise rank loss (oracle atoms > hard negatives).
+* Frame weight `×2` if pass-1 BER > 0.
+* SNR weights: `10/15/20 -> 0.2 / 0.4 / 0.4`.
+
+**Train**
+
+* Cache **80k** pass-1 frames, SNR mix `1:2:2` over `10/15/20`.
+* AdamW, **LR `5e-3`**, batch **`256`** cached frames, **3 epochs**.
+* Optional short online tune only if val moves: **LR `1e-4`**, batch **`16`**, **1 epoch**, loss = bit-BCE + `0.2 *` rank anchor.
+
+**Validation**
+
+* Disjoint train/val/test seeds.
+* Full held-out **`1000f` per gate** each epoch.
+* Checkpoint rule: first require **10 dB non-regression** (`<= +3%` rel BER), then maximize mean BER drop at **15/20**.
+* Lock **one** ckpt, then run **one** official paired McNemar **500f** eval.
+
+**Q2 — Posterior**
+
+* **Posterior = `0.34`** for: win at **15 + 20 dB** and **no regression at 10 dB**.
+* Why: this is the smallest interface that injects **data-side information**.
+  I put `multi-restart + selector` at about **`0.22`**.
+
+**Q3 — Sanity / stop rules**
+
+* **Pre-train gate:** on `500` diagnostic frames, DD score `d_j` must improve missed-support recall over residual-MF by **>=2x** at **15 and 20 dB** for `K<=6`; else stop.
+* **Mid-train:** if after **2 epochs** there is no held-out BER gain at **both 15 and 20**, stop.
+* **Safety:** stop on **2 consecutive** full-gate evals with **10 dB** BER worse than classical by **>3% relative**.
+* **Anti-overfit:** never select ckpts on tiny/debug runs; minimum **1000f/gate** for any decision; exactly **one** final `500f` paired significance run.
+
+**Q4 — Score / decision**
+
+* **Score: 7/10**
+* **GO** — but **D3-lite only**, one round, no side ablations.
+
+
+16m02s · gpt-5.4-pro[browser] · ↑3.88k ↓745 ↻0 Δ4.63k
+files=4

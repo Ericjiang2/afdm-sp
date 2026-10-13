@@ -1,0 +1,431 @@
+Loop 11 Round 1 — Oracle GPT-5.4-pro (browser, --engine browser --browser-manual-login)
+Slug: loop11-r1-plan
+Started: 2026-04-22 16:51 UTC (00:51 CST 2026-04-23)
+Returned (after manual followup paste): 2026-04-23 ~01:50 CST
+Note: oracle browser run returned only 57-token meta in the auto log; user
+manually pasted the full ChatGPT response below (verbatim).
+
+================================================================================
+
+I read all three files.
+
+My top-1 recommendation for **this** round is not the current F1/F2/F1+F2 exactly as written. It is:
+
+**F2-P = multi-round refinement + refreshed candidate pool + defer prune until the final round + protect top learned additions at final prune**, with a **quick P=8 oracle-replay gate first**.
+
+Honest forecast:
+
+* **Visible ~1 dB at P=8 this loop:** about **30–35%**
+* **Visible 1–2 dB at both 20 and 25 dB:** about **10–15%**
+* **Full 2 dB at P=8 this loop:** **<5%**
+
+So: **1 dB-ish is still possible; 2 dB at P=8 this loop is unlikely.**
+
+---
+
+## Q1. Score the existing R1 plan
+
+I'm using **10 = best expected value for this loop**, where score mixes mechanism fit, code cost, and chance of producing a **visibly separated** BER curve at **SNR 20/25**.
+
+| plan                                             | score /10 | P(visible ~1 dB at 20 or 25) | P(1–2 dB at both 20 and 25) | verdict                                              |
+| ------------------------------------------------ | --------: | ---------------------------: | --------------------------: | ---------------------------------------------------- |
+| **F1 = no-prune**                                |   **2.0** |                         0.05 |                        0.01 | already smoked as harmful; pollution dominates       |
+| **F2 = refine-rounds 2**                         |   **6.0** |                         0.28 |                        0.10 | best of the existing four                            |
+| **F1+F2** *(as full no-prune + refine)*          |   **5.0** |                         0.22 |                        0.08 | could help retention, but full no-prune is too blunt |
+| **P=10 backup** *(same idea as parallel sanity)* |   **6.5** |                         0.35 |                        0.15 | not a P=8 answer, but best backup for a figure       |
+
+**Bottom line on the existing R1 plan as written:**
+overall I'd score it **5.5/10**, with **<30%** chance of giving the user the kind of **visibly separated P=8 figure** they want.
+
+### Better than the current R1
+
+I would replace `F1+F2` with this:
+
+### **F2-P (recommended)**
+
+* `refine_rounds = 2`
+* refresh candidate pool each round
+* **do not prune after round 1**
+* after round 2, prune back to `P`
+* at final prune, **force-retain top `r=2` learned additions** if they survived LS sanity checks
+
+That is the smallest change that directly attacks the likely failure mode: **useful learned atoms are either never seen long enough to change residual geometry, or they get re-evicted by prune-by-|gain| before they matter**.
+
+### Proposed pseudocode
+
+```python
+S = omp_support(y_pilot, Phi_pilot, P)          # size P
+added_hist = []
+
+for rr in range(refine_rounds):                 # rr = 0,1
+    g = ls_fit(Phi_pilot[:, S], y_pilot)
+    feats = build_c2rel_features(y_pilot, Phi_pilot, S, g, snr,
+                                 residual_mode=("pilot" if rr == 0 else "da_ls"))
+    cand_idx, cand_logit = score_offsupport_candidates(
+        feats, topM=96, K_add=4, refresh_pool=True
+    )
+
+    A = topk_offsupport(cand_idx, cand_logit, k=4)
+    added_hist.append((A, cand_logit[A]))
+
+    S = union_unique(S, A)                      # DO NOT prune yet
+
+    # optional DA-LS/BP update so round-2 sees a different residual
+    g = ls_fit(Phi_pilot[:, S], y_pilot)
+    H = synthesize_channel(S, g)
+    x_soft = bp_detect(y_full, H, sigma2)
+
+# final prune only once
+g = ls_fit(Phi_pilot[:, S], y_pilot)
+protect = top_r_added_atoms(added_hist, r=2)    # new heuristic
+S = prune_to_P(S, g, P, forced_keep=protect)    # rest by |g|
+g = ls_fit(Phi_pilot[:, S], y_pilot)
+H = synthesize_channel(S, g)
+x_hat = bp_detect(y_full, H, sigma2)
+```
+
+### Proposed new flags
+
+```bash
+--refine-rounds 2
+--cand-topm 96
+--defer-prune-until-final
+--protect-added 2
+```
+
+### Recommended R1 CLI
+
+```bash
+python eval_joint.py \
+  --P 8 --tau-ms 10 --variant c2rel \
+  --ckpt outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt \
+  --snrs 20 25 \
+  --target-errors 400 --min-frames 80 --max-frames 200 \
+  --refine-rounds 2 \
+  --cand-topm 96 \
+  --defer-prune-until-final \
+  --protect-added 2 \
+  --tag loop11_r1_f2p
+```
+
+If you have time for one backup:
+
+```bash
+python eval_joint.py \
+  --P 10 --tau-ms 10 --variant c2rel \
+  --ckpt outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt \
+  --snrs 20 25 \
+  --target-errors 400 --min-frames 80 --max-frames 200 \
+  --refine-rounds 2 \
+  --cand-topm 96 \
+  --defer-prune-until-final \
+  --protect-added 2 \
+  --tag loop11_r1_p10_f2p
+```
+
+---
+
+## Q2. Divergent ranking of A–K, plus new options
+
+Again, this is **this-loop expected value**, not long-run architectural ceiling.
+
+| rank   | option                                                              |           score /10 | comment                                                                        |
+| ------ | ------------------------------------------------------------------- | ------------------: | ------------------------------------------------------------------------------ |
+| **1**  | **L (new): deferred-prune / protected-prune / swap-aware prune**    |             **8.8** | best immediate fix to the one-shot union→prune bottleneck                      |
+| **2**  | **C: multi-round refinement + active-set update**                   |             **8.5** | best existing idea; should be implemented this loop                            |
+| **3**  | **I: hard-frame detector + conservative fallback**                  |             **7.9** | 63% of errors from worst 20% frames screams for gated extra compute            |
+| **4**  | **A: multi-atom joint scorer**                                      |             **6.7** | probably the right next-loop architecture, but not the fastest loop-11 move    |
+| **5**  | **D: support repair + tap correction**                              |             **5.8** | possible combo gain, but support is still the main bottleneck                  |
+| **6**  | **F: BP-aware loss**                                                |             **5.4** | could matter, but too expensive/risky for this loop                            |
+| **7**  | **K: curriculum / harder data mix**                                 |             **5.0** | useful incremental training hygiene, unlikely to create a visible figure alone |
+| **8**  | **J: heavier BP-informed refeed**                                   |             **4.8** | D3-lite already failed; I would not spend this loop here                       |
+| **9**  | **E: detector-side residual prior**                                 |             **4.6** | may help BER, but it muddies the channel-side story this round                 |
+| **10** | **B: learned OMP / LISTA**                                          |             **3.7** | high ceiling, wrong loop                                                       |
+| **11** | **G: replace classical estimator with learned posterior estimator** |             **3.2** | too large                                                                      |
+| **12** | **H: oracle replay artifact hypothesis**                            | **2.0 as a method** | important diagnostic, not an implementation path                               |
+
+### Top 1–2 to implement this loop
+
+1. **C + L together**
+   Treat them as one package: **refine twice, refresh candidates, defer prune, protect learned adds at the final prune.**
+2. **I as the second add-on if time remains**
+   Only the hardest frames get a third round or bigger `K_add`.
+
+### What I would *not* do this loop
+
+* not B, G
+* not F unless C+L misses and you explicitly open a new loop
+* not J as the primary path
+
+---
+
+## Q3. Why oracle replay goes near-PCSI but learned only captures ~14% of the gap
+
+I am **not counting** the already-known Loop-8 mechanism ("single-atom MF can't see the missed atoms; recall@6 ~3.5%").
+Here are **8 additional distinct mechanisms**, each with a **cheap ≤1 hour probe**.
+
+| mechanism                                                                  | why plausible                                                                                    | cheap probe (≤1h)                                                                                                                                       | what would confirm it                                             |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **1. Candidate-set bottleneck before C2-rel**                              | even a perfect head cannot recover atoms that never enter top-M candidate pool                   | on **P=8**, measure oracle-support coverage inside candidate pools `M={24,48,96,128}` at SNR 20/25/30                                                   | coverage remains low even at `M=96`                               |
+| **2. Useful learned atoms are re-evicted by prune**                        | F1 no-prune hurts, so prune matters; but current prune may be deleting the right atoms too early | log `proposed → accepted → survives-prune` for oracle-overlap adds on 100 bad frames                                                                    | many good adds are proposed but die at prune                      |
+| **3. The interface needs swap/drop, not add-only**                         | wrong OMP aliases remain in support and continue to explain away the truth                       | one-swap / two-swap counterfactual on bad frames: replace weakest or most-coherent selected atoms with oracle atoms                                     | 1–2 swaps beat 1–2 adds by a lot                                  |
+| **4. Training target is misaligned**                                       | "is oracle atom?" is not the same as "most useful atom under P=8 budget and prune"               | for top candidates on cached bad frames, compute marginal utility (`ΔBER`, `Δresidual`, or symbol-margin gain) and correlate with logit vs oracle label | logit tracks oracle-membership but not utility                    |
+| **5. P=10→P=8 transfer mismatch**                                          | the current best P=8 result is cross-applied from P=10                                           | compare logit distribution, recall@K, proposal survival, and BER lift on P=10 vs P=8 labeled batches                                                    | head looks healthy at P=10 but collapses at P=8                   |
+| **6. Heavy-tail hard frames dominate; head only helps easy frames**        | Loop-8 already showed 63% of errors come from worst 20% frames                                   | bucket frames by hardness proxy (residual norm, LS condition number, entropy, first-pass errors) and measure gain per bucket                            | gain disappears exactly on the hardest bucket                     |
+| **7. P=8 may simply not have the same oracle headroom as P=10**            | all the strongest oracle evidence in the notes is for P=10, not P=8                              | run **P=8 oracle-dictionary replay** at SNR 20/25/30; optionally sweep final support size `{8,10,12}` on 50–100 frames                                  | oracle at P=8 is only modestly better, or needs >8 support budget |
+| **8. Oracle replay ceiling may be slightly inflated by oracle definition** | user explicitly asked for this skepticism; worth falsifying                                      | compare (a) physical-support replay, (b) dictionary-support replay, (c) best-LS oracle replay                                                           | if (a) ≫ (b), oracle replay is partly "cheating"                  |
+| **9. Detector ceiling / finite-BP effect**                                 | modest H-est gains may not translate to BER until detector crosses a threshold                   | on 50 frames, rerun classical/learned/oracle with more BP iterations or a stronger detector                                                             | learned-vs-classical gap widens only under stronger detection     |
+
+### My probability ranking of these mechanisms
+
+Most likely:
+
+1. **candidate-set bottleneck**
+2. **prune re-eviction**
+3. **need swap/drop rather than add-only**
+4. **P=8-specific headroom/support-budget limitation**
+5. **hard-frame concentration**
+6. **target misalignment**
+7. **P10→P8 transfer mismatch**
+8. **detector ceiling**
+9. **oracle replay artifact** *(important to test, but not my leading belief)*
+
+The single **most important missing diagnostic** in the whole Loop-11 plan is:
+
+> **Run P=8 oracle-dictionary replay now.**
+
+Without that, you are still partly extrapolating the P=8 target from P=10 evidence.
+
+---
+
+## Q4. 4090-safe speedups for N=1024
+
+These are ranked by **speedup × effort × correctness risk**.
+
+| rank  | intervention                                                     | expected speedup | code effort | risk       | seed-management note |
+| ----- | ---------------------------------------------------------------- | ---------------: | ----------: | ---------- | -------------------- |
+| **1** | **Batched paired eval with pre-generated frame bank**            |         **2–4x** |      medium | low        | **yes, careful**     |
+| **2** | **Cache pilot-only sensing matrix / reusable templates**         |       **1.3–2x** |         low | very low   | no                   |
+| **3** | **BP adaptive early-stop / smaller high-SNR iteration schedule** |     **1.5–2.5x** |  low-medium | medium     | no                   |
+| **4** | **Batched LS solves by support-size bucket**                     |     **1.2–1.8x** |      medium | low-medium | no                   |
+| **5** | **TF32 + selective bf16 autocast outside BP/LS**                 |     **1.1–1.4x** |         low | low        | no                   |
+
+### 1) Batched paired eval: highest ROI
+
+Yes, you can batch frames within one SNR **and still preserve paired McNemar correctness**.
+
+The safe pattern is:
+
+1. **pre-generate** a deterministic frame bank: `(channel, bits, noise)` for frame `fi`
+2. store either full tensors or per-frame seeds
+3. run **both classical and learned** on the exact same frame bank
+4. batch only at the compute stage
+
+That preserves pairing. What you should **not** do is let batched generation implicitly change the global RNG stream and then assume it is equivalent to old one-frame-at-a-time runs.
+
+### Pseudocode
+
+```python
+# CPU-side deterministic frame bank
+bank = []
+for fi in range(max_frames):
+    seed = base_seed + fi
+    frame = simulate_one_frame(seed=seed, snr_db=snr_db)
+    bank.append(frame)
+
+for batch in chunk(bank, B=16):
+    y, meta = collate(batch)  # pinned CPU memory
+    y = y.to("cuda", non_blocking=True)
+
+    out_cls = run_pipeline(y, meta, learned=False)
+    out_lrn = run_pipeline(y, meta, learned=True)
+
+    update_paired_counts(out_cls, out_lrn, meta)
+```
+
+### Proposed flags
+
+```bash
+--eval-batch 16
+--frame-bank-cache frames_snr20_seed123.pt
+```
+
+### 2) Cache what is actually static
+
+Your suspicion is slightly mis-aimed: **Phi is not channel-dependent** in the first pilot-only pass. It depends on the transmit waveform/system, not on the realized channel.
+
+So:
+
+* **cache pilot-only `Phi_pilot` once**
+* reuse it across all frames and SNRs
+* for later data-aided rounds, full caching is not possible because `x_soft` changes, but you can still cache static index maps / phase ramps / base templates
+
+So the correct answer is:
+
+> **Do not cache "Phi per-channel realization." Cache the pilot-only sensing matrix globally, and cache reusable templates for the data-aided builder.**
+
+### 3) Mixed precision: safe and unsafe regions
+
+I would use:
+
+```python
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.backends.cudnn.allow_tf32 = True
+torch.set_float32_matmul_precision("high")
+```
+
+And then only autocast **safe regions**:
+
+* safe: feature MLPs, candidate scoring, large matmuls for feature extraction
+* unsafe: **BP**, log-domain updates, damping, `linalg.solve` / `lstsq`, BER counters
+
+### Safe pattern
+
+```python
+with torch.autocast("cuda", dtype=torch.bfloat16, enabled=args.amp_head):
+    logits = c2rel_head(feats)   # safe
+
+with torch.autocast("cuda", enabled=False):
+    g = torch.linalg.solve(G.float(), b.float())   # keep fp32
+    x = mp_detect_bp_torch(..., dtype=torch.float32)
+```
+
+I would prefer **bf16 over fp16** here.
+
+### 4) Batched LS solves
+
+If support sizes are similar, stack Gram systems:
+
+* group frames by support size
+* build batched `G = Phi_S^H Phi_S`
+* use batched `cholesky_ex + cholesky_solve`
+
+This mostly removes dispatch overhead from many tiny solves.
+
+### 5) CUDA streams: not my first move
+
+On a single 4090, overlapping channel-est and detector compute with streams is **not** where I'd spend time first. Both are GPU-heavy and will contend for the same device.
+Streams help more for:
+
+* overlapping **H2D copies**
+* overlapping **CPU frame generation** with GPU compute
+
+So my answer is: **low priority**.
+
+### Also worth saying explicitly
+
+* **bucketize LS, not BP**
+* `torch.compile` is a possible 6th option, but I'd put it below the five above because complex ops and dynamic control flow can make it annoying
+
+---
+
+## Q5. Adaptive early-stop
+
+### Eval early-stop
+
+For **Loop-11 fast screens**, **200–500 error bits is fine** as long as you also enforce a **minimum frame floor**.
+
+Recommended settings:
+
+| stage               | min frames | target errors | max frames | use                    |
+| ------------------- | ---------: | ------------: | ---------: | ---------------------- |
+| **R1 fast screen**  |     **80** |   **300–500** |    **200** | SNR 20/25 only         |
+| **R2 medium sweep** |    **120** |   **500–800** |    **250** | full 5-point sweep     |
+| **official**        |    **200** |  **800–1000** |    **500** | final figure / McNemar |
+
+Two caveats:
+
+1. At **25/30 dB**, you may hit frame cap before 500 errors. That is acceptable for **screening**, not ideal for the final figure.
+2. For **paired McNemar**, also watch **discordant pair count**. Error-bit target alone can underpower significance if the arms are nearly tied.
+
+### Training early-stop
+
+I would use:
+
+* **patience = 5**
+* **min_epochs = 3**
+* **max_epochs = 12**
+
+And I would stop on **held-out BER score**, not BCE alone.
+
+A good checkpoint rule for this loop:
+
+1. reject any ckpt that regresses **10 dB** by more than about **+3% relative BER**
+2. among survivors, maximize mean gain on **20/25**
+3. use **patience on full BER evals**, not on per-batch loss
+
+---
+
+## Q6. Hard stop rule: when to admit P=8 1–2 dB is structurally unlikely
+
+I would make this stricter and earlier than the current plan.
+
+### Immediate pre-code gate
+
+Run **P=8 oracle-dictionary replay** at SNR **20/25/30** on 100–150 frames.
+
+Define:
+[
+\Delta_{\text{oracle}} = \log_{10}(\mathrm{BER}*{cls}) - \log*{10}(\mathrm{BER}_{oracle})
+]
+
+If **P=8 oracle replay itself** does **not** show at least about **0.15 decades** gap at **20 or 25**, then a visibly shifted P=8 channel-side figure is probably **not available** in this regime.
+
+### After one revised P=8 attempt
+
+If your best revised P=8 config after R2 still has:
+
+* `BER_lrn / BER_cls > 0.75` at **20**, **and**
+* `BER_lrn / BER_cls > 0.70` at **25**
+
+**or**
+
+it closes **<40% of the P=8 oracle gap** at both **20 and 25**,
+
+then I would stop selling "visible 1–2 dB at P=8".
+
+### Pivot order
+
+My pivot order would be:
+
+1. **P=10 backup**
+2. **tau = 15 ms**
+3. **v = 3**
+
+I would not run a second rescue-only P=8 loop after the revised attempt misses.
+
+---
+
+## Q7. Anything missing / brutal honesty
+
+Yes. Three important things are missing.
+
+### 1) The biggest missing diagnostic is **P=8 oracle replay**
+
+Right now the strongest "oracle says huge headroom exists" result is **P=10**.
+That does **not automatically transfer** to **P=8**.
+
+### 2) You are not yet measuring **candidate-pool coverage**
+
+If the true useful atoms are absent from the top-M pool, the head is capped before it starts.
+
+### 3) You are not yet measuring **proposal survival through prune**
+
+That is the cleanest way to tell whether the scorer is failing or the interface is failing.
+
+### My honest paper-figure forecast
+
+* **Most likely**: another result that is **real, statistically strong, but still only modestly visible** at P=8.
+* **Plausible upside**: ~1 dB-ish visible shift at **20 or 25** if **F2-P** works and P=8 oracle headroom is actually there.
+* **Unlikely this loop**: a clean **2 dB P=8** figure.
+
+So I would frame this loop as:
+
+> **One serious P=8 attempt with the right interface fix (C+L), but with an early oracle gate and a live P=10/harder-regime backup.**
+
+That is the honest way to maximize the chance of leaving this round with either:
+
+* a stronger P=8 figure, or
+* a defensible, evidence-backed pivot instead of another ambiguous near-miss.
+
+If you want, I can turn this into a one-page "Loop 11 exact run order" with the first 4 commands and pass/fail gates.

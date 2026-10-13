@@ -1,0 +1,7 @@
+# One versioned F2E first-frame probe v2 — execution closed until Git freeze
+
+Purpose: test only whether the diagonally scaled grid QP in [F2_NUMERICAL_AMENDMENT.md](F2_NUMERICAL_AMENDMENT.md) lets the unchanged full F2E wrapper finish on the **same** sealed `s650_f0000` observation. The original failed v1 probe and its captured grid-22 QP remain immutable. This is one new, explicitly charged complete-wrapper attempt, not a replacement for v1 or a population FER comparison.
+
+Use the frozen original `f2_receiver.py` and `f2_probe.py` with the versioned `f2_estimator.py` source SHA recorded in `F2_PROBE_V2_MANIFEST.json`. The only estimator change is the grid-QP coordinate repair; the old source is retained as `f2_estimator_unscaled_v1.py`. The v2 manifest binds the original population input/seal and producer dependencies, the new amendment and launcher, and the v1 failure/capture receipts. Main must inspect and commit the manifest before any deployment. New remote output roots are `probe_f0000_launch_v2` and `probe_f0000_v2`; existing v1 paths are never overwritten.
+
+One CPU64 thread, CUDA hidden, task-local scratch; GNU timeout `115s` plus `5s` kill-after and the existing in-process guard. At most one F2E wrapper call, no new frame, truth read, F2T, or automatic retry. Preserve checkpoints, raw or failure, timing, and charged cost exactly as emitted by the frozen probe. A successful single-frame probe establishes only operational qualification at this input; it does not establish population error rate or justify changing F2 hyperparameters.

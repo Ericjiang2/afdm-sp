@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "Cref_Ccompat_final_bit_hash_equal_64": true,
+    "attempt_journal_contiguous": true,
+    "ledger_artifact_hashes_in_seal": true,
+    "metadata_bytes_match_seal": true,
+    "paired_input_sha_exact": true,
+    "producer_reference_max_difference_zero_2112": true,
+    "schedule_exact": true
+  },
+  "counts": {
+    "arms": {
+      "B": 1024,
+      "Ccompat": 1024,
+      "Cref": 64
+    },
+    "attempts": 2112,
+    "complete_ok": 2112,
+    "failed": 0,
+    "frames": 1024,
+    "sealed_files": 8491
+  },
+  "fer_ber_correct_deadline": "pending separate post-seal truth analysis",
+  "frozen_equivalence": {
+    "continuous": "atol=2e-10, rtol=0; all 2112 ledger reference maxima 0",
+    "current_Cref_subset_n": 64,
+    "discrete": "exact ordered geometry/counters/stops/intermediate and final bits, checked by producer",
+    "historical_stage_a_C_comparison_n": 1024,
+    "independent_raw_rehash": false
+  },
+  "historical_failed_run": "Original Cfast 409-attempt invalid_partial f197 1002-versus-995 counter mismatch remains unexplained; current Ccompat success does not erase it or prove cross-run determinism.",
+  "input_sha256": {
+    "launch_f1_compat_v1/launch_exit.json": "72aee2bc82f9ab30904200724d71d003e1fdeca5953912fd57a668300ab37148",
+    "launch_f1_compat_v1/launch_started.json": "c42fbec979cb41e1e019f87d77fd650403ac00a2bf33931eb884364748ac85fd",
+    "launch_f1_compat_v1/runner.log": "5ae78f62486742ae1001daaf2b740c2fb9aaa3f4408c6a5289c064312d21bbd7",
+    "observed_f1_compat_v1/attempts.jsonl": "a45336a0afb7ddc656e01506ed3d6df25cced22cec2da0d13b8bdb0908339d5c",
+    "observed_f1_compat_v1/ledger.jsonl": "fe04491d815fad44e9187b6e043b7cb26341f03418e4e13656087cec7032b1f3",
+    "observed_f1_compat_v1/manifest.json": "c352aa04dcc52e08a86869befa59c034ac92b72ed1016412d42a15d00ef2219f",
+    "observed_f1_compat_v1/observed_seal.json": "067fa733bbc1ecf26fe25b843f95d556f191bebb9d7b2ce4fcd3dae67f0cebdb"
+  },
+  "label_reason": "Matched-64 complete-latency reduction exceeds 10%, but removable acquisition excess is 32.1%, below the preregistered >50% F1-PYTHON-BOUND criterion; residual intrinsic versus runtime cost is not isolated.",
+  "launch_exit_code": 0,
+  "observed_git_commit": "64893916d5de5e81fd720946d666d9dbe313fb0d",
+  "observed_seal_git_blob_verified": true,
+  "prespecified_timing_label": "F1-UNRESOLVED",
+  "raw": "remote only; SHA inventory is the producer observed seal and was not independently rehashed locally",
+  "registration_sha256": "4e039bacbef589b47219f7c0173de1f0209363c2768283dc36a21a01498dd643",
+  "schema": "f1-fast-compat-equivalence-receipt/1",
+  "status": "producer_gates_pass_observed_git_sealed",
+  "timing_population_limit": "Cref timing n=64 matched only; not a full-1024 reference tail",
+  "timing_ratios": {
+    "complete_latency_reduction": 0.12175686768761192,
+    "full_acquisition_Ccompat_to_B": 3.3442157639519157,
+    "full_complete_Ccompat_to_B": 1.611781724339802,
+    "removable_acquisition_excess": 0.3209193274198916
+  },
+  "triggered_counts": {
+    "B": 40,
+    "Ccompat": 0,
+    "Cref": 0
+  },
+  "truth_scored": false
+}

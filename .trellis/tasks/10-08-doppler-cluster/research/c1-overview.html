@@ -1,0 +1,599 @@
+<title>SP-AFDM Bootstrapping Cliff</title>
+<meta name="description" content="Why a superimposed-pilot AFDM receiver fails abruptly as its channel model grows, and a first-principles law for the information its first round delivers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: one reading column (~68ch) inside a 1040px frame; figures and tables take the full frame width. */
+:root {
+  --paper: #f3f6f6;
+  --surface: #ffffff;
+  --ink: #15202a;
+  --muted: #586773;
+  --rule: #d3dbdf;
+  --accent: #0f6f86;      /* chirp trace: model curves, links */
+  --accent-soft: #d7ebf0;
+  --signal: #b06a00;      /* code threshold I*, cliff markers */
+  --ok: #2c7a4b;
+  --hyp: #6a4c9c;
+  --bad: #a83c3c;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --step--1: .84rem;
+  --step-0: 1.06rem;
+  --step-1: 1.3rem;
+  --step-2: 1.7rem;
+  --step-3: clamp(2.1rem, 4.6vw, 3.1rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0e1418; --surface: #151d22; --ink: #e2e8ea; --muted: #94a3ac; --rule: #2a353c;
+    --accent: #52b6cb; --accent-soft: #173640; --signal: #e3a43c; --ok: #5fbf86; --hyp: #a98fdc; --bad: #e07a7a;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0e1418; --surface: #151d22; --ink: #e2e8ea; --muted: #94a3ac; --rule: #2a353c;
+  --accent: #52b6cb; --accent-soft: #173640; --signal: #e3a43c; --ok: #5fbf86; --hyp: #a98fdc; --bad: #e07a7a;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 var(--step-0)/1.62 var(--body);
+  padding: 0 20px;
+}
+.frame { max-width: 1040px; margin: 0 auto; padding-block: 48px 72px; display: grid; gap: 56px; }
+.prose { max-width: 68ch; display: grid; gap: 14px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.12; }
+h1 { font-size: var(--step-3); font-weight: 700; letter-spacing: -.01em; }
+h2 { font-size: var(--step-2); font-weight: 700; }
+h3 { font-size: var(--step-1); font-weight: 500; margin-top: 10px; }
+p { margin: 0; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+code, .mono { font-family: var(--mono); font-size: .86em; }
+var { font-style: italic; }
+.eyebrow { font: 500 var(--step--1)/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sec-head { display: grid; gap: 8px; border-top: 1px solid var(--rule); padding-top: 22px; }
+section { display: grid; gap: 22px; }
+
+/* header */
+header { display: grid; gap: 18px; }
+.lede { font-size: var(--step-1); line-height: 1.45; max-width: 60ch; color: var(--ink); }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 400 var(--step--1)/1.4 var(--mono); color: var(--muted); }
+.meta b { font-weight: 500; color: var(--ink); }
+
+/* findings */
+.findings { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.finding { background: var(--surface); padding: 18px 18px 20px; display: grid; gap: 10px; align-content: start; }
+.finding .num { font: 700 1.9rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.finding p { font-size: .97rem; line-height: 1.5; }
+.chip { justify-self: start; font: 500 .72rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 5px 7px; border-radius: 3px; border: 1px solid currentColor; }
+.chip.est { color: var(--ok); }
+.chip.cal { color: var(--accent); }
+.chip.hyp { color: var(--hyp); }
+.chip.no { color: var(--bad); }
+
+/* spec grid */
+.spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px 24px; margin: 0; }
+.spec div { display: grid; gap: 2px; border-left: 2px solid var(--rule); padding-left: 10px; }
+.spec dt { font: 500 .74rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.spec dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+/* receiver loop diagram */
+.loop { display: grid; gap: 10px; }
+.loop-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; gap: 10px; }
+.stage { background: var(--surface); border: 1px solid var(--rule); padding: 14px; display: grid; gap: 4px; align-content: start; }
+.stage b { font-family: var(--display); font-weight: 500; font-size: 1.05rem; }
+.stage span { font-size: .9rem; color: var(--muted); line-height: 1.4; }
+.stage.inner { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.arrow { align-self: center; font: 500 1.2rem var(--mono); color: var(--muted); }
+.feedback { border: 1px dashed var(--muted); padding: 10px 14px; font-size: .9rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.feedback b { color: var(--ink); font-weight: 600; }
+.loop-note { font-size: .88rem; color: var(--muted); }
+
+/* tables */
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+th, td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+th { font: 500 .74rem/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--paper); }
+tr:last-child td { border-bottom: 0; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: .86rem; }
+caption { caption-side: bottom; text-align: left; padding: 10px 12px; font-size: .86rem; color: var(--muted); }
+
+/* timeline */
+ol.timeline { list-style: none; counter-reset: t; margin: 0; padding: 0; display: grid; gap: 14px; max-width: 74ch; }
+ol.timeline li { counter-increment: t; display: grid; grid-template-columns: 2.4rem 1fr; gap: 12px; }
+ol.timeline li::before { content: counter(t); font: 700 1.2rem/1.3 var(--display); color: var(--muted); font-variant-numeric: tabular-nums; }
+ol.timeline .c { font: 400 .78rem var(--mono); color: var(--muted); }
+
+/* math */
+math { font-family: math, "STIX Two Math", "Cambria Math", serif; font-size: 1.08em; }
+.eq { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; padding: 10px 16px; background: var(--surface); border-left: 3px solid var(--accent); overflow-x: auto; }
+.eq .tag { font: 400 .8rem var(--mono); color: var(--muted); }
+.step { display: grid; gap: 10px; }
+.step h3 { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+
+/* figures */
+figure { margin: 0; display: grid; gap: 10px; }
+figcaption { font-size: .9rem; color: var(--muted); max-width: 78ch; line-height: 1.5; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.chart { background: var(--surface); border: 1px solid var(--rule); padding: 10px; }
+.chart svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 400 .8rem var(--mono); color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: inline-block; width: 22px; height: 0; border-top: 2px solid; }
+svg text { font-family: var(--mono); font-size: 11px; fill: var(--muted); }
+svg .axis { stroke: var(--rule); stroke-width: 1; fill: none; }
+svg .grid { stroke: var(--rule); stroke-width: 1; stroke-dasharray: 2 4; fill: none; }
+svg .diag { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 5 4; fill: none; }
+svg .istar { stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 6 4; fill: none; }
+svg .istar-t { fill: var(--signal); }
+svg .curve { stroke: var(--accent); fill: none; stroke-linejoin: round; }
+svg .stair { stroke: var(--signal); stroke-width: 2; fill: none; }
+svg .stair-pt { fill: var(--signal); stroke: none; }
+svg .start { fill: var(--surface); stroke: var(--accent); stroke-width: 1.5; }
+svg .lab { fill: var(--ink); }
+svg .m-hw { stroke: var(--accent); stroke-width: 2.6; fill: none; }
+svg .m-ind { stroke: var(--muted); stroke-width: 1.4; stroke-dasharray: 7 4; fill: none; }
+svg .m-coh { stroke: var(--hyp); stroke-width: 1.4; stroke-dasharray: 2 3; fill: none; }
+svg .m-lim { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 1 3; fill: none; opacity: .8; }
+svg .obs { fill: var(--ink); stroke: none; }
+svg .whisk { stroke: var(--ink); stroke-width: 1.2; fill: none; }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.box { background: var(--surface); border: 1px solid var(--rule); padding: 16px 18px; display: grid; gap: 10px; align-content: start; }
+.box h3 { margin: 0; font-size: 1.08rem; }
+.box ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; font-size: .96rem; }
+.note { font-size: .92rem; color: var(--muted); }
+footer { font: 400 .8rem/1.6 var(--mono); color: var(--muted); border-top: 1px solid var(--rule); padding-top: 18px; display: grid; gap: 4px; }
+
+@media (max-width: 720px) {
+  .loop-row { grid-template-columns: 1fr; }
+  .arrow { transform: rotate(90deg); justify-self: center; }
+  .frame { padding-block: 28px 48px; gap: 44px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="frame">
+
+<header>
+  <div class="eyebrow">AFDM channel estimation · research brief · 9 Oct 2026</div>
+  <h1>SP-AFDM Bootstrapping Cliff</h1>
+  <p class="lede">A superimposed-pilot AFDM receiver works well until its channel model has too many coefficients. Then it fails within a narrow range of <var>K</var>. This brief covers the model, where the question came from, what sets the edge, and a new law for how much information the receiver's first round delivers.</p>
+  <div class="meta">
+    <span>Task <b>10-08-doppler-cluster</b></span>
+    <span>Branch <b>trans/tcom-main</b></span>
+    <span>Theory commit <b>2d0a2f90</b></span>
+    <span>Spec <b>research/c1-round1-loop-theory.md</b></span>
+  </div>
+</header>
+
+<section aria-label="Main findings">
+  <div class="findings">
+    <div class="finding">
+      <span class="chip est">Established</span>
+      <div class="num">I* = 0.577</div>
+      <p>The LDPC code fails half the time at the same input information for SP, true-channel and AWGN inputs. No parameter is fitted.</p>
+    </div>
+    <div class="finding">
+      <span class="chip cal">Calibrated</span>
+      <div class="num">6 / 6</div>
+      <p>A measured return map predicts where the cliff sits after 1 to 4 receiver rounds, within 7% in every cell.</p>
+    </div>
+    <div class="finding">
+      <span class="chip est">Derived, 56/56 cells</span>
+      <div class="num">(1 − c)<sup>−2</sup></div>
+      <p>Soft symbols re-absorb part of the channel error on every pass. The first-round error sits between the two parameter-free limits in all 56 stored cells.</p>
+    </div>
+    <div class="finding">
+      <span class="chip hyp">Hypothesis</span>
+      <div class="num">±0.036</div>
+      <p>If the surviving fraction equals the data share of the refit, the law matches first-round information within 0.036 bit on 12 points. Fresh-cell test frozen.</p>
+    </div>
+  </div>
+</section>
+
+<section id="background">
+  <div class="sec-head">
+    <div class="eyebrow">1 · Background</div>
+    <h2>What the project studies</h2>
+  </div>
+  <div class="prose">
+    <p>AFDM (affine frequency division multiplexing) places data on chirps whose slope is tuned to the channel. In a doubly dispersive channel, where every path has a delay and a Doppler shift, AFDM keeps paths apart in its chirp domain and so collects their diversity.</p>
+    <p>The receiver here uses a <b>superimposed pilot</b> (SP). Pilot and data occupy the same N chirp positions at the same time. The pilot takes a fraction <var>ρ</var> of the power and the data take <var>a</var> = 1 − <var>ρ</var>. Nothing is spent on guard intervals, but pilot and data interfere, so the receiver has to estimate the channel and the data together.</p>
+    <p>The paper line behind this work looks at channels where several rays share one delay bin with Doppler spread finer than one bin. The receiver models each delay tap with 8 DPSS (discrete prolate spheroidal) basis functions, so a channel with <var>L</var> taps costs <var>K</var> = 8<var>L</var> complex coefficients. Richer channels need larger <var>K</var>.</p>
+    <p><b>Question C1.</b> How large can <var>K</var> grow before the SP receiver fails, and what physical quantity sets that limit?</p>
+  </div>
+  <dl class="spec">
+    <div><dt>Block length</dt><dd>N = 1024 chirps, QPSK</dd></div>
+    <div><dt>Channel model</dt><dd>K = 8L DPSS-BEM coefficients</dd></div>
+    <div><dt>Code</dt><dd>LDPC (3,6), n = 2048, sum-product ≤ 50 it.</dd></div>
+    <div><dt>Pilot share</dt><dd>ρ ∈ {0.2, 0.3, 0.5}</dd></div>
+    <div><dt>SNR range</dt><dd>5 to 11 dB</dd></div>
+    <div><dt>Production rounds</dt><dd>2 coded rounds</dd></div>
+  </dl>
+</section>
+
+<section id="model">
+  <div class="sec-head">
+    <div class="eyebrow">2 · Modeling approach</div>
+    <h2>Signal model and receiver loop</h2>
+  </div>
+  <div class="prose">
+    <p>The received block is <var>y</var> = <var>H</var>(<var>h</var>)(<var>p</var> + <var>x</var>) + <var>w</var>, with pilot <var>p</var>, data <var>x</var>, noise power <var>n</var> = 10<sup>−SNR/10</sup> and channel <var>H</var>(<var>h</var>) = Σ<sub><var>k</var></sub> <var>h<sub>k</sub></var> <var>B<sub>k</sub></var>. Because the channel is linear in its coefficients, <var>H</var>(<var>h</var>)<var>s</var> = <var>A</var>(<var>s</var>)<var>h</var> for an N × K matrix <var>A</var>(<var>s</var>) built from the transmitted block. Estimating <var>h</var> is a regression on <var>A</var>(<var>p</var> + <var>x̂</var>), which only works as well as the soft data <var>x̂</var>.</p>
+    <p>All numbers are in physical units: transmit power 1, channel energy 1, pilot power <var>ρ</var>, data power <var>a</var>.</p>
+  </div>
+
+  <figure class="loop" aria-label="Receiver loop">
+    <div class="loop-row">
+      <div class="stage"><b>Channel refit</b><span>LMMSE on K coefficients from pilot plus current soft data. Round 1 uses the pilot only.</span></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="stage inner"><b>Joint detector · 20 updates</b><span>Channel gains and data symbols updated together, no code inside. This is the round-1 loop studied in section 6.</span></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="stage"><b>LDPC decoder</b><span>Sum-product, up to 50 iterations, early stop on syndrome.</span></div>
+    </div>
+    <div class="feedback"><span><b>Next round:</b> detector prior = decoder check-extrinsic LLRs</span><span><b>Refit</b> uses APP soft symbols</span><span>LLRs clipped to ±20</span></div>
+    <figcaption>One receiver round. The decoder's beliefs feed the next round's detector and refit. The channel estimate is rebuilt every round.</figcaption>
+  </figure>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Quantity</th><th>Meaning</th><th>Unit</th></tr></thead>
+      <tbody>
+        <tr><td><code>eps_ce_r</code>, <code>eps_det_r</code></td><td>Channel error after the refit and after the 20 joint updates of round <var>r</var>, ‖H − Ĥ‖²<sub>F</sub>/N</td><td>energy fraction</td></tr>
+        <tr><td><var>I</var><sub>in</sub></td><td>Information per coded bit at the decoder input, 1 − logloss of its LLRs</td><td>bit</td></tr>
+        <tr><td><var>I</var>*</td><td>Decoder-input information at which the code fails half the time (AWGN calibration)</td><td>bit</td></tr>
+        <tr><td>Φ<sub><var>K</var></sub>(<var>I</var>)</td><td>Return map: next round's <var>I</var><sub>in</sub> given previous decoder-input information <var>I</var></td><td>bit → bit</td></tr>
+        <tr><td><var>I</var><sub>1</sub>(<var>K</var>)</td><td>Round-1 decoder-input information with a pilot-only start, equal to Φ<sub><var>K</var></sub>(none)</td><td>bit</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="origin">
+  <div class="sec-head">
+    <div class="eyebrow">3 · Origin of the problem</div>
+    <h2>How the question sharpened</h2>
+  </div>
+  <ol class="timeline">
+    <li><div><b>A first-pass proxy.</b> The early picture used an SINR threshold <var>γ</var> ≈ 1.37 for the first pass and a coefficient budget <var>K</var>* = <var>κN</var>, with a U-shape in channel richness. <span class="c">0b1088b8, 35225b4c</span></div></li>
+    <li><div><b>External review.</b> Codex pointed out that inverting <var>K</var>* is classical SP-OFDM analysis (Liang, Rave, Fettweis). A cliff alone does not prove bootstrapping, and pilot columns are not orthogonal (largest correlation 0.150). <span class="c">39eb9885</span></div></li>
+    <li><div><b>Stored-row screen (T0).</b> Near the cliff, round 1 almost never decodes. Frames that succeed are rescued by decoder feedback in later rounds, and realised channel energy dominates which frames fail. <span class="c">32a62d27</span></div></li>
+    <li><div><b>Scalar error model (T2), frozen before comparison.</b> It failed. The round-1 channel error came out 1.55 to 3 times larger than predicted, so the one-dimensional error closure was dropped. <span class="c">1dfb182c, 722a150e</span></div></li>
+    <li><div><b>Change of coordinates (D2).</b> Measured in information per coded bit, the code threshold is universal: <var>I</var>* = 0.577 for SP, true-channel and AWGN inputs alike. The old <var>γ</var> = 1.37 was an artefact of SINR-proxy units. <span class="c">ac08735a</span></div></li>
+    <li><div><b>Interventions.</b> More rounds move the cliff. An exact channel start is forgotten within round 1. Freezing the channel estimate fails (FER ≈ 1). <span class="c">bdad1a06</span></div></li>
+    <li><div><b>Return map.</b> Predictions frozen before the data arrived placed the cliff correctly for 1 to 4 rounds. <span class="c">9473a774, 6b3ebda9</span></div></li>
+    <li><div><b>Round-1 law (this brief).</b> A derivation of <var>I</var><sub>1</sub>(<var>K</var>), the one curve that was still only measured. <span class="c">2d0a2f90</span></div></li>
+  </ol>
+</section>
+
+<section id="cliff">
+  <div class="sec-head">
+    <div class="eyebrow">4 · Principle</div>
+    <h2>Why the cliff happens</h2>
+  </div>
+  <div class="prose">
+    <p><b>The state is the decoder's belief.</b> The receiver rebuilds its channel estimate in every round and forgets how it started. What carries forward is the information the decoder hands back.</p>
+    <p><b>The code has a fixed threshold.</b> Decoding succeeds about half the time once the decoder-input information reaches <var>I</var>* = 0.577 bit. The value comes from the code alone.</p>
+    <p><b>Each round is one step on a map.</b> Round <var>r</var> + 1 delivers Φ<sub><var>K</var></sub>(<var>I<sub>r</sub></var>), starting from the round-1 value <var>I</var><sub>1</sub>(<var>K</var>). As <var>K</var> grows, both the starting point and the whole map sink toward the diagonal. The gap between map and diagonal is a tunnel the iteration climbs through. A narrow tunnel needs more rounds, which is why the cliff seen with two rounds moves when the receiver runs four.</p>
+    <p><b>The tunnel closes at a fold.</b> A denser map on 300 new frames (A4 run, 9 Oct) puts the average map below the diagonal at <var>K</var> = 224, 256 and 288, with intervals that exclude zero. From <var>K</var> = 224 the map has two stable states, a trap near 0.42 and the decoded state. An unstable point separates them and climbs toward <var>I</var>* as <var>K</var> grows (0.533, 0.547, 0.559). Ten-round runs from the pilot start stall: FER after round 10 is 0.61, 0.85 and 0.95 at <var>K</var> = 192, 224 and 256, and each frame ends either near 0.40 or near 0.78, with nothing in between.</p>
+    <p><b>The average map overstates long-run success near the fold.</b> At <var>K</var> = 192 the average map is still open, yet 61% of frames stall. Ten-round runs put the cliff after ten rounds at <var>K</var> ≈ 180 (176 to 185), below the average-map fold near 210, and rounds after the fifth move it by less than 8. Frames differ, and each frame's own map, measured on the same frames, says who stalls: no frame whose own map stays below the diagonal up to <var>I</var>* decodes (0 of 459). An open map is needed but not enough. Only 29% to 49% of those frames decode, because the idealised map runs slightly above real trajectories.</p>
+    <p><b>One frame, two end states.</b> For 62% to 70% of the frames that stall from the pilot start, an injected start below <var>I</var>* decodes within two rounds. Frames with no escape region below <var>I</var>* almost never do (1 of 150). So for one observation the outcome depends on where the decoder starts. Whether the stalled state is truly stable is not shown, and neither is whether a real receiver state can reach the decoded one: the injected start is an idealised decoder belief.</p>
+  </div>
+
+  <figure>
+    <div class="chart"><svg id="exit" viewBox="0 0 640 520" role="img" aria-label="EXIT return map at 6.5 dB with staircase for K equal 160"></svg></div>
+    <div class="legend">
+      <span><i style="border-color: var(--accent)"></i>measured Φ<sub>K</sub>, darker = larger K</span>
+      <span><i style="border-color: var(--signal); border-top-style: dashed"></i>code threshold I* = 0.577</span>
+      <span><i style="border-color: var(--signal)"></i>staircase, K = 160</span>
+      <span><i style="border-color: var(--muted); border-top-style: dashed"></i>diagonal</span>
+    </div>
+    <figcaption><b>Return map at 6.5 dB, ρ = 0.3, frames 500 to 599.</b> Open circles mark the pilot-only starting point <var>I</var><sub>1</sub> of each curve on the diagonal. For <var>K</var> = 160 the staircase reads 0.449 → 0.513 → 0.568 → 0.682. Rounds 1 to 3 stay below <var>I</var>*; round 4 crosses it. The measured FER for that setting is 0.99, 0.75, 0.51, 0.42 after rounds 1 to 4.</figcaption>
+  </figure>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Cliff position <var>K</var><sub>c</sub> where the R-round staircase reaches <var>I</var>*. Predictions frozen in 9473a774 before the map was measured on the cliff grid. Pre-registered bar |ln| ≤ 0.15 in 80% of cells.</caption>
+      <thead><tr><th>SNR, rounds</th><th class="n">K<sub>c</sub> predicted</th><th class="n">K<sub>c</sub> observed</th><th class="n">ln(pred/obs)</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>6.5 dB, R1</td><td class="n">77.7</td><td class="n">75.7</td><td class="n">+0.026</td><td>4-round runs, 400 frames</td></tr>
+        <tr><td>6.5 dB, R2</td><td class="n">136.4</td><td class="n">134</td><td class="n">+0.018</td><td>stored map rows, 1000 frames</td></tr>
+        <tr><td>6.5 dB, R3</td><td class="n">158.5</td><td class="n">159.2</td><td class="n">−0.004</td><td>4-round runs</td></tr>
+        <tr><td>6.5 dB, R4</td><td class="n">180.3</td><td class="n">168.1</td><td class="n">+0.070</td><td>4-round runs</td></tr>
+        <tr><td>8 dB, R1</td><td class="n">138.8</td><td class="n">141</td><td class="n">−0.016</td><td>stored boot rows</td></tr>
+        <tr><td>8 dB, R2</td><td class="n">203.5</td><td class="n">201</td><td class="n">+0.012</td><td>stored boot rows</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Scope: the map is measured on the SP receiver with simulated decoder beliefs on separate frames. The decoder side comes from the code alone. Nothing is fitted to FER. The R1 row follows almost directly from D2; the R2 to R4 rows test how rounds compose.</p>
+</section>
+
+<section id="novelty">
+  <div class="sec-head">
+    <div class="eyebrow">5 · Contributions</div>
+    <h2>What is new and what is standard</h2>
+  </div>
+  <div class="two">
+    <div class="box">
+      <h3>Standard tools used here</h3>
+      <ul>
+        <li>EXIT charts and staircase prediction (ten Brink, 2001).</li>
+        <li>LMMSE channel estimation with soft data; training cost with K unknowns (Hassibi and Hochwald, 2003).</li>
+        <li>Bilinear message passing and its state evolution under random mixing (BiG-AMP, Parker, Schniter and Cevher, 2014).</li>
+        <li>Stein's identity linking a posterior mean's derivative to its posterior variance.</li>
+        <li>Density evolution for iterative SP-OFDM receivers (Liang, Rave, Fettweis), the closest prior work.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Candidate contributions</h3>
+      <ul>
+        <li><span class="chip est">Established</span> The SP receiver's code threshold is universal in information units. The SINR threshold used before was a unit artefact.</li>
+        <li><span class="chip cal">Calibrated</span> <var>K</var> is the variable that drives the fold. The number of rounds sets where the finite-round cliff sits, and the channel start is forgotten.</li>
+        <li><span class="chip est">Derived</span> A closed-form round-1 law with a coherent self-absorption factor and a K/N load scaling.</li>
+        <li><span class="chip hyp">Hypothesis</span> The surviving coherent fraction equals the data share of the refit Gram matrix.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">Novelty is not claimed yet. Before any novelty sentence, a literature pass will check the round-1 law against semi-blind and superimposed-training analyses and against OAMP and VAMP corrections for structured operators.</p>
+</section>
+
+<section id="law">
+  <div class="sec-head">
+    <div class="eyebrow">6 · First-principles model</div>
+    <h2>How much information the round-1 loop delivers</h2>
+  </div>
+  <div class="prose">
+    <p>Round 1 starts from a pilot-only channel estimate and runs 20 joint updates of channel and data with no help from the code. Its output information <var>I</var><sub>1</sub>(<var>K</var>) sets the first step of every staircase. The derivation below finds the loop's fixed point in four steps. It uses only the SNR, <var>ρ</var>, <var>K</var>, <var>N</var>, the true-channel detector efficiency <var>η</var> and the code's AWGN curves.</p>
+  </div>
+
+  <div class="step">
+    <h3>Step 1 · Refit with soft data <span class="chip est">Derived · checked</span></h3>
+    <div class="prose"><p>Soft data with normalised error <var>v</var> act as extra pilot of energy <var>a</var>(1 − <var>v</var>), and their error adds noise <var>av</var>. A flat-prior LMMSE fit of <var>K</var> coefficients from <var>N</var> samples then leaves the channel error</p></div>
+    <div class="eq"><math display="block"><msub><mi>e</mi><mtext>ind</mtext></msub><mo>(</mo><mi>v</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>K</mi><mi>s</mi></mrow><mrow><mn>1</mn><mo>+</mo><mi>K</mi><mi>s</mi></mrow></mfrac><mo>,</mo><mspace width="1.4em"></mspace><mi>s</mi><mo>(</mo><mi>v</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>n</mi><mo>+</mo><mi>a</mi><mi>v</mi></mrow><mrow><mo>(</mo><mi>ρ</mi><mo>+</mo><mi>a</mi><mo>(</mo><mn>1</mn><mo>−</mo><mi>v</mi><mo>)</mo><mo>)</mo><mi>N</mi></mrow></mfrac></math><span class="tag">(1)</span></div>
+    <div class="prose"><p>The per-coefficient shrinkage is <var>β</var> = 1/(1 + <var>Ks</var>). With <var>v</var> = 1 (pilot only) this reproduces the observed round-1 refit error within 3% in all 56 stored cells.</p></div>
+  </div>
+
+  <div class="step">
+    <h3>Step 2 · Detector link <span class="chip est">Derived</span></h3>
+    <div class="prose"><p>The LMMSE estimate is orthogonal to its error, so the estimated channel keeps energy 1 − <var>e</var> and the rest acts as interference. The detector's equivalent SINR and the soft-data error are</p></div>
+    <div class="eq"><math display="block"><mi>q</mi><mo>(</mo><mi>e</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>η</mi><mi>a</mi><mo>(</mo><mn>1</mn><mo>−</mo><mi>e</mi><mo>)</mo></mrow><mrow><mi>n</mi><mo>+</mo><mi>e</mi></mrow></mfrac><mo>,</mo><mspace width="1.4em"></mspace><mi>v</mi><mo>=</mo><msub><mi>M</mi><mtext>QPSK</mtext></msub><mo>(</mo><mi>q</mi><mo>)</mo></math><span class="tag">(2)</span></div>
+    <div class="prose"><p><var>η</var> comes from the true-channel receiver, so <var>e</var> = 0 reproduces it exactly. The failed T2 model used <var>ηa</var>/(<var>n</var> + <var>e</var>) without the factor 1 − <var>e</var>, which matters once <var>e</var> reaches 0.2 to 0.4.</p></div>
+  </div>
+
+  <div class="step">
+    <h3>Step 3 · Self-absorption of the channel error <span class="chip est">Derived</span></h3>
+    <div class="prose">
+      <p>This is the term the T2 model lacked. The detector's soft symbols are posterior means computed with the current, wrong channel. By Stein's identity, a posterior mean moves with its input at an average rate equal to posterior variance over noise variance. For QPSK that rate is <var>d</var> = <var>qv</var>. So the soft symbols carry a linear image of the channel error, <var>d</var> · <var>G</var>Δ<var>H</var><var>s</var>.</p>
+      <p>In the next refit that image lands in the residual as −<var>d A</var>(<var>s</var>)Δ<var>h</var>. It lies in the span of the regressors, so the refit hands back a fraction of the old error:</p>
+    </div>
+    <div class="eq"><math display="block"><mi>Δ</mi><msub><mi>h</mi><mtext>new</mtext></msub><mo>=</mo><mi>c</mi><mspace width=".2em"></mspace><mi>Δ</mi><mi>h</mi><mo>+</mo><mi>Δ</mi><msub><mi>h</mi><mtext>fresh</mtext></msub><mo>,</mo><mspace width="1.2em"></mspace><mi>c</mi><mo>=</mo><mi>κ</mi><mi>β</mi><mi>d</mi><mo>,</mo><mspace width="1.2em"></mspace><mn>0</mn><mo>≤</mo><mi>κ</mi><mo>≤</mo><mn>1</mn></math><span class="tag">(3)</span></div>
+    <div class="prose"><p>The noise and data are the same on every pass, so the fresh part is the same vector each time and the amplitudes add. The fixed point is</p></div>
+    <div class="eq"><math display="block"><msup><mi>e</mi><mo>*</mo></msup><mo>=</mo><mfrac><mrow><msub><mi>e</mi><mtext>ind</mtext></msub><mo>(</mo><mi>v</mi><mo>(</mo><msup><mi>e</mi><mo>*</mo></msup><mo>)</mo><mo>)</mo></mrow><msup><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>c</mi><mo>)</mo></mrow><mn>2</mn></msup></mfrac></math><span class="tag">(4)</span></div>
+    <div class="prose"><p><var>κ</var> = 0 is the textbook picture in which soft-symbol errors are independent of the channel error; that is the failed T2 structure. <var>κ</var> = 1 is full coherent absorption. The two limits bracket the observed round-1 channel error in <b>56 of 56</b> stored cells, with no fitted parameter.</p></div>
+  </div>
+
+  <div class="step">
+    <h3>Step 4 · How much survives the receiver's correction <span class="chip hyp">Post-hoc hypothesis</span></h3>
+    <div class="prose">
+      <p>The joint detector already carries Onsager-type correction terms. Those terms are exact only when every symbol mixes randomly with every coefficient. In SP-AFDM the coherent image is a fixed linear function of Δ<var>h</var>, so the correction removes only part of it. The pilot regressors are exact and anchor the fit. The contamination enters through the soft-data regressors, so a natural guess weights it by their share of the refit Gram matrix:</p>
+    </div>
+    <div class="eq"><math display="block"><mi>κ</mi><mo>=</mo><mi>w</mi><mo>(</mo><mi>v</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>a</mi><mo>(</mo><mn>1</mn><mo>−</mo><mi>v</mi><mo>)</mo></mrow><mrow><mi>ρ</mi><mo>+</mo><mi>a</mi><mo>(</mo><mn>1</mn><mo>−</mo><mi>v</mi><mo>)</mo></mrow></mfrac><mo>,</mo><mspace width="1.4em"></mspace><msub><mi>I</mi><mn>1</mn></msub><mo>(</mo><mi>K</mi><mo>)</mo><mo>=</mo><msub><mi>J</mi><mtext>QPSK</mtext></msub><mo>(</mo><mi>q</mi><mo>(</mo><msup><mi>e</mi><mo>*</mo></msup><mo>)</mo><mo>)</mo></math><span class="tag">(5)</span></div>
+    <div class="prose"><p>This choice came after fitting <var>κ</var> cell by cell to stored rows (with the T2 link): the fitted values ran from 0.31 to 0.97 and tracked <var>ρ</var>. It is a hypothesis. Section 7 measures <var>c</var> directly and tests the law on cells that have not been simulated.</p></div>
+  </div>
+
+  <figure>
+    <div class="panels">
+      <div class="chart"><svg id="i1a" viewBox="0 0 470 360" role="img" aria-label="Round-1 information versus K at 6.5 dB"></svg></div>
+      <div class="chart"><svg id="i1b" viewBox="0 0 470 360" role="img" aria-label="Round-1 information versus K at 8 dB"></svg></div>
+    </div>
+    <div class="legend">
+      <span><i style="border-color: var(--accent); border-top-width: 3px"></i>law, κ = w</span>
+      <span><i style="border-color: var(--muted); border-top-style: dashed"></i>κ = 0, independent errors</span>
+      <span><i style="border-color: var(--hyp); border-top-style: dotted"></i>κ = 1, full absorption</span>
+      <span><i style="border-color: var(--muted); border-top-style: dotted; opacity: .8"></i>genie data (top), pilot only (bottom)</span>
+      <span>● measured Φ<sub>K</sub>(none), 95% CI</span>
+    </div>
+    <figcaption><b>Round-1 information <var>I</var><sub>1</sub> against <var>K</var>, ρ = 0.3.</b> Measured points come from 100 frames per cell. The law tracks them within 0.036 bit. The round-1 cliff is where the curve crosses <var>I</var>*. Predicted 62 vs observed 76 at 6.5 dB; 133 vs 141 at 8 dB.</figcaption>
+  </figure>
+
+  <h3>What the law says</h3>
+  <div class="prose">
+    <p><b>Each coefficient has an information cost.</b> For small <var>K</var>, <var>e</var>* ≈ (<var>K</var>/<var>N</var>)Λ<sub>0</sub>. Λ<sub>0</sub> lies between the genie-data cost <var>n</var> and the pilot-only cost (<var>n</var> + <var>a</var>)/<var>ρ</var>. Self-absorption roughly doubles it at 6.5 dB.</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <caption>Channel error per unit K/N at ρ = 0.3. Efficiency = share of the log gap between pilot-only and genie data that the loop closes.</caption>
+      <thead><tr><th>SNR</th><th class="n">genie data</th><th class="n">loop, κ = w</th><th class="n">loop, κ = 0</th><th class="n">pilot only</th><th class="n">efficiency κ = w</th><th class="n">efficiency κ = 0</th></tr></thead>
+      <tbody>
+        <tr><td>6.5 dB</td><td class="n">0.224</td><td class="n">0.985</td><td class="n">0.485</td><td class="n">3.08</td><td class="n">44%</td><td class="n">71%</td></tr>
+        <tr><td>8 dB</td><td class="n">0.158</td><td class="n">0.585</td><td class="n">0.307</td><td class="n">2.86</td><td class="n">55%</td><td class="n">77%</td></tr>
+        <tr><td>11 dB</td><td class="n">0.079</td><td class="n">0.205</td><td class="n">0.135</td><td class="n">2.60</td><td class="n">73%</td><td class="n">85%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <p><b>Only K/N matters.</b> Every term depends on <var>K</var> and <var>N</var> through their ratio. If <var>η</var> and <var>κ</var> do not change with <var>N</var>, the round-1 cliff scales as <var>K</var><sub>c</sub> ∝ <var>N</var>. This is untested, because the frozen receiver accepts only N = 1024.</p>
+    <p><b>The round-1 loop never folds in this regime.</b> The map has a single fixed point for every stored SNR and <var>ρ</var> up to <var>K</var> = 1024, and its slope there is at most 0.75 (median 0.17), so 20 updates converge. That explains why an exact channel start is forgotten. The sharpness of the cliff comes from the code's threshold, not from the loop.</p>
+    <p><b>The loop's gain fades with K.</b> The pilot-only error saturates like <var>Ks</var>/(1 + <var>Ks</var>). The loop's own error keeps growing with <var>K</var>/<var>N</var> and is amplified by the falling SINR and by (1 − <var>c</var>)<sup>−2</sup>. The ratio of round-1 to pilot-only error therefore rises from 0.16 to 0.63, as measured.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Retrodiction on stored rows. Post hoc: the κ = w column was chosen after seeing these data.</caption>
+      <thead><tr><th>Check</th><th class="n">κ = 0</th><th class="n">κ = w</th><th class="n">κ = 1</th></tr></thead>
+      <tbody>
+        <tr><td>Round-1 channel error, 56 cells: median ln(pred/obs)</td><td class="n">−0.54</td><td class="n">+0.12</td><td class="n">+0.77</td></tr>
+        <tr><td>Round-1 channel error: cells within |ln| ≤ 0.30</td><td class="n">2%</td><td class="n">79%</td><td class="n">7%</td></tr>
+        <tr><td>I<sub>1</sub> at 12 points: largest error (bit)</td><td class="n">0.184</td><td class="n">0.036</td><td class="n">0.179</td></tr>
+        <tr><td>Round-1 cliff, 7 groups: |ln(pred/obs)|</td><td class="n">no crossing in 5</td><td class="n">0.03 to 0.21</td><td class="n">0.64 to 0.89</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="verify">
+  <div class="sec-head">
+    <div class="eyebrow">7 · Verification</div>
+    <h2>Lightweight tests for the user and Codex</h2>
+  </div>
+  <div class="prose"><p>The full specification, with exact pass rules and branches, is in <code>research/c1-round1-loop-theory.md</code> section 7. Fresh-cell predictions were frozen in commit 2d0a2f90 before any of these rows exist.</p></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Test</th><th>What it checks</th><th>Cost</th><th>Pass</th><th>If it fails</th></tr></thead>
+      <tbody>
+        <tr><td><b>V1</b> link</td><td>Per frame, the measured round-1 channel error predicts that frame's information through link (2)</td><td>No new frames; stored rows on the server</td><td>Median error ≤ 0.03 bit in 80% of cells; beats the T2 link in 75%</td><td>The link carries the error; fix step 2 first</td></tr>
+        <tr><td><b>V2</b> probe</td><td>Measures the loop gain <var>c</var> by nudging the converged channel; refits with independent soft data</td><td>6 cells × 40 frames, CPU minutes</td><td><var>c</var> inside [0, <var>βd</var>]; <var>c</var>/(<var>βd</var>) within 25% of <var>w</var>; error ratio matches (1 − <var>c</var>)<sup>−2</sup></td><td>Keep the law with a measured κ; or reject self-absorption if the error ratio does not match</td></tr>
+        <tr><td><b>V3</b> blind cells</td><td>Law on 9.5 dB ρ 0.3, 8 dB ρ 0.4, 6.5 dB ρ 0.2</td><td>3 groups × 6 to 7 K values × 200 frames</td><td>I<sub>1</sub> within 0.05 bit in 80% of cells; cliff within |ln| ≤ 0.25 per group</td><td>Drop κ = w; the bracket survives</td></tr>
+        <tr><td><b>V4</b> K/N</td><td>N = 512 copy of the receiver; cliff should halve</td><td>Needs a non-frozen receiver copy</td><td>|ln| ≤ 0.15</td><td>Deferred until V2 and V3 pass</td></tr>
+        <tr><td><b>V5</b> start</td><td>Exact vs pilot-only channel start at the largest K of each V3 group</td><td>Cheap add-on to V3</td><td>Round-1 information differs by ≤ 0.01</td><td>A round-1 fold exists; revisit section 6</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <caption>Reference predictions for V3 with <var>η</var> interpolated from existing cells. The scored prediction uses <var>η</var> from the new true-channel rows through the frozen rule.</caption>
+      <thead><tr><th>Group</th><th class="n">K range</th><th class="n">predicted round-1 cliff K<sub>c</sub></th><th class="n">I<sub>1</sub> at smallest K</th><th class="n">I<sub>1</sub> at largest K</th></tr></thead>
+      <tbody>
+        <tr><td>9.5 dB, ρ 0.3</td><td class="n">64 to 256</td><td class="n">163</td><td class="n">0.784</td><td class="n">0.425</td></tr>
+        <tr><td>8 dB, ρ 0.4</td><td class="n">64 to 256</td><td class="n">125</td><td class="n">0.662</td><td class="n">0.417</td></tr>
+        <tr><td>6.5 dB, ρ 0.2</td><td class="n">32 to 192</td><td class="n">63</td><td class="n">0.659</td><td class="n">0.349</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <p><b>Outcome (9 Oct).</b> V3, the blind test, passed. On 20 cells nobody had simulated, the law predicted round-1 information to within 0.042 bit everywhere. The two limits held in every cell. The cliff came within 6% to 8% in two groups and 22% early at 6.5 dB, ρ 0.2, right on the bar. The law runs pessimistic throughout.</p>
+    <p>V2, the probe, rejected the mechanism. Nudging the converged channel shows a large loop gain (<var>c</var> ≈ 0.5 to 0.7) in the alternating detector and refit map, above the bound <var>βd</var>. At that gain the error would be 4 to 9 times the independent-error value. The receiver actually shows 1.2 to 1.7 times that value, measured against independent soft data of the same true quality. Its own corrections cancel about three quarters of the coherent gain. What remains acts like an effective <var>κ</var> between 0.21 and 0.56. It falls with <var>ρ</var> and sits near 0.7 <var>w</var>, so <var>κ</var> = <var>w</var> overstates it and is not the mechanism.</p>
+    <p>V1, the link check, failed one clause. The derived link is not reliably better than the old one when the channel error is small. Where the error is large, it is within 0.02 bit and the old link is off by up to 0.10. So the law stands as a calibrated predictor with one effective constant, not as a derived mechanism. Deriving that constant needs the receiver's joint updates.</p>
+  </div>
+</section>
+
+<section id="status">
+  <div class="sec-head">
+    <div class="eyebrow">8 · Status</div>
+    <h2>Where things stand</h2>
+  </div>
+  <div class="two">
+    <div class="box">
+      <h3>Recorded</h3>
+      <ul>
+        <li>Evidence chain d79a578d → 6b3ebda9 (T0, T1, T2, D1 to D3, interventions, return map).</li>
+        <li>Round-1 law, retrodiction and frozen V3 numbers in 2d0a2f90 (<code>c1r1_model.py</code>, <code>out/c1r1/</code>).</li>
+        <li>Draft result card <code>res-20261009-01</code>, pending your acceptance.</li>
+        <li>Fold run A4: pre-registration 4d517d17; results in <code>out/c1f/</code>.</li>
+        <li>Per-frame run A5: pre-registration 882e676f; results in <code>out/c1g/</code>.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Open</h3>
+      <ul>
+        <li>Whether a real receiver state, not an injected one, can reach the upper basin (for example through a warm start).</li>
+        <li>Effective κ: Claude's round 1 explains its size (soft symbols absorb part of the noise, offsetting most of the feedback) but not its value or ρ trend; the round-1 output is not a fixed point. Codex's split (J12) puts it mainly in the structure of the receiver's own symbol errors, which also carries the ρ trend; more inner updates (40 or 80 instead of 20) lower the channel error further. Round 2 could not turn this into a formula, so the κ = w law stays.</li>
+        <li>Inner budget: 40 inner updates per round instead of 20 move the cliff 8% to 40% to the right at every round, in all six conditions tested; 30 to 40 updates is enough. The ten-round cliff moves from K ≈ 180 to 214, and four rounds of 30 updates beat the default ten rounds of 20 at about 55% of the compute. Draft card res-20261010-01; prior-art check pending.</li>
+        <li>Extending the law from Φ<sub>K</sub>(none) to the whole return map.</li>
+        <li>Literature check before any novelty claim.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Code: experiments/headroom_ladder_20261008/ · Notes: .trellis/tasks/10-08-doppler-cluster/research/</span>
+  <span>Rows stay on deinlab under /data/guoyikun/00inbox/AFDM-channel-estimation/; md5 in each REMOTE_ROWS_MD5.txt.</span>
+</footer>
+
+</div>
+
+<script>
+const OBS={"6.5":[[64,0.598,0.579,0.616],[96,0.549,0.537,0.562],[128,0.503,0.492,0.514],[160,0.449,0.44,0.459],[192,0.411,0.403,0.42],[224,0.375,0.366,0.384]],"8":[[64,0.708,0.688,0.728],[96,0.656,0.641,0.67],[128,0.599,0.587,0.612],[160,0.534,0.523,0.544],[192,0.486,0.477,0.495],[224,0.44,0.431,0.45]]};
+const PHI={"L8":{"none":0.598,"pts":[[0.42,0.62],[0.45,0.629],[0.5,0.648],[0.53,0.668],[0.55,0.693],[0.57,0.735],[0.6,0.787],[0.65,0.799]]},"L16":{"none":0.503,"pts":[[0.42,0.547],[0.45,0.562],[0.5,0.596],[0.53,0.628],[0.55,0.663],[0.57,0.714],[0.6,0.77],[0.65,0.783]]},"L20":{"none":0.449,"pts":[[0.42,0.497],[0.45,0.514],[0.5,0.552],[0.53,0.588],[0.55,0.63],[0.57,0.688],[0.6,0.75],[0.65,0.762]]},"L24":{"none":0.411,"pts":[[0.42,0.464],[0.45,0.481],[0.5,0.523],[0.53,0.564],[0.55,0.609],[0.57,0.673],[0.6,0.737],[0.65,0.749]]},"L28":{"none":0.375,"pts":[[0.42,0.427],[0.45,0.445],[0.5,0.489],[0.53,0.534],[0.55,0.584],[0.57,0.651],[0.6,0.716],[0.65,0.729]]}};
+const CUR={"6.5":[[16,0.671,0.655,0.629,0.605,0.679],[24,0.671,0.647,0.606,0.578,0.683],[32,0.67,0.639,0.584,0.554,0.686],[40,0.662,0.623,0.554,0.526,0.683],[48,0.654,0.606,0.526,0.5,0.679],[56,0.645,0.589,0.499,0.476,0.675],[64,0.636,0.572,0.475,0.454,0.671],[72,0.628,0.557,0.454,0.435,0.668],[80,0.62,0.543,0.436,0.417,0.665],[88,0.613,0.529,0.418,0.401,0.663],[96,0.605,0.515,0.403,0.387,0.66],[104,0.597,0.503,0.389,0.373,0.658],[112,0.59,0.49,0.376,0.36,0.655],[120,0.582,0.478,0.364,0.348,0.653],[128,0.574,0.467,0.352,0.338,0.651],[136,0.566,0.455,0.341,0.327,0.648],[144,0.557,0.444,0.331,0.317,0.645],[152,0.548,0.433,0.321,0.307,0.642],[160,0.54,0.423,0.312,0.298,0.64],[168,0.531,0.412,0.304,0.29,0.637],[176,0.522,0.403,0.296,0.282,0.634],[184,0.513,0.394,0.288,0.275,0.631],[192,0.504,0.385,0.281,0.267,0.629],[200,0.495,0.376,0.274,0.261,0.626],[208,0.486,0.368,0.268,0.254,0.624],[216,0.478,0.36,0.262,0.248,0.621],[224,0.469,0.352,0.256,0.242,0.618],[232,0.459,0.344,0.25,0.236,0.615],[240,0.449,0.336,0.243,0.231,0.611],[248,0.439,0.328,0.238,0.225,0.608],[256,0.429,0.321,0.233,0.219,0.604]],"8.0":[[16,0.782,0.771,0.755,0.702,0.788],[24,0.777,0.759,0.731,0.663,0.785],[32,0.771,0.746,0.702,0.627,0.783],[40,0.767,0.734,0.672,0.596,0.782],[48,0.762,0.722,0.641,0.569,0.781],[56,0.758,0.709,0.609,0.543,0.78],[64,0.754,0.696,0.58,0.52,0.779],[72,0.75,0.683,0.552,0.5,0.778],[80,0.745,0.669,0.528,0.481,0.777],[88,0.741,0.655,0.506,0.464,0.776],[96,0.737,0.642,0.486,0.447,0.775],[104,0.731,0.627,0.467,0.432,0.774],[112,0.726,0.613,0.45,0.418,0.773],[120,0.721,0.598,0.435,0.404,0.771],[128,0.715,0.585,0.42,0.392,0.77],[136,0.708,0.57,0.407,0.38,0.768],[144,0.701,0.556,0.394,0.368,0.766],[152,0.695,0.542,0.382,0.357,0.764],[160,0.688,0.529,0.371,0.347,0.762],[168,0.681,0.517,0.361,0.338,0.76],[176,0.673,0.505,0.351,0.329,0.758],[184,0.666,0.493,0.342,0.32,0.756],[192,0.659,0.482,0.334,0.312,0.754],[200,0.65,0.471,0.325,0.304,0.752],[208,0.642,0.46,0.317,0.296,0.749],[216,0.633,0.449,0.309,0.289,0.747],[224,0.624,0.439,0.302,0.282,0.744],[232,0.615,0.429,0.295,0.276,0.742],[240,0.606,0.419,0.288,0.269,0.739],[248,0.597,0.41,0.282,0.263,0.737],[256,0.587,0.402,0.276,0.258,0.734]]};
+(function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent, text) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function scale(d0, d1, r0, r1) { return v => r0 + (v - d0) * (r1 - r0) / (d1 - d0); }
+  function path(pts) { return pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' '); }
+  function axes(svg, X, Y, xt, yt, box, xl, yl, fx, fy) {
+    for (const t of xt) {
+      el('line', { x1: X(t), x2: X(t), y1: box.t, y2: box.b, class: 'grid' }, svg);
+      el('text', { x: X(t), y: box.b + 16, 'text-anchor': 'middle' }, svg, fx(t));
+    }
+    for (const t of yt) {
+      el('line', { x1: box.l, x2: box.r, y1: Y(t), y2: Y(t), class: 'grid' }, svg);
+      el('text', { x: box.l - 8, y: Y(t) + 4, 'text-anchor': 'end' }, svg, fy(t));
+    }
+    el('rect', { x: box.l, y: box.t, width: box.r - box.l, height: box.b - box.t, class: 'axis' }, svg);
+    el('text', { x: (box.l + box.r) / 2, y: box.b + 36, 'text-anchor': 'middle', class: 'lab' }, svg, xl);
+    el('text', { x: 16, y: (box.t + box.b) / 2, 'text-anchor': 'middle', class: 'lab', transform: `rotate(-90 16 ${(box.t + box.b) / 2})` }, svg, yl);
+  }
+
+  // EXIT chart
+  (function () {
+    const svg = document.getElementById('exit');
+    const box = { l: 64, r: 560, t: 20, b: 460 };
+    const lo = 0.36, hi = 0.82;
+    const X = scale(lo, hi, box.l, box.r), Y = scale(lo, hi, box.b, box.t);
+    const ticks = [0.40, 0.50, 0.60, 0.70, 0.80];
+    axes(svg, X, Y, ticks, ticks, box, 'decoder-input information of round r (bit)', 'round r + 1 (bit)', t => t.toFixed(2), t => t.toFixed(2));
+    el('line', { x1: X(lo), y1: Y(lo), x2: X(hi), y2: Y(hi), class: 'diag' }, svg);
+    const IS = 0.577;
+    el('line', { x1: X(IS), x2: X(IS), y1: box.t, y2: box.b, class: 'istar' }, svg);
+    el('text', { x: X(IS) + 6, y: box.t + 14, class: 'istar-t' }, svg, 'I* = 0.577');
+    const order = ['L8', 'L16', 'L20', 'L24', 'L28'];
+    const op = [0.35, 0.5, 0.7, 0.85, 1];
+    order.forEach((L, i) => {
+      const c = PHI[L], K = 8 * parseInt(L.slice(1), 10);
+      const pts = c.pts.map(p => [X(p[0]), Y(p[1])]);
+      el('path', { d: path(pts), class: 'curve', 'stroke-width': L === 'L28' ? 2.4 : 1.8, 'stroke-opacity': op[i] }, svg);
+      const last = c.pts[c.pts.length - 1];
+      el('text', { x: X(last[0]) + 6, y: Y(last[1]) + 4, class: 'lab' }, svg, 'K ' + K);
+      el('circle', { cx: X(c.none), cy: Y(c.none), r: 4, class: 'start', 'stroke-opacity': op[i] }, svg);
+    });
+    // staircase for K = 160 (L20), linear interpolation with Phi(0) = Phi(none)
+    const g = [[0, PHI.L20.none]].concat(PHI.L20.pts);
+    const f = x => { for (let i = 0; i < g.length - 1; i++) if (x >= g[i][0] && x <= g[i + 1][0]) return g[i][1] + (g[i + 1][1] - g[i][1]) * (x - g[i][0]) / (g[i + 1][0] - g[i][0]); return g[g.length - 1][1]; };
+    let I = PHI.L20.none; const st = [[X(I), Y(I)]]; const vals = [I];
+    for (let r = 0; r < 3; r++) { const n = f(I); st.push([X(I), Y(n)]); st.push([X(n), Y(n)]); I = n; vals.push(I); }
+    el('path', { d: path(st), class: 'stair' }, svg);
+    vals.forEach((v, i) => {
+      el('circle', { cx: X(v), cy: Y(v), r: 3.2, class: 'stair-pt' }, svg);
+      el('text', { x: X(v) + 7, y: Y(v) + 14, class: 'istar-t' }, svg, 'I' + (i + 1));
+    });
+    el('text', { x: X(0.37), y: Y(0.795), class: 'lab' }, svg, '6.5 dB · ρ 0.3');
+    el('text', { x: X(0.43), y: Y(0.395), class: 'lab' }, svg, 'K 224 touches the diagonal');
+  })();
+
+  // I1(K) panels; CUR rows: [K, kappa0, kappa_w, kappa1, pilot-only, genie]
+  function panel(id, cur, obs, title, kc) {
+    const svg = document.getElementById(id);
+    const box = { l: 58, r: 452, t: 18, b: 300 };
+    const X = scale(16, 256, box.l, box.r), Y = scale(0.2, 0.85, box.b, box.t);
+    axes(svg, X, Y, [32, 64, 96, 128, 160, 192, 224, 256], [0.3, 0.4, 0.5, 0.6, 0.7, 0.8], box, 'K (channel coefficients)', 'I₁ (bit)', t => String(t), t => t.toFixed(1));
+    const IS = 0.577;
+    el('line', { x1: box.l, x2: box.r, y1: Y(IS), y2: Y(IS), class: 'istar' }, svg);
+    el('text', { x: box.r - 4, y: Y(IS) - 6, 'text-anchor': 'end', class: 'istar-t' }, svg, 'I*');
+    const line = (col, cls) => el('path', { d: path(cur.map(r => [X(r[0]), Y(r[col])])), class: cls }, svg);
+    line(5, 'm-lim'); line(4, 'm-lim'); line(1, 'm-ind'); line(3, 'm-coh'); line(2, 'm-hw');
+    for (const o of obs) {
+      el('line', { x1: X(o[0]), x2: X(o[0]), y1: Y(o[2]), y2: Y(o[3]), class: 'whisk' }, svg);
+      el('circle', { cx: X(o[0]), cy: Y(o[1]), r: 3.6, class: 'obs' }, svg);
+    }
+    el('text', { x: box.l + 10, y: box.t + 18, class: 'lab' }, svg, title);
+    el('text', { x: box.l + 10, y: box.t + 34 }, svg, kc);
+  }
+  panel('i1a', CUR['6.5'], OBS['6.5'], '6.5 dB · ρ 0.3', 'round-1 cliff: law 62, observed 76');
+  panel('i1b', CUR['8.0'], OBS['8'], '8 dB · ρ 0.3', 'round-1 cliff: law 133, observed 141');
+})();
+</script>

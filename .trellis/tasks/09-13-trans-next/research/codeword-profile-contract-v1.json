@@ -1,0 +1,48 @@
+{
+  "schema": "codeword-profile-v1",
+  "scope": "saved G1 32 physical blocks x 7/8dB; only 15 old ridge .1 failures scored; true codeword oracle diagnostic; no finite deployment list or new full receiver",
+  "source_manifest_sha256": "176cfd680641ca9fe37e4f49edd97e5d581e06b2c89e3e04d7f4ca9d420fbb32",
+  "producer_source_manifest_sha256": "50fb12ce9f4846a30a7d5644782ad6bd71afaadac70ca84629560804a31628df",
+  "code_keys": ["G", "H", "free_cols", "chk", "var", "row_ptr"],
+  "summaries": {
+    "g1_engineering": "runs/g1-strong-engineering-v1/engineering/summary.json",
+    "g1_development": "runs/g1-strong-development-recovery-v1/development/summary.json",
+    "dir_engineering": "engineering/summary.json",
+    "dir_development": "development/summary.json"
+  },
+  "environment": "runs/refs-v1/development/environment.json",
+  "input_sha256": {
+    "old:runs/g1-strong-engineering-v1/engineering/summary.json": "286222123b234e9f5853ee38fefb3632b726648ff43a00ed20beb77eb84d2ea6",
+    "old:runs/g1-strong-development-recovery-v1/development/summary.json": "c9bbc984198a8c0e69cb0bb37316150c506f0e11b84fbec741fa54ef91e16955",
+    "old:runs/refs-v1/development/environment.json": "2d3acd86b382d41f50384ba5bcfdc422cd67ab920fd038c2f0426ac3f06a8e32",
+    "dir:engineering/summary.json": "8c9ee40cd4dd43468cc1d9eda51f5f501f36377d8c766d263c86e9035489544c",
+    "dir:development/summary.json": "04cfa02b7600bd9a53ac4d0a5c97ae5caafdef94816ce0697917af81aa75cda7",
+    "dir:contracts/dirichlet-v2.json": "a224031d7692219f9faccb1e73b715f0f9f78c753edebfec3e8bd1313717058f",
+    "dir:source-v4/source-manifest.json": "50fb12ce9f4846a30a7d5644782ad6bd71afaadac70ca84629560804a31628df"
+  },
+  "failures": {
+    "7": [2, 4, 9, 11, 14, 15, 17, 18, 22, 25, 26, 27, 31],
+    "8": [15, 25]
+  },
+  "engineering": [[2, 7], [15, 8]],
+  "N": 1024,
+  "K": 24,
+  "pilot_W": 2,
+  "rho": 0.5,
+  "lambda_strength": 0.1,
+  "lambda_rule": "same work point lambda=0.1*||old ridge t9 A||_F^2/24, fixed for true/decoded/reencoded; no previous/proximal term",
+  "q_relative_tolerance": 1e-6,
+  "saved_A_relative_tolerance": 2e-6,
+  "candidate_order": ["true_c", "decoded_raw", "reencoded_info_hat"],
+  "max_refits": 45,
+  "max_refits_engineering": 6,
+  "max_refits_development": 39,
+  "new_receiver_CE": 0,
+  "new_F": 0,
+  "new_BP": 0,
+  "new_LDPC": 0,
+  "threads": 1,
+  "max_stage_seconds": 7200,
+  "max_stage_bytes": 21474836480,
+  "statistical_scope": "descriptive paired margins on exposed ridge failure set only; no independent confirmation or list coverage"
+}

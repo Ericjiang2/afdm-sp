@@ -1,0 +1,30 @@
+{
+  "schema": "supplement-message-review-v1",
+  "sources": {
+    "e1_ldpc.py": "dc58c3b28e1899fad05af72e72d7edc9e6a44c004bd7d176a93d1ba595672ba6",
+    "supplement_messages.py": "0db447e8b95d1ca42c765524054e8d9189ed483cd263bf4953fb41da5739215a",
+    "test_supplement_messages.py": "2b810f80e27a6d609d8f8bca73957d7232757f124d4b883646cbf49be5015dfa"
+  },
+  "findings_fixed": [],
+  "tests_added": [
+    "36 precomputed-code-dictionary comparisons against frozen legacy decoder; rejects mismatched edges; no code/input mutation",
+    "raw APP/check messages survive consumer clipping; oracle symbols copied and standalone object rejected by legal consumer"
+  ],
+  "verification": {
+    "command": "python -m unittest afdm_sp_joint_unrolled.test_supplement_messages",
+    "tests": 9,
+    "exitcode": 0,
+    "seconds": 0.026,
+    "environment": "isolated Python3.12.14 NumPy1.26.4; OMP/OPENBLAS/MKL/NUMEXPR=1",
+    "syntax": "AST pass",
+    "lint_typecheck": "not run; no dedicated checker invoked",
+    "real_receiver_simulation": false
+  },
+  "conclusions": [
+    "Shared core retains old hard-decision arithmetic and early-stop behavior. Legacy frozen function hash verified; frozen reference still shares unchanged _phi/_edge_structs helpers, not an independently reimplemented entire decoder.",
+    "raw_app equals incoming_llr plus un-clipped summed check messages; no subtraction of independently clipped arrays. Tree factor test uses exact codeword enumeration; loopy result explicitly differs.",
+    "Zero truly clears delivered prior including previous damping. Fixed sham uses deterministic raw-check permutation, preserving multiset before clipping/damping; neither replaces CE APP.",
+    "Oracle requires I2/I2realloc and emits distinct schema/truth marker; this is an API boundary, not provenance authentication of arbitrary caller-supplied arrays.",
+    "MSG interface only. Actual disabled-feedback receiver equivalence, same-cost sham/zero experiments, scheduling and I1 integration remain unverified I-01 work."
+  ]
+}

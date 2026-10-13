@@ -1,0 +1,922 @@
+{
+  "scope": "full CPU engineering on two reused exogenous blocks; exact dense reference, not author approximation or CONF",
+  "source_commit": "adeba024",
+  "audit_commits": [
+    "46293a33",
+    "c85cd199"
+  ],
+  "summary_sha256": "6ce76c156425f395f694243e309e1d3463860894bc717ab1aae8b9031006f295",
+  "raw_audit_sha256": "5995b2448e7e08d885debbbf09e2035f87a1e6a2c3d1161b30d2b4b5281a752d",
+  "engineering_exit": {
+    "name": "siso-chain-v2-engineering",
+    "exit_code": 0,
+    "timed_out": false,
+    "started_at": 1789269620.4585655,
+    "finished_at": 1789269747.6561785,
+    "wall_seconds": 127.19761347770691
+  },
+  "audit": {
+    "status": "PASS",
+    "records": 20,
+    "arrays_audited": 4576,
+    "CE_states": 180,
+    "SISO_states": 132,
+    "cavity_symbol_checks": 396,
+    "terminal_LDPC_replays": 20,
+    "nested_LDPC_replays": 28,
+    "resources": {
+      "CE_solves": 180,
+      "LDPC_calls": 64,
+      "SISO_factorizations": 132,
+      "SISO_rhs": 135300,
+      "outer_BP_calls": 80,
+      "outer_BP_iterations": 960,
+      "outer_SISO_calls": 120,
+      "terminal_BP_calls": 8,
+      "terminal_BP_iterations": 160,
+      "terminal_SISO_calls": 12
+    },
+    "comparisons": [
+      {
+        "block": 0,
+        "snr": 7,
+        "arm": "SISO_MEAN",
+        "max_cavity_channel_error": 1.4210854715202004e-14,
+        "scores": {
+          "FER": 1,
+          "bit_Brier": 0.1181030398506909,
+          "bit_NLL": 0.4740374220683915,
+          "channel_NMSE": 0.06811029504065925,
+          "coded_bit_errors": 138,
+          "coded_bits_denominator": 1024,
+          "decode_ok": false,
+          "decoded_codeword_bit_errors": 263,
+          "high_confidence_bits": 1153,
+          "high_confidence_wrong": 46,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 274,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 0,
+        "snr": 7,
+        "arm": "SISO_REF47",
+        "max_cavity_channel_error": 6.217248937900877e-15,
+        "scores": {
+          "FER": 1,
+          "bit_Brier": 0.10127431824981004,
+          "bit_NLL": 0.3759917308171164,
+          "channel_NMSE": 0.04640426393614008,
+          "coded_bit_errors": 116,
+          "coded_bits_denominator": 1024,
+          "decode_ok": false,
+          "decoded_codeword_bit_errors": 211,
+          "high_confidence_bits": 1137,
+          "high_confidence_wrong": 27,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 186,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 0,
+        "snr": 7,
+        "arm": "SISO_REF47_REPEAT",
+        "max_cavity_channel_error": 6.217248937900877e-15,
+        "scores": {
+          "FER": 1,
+          "bit_Brier": 0.10127431824981004,
+          "bit_NLL": 0.3759917308171164,
+          "channel_NMSE": 0.04640426393614008,
+          "coded_bit_errors": 116,
+          "coded_bits_denominator": 1024,
+          "decode_ok": false,
+          "decoded_codeword_bit_errors": 211,
+          "high_confidence_bits": 1137,
+          "high_confidence_wrong": 27,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 186,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 0,
+        "snr": 7,
+        "arm": "MEAN",
+        "max_cavity_channel_error": null,
+        "scores": {
+          "FER": 1,
+          "bit_Brier": 0.10073206401014133,
+          "bit_NLL": 0.3210491129157717,
+          "channel_NMSE": 0.08425047112339049,
+          "coded_bit_errors": 91,
+          "coded_bits_denominator": 1024,
+          "decode_ok": false,
+          "decoded_codeword_bit_errors": 169,
+          "high_confidence_bits": 215,
+          "high_confidence_wrong": 1,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 302,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 0,
+        "snr": 7,
+        "arm": "REFRESH47",
+        "max_cavity_channel_error": null,
+        "scores": {
+          "FER": 1,
+          "bit_Brier": 0.09725542791011152,
+          "bit_NLL": 0.30918018210427267,
+          "channel_NMSE": 0.04889742718702932,
+          "coded_bit_errors": 78,
+          "coded_bits_denominator": 1024,
+          "decode_ok": false,
+          "decoded_codeword_bit_errors": 143,
+          "high_confidence_bits": 278,
+          "high_confidence_wrong": 3,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 285,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 0,
+        "snr": 8,
+        "arm": "SISO_REF47",
+        "max_cavity_channel_error": 1.0658141036401503e-14,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.039871751675357905,
+          "bit_NLL": 0.1737392132421851,
+          "channel_NMSE": 0.04157507703921046,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1650,
+          "high_confidence_wrong": 21,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 1,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 0,
+        "snr": 8,
+        "arm": "SISO_REF47_REPEAT",
+        "max_cavity_channel_error": 1.0658141036401503e-14,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.039871751675357905,
+          "bit_NLL": 0.1737392132421851,
+          "channel_NMSE": 0.04157507703921046,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1650,
+          "high_confidence_wrong": 21,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 1,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 0,
+        "snr": 8,
+        "arm": "MEAN",
+        "max_cavity_channel_error": null,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.08534251082216027,
+          "bit_NLL": 0.2770758688950573,
+          "channel_NMSE": 0.057822051942458985,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 247,
+          "high_confidence_wrong": 1,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 249,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 0,
+        "snr": 8,
+        "arm": "REFRESH47",
+        "max_cavity_channel_error": null,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.08461351321978314,
+          "bit_NLL": 0.272322665217993,
+          "channel_NMSE": 0.041561562783708934,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 315,
+          "high_confidence_wrong": 2,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 244,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 0,
+        "snr": 8,
+        "arm": "SISO_MEAN",
+        "max_cavity_channel_error": 7.105427357601002e-15,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.09472937664358717,
+          "bit_NLL": 0.36465409534162907,
+          "channel_NMSE": 0.051748335158084295,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1222,
+          "high_confidence_wrong": 29,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 194,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 1,
+        "snr": 7,
+        "arm": "SISO_REF47",
+        "max_cavity_channel_error": 5.329070518200751e-15,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.044030079075123546,
+          "bit_NLL": 0.19409425847230022,
+          "channel_NMSE": 0.013574428700686298,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1638,
+          "high_confidence_wrong": 22,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 0,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 1,
+        "snr": 7,
+        "arm": "SISO_REF47_REPEAT",
+        "max_cavity_channel_error": 5.329070518200751e-15,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.044030079075123546,
+          "bit_NLL": 0.19409425847230022,
+          "channel_NMSE": 0.013574428700686298,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1638,
+          "high_confidence_wrong": 22,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 0,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 1,
+        "snr": 7,
+        "arm": "MEAN",
+        "max_cavity_channel_error": null,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.08542614342635921,
+          "bit_NLL": 0.29622651619708795,
+          "channel_NMSE": 0.024266257050576723,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 809,
+          "high_confidence_wrong": 11,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 229,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 1,
+        "snr": 7,
+        "arm": "REFRESH47",
+        "max_cavity_channel_error": null,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.0804283337048164,
+          "bit_NLL": 0.2796861090388187,
+          "channel_NMSE": 0.013572693433835867,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 778,
+          "high_confidence_wrong": 10,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 217,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 1,
+        "snr": 7,
+        "arm": "SISO_MEAN",
+        "max_cavity_channel_error": 8.881784197001252e-15,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.08219736443823208,
+          "bit_NLL": 0.3290439854377075,
+          "channel_NMSE": 0.019053631170860202,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1345,
+          "high_confidence_wrong": 28,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 146,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 1,
+        "snr": 8,
+        "arm": "SISO_REF47_REPEAT",
+        "max_cavity_channel_error": 1.0658141036401503e-14,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.029799317709270214,
+          "bit_NLL": 0.13621217893302812,
+          "channel_NMSE": 0.009243453558861185,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1778,
+          "high_confidence_wrong": 19,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 0,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 1,
+        "snr": 8,
+        "arm": "MEAN",
+        "max_cavity_channel_error": null,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.06592078914341754,
+          "bit_NLL": 0.23031883561987915,
+          "channel_NMSE": 0.009650724901210994,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 888,
+          "high_confidence_wrong": 9,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 179,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 1,
+        "snr": 8,
+        "arm": "REFRESH47",
+        "max_cavity_channel_error": null,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.06472726034260812,
+          "bit_NLL": 0.2276853777831884,
+          "channel_NMSE": 0.00839799748454214,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 908,
+          "high_confidence_wrong": 8,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 173,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 1,
+        "snr": 8,
+        "arm": "SISO_MEAN",
+        "max_cavity_channel_error": 1.0658141036401503e-14,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.05273205908063297,
+          "bit_NLL": 0.2135643946329593,
+          "channel_NMSE": 0.009702941865256583,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1559,
+          "high_confidence_wrong": 19,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 69,
+          "raw_bits_denominator": 2048
+        }
+      },
+      {
+        "block": 1,
+        "snr": 8,
+        "arm": "SISO_REF47",
+        "max_cavity_channel_error": 1.0658141036401503e-14,
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.029799317709270214,
+          "bit_NLL": 0.13621217893302812,
+          "channel_NMSE": 0.009243453558861185,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1778,
+          "high_confidence_wrong": 19,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 0,
+          "raw_bits_denominator": 2048
+        }
+      }
+    ],
+    "summary_sha256": "6ce76c156425f395f694243e309e1d3463860894bc717ab1aae8b9031006f295",
+    "contract_sha256": "31a0a80ccaa2537658d3b3fff79f635ac3c12ff7aa76072d8c4bc963d6d0b65d",
+    "source_sha256": "89ce4f00979113b5121acbae4e9b80cc8762c0bf0d7cfee7afec04afca7e05f3",
+    "auditor_sha256": "ac9551054907d84a35cd6b2a32ab7bc91f91f0aa64bd501eb03f6561fb7856c2",
+    "wall_seconds": 84.09131956100464,
+    "scope": "raw engineering and independent Gaussian cavity numerical checks; no performance confirmation"
+  },
+  "resource_totals": {
+    "CE_solves": 180,
+    "LDPC_calls": 64,
+    "SISO_factorizations": 132,
+    "SISO_rhs": 135300,
+    "outer_BP_calls": 80,
+    "outer_BP_iterations": 960,
+    "outer_SISO_calls": 120,
+    "terminal_BP_calls": 8,
+    "terminal_BP_iterations": 160,
+    "terminal_SISO_calls": 12
+  },
+  "checks": [
+    {
+      "arm": "SISO_MEAN",
+      "block": 0,
+      "max_solve_residual": 5.844099326080777e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 2,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.409280141000636,
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "SISO_REF47",
+      "block": 0,
+      "max_solve_residual": 5.015954187821705e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.40616059594322,
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "SISO_REF47_REPEAT",
+      "block": 0,
+      "max_solve_residual": 5.015954187821705e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 6.309391813003458,
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "MEAN",
+      "block": 0,
+      "max_solve_residual": null,
+      "old_BP_exact": true,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 2,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "seconds": 1.7458910450804979,
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "REFRESH47",
+      "block": 0,
+      "max_solve_residual": null,
+      "old_BP_exact": true,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "seconds": 1.7650880980072543,
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "SISO_REF47",
+      "block": 0,
+      "max_solve_residual": 5.077743858598674e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.2507273160154,
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "SISO_REF47_REPEAT",
+      "block": 0,
+      "max_solve_residual": 5.077743858598674e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.275223640957847,
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "MEAN",
+      "block": 0,
+      "max_solve_residual": null,
+      "old_BP_exact": true,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 2,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "seconds": 1.6014156049350277,
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "REFRESH47",
+      "block": 0,
+      "max_solve_residual": null,
+      "old_BP_exact": true,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "seconds": 1.6094255140051246,
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "SISO_MEAN",
+      "block": 0,
+      "max_solve_residual": 5.391320084949766e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 2,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.206473897909746,
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "SISO_REF47",
+      "block": 1,
+      "max_solve_residual": 4.936635120410576e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.292559968074784,
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "SISO_REF47_REPEAT",
+      "block": 1,
+      "max_solve_residual": 4.936635120410576e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.288931071991101,
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "MEAN",
+      "block": 1,
+      "max_solve_residual": null,
+      "old_BP_exact": true,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 2,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "seconds": 1.4743481220211834,
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "REFRESH47",
+      "block": 1,
+      "max_solve_residual": null,
+      "old_BP_exact": true,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "seconds": 1.4997005519689992,
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "SISO_MEAN",
+      "block": 1,
+      "max_solve_residual": 4.936635120410576e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 2,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.267895994940773,
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "SISO_REF47_REPEAT",
+      "block": 1,
+      "max_solve_residual": 5.055875371144804e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.304477815981954,
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "MEAN",
+      "block": 1,
+      "max_solve_residual": null,
+      "old_BP_exact": true,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 2,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "seconds": 2.1802883519558236,
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "REFRESH47",
+      "block": 1,
+      "max_solve_residual": null,
+      "old_BP_exact": true,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "seconds": 1.521140028955415,
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "SISO_MEAN",
+      "block": 1,
+      "max_solve_residual": 5.055875371144804e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 2,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.2524966929340735,
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "SISO_REF47",
+      "block": 1,
+      "max_solve_residual": 5.055875371144804e-16,
+      "old_BP_exact": false,
+      "readback_scores_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "SISO_factorizations": 11,
+        "SISO_rhs": 11275,
+        "outer_BP_calls": 0,
+        "outer_BP_iterations": 0,
+        "outer_SISO_calls": 10,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0,
+        "terminal_SISO_calls": 1
+      },
+      "seconds": 5.281564860953949,
+      "snr": 8,
+      "split": 1
+    }
+  ],
+  "timings": {
+    "SISO_MEAN": {
+      "n": 4,
+      "mean": 5.284036681696307,
+      "min": 5.206473897909746,
+      "max": 5.409280141000636
+    },
+    "SISO_REF47": {
+      "n": 4,
+      "mean": 5.307753185246838,
+      "min": 5.2507273160154,
+      "max": 5.40616059594322
+    },
+    "SISO_REF47_REPEAT": {
+      "n": 4,
+      "mean": 5.54450608548359,
+      "min": 5.275223640957847,
+      "max": 6.309391813003458
+    },
+    "MEAN": {
+      "n": 4,
+      "mean": 1.7504857809981331,
+      "min": 1.4743481220211834,
+      "max": 2.1802883519558236
+    },
+    "REFRESH47": {
+      "n": 4,
+      "mean": 1.5988385482341982,
+      "min": 1.4997005519689992,
+      "max": 1.7650880980072543
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "seed": [
+    20261005,
+    104835,
+    70
+  ],
+  "new_observations": 0,
+  "new_scientific_nodes": 0,
+  "new_scientific_rules": 0,
+  "wall_seconds": 300,
+  "inputs": {
+    "control": {
+      "stage": "inference_control_v1",
+      "observations": "inference_observations.npz",
+      "likelihood_key": "exact_logpdf",
+      "reference_method": "exact",
+      "interest": "q",
+      "moment_methods": [
+        "old_T",
+        "powers",
+        "phase",
+        "score4"
+      ],
+      "records": {
+        "registration.json": "da58076cca4801284ef58f0751de3762cb238aa8b593b2719064571fae7d51be",
+        "attempt.json": "9e16a7aa2ae3bef2ee493fa789e20700359f0bd6341fbbb2ff10a0a5215c03b6",
+        "git_head": "15d1b051ea027d1c7b800ffdb43a5223bb4f3507"
+      }
+    },
+    "actual": {
+      "stage": "inference_actual_v1",
+      "observations": "observations.npz",
+      "likelihood_key": "refined",
+      "reference_method": "actual_reference_refined",
+      "interest": "delta",
+      "moment_methods": [
+        "old_T",
+        "powers",
+        "phase",
+        "actual_score4",
+        "Gaussian_transfer_score4"
+      ],
+      "records": {
+        "registration.json": "c6c599ec46cf70ac080e5e99581184f1fdd3e75e8be1d90e174ca3b4ef14a892",
+        "attempt.json": "dfd3de57dab7b1fb64e7ac18722b7d9b76de62b30ae2dede57c090ed13d977ea",
+        "git_head": "15d1b051ea027d1c7b800ffdb43a5223bb4f3507"
+      }
+    }
+  },
+  "machine_epsilon_multiplier": 64,
+  "saved_objective_absolute_tolerance": 1e-10,
+  "expected_rows": {
+    "oracle_pairs": 112,
+    "paired_decisions": 1408,
+    "known_eta_mle": 152,
+    "paired_estimation": 976,
+    "ambiguity": 976,
+    "moment_equivalence": 9
+  },
+  "numerical_tolerance": "near-argmin gap <= 64*float64_epsilon*max(1,max(abs(objective_row))); exact uses gap==0",
+  "coefficient_tolerance": "componentwise abs(ci-cj)<=64*float64_epsilon*max(1,abs(ci),abs(cj)); symmetric neighbors only, never a transitive partition",
+  "known_nuisance": "same original physical target grid; known eta and specified alternative enter only explicitly labeled oracle",
+  "calibration": "independent original null calibration groups, same original alpha, strict > order-statistic cutoff; marginal over calibration and future group",
+  "inherited_reference": "actual refined order24 with original full12/24 and subset24/48 qualification; control independently qualified finite mixture",
+  "upper_bound": "ideal known-distribution NP at exact size is a theoretical power upper bound; finite-calibration observed oracle power is NOT a certified upper bound",
+  "structural_status": "only inherited control old_T/powers center invariance and working second-Gaussian q/mu invariance; other physical identifiability unresolved",
+  "raw_policy": "bind registration and attempt records, verify consumed original raw and source-model hashes in place; no large raw duplication",
+  "receiver_calls": 0,
+  "decoder_calls": 0
+}

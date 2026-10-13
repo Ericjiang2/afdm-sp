@@ -1,0 +1,1531 @@
+{
+ "schema": "afdm-e1e2-analysis/1",
+ "generated_by": "afdm_sp_joint_unrolled/analyze_e1_e2_20260727.py",
+ "bootstrap": {
+  "method": "frame-level block bootstrap (block = frame)",
+  "B": 20000,
+  "seed": 20260727,
+  "ci": "percentile 2.5 / 97.5"
+ },
+ "provenance": {
+  "geom": {
+   "path": "afdm_sp_joint_unrolled/outputs_e1_ldpc_geom/results.json",
+   "md5": "c79d9c09977c98b28eb70bd46b0affc3",
+   "remote": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e1_ldpc_geom/results.json"
+  },
+  "ach": {
+   "path": "afdm_sp_joint_unrolled/outputs_e1_ldpc_ach/results.json",
+   "md5": "865aaa0ed1c54d1d62f9405e8ebe0049",
+   "remote": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e1_ldpc_ach/results.json"
+  },
+  "pcsi": {
+   "path": "afdm_sp_joint_unrolled/outputs_e1_ldpc_pcsi/results.json",
+   "md5": "95574039514624916b12e4f256c8c4ef",
+   "remote": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e1_ldpc_pcsi/results.json"
+  },
+  "main": {
+   "path": "afdm_sp_joint_unrolled/outputs_e2_baselines_s15s20_cpu/results.json",
+   "md5": "1095d1a31324b6b792f79b968e705de0",
+   "remote": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2_baselines_s15s20_cpu/results.json"
+  },
+  "serial": {
+   "path": "afdm_sp_joint_unrolled/outputs_e2_serial_floor_cpu/results.json",
+   "md5": "e5a7d95708998a570458fe792c054e5d",
+   "remote": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2_serial_floor_cpu/results.json"
+  }
+ },
+ "config_fingerprint": {
+  "geom": {
+   "N": 1024,
+   "v_mean": 2.0,
+   "P_paths": 8,
+   "tau_spread_ms": 10.0,
+   "mp_mode": "bp",
+   "pic_damp": 0.5,
+   "variant": "C2-rel",
+   "ckpt": "afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+   "frames": 800,
+   "seed": 20260601,
+   "cdtype": "complex64",
+   "target_errors": 0,
+   "min_frames": 800,
+   "n_outer_iter": 10,
+   "fs_factor": 4.0,
+   "refine_rounds": 2,
+   "cand_topm": 96,
+   "defer_prune_until_final": true,
+   "protect_added": 2,
+   "gateA_scorer": "geom",
+   "gateA_tau_mode": "topk",
+   "gateA_calib_frames": 400,
+   "rho_actual": 0.5,
+   "k_max_cap": 2,
+   "l_max_cap": 102,
+   "ldpc_seed": 20260726,
+   "ldpc_n": 2048,
+   "ldpc_k": 1024,
+   "ldpc_d_v": 3,
+   "ldpc_d_c": 6,
+   "ldpc_maxiter": 50,
+   "ldpc_cache": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/e1_ldpc_code_n2048_dv3_dc6_seed20260726.npz",
+   "llr_amp": 0.5,
+   "llr_clip": 20.0
+  },
+  "ach": {
+   "N": 1024,
+   "v_mean": 2.0,
+   "P_paths": 8,
+   "tau_spread_ms": 10.0,
+   "mp_mode": "bp",
+   "pic_damp": 0.5,
+   "variant": "C2-rel",
+   "ckpt": "afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+   "frames": 800,
+   "seed": 20260601,
+   "cdtype": "complex64",
+   "target_errors": 0,
+   "min_frames": 800,
+   "n_outer_iter": 10,
+   "fs_factor": 4.0,
+   "refine_rounds": 2,
+   "cand_topm": 96,
+   "defer_prune_until_final": true,
+   "protect_added": 2,
+   "gateA_scorer": "achievable",
+   "gateA_tau_mode": "topk",
+   "gateA_calib_frames": 400,
+   "rho_actual": 0.5,
+   "k_max_cap": 2,
+   "l_max_cap": 102,
+   "ldpc_seed": 20260726,
+   "ldpc_n": 2048,
+   "ldpc_k": 1024,
+   "ldpc_d_v": 3,
+   "ldpc_d_c": 6,
+   "ldpc_maxiter": 50,
+   "ldpc_cache": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/e1_ldpc_code_n2048_dv3_dc6_seed20260726.npz",
+   "llr_amp": 0.5,
+   "llr_clip": 20.0
+  },
+  "pcsi": {
+   "N": 1024,
+   "v_mean": 2.0,
+   "P_paths": 8,
+   "tau_spread_ms": 10.0,
+   "mp_mode": "bp",
+   "pic_damp": 0.5,
+   "variant": "C2-rel",
+   "ckpt": "afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+   "frames": 800,
+   "seed": 20260601,
+   "cdtype": "complex64",
+   "target_errors": 0,
+   "min_frames": 800,
+   "n_outer_iter": 10,
+   "fs_factor": 4.0,
+   "refine_rounds": 2,
+   "cand_topm": 96,
+   "defer_prune_until_final": true,
+   "protect_added": 2,
+   "gateA_scorer": "geom",
+   "gateA_tau_mode": "topk",
+   "gateA_calib_frames": 400,
+   "rho_actual": 0.5,
+   "k_max_cap": 2,
+   "l_max_cap": 102,
+   "ldpc_seed": 20260726,
+   "ldpc_n": 2048,
+   "ldpc_k": 1024,
+   "ldpc_d_v": 3,
+   "ldpc_d_c": 6,
+   "ldpc_maxiter": 50,
+   "ldpc_cache": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/e1_ldpc_code_n2048_dv3_dc6_seed20260726.npz",
+   "llr_amp": 0.5,
+   "llr_clip": 20.0,
+   "with_pcsi": true,
+   "_detector_binding": {
+    "module": "afdm_sp_joint_unrolled.loop9_cache_features",
+    "qualname": "_fast_bp",
+    "source_file": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/loop9_cache_features.py",
+    "source_sha256": "51708dc6ec19e193548d5001fb791c7730d80f06867f8c37385237189a74cb37"
+   },
+   "_git": {
+    "sha": null,
+    "dirty": null
+   }
+  },
+  "main": {
+   "N": 1024,
+   "v_mean": 2.0,
+   "P_paths": 8,
+   "tau_spread_ms": 10.0,
+   "mp_mode": "bp",
+   "pic_damp": 0.5,
+   "variant": "C2-rel",
+   "ckpt": "afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+   "frames": 800,
+   "seed": 20260601,
+   "cdtype": "complex64",
+   "target_errors": 0,
+   "min_frames": 800,
+   "n_outer_iter": 10,
+   "fs_factor": 4.0,
+   "use_hard": false,
+   "safe_swap": false,
+   "safe_swap_eps_r": 0.01,
+   "safe_swap_k_cap": null,
+   "safe_swap_gain_margin": 0.0,
+   "tau_lookup": null,
+   "no_prune": false,
+   "refine_rounds": 2,
+   "cand_topm": 96,
+   "defer_prune_until_final": true,
+   "protect_added": 2,
+   "with_pcsi": true,
+   "k_add_max_override": null,
+   "rho_override": null,
+   "rho_actual": 0.5,
+   "feature_mask": "all",
+   "with_cao": true,
+   "cao_basis": "ours",
+   "cao_max_iter": 10,
+   "cao_tol": 1e-06,
+   "with_ours_reomp": true,
+   "ours_reomp_paths": null,
+   "with_drce": false,
+   "drce_Ng": null,
+   "drce_rho": null,
+   "drce_l_max": null,
+   "drce_k_max": null,
+   "with_pbigabp": false,
+   "pbigabp_imax": null,
+   "pbigabp_beta_x": null,
+   "pbigabp_beta_h": null,
+   "pbigabp_sigma2_h": null,
+   "with_lmmse": true,
+   "lmmse_n_iter": 1,
+   "lmmse_bp_iter": 20,
+   "lmmse_bp_damp": 0.5,
+   "lmmse_sigma2_h": 1.0
+  },
+  "serial": {
+   "N": 1024,
+   "v_mean": 2.0,
+   "P_paths": 8,
+   "tau_spread_ms": 10.0,
+   "mp_mode": "bp",
+   "pic_damp": 0.5,
+   "variant": "C2-rel",
+   "ckpt": "afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+   "frames": 800,
+   "seed": 20260601,
+   "cdtype": "complex64",
+   "target_errors": 0,
+   "min_frames": 800,
+   "n_outer_iter": 1,
+   "fs_factor": 4.0,
+   "use_hard": false,
+   "safe_swap": false,
+   "safe_swap_eps_r": 0.01,
+   "safe_swap_k_cap": null,
+   "safe_swap_gain_margin": 0.0,
+   "tau_lookup": null,
+   "no_prune": false,
+   "refine_rounds": 2,
+   "cand_topm": 96,
+   "defer_prune_until_final": true,
+   "protect_added": 2,
+   "with_pcsi": false,
+   "k_add_max_override": null,
+   "rho_override": null,
+   "rho_actual": 0.5,
+   "feature_mask": "all",
+   "with_cao": false,
+   "cao_basis": null,
+   "cao_max_iter": null,
+   "cao_tol": null,
+   "with_ours_reomp": false,
+   "ours_reomp_paths": null,
+   "with_drce": false,
+   "drce_Ng": null,
+   "drce_rho": null,
+   "drce_l_max": null,
+   "drce_k_max": null,
+   "with_pbigabp": false,
+   "pbigabp_imax": null,
+   "pbigabp_beta_x": null,
+   "pbigabp_beta_h": null,
+   "pbigabp_sigma2_h": null,
+   "with_lmmse": false,
+   "lmmse_n_iter": null,
+   "lmmse_bp_iter": null,
+   "lmmse_bp_damp": null,
+   "lmmse_sigma2_h": null
+  }
+ },
+ "argv": {
+  "geom": [
+   "afdm_sp_joint_unrolled/e1_ldpc_coded_eval.py",
+   "--ckpt",
+   "afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+   "--variant",
+   "C2-rel",
+   "--mp-mode",
+   "bp",
+   "--pic-damp",
+   "0.5",
+   "--p-paths",
+   "8",
+   "--tau-spread",
+   "0.010",
+   "--n-total",
+   "1024",
+   "--v-mean",
+   "2.0",
+   "--fs-factor",
+   "4.0",
+   "--refine-rounds",
+   "2",
+   "--cand-topm",
+   "96",
+   "--defer-prune-until-final",
+   "--protect-added",
+   "2",
+   "--n-outer-iter",
+   "10",
+   "--target-errors",
+   "0",
+   "--min-frames",
+   "800",
+   "--max-frames",
+   "800",
+   "--seed",
+   "20260601",
+   "--cdtype",
+   "complex64",
+   "--snr-list",
+   "7",
+   "8",
+   "9",
+   "10",
+   "11",
+   "--gateA-calib-frames",
+   "400",
+   "--gateA-scorer",
+   "geom",
+   "--out",
+   "afdm_sp_joint_unrolled/outputs_e1_ldpc_geom"
+  ],
+  "ach": [
+   "afdm_sp_joint_unrolled/e1_ldpc_coded_eval.py",
+   "--ckpt",
+   "afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+   "--variant",
+   "C2-rel",
+   "--mp-mode",
+   "bp",
+   "--pic-damp",
+   "0.5",
+   "--p-paths",
+   "8",
+   "--tau-spread",
+   "0.010",
+   "--n-total",
+   "1024",
+   "--v-mean",
+   "2.0",
+   "--fs-factor",
+   "4.0",
+   "--refine-rounds",
+   "2",
+   "--cand-topm",
+   "96",
+   "--defer-prune-until-final",
+   "--protect-added",
+   "2",
+   "--n-outer-iter",
+   "10",
+   "--target-errors",
+   "0",
+   "--min-frames",
+   "800",
+   "--max-frames",
+   "800",
+   "--seed",
+   "20260601",
+   "--cdtype",
+   "complex64",
+   "--snr-list",
+   "7",
+   "8",
+   "9",
+   "10",
+   "11",
+   "--gateA-calib-frames",
+   "400",
+   "--gateA-scorer",
+   "achievable",
+   "--out",
+   "afdm_sp_joint_unrolled/outputs_e1_ldpc_ach"
+  ],
+  "pcsi": [
+   "afdm_sp_joint_unrolled/e1_ldpc_coded_eval.py",
+   "--ckpt",
+   "afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+   "--variant",
+   "C2-rel",
+   "--mp-mode",
+   "bp",
+   "--pic-damp",
+   "0.5",
+   "--p-paths",
+   "8",
+   "--tau-spread",
+   "0.010",
+   "--n-total",
+   "1024",
+   "--v-mean",
+   "2.0",
+   "--fs-factor",
+   "4.0",
+   "--refine-rounds",
+   "2",
+   "--cand-topm",
+   "96",
+   "--defer-prune-until-final",
+   "--protect-added",
+   "2",
+   "--n-outer-iter",
+   "10",
+   "--target-errors",
+   "0",
+   "--min-frames",
+   "800",
+   "--max-frames",
+   "800",
+   "--seed",
+   "20260601",
+   "--cdtype",
+   "complex64",
+   "--snr-list",
+   "7",
+   "8",
+   "9",
+   "10",
+   "11",
+   "--gateA-calib-frames",
+   "400",
+   "--gateA-scorer",
+   "geom",
+   "--with-pcsi",
+   "--out",
+   "afdm_sp_joint_unrolled/outputs_e1_ldpc_pcsi"
+  ],
+  "main": [
+   "afdm_sp_joint_unrolled/paired_learned_eval.py",
+   "--ckpt",
+   "afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+   "--variant",
+   "C2-rel",
+   "--mp-mode",
+   "bp",
+   "--pic-damp",
+   "0.5",
+   "--p-paths",
+   "8",
+   "--tau-spread",
+   "0.010",
+   "--n-total",
+   "1024",
+   "--v-mean",
+   "2.0",
+   "--fs-factor",
+   "4.0",
+   "--refine-rounds",
+   "2",
+   "--cand-topm",
+   "96",
+   "--defer-prune-until-final",
+   "--protect-added",
+   "2",
+   "--target-errors",
+   "0",
+   "--min-frames",
+   "800",
+   "--max-frames",
+   "800",
+   "--seed",
+   "20260601",
+   "--cdtype",
+   "complex64",
+   "--n-outer-iter",
+   "10",
+   "--snr-list",
+   "15",
+   "20",
+   "--gateA-scorer",
+   "achievable",
+   "--gateA-calib-frames",
+   "400",
+   "--with-cao",
+   "--with-ours-reomp",
+   "--with-lmmse",
+   "--with-pcsi",
+   "--out",
+   "afdm_sp_joint_unrolled/outputs_e2_baselines_s15s20_cpu"
+  ],
+  "serial": [
+   "afdm_sp_joint_unrolled/paired_learned_eval.py",
+   "--ckpt",
+   "afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+   "--variant",
+   "C2-rel",
+   "--mp-mode",
+   "bp",
+   "--pic-damp",
+   "0.5",
+   "--p-paths",
+   "8",
+   "--tau-spread",
+   "0.010",
+   "--n-total",
+   "1024",
+   "--v-mean",
+   "2.0",
+   "--fs-factor",
+   "4.0",
+   "--refine-rounds",
+   "2",
+   "--cand-topm",
+   "96",
+   "--defer-prune-until-final",
+   "--protect-added",
+   "2",
+   "--target-errors",
+   "0",
+   "--min-frames",
+   "800",
+   "--max-frames",
+   "800",
+   "--seed",
+   "20260601",
+   "--cdtype",
+   "complex64",
+   "--n-outer-iter",
+   "1",
+   "--snr-list",
+   "15",
+   "20",
+   "--out",
+   "afdm_sp_joint_unrolled/outputs_e2_serial_floor_cpu"
+  ]
+ },
+ "verification": {
+  "e1_cross_run_pairing": {
+   "7": {
+    "ach_classical_identical": true,
+    "ach_seeds_identical": true,
+    "pcsi_classical_identical": true,
+    "pcsi_seeds_identical": true,
+    "frames": 800
+   },
+   "8": {
+    "ach_classical_identical": true,
+    "ach_seeds_identical": true,
+    "pcsi_classical_identical": true,
+    "pcsi_seeds_identical": true,
+    "frames": 800
+   },
+   "9": {
+    "ach_classical_identical": true,
+    "ach_seeds_identical": true,
+    "pcsi_classical_identical": true,
+    "pcsi_seeds_identical": true,
+    "frames": 800
+   },
+   "10": {
+    "ach_classical_identical": true,
+    "ach_seeds_identical": true,
+    "pcsi_classical_identical": true,
+    "pcsi_seeds_identical": true,
+    "frames": 800
+   },
+   "11": {
+    "ach_classical_identical": true,
+    "ach_seeds_identical": true,
+    "pcsi_classical_identical": true,
+    "pcsi_seeds_identical": true,
+    "frames": 800
+   },
+   "all_pass": true
+  },
+  "e1_partial": {
+   "geom": null,
+   "ach": null,
+   "pcsi": null
+  },
+  "e2_anchor": {
+   "main_snr15": {
+    "classical_errs": 27259,
+    "torch_ref_errs": 27259,
+    "bit_divergence": 0,
+    "cum_bits": 1638400,
+    "flip_rate": 0.0,
+    "bit_exact": true
+   },
+   "main_snr20": {
+    "classical_errs": 110,
+    "torch_ref_errs": 111,
+    "bit_divergence": 1,
+    "cum_bits": 1638400,
+    "flip_rate": 6.103515625e-07,
+    "bit_exact": false
+   },
+   "serial_snr15": {
+    "classical_errs": 136718,
+    "torch_ref_errs": 136718,
+    "bit_divergence": 0,
+    "cum_bits": 1638400,
+    "flip_rate": 0.0,
+    "bit_exact": true
+   },
+   "serial_snr20": {
+    "classical_errs": 135638,
+    "torch_ref_errs": 135647,
+    "bit_divergence": 9,
+    "cum_bits": 1638400,
+    "flip_rate": 5.4931640625e-06,
+    "bit_exact": false
+   },
+   "note": "anchor bit-exactness is SNR-regime dependent, not error-count dependent: the serial run has 135638 errors at SNR20 and still flips 9 bits, while SNR15 has 136718 errors and flips none"
+  },
+  "e2_partial": {
+   "main": null,
+   "serial": null
+  },
+  "e1_binding_transfer": {
+   "fingerprinted_run": "pcsi",
+   "detector_binding": {
+    "module": "afdm_sp_joint_unrolled.loop9_cache_features",
+    "qualname": "_fast_bp",
+    "source_file": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/loop9_cache_features.py",
+    "source_sha256": "51708dc6ec19e193548d5001fb791c7730d80f06867f8c37385237189a74cb37"
+   },
+   "git": {
+    "sha": null,
+    "dirty": null
+   },
+   "unfingerprinted_runs": [
+    "geom",
+    "ach"
+   ],
+   "transfer_proof": "pcsi classical arm is bitwise identical to geom/ach at all 5 SNRs, so all three runs resolved the same detector binding",
+   "binding_status": "proven"
+  },
+  "e1_rerun_divergence": {
+   "note": "geom arm re-run inside the pcsi run: identical code, device and frames",
+   "per_snr": {
+    "7": {
+     "bit_divergence": 1,
+     "frames_affected": 1,
+     "total_raw_errs": 215364
+    },
+    "8": {
+     "bit_divergence": 0,
+     "frames_affected": 0,
+     "total_raw_errs": 180884
+    },
+    "9": {
+     "bit_divergence": 3,
+     "frames_affected": 2,
+     "total_raw_errs": 147549
+    },
+    "10": {
+     "bit_divergence": 0,
+     "frames_affected": 0,
+     "total_raw_errs": 119881
+    },
+    "11": {
+     "bit_divergence": 0,
+     "frames_affected": 0,
+     "total_raw_errs": 95719
+    }
+   },
+   "total_bit_divergence": 4,
+   "total_frames_affected": 3,
+   "total_raw_errs": 759397,
+   "rate": 5.267337110891931e-06,
+   "implication": "same-device replay tolerance must sit at or above ~1e-5; bit-exact is reachable only on the deterministic NumPy classical path"
+  }
+ },
+ "e1": {
+  "grid": [
+   7,
+   8,
+   9,
+   10,
+   11
+  ],
+  "frames_per_point": 800,
+  "fer_floor_for_log_interp": 0.000625,
+  "table": {
+   "7": {
+    "classical": {
+     "fer": 0.875,
+     "coded_ber": 0.09189208984375,
+     "raw_ber": 0.1418768310546875,
+     "decode_fail": 700
+    },
+    "geom": {
+     "fer": 0.68125,
+     "coded_ber": 0.060467529296875,
+     "raw_ber": 0.13144775390625,
+     "decode_fail": 545
+    },
+    "ach": {
+     "fer": 0.675,
+     "coded_ber": 0.059197998046875,
+     "raw_ber": 0.1312005615234375,
+     "decode_fail": 540
+    },
+    "pcsi": {
+     "fer": 0.38125,
+     "coded_ber": 0.0249072265625,
+     "raw_ber": 0.11768310546875,
+     "decode_fail": 305
+    }
+   },
+   "8": {
+    "classical": {
+     "fer": 0.52,
+     "coded_ber": 0.04238037109375,
+     "raw_ber": 0.1240325927734375,
+     "decode_fail": 416
+    },
+    "geom": {
+     "fer": 0.125,
+     "coded_ber": 0.008663330078125,
+     "raw_ber": 0.11040283203125,
+     "decode_fail": 100
+    },
+    "ach": {
+     "fer": 0.115,
+     "coded_ber": 0.007659912109375,
+     "raw_ber": 0.11012451171875,
+     "decode_fail": 92
+    },
+    "pcsi": {
+     "fer": 0.00625,
+     "coded_ber": 0.00033935546875,
+     "raw_ber": 0.0977142333984375,
+     "decode_fail": 5
+    }
+   },
+   "9": {
+    "classical": {
+     "fer": 0.135,
+     "coded_ber": 0.0096728515625,
+     "raw_ber": 0.105357666015625,
+     "decode_fail": 108
+    },
+    "geom": {
+     "fer": 0.0075,
+     "coded_ber": 0.000660400390625,
+     "raw_ber": 0.0900567626953125,
+     "decode_fail": 6
+    },
+    "ach": {
+     "fer": 0.00625,
+     "coded_ber": 0.00053466796875,
+     "raw_ber": 0.089683837890625,
+     "decode_fail": 5
+    },
+    "pcsi": {
+     "fer": 0.00125,
+     "coded_ber": 0.000101318359375,
+     "raw_ber": 0.07801025390625,
+     "decode_fail": 1
+    }
+   },
+   "10": {
+    "classical": {
+     "fer": 0.0225,
+     "coded_ber": 0.00152587890625,
+     "raw_ber": 0.0894549560546875,
+     "decode_fail": 18
+    },
+    "geom": {
+     "fer": 0.0,
+     "coded_ber": 0.0,
+     "raw_ber": 0.0731695556640625,
+     "decode_fail": 0
+    },
+    "ach": {
+     "fer": 0.0,
+     "coded_ber": 0.0,
+     "raw_ber": 0.07285400390625,
+     "decode_fail": 0
+    },
+    "pcsi": {
+     "fer": 0.0,
+     "coded_ber": 0.0,
+     "raw_ber": 0.061553955078125,
+     "decode_fail": 0
+    }
+   },
+   "11": {
+    "classical": {
+     "fer": 0.0025,
+     "coded_ber": 0.000166015625,
+     "raw_ber": 0.074278564453125,
+     "decode_fail": 2
+    },
+    "geom": {
+     "fer": 0.0,
+     "coded_ber": 0.0,
+     "raw_ber": 0.0584222412109375,
+     "decode_fail": 0
+    },
+    "ach": {
+     "fer": 0.0,
+     "coded_ber": 0.0,
+     "raw_ber": 0.0578802490234375,
+     "decode_fail": 0
+    },
+    "pcsi": {
+     "fer": 0.0,
+     "coded_ber": 0.0,
+     "raw_ber": 0.0458294677734375,
+     "decode_fail": 0
+    }
+   }
+  },
+  "cliff_shift_db": {
+   "FER=0.1": {
+    "geom_vs_classical": {
+     "point": 1.0881773155453942,
+     "ci95": [
+      0.978154364554292,
+      1.2008777470053396
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "ach_vs_classical": {
+     "point": 1.119502168513156,
+     "ci95": [
+      1.0068897076756873,
+      1.237812574706826
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "pcsi_vs_classical": {
+     "point": 1.8419439568813694,
+     "ci95": [
+      1.7232410861423615,
+      1.9646495934634955
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "gap_geom_to_pcsi": {
+     "point": 0.7537666413359752,
+     "ci95": [
+      0.6687186831908252,
+      0.8486703284294272
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "gap_ach_to_pcsi": {
+     "point": 0.7224417883682133,
+     "ci95": [
+      0.6323894952910223,
+      0.8166589350663656
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "whitening_delta_ach_minus_geom": {
+     "point": 0.031324852967761885,
+     "ci95": [
+      -0.0018384777667986175,
+      0.07199420339467696
+     ],
+     "null": 0.0,
+     "separated": false
+    },
+    "abstract_bar_0p2db_cleared": true
+   },
+   "FER=0.01": {
+    "geom_vs_classical": {
+     "point": 1.471324094662645,
+     "ci95": [
+      1.1315468145090577,
+      1.8638345096264175
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "ach_vs_classical": {
+     "point": 1.5304531578190836,
+     "ci95": [
+      1.1837167589775603,
+      1.924470712837458
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "pcsi_vs_classical": {
+     "point": 2.4834020514838775,
+     "ci95": [
+      2.1600530732548213,
+      2.846842848674034
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "gap_geom_to_pcsi": {
+     "point": 1.0120779568212326,
+     "ci95": [
+      0.6777692814987327,
+      1.318163676553758
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "gap_ach_to_pcsi": {
+     "point": 0.9529488936647939,
+     "ci95": [
+      0.6160750163728432,
+      1.2772264390458528
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "whitening_delta_ach_minus_geom": {
+     "point": 0.05912906315643873,
+     "ci95": [
+      0.0,
+      0.18510891017208836
+     ],
+     "null": 0.0,
+     "separated": false
+    },
+    "abstract_bar_0p2db_cleared": true
+   }
+  },
+  "coded_ber_ratio": {
+   "7": {
+    "ach_over_geom": {
+     "point": 0.979004744120319,
+     "ci95": [
+      0.9647571139006866,
+      0.9929775712830876
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "geom_over_classical": {
+     "point": 0.6580275777783682,
+     "ci95": [
+      0.6339086568342451,
+      0.6810120989532579
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "ach_over_classical": {
+     "point": 0.6442121204070246,
+     "ci95": [
+      0.6197911586531815,
+      0.6679544591328088
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "pcsi_over_classical": {
+     "point": 0.27104864635085946,
+     "ci95": [
+      0.24933005439793673,
+      0.2924528601502264
+     ],
+     "null": 1.0,
+     "separated": true
+    }
+   },
+   "8": {
+    "ach_over_geom": {
+     "point": 0.884176412568691,
+     "ci95": [
+      0.8012755056853742,
+      0.9678564310815109
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "geom_over_classical": {
+     "point": 0.20441845728440577,
+     "ci95": [
+      0.16925581545728127,
+      0.23838065525842814
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "ach_over_classical": {
+     "point": 0.1807419782245521,
+     "ci95": [
+      0.14753587374311164,
+      0.2130994137507683
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "pcsi_over_classical": {
+     "point": 0.008007373696641512,
+     "ci95": [
+      0.0013608898341876852,
+      0.016614312920831313
+     ],
+     "null": 1.0,
+     "separated": true
+    }
+   },
+   "9": {
+    "ach_over_geom": {
+     "point": 0.8096118299445472,
+     "ci95": [
+      0.4480848368975008,
+      1.0463576158940397
+     ],
+     "null": 1.0,
+     "separated": false
+    },
+    "geom_over_classical": {
+     "point": 0.0682735991923271,
+     "ci95": [
+      0.01970374756065104,
+      0.12634578028110902
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "ach_over_classical": {
+     "point": 0.05527511357900051,
+     "ci95": [
+      0.010731260050513978,
+      0.1079397598569155
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "pcsi_over_classical": {
+     "point": 0.010474507824331146,
+     "ci95": [
+      0.0,
+      0.03394694598315936
+     ],
+     "null": 1.0,
+     "separated": true
+    }
+   },
+   "10": {
+    "ach_over_geom": {
+     "point": null,
+     "ci95": null,
+     "note": "0/0 - both arms error-free"
+    },
+    "geom_over_classical": {
+     "point": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "ach_over_classical": {
+     "point": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "pcsi_over_classical": {
+     "point": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "null": 1.0,
+     "separated": true
+    }
+   },
+   "11": {
+    "ach_over_geom": {
+     "point": null,
+     "ci95": null,
+     "note": "0/0 - both arms error-free"
+    },
+    "geom_over_classical": {
+     "point": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "ach_over_classical": {
+     "point": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "pcsi_over_classical": {
+     "point": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "null": 1.0,
+     "separated": true
+    }
+   }
+  },
+  "whitening_uncoded_vs_coded": {
+   "7": {
+    "raw_ratio": {
+     "point": 0.998119462862874,
+     "ci95": [
+      0.9966852753549593,
+      0.9995535745470691
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "coded_ratio": {
+     "point": 0.979004744120319,
+     "ci95": [
+      0.9647571139006866,
+      0.9929775712830876
+     ],
+     "null": 1.0,
+     "separated": true
+    }
+   },
+   "8": {
+    "raw_ratio": {
+     "point": 0.9974790473452599,
+     "ci95": [
+      0.9956572923386964,
+      0.999326226281101
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "coded_ratio": {
+     "point": 0.884176412568691,
+     "ci95": [
+      0.8012755056853742,
+      0.9678564310815109
+     ],
+     "null": 1.0,
+     "separated": true
+    }
+   },
+   "9": {
+    "raw_ratio": {
+     "point": 0.9958590027719605,
+     "ci95": [
+      0.993444667178621,
+      0.9982697816885199
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "coded_ratio": {
+     "point": 0.8096118299445472,
+     "ci95": [
+      0.4480848368975008,
+      1.0463576158940397
+     ],
+     "null": 1.0,
+     "separated": false
+    }
+   },
+   "10": {
+    "raw_ratio": {
+     "point": 0.9956873899950784,
+     "ci95": [
+      0.9929868719135106,
+      0.9983710590787125
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "coded_ratio": {
+     "point": null,
+     "ci95": null,
+     "note": "0/0 - both arms error-free"
+    }
+   },
+   "11": {
+    "raw_ratio": {
+     "point": 0.9907228449942018,
+     "ci95": [
+      0.9872575032383186,
+      0.9941270947938933
+     ],
+     "null": 1.0,
+     "separated": true
+    },
+    "coded_ratio": {
+     "point": null,
+     "ci95": null,
+     "note": "0/0 - both arms error-free"
+    }
+   }
+  },
+  "fer_diff_pp": {
+   "7": {
+    "classical_minus_geom": {
+     "point": 19.374999999999996,
+     "ci95": [
+      16.625,
+      22.25312499999973
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "classical_minus_ach": {
+     "point": 19.999999999999996,
+     "ci95": [
+      17.125,
+      23.0
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "geom_minus_ach": {
+     "point": 0.6249999999999978,
+     "ci95": [
+      -0.5000000000000004,
+      1.8749999999999933
+     ],
+     "null": 0.0,
+     "separated": false
+    }
+   },
+   "8": {
+    "classical_minus_geom": {
+     "point": 39.5,
+     "ci95": [
+      36.125,
+      42.87500000000001
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "classical_minus_ach": {
+     "point": 40.5,
+     "ci95": [
+      37.125,
+      44.0
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "geom_minus_ach": {
+     "point": 0.9999999999999996,
+     "ci95": [
+      -0.1250000000000001,
+      2.249999999999999
+     ],
+     "null": 0.0,
+     "separated": false
+    }
+   },
+   "9": {
+    "classical_minus_geom": {
+     "point": 12.75,
+     "ci95": [
+      10.5,
+      15.125
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "classical_minus_ach": {
+     "point": 12.875,
+     "ci95": [
+      10.625,
+      15.25
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "geom_minus_ach": {
+     "point": 0.12499999999999994,
+     "ci95": [
+      0.0,
+      0.37500000000000006
+     ],
+     "null": 0.0,
+     "separated": false
+    }
+   },
+   "10": {
+    "classical_minus_geom": {
+     "point": 2.25,
+     "ci95": [
+      1.25,
+      3.375
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "classical_minus_ach": {
+     "point": 2.25,
+     "ci95": [
+      1.25,
+      3.375
+     ],
+     "null": 0.0,
+     "separated": true
+    },
+    "geom_minus_ach": {
+     "point": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "null": 0.0,
+     "separated": false
+    }
+   },
+   "11": {
+    "classical_minus_geom": {
+     "point": 0.25,
+     "ci95": [
+      0.0,
+      0.625
+     ],
+     "null": 0.0,
+     "separated": false
+    },
+    "classical_minus_ach": {
+     "point": 0.25,
+     "ci95": [
+      0.0,
+      0.625
+     ],
+     "null": 0.0,
+     "separated": false
+    },
+    "geom_minus_ach": {
+     "point": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "null": 0.0,
+     "separated": false
+    }
+   }
+  },
+  "verdict": {
+   "primary_pre_registered": "PASS",
+   "primary_basis": "cliff shift CI excludes 0 on both FER=1e-1 and 1e-2, direction consistent, and clears the 0.2 dB abstract bar",
+   "secondary_whitening": "SPLIT",
+   "secondary_basis": "paired coded-BER ratio separates at SNR7/8 (CI excludes 1) but the dB cliff-shift increment is 0.03-0.06 dB with CI spanning 0; neither branch of the audit-v3 pre-registered binary holds verbatim",
+   "no_power_above": "whitening ratio has no power at SNR>=9 (error budget exhausted; SNR10/11 are 0/0)"
+  }
+ },
+ "e2": {
+  "frames_per_point": 800,
+  "bits_per_point": 1638400,
+  "n_outer_main": 10,
+  "n_outer_serial": 1,
+  "table": {
+   "15": {
+    "classical": {
+     "ber": 0.0166375732421875,
+     "errs": 27259,
+     "nmse_db": -21.49000592236615,
+     "rel_vs_classical_pct": 0.0
+    },
+    "torch_ref": {
+     "ber": 0.0166375732421875,
+     "errs": 27259,
+     "nmse_db": -21.490006863562108,
+     "rel_vs_classical_pct": 0.0
+    },
+    "f2p_ach": {
+     "ber": 0.0104754638671875,
+     "errs": 17163,
+     "nmse_db": -23.956581957757095,
+     "rel_vs_classical_pct": -37.037308778751964
+    },
+    "pcsi": {
+     "ber": 0.0039605712890625,
+     "errs": 6489,
+     "nmse_db": null,
+     "rel_vs_classical_pct": -76.19501815914009
+    },
+    "ours_reomp": {
+     "ber": 0.01543701171875,
+     "errs": 25292,
+     "nmse_db": -22.274801236541396,
+     "rel_vs_classical_pct": -7.215965369235844
+    },
+    "cao_reomp": {
+     "ber": 0.0496929931640625,
+     "errs": 81417,
+     "nmse_db": -11.77480141409468,
+     "rel_vs_classical_pct": 198.67933526541694
+    },
+    "lmmse_sp": {
+     "ber": 0.4448822021484375,
+     "errs": 728895,
+     "nmse_db": -1.9907893980378328,
+     "rel_vs_classical_pct": 2573.960893649804
+    },
+    "serial_floor_classical": {
+     "ber": 0.083446044921875,
+     "errs": 136718,
+     "nmse_db": -8.855542211580874,
+     "n_outer": 1
+    },
+    "serial_floor_f2p_ach": {
+     "ber": 0.0786737060546875,
+     "errs": 128899,
+     "nmse_db": -9.027114741563203,
+     "n_outer": 1
+    }
+   },
+   "20": {
+    "classical": {
+     "ber": 6.7138671875e-05,
+     "errs": 110,
+     "nmse_db": -29.43850431267994,
+     "rel_vs_classical_pct": 0.0
+    },
+    "torch_ref": {
+     "ber": 6.77490234375e-05,
+     "errs": 111,
+     "nmse_db": -29.437857106111945,
+     "rel_vs_classical_pct": 0.9090909090909038
+    },
+    "f2p_ach": {
+     "ber": 6.04248046875e-05,
+     "errs": 99,
+     "nmse_db": -29.89636231028514,
+     "rel_vs_classical_pct": -10.000000000000009
+    },
+    "pcsi": {
+     "ber": 0.0,
+     "errs": 0,
+     "nmse_db": null,
+     "rel_vs_classical_pct": -100.0
+    },
+    "ours_reomp": {
+     "ber": 3.662109375e-05,
+     "errs": 60,
+     "nmse_db": -34.70823198645861,
+     "rel_vs_classical_pct": -45.45454545454546
+    },
+    "cao_reomp": {
+     "ber": 0.04426025390625,
+     "errs": 72516,
+     "nmse_db": -11.62860835377398,
+     "rel_vs_classical_pct": 65823.63636363635
+    },
+    "lmmse_sp": {
+     "ber": 0.4496441650390625,
+     "errs": 736697,
+     "nmse_db": -2.19209735087134,
+     "rel_vs_classical_pct": 669624.5454545454
+    },
+    "serial_floor_classical": {
+     "ber": 0.082786865234375,
+     "errs": 135638,
+     "nmse_db": -8.894253350685412,
+     "n_outer": 1
+    },
+    "serial_floor_f2p_ach": {
+     "ber": 0.076016845703125,
+     "errs": 124546,
+     "nmse_db": -9.071943827024283,
+     "n_outer": 1
+    }
+   }
+  },
+  "paired_tests": {
+   "15": {
+    "mcnemar": {
+     "n10": 10690,
+     "n01": 594,
+     "chi2_cc": 9031.285448422545,
+     "p_one_sided": 0.0
+    },
+    "paired_frame_diff": {
+     "mean": 12.62,
+     "std": 11.859443832238194,
+     "se": 0.4192946577438301,
+     "t": 30.098165495135504,
+     "ci95_normal": [
+      11.798182470822091,
+      13.441817529177907
+     ],
+     "separated": true
+    },
+    "ci_method": "normal approximation on the paired per-frame error difference; E2 results.json carries no per-frame arrays, so no frame bootstrap is possible for E2"
+   },
+   "20": {
+    "mcnemar": {
+     "n10": 37,
+     "n01": 26,
+     "chi2_cc": 1.5873015873015872,
+     "p_one_sided": 0.1036839499284271
+    },
+    "paired_frame_diff": {
+     "mean": 0.01375,
+     "std": 1.3475276345616753,
+     "se": 0.047642296411741426,
+     "t": 0.2886090939271206,
+     "ci95_normal": [
+      -0.0796289009670132,
+      0.10712890096701319
+     ],
+     "separated": false
+    },
+    "ci_method": "normal approximation on the paired per-frame error difference; E2 results.json carries no per-frame arrays, so no frame bootstrap is possible for E2",
+    "power_note": "SNR20 has no statistical power at 800 frames: 110 vs 99 errors, McNemar p=0.104, paired CI spans 0. This run neither reproduces nor refutes the 3-seed firm -28.9%; SNR20 citations must keep using res-20260610-01"
+   }
+  },
+  "pcsi_ladder_snr15": {
+   "rungs": {
+    "serial_classical": 0.083446044921875,
+    "classical_iter10": 0.0166375732421875,
+    "f2p_ach": 0.0104754638671875,
+    "pcsi": 0.0039605712890625
+   },
+   "serial_to_classical_factor": 5.015517810631351,
+   "classical_to_pcsi_factor": 4.200801356141161,
+   "f2p_to_pcsi_factor": 2.644937586685159,
+   "log_gap_serial_to_pcsi_nat": 3.0478119746236247,
+   "recovered_by_iteration_pct": 52.90801013576421,
+   "recovered_by_iteration_plus_f2p_pct": 68.08702517039022,
+   "recovered_from_classical_origin_pct": 32.232689844677346,
+   "pairing_note": "both segments are CPU, same harness and seed, but E2 dumps no per-frame array, so frame-level pairing between the two runs is asserted by construction, not proven. Treated as a horizontal comparison per audit v3 section 6.4"
+  }
+ }
+}

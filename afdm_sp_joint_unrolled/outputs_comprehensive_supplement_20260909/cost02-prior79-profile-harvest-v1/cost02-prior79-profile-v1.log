@@ -1,0 +1,33 @@
+AFDM System initialized: N_total=1024 subcarriers (from 32x32)
+  Chirp parameters: c1=0.002441, c2=0.000000
+  Caps: l_max=15, k_max=2, delta_max=77 < N=1024: OK
+  UWA params: fc=12.0 kHz, B=4.0 kHz, fs=8.0 kHz, Ts=125.0 us
+  UWA channel: P=10, tau_spread=10.0 ms, v_mean=2.00 m/s, v_std=0.50 m/s
+  Supported AFDM delay window: 1.0 ms
+  Backward-compat speed cap: 12.6 km/h
+  Channel matrix size: 1024x1024
+[_make_system_variable_N] N_total=1024  l_max=102  k_max=4  δ_max=922  < N: True  c1=0.004395  c2=1.98e-07
+[harvest] N=1024 v=2.0 P=8 rho=0.5 l_max=102 k_max=2 fs=16.0kHz(x4.0) SNR=7 M=96 n_frames=400
+  [snr=7] kept=50/400 tries=50 0.7s (14ms/frame)
+  [snr=7] kept=100/400 tries=100 1.4s (14ms/frame)
+  [snr=7] kept=150/400 tries=150 2.1s (14ms/frame)
+  [snr=7] kept=200/400 tries=200 2.8s (14ms/frame)
+  [snr=7] kept=250/400 tries=250 3.4s (14ms/frame)
+  [snr=7] kept=300/400 tries=300 4.1s (14ms/frame)
+  [snr=7] kept=350/400 tries=350 4.8s (14ms/frame)
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/profile-cost02-prior79-v1.py", line 265, in <module>
+    main()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/profile-cost02-prior79-v1.py", line 261, in main
+    run(value, original, base, inventory)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/profile-cost02-prior79-v1.py", line 205, in run
+    harvest.run_harvest(str(dest), 7, 400, frame_manifest=str(OUT/'frame-manifest.json'),
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_deadlinefix-1788677955/source/afdm_sp_joint_unrolled/decision_harvest.py", line 401, in locked
+    return function(*args, **kwargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_deadlinefix-1788677955/source/afdm_sp_joint_unrolled/decision_harvest.py", line 476, in run_harvest
+    r = harvest_frame(sys_obj, n_total, sigma2, Phi, col_norms, K_per_l, M,
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/profile-cost02-prior79-v1.py", line 196, in counted
+    require(result['frame_record']['input_hashes'][key] == old['input_hashes'][key],
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/profile-cost02-prior79-v1.py", line 31, in require
+    raise ValueError(message)
+ValueError: paired calibration input changed: H

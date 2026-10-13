@@ -1,0 +1,80 @@
+{
+  "observations": 6,
+  "independent_clusters": 3,
+  "control_applicable": 0,
+  "observed_feature_cases": 6,
+  "finite_observed_features": true,
+  "same_delay_two_path_cases": 0,
+  "original_results": {
+    "fixed1": {
+      "observations": 6,
+      "frame_errors": 6,
+      "coded_errors": 2329,
+      "bit_log_score": 0.45565930180303954,
+      "bit_brier": 0.14570048284173173,
+      "complete_wall_seconds": 0.38031016800050566
+    },
+    "fixed20": {
+      "observations": 6,
+      "frame_errors": 6,
+      "coded_errors": 1635,
+      "bit_log_score": 1.0076131887642084,
+      "bit_brier": 0.12049633768273732,
+      "complete_wall_seconds": 0.6427192500032106
+    },
+    "joint1": {
+      "observations": 6,
+      "frame_errors": 6,
+      "coded_errors": 3947,
+      "bit_log_score": 0.6389401907565517,
+      "bit_brier": 0.2232598398522373,
+      "complete_wall_seconds": 0.377290290000019
+    },
+    "joint20": {
+      "observations": 6,
+      "frame_errors": 0,
+      "coded_errors": 0,
+      "bit_log_score": 0.06124801813210467,
+      "bit_brier": 0.017939127053549813,
+      "complete_wall_seconds": 0.589418209001451
+    },
+    "observed_H_pair": {
+      "observations": 6,
+      "frame_errors": 3,
+      "coded_errors": 619,
+      "bit_log_score": 0.27878574698970576,
+      "bit_brier": 0.07283685762139691,
+      "complete_wall_seconds": 6.002899958000853
+    },
+    "pair": {
+      "observations": 6,
+      "frame_errors": 6,
+      "coded_errors": 1252,
+      "bit_log_score": 0.3341683145370132,
+      "bit_brier": 0.10491722087445406,
+      "complete_wall_seconds": 4.300052124999638
+    }
+  },
+  "confounds": [
+    "joint/fixed changes both gain updates and gain variance",
+    "observed-H pair changes the gain prior to a data-dependent point estimate",
+    "geometry error, gain prior mismatch, outside Gaussianization and schedule remain distinct"
+  ],
+  "transferable": [
+    "observable powers and contrasts",
+    "fixed-base prior accounting",
+    "legal extrinsic cavity and normalized integration"
+  ],
+  "not_transferable": [
+    "two-path common-delay coefficient",
+    "iid-QPSK fourth-moment formula without code/pilot correction",
+    "Gaussian collision effective information",
+    "independent-R detection scale from six cross-SNR records"
+  ],
+  "new_observations": 0,
+  "receiver_calls": 0,
+  "decoder_calls": 0,
+  "new_channel_draws": 0,
+  "old_latent_replays": 0,
+  "conclusion": "no saved observation meets the blind Gaussian same-delay two-path model; no FER causal attribution"
+}

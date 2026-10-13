@@ -1,0 +1,289 @@
+{
+  "schema": "higher-order-llr-final/1",
+  "verdict": "No demonstrated superiority over fixed common Sobol in this controlled N3/P2 grid",
+  "cases": 48,
+  "observations": 12,
+  "messages": 2304,
+  "exogenous_draws": 3,
+  "source_stages": [
+    "llr_v1",
+    "llr_recount_v1"
+  ],
+  "reference_nonconvergence": 0,
+  "reference_sensitive_groups": 0,
+  "source_artifact_hashes_verified": 2395,
+  "maximum_replay_errors": {
+    "max_ratio_replay_error": 7.105427357601002e-15,
+    "max_logm_replay_error": 3.552713678800501e-15,
+    "max_probability_replay_error": 1.1102230246251565e-15,
+    "max_primary_group_metric_error": 1.4710455076283324e-15
+  },
+  "complete_message_seconds": 11.866377639016719,
+  "reference_seconds": 149.5511567529902,
+  "theory": "relative-error identity and epsilon bound; proportional common-node cancellation; conditional finite-variance IID variance; defensive proposal correction; no IID CLT claim for QMC",
+  "limits": [
+    "controlled isotropic sphere is not actual production prior",
+    "3 shared exogenous draws, no frame-count inflation",
+    "no timing confidence or production receiver claim",
+    "all precision failures retained"
+  ],
+  "matched_precision": [
+    {
+      "prior": "Gaussian",
+      "object": "QPSK",
+      "arm": "fixed_common_qmc",
+      "selected": {
+        "budget": 4096,
+        "mean_complete_message_seconds": 0.015287848061840728,
+        "empirical_reference_envelope": {
+          "llr_rmse": [
+            0.033546448664721805,
+            0.033546448664721805
+          ],
+          "llr_p95_absolute": [
+            0.046183426285276406,
+            0.046183426285276406
+          ],
+          "side_relative_density_rmse": [
+            0.026802015038606006,
+            0.026802015038606006
+          ]
+        }
+      }
+    },
+    {
+      "prior": "Gaussian",
+      "object": "QPSK",
+      "arm": "common_prior_iid",
+      "selected": null
+    },
+    {
+      "prior": "Gaussian",
+      "object": "QPSK",
+      "arm": "independent_prior_iid",
+      "selected": null
+    },
+    {
+      "prior": "Gaussian",
+      "object": "QPSK",
+      "arm": "defensive_contrast_iid",
+      "selected": {
+        "budget": 4096,
+        "mean_complete_message_seconds": 0.015740843707741686,
+        "empirical_reference_envelope": {
+          "llr_rmse": [
+            0.04389845494513777,
+            0.04389845494513777
+          ],
+          "llr_p95_absolute": [
+            0.08804037177132076,
+            0.08804037177132076
+          ],
+          "side_relative_density_rmse": [
+            0.046013683084568914,
+            0.046013683084568914
+          ]
+        }
+      }
+    },
+    {
+      "prior": "Gaussian",
+      "object": "Gaussian-outside",
+      "arm": "fixed_common_qmc",
+      "selected": {
+        "budget": 1024,
+        "mean_complete_message_seconds": 0.001805692728945966,
+        "empirical_reference_envelope": {
+          "llr_rmse": [
+            0.028857436831529963,
+            0.028897436707758378
+          ],
+          "llr_p95_absolute": [
+            0.055010870347687146,
+            0.0552776464237364
+          ],
+          "side_relative_density_rmse": [
+            0.022527554542146437,
+            0.022564256349362904
+          ]
+        }
+      }
+    },
+    {
+      "prior": "Gaussian",
+      "object": "Gaussian-outside",
+      "arm": "common_prior_iid",
+      "selected": {
+        "budget": 4096,
+        "mean_complete_message_seconds": 0.005639671021223573,
+        "empirical_reference_envelope": {
+          "llr_rmse": [
+            0.03704297035029088,
+            0.03706490915488032
+          ],
+          "llr_p95_absolute": [
+            0.08962629453917616,
+            0.09001842099916796
+          ],
+          "side_relative_density_rmse": [
+            0.03019480633133913,
+            0.030234773976373402
+          ]
+        }
+      }
+    },
+    {
+      "prior": "Gaussian",
+      "object": "Gaussian-outside",
+      "arm": "independent_prior_iid",
+      "selected": null
+    },
+    {
+      "prior": "Gaussian",
+      "object": "Gaussian-outside",
+      "arm": "defensive_contrast_iid",
+      "selected": {
+        "budget": 4096,
+        "mean_complete_message_seconds": 0.006240249979024763,
+        "empirical_reference_envelope": {
+          "llr_rmse": [
+            0.022941533867510317,
+            0.022997244543807378
+          ],
+          "llr_p95_absolute": [
+            0.039277086176824544,
+            0.03971101520682636
+          ],
+          "side_relative_density_rmse": [
+            0.02540307349961236,
+            0.025460909304550094
+          ]
+        }
+      }
+    },
+    {
+      "prior": "sphere",
+      "object": "QPSK",
+      "arm": "fixed_common_qmc",
+      "selected": {
+        "budget": 4096,
+        "mean_complete_message_seconds": 0.015349931457876664,
+        "empirical_reference_envelope": {
+          "llr_rmse": [
+            0.023982583228664693,
+            0.024083364445569362
+          ],
+          "llr_p95_absolute": [
+            0.06084308529919767,
+            0.06137937352157146
+          ],
+          "side_relative_density_rmse": [
+            0.01933013479730967,
+            0.019383998872367667
+          ]
+        }
+      }
+    },
+    {
+      "prior": "sphere",
+      "object": "QPSK",
+      "arm": "common_prior_iid",
+      "selected": null
+    },
+    {
+      "prior": "sphere",
+      "object": "QPSK",
+      "arm": "independent_prior_iid",
+      "selected": null
+    },
+    {
+      "prior": "sphere",
+      "object": "QPSK",
+      "arm": "defensive_contrast_iid",
+      "selected": null
+    },
+    {
+      "prior": "sphere",
+      "object": "Gaussian-outside",
+      "arm": "fixed_common_qmc",
+      "selected": {
+        "budget": 4096,
+        "mean_complete_message_seconds": 0.00584159983312323,
+        "empirical_reference_envelope": {
+          "llr_rmse": [
+            0.014582919760679956,
+            0.014701375129339661
+          ],
+          "llr_p95_absolute": [
+            0.030613987791907864,
+            0.031103459985956396
+          ],
+          "side_relative_density_rmse": [
+            0.011050773038923654,
+            0.011119705672299883
+          ]
+        }
+      }
+    },
+    {
+      "prior": "sphere",
+      "object": "Gaussian-outside",
+      "arm": "common_prior_iid",
+      "selected": {
+        "budget": 4096,
+        "mean_complete_message_seconds": 0.005673644145493502,
+        "empirical_reference_envelope": {
+          "llr_rmse": [
+            0.03851436820705243,
+            0.0386226140663991
+          ],
+          "llr_p95_absolute": [
+            0.06452639463806449,
+            0.06485520502351153
+          ],
+          "side_relative_density_rmse": [
+            0.04180717909854319,
+            0.04186055429384167
+          ]
+        }
+      }
+    },
+    {
+      "prior": "sphere",
+      "object": "Gaussian-outside",
+      "arm": "independent_prior_iid",
+      "selected": null
+    },
+    {
+      "prior": "sphere",
+      "object": "Gaussian-outside",
+      "arm": "defensive_contrast_iid",
+      "selected": {
+        "budget": 4096,
+        "mean_complete_message_seconds": 0.006324743083344704,
+        "empirical_reference_envelope": {
+          "llr_rmse": [
+            0.028506402525114855,
+            0.02864681257085187
+          ],
+          "llr_p95_absolute": [
+            0.06300493175942762,
+            0.06358598238855853
+          ],
+          "side_relative_density_rmse": [
+            0.028989575143730236,
+            0.029050915605055416
+          ]
+        }
+      }
+    }
+  ],
+  "evidence_sha256": {
+    "results/afdm_higher_order_information/llr_recount_v1/attempt.json": "ea3ff149d65a4ea863473ca423aeab986e02f71da3e5c843fb3f2ca12abf966f",
+    "results/afdm_higher_order_information/llr_recount_v1/registration.json": "949cc8c05f04e821cdaf071ed370c75bf1385abd9e73faa28e616cf1b8b8f895",
+    "results/afdm_higher_order_information/llr_recount_v1/results.json": "7901505c101f046ed7fc150c84826ee4cb0ef29358f07fa3c5e180292ba489f0",
+    "results/afdm_higher_order_information/llr_v1/attempt.json": "1fa4054ab85f8e6a6231507d6fce1c92ca0127e4b7a24c0e2b28fd2fef319b79",
+    "results/afdm_higher_order_information/llr_v1/registration.json": "31fe0168f1bfa479128daf998b1e789f3d138a457740c78a4284ddaea626ce21",
+    "results/afdm_higher_order_information/llr_v1/results.json": "c8e18d66f8621dc0b4d513564c8e59731682fc8eecc8411b87716ddf751b3507"
+  }
+}

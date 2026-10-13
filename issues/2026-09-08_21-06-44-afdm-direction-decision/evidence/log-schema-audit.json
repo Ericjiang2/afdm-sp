@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "command": "source-runtime-v4: unittest test_direction_budget + test_direction_logging; load actual v3 terminal NPZ, augment metadata/confidence groups, validate_record(deployable=True)",
+  "exit_code": 0,
+  "source_manifest": "source-snapshot-runtime-v4.json",
+  "protocol_sha256": "4f307ad9f6c1f4667704eaa64f1594249c748f8ecf9c7707a32a1545e09c2941",
+  "evidence": [
+    "log-budget-v4-tests.log",
+    "log-budget-v4-audit.json",
+    "engineering-smoke-v3-audited.json",
+    "engineering-smoke-v3/complete.json"
+  ],
+  "coverage": "source plan §12 nine field groups present; exact RNG words incl reserved streams; graph11 stages and support40; true decoded info FER; all necessary projection residual/cross terms; fixed confidence bins; separate failed/retry/call ledgers",
+  "version_boundary": "v3 full-chain record augmented offline using v4 logger and saved true outputs. No extra receiver call. v4 future runner emits same added fields; subsequent full run gets separate runtime evidence.",
+  "negative_tests": "every required field removal, illegal truth arm, pairing mismatch, duplicate arm, invalid support/error/FER, NaN, immutable output overwrite; cumulative reservation/failed retry/multi-stage atomic rejection",
+  "truth_policy": "Receiver observed-only, evaluator metadata hashes and saved truth never input to receiver; null physical group means no estimated grouping, not recall.",
+  "cost_scope": "Instrumented diagnostic latency, no COST02 pass"
+}

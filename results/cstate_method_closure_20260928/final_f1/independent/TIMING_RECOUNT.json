@@ -1,0 +1,460 @@
+{
+  "checks": {
+    "all_64_manifest_frames_once": true,
+    "all_ledger_ok": true,
+    "all_receiver_started": true,
+    "all_timing_values_finite_nonnegative": true,
+    "attempt_log_indices_1_to_192": true,
+    "attempts_192_rows": true,
+    "attempts_match_ledger_order": true,
+    "branch_policy_no_cstate": true,
+    "counterbalanced_schedule_matches_frozen_source": true,
+    "each_frame_exactly_3_arms": true,
+    "exact_arm_set": true,
+    "expected_observed_seal_sha": true,
+    "expected_primary_report_sha": true,
+    "git_lineage_and_blob_matches": true,
+    "ledger_192_rows": true,
+    "ledger_attempt_indices_1_to_192": true,
+    "ledger_groups_follow_manifest_order": true,
+    "manifest_64_unique_ids": true,
+    "manifest_expected_calls": true,
+    "manifest_schema": true,
+    "paired_input_and_observation_hashes": true,
+    "primary_binds_observed_commit_and_seal": true,
+    "primary_count_binding": true,
+    "primary_schema_pass": true,
+    "producer_schedule_source_hash_matches_manifest": true,
+    "seal_schema_and_pass": true
+  },
+  "counts": {
+    "attempt_rows": 192,
+    "frames": 64,
+    "ledger_rows": 192,
+    "receiver_started_rows": 192,
+    "rows_per_arm": {
+      "Ccompat": 64,
+      "Cref": 64,
+      "F0": 64
+    }
+  },
+  "environment": {
+    "numpy": "2.3.5",
+    "python": "3.12.14"
+  },
+  "git_checks": {
+    "observed_commit_is_primary_ancestor": true,
+    "observed_seal_blob": {
+      "returncode": 0,
+      "sha256": "765fb8147fd20ba4673681578716656ea1f030138bcbfa45f160d5791283a6a4"
+    },
+    "primary_report_blob": {
+      "returncode": 0,
+      "sha256": "bbe31f2f117932555e59bec54825a5af88b3e53a63b47b5c4360c9af018793af"
+    },
+    "report_blob_matches_local": true,
+    "seal_blob_matches_local": true
+  },
+  "independent_arm_timing": {
+    "Ccompat": {
+      "acquisition_seconds": {
+        "max": 0.3152236470486969,
+        "mean": 0.2780263696949987,
+        "median": 0.2749069679994136,
+        "min": 0.2587233688682318,
+        "n": 64,
+        "p95": 0.30560817801160733,
+        "p99": 0.3143492436618544
+      },
+      "complete_latency_seconds": {
+        "max": 0.6614879299886525,
+        "mean": 0.5596680669877969,
+        "median": 0.5579238425707445,
+        "min": 0.5001526270061731,
+        "n": 64,
+        "p95": 0.5869535758974962,
+        "p99": 0.6260249408893286
+      },
+      "decision_record_seconds": {
+        "max": 0.029106463072821498,
+        "mean": 0.010841331593837822,
+        "median": 0.0071766754845157266,
+        "min": 0.004869064083322883,
+        "n": 64,
+        "p95": 0.023693024832755323,
+        "p99": 0.027765098516829307
+      },
+      "decoder_seconds": {
+        "max": 0.053418182069435716,
+        "mean": 0.03776489276060602,
+        "median": 0.03682895307429135,
+        "min": 0.03186782402917743,
+        "n": 64,
+        "p95": 0.04301171386614442,
+        "p99": 0.050561341047286976
+      },
+      "native_seconds": {
+        "max": 0.631007760995999,
+        "mean": 0.5120147476591228,
+        "median": 0.5080391331575811,
+        "min": 0.4675469759386033,
+        "n": 64,
+        "p95": 0.5468874306185171,
+        "p99": 0.5817301248363217
+      },
+      "raw_serialization_seconds": {
+        "max": 0.05435290513560176,
+        "mean": 0.022830682999483543,
+        "median": 0.018674642546102405,
+        "min": 0.015447543933987617,
+        "n": 64,
+        "p95": 0.048994961567223015,
+        "p99": 0.0527082484960556
+      },
+      "refit_seconds": {
+        "max": 0.17898669699206948,
+        "mean": 0.11033929574477952,
+        "median": 0.10805801395326853,
+        "min": 0.10105110798031092,
+        "n": 64,
+        "p95": 0.12388263731263577,
+        "p99": 0.1525036956463008
+      },
+      "tf_seconds": {
+        "max": 0.05103356181643903,
+        "mean": 0.03891765496155131,
+        "median": 0.03868241049349308,
+        "min": 0.038196240086108446,
+        "n": 64,
+        "p95": 0.03928669659653679,
+        "p99": 0.044086685499642016
+      }
+    },
+    "Cref": {
+      "acquisition_seconds": {
+        "max": 0.42636949592269957,
+        "mean": 0.36896069964859635,
+        "median": 0.3648723049554974,
+        "min": 0.34134110691957176,
+        "n": 64,
+        "p95": 0.400872493465431,
+        "p99": 0.4193649322888814
+      },
+      "complete_latency_seconds": {
+        "max": 0.7378693281207234,
+        "mean": 0.6521716056122386,
+        "median": 0.6464967986103147,
+        "min": 0.5904434330295771,
+        "n": 64,
+        "p95": 0.7213418615050614,
+        "p99": 0.7377959619718604
+      },
+      "decision_record_seconds": {
+        "max": 0.04346800199709833,
+        "mean": 0.009741123292769771,
+        "median": 0.006719163968227804,
+        "min": 0.00481916987337172,
+        "n": 64,
+        "p95": 0.029448352486360813,
+        "p99": 0.03864502000156788
+      },
+      "decoder_seconds": {
+        "max": 0.06822704174555838,
+        "mean": 0.03815792680325103,
+        "median": 0.03672535961959511,
+        "min": 0.03224423713982105,
+        "n": 64,
+        "p95": 0.04395186079200357,
+        "p99": 0.05602152272127564
+      },
+      "native_seconds": {
+        "max": 0.6817392699886113,
+        "mean": 0.604182779439725,
+        "median": 0.5950150499120355,
+        "min": 0.5381633450742811,
+        "n": 64,
+        "p95": 0.6633276109001599,
+        "p99": 0.6725052044540644
+      },
+      "raw_serialization_seconds": {
+        "max": 0.043803553096950054,
+        "mean": 0.02221911224842188,
+        "median": 0.01953559252433479,
+        "min": 0.016500939149409533,
+        "n": 64,
+        "p95": 0.03367053915280848,
+        "p99": 0.043692524982616304
+      },
+      "refit_seconds": {
+        "max": 0.16540943016298115,
+        "mean": 0.11252831891397364,
+        "median": 0.10896787338424474,
+        "min": 0.10120271891355515,
+        "n": 64,
+        "p95": 0.13597245137207206,
+        "p99": 0.16047576402546837
+      },
+      "tf_seconds": {
+        "max": 0.07337987865321338,
+        "mean": 0.03993391082985909,
+        "median": 0.03874472656752914,
+        "min": 0.03819423099048436,
+        "n": 64,
+        "p95": 0.04425292608793823,
+        "p99": 0.06297604558756571
+      }
+    },
+    "F0": {
+      "acquisition_seconds": {
+        "max": 0.10376117005944252,
+        "mean": 0.08255716382336686,
+        "median": 0.0794887033989653,
+        "min": 0.07768403715454042,
+        "n": 64,
+        "p95": 0.09660159646300598,
+        "p99": 0.1031012261728756
+      },
+      "complete_latency_seconds": {
+        "max": 0.4292658278718591,
+        "mean": 0.34985430272718077,
+        "median": 0.3454816434532404,
+        "min": 0.313295854954049,
+        "n": 64,
+        "p95": 0.39794844487914816,
+        "p99": 0.4243809767649509
+      },
+      "decision_record_seconds": {
+        "max": 0.03111326997168362,
+        "mean": 0.011162204555148492,
+        "median": 0.008843404590152204,
+        "min": 0.004729174077510834,
+        "n": 64,
+        "p95": 0.026177054294385015,
+        "p99": 0.029094975015614172
+      },
+      "decoder_seconds": {
+        "max": 0.08692309306934476,
+        "mean": 0.0403436000488,
+        "median": 0.04039060149807483,
+        "min": 0.031779424054548144,
+        "n": 64,
+        "p95": 0.04947746677789837,
+        "p99": 0.08235780430492012
+      },
+      "native_seconds": {
+        "max": 0.3655367491301149,
+        "mean": 0.3009606334308046,
+        "median": 0.2966516480082646,
+        "min": 0.27265449706465006,
+        "n": 64,
+        "p95": 0.33764260304160415,
+        "p99": 0.35315209619933735
+      },
+      "raw_serialization_seconds": {
+        "max": 0.053084532963112,
+        "mean": 0.02298361914290581,
+        "median": 0.019756288966163993,
+        "min": 0.01478570606559515,
+        "n": 64,
+        "p95": 0.044258680334314696,
+        "p99": 0.05050969719653948
+      },
+      "refit_seconds": {
+        "max": 0.14131228509359062,
+        "mean": 0.09620862783776829,
+        "median": 0.09454601665493101,
+        "min": 0.08856548578478396,
+        "n": 64,
+        "p95": 0.10662794803502036,
+        "p99": 0.13316299306228754
+      },
+      "tf_seconds": {
+        "max": 0.05907096993178129,
+        "mean": 0.03929101273752167,
+        "median": 0.038684172672219574,
+        "min": 0.038294254103675485,
+        "n": 64,
+        "p95": 0.040925472124945364,
+        "p99": 0.05434956172481177
+      }
+    }
+  },
+  "independent_paired_differences": {
+    "Ccompat_minus_F0": {
+      "acquisition_seconds": {
+        "max": 0.2362189160194248,
+        "mean": 0.19546920587163186,
+        "median": 0.1933820634149015,
+        "min": 0.16942504211328924,
+        "n": 64,
+        "p95": 0.2175660183886066,
+        "p99": 0.23447614717064424
+      },
+      "complete_latency_seconds": {
+        "max": 0.31132660480216146,
+        "mean": 0.20981376426061615,
+        "median": 0.20842359599191695,
+        "min": 0.1427821961697191,
+        "n": 64,
+        "p95": 0.25357361471978945,
+        "p99": 0.2809670234681106
+      }
+    },
+    "Cref_minus_Ccompat": {
+      "acquisition_seconds": {
+        "max": 0.15177943999879062,
+        "mean": 0.09093432995359763,
+        "median": 0.08900923212058842,
+        "min": 0.045680325012654066,
+        "n": 64,
+        "p95": 0.12494445689953862,
+        "p99": 0.1375458247866481
+      },
+      "complete_latency_seconds": {
+        "max": 0.2091595681849867,
+        "mean": 0.09250353862444172,
+        "median": 0.08072257100138813,
+        "min": 0.026462128153070807,
+        "n": 64,
+        "p95": 0.1531780587276444,
+        "p99": 0.19290198459988453
+      }
+    },
+    "Cref_minus_F0": {
+      "acquisition_seconds": {
+        "max": 0.3373280360829085,
+        "mean": 0.2864035358252295,
+        "median": 0.28352592361625284,
+        "min": 0.2480952860787511,
+        "n": 64,
+        "p95": 0.3212527266237884,
+        "p99": 0.33559721942991017
+      },
+      "complete_latency_seconds": {
+        "max": 0.40015775617212057,
+        "mean": 0.30231730288505787,
+        "median": 0.2963763293810189,
+        "min": 0.20903031807392836,
+        "n": 64,
+        "p95": 0.3757224916713312,
+        "p99": 0.3894508014689199
+      }
+    }
+  },
+  "independent_ratios": {
+    "acquisition_excess_seconds": 0.2864035358252295,
+    "complete_latency_reduction_fraction": 0.141839261060135,
+    "remaining_measured_acquisition_fraction": 0.6824957845175208,
+    "removable_acquisition_fraction": 0.31750421548247926
+  },
+  "limitations": [
+    "This recount aggregates saved ledger timing values; it does not independently re-open raw/checkpoint artifacts.",
+    "No truth or FER/BER scoring was read or recalculated.",
+    "All nonzero differences against the frozen primary are recorded exactly; zero differences are reported as exact equality."
+  ],
+  "local_input_sha256": {
+    "attempts": "b8daaf95a310920b796942ebd93755f80c265f2f53d7b3fed6fde8aaa1332a11",
+    "ledger": "d725accf23ff91d7f23f68d057be410e52562f5328c1129492d06bc6abfcee3c",
+    "manifest": "1f30366a4cafe83d754aec35bd46044c5ba5e2b8a2d761ee04e555e900e4f49b",
+    "observed_seal": "765fb8147fd20ba4673681578716656ea1f030138bcbfa45f160d5791283a6a4",
+    "primary_report": "bbe31f2f117932555e59bec54825a5af88b3e53a63b47b5c4360c9af018793af"
+  },
+  "observed_git_commit": "09abb05632a682176954250b783b787a5cfdddac",
+  "primary_comparison": {
+    "all_nonzero_differences": [],
+    "difference_count": 0,
+    "exact_equal": true,
+    "maximum_absolute_numeric_delta": 0.0,
+    "numeric_paths_compared": 214
+  },
+  "primary_git_commit": "2f81d00514508d938202c1dfef2fb4026a2a1a40",
+  "producer_schedule_source_sha256": "8eb157560a272bf6a7642a53c63487ff7134421ecec7a17e984ab24b8138b38a",
+  "reader_assumption_note": "An initial local check incorrectly required identical arm order per frame. Frozen producer source defines six counterbalanced permutations; the final check validates each of the 64 ordinals against that source schedule.",
+  "schedule": {
+    "all_64_frame_groups_match": true,
+    "arm_set": [
+      "F0",
+      "Cref",
+      "Ccompat"
+    ],
+    "branch_policy": "F0 only, no CSTATE; F1 arms have no branch",
+    "expected": "itertools.permutations((F0,Cref,Ccompat))[frame_ordinal % 6]",
+    "frame_ids": [
+      "s650_f0000",
+      "s650_f0016",
+      "s650_f0032",
+      "s650_f0048",
+      "s650_f0064",
+      "s650_f0080",
+      "s650_f0096",
+      "s650_f0112",
+      "s650_f0128",
+      "s650_f0144",
+      "s650_f0160",
+      "s650_f0176",
+      "s650_f0192",
+      "s650_f0208",
+      "s650_f0224",
+      "s650_f0240",
+      "s650_f0256",
+      "s650_f0272",
+      "s650_f0288",
+      "s650_f0304",
+      "s650_f0320",
+      "s650_f0336",
+      "s650_f0352",
+      "s650_f0368",
+      "s650_f0384",
+      "s650_f0400",
+      "s650_f0416",
+      "s650_f0432",
+      "s650_f0448",
+      "s650_f0464",
+      "s650_f0480",
+      "s650_f0496",
+      "s650_f0512",
+      "s650_f0528",
+      "s650_f0544",
+      "s650_f0560",
+      "s650_f0576",
+      "s650_f0592",
+      "s650_f0608",
+      "s650_f0624",
+      "s650_f0640",
+      "s650_f0656",
+      "s650_f0672",
+      "s650_f0688",
+      "s650_f0704",
+      "s650_f0720",
+      "s650_f0736",
+      "s650_f0752",
+      "s650_f0768",
+      "s650_f0784",
+      "s650_f0800",
+      "s650_f0816",
+      "s650_f0832",
+      "s650_f0848",
+      "s650_f0864",
+      "s650_f0880",
+      "s650_f0896",
+      "s650_f0912",
+      "s650_f0928",
+      "s650_f0944",
+      "s650_f0960",
+      "s650_f0976",
+      "s650_f0992",
+      "s650_f1008"
+    ],
+    "order_counts": {
+      "Ccompat,Cref,F0": 10,
+      "Ccompat,F0,Cref": 10,
+      "Cref,Ccompat,F0": 11,
+      "Cref,F0,Ccompat": 11,
+      "F0,Ccompat,Cref": 11,
+      "F0,Cref,Ccompat": 11
+    }
+  },
+  "schema": "f1-matched64-independent-timing-recount/1",
+  "scope": "Independent arithmetic over sealed timing ledger rows for 64 archived frames x 3 arms; no raw NPZ, truth, receiver, or decoder access.",
+  "status": "pass"
+}

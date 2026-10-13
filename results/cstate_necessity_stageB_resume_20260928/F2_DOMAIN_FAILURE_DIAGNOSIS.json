@@ -1,0 +1,58 @@
+{
+  "schema": "f2-domain-failure-diagnosis/1",
+  "status": "confirmed_interface_domain_mismatch",
+  "scope": "read-only saved-output and frozen-source inspection; no truth or receiver replay",
+  "campaign_status": "invalid_partial",
+  "failed_attempt": {
+    "number": 19,
+    "observation_id": "s650_f0004",
+    "arm": "F2E_LOCAL",
+    "error": "ValueError('essentially identical input paths')",
+    "charged_seconds": 0.009851524024270475,
+    "saved_checkpoints": 0,
+    "completed_prefix_calls_before_failure": 10,
+    "completed_continuation_calls_before_failure": 8,
+    "attempts_journaled": 19
+  },
+  "artifact": {
+    "root": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/cstate_necessity_stageB_resume_20260928/population_v1",
+    "failure_path": "failure.json",
+    "raw_path": "raw/s650_f0004_F2E.npz",
+    "raw_sha256": "51ce9e68d8593b78f4dfeece93cb879da8dcbd99315ca3126dec73d3e76defd7",
+    "raw_size_bytes": 202452,
+    "raw_sha_matches_completed_ledger": true,
+    "completed_f2e_attempt": 18,
+    "f2e_final_syndrome_weight": 276
+  },
+  "duplicate": {
+    "r1_slot_indices_zero_based": [5, 6],
+    "grid_indices": [109, 108],
+    "delay": 15,
+    "r1_dopplers": [0.4842091048886865, 0.48420910489879293],
+    "doppler_gap": 1.0106415704314031e-11,
+    "frozen_duplicate_tolerance": 1e-06,
+    "strictly_inside_tolerance": true,
+    "front_delta": [0.01873353492112338, 0.018733534921028607],
+    "front_gains_real_imag": [
+      [-0.0007991733811232391, -0.136151085443186],
+      [-0.000799173387232621, -0.13615108544290785]
+    ],
+    "r1_gains_real_imag": [
+      [0.0048770276476312316, -0.1656351356667638],
+      [0.004877027641907851, -0.16563513566670143]
+    ],
+    "both_indices_active_in_each_of_four_saved_f2_passes": true,
+    "initial_grid_centers_from_frozen_initial_grid": [1.0, 0.0],
+    "front_and_coded_r0_r1_geometry_match_for_pair": true
+  },
+  "source_binding": {
+    "population_manifest_sha256": "44404a32e44dc7f689e3256a20f60a6a639f0a7e2359ca31f5028e2bee657890",
+    "f2_estimator.py": "05f7c2415dd4c72da1f41a50f167f7b01c470877adb1b2f9a0891d0cd7569779",
+    "f2_receiver.py": "4e0a2e902e784860aa542bf1e1a4ce5def6acfe4737f5a2a30832ae1ebe00841",
+    "f2_run_population.py": "89adfb41d2693945187069b82a166896d1913d46d6df5c10941c7cd07dcefdb0",
+    "tf_cstate_validation_20260922/geometry_validation.py": "db75b16ce3b243e0e899198690f9e4c3d896a81638ef48b78ebf94a8c4323aab",
+    "tf_cstate_validation_20260922/run_validation.py": "fe3cde76449a3fe05a06c6202684ada9410329744b29498eda4ccfc3205b87bc"
+  },
+  "finding": "F2 independently shifts Doppler grid atoms and selects top155 by posterior hypervariance without a same-delay minimum-separation constraint. Two initially distinct delay-15 atoms converge within 1e-6 and remain separate nonzero slots through F2E coded r0/r1. Frozen LOCAL geometry rejects that pair at input validation, before any geometry search.",
+  "boundary": "The saved output proves final coalescence and handoff, not the intermediate per-EM Doppler trajectory; no truth, FER, or benefit claim follows. The method/domain contract needs a separately authorized resolution; this report does not merge paths, change thresholds, or rerun the campaign."
+}

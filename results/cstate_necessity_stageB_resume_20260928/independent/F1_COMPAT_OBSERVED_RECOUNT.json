@@ -1,0 +1,82 @@
+{
+  "schema": "cstate-necessity-stage-b-f1-compat-observed-recount/1",
+  "status": "pass_metadata_recount",
+  "scope": "Local observed metadata and Git blobs only. No truth or raw/checkpoint NPZ payload was read or independently hashed; no receiver was run.",
+  "observed_root": "results/cstate_necessity_stageB_resume_20260928/observed_f1_compat_v1",
+  "git_commit": "64893916d5de5e81fd720946d666d9dbe313fb0d",
+  "seal": {
+    "path": "observed_seal.json",
+    "schema": "cstate-necessity-stage-b-f1-compat/1",
+    "status": "pass",
+    "observations": 1024,
+    "attempts": 2112,
+    "registration_sha256": "4e039bacbef589b47219f7c0173de1f0209363c2768283dc36a21a01498dd643",
+    "sha256": "067fa733bbc1ecf26fe25b843f95d556f191bebb9d7b2ce4fcd3dae67f0cebdb"
+  },
+  "counts": {
+    "attempt_rows": 2112,
+    "ledger_rows": 2112,
+    "all_status_ok": true,
+    "attempt_indices_contiguous": true,
+    "attempt_and_ledger_order_match": true,
+    "duplicate_observation_arm_rows": 0,
+    "arm_calls": {
+      "B": 1024,
+      "Ccompat": 1024,
+      "Cref": 64
+    },
+    "B_frames": {
+      "count": 1024,
+      "range": [0, 1023],
+      "unique": 1024,
+      "complete": true
+    },
+    "Ccompat_frames": {
+      "count": 1024,
+      "range": [0, 1023],
+      "unique": 1024,
+      "complete": true
+    },
+    "Cref_frames": {
+      "count": 64,
+      "range": [0, 1008],
+      "unique": 64,
+      "all_frame_mod_16_zero": true
+    }
+  },
+  "reference_comparison": {
+    "rows_with_reference_max_difference": 2112,
+    "rows_missing_reference_max_difference": 0,
+    "maximum_absolute_difference": 0.0,
+    "all_recorded_differences_zero": true
+  },
+  "small_file_hashes": {
+    "manifest.json": {
+      "bytes": 3474,
+      "sha256": "c352aa04dcc52e08a86869befa59c034ac92b72ed1016412d42a15d00ef2219f",
+      "seal_entry_matches": true,
+      "git_blob_matches": true
+    },
+    "attempts.jsonl": {
+      "bytes": 403804,
+      "sha256": "a45336a0afb7ddc656e01506ed3d6df25cced22cec2da0d13b8bdb0908339d5c",
+      "seal_entry_matches": true,
+      "git_blob_matches": true
+    },
+    "ledger.jsonl": {
+      "bytes": 4547401,
+      "sha256": "fe04491d815fad44e9187b6e043b7cb26341f03418e4e13656087cec7032b1f3",
+      "seal_entry_matches": true,
+      "git_blob_matches": true
+    },
+    "observed_seal.json": {
+      "bytes": 868642,
+      "sha256": "067fa733bbc1ecf26fe25b843f95d556f191bebb9d7b2ce4fcd3dae67f0cebdb",
+      "git_blob_matches": true
+    }
+  },
+  "limitations": [
+    "The local manifest currently records status=running while the observed seal records status=pass; counts were independently taken from attempts and ledger rows.",
+    "Raw and checkpoint artifacts remain outside this local recount; their payload hashes were not rechecked here."
+  ]
+}

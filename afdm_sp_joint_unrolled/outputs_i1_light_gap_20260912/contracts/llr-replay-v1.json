@@ -1,0 +1,52 @@
+{
+  "schema": "i1-light-llr-replay-v1",
+  "campaign_id": "afdm-light-gap-20260912-141500",
+  "purpose": "development diagnostic, not independent confirmation",
+  "device": "cpu",
+  "threads": 1,
+  "snrs": [
+    7,
+    8
+  ],
+  "arms": [
+    "I1",
+    "BP_EST_NOISE",
+    "BP_TRUE_BASE",
+    "BP_TRUE_NOISE",
+    "EP_EST_NOISE",
+    "EP_TRUE_NOISE"
+  ],
+  "betas": [
+    0.5,
+    0.75,
+    1.0,
+    1.5,
+    2.0
+  ],
+  "clip": 20.0,
+  "ldpc_maxiter": 50,
+  "engineering_blocks": 2,
+  "development_blocks": 64,
+  "bounds": {
+    "engineering": {
+      "D": 120,
+      "seconds": 300
+    },
+    "development": {
+      "D": 3840,
+      "seconds": 1800
+    }
+  },
+  "output_bytes": 1073741824,
+  "old_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_i1_bottleneck_20260912",
+  "old_inputs": {
+    "runs/engineering/summary.json": "546f4c694f453642ecea95811c3c6bb4b9237e21c104a6c69830a496a9b6f503",
+    "runs/development/summary.json": "5358abcdb3053b53bead12538cf410483a78a828390754819caa3e37ec0f66e9",
+    "runs/engineering/environment.json": "ea4eaf905adc51ab5e06db86591e58d16ab71f6e802e5386f14e1eb2471ff9d8",
+    "runs/development/environment.json": "4a9546056002985cd8aa803be69e2248fa7f7944c6a6ab3b1afde45df668d9ba",
+    "source-current/source-manifest.json": "cf5be8afc69c2435f21dfffc0953106085677d85120f381ce5e77335666d4751",
+    "analysis/results.json": "f09259857cab46774c34cdd36c30d4fedea206b2337effc3195f44ca29164eab"
+  },
+  "authorization": "existing user goal: continue lightweight experiments, verify failures, derive and reassess after each result",
+  "created_at": "2026-09-12T06:34:28.316839+00:00"
+}

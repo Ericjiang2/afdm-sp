@@ -1,0 +1,71 @@
+\documentclass[journal]{IEEEtran}
+
+% ---- Packages -------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric,fit,backgrounds}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
+
+\newtheorem{claim}{Claim}
+
+\input{math_commands}
+
+% Figure search paths (in order of preference)
+\graphicspath{{figures/}{../figures/}{../figures/ai_generated/}{../paper/figures/}{../paper/Figures/}{../paper/system_block/}{../figures/system_block/}}
+
+\begin{document}
+
+% ---- Title & authors ------------------------------------------------------
+\title{Faithful Differentiable Unrolling of Joint OMP--MP Receivers for Superimposed-Pilot AFDM: A Complexity-Honest Learned Support-Refinement Head}
+
+\author{%
+  Yikun~Guo,~\IEEEmembership{Student~Member,~IEEE},
+  and~Yusha~Liu%
+  \thanks{Y.~Guo is with the Glasgow College, University of Electronic Science and Technology of China (UESTC), and the School of Engineering, University of Glasgow. Email: 18736049201eric@gmail.com.}%
+  \thanks{Y.~Liu (corresponding author) is with the Glasgow College, UESTC.}%
+}
+
+\markboth{IEEE Transactions on Machine Learning in Communications and Networking,~Vol.~X, No.~X, Month~2026}{Guo \MakeLowercase{\textit{et al.}}: Learned Support-Refinement for SP-AFDM}
+
+\maketitle
+
+% ---- Abstract & keywords --------------------------------------------------
+\begin{abstract}
+\input{sections/Abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+Affine frequency division multiplexing (AFDM), underwater acoustic (UWA) communication, superimposed pilots, orthogonal matching pursuit (OMP), message passing (MP), deep unfolding, support refinement, complexity-preserving receiver.
+\end{IEEEkeywords}
+
+\input{sections/Section1}
+\input{sections/Section2}
+\input{sections/Section3}
+\input{sections/Section4}
+\input{sections/Section5}
+\input{sections/Section6}
+
+% ---- Appendix -------------------------------------------------------------
+\appendices
+\input{Appendix}
+
+% ---- Bibliography ---------------------------------------------------------
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

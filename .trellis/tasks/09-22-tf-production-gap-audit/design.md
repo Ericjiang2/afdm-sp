@@ -1,0 +1,26 @@
+# Design
+
+## Evidence and source
+Primary raw root: deinlab:/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_pd1q_part_b_20260921/run. Actual source root experiments/sp_afdm_native_joint_reviewed_20260921; baseline experiments/sp_afdm_frozen_reviewed_20260921. Retrieve small artifacts only; large raw stay remote with paths/hash manifests. Source archive assembled from verified executed files, not assumed identical local names. Offline all3072 taxonomy does not replay receivers; missing initial acquisition state or candidate-level times stay unavailable.
+
+## B arms and budget
+64 selected saved observations, seven development arms each =448 calls. Allow one instrumented baseline replay per selected frame =64 calls for numerical parity, acquisition state and matched instrumentation; distinguish these from original saved baseline. Total upper allocation512 receiver calls, no replacement/resampling. A receiver call contains its stated two or three rounds. Failed calls remain charged; no blind retry. Single-thread CPU/deinlab, CUDA hidden, one numerical process; engineering deadline30min, diagnostic deadline60min and new-output cap2GiB. All remote writes under /data/guoyikun; no install. Unexpected budget growth stops with preserved evidence.
+
+1. More work: use unmodified native receive rounds2/iterations40 and rounds3/iterations20.
+2. True geometry: keep all true delay/Doppler entries and multiplicities fixed. Estimate initial and per-round gains from y/pilot/decoder moments using baseline soft ridge objective at this geometry; no true gains. Document dimension change and scalar-joint prior CN(0,I/P).
+3. Full H: construct exact Channel from true paths/gains. Fixed scalar_joint gain_mode=fixed,20 iterations,2 LDPC rounds; stronger ep_t,8 iterations,2 rounds. Both use this H for pilot cancellation and propagation; no refit. Same50-max-sweep LDPC and clipping/exchange. These are approximate detector diagnostics.
+4. True-data fit: fix baseline final acquired delay set/multiplicity; fit y to pilot+true mapped symbols. Original final-refit intervals come from prior round Dopplers ±.75 clipped[-3,3]; expanded same-delay intervals[-3,3]. Use bounded candidate-profile coordinate search, no delay replacement/split. Feed each fitted H to fixed TF20R2 with truth removed. Save fit-only cost separately from decoder arm; total intervention cost includes both.
+
+## C equations and model searches
+Let B_c(nu) be exact time-domain path responses to pilot+d(c), Y=IDAFT(y), sigma2 complex noise variance. Conditional J=||Y-Bh_baseline||²/sigma2. Profile Jp=min_h ||Y-Bh||²/sigma2 (unregularized likelihood, rank reported). Marginal Jm=Y^H(sigma2 I+tau BB^H)^-1Y+logdet(I+tau B^HB/sigma2), tau=1/P, lower better. Also save regularized profile as explicit separate score, never rename it likelihood profile. Omit only candidate-independent constants. Working geometry fixed at final saved baseline; true geometry fixed at truth; broad same-delay geometry optimized per candidate/declared objective with deterministic grid starts plus bounded coordinate passes and all evaluations charged. This is a finite local search, not global optimum. Under true geometry baseline conditional gains are pilot/moment-estimated mapped gains; never silently compare different dimension vectors or use true gain for a nonoracle conditional baseline.
+
+Preserve raw hard vector, valid re-encoding of its information bits, true word, and equality/syndrome flags. Profile/marginal compare legal candidates; optionally show invalid raw vector as separately labeled witness. Save fitted nu/gains for each score. Explicitly disclose same-y geometry plug-in and mismatch of Gaussian gain prior to physical normalized-gain law.
+
+Physical operator mismatch uses exact path overlap, including same-delay cross terms. SP-weighted mismatch =||(Hfit-Htrue)p||²+tr((Hfit-Htrue)Cd(Hfit-Htrue)^H); prove original linear code yields zero-mean pairwise-independent mapped symbols from generator rows before using Cd=Pd I. Otherwise compute actual first/second moments. Response Gram B^HB is separate from normalized physical operator Gram R.
+
+Real Jacobian at each stated code/channel state is [B, iB, (dB/dnu)diag(h)] embedded as stacked real/imag rows; Doppler coordinates are real. Project H(dtrue-dcandidate) using rank-aware real SVD. Matched-success controls transplant legal error patterns with matching Hamming weight; independent isotropic real directions match contrast norm. Report projection fractions/rank, not rescue causation.
+
+Observable summaries use only syndrome, decoder confidence, round disagreement, observed residual, boundary distance, fitted count and numerical guards. Truth labels used only after feature extraction. Selected sample supports descriptive concentration, not population failure probability or validated deployed trigger.
+
+## Output and compatibility
+New code under experiments/tf_production_gap_audit_20260922; new evidence under results/tf_production_gap_audit_20260922. Compact frame_diagnosis/intervention_pairs/stage_costs, raw witness NPZ, source/config identities and seven-question report. These filenames serve A+B+C traceability, not execution of E. Preserve user-owned changes; only task-owned files may be staged.

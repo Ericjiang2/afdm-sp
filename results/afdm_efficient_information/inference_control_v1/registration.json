@@ -1,0 +1,180 @@
+{
+  "schema": "efficient-information-attempt/1",
+  "stage": "inference_control_v1",
+  "config": {
+    "seed": [
+      20261005,
+      104835,
+      22
+    ],
+    "new_observations": 49152,
+    "n": 4,
+    "q": [
+      0.0,
+      0.0025,
+      0.01,
+      0.04,
+      0.16
+    ],
+    "mu": [
+      -0.4,
+      0.0,
+      0.4
+    ],
+    "tau": [
+      0.7,
+      1.3
+    ],
+    "noise": [
+      0.2,
+      0.7
+    ],
+    "training_per_null": 256,
+    "calibration_groups": 64,
+    "evaluation_groups": 32,
+    "repeats": [
+      1,
+      8
+    ],
+    "alpha": 0.05,
+    "score_model": "results/afdm_efficient_information/feature_control_v1/model_1_phase.npz",
+    "independent_reference_candidates": [
+      0,
+      11,
+      12,
+      35,
+      48,
+      59
+    ],
+    "independent_reference_rows": 4,
+    "exact_reference_tolerance": 2e-11,
+    "wall_seconds": 900,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "counts": "12 null points*256 train + 60 candidate points*64 calibration groups*8 frames + 60*32 evaluation groups*8 frames = 49152",
+    "unknown_nuisance": "same fixed public mu/tau/noise grid for every observation; truth only generator, calibration condition design and external scorer",
+    "null_calibration": "maximum of finite-sample split calibration order statistics across all 12 null nuisance conditions; confidence sets similarly across all 60 true grid candidates",
+    "coverage_scope": "marginal over independent calibration/evaluation at each discrete grid law, not conditional on realized calibration or off-grid continuous coverage",
+    "information_free_baseline": "second Gaussian has no q/mu information; detection uses an independent alpha coin, q/center errors are unavailable, grid uncertainty retained",
+    "independence": "each case has independent channel/data/noise groups; all methods share observations; R1 is first frame of same R8 group",
+    "teacher_fixed": "score4 uses predeclared point1 phase model regardless of evaluation truth; no teacher selection on test",
+    "cost": "candidate construction, teacher, training, calibration and complete inference recorded; detection/estimation/sets reuse objective matrices"
+  },
+  "_config": {
+    "seed": [
+      20261005,
+      104835,
+      22
+    ],
+    "new_observations": 49152,
+    "n": 4,
+    "q": [
+      0.0,
+      0.0025,
+      0.01,
+      0.04,
+      0.16
+    ],
+    "mu": [
+      -0.4,
+      0.0,
+      0.4
+    ],
+    "tau": [
+      0.7,
+      1.3
+    ],
+    "noise": [
+      0.2,
+      0.7
+    ],
+    "training_per_null": 256,
+    "calibration_groups": 64,
+    "evaluation_groups": 32,
+    "repeats": [
+      1,
+      8
+    ],
+    "alpha": 0.05,
+    "score_model": "results/afdm_efficient_information/feature_control_v1/model_1_phase.npz",
+    "independent_reference_candidates": [
+      0,
+      11,
+      12,
+      35,
+      48,
+      59
+    ],
+    "independent_reference_rows": 4,
+    "exact_reference_tolerance": 2e-11,
+    "wall_seconds": 900,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "counts": "12 null points*256 train + 60 candidate points*64 calibration groups*8 frames + 60*32 evaluation groups*8 frames = 49152",
+    "unknown_nuisance": "same fixed public mu/tau/noise grid for every observation; truth only generator, calibration condition design and external scorer",
+    "null_calibration": "maximum of finite-sample split calibration order statistics across all 12 null nuisance conditions; confidence sets similarly across all 60 true grid candidates",
+    "coverage_scope": "marginal over independent calibration/evaluation at each discrete grid law, not conditional on realized calibration or off-grid continuous coverage",
+    "information_free_baseline": "second Gaussian has no q/mu information; detection uses an independent alpha coin, q/center errors are unavailable, grid uncertainty retained",
+    "independence": "each case has independent channel/data/noise groups; all methods share observations; R1 is first frame of same R8 group",
+    "teacher_fixed": "score4 uses predeclared point1 phase model regardless of evaluation truth; no teacher selection on test",
+    "cost": "candidate construction, teacher, training, calibration and complete inference recorded; detection/estimation/sets reuse objective matrices"
+  },
+  "argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_efficient_information/inference_control.py",
+    "--stage",
+    "inference_control_v1"
+  ],
+  "_argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_efficient_information/inference_control.py",
+    "--stage",
+    "inference_control_v1"
+  ],
+  "seed": [
+    20261005,
+    104835,
+    22
+  ],
+  "source_sha256": {
+    ".mission/20261001_23-33-35-afdm-innovation-space/controls/thread_binding.py": "d54170644d336fe6b0eb383ff533e5863857f1bbdc8dd0a873a1c233f50846ac",
+    ".mission/20261005_10-48-35-afdm-efficient-information/run_contract.json": "43435a499f2ae16a016c308ee5c0153d9ac13de7f7dc6cdd40ae62c37ea5fd20",
+    "experiments/afdm_efficient_information/__init__.py": "86b4e0eb26b4a781a374db0addad1e9fbc485c7c653a3bc54868ad3d7c0cbedd",
+    "experiments/afdm_efficient_information/features.py": "55e14c96c847086e600aa6dffa543892664bc187409d3449fff4845e69c88d7c",
+    "experiments/afdm_efficient_information/features_study.py": "33f6e2b2aa61f3e53787adc89d4efc8ab0940bc9bc2ce3d04b9a8706ebd78b76",
+    "experiments/afdm_efficient_information/inference.py": "e278edb45edd71eb8005d6bca33a43ba82f36e93aebc7c6a457e9119ce25a6a8",
+    "experiments/afdm_efficient_information/inference_control.py": "728a6e79c1ffb973770cc4da1e58a1f594ed970ed102ae154cc436ed3ce4085c",
+    "experiments/afdm_efficient_information/protocol.py": "ecfb800796f418924640ce8e98c7b1797c92fa27e9f480715c30115b56a67498",
+    "experiments/afdm_efficient_information/score.py": "ed13aaea5607e3a2fd230f5446931f4bd0a6ee460218e64eb54e4accd56897b2",
+    "experiments/afdm_efficient_information/test_inference.py": "88951f389314b0cfc618d1d888fb21ee37856ef920bc159e956db7e4179bc965",
+    "experiments/afdm_higher_order_information/moments.py": "8925478c366ebb9b3b865fab8a0704681187fd6c1dd6641e0d9f072608fac6a8",
+    "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+    "experiments/afdm_higher_order_information/theory_study.py": "d8d0cb6f17fa1845adacedf3ac821aac2d7351fa4e9999c55eaa9e8782a4d7c0",
+    "experiments/afdm_inference_causal_20261002/exact_oracle.py": "d6fae6c9d0e708db9fb2ab6c3809729f12146bb307802f2cb892be6f795b5b77",
+    "experiments/afdm_shared_channel_20261004/common.py": "705cb6103442cdb122fbce0e58f091c6d42d64cce2e0f39cd24e8dfe095e758d",
+    "experiments/afdm_shared_channel_20261004/conditional_solver.py": "f209d5aa3b3f3128104ff12d7dd3223f92aae6cd4e6b1867507af7a68428e9e3",
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "results/afdm_efficient_information/INFERENCE_CONTROL_CONFIG.json": "04c3847e4bd3e1396de7acca32a067d01da246103f94ce3a330a51d0e3ffbec8",
+    "results/afdm_efficient_information/feature_control_v1/model_1_phase.npz": "8a6dca0e58fd62924387105da9c5ef688bc21c4d418390d65ee62af296e97fa0"
+  },
+  "git": {
+    "head": "15d1b051ea027d1c7b800ffdb43a5223bb4f3507",
+    "committed_task_source_sha256": {
+      "experiments/afdm_efficient_information/__init__.py": "86b4e0eb26b4a781a374db0addad1e9fbc485c7c653a3bc54868ad3d7c0cbedd",
+      "experiments/afdm_efficient_information/features.py": "55e14c96c847086e600aa6dffa543892664bc187409d3449fff4845e69c88d7c",
+      "experiments/afdm_efficient_information/features_study.py": "33f6e2b2aa61f3e53787adc89d4efc8ab0940bc9bc2ce3d04b9a8706ebd78b76",
+      "experiments/afdm_efficient_information/inference.py": "e278edb45edd71eb8005d6bca33a43ba82f36e93aebc7c6a457e9119ce25a6a8",
+      "experiments/afdm_efficient_information/inference_control.py": "728a6e79c1ffb973770cc4da1e58a1f594ed970ed102ae154cc436ed3ce4085c",
+      "experiments/afdm_efficient_information/protocol.py": "ecfb800796f418924640ce8e98c7b1797c92fa27e9f480715c30115b56a67498",
+      "experiments/afdm_efficient_information/score.py": "ed13aaea5607e3a2fd230f5446931f4bd0a6ee460218e64eb54e4accd56897b2",
+      "experiments/afdm_efficient_information/test_inference.py": "88951f389314b0cfc618d1d888fb21ee37856ef920bc159e956db7e4179bc965"
+    },
+    "other_sources": "frozen helpers and artifacts independently SHA-256 bound"
+  },
+  "git_head": "15d1b051ea027d1c7b800ffdb43a5223bb4f3507",
+  "pid": 40975,
+  "wall_cap_seconds": 900,
+  "started_utc": "2026-10-05T04:44:06.364287+00:00",
+  "deadline_utc": "2026-10-05T04:59:06.364287+00:00",
+  "cumulative_reserved_new_observations": 62208,
+  "evidence_level": "local mathematical/development; no receiver/decoder/confirmation",
+  "cumulative_reserved_wall_seconds": 2520.0
+}

@@ -1,0 +1,1059 @@
+{
+  "status": "passed",
+  "audit_mode": "main-session",
+  "review_independence": "weak",
+  "states": 576,
+  "terminal_arrays": 2304,
+  "entry_arrays": 12,
+  "calls": {
+    "F": 0,
+    "E": 0,
+    "T": 0
+  },
+  "recovery_calls": {
+    "F": 12,
+    "E": 1728,
+    "T": 1728
+  },
+  "reused_baseline_terminals": 576,
+  "retained_first_quote_rejection": true,
+  "first_state_repeated": false,
+  "entry_bitwise_equal_array_comparisons": 108,
+  "entry_costs": {
+    "I02-baseline": [
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 1.0429774629999997,
+        "peak_gpu_bytes": 112704000,
+        "wall_seconds": 1.0424232280347496
+      },
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.5903024230000007,
+        "peak_gpu_bytes": 112728576,
+        "wall_seconds": 0.5899510299786925
+      },
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.5952493840000006,
+        "peak_gpu_bytes": 112728576,
+        "wall_seconds": 0.5948913989122957
+      }
+    ],
+    "I02-scalar": [
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.824605193,
+        "peak_gpu_bytes": 112360960,
+        "wall_seconds": 0.8242137739434838
+      },
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.6691132179999997,
+        "peak_gpu_bytes": 112728576,
+        "wall_seconds": 0.6687671800609678
+      },
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.7273042700000012,
+        "peak_gpu_bytes": 112728576,
+        "wall_seconds": 0.7268591959727928
+      }
+    ],
+    "I02-diagonal": [
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.6781935900000002,
+        "peak_gpu_bytes": 112360960,
+        "wall_seconds": 0.6777161499485373
+      },
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.6891840219999992,
+        "peak_gpu_bytes": 112728576,
+        "wall_seconds": 0.6888061999343336
+      },
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.6683788550000003,
+        "peak_gpu_bytes": 112728576,
+        "wall_seconds": 0.6680070930160582
+      }
+    ],
+    "I02-lowrank": [
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.7088959480000003,
+        "peak_gpu_bytes": 580039680,
+        "wall_seconds": 0.7084755150135607
+      },
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.7171210329999997,
+        "peak_gpu_bytes": 580104192,
+        "wall_seconds": 0.7167179919779301
+      },
+      {
+        "audit": true,
+        "boundary": "host observed inputs through full receiver, cancellation, terminal BP/LLR/LDPC",
+        "cpu_seconds": 0.7217548520000001,
+        "peak_gpu_bytes": 580013056,
+        "wall_seconds": 0.7212083770427853
+      }
+    ]
+  },
+  "calibration": {
+    "7:I02-baseline": {
+      "n": 192,
+      "frame_errors": 135,
+      "mean_nll": 0.34261742483815877,
+      "mean_brier": 0.09683320104284454,
+      "mean_normalized_residual": 3.4610559234957514,
+      "mean_absolute_residual": 0.2283894439697146,
+      "mean_squared_residual_mean": 0.0002561544725155317,
+      "maximum_whitening_error": 0.0
+    },
+    "7:I02-scalar": {
+      "n": 192,
+      "frame_errors": 135,
+      "mean_nll": 0.34114857776854635,
+      "mean_brier": 0.09673406343823339,
+      "mean_normalized_residual": 3.407550512394476,
+      "mean_absolute_residual": 0.2283894439697146,
+      "mean_squared_residual_mean": 0.0002561544725155317,
+      "maximum_whitening_error": 0.0
+    },
+    "7:I02-diagonal": {
+      "n": 192,
+      "frame_errors": 135,
+      "mean_nll": 0.3411486957581508,
+      "mean_brier": 0.0967340395440292,
+      "mean_normalized_residual": 3.4075501572852356,
+      "mean_absolute_residual": 0.2248559337502011,
+      "mean_squared_residual_mean": 0.0002521943833463168,
+      "maximum_whitening_error": 1.1786113823927607e-16
+    },
+    "7:I02-lowrank": {
+      "n": 192,
+      "frame_errors": 137,
+      "mean_nll": 0.3397623287298647,
+      "mean_brier": 0.09653574813209272,
+      "mean_normalized_residual": 3.3926585354400185,
+      "mean_absolute_residual": 0.22388011904273752,
+      "mean_squared_residual_mean": 0.00025240410158553487,
+      "maximum_whitening_error": 3.283068728513985e-16
+    },
+    "8:I02-baseline": {
+      "n": 192,
+      "frame_errors": 17,
+      "mean_nll": 0.2768223719635435,
+      "mean_brier": 0.07922014370497349,
+      "mean_normalized_residual": 3.105530267847344,
+      "mean_absolute_residual": 0.18124120180687178,
+      "mean_squared_residual_mean": 0.00019807481141396509,
+      "maximum_whitening_error": 0.0
+    },
+    "8:I02-scalar": {
+      "n": 192,
+      "frame_errors": 17,
+      "mean_nll": 0.27597917044030634,
+      "mean_brier": 0.07918727715377165,
+      "mean_normalized_residual": 3.0590190044419643,
+      "mean_absolute_residual": 0.18124120180687178,
+      "mean_squared_residual_mean": 0.00019807481141396509,
+      "maximum_whitening_error": 0.0
+    },
+    "8:I02-diagonal": {
+      "n": 192,
+      "frame_errors": 17,
+      "mean_nll": 0.2759792383682956,
+      "mean_brier": 0.07918730675781044,
+      "mean_normalized_residual": 3.059020224066142,
+      "mean_absolute_residual": 0.17852476661427574,
+      "mean_squared_residual_mean": 0.00019510759023906314,
+      "maximum_whitening_error": 1.1711115120535795e-16
+    },
+    "8:I02-lowrank": {
+      "n": 192,
+      "frame_errors": 18,
+      "mean_nll": 0.27535711110482936,
+      "mean_brier": 0.07914003522729014,
+      "mean_normalized_residual": 3.050146589994023,
+      "mean_absolute_residual": 0.1780076429414834,
+      "mean_squared_residual_mean": 0.00019604322706232147,
+      "maximum_whitening_error": 3.2975419566547805e-16
+    },
+    "9:I02-baseline": {
+      "n": 192,
+      "frame_errors": 1,
+      "mean_nll": 0.22046297404986895,
+      "mean_brier": 0.06351411793125837,
+      "mean_normalized_residual": 2.8035661087058146,
+      "mean_absolute_residual": 0.14529090561608168,
+      "mean_squared_residual_mean": 0.00015741196807476652,
+      "maximum_whitening_error": 0.0
+    },
+    "9:I02-scalar": {
+      "n": 192,
+      "frame_errors": 1,
+      "mean_nll": 0.2201058111067197,
+      "mean_brier": 0.06354116377466108,
+      "mean_normalized_residual": 2.762594348487743,
+      "mean_absolute_residual": 0.14529090561608168,
+      "mean_squared_residual_mean": 0.00015741196807476652,
+      "maximum_whitening_error": 0.0
+    },
+    "9:I02-diagonal": {
+      "n": 192,
+      "frame_errors": 1,
+      "mean_nll": 0.22010595788465406,
+      "mean_brier": 0.06354121082412321,
+      "mean_normalized_residual": 2.76259672957487,
+      "mean_absolute_residual": 0.14316607593134603,
+      "mean_squared_residual_mean": 0.00015511092472550615,
+      "maximum_whitening_error": 9.837444722368907e-17
+    },
+    "9:I02-lowrank": {
+      "n": 192,
+      "frame_errors": 0,
+      "mean_nll": 0.2199374703285232,
+      "mean_brier": 0.06355959692655529,
+      "mean_normalized_residual": 2.755902450102416,
+      "mean_absolute_residual": 0.14281545842282065,
+      "mean_squared_residual_mean": 0.00015608134894110659,
+      "maximum_whitening_error": 3.5788173515673803e-16
+    }
+  },
+  "contrasts": [
+    {
+      "id": "cov:scalar_base-scalar_calibrated@nominal:7",
+      "family": "F_I",
+      "snr": 7,
+      "n": 192,
+      "arms": [
+        "scalar_base",
+        "scalar_calibrated"
+      ],
+      "raw_cells": [
+        "I02-baseline",
+        "I02-scalar"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        135,
+        135
+      ],
+      "delta": 0.0,
+      "interval": [
+        -0.053305771711904364,
+        0.053305771711904364
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_base",
+      "candidate_arm": "scalar_calibrated",
+      "wins": 0,
+      "losses": 0,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_base-scalar_calibrated@nominal:8",
+      "family": "F_I",
+      "snr": 8,
+      "n": 192,
+      "arms": [
+        "scalar_base",
+        "scalar_calibrated"
+      ],
+      "raw_cells": [
+        "I02-baseline",
+        "I02-scalar"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        17,
+        17
+      ],
+      "delta": 0.0,
+      "interval": [
+        -0.06645560415900248,
+        0.06645560415900248
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_base",
+      "candidate_arm": "scalar_calibrated",
+      "wins": 1,
+      "losses": 1,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_base-scalar_calibrated@nominal:9",
+      "family": "F_I",
+      "snr": 9,
+      "n": 192,
+      "arms": [
+        "scalar_base",
+        "scalar_calibrated"
+      ],
+      "raw_cells": [
+        "I02-baseline",
+        "I02-scalar"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        1,
+        1
+      ],
+      "delta": 0.0,
+      "interval": [
+        -0.053305771711904364,
+        0.053305771711904364
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_base",
+      "candidate_arm": "scalar_calibrated",
+      "wins": 0,
+      "losses": 0,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_base-diagonal@nominal:7",
+      "family": "F_I",
+      "snr": 7,
+      "n": 192,
+      "arms": [
+        "scalar_base",
+        "diagonal"
+      ],
+      "raw_cells": [
+        "I02-baseline",
+        "I02-diagonal"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        135,
+        135
+      ],
+      "delta": 0.0,
+      "interval": [
+        -0.053305771711904364,
+        0.053305771711904364
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_base",
+      "candidate_arm": "diagonal",
+      "wins": 0,
+      "losses": 0,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_base-diagonal@nominal:8",
+      "family": "F_I",
+      "snr": 8,
+      "n": 192,
+      "arms": [
+        "scalar_base",
+        "diagonal"
+      ],
+      "raw_cells": [
+        "I02-baseline",
+        "I02-diagonal"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        17,
+        17
+      ],
+      "delta": 0.0,
+      "interval": [
+        -0.06645560415900248,
+        0.06645560415900248
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_base",
+      "candidate_arm": "diagonal",
+      "wins": 1,
+      "losses": 1,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_base-diagonal@nominal:9",
+      "family": "F_I",
+      "snr": 9,
+      "n": 192,
+      "arms": [
+        "scalar_base",
+        "diagonal"
+      ],
+      "raw_cells": [
+        "I02-baseline",
+        "I02-diagonal"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        1,
+        1
+      ],
+      "delta": 0.0,
+      "interval": [
+        -0.053305771711904364,
+        0.053305771711904364
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_base",
+      "candidate_arm": "diagonal",
+      "wins": 0,
+      "losses": 0,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_base-low_rank@nominal:7",
+      "family": "F_I",
+      "snr": 7,
+      "n": 192,
+      "arms": [
+        "scalar_base",
+        "low_rank"
+      ],
+      "raw_cells": [
+        "I02-baseline",
+        "I02-lowrank"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        135,
+        137
+      ],
+      "delta": -0.010416666666666666,
+      "interval": [
+        -0.08770924294301853,
+        0.06616620340749871
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_base",
+      "candidate_arm": "low_rank",
+      "wins": 1,
+      "losses": 3,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_base-low_rank@nominal:8",
+      "family": "F_I",
+      "snr": 8,
+      "n": 192,
+      "arms": [
+        "scalar_base",
+        "low_rank"
+      ],
+      "raw_cells": [
+        "I02-baseline",
+        "I02-lowrank"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        17,
+        18
+      ],
+      "delta": -0.005208333333333333,
+      "interval": [
+        -0.07759148816702158,
+        0.06641723800139973
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_base",
+      "candidate_arm": "low_rank",
+      "wins": 1,
+      "losses": 2,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_base-low_rank@nominal:9",
+      "family": "F_I",
+      "snr": 9,
+      "n": 192,
+      "arms": [
+        "scalar_base",
+        "low_rank"
+      ],
+      "raw_cells": [
+        "I02-baseline",
+        "I02-lowrank"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        1,
+        0
+      ],
+      "delta": 0.005208333333333333,
+      "interval": [
+        -0.05330563079189823,
+        0.06645574507900862
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_base",
+      "candidate_arm": "low_rank",
+      "wins": 1,
+      "losses": 0,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_calibrated-diagonal@nominal:7",
+      "family": "F_I",
+      "snr": 7,
+      "n": 192,
+      "arms": [
+        "scalar_calibrated",
+        "diagonal"
+      ],
+      "raw_cells": [
+        "I02-scalar",
+        "I02-diagonal"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        135,
+        135
+      ],
+      "delta": 0.0,
+      "interval": [
+        -0.053305771711904364,
+        0.053305771711904364
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_calibrated",
+      "candidate_arm": "diagonal",
+      "wins": 0,
+      "losses": 0,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_calibrated-diagonal@nominal:8",
+      "family": "F_I",
+      "snr": 8,
+      "n": 192,
+      "arms": [
+        "scalar_calibrated",
+        "diagonal"
+      ],
+      "raw_cells": [
+        "I02-scalar",
+        "I02-diagonal"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        17,
+        17
+      ],
+      "delta": 0.0,
+      "interval": [
+        -0.053305771711904364,
+        0.053305771711904364
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_calibrated",
+      "candidate_arm": "diagonal",
+      "wins": 0,
+      "losses": 0,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_calibrated-diagonal@nominal:9",
+      "family": "F_I",
+      "snr": 9,
+      "n": 192,
+      "arms": [
+        "scalar_calibrated",
+        "diagonal"
+      ],
+      "raw_cells": [
+        "I02-scalar",
+        "I02-diagonal"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        1,
+        1
+      ],
+      "delta": 0.0,
+      "interval": [
+        -0.053305771711904364,
+        0.053305771711904364
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_calibrated",
+      "candidate_arm": "diagonal",
+      "wins": 0,
+      "losses": 0,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_calibrated-low_rank@nominal:7",
+      "family": "F_I",
+      "snr": 7,
+      "n": 192,
+      "arms": [
+        "scalar_calibrated",
+        "low_rank"
+      ],
+      "raw_cells": [
+        "I02-scalar",
+        "I02-lowrank"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        135,
+        137
+      ],
+      "delta": -0.010416666666666666,
+      "interval": [
+        -0.08770924294301853,
+        0.06616620340749871
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_calibrated",
+      "candidate_arm": "low_rank",
+      "wins": 1,
+      "losses": 3,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_calibrated-low_rank@nominal:8",
+      "family": "F_I",
+      "snr": 8,
+      "n": 192,
+      "arms": [
+        "scalar_calibrated",
+        "low_rank"
+      ],
+      "raw_cells": [
+        "I02-scalar",
+        "I02-lowrank"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        17,
+        18
+      ],
+      "delta": -0.005208333333333333,
+      "interval": [
+        -0.08767087678541578,
+        0.0773020874155178
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_calibrated",
+      "candidate_arm": "low_rank",
+      "wins": 2,
+      "losses": 3,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:scalar_calibrated-low_rank@nominal:9",
+      "family": "F_I",
+      "snr": 9,
+      "n": 192,
+      "arms": [
+        "scalar_calibrated",
+        "low_rank"
+      ],
+      "raw_cells": [
+        "I02-scalar",
+        "I02-lowrank"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        1,
+        0
+      ],
+      "delta": 0.005208333333333333,
+      "interval": [
+        -0.05330563079189823,
+        0.06645574507900862
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "scalar_calibrated",
+      "candidate_arm": "low_rank",
+      "wins": 1,
+      "losses": 0,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:diagonal-low_rank@nominal:7",
+      "family": "F_I",
+      "snr": 7,
+      "n": 192,
+      "arms": [
+        "diagonal",
+        "low_rank"
+      ],
+      "raw_cells": [
+        "I02-diagonal",
+        "I02-lowrank"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        135,
+        137
+      ],
+      "delta": -0.010416666666666666,
+      "interval": [
+        -0.08770924294301853,
+        0.06616620340749871
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "diagonal",
+      "candidate_arm": "low_rank",
+      "wins": 1,
+      "losses": 3,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:diagonal-low_rank@nominal:8",
+      "family": "F_I",
+      "snr": 8,
+      "n": 192,
+      "arms": [
+        "diagonal",
+        "low_rank"
+      ],
+      "raw_cells": [
+        "I02-diagonal",
+        "I02-lowrank"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        17,
+        18
+      ],
+      "delta": -0.005208333333333333,
+      "interval": [
+        -0.08767087678541578,
+        0.0773020874155178
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "diagonal",
+      "candidate_arm": "low_rank",
+      "wins": 2,
+      "losses": 3,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    },
+    {
+      "id": "cov:diagonal-low_rank@nominal:9",
+      "family": "F_I",
+      "snr": 9,
+      "n": 192,
+      "arms": [
+        "diagonal",
+        "low_rank"
+      ],
+      "raw_cells": [
+        "I02-diagonal",
+        "I02-lowrank"
+      ],
+      "coefficients": [
+        1,
+        -1
+      ],
+      "error_counts": [
+        1,
+        0
+      ],
+      "delta": 0.005208333333333333,
+      "interval": [
+        -0.05330563079189823,
+        0.06645574507900862
+      ],
+      "method": "paired_CP",
+      "m": 66,
+      "alpha_family": 0.0071428571428571435,
+      "tail_alpha": 2.705627705627706e-05,
+      "questions": [
+        "Q03",
+        "Q27",
+        "Q28"
+      ],
+      "planned_confirmation_sample_set": "D_confirm/F_I/nominal",
+      "actual_split": "design",
+      "independent_confirmation": false,
+      "scope": "I-02 development; frozen global contrasts; not independent F_I confirmation",
+      "reference_arm": "diagonal",
+      "candidate_arm": "low_rank",
+      "wins": 1,
+      "losses": 0,
+      "delta_definition": "FER_reference - FER_candidate; positive means improvement"
+    }
+  ],
+  "raw_files": 8117,
+  "raw_bytes": 1017416901,
+  "raw_index_sha256": "a57c8454b189e6e14f671ff803ff3b11660d55e9a82b05aea3a5a2d2a31fc90c",
+  "elapsed_seconds": 221.18023727298714,
+  "limitations": [
+    "old missing H/terminal/timing evidence is not reconstructed as producer evidence",
+    "12 duplicate F are engineering cost samples, not COST-02",
+    "development equality of FER counts is not equivalence"
+  ]
+}

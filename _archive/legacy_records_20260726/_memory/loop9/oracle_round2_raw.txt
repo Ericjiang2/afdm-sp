@@ -1,0 +1,37 @@
+🧿 oracle 0.9.0 — Your AI coworker's quality control.
+Launching browser mode (gpt-5.4-pro) with ~31,034 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+**Q1. Pick:** **A′ = SNR-adaptive logit threshold**, not D.
+Ranking for this round: **A′ > E > C > B >>> D**. The failure is explicitly SNR-signed in the full eval, while the current decision rule is hard-coded as **logit > 0, cap 4** at the raw-OMP hook; the head itself already learned strong missed-atom ranking, so the cheapest plausible rescue is to recalibrate the **commit threshold** by SNR, not to change the scorer or retrain yet.  
+
+**Correction to A:** your written formula has `theta=0`, so it collapses to `tau=0` at all SNRs. Use either a 4-knot lookup `{tau10,tau15,tau20,tau25}` or `tau(z)=max(0,a+b(z-z0))`, `z=-log10(sigma2)`. I would use the 4-knot lookup for this hour. 
+
+**Calibration procedure (exact):** use **500 paired frames/SNR**, disjoint from the 1000f report if possible, split **250 calib / 250 confirm** with fixed seeds.
+Set **tau10 = 0** to preserve the current 10 dB win. Tune independently:
+`tau25 ∈ {2,3,4,5}` → choose the **smallest** tau with `BER_learned <= BER_classical` and `NMSE loss <= 0.1 dB`.
+`tau20 ∈ {0.5,1,1.5,2,2.5,3}` → choose the tau with best BER subject to `n10 > n01` and `NMSE loss <= 0.2 dB`.
+`tau15 ∈ {0,0.5,1,1.5,2}` → same rule.
+Then enforce monotone `tau10 <= tau15 <= tau20 <= tau25` by upward projection if needed, lock once, and run the **250f confirm**. Only if **15 and 20 are both positive on confirm** do the official paired **500f McNemar**. 
+
+Why not the others: **E** is too blunt because one global `p0` probably cannot keep the 10 dB gain and kill the 25 dB damage; **C** throws away score information you already paid to learn; **B** is extra moving parts on an untrained quantity; **D** is the right next step only if A′ fails.  
+
+**Q2. Posterior:** joint win at **15 and 20** after post-hoc only: **~0.25**.
+My split is roughly **P(win@15) ≈ 0.65**, **P(win@20) ≈ 0.38**, hence joint about **0.25**. Reason: 15 dB is only a **+2.5% BER** loss with essentially tied NMSE, so calibration can plausibly flip it; 20 dB is a **+44.6% BER** loss with **1.21 dB** worse NMSE, so a clean win is possible but not likely. 
+
+**Q3. Retrain trigger:** retrain immediately if the best locked A′ schedule fails either of these on the **250f confirm**:
+(1) **20 dB still has `n10 <= n01`** or BER non-improving, while **25 dB is already non-regressing**;
+(2) the locked thresholds effectively **disable adds** at 15/20 yet still do not win.
+That means the issue is not just commit calibration; the scorer/loss is not utility-aligned enough, and then **D** is justified. 
+
+**Q4. Score / decision:** **6/10. GO for exactly one Round 3.**
+Reason: the micro-gate passed, the trained head got very high held-out recall/hit, and 10 dB is a real BER/NMSE win; this still looks salvageable as an **action-policy** error rather than “no signal.” But if A′ does not flip **20 dB** positive on confirm, I would **STOP** the post-hoc path and retrain.   
+
+**Q5. Sanity:** I agree with the **“high recall, bad precision at high SNR”** framing. Two corrections:
+First, the scorer is **not blind to sigma2** — `u_j` already includes `log sigma2`; the blind part is the fixed **commit rule** `logit > 0`, not the feature set. Second, the raw union LS here is **OMP + adds before cluster expansion**, so it is about **14 columns max**, not ~40; that does **not** remove the prune pathology, but it means the key issue is **eviction / gain-splitting**, not an enormous LS dimension explosion at that exact step. 
+
+One more nuance: the 15 dB case — nearly tied NMSE but worse BER — says the detector is sensitive to **support geometry / structured H error**, not scalar NMSE alone. That supports A′ first, D second. 
+
+
+15m03s · gpt-5.4-pro[browser] · ↑31.03k ↓915 ↻0 Δ31.95k
+files=8

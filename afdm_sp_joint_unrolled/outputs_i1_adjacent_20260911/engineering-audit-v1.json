@@ -1,0 +1,1964 @@
+{
+  "schema": "adjacent-engineering-audit-v1",
+  "status": "raw_integrity_passed",
+  "completed_F": 54,
+  "attempted_F": 54,
+  "receiver_failures": 0,
+  "observed_at_unix": 1789137350.0529993,
+  "audit_seconds": 6.354973316192627,
+  "raw_files": 60,
+  "raw_arrays": 2784,
+  "workers": [
+    {
+      "name": "eng-cpu-a",
+      "device": "cpu",
+      "calls": 9,
+      "complete_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_i1_adjacent_20260911/eng-cpu-a/complete.json",
+      "complete_sha256": "d54dc1c9cc88e1d0f904e1c5db25b259eebc4822efd8cc7efafa45ca241cf2dc",
+      "elapsed_seconds": 28.076777458190918,
+      "bytes": 20651001
+    },
+    {
+      "name": "eng-cpu-b",
+      "device": "cpu",
+      "calls": 18,
+      "complete_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_i1_adjacent_20260911/eng-cpu-b/complete.json",
+      "complete_sha256": "cc9f48c1b2876785ca08660e148f89a813983cbadf0974a2f0f275423d5f22a1",
+      "elapsed_seconds": 51.007113456726074,
+      "bytes": 41150065
+    },
+    {
+      "name": "eng-gpu",
+      "device": "cuda:0",
+      "calls": 27,
+      "complete_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_i1_adjacent_20260911/eng-gpu/complete.json",
+      "complete_sha256": "09e93c07f9d312a0688b2f248873635d608790d382be5ab86ccc169144db9da9",
+      "elapsed_seconds": 38.53283214569092,
+      "bytes": 61161514
+    }
+  ],
+  "comparisons": [
+    {
+      "device": "cpu",
+      "block": 32,
+      "snr": 7,
+      "arm": "I1",
+      "checks": {
+        "empty_repeat": {
+          "reason": "observer equivalence tolerance failed: I1/x_soft",
+          "status": "fail"
+        },
+        "observer": {
+          "reason": "observer equivalence tolerance failed: I1/x_soft",
+          "status": "fail"
+        }
+      }
+    },
+    {
+      "device": "cpu",
+      "block": 32,
+      "snr": 7,
+      "arm": "A2",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": false,
+                "relative_l2": 2.576869992451506e-07,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.162222220013918e-07,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": false,
+                "relative_l2": 3.207745780863961e-07,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "A2"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": false,
+                "relative_l2": 2.576869992451506e-07,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.162222220013918e-07,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": false,
+                "relative_l2": 3.207745780863961e-07,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "A2"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cpu",
+      "block": 32,
+      "snr": 7,
+      "arm": "B_star_1",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": false,
+                "relative_l2": 2.0338983940953047e-07,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.1939164124754874e-07,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": false,
+                "relative_l2": 2.954669560168739e-07,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": false,
+                "relative_l2": 2.0338983940953047e-07,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.1939164124754874e-07,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": false,
+                "relative_l2": 2.954669560168739e-07,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cpu",
+      "block": 32,
+      "snr": 8,
+      "arm": "I1",
+      "checks": {
+        "empty_repeat": {
+          "reason": "observer equivalence tolerance failed: I1/H",
+          "status": "fail"
+        },
+        "observer": {
+          "reason": "observer equivalence tolerance failed: I1/H",
+          "status": "fail"
+        }
+      }
+    },
+    {
+      "device": "cpu",
+      "block": 32,
+      "snr": 8,
+      "arm": "A2",
+      "checks": {
+        "empty_repeat": {
+          "reason": "observer equivalence tolerance failed: A2/H",
+          "status": "fail"
+        },
+        "observer": {
+          "reason": "observer equivalence tolerance failed: A2/llr",
+          "status": "fail"
+        }
+      }
+    },
+    {
+      "device": "cpu",
+      "block": 32,
+      "snr": 8,
+      "arm": "B_star_1",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": false,
+                "relative_l2": 1.9540490715035214e-07,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 2.7149195356312756e-07,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": false,
+                "relative_l2": 2.326648932859665e-07,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": false,
+                "relative_l2": 2.0247441818781463e-07,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 2.838288777447633e-07,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": false,
+                "relative_l2": 2.3318844872475706e-07,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cpu",
+      "block": 32,
+      "snr": 9,
+      "arm": "I1",
+      "checks": {
+        "empty_repeat": {
+          "reason": "observer equivalence tolerance failed: I1/H",
+          "status": "fail"
+        },
+        "observer": {
+          "reason": "observer equivalence tolerance failed: I1/H",
+          "status": "fail"
+        }
+      }
+    },
+    {
+      "device": "cpu",
+      "block": 32,
+      "snr": 9,
+      "arm": "A2",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "A2"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "A2"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cpu",
+      "block": 32,
+      "snr": 9,
+      "arm": "B_star_1",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": false,
+                "relative_l2": 2.511135917396804e-07,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 4.405999797738841e-07,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": false,
+                "relative_l2": 6.68498843730975e-08,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": false,
+                "relative_l2": 6.68498843730975e-08,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": false,
+                "relative_l2": 3.133669697453246e-07,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": false,
+                "relative_l2": 1.9715988433788947e-07,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.1048156620294764e-07,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": false,
+                "relative_l2": 6.68498843730975e-08,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": false,
+                "relative_l2": 6.68498843730975e-08,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": false,
+                "relative_l2": 2.260881589394314e-07,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cuda:0",
+      "block": 33,
+      "snr": 7,
+      "arm": "I1",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.043088657607031e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "I1"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.116119788205806e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "I1"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cuda:0",
+      "block": 33,
+      "snr": 7,
+      "arm": "A2",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.701617106794143e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "A2"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.3810480534356883e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "A2"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cuda:0",
+      "block": 33,
+      "snr": 7,
+      "arm": "B_star_1",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.8884474266963843e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 4.119213933053e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cuda:0",
+      "block": 33,
+      "snr": 8,
+      "arm": "I1",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 2.976275996173343e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "I1"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.162907037470083e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "I1"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cuda:0",
+      "block": 33,
+      "snr": 8,
+      "arm": "A2",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.3358876841479445e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "A2"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.29505251494637e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "A2"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cuda:0",
+      "block": 33,
+      "snr": 8,
+      "arm": "B_star_1",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.8076373158791983e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 4.078680142655165e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cuda:0",
+      "block": 33,
+      "snr": 9,
+      "arm": "I1",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.3363061351657053e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "I1"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.4076897811743246e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "I1"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cuda:0",
+      "block": 33,
+      "snr": 9,
+      "arm": "A2",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.1462572355455387e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "A2"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 3.269273734968877e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "A2"
+          },
+          "status": "pass"
+        }
+      }
+    },
+    {
+      "device": "cuda:0",
+      "block": 33,
+      "snr": 9,
+      "arm": "B_star_1",
+      "checks": {
+        "empty_repeat": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 4.18531554224187e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        },
+        "observer": {
+          "detail": {
+            "continuous_tolerance": 1e-06,
+            "fields": {
+              "H": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "decoded": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "info_hat": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "llr": {
+                "exact_hash": false,
+                "relative_l2": 4.264658978441432e-16,
+                "within_1e-6": true
+              },
+              "sigma2": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "sigma2_terminal": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              },
+              "support": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_hard": {
+                "elementwise_exact": true,
+                "exact_hash": true
+              },
+              "x_soft": {
+                "exact_hash": true,
+                "relative_l2": 0.0,
+                "within_1e-6": true
+              }
+            },
+            "scope": "engineering observer equivalence; LLR need not be bit-exact",
+            "symbol": "B_star_1"
+          },
+          "status": "pass"
+        }
+      }
+    }
+  ],
+  "timing_samples": {
+    "cpu/I1": [
+      {
+        "snr": 7,
+        "seconds": 1.6713270270265639,
+        "raw_bytes": 312433,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 955564
+      },
+      {
+        "snr": 7,
+        "seconds": 1.6544451999943703,
+        "raw_bytes": 312429,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 955564
+      },
+      {
+        "snr": 8,
+        "seconds": 1.6539361360482872,
+        "raw_bytes": 312783,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 962668
+      },
+      {
+        "snr": 8,
+        "seconds": 1.6049798369640484,
+        "raw_bytes": 312705,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 962668
+      },
+      {
+        "snr": 9,
+        "seconds": 1.5402116960613057,
+        "raw_bytes": 313040,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 972068
+      },
+      {
+        "snr": 9,
+        "seconds": 1.5222043719841167,
+        "raw_bytes": 313017,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 972068
+      }
+    ],
+    "cpu/A2": [
+      {
+        "snr": 7,
+        "seconds": 2.3700384899275377,
+        "raw_bytes": 477375,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 937204
+      },
+      {
+        "snr": 7,
+        "seconds": 2.3026266189990565,
+        "raw_bytes": 477400,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 937204
+      },
+      {
+        "snr": 8,
+        "seconds": 2.6077302598860115,
+        "raw_bytes": 474919,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 934212
+      },
+      {
+        "snr": 8,
+        "seconds": 2.5612747599370778,
+        "raw_bytes": 474905,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 934212
+      },
+      {
+        "snr": 9,
+        "seconds": 2.424793250975199,
+        "raw_bytes": 476794,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 962668
+      },
+      {
+        "snr": 9,
+        "seconds": 2.4579250059323385,
+        "raw_bytes": 476794,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 962668
+      }
+    ],
+    "cpu/B_star_1": [
+      {
+        "snr": 7,
+        "seconds": 1.7245274720480666,
+        "raw_bytes": 313474,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 779680
+      },
+      {
+        "snr": 7,
+        "seconds": 1.7161168380407616,
+        "raw_bytes": 313441,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 787928
+      },
+      {
+        "snr": 8,
+        "seconds": 1.700226602028124,
+        "raw_bytes": 311669,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 779076
+      },
+      {
+        "snr": 8,
+        "seconds": 1.6935061829863116,
+        "raw_bytes": 311621,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 787576
+      },
+      {
+        "snr": 9,
+        "seconds": 1.5327471300261095,
+        "raw_bytes": 312465,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 962668
+      },
+      {
+        "snr": 9,
+        "seconds": 1.5281056609237567,
+        "raw_bytes": 312511,
+        "peak_cuda_bytes": null,
+        "peak_rss_kib": 962668
+      }
+    ],
+    "cuda:0/I1": [
+      {
+        "snr": 7,
+        "seconds": 1.3892891210271046,
+        "raw_bytes": 306928,
+        "peak_cuda_bytes": 103877632,
+        "peak_rss_kib": 1459172
+      },
+      {
+        "snr": 7,
+        "seconds": 0.6819649150129408,
+        "raw_bytes": 306931,
+        "peak_cuda_bytes": 103805440,
+        "peak_rss_kib": 1467592
+      },
+      {
+        "snr": 8,
+        "seconds": 0.6785772889852524,
+        "raw_bytes": 306576,
+        "peak_cuda_bytes": 103805440,
+        "peak_rss_kib": 1770860
+      },
+      {
+        "snr": 8,
+        "seconds": 0.5467911019222811,
+        "raw_bytes": 306574,
+        "peak_cuda_bytes": 103805440,
+        "peak_rss_kib": 1770860
+      },
+      {
+        "snr": 9,
+        "seconds": 0.536278632003814,
+        "raw_bytes": 305568,
+        "peak_cuda_bytes": 103805440,
+        "peak_rss_kib": 1833824
+      },
+      {
+        "snr": 9,
+        "seconds": 0.5380212200107053,
+        "raw_bytes": 305570,
+        "peak_cuda_bytes": 103805440,
+        "peak_rss_kib": 1833824
+      }
+    ],
+    "cuda:0/A2": [
+      {
+        "snr": 7,
+        "seconds": 0.8415434550261125,
+        "raw_bytes": 471007,
+        "peak_cuda_bytes": 93392384,
+        "peak_rss_kib": 1765212
+      },
+      {
+        "snr": 7,
+        "seconds": 0.7492454599123448,
+        "raw_bytes": 471006,
+        "peak_cuda_bytes": 93392384,
+        "peak_rss_kib": 1765212
+      },
+      {
+        "snr": 8,
+        "seconds": 0.7969747430179268,
+        "raw_bytes": 468541,
+        "peak_cuda_bytes": 93392384,
+        "peak_rss_kib": 1833824
+      },
+      {
+        "snr": 8,
+        "seconds": 0.7660453550051898,
+        "raw_bytes": 468545,
+        "peak_cuda_bytes": 93392384,
+        "peak_rss_kib": 1833824
+      },
+      {
+        "snr": 9,
+        "seconds": 0.7804876930313185,
+        "raw_bytes": 469772,
+        "peak_cuda_bytes": 93392384,
+        "peak_rss_kib": 1848080
+      },
+      {
+        "snr": 9,
+        "seconds": 0.7678868910297751,
+        "raw_bytes": 469784,
+        "peak_cuda_bytes": 93392384,
+        "peak_rss_kib": 1848080
+      }
+    ],
+    "cuda:0/B_star_1": [
+      {
+        "snr": 7,
+        "seconds": 0.4018389859702438,
+        "raw_bytes": 308849,
+        "peak_cuda_bytes": 92917248,
+        "peak_rss_kib": 1770860
+      },
+      {
+        "snr": 7,
+        "seconds": 0.3989469980588183,
+        "raw_bytes": 308838,
+        "peak_cuda_bytes": 92917248,
+        "peak_rss_kib": 1770860
+      },
+      {
+        "snr": 8,
+        "seconds": 0.39743544498924166,
+        "raw_bytes": 306817,
+        "peak_cuda_bytes": 92917248,
+        "peak_rss_kib": 1833824
+      },
+      {
+        "snr": 8,
+        "seconds": 0.3947222610004246,
+        "raw_bytes": 306805,
+        "peak_cuda_bytes": 92917248,
+        "peak_rss_kib": 1833824
+      },
+      {
+        "snr": 9,
+        "seconds": 0.391673601930961,
+        "raw_bytes": 306775,
+        "peak_cuda_bytes": 92917248,
+        "peak_rss_kib": 1848080
+      },
+      {
+        "snr": 9,
+        "seconds": 0.3916691830381751,
+        "raw_bytes": 306775,
+        "peak_cuda_bytes": 92917248,
+        "peak_rss_kib": 1848080
+      }
+    ]
+  },
+  "exogenous_blocks": 2,
+  "cross_snr_pairing": "same H/info/coded/pilot/data hashes per block",
+  "old_reservations": "hashes and inventory unchanged; new additive reservations use canonical ledgers",
+  "scope": "two engineering blocks; repeated calls are not independent scientific replicates; concurrent times are not formal COST",
+  "timing_quote": {
+    "cpu/I1": {
+      "calls": 6,
+      "mean_seconds": 1.6078507113464486,
+      "max_seconds": 1.6713270270265639,
+      "max_raw_bytes": 313040,
+      "max_cuda_bytes": 0
+    },
+    "cpu/A2": {
+      "calls": 6,
+      "mean_seconds": 2.45406473094287,
+      "max_seconds": 2.6077302598860115,
+      "max_raw_bytes": 477400,
+      "max_cuda_bytes": 0
+    },
+    "cpu/B_star_1": {
+      "calls": 6,
+      "mean_seconds": 1.649204981008855,
+      "max_seconds": 1.7245274720480666,
+      "max_raw_bytes": 313474,
+      "max_cuda_bytes": 0
+    },
+    "cuda:0/I1": {
+      "calls": 6,
+      "mean_seconds": 0.728487046493683,
+      "max_seconds": 1.3892891210271046,
+      "max_raw_bytes": 306931,
+      "max_cuda_bytes": 103877632
+    },
+    "cuda:0/A2": {
+      "calls": 6,
+      "mean_seconds": 0.7836972661704446,
+      "max_seconds": 0.8415434550261125,
+      "max_raw_bytes": 471007,
+      "max_cuda_bytes": 93392384
+    },
+    "cuda:0/B_star_1": {
+      "calls": 6,
+      "mean_seconds": 0.39604774583131075,
+      "max_seconds": 0.4018389859702438,
+      "max_raw_bytes": 308849,
+      "max_cuda_bytes": 92917248
+    }
+  },
+  "observer_pass_by_device": {
+    "cpu": false,
+    "cuda:0": true
+  }
+}

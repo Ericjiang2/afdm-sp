@@ -1,0 +1,224 @@
+{
+  "campaign_id": "afdm-supplement-20260909-090115",
+  "rng": {
+    "namespace_words": [
+      20260909,
+      90115,
+      419173
+    ],
+    "components": {
+      "channel": 1,
+      "data": 2,
+      "noise": 3,
+      "code": 4,
+      "interleaver": 5,
+      "pilot-design": 6,
+      "order": 7
+    }
+  },
+  "splits": {
+    "engineering": 1,
+    "design": 2,
+    "mechanism": 3,
+    "confirm": 4,
+    "counterexample": 5,
+    "timing": 6
+  },
+  "scenarios": {
+    "G0": {
+      "id": 0,
+      "generator": "truncated_daft",
+      "system": {
+        "N_total": 1024,
+        "P_paths": 8,
+        "rho": 0.5,
+        "k_max_cap": 2,
+        "l_max_cap": 102,
+        "k_leak": 2,
+        "frac_prune_rel_thres": 0.01,
+        "use_frac_doppler": true,
+        "gen_h_daft_convention": "python",
+        "v_mean": 2.0,
+        "tau_spread": 0.01,
+        "fs": 16000.0
+      }
+    },
+    "integer": {
+      "id": 1,
+      "generator": "truncated_daft",
+      "admitted": true,
+      "system": {
+        "N_total": 1024,
+        "P_paths": 8,
+        "rho": 0.5,
+        "k_max_cap": 2,
+        "l_max_cap": 102,
+        "k_leak": 2,
+        "frac_prune_rel_thres": 0.01,
+        "use_frac_doppler": false,
+        "gen_h_daft_convention": "python",
+        "v_mean": 2.0,
+        "tau_spread": 0.01,
+        "fs": 16000.0
+      }
+    },
+    "overlap": {
+      "id": 2,
+      "generator": "truncated_daft",
+      "admitted": true,
+      "delay_collision": "neighbor",
+      "system": {
+        "N_total": 1024,
+        "P_paths": 8,
+        "rho": 0.5,
+        "k_max_cap": 2,
+        "l_max_cap": 102,
+        "k_leak": 2,
+        "frac_prune_rel_thres": 0.01,
+        "use_frac_doppler": true,
+        "gen_h_daft_convention": "python",
+        "v_mean": 2.0,
+        "tau_spread": 0.01,
+        "fs": 16000.0
+      }
+    },
+    "P4": {
+      "id": 3,
+      "generator": "truncated_daft",
+      "admitted": true,
+      "system": {
+        "N_total": 1024,
+        "P_paths": 4,
+        "rho": 0.5,
+        "k_max_cap": 2,
+        "l_max_cap": 102,
+        "k_leak": 2,
+        "frac_prune_rel_thres": 0.01,
+        "use_frac_doppler": true,
+        "gen_h_daft_convention": "python",
+        "v_mean": 2.0,
+        "tau_spread": 0.01,
+        "fs": 16000.0
+      }
+    },
+    "P12": {
+      "id": 4,
+      "generator": "truncated_daft",
+      "admitted": true,
+      "system": {
+        "N_total": 1024,
+        "P_paths": 12,
+        "rho": 0.5,
+        "k_max_cap": 2,
+        "l_max_cap": 102,
+        "k_leak": 2,
+        "frac_prune_rel_thres": 0.01,
+        "use_frac_doppler": true,
+        "gen_h_daft_convention": "python",
+        "v_mean": 2.0,
+        "tau_spread": 0.01,
+        "fs": 16000.0
+      }
+    },
+    "rho25": {
+      "id": 5,
+      "generator": "truncated_daft",
+      "admitted": true,
+      "system": {
+        "N_total": 1024,
+        "P_paths": 8,
+        "rho": 0.25,
+        "k_max_cap": 2,
+        "l_max_cap": 102,
+        "k_leak": 2,
+        "frac_prune_rel_thres": 0.01,
+        "use_frac_doppler": true,
+        "gen_h_daft_convention": "python",
+        "v_mean": 2.0,
+        "tau_spread": 0.01,
+        "fs": 16000.0
+      }
+    },
+    "rho75": {
+      "id": 6,
+      "generator": "truncated_daft",
+      "admitted": true,
+      "system": {
+        "N_total": 1024,
+        "P_paths": 8,
+        "rho": 0.75,
+        "k_max_cap": 2,
+        "l_max_cap": 102,
+        "k_leak": 2,
+        "frac_prune_rel_thres": 0.01,
+        "use_frac_doppler": true,
+        "gen_h_daft_convention": "python",
+        "v_mean": 2.0,
+        "tau_spread": 0.01,
+        "fs": 16000.0
+      }
+    },
+    "G1": {
+      "id": 7,
+      "generator": "physical_cpp_untruncated",
+      "admitted": true,
+      "system": {
+        "N_total": 1024,
+        "P_paths": 8,
+        "rho": 0.5,
+        "k_max_cap": 2,
+        "l_max_cap": 102,
+        "k_leak": 2,
+        "frac_prune_rel_thres": 0.01,
+        "use_frac_doppler": true,
+        "gen_h_daft_convention": "python",
+        "v_mean": 2.0,
+        "tau_spread": 0.01,
+        "fs": 16000.0
+      },
+      "physical": {
+        "c1": 0.00244140625,
+        "c2": 1.9751241797117955e-07,
+        "prefix_length": 102,
+        "physical_doppler_cap_preserved": true,
+        "gain_normalization": "reuse_g0_physical_gains_without_rescaling"
+      },
+      "numerical_evidence": {
+        "path": "g1-numerical-v1.json",
+        "sha256": "24ea1cde2b0be484695f9afaa09b898c8c0f2ba5f82f718c8f17a55c7d2f9008"
+      }
+    }
+  },
+  "system": {
+    "ldpc": {
+      "n": 2048,
+      "dv": 3,
+      "dc": 6,
+      "seed": 20260726,
+      "maxiter": 50,
+      "G_sha256": "bfd4247263adedc9a095b87603c2a7a4c2f2e8cb83f7e78bad721c5b06eaa6af"
+    },
+    "interleaver": "identity"
+  },
+  "bounds": {
+    "engineering": 32,
+    "design": 192,
+    "mechanism": 256,
+    "counterexample": 192
+  },
+  "confirmation": "content-bound, family-specific source/config/n and authorization before any frame generation",
+  "sealed_data": "D_old and D_test never exposed",
+  "failure_policy": "keep failures and retry only same identity in distinct attempt; no seed substitution",
+  "s01": {
+    "cartesian_product": false,
+    "true_P_to_receiver": false,
+    "representative": "B0-p2-s0.5",
+    "g1": "blocked_pending_numerical_contract"
+  },
+  "reserved_streams": [
+    "code",
+    "interleaver",
+    "pilot-design",
+    "order"
+  ]
+}

@@ -1,0 +1,585 @@
+{
+  "status": "complete",
+  "counts": {
+    "CE": 3060,
+    "SNR_records": 765,
+    "failures_in_supplied_runs": 0,
+    "paired_blocks": 255,
+    "terminal": 3060
+  },
+  "command": [
+    "/home/guoyikun/.conda/envs/AFDM/bin/python",
+    "-m",
+    "afdm_sp_joint_unrolled.direction_structure_stats",
+    "--protocol",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/source-runtime-v7/issues/2026-09-08_21-06-44-afdm-direction-decision/evidence/campaign-protocol.json",
+    "--algorithm-registry",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/source-runtime-v7/issues/2026-09-08_21-06-44-afdm-direction-decision/evidence/structure-algorithm-preregister.json",
+    "--allocation-registry",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/source-runtime-v7/issues/2026-09-08_21-06-44-afdm-direction-decision/evidence/structure-allocation-preregister.json",
+    "--metadata-correction",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/evidence/structure-device-correction.json",
+    "--source-equivalence",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/evidence/structure-source-equivalence-v6-v7.json",
+    "--out",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/evidence/structure-results-v1.json",
+    "--run-dir",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/structure-snr7-000-255-cpu-v6",
+    "--run-dir",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/structure-snr8-000-255-cpu-v7",
+    "--run-dir",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/structure-snr9-000-255-cpu-v7"
+  ],
+  "exit_code": 0,
+  "analysis_resources": {
+    "host_seconds": 176.97494957898743,
+    "cpu_core_seconds": 176.836547,
+    "gpu_seconds": 0.0
+  },
+  "protocol_sha256": "4f307ad9f6c1f4667704eaa64f1594249c748f8ecf9c7707a32a1545e09c2941",
+  "source_sha256": "4162f61e7f86ab1b895e2bdc4cb0bd1a901ab2a88eca135ce7e0cad66b20b64c",
+  "result_file": "structure-results-v1.json",
+  "result_sha256": "9ad21b7bfbb8c19c0993a1f1f6d15078c1f36f2cea67900c255480d791327d6f",
+  "resource_screens": {
+    "M_free": {
+      "neighbor_point_directions_nonnegative": true,
+      "precision_insufficient": false,
+      "resource_gate_passed": true,
+      "scope": "resource allocation screen only; not a realizable method or confirmation claim"
+    },
+    "M_group": {
+      "neighbor_point_directions_nonnegative": true,
+      "precision_insufficient": true,
+      "resource_gate_passed": true,
+      "scope": "resource allocation screen only; not a realizable method or confirmation claim"
+    },
+    "M_sham": {
+      "neighbor_point_directions_nonnegative": true,
+      "precision_insufficient": false,
+      "resource_gate_passed": true,
+      "scope": "resource allocation screen only; not a realizable method or confirmation claim"
+    }
+  },
+  "by_SNR": {
+    "7": {
+      "arms": {
+        "M_free": {
+          "CE_mean": 0.0014828300566923822,
+          "CE_p95": 0.002550138812512159,
+          "FER": 0.5764705882352941,
+          "decoded_info_BER": 0.045683976715686275,
+          "fitted_rank_histogram": {
+            "10": 11,
+            "11": 17,
+            "12": 22,
+            "13": 27,
+            "14": 29,
+            "15": 35,
+            "16": 26,
+            "17": 28,
+            "18": 14,
+            "19": 7,
+            "20": 4,
+            "21": 1,
+            "22": 1,
+            "24": 2,
+            "3": 1,
+            "4": 4,
+            "5": 5,
+            "6": 1,
+            "7": 3,
+            "8": 12,
+            "9": 5
+          },
+          "frame_errors": 147,
+          "n": 255,
+          "raw_coded_BER": 0.12399854473039215,
+          "terminal_mean": 0.1298475110996971,
+          "terminal_p95": 0.17422087931190616,
+          "zero_I_frames": 0
+        },
+        "M_group": {
+          "CE_mean": 0.012178624065035918,
+          "CE_p95": 0.028783350792946277,
+          "FER": 0.596078431372549,
+          "decoded_info_BER": 0.04983149509803922,
+          "fitted_rank_histogram": {
+            "10": 11,
+            "11": 17,
+            "12": 22,
+            "13": 27,
+            "14": 29,
+            "15": 35,
+            "16": 26,
+            "17": 28,
+            "18": 14,
+            "19": 7,
+            "20": 4,
+            "21": 1,
+            "22": 1,
+            "24": 2,
+            "3": 1,
+            "4": 4,
+            "5": 5,
+            "6": 1,
+            "7": 3,
+            "8": 12,
+            "9": 5
+          },
+          "frame_errors": 152,
+          "n": 255,
+          "raw_coded_BER": 0.12489468443627451,
+          "terminal_mean": 0.1271753091858152,
+          "terminal_p95": 0.16865946708712726,
+          "zero_I_frames": 0
+        },
+        "M_link": {
+          "CE_mean": 0.001281818633159513,
+          "CE_p95": 0.0018527443171478808,
+          "FER": 0.4,
+          "decoded_info_BER": 0.028285845588235294,
+          "fitted_rank_histogram": {
+            "2": 1,
+            "3": 2,
+            "4": 10,
+            "5": 13,
+            "6": 11,
+            "7": 60,
+            "8": 158
+          },
+          "frame_errors": 102,
+          "n": 255,
+          "raw_coded_BER": 0.11943742340686274,
+          "terminal_mean": 0.12604908516205957,
+          "terminal_p95": 0.16624210098525508,
+          "zero_I_frames": 0
+        },
+        "M_sham": {
+          "CE_mean": 0.0014911862300234099,
+          "CE_p95": 0.002222377207363024,
+          "FER": 0.9607843137254902,
+          "decoded_info_BER": 0.22515701593137255,
+          "fitted_rank_histogram": {
+            "2": 1,
+            "3": 2,
+            "4": 10,
+            "5": 13,
+            "6": 11,
+            "7": 60,
+            "8": 158
+          },
+          "frame_errors": 245,
+          "n": 255,
+          "raw_coded_BER": 0.22215647977941178,
+          "terminal_mean": 0.1335712675607818,
+          "terminal_p95": 0.17462535959784872,
+          "zero_I_frames": 0
+        }
+      },
+      "link_vs_reference": {
+        "M_free": {
+          "comparisons": 3,
+          "confidence_family": 0.95,
+          "definition": "FER_reference - FER_link; positive benefits link",
+          "delta": 0.17647058823529413,
+          "interval": [
+            0.09213344137606047,
+            0.25193222249455977
+          ],
+          "losses": 1,
+          "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+          "n": 255,
+          "precision_insufficient": false,
+          "scope": "simultaneous conservative95% intervals for three comparisons; exploratory mechanism sample",
+          "tail_alpha": 0.004166666666666667,
+          "wins": 46
+        },
+        "M_group": {
+          "comparisons": 3,
+          "confidence_family": 0.95,
+          "definition": "FER_reference - FER_link; positive benefits link",
+          "delta": 0.19607843137254902,
+          "interval": [
+            0.10882565272121379,
+            0.2736498993236676
+          ],
+          "losses": 1,
+          "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+          "n": 255,
+          "precision_insufficient": false,
+          "scope": "simultaneous conservative95% intervals for three comparisons; exploratory mechanism sample",
+          "tail_alpha": 0.004166666666666667,
+          "wins": 51
+        },
+        "M_sham": {
+          "comparisons": 3,
+          "confidence_family": 0.95,
+          "definition": "FER_reference - FER_link; positive benefits link",
+          "delta": 0.5607843137254902,
+          "interval": [
+            0.4506485228874057,
+            0.6466040789239704
+          ],
+          "losses": 1,
+          "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+          "n": 255,
+          "precision_insufficient": false,
+          "scope": "simultaneous conservative95% intervals for three comparisons; exploratory mechanism sample",
+          "tail_alpha": 0.004166666666666667,
+          "wins": 144
+        }
+      },
+      "sham_degenerate_frames": 8,
+      "sham_scope": "All degenerate/empty cases retained; no redraw or deletion"
+    },
+    "8": {
+      "arms": {
+        "M_free": {
+          "CE_mean": 0.0013282222787429597,
+          "CE_p95": 0.0019180207804311063,
+          "FER": 0.08235294117647059,
+          "decoded_info_BER": 0.004944087009803921,
+          "fitted_rank_histogram": {
+            "10": 11,
+            "11": 17,
+            "12": 15,
+            "13": 31,
+            "14": 25,
+            "15": 37,
+            "16": 29,
+            "17": 28,
+            "18": 13,
+            "19": 10,
+            "20": 4,
+            "21": 1,
+            "22": 1,
+            "24": 2,
+            "3": 1,
+            "4": 4,
+            "5": 4,
+            "6": 2,
+            "7": 3,
+            "8": 10,
+            "9": 7
+          },
+          "frame_errors": 21,
+          "n": 255,
+          "raw_coded_BER": 0.10404411764705883,
+          "terminal_mean": 0.12394916156042075,
+          "terminal_p95": 0.15730940031353383,
+          "zero_I_frames": 0
+        },
+        "M_group": {
+          "CE_mean": 0.010341358367654988,
+          "CE_p95": 0.024755633727181682,
+          "FER": 0.08235294117647059,
+          "decoded_info_BER": 0.00489047181372549,
+          "fitted_rank_histogram": {
+            "10": 11,
+            "11": 17,
+            "12": 15,
+            "13": 31,
+            "14": 25,
+            "15": 37,
+            "16": 29,
+            "17": 28,
+            "18": 13,
+            "19": 10,
+            "20": 4,
+            "21": 1,
+            "22": 1,
+            "24": 2,
+            "3": 1,
+            "4": 4,
+            "5": 4,
+            "6": 2,
+            "7": 3,
+            "8": 10,
+            "9": 7
+          },
+          "frame_errors": 21,
+          "n": 255,
+          "raw_coded_BER": 0.10490770526960784,
+          "terminal_mean": 0.12233248241040308,
+          "terminal_p95": 0.15295324370963498,
+          "zero_I_frames": 0
+        },
+        "M_link": {
+          "CE_mean": 0.001224887744733589,
+          "CE_p95": 0.00158482338883914,
+          "FER": 0.0196078431372549,
+          "decoded_info_BER": 0.001175704656862745,
+          "fitted_rank_histogram": {
+            "2": 1,
+            "3": 2,
+            "4": 9,
+            "5": 13,
+            "6": 11,
+            "7": 59,
+            "8": 160
+          },
+          "frame_errors": 5,
+          "n": 255,
+          "raw_coded_BER": 0.0991134344362745,
+          "terminal_mean": 0.1236645072054885,
+          "terminal_p95": 0.156358612596523,
+          "zero_I_frames": 0
+        },
+        "M_sham": {
+          "CE_mean": 0.001383901896713046,
+          "CE_p95": 0.0017373790964484213,
+          "FER": 0.9411764705882353,
+          "decoded_info_BER": 0.2114889705882353,
+          "fitted_rank_histogram": {
+            "2": 1,
+            "3": 2,
+            "4": 9,
+            "5": 13,
+            "6": 11,
+            "7": 59,
+            "8": 160
+          },
+          "frame_errors": 240,
+          "n": 255,
+          "raw_coded_BER": 0.21266467524509805,
+          "terminal_mean": 0.13185002748859023,
+          "terminal_p95": 0.162303751608124,
+          "zero_I_frames": 0
+        }
+      },
+      "link_vs_reference": {
+        "M_free": {
+          "comparisons": 3,
+          "confidence_family": 0.95,
+          "definition": "FER_reference - FER_link; positive benefits link",
+          "delta": 0.06274509803921569,
+          "interval": [
+            0.00827330098075114,
+            0.11389834802175348
+          ],
+          "losses": 0,
+          "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+          "n": 255,
+          "precision_insufficient": false,
+          "scope": "simultaneous conservative95% intervals for three comparisons; exploratory mechanism sample",
+          "tail_alpha": 0.004166666666666667,
+          "wins": 16
+        },
+        "M_group": {
+          "comparisons": 3,
+          "confidence_family": 0.95,
+          "definition": "FER_reference - FER_link; positive benefits link",
+          "delta": 0.06274509803921569,
+          "interval": [
+            -0.0054968612101982395,
+            0.1273742792265635
+          ],
+          "losses": 3,
+          "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+          "n": 255,
+          "precision_insufficient": true,
+          "scope": "simultaneous conservative95% intervals for three comparisons; exploratory mechanism sample",
+          "tail_alpha": 0.004166666666666667,
+          "wins": 19
+        },
+        "M_sham": {
+          "comparisons": 3,
+          "confidence_family": 0.95,
+          "definition": "FER_reference - FER_link; positive benefits link",
+          "delta": 0.9215686274509803,
+          "interval": [
+            0.8452796593397721,
+            0.9593797425390892
+          ],
+          "losses": 0,
+          "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+          "n": 255,
+          "precision_insufficient": false,
+          "scope": "simultaneous conservative95% intervals for three comparisons; exploratory mechanism sample",
+          "tail_alpha": 0.004166666666666667,
+          "wins": 235
+        }
+      },
+      "sham_degenerate_frames": 8,
+      "sham_scope": "All degenerate/empty cases retained; no redraw or deletion"
+    },
+    "9": {
+      "arms": {
+        "M_free": {
+          "CE_mean": 0.0013224386842921377,
+          "CE_p95": 0.0018642195034772155,
+          "FER": 0.0,
+          "decoded_info_BER": 0.0,
+          "fitted_rank_histogram": {
+            "10": 9,
+            "11": 16,
+            "12": 18,
+            "13": 26,
+            "14": 27,
+            "15": 32,
+            "16": 34,
+            "17": 28,
+            "18": 15,
+            "19": 11,
+            "20": 3,
+            "21": 2,
+            "22": 1,
+            "24": 2,
+            "3": 1,
+            "4": 4,
+            "5": 4,
+            "6": 2,
+            "7": 3,
+            "8": 9,
+            "9": 8
+          },
+          "frame_errors": 0,
+          "n": 255,
+          "raw_coded_BER": 0.08568282781862745,
+          "terminal_mean": 0.12139444126400585,
+          "terminal_p95": 0.1514869388891384,
+          "zero_I_frames": 0
+        },
+        "M_group": {
+          "CE_mean": 0.01050111137047483,
+          "CE_p95": 0.025372023915406293,
+          "FER": 0.0,
+          "decoded_info_BER": 0.0,
+          "fitted_rank_histogram": {
+            "10": 9,
+            "11": 16,
+            "12": 18,
+            "13": 26,
+            "14": 27,
+            "15": 32,
+            "16": 34,
+            "17": 28,
+            "18": 15,
+            "19": 11,
+            "20": 3,
+            "21": 2,
+            "22": 1,
+            "24": 2,
+            "3": 1,
+            "4": 4,
+            "5": 4,
+            "6": 2,
+            "7": 3,
+            "8": 9,
+            "9": 8
+          },
+          "frame_errors": 0,
+          "n": 255,
+          "raw_coded_BER": 0.08644875919117648,
+          "terminal_mean": 0.11935081902969008,
+          "terminal_p95": 0.1461166984925512,
+          "zero_I_frames": 0
+        },
+        "M_link": {
+          "CE_mean": 0.0012054923138873396,
+          "CE_p95": 0.0015552225057035684,
+          "FER": 0.0,
+          "decoded_info_BER": 0.0,
+          "fitted_rank_histogram": {
+            "2": 1,
+            "3": 2,
+            "4": 9,
+            "5": 13,
+            "6": 11,
+            "7": 58,
+            "8": 161
+          },
+          "frame_errors": 0,
+          "n": 255,
+          "raw_coded_BER": 0.08039598651960785,
+          "terminal_mean": 0.12310338939298127,
+          "terminal_p95": 0.14928450767183674,
+          "zero_I_frames": 0
+        },
+        "M_sham": {
+          "CE_mean": 0.0013678136852332482,
+          "CE_p95": 0.0016911012993659823,
+          "FER": 0.8745098039215686,
+          "decoded_info_BER": 0.19823069852941178,
+          "fitted_rank_histogram": {
+            "2": 1,
+            "3": 2,
+            "4": 9,
+            "5": 13,
+            "6": 11,
+            "7": 58,
+            "8": 161
+          },
+          "frame_errors": 223,
+          "n": 255,
+          "raw_coded_BER": 0.20421262254901962,
+          "terminal_mean": 0.13051606431014506,
+          "terminal_p95": 0.1599693894851953,
+          "zero_I_frames": 0
+        }
+      },
+      "link_vs_reference": {
+        "M_free": {
+          "comparisons": 3,
+          "confidence_family": 0.95,
+          "definition": "FER_reference - FER_link; positive benefits link",
+          "delta": 0.0,
+          "interval": [
+            -0.021263379404452557,
+            0.021263379404452557
+          ],
+          "losses": 0,
+          "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+          "n": 255,
+          "precision_insufficient": true,
+          "scope": "simultaneous conservative95% intervals for three comparisons; exploratory mechanism sample",
+          "tail_alpha": 0.004166666666666667,
+          "wins": 0
+        },
+        "M_group": {
+          "comparisons": 3,
+          "confidence_family": 0.95,
+          "definition": "FER_reference - FER_link; positive benefits link",
+          "delta": 0.0,
+          "interval": [
+            -0.021263379404452557,
+            0.021263379404452557
+          ],
+          "losses": 0,
+          "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+          "n": 255,
+          "precision_insufficient": true,
+          "scope": "simultaneous conservative95% intervals for three comparisons; exploratory mechanism sample",
+          "tail_alpha": 0.004166666666666667,
+          "wins": 0
+        },
+        "M_sham": {
+          "comparisons": 3,
+          "confidence_family": 0.95,
+          "definition": "FER_reference - FER_link; positive benefits link",
+          "delta": 0.8745098039215686,
+          "interval": [
+            0.7891694705724833,
+            0.923432987199271
+          ],
+          "losses": 0,
+          "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+          "n": 255,
+          "precision_insufficient": false,
+          "scope": "simultaneous conservative95% intervals for three comparisons; exploratory mechanism sample",
+          "tail_alpha": 0.004166666666666667,
+          "wins": 223
+        }
+      },
+      "sham_degenerate_frames": 8,
+      "sham_scope": "All degenerate/empty cases retained; no redraw or deletion"
+    }
+  },
+  "metadata_correction_sha256": "160b43072f3bc0420d1326d99e81c42d7939d049b5d850c3b7d8460c13d2cf17",
+  "source_equivalence_sha256": "d4c8563cea1a0893aa120b03801e0a3b2528cabaf0f9bbfa4eb02eb99d794964",
+  "metadata_corrected_rows": 1020,
+  "oracle_space": "present under frozen resource screen: link vs free8dB16 fewer errors/255=.062745, interval[.008273,.113898];7dB+.176471 and9dB0.",
+  "precision_limit": "Link vs group8dB interval[-.005497,.127374] includes0. No confirmed superiority to grouped classical reference, no main performance gate claim.",
+  "scope": "All arms share I; removal of false support is common oracle information and not attributed to link gain. No missing atoms added; true gains never passed to fit. CPU terminal timings do not establish GPU A2 cost.",
+  "next": "ROUTE-01 prioritizes H-M if eligible, but cancellation classical baseline correction must precede legal-candidate evaluation and route freeze."
+}

@@ -1,0 +1,25 @@
+{
+ "arms": {
+  "M_full": {
+   "mode": "full",
+   "kappa": 0.3,
+   "drop": 0.0
+  },
+  "M_adapt": {
+   "mode": "adapt",
+   "kappa": 0.3,
+   "drop": 0.0,
+   "eps": 0.05,
+   "margin": 0.0
+  }
+ },
+ "dev_frames": "1000..1199",
+ "dev_configs": [
+  "N4b",
+  "J4",
+  "D1"
+ ],
+ "dev_snr_db": 8.0,
+ "criterion": "mean logloss_bits (mean over configs of per-config mean)",
+ "selection": "expected-power law dev frames 1000..1199 at 8 dB: stage A kappa{.15,.3,.6,1}xdrop{0,.01}; stage B eps{.02,.05,.1,.2}xmargin{0,.25,.5} at (.3,0); stage C kappa{.2,.25,.3,.4,.5} both arms; min mean logloss; see report_a/b/c.md"
+}

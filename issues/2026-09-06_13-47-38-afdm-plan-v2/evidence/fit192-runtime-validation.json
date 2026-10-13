@@ -1,0 +1,154 @@
+{
+  "scope": "development fit; not confirmatory",
+  "cells": [
+    {
+      "replicate": 30,
+      "arm": "a0",
+      "n": 64,
+      "frame_errors": 16,
+      "FER": 0.25,
+      "info_bit_errors": 1199
+    },
+    {
+      "replicate": 30,
+      "arm": "baseline",
+      "n": 64,
+      "frame_errors": 14,
+      "FER": 0.21875,
+      "info_bit_errors": 1075
+    },
+    {
+      "replicate": 31,
+      "arm": "a0",
+      "n": 64,
+      "frame_errors": 14,
+      "FER": 0.21875,
+      "info_bit_errors": 1150
+    },
+    {
+      "replicate": 31,
+      "arm": "baseline",
+      "n": 64,
+      "frame_errors": 12,
+      "FER": 0.1875,
+      "info_bit_errors": 986
+    },
+    {
+      "replicate": 32,
+      "arm": "a0",
+      "n": 64,
+      "frame_errors": 12,
+      "FER": 0.1875,
+      "info_bit_errors": 1028
+    },
+    {
+      "replicate": 32,
+      "arm": "baseline",
+      "n": 64,
+      "frame_errors": 12,
+      "FER": 0.1875,
+      "info_bit_errors": 964
+    }
+  ],
+  "pooled": {
+    "a0": {
+      "frame_errors": 42,
+      "n": 192,
+      "FER": 0.21875,
+      "descriptive_wilson95": [
+        0.16610635703711824,
+        0.282427162625431
+      ]
+    },
+    "baseline": {
+      "frame_errors": 38,
+      "n": 192,
+      "FER": 0.19791666666666666,
+      "descriptive_wilson95": [
+        0.14772674973803623,
+        0.2599574010106277
+      ]
+    }
+  },
+  "selected_reference": "baseline",
+  "selected_reference_label": "A2",
+  "selection_rule": "lower pooled FER, exact tie selects simpler A0",
+  "snr": 8,
+  "calibration_triggered": false,
+  "working_point_status": "frozen",
+  "paired_a2_win": 9,
+  "paired_a2_harm": 5,
+  "queue": {
+    "manifest_sha256": "7169ab1c7e0ec941a5a1f179ec15039025c34b87a5f9ea66c728a280507c32d7",
+    "identity": {
+      "pid": 106633,
+      "start_ticks": "25227815",
+      "boot_id": "46271cdb-c8f7-410a-aa8e-330aa822e32f"
+    },
+    "started_at": 1788680117.2652478,
+    "complete": true,
+    "runs": [
+      {
+        "name": "rep30",
+        "identity": {
+          "pid": 106638,
+          "start_ticks": "25227832",
+          "boot_id": "46271cdb-c8f7-410a-aa8e-330aa822e32f"
+        },
+        "started_at": 1788680117.3859088,
+        "exit_code": 0,
+        "affinity": "16,17,18,19",
+        "device": "cuda",
+        "ended_at": 1788680224.9344535
+      },
+      {
+        "name": "rep31",
+        "identity": {
+          "pid": 106644,
+          "start_ticks": "25227837",
+          "boot_id": "46271cdb-c8f7-410a-aa8e-330aa822e32f"
+        },
+        "started_at": 1788680117.4354784,
+        "exit_code": 0,
+        "affinity": "20,21,22,23",
+        "device": "cuda",
+        "ended_at": 1788680225.5688875
+      },
+      {
+        "name": "rep32",
+        "identity": {
+          "pid": 107142,
+          "start_ticks": "25238649",
+          "boot_id": "46271cdb-c8f7-410a-aa8e-330aa822e32f"
+        },
+        "started_at": 1788680225.552701,
+        "exit_code": 0,
+        "affinity": "16,17,18,19",
+        "device": "cuda",
+        "ended_at": 1788680311.3906116
+      }
+    ],
+    "peak_gpu_mib": 1295,
+    "ended_at": 1788680311.406653
+  },
+  "subprocess_seconds": 301.519864320755,
+  "cpu_core_hours": 0.33502207146750557,
+  "artifact_sha256": {
+    "queue-status.json": "67583771676ed0cc09b9c189b72c0c660d9eb42bfc524b9eb7ebad3a4971e322",
+    "launcher.log": "4c8716c8e5533813905753c080e4d44cc39c986c75cf55a057711e10c0f4f73b",
+    "launcher-retry1.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "rep30/status.json": "4eddbdf494db25fe63ba54931eb3a6da442483cef1c1d7a899a9de964cf2fcbc",
+    "rep30/frames.jsonl": "66bc43cf07ecc75babda2263ca7af4b7b08403e2bc12f8b1542ba254b9dd4415",
+    "rep31/status.json": "993bb2e3f4ac4ed2ac2d747a37851365739b7ed1e9fed1825e5cc61ce5dcbb23",
+    "rep31/frames.jsonl": "03074bd80e6a48a2a22967ef49dd4a976fcef47615287615641bdd74c3bbe67e",
+    "rep32/status.json": "dcb0c6dbe59e187728ca73b985a3e10c646b80f33b3feaeea528c30470aec503",
+    "rep32/frames.jsonl": "80d4fb5c2163b2c14a40b76e894d66356822ac925c80ea0c8468974b60e7080e"
+  },
+  "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_fit192-1788679921",
+  "failures": [
+    "initial launcher argparse rejection; zero receiver tasks started; corrected within original deadline"
+  ],
+  "completed_receiver_evaluations": 384,
+  "trace_checks": "192 paired frames; every outer/final and temporary bound checked",
+  "prior_sha256": "74f23844a95ea36ea90490f7aa5fca76bd14ff8a97f954f4387a4e85c852444e"
+}

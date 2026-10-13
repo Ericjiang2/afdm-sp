@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "evidence_kind": "controlled_fixed_subspace_simulation",
+  "seed": 20260909090115,
+  "repetitions_per_noise": 20000,
+  "N": 32,
+  "K": 8,
+  "r": 3,
+  "cases": [
+    {
+      "noise": "complex_normal",
+      "model": "atom",
+      "rank": 8,
+      "mean_prediction_error": 8.006030523339158,
+      "standard_error": 0.02002816697564126,
+      "absolute_tolerance": 0.4
+    },
+    {
+      "noise": "complex_normal",
+      "model": "physical",
+      "rank": 3,
+      "mean_prediction_error": 3.0054921059487474,
+      "standard_error": 0.012297001037442376,
+      "absolute_tolerance": 0.15000000000000002
+    },
+    {
+      "noise": "independent_qpsk",
+      "model": "atom",
+      "rank": 8,
+      "mean_prediction_error": 7.995921627293722,
+      "standard_error": 0.017034771003987523,
+      "absolute_tolerance": 0.4
+    },
+    {
+      "noise": "independent_qpsk",
+      "model": "physical",
+      "rank": 3,
+      "mean_prediction_error": 3.005281208665141,
+      "standard_error": 0.01151219944586084,
+      "absolute_tolerance": 0.15000000000000002
+    }
+  ],
+  "identical_columns": {
+    "count": 2,
+    "rank": 1,
+    "singular_values": [
+      1.414213562373095,
+      9.921847349638225e-17
+    ]
+  },
+  "derivation": "For fixed orthogonal projector P, correct mean in range(P), E||P(y)-mean||^2=tr(P Cov(w) P^H)=tr(P)=rank(P) when E[w]=0 and Cov(w)=I. No Gaussian assumption needed.",
+  "limitations": [
+    "Fixed nested subspaces and correct mean only; OMP/data-selected subspaces excluded.",
+    "Estimated geometry adds bias and selection dependence; no FER or full-receiver implication.",
+    "Five-percent numerical tolerance is frozen before execution, not a significance test."
+  ],
+  "wall_seconds": 0.08476449700538069,
+  "source_sha256": "fe7dd4518a9d03aed8bccf970d98ba23416da43dbe4c2fd09a8e5846eb1840e9",
+  "numpy": "1.26.4"
+}

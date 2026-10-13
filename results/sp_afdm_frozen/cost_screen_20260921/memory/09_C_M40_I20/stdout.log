@@ -1,0 +1,114 @@
+AFDM System initialized: N_total=1024 subcarriers (from 32x32)
+  Chirp parameters: c1=0.002441, c2=0.000000
+  Caps: l_max=15, k_max=2, delta_max=77 < N=1024: OK
+  UWA params: fc=12.0 kHz, B=4.0 kHz, fs=8.0 kHz, Ts=125.0 us
+  UWA channel: P=10, tau_spread=10.0 ms, v_mean=2.00 m/s, v_std=0.50 m/s
+  Supported AFDM delay window: 1.0 ms
+  Backward-compat speed cap: 12.6 km/h
+  Channel matrix size: 1024x1024
+[_make_system_variable_N] N_total=1024  l_max=102  k_max=4  δ_max=922  < N: True  c1=0.004395  c2=1.98e-07
+{
+  "schema": "sp-afdm-isolated-arm-memory-v1",
+  "_argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_frozen/cost_screen_20260921/run_memory_arm.py",
+    "--source",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921",
+    "--screen",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_frozen/cost_screen_20260921/cost_screen_run",
+    "--arm",
+    "C_M40_I20",
+    "--out",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_frozen/cost_screen_20260921/memory/09_C_M40_I20/result.json"
+  ],
+  "_config": {
+    "family": "integer_control",
+    "method": "integer_control",
+    "diagonal_cap": 40,
+    "terminal_iterations": 20
+  },
+  "source_boundary_commit": "31d5ec0d",
+  "pid": 435788,
+  "source_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921",
+  "source_identity_sha256": "bfd7c999da103dc77bf5a5c36f4bce7f2764ba65730d82352df19cebfe05847b",
+  "run_identity_sha256": "5517905f8cea2ca43239cbd2aaa18622c736d7cb8fae54e45d3d14d55f2e99d9",
+  "input_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_frozen/cost_screen_20260921/cost_screen_run/arrays/c02_f00000_input.npz",
+  "input_sha256": "07767086e4ff179b429ad3306136a16af5430b1f51c0ae99d1338fd809df7f74",
+  "truth_loaded": false,
+  "cell": {
+    "id": 2,
+    "snr_db": 7
+  },
+  "arm": "C_M40_I20",
+  "configuration": {
+    "family": "integer_control",
+    "method": "integer_control",
+    "diagonal_cap": 40,
+    "terminal_iterations": 20
+  },
+  "setup_kind": "shared/I1 full registered context",
+  "system": {
+    "n_total": 1024,
+    "l_max_cap": 102,
+    "k_max_cap": 2,
+    "rho": 0.5,
+    "c1": 0.00244140625,
+    "c2": 1.9751241797117955e-07
+  },
+  "code_g_sha256": "bfd4247263adedc9a095b87603c2a7a4c2f2e8cb83f7e78bad721c5b06eaa6af",
+  "environment": {
+    "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "hostname": "liunxgpu",
+    "machine": "x86_64",
+    "numpy": "1.26.4",
+    "scipy": "1.10.1",
+    "torch": "2.5.1+cu121",
+    "matplotlib": "3.7.1",
+    "cuda_visible_devices": "",
+    "torch_cuda_available": false,
+    "torch_num_threads": 1,
+    "torch_num_interop_threads": 1,
+    "torch_pre_context_num_threads": 1,
+    "torch_pre_context_num_interop_threads": 64,
+    "torch_binding_authority": "receiver context build; verified before first receiver run",
+    "thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "warmup": {
+    "same_original_receiver_call": true,
+    "observed_input_reused": true,
+    "wall_seconds": 1.267917568970006,
+    "decoded_sha256": "c124b8b50fd358e9034b255c075c3af913927bac1ba86f8d554ed6d53aabb0e5"
+  },
+  "online_memory_snapshots": {
+    "before_call": {
+      "rss_kib": 629324,
+      "high_water_kib": 710668
+    },
+    "after_call": {
+      "rss_kib": 629324,
+      "high_water_kib": 710668
+    },
+    "interpretation": "diagnostic process snapshots; not an exact online incremental peak"
+  },
+  "actual": {
+    "wall_seconds": 1.2645532870083116,
+    "decoded_sha256": "c124b8b50fd358e9034b255c075c3af913927bac1ba86f8d554ed6d53aabb0e5",
+    "info_hat_sha256": "33a96b36650a5c5ab008c561463404c328ccd344e71a91a65e2ce21a6bd06958",
+    "llr_sha256": "025942def32ce951fbd7620a796936faebab9d8ab4e8a469b7a28439d0c38c99",
+    "receiver_times": {
+      "seconds_complete": 1.2645438230247237,
+      "front_seconds": 1.001138623978477,
+      "refit_seconds": 0.011226738977711648,
+      "detector_seconds": 0.2257204269990325,
+      "decoder_seconds": 0.02496291499119252,
+      "instrumentation_seconds": 0.0
+    },
+    "state_source": "formal_I1_preterminal"
+  },
+  "whole_process_rss_authority": "sibling time.txt from /usr/bin/time -v"
+}

@@ -1,0 +1,203 @@
+{
+  "status": "AUDITED_CACHED_DEVELOPMENT",
+  "runs": [
+    {
+      "tag": "e1a-pilot-response-engineering-v3",
+      "summary_sha256": "c95409afd138c123ad6ce0782924102a09e2bfec18020087558680c49a8a94be",
+      "audit_sha256": "ebe0a9bdac44c00c66fcd9fa3e880a7578e794b5944188800efc5de6834f172c",
+      "script_sha256": "3636957f0e94e3c1e5dc33b502f4651e1a3d6d80dce481c58a870276108261ee",
+      "contract_sha256": "651ae6e50cd524d8252691269870e1aec08f7c1b91014618f1554be173c9d01a",
+      "calls": {
+        "D": 8,
+        "T": 7
+      },
+      "recovered_calls": {
+        "D": 0,
+        "T": 1
+      },
+      "producer_seconds": 12.846315145492554,
+      "audit_seconds": 4.2525634765625,
+      "arrays": 144,
+      "saved_records": 16,
+      "exact_A0": 4
+    },
+    {
+      "tag": "e1a-pilot-response-development-v1",
+      "summary_sha256": "d6fb86c0472dbc9f93d6de4cfd7a54c71bf595716dea67374b630db7e599e682",
+      "audit_sha256": "a9e588ef0c09c44c9468099315ad6ffab8f101af69f7b717ebf8e1f6ea38b9f9",
+      "script_sha256": "3636957f0e94e3c1e5dc33b502f4651e1a3d6d80dce481c58a870276108261ee",
+      "contract_sha256": "0d8f11a6f60b0a07603feca1e105feaabcf3c6fd2f661696aa019c8a93030cd7",
+      "calls": {
+        "D": 120,
+        "T": 120
+      },
+      "recovered_calls": {
+        "D": 0,
+        "T": 0
+      },
+      "producer_seconds": 159.5061902999878,
+      "audit_seconds": 62.9766309261322,
+      "arrays": 2160,
+      "saved_records": 240,
+      "exact_A0": 60
+    }
+  ],
+  "performance": [
+    {
+      "snr": 7,
+      "arm": "A0",
+      "blocks": 32,
+      "failed_blocks": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27,
+        28,
+        31
+      ],
+      "frame_errors": 25,
+      "info_bit_errors": 3287,
+      "info_bits": 32768,
+      "mean_bit_NLL": 0.3583450465505022,
+      "mean_bit_Brier": 0.1053387467127231
+    },
+    {
+      "snr": 7,
+      "arm": "A_ORACLE",
+      "blocks": 32,
+      "failed_blocks": [
+        0,
+        2,
+        4,
+        6,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        22,
+        25,
+        26,
+        27,
+        28,
+        31
+      ],
+      "frame_errors": 19,
+      "info_bit_errors": 2057,
+      "info_bits": 32768,
+      "mean_bit_NLL": 0.30657863754792514,
+      "mean_bit_Brier": 0.0917825048093289
+    },
+    {
+      "snr": 8,
+      "arm": "A0",
+      "blocks": 32,
+      "failed_blocks": [
+        2,
+        14,
+        15,
+        17,
+        25,
+        27
+      ],
+      "frame_errors": 6,
+      "info_bit_errors": 608,
+      "info_bits": 32768,
+      "mean_bit_NLL": 0.21612489782799593,
+      "mean_bit_Brier": 0.06159813338426072
+    },
+    {
+      "snr": 8,
+      "arm": "A_ORACLE",
+      "blocks": 32,
+      "failed_blocks": [
+        15
+      ],
+      "frame_errors": 1,
+      "info_bit_errors": 113,
+      "info_bits": 32768,
+      "mean_bit_NLL": 0.1739990620022357,
+      "mean_bit_Brier": 0.05058333720900647
+    }
+  ],
+  "paired": [
+    {
+      "snr": 7,
+      "rescued": [
+        5,
+        7,
+        12,
+        20,
+        21,
+        23
+      ],
+      "added_failures": [],
+      "net_rescues": 6
+    },
+    {
+      "snr": 8,
+      "rescued": [
+        2,
+        14,
+        17,
+        25,
+        27
+      ],
+      "added_failures": [],
+      "net_rescues": 5
+    }
+  ],
+  "legal_estimator_exploration_gate": true,
+  "gate_scope": "descriptive development screen; not statistical confirmation or deployment benefit",
+  "source_sha256": "5c0fac1eab2b9d8d55c54110c988b0906661bc85be4de8d8d5e3502f1c0602b0",
+  "unique_cached_blocks": 32,
+  "logical_calls": {
+    "T": 128,
+    "D": 128
+  },
+  "new_F_or_exogenous": 0,
+  "failed_attempts": [
+    {
+      "tag": "e1a-pilot-response-engineering-v1",
+      "name": "e1a-pilot-response-engineering-v1",
+      "exit_code": 1,
+      "timed_out": false,
+      "started_at": 1789303625.8662586,
+      "finished_at": 1789303629.6900468,
+      "wall_seconds": 3.8237884044647217
+    },
+    {
+      "tag": "e1a-pilot-response-engineering-v2",
+      "name": "e1a-pilot-response-engineering-v2",
+      "exit_code": 1,
+      "timed_out": false,
+      "started_at": 1789303708.5009196,
+      "finished_at": 1789303711.9736633,
+      "wall_seconds": 3.4727442264556885
+    }
+  ],
+  "scope": "Only pilot cancellation changes. Same saved FULL Hc, physical sigma2, temperature1, 20-step BP, retained check prior. Oracle uses truth and is not deployable. CONF and formal COST paused."
+}

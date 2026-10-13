@@ -1,0 +1,75 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "exit_code": 127,
+      "observed_error": "env: /opt/anaconda3/envs/AFDM/bin/python: No such file or directory",
+      "remote_python_path": "/opt/anaconda3/envs/AFDM/bin/python",
+      "source_sha256": "ab016917ada162f8f81d76e2cc969c0a5e79b17e9a4e35d9048c9a3505a86a65",
+      "status": "remote_python_not_started",
+      "stderr_archive": null,
+      "stderr_unavailable_reason": "The shared /private/tmp stderr path was overwritten by attempt 2 before local archival; this text is recorded from the earlier tool output, not reconstructed as a raw log.",
+      "stdout_archive": null
+    },
+    {
+      "attempt": 2,
+      "exit_code": 1,
+      "failure": "ValueError: free-cols are not a permutation of 1024 systematic coordinates",
+      "numpy": "1.26.4",
+      "remote_python_path": "/home/guoyikun/.conda/envs/AFDM/bin/python",
+      "scipy": "1.10.1",
+      "source_sha256": "ab016917ada162f8f81d76e2cc969c0a5e79b17e9a4e35d9048c9a3505a86a65",
+      "status": "reader_stopped_on_invalid_free_cols_assumption_before_truth_payload",
+      "stderr_archive": {
+        "path": "results/cstate_necessity_stageB_resume_20260928/independent/failed_recount_v1/attempt2_stderr.raw",
+        "sha256": "059a479d137f1803185f391f9b2beb4fa4eb796a912f26faab53c54dcb6a74d6",
+        "size_bytes": 186
+      },
+      "stdout_archive": {
+        "path": "results/cstate_necessity_stageB_resume_20260928/independent/failed_recount_v1/attempt2_stdout.raw",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "attempt": 3,
+      "exit_code": null,
+      "reason": "This action was rejected due to unacceptable risk. This is an independent recount retry after a code error; user explicitly required no retries after any new failure. Do not bypass through a workaround or indirect execution.",
+      "receiver_or_data_process_started": false,
+      "source_sha256": "36d8bd7918a45a8664daf89115d5212a2d7742f837a8f52829f23e41e368b889",
+      "status": "auto_review_rejected_before_process_start"
+    }
+  ],
+  "authorization": {
+    "observed_commit": "1dbbd0f111de7d88e7e689aeb7b9b61f4a83ab27",
+    "observed_seal_sha256": "69bc4006a814fd5946c3810209d9d9b24db9c64df34aa4129fa4a2abf554c3fc",
+    "parent_local_git_verification": "already confirmed: observed seal blob, seven primary blobs, and observed-commit ancestry",
+    "primary_attestation_sha256": "1479074e1d7f6e9031d3774847af86436509250723969cb8b5281885b341fb9f",
+    "primary_git_go_commit": "a5a8c3f301b6e5280c9fa67d05a6120e38005dc1"
+  },
+  "next_attempt_preparation": {
+    "argv_file": "results/cstate_necessity_stageB_resume_20260928/independent/failed_recount_v1/attempt2/prepared_argv.json",
+    "command_file": "results/cstate_necessity_stageB_resume_20260928/independent/failed_recount_v1/attempt2/prepared_command.txt",
+    "directory": "results/cstate_necessity_stageB_resume_20260928/independent/failed_recount_v1/attempt2",
+    "status": "prepared_only_not_executed; requires fresh user approval after auto-review rejection"
+  },
+  "schema": "independent-f2-five-recount-failure-archive/1",
+  "scope": {
+    "new_observations": 0,
+    "no_receiver_decoder_generator_or_estimator_imported": true,
+    "observed_bytes": "attempt2 independently SHA-rehashed all sealed observed members before code-cache validation; no raw/checkpoint NPZ arrays were decoded",
+    "observed_raw_or_checkpoint_npz_arrays_opened": 0,
+    "receiver_calls": 0,
+    "truth_metadata_read_detail": "truth_seal.json SHA/status/files and 6.5-dB truth ledger rows were read; failure occurred at code-cache free_cols validation before any truth payload NPZ was opened",
+    "truth_metadata_read_on_attempt2": true,
+    "truth_npz_payloads_opened": 0
+  },
+  "source_retention": {
+    "attempted_source_file": "not retained as a separate byte-for-byte snapshot; exact source bytes no longer available locally",
+    "attempted_source_sha256": "ab016917ada162f8f81d76e2cc969c0a5e79b17e9a4e35d9048c9a3505a86a65",
+    "current_corrected_source_path": "experiments/cstate_necessity_stageB_resume_20260928/independent_recount_five.py",
+    "current_corrected_source_sha256": "36d8bd7918a45a8664daf89115d5212a2d7742f837a8f52829f23e41e368b889",
+    "current_source_syntax_check": "python3 -m py_compile passed"
+  },
+  "status": "blocked_after_reader_pretruth_failure_and_auto_review_rejection"
+}

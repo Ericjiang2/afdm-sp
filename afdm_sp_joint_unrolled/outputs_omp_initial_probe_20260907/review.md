@@ -1,0 +1,17 @@
+# Implementation and evidence review
+
+- Scope: small exploratory experiment explicitly authorized by user; deinlab GPU0, three concurrent processes. No active Trellis task, no training, no changes to production receiver or old raw outputs.
+- Added standalone runner, analyzer, six contract tests. Existing channel generator, frame RNG, OMP, LS, projection and BP are reused.
+- Local full-source upload was rejected by automatic approval review. Safer transfer succeeded: only newly authored diagnostic runner, tests, analyzer, protocol and launcher. Existing dependencies were copied within deinlab from `outputs_budgeted_support_repair/v2_gainrest-1788687670/source` into the new isolated snapshot.
+- Executed dependency identity comes from per-run `status.json::source_hashes`, not `local-preflight-source-manifest.json`. The latter is only the local preflight tree and is not an execution manifest. Four consumed functions (`make_frame`, `array_hash`, `dev_rng`, `project_channel_on_support`) match local source bytes exactly. Core receiver, BP, truth ledger and label-source file hashes also match.
+- Tests: six passed on deinlab; Python compilation passed. Projection test is a synthetic small operator-basis test, not a physical small-N performance experiment. Its system initialization diagnostics are not scientific receiver validation.
+- CUDA smoke: rep90699, frame0, SNR8; complete, 3.625 seconds, peak PyTorch allocation 425.30 MiB. Not included in science matrix. Observer/repeat H bit-exact and hard bits equal for this smoke.
+- Source frozen before production. Three production source manifests must match. Each process is bound to its own four CPU cores and the shared GPU0, with a 30-minute packet deadline. Diagnostic concurrency timing is not deployment latency.
+- Truth isolation: A executes before truth labels are built; no repair/head is enabled. B and F are explicitly truth-assisted. C/D/E only replace terminal H at a frozen A noise state; no oracle feedback is claimed.
+- Controlled capacity: A/B same cardinality. B retains raw-OMP-order false atoms when true support is smaller than 40. F removes these padding atoms and is a separate dimension-control arm, not an equal-cardinality competitor.
+- Three stages have one BER endpoint: the same BP detector with 20 iterations, threshold 1e-4 and damping 0.5, then identical I/Q sign demapping. No upstream x_soft BER is mixed into tables. BP internally uses complex128 after its standard conversion; receiver H inputs are complex64.
+- Per-frame runtime assertions verify immutable observations, no support changes, true merged coefficients, independent generator reconstruction, projection coefficients/energy consistency and channel-error decomposition. Default raw OMP is never replaced with oracle values in A.
+- Analysis retains bit masks and validates their totals, all 144 prescribed identities, cross-SNR exogenous hashes and completed status. Bootstrap is paired within each fixed stream, 10000 draws; pointwise exploratory intervals. No significance-based optional stopping.
+- Unchanged limitations: truncated integer-dictionary model, current direct40 shell, uncoded bits only, 48 independent exogenous frames. Oracle is neither deployable nor BER optimal; terminal-only gain effects do not establish all-outer oracle feedback gains. No paper claim promoted.
+
+Production completion and numeric conclusions are recorded in `summary.json` and the final Chinese report after collection.

@@ -1,0 +1,28 @@
+{
+  "schema": "spafdm-native-direction-campaign/1",
+  "handoff_sha256": "9c764698e7b3e9271d313d2ad21233d81eb00f1fe59d07ef0815a5616c3beed7",
+  "baseline_commit": "31d5ec0d",
+  "source_commit": "2d130b4d",
+  "source_root_name": "sp_afdm_native_joint_reviewed_20260921",
+  "source_scope": {"N": 1024, "code_n": 2048, "code_k": 1024, "rho": 0.5, "paths": 8},
+  "generator_sha256": "bfd4247263adedc9a095b87603c2a7a4c2f2e8cb83f7e78bad721c5b06eaa6af",
+  "arms": {
+    "TF_J20_R2": {"family": "tf", "rounds": 2, "iterations": 20, "ce_mode": "soft", "gain_mode": "joint"},
+    "EP2_MEAN_R2": {"family": "ep", "rounds": 2, "iterations": 2, "ce_mode": "mean"},
+    "EP4_MEAN_R2": {"family": "ep", "rounds": 2, "iterations": 4, "ce_mode": "mean"},
+    "TF_POINT20_R2": {"family": "tf", "rounds": 2, "iterations": 20, "ce_mode": "soft", "gain_mode": "point"},
+    "PBI8_SOFT_R2": {"family": "pbi", "rounds": 2, "iterations": 8, "ce_mode": "soft"}
+  },
+  "direction": {"namespace": [20260921, 940318, 0],
+    "cells": [600, 650, 700], "frames_per_cell": 32,
+    "all_32": ["TF_J20_R2", "EP2_MEAN_R2"],
+    "first_8": ["EP4_MEAN_R2", "TF_POINT20_R2"],
+    "first_4": ["PBI8_SOFT_R2"],
+    "receiver_calls": 252, "timeout_seconds": 1800},
+  "audit_frames": [0],
+  "storage_cap_bytes": 536870912,
+  "p90_method": "numpy.quantile(method=linear)",
+  "prior_campaign_seed_registry": "prior_actual_channel_seeds.json",
+  "auxiliary_old_deadline_seconds": 0.6780479838140309,
+  "confirmation_allowed": false
+}

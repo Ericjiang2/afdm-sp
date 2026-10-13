@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "exit_code": 0,
+  "recipes": [
+    {
+      "id": "b0-s0.5",
+      "family": "b0",
+      "parameter": null,
+      "terminal_scale": 0.5
+    },
+    {
+      "id": "b0-s1",
+      "family": "b0",
+      "parameter": null,
+      "terminal_scale": 1.0
+    },
+    {
+      "id": "size-s0.5",
+      "family": "size",
+      "parameter": 1.0,
+      "terminal_scale": 0.5
+    },
+    {
+      "id": "size-s1",
+      "family": "size",
+      "parameter": 1.0,
+      "terminal_scale": 1.0
+    },
+    {
+      "id": "ridge-s0.5",
+      "family": "ridge",
+      "parameter": 0.01,
+      "terminal_scale": 0.5
+    },
+    {
+      "id": "ridge-s1",
+      "family": "ridge",
+      "parameter": 0.01,
+      "terminal_scale": 1.0
+    },
+    {
+      "id": "sbl-s0.5",
+      "family": "sbl",
+      "parameter": 0.001,
+      "terminal_scale": 0.5
+    },
+    {
+      "id": "sbl-s1",
+      "family": "sbl",
+      "parameter": 0.001,
+      "terminal_scale": 1.0
+    }
+  ],
+  "total_configurations": 8,
+  "design_blocks": 192,
+  "design_SNR": [
+    8
+  ],
+  "total_full_calls": 1536,
+  "source_manifest": "source-snapshot-runtime-v4.json",
+  "protocol_sha256": "4f307ad9f6c1f4667704eaa64f1594249c748f8ecf9c7707a32a1545e09c2941",
+  "real_evidence": [
+    "engineering-recipes-v4/complete.json",
+    "recipe-and-disk-replay-v4.json"
+  ],
+  "fairness": "all family×same terminal scales(.5,1), direct40 cap, fixed10outer+20BP+terminal20BP+LDPC50. Existing code seed and identical observed inputs. No newly fitted external prior for these four families. Historical A2 prior only cost comparator.",
+  "attempts": "all8 engineering attempts completed; all design attempts/failed starts reserved in shared ledger before receiver. Parameters frozen before any new full receiver. No old holdout performance used.",
+  "selection": "Engineering smoke FER excluded. D_design alone selects; isolated engineering latency used only same-runner relative cost screening. Absolute A2 cost gate remains unverified until COST02.",
+  "registry": [
+    {
+      "id": "b0-s0.5",
+      "truth_access_level": "none",
+      "prior": null,
+      "source": "v3_initial.InitialEstimator + existing ClassicalJointUnrolled + terminal_decode"
+    },
+    {
+      "id": "b0-s1",
+      "truth_access_level": "none",
+      "prior": null,
+      "source": "v3_initial.InitialEstimator + existing ClassicalJointUnrolled + terminal_decode"
+    },
+    {
+      "id": "size-s0.5",
+      "truth_access_level": "none",
+      "prior": null,
+      "source": "v3_initial.InitialEstimator + existing ClassicalJointUnrolled + terminal_decode"
+    },
+    {
+      "id": "size-s1",
+      "truth_access_level": "none",
+      "prior": null,
+      "source": "v3_initial.InitialEstimator + existing ClassicalJointUnrolled + terminal_decode"
+    },
+    {
+      "id": "ridge-s0.5",
+      "truth_access_level": "none",
+      "prior": null,
+      "source": "v3_initial.InitialEstimator + existing ClassicalJointUnrolled + terminal_decode"
+    },
+    {
+      "id": "ridge-s1",
+      "truth_access_level": "none",
+      "prior": null,
+      "source": "v3_initial.InitialEstimator + existing ClassicalJointUnrolled + terminal_decode"
+    },
+    {
+      "id": "sbl-s0.5",
+      "truth_access_level": "none",
+      "prior": null,
+      "source": "v3_initial.InitialEstimator + existing ClassicalJointUnrolled + terminal_decode"
+    },
+    {
+      "id": "sbl-s1",
+      "truth_access_level": "none",
+      "prior": null,
+      "source": "v3_initial.InitialEstimator + existing ClassicalJointUnrolled + terminal_decode"
+    }
+  ]
+}

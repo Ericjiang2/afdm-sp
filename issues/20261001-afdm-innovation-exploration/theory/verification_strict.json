@@ -1,0 +1,358 @@
+{
+  "status": "fail",
+  "scope": "synthetic algebra and small frozen TF module calls",
+  "new_observations": 0,
+  "full_receivers": 0,
+  "decoders": 0,
+  "synthetic_tf_calls": 13,
+  "seed": 2026100102,
+  "python": "3.13.7",
+  "numpy": "2.2.6",
+  "scipy": "1.16.1",
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "source_sha256": {
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "experiments/sp_afdm_frozen_20260920/src/messages.py": "9b19937c90a6e2b15f30d4e326320a38cd2635f9c0c5b14814406991da25ec95",
+    "experiments/tf_cgr_mechanism_20260923_v2/tf_base.py": "0e3a94045b0b395c28efa02f181433bbc3aa2f569c05683ad83e1d1cf4f9699e",
+    "experiments/sp_afdm_native_joint_20260921/src/twofft.py": "c54e832716d72530e38a9b1090ca24f8f8b3c8f4185db0914d30e5f7e2ab9ff0"
+  },
+  "checker_sha256": "15577c8c6fff5ee20d9c1bf42345f7683bae2b1eb924211c97ea5d4a5c92e5c3",
+  "adapter_sha256": "586ffb8b59738e39e31b981930c7023928643c936198877e2e59a420097ad89f",
+  "elapsed_seconds": 0.05683366593439132,
+  "checks": [
+    {
+      "check": "sensitivity",
+      "status": "pass",
+      "detail": {
+        "identity_max_error": 2.3245294578089215e-16,
+        "same_E_gain_changes": [
+          2.3379324147634586e-18,
+          0.07600586603378477
+        ],
+        "eta": 0.07033743894764674,
+        "energy_error": 0.3139304282962082,
+        "energy_bound": 0.3350810508001331
+      }
+    },
+    {
+      "check": "candidate_certificate",
+      "status": "pass",
+      "detail": {
+        "certified_fixed_bank_size": 7,
+        "near_tie_counterexamples": [
+          {
+            "perturbation": 0.001,
+            "old_winner": 1,
+            "new_winner": 0
+          },
+          {
+            "perturbation": 1e-06,
+            "old_winner": 1,
+            "new_winner": 0
+          },
+          {
+            "perturbation": 1e-09,
+            "old_winner": 1,
+            "new_winner": 0
+          }
+        ]
+      }
+    },
+    {
+      "check": "cluster_taylor",
+      "status": "pass",
+      "detail": {
+        "cases": [
+          {
+            "n": 8,
+            "delta": 0.0,
+            "opposite_gains": false,
+            "error": 3.444376352465766e-16,
+            "bound": 0.0
+          },
+          {
+            "n": 8,
+            "delta": 0.0,
+            "opposite_gains": true,
+            "error": 0.0,
+            "bound": 0.0
+          },
+          {
+            "n": 8,
+            "delta": 1e-06,
+            "opposite_gains": false,
+            "error": 1.2010896053950766e-12,
+            "bound": 3.0341105529470896e-12
+          },
+          {
+            "n": 8,
+            "delta": 1e-06,
+            "opposite_gains": true,
+            "error": 2.489335549832304e-16,
+            "bound": 5.0200750810915694e-12
+          },
+          {
+            "n": 8,
+            "delta": 0.001,
+            "opposite_gains": false,
+            "error": 1.2008501475281525e-06,
+            "bound": 3.0341105529470888e-06
+          },
+          {
+            "n": 8,
+            "delta": 0.001,
+            "opposite_gains": true,
+            "error": 1.2187311526822948e-09,
+            "bound": 5.0200750810915695e-06
+          },
+          {
+            "n": 8,
+            "delta": 0.05,
+            "opposite_gains": false,
+            "error": 0.0029647271928799224,
+            "bound": 0.0075852763823677245
+          },
+          {
+            "n": 8,
+            "delta": 0.05,
+            "opposite_gains": true,
+            "error": 0.00015230689921150617,
+            "bound": 0.012550187702728926
+          },
+          {
+            "n": 8,
+            "delta": 0.3,
+            "opposite_gains": false,
+            "error": 0.09943571881191211,
+            "bound": 0.273069949765238
+          },
+          {
+            "n": 8,
+            "delta": 0.3,
+            "opposite_gains": true,
+            "error": 0.03263846383813623,
+            "bound": 0.4518067572982412
+          },
+          {
+            "n": 17,
+            "delta": 0.0,
+            "opposite_gains": false,
+            "error": 3.3236142882825676e-16,
+            "bound": 0.0
+          },
+          {
+            "n": 17,
+            "delta": 0.0,
+            "opposite_gains": true,
+            "error": 0.0,
+            "bound": 0.0
+          },
+          {
+            "n": 17,
+            "delta": 1e-06,
+            "opposite_gains": false,
+            "error": 1.8748106437029855e-12,
+            "bound": 4.516209774092535e-12
+          },
+          {
+            "n": 17,
+            "delta": 1e-06,
+            "opposite_gains": true,
+            "error": 2.8261595927962966e-16,
+            "bound": 7.47227622470205e-12
+          },
+          {
+            "n": 17,
+            "delta": 0.001,
+            "opposite_gains": false,
+            "error": 1.8745158222250154e-06,
+            "bound": 4.516209774092534e-06
+          },
+          {
+            "n": 17,
+            "delta": 0.001,
+            "opposite_gains": true,
+            "error": 1.9797536644737e-09,
+            "bound": 7.472276224702048e-06
+          },
+          {
+            "n": 17,
+            "delta": 0.05,
+            "opposite_gains": false,
+            "error": 0.004626157815824499,
+            "bound": 0.01129052443523134
+          },
+          {
+            "n": 17,
+            "delta": 0.05,
+            "opposite_gains": true,
+            "error": 0.00024740792680550387,
+            "bound": 0.01868069056175513
+          },
+          {
+            "n": 17,
+            "delta": 0.3,
+            "opposite_gains": false,
+            "error": 0.15480289022301086,
+            "bound": 0.40645887966832817
+          },
+          {
+            "n": 17,
+            "delta": 0.3,
+            "opposite_gains": true,
+            "error": 0.05297876621310944,
+            "bound": 0.6725048602231845
+          },
+          {
+            "n": 64,
+            "delta": 0.0,
+            "opposite_gains": false,
+            "error": 8.599203457626754e-16,
+            "bound": 0.0
+          },
+          {
+            "n": 64,
+            "delta": 0.0,
+            "opposite_gains": true,
+            "error": 0.0,
+            "bound": 0.0
+          },
+          {
+            "n": 64,
+            "delta": 1e-06,
+            "opposite_gains": false,
+            "error": 3.4242136619085656e-12,
+            "bound": 1.1264648242985873e-11
+          },
+          {
+            "n": 64,
+            "delta": 1e-06,
+            "opposite_gains": true,
+            "error": 6.643226191796495e-16,
+            "bound": 1.8637877214773147e-11
+          },
+          {
+            "n": 64,
+            "delta": 0.001,
+            "opposite_gains": false,
+            "error": 3.4245349875510203e-06,
+            "bound": 1.1264648242985872e-05
+          },
+          {
+            "n": 64,
+            "delta": 0.001,
+            "opposite_gains": true,
+            "error": 3.541494133705672e-09,
+            "bound": 1.8637877214773146e-05
+          },
+          {
+            "n": 64,
+            "delta": 0.05,
+            "opposite_gains": false,
+            "error": 0.008572990010070015,
+            "bound": 0.028161620607464688
+          },
+          {
+            "n": 64,
+            "delta": 0.05,
+            "opposite_gains": true,
+            "error": 0.0004425787531305197,
+            "bound": 0.04659469303693288
+          },
+          {
+            "n": 64,
+            "delta": 0.3,
+            "opposite_gains": false,
+            "error": 0.30979557091302273,
+            "bound": 1.0138183418687285
+          },
+          {
+            "n": 64,
+            "delta": 0.3,
+            "opposite_gains": true,
+            "error": 0.09478383015983191,
+            "bound": 1.6774089493295832
+          }
+        ],
+        "max_error_minus_bound": 8.599203457626754e-16
+      }
+    },
+    {
+      "check": "cluster_prior_and_fit",
+      "status": "pass",
+      "detail": {
+        "exact_regularized_change_error": 4.637263367040817e-16,
+        "correct_penalty_diagonal": [
+          0.5,
+          2222.2222222222226
+        ],
+        "wrong_prior_prediction_change": 0.8013089009501807,
+        "delta_zero_merged_ridge": 0.1
+      }
+    },
+    {
+      "check": "cluster_gamma",
+      "status": "fail",
+      "error_type": "RuntimeWarning",
+      "error": "divide by zero encountered in matmul"
+    },
+    {
+      "check": "condition_boundary",
+      "status": "pass",
+      "detail": {
+        "condition_sweep": [
+          {
+            "delta": 0.1,
+            "physical_condition": 11.013856728228744,
+            "mode_condition": 1.8158943314324756
+          },
+          {
+            "delta": 0.01,
+            "physical_condition": 110.31784286039694,
+            "mode_condition": 1.812943353624965
+          },
+          {
+            "delta": 0.001,
+            "physical_condition": 1103.1964109846392,
+            "mode_condition": 1.8129138021895246
+          },
+          {
+            "delta": 1e-06,
+            "physical_condition": 1103196.5926301843,
+            "mode_condition": 1.8129135036863235
+          }
+        ],
+        "degenerate_mode_rank": 1,
+        "relative_counterexample_exact_norm": 0.0,
+        "relative_counterexample_approx_norm": 0.03281741931886789
+      }
+    },
+    {
+      "check": "tf_contract",
+      "status": "pass",
+      "detail": {
+        "identity_exact_array_fields": 6,
+        "common_state_gain_errors": {
+          "coherent": 1.2412670766236366e-16,
+          "full": 8.89289032550165e-17
+        },
+        "last_step_llr_unchanged": true,
+        "second_step_full_identity_llr_l2": 0.3287971937958434,
+        "af_time_llr_max_error": 8.881784197001252e-16,
+        "uniform_full_coherent_gain_error": 6.684427777288335e-16
+      }
+    },
+    {
+      "check": "adapter_guards",
+      "status": "pass",
+      "detail": {
+        "native_source_modes_compiled": 3,
+        "invalid_configurations_rejected": 2
+      }
+    }
+  ]
+}

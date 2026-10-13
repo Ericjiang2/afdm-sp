@@ -1,0 +1,89 @@
+{
+  "schema": "f2-qp-independent-recount/1",
+  "status": "pass_with_scope_limits",
+  "scope": "Mechanical recount of the named local JSON/JSONL/text metadata only. No receiver, estimator, generator, LDPC, truth, solver, or NPZ payload was run/read.",
+  "source_files": {
+    "capture_outcome": {
+      "path": "results/cstate_necessity_stageB_resume_20260928/F2_QP_CAPTURE_OUTCOME.json",
+      "bytes": 2644,
+      "sha256": "0f0d4b86712273957dffcd045f70a68c11490cbf4c67d7c8d2ac6e184230112c",
+      "md5": "269c3edd294277ab2071037608dbcce5"
+    },
+    "offline_diagnosis": {
+      "path": "results/cstate_necessity_stageB_resume_20260928/F2_QP_OFFLINE_DIAGNOSIS.json",
+      "bytes": 1888,
+      "sha256": "d5ce17466b8d19219c5165ec78bd9efa890542af187981eee3699e4a6f07170d",
+      "md5": "c326b8fe58a7df9f8934bd723110a3e6"
+    }
+  },
+  "capture_recount": {
+    "attempt_rows": 1,
+    "attempt_index": 1,
+    "observation_id": "s650_f0000",
+    "estimator_calls": 1,
+    "grid_calls": 22,
+    "tf_calls": 0,
+    "ldpc_calls": 0,
+    "generator_calls": 0,
+    "status": "single_attempt_captured_original_failure",
+    "failure": "grid QP failed: STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+    "launcher_exit_code": 1,
+    "launcher_wall_seconds": 10,
+    "failure_elapsed_seconds": 9.411174198961817,
+    "truth_values_read": false,
+    "no_automatic_retry": true
+  },
+  "offline_diagnosis_recount": {
+    "status": "complete",
+    "dimension": 155,
+    "grid_call_index_one_based": 22,
+    "em_iteration_one_based": 2,
+    "outer_pass_index_zero_based": 1,
+    "estimator_calls": 0,
+    "receiver_calls": 0,
+    "additional_minimize_calls_on_saved_qp": 1,
+    "original_solver_success": false,
+    "original_solver_nit": 100,
+    "original_solver_message": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT",
+    "diagonally_scaled_solver_success": true,
+    "diagonally_scaled_solver_nit": 16,
+    "objective_same": true,
+    "objective_delta_vs_original": -4.796715247223915e-10,
+    "input_sha256_matches_failure_capture_record": true,
+    "truth_values_read": false
+  },
+  "metadata_hash_checks": {
+    "listed_small_files_checked": 8,
+    "listed_small_files_sha256_and_md5_match_capture_outcome": true,
+    "checked_paths": [
+      "F2_QP_OFFLINE_DIAGNOSIS.json",
+      "failure_capture_launch_v1/argv.txt",
+      "failure_capture_launch_v1/launch_exit.json",
+      "failure_capture_launch_v1/launch_started.json",
+      "failure_capture_launch_v1/runner.log",
+      "failure_capture_v1/attempts.jsonl",
+      "failure_capture_v1/failure.json",
+      "failure_capture_v1/manifest.json"
+    ]
+  },
+  "qp_artifact_boundary": {
+    "path": "results/cstate_necessity_stageB_resume_20260928/failure_capture_v1/failed_qp_input.npz",
+    "local_file_present": true,
+    "bytes": 180473,
+    "recorded_sha256": "a44589fdc0deb6bfd1424445fdae6db3b7f1e154dda08ea3682ba40fde6034e7",
+    "recorded_md5": "d5ec0684c7cac335e2e6f95f9eb8e17a",
+    "payload_opened_or_rehashed_independently": false,
+    "remote_copy_independently_checked": false,
+    "metadata_claims_local_copy_verified_against_remote_sha256": true
+  },
+  "consistency": {
+    "attempts_vs_failure_json": "1 attempt and 1 estimator call agree",
+    "failure_vs_capture_outcome": "22 grid calls, error text, exit code, elapsed time, and zero TF/LDPC/generator calls agree",
+    "offline_vs_failure_capture": "saved-QP SHA and grid-call index 22 agree; offline diagnosis records zero estimator/receiver calls",
+    "no_mismatch_found_in_checked_metadata": true
+  },
+  "limitations": [
+    "The NPZ payload and its recorded SHA/MD5 were not independently verified; only local presence/size and cross-file recorded digest agreement were checked.",
+    "No population performance, receiver correctness, or truth-based claim follows from this single captured failure or offline saved-QP diagnosis."
+  ]
+}

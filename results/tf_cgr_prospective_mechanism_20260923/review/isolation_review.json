@@ -1,0 +1,68 @@
+{
+  "schema": "tf-cgr-prospective-block-isolation-review/1",
+  "status": "retrospective_numerical_isolation_supported_prospective_runner_pending",
+  "performed_receiver_calls": 0,
+  "performed_decoder_calls": 0,
+  "performed_frame_generations": 0,
+  "old_observed_seal_sha256": "42228ad286f13a8f518fd4d2278375ca0592cc67c424f79a3536fe1150175c43",
+  "old_observed_seal_commit": "dc228d7254274f3be3403514fc75f0758aacc15c",
+  "frozen_source_checks": {
+    "cgr/run_observed.py": "dbec307da176a328c36622f9e25ae512de0b4afb821f7f0de5175e2b7d9d9796",
+    "cgr/generate_variants.py": "f7f6c5944acf05025bbe4c1f46ad7e354dff3023b2ba87ae6c228ad494d8e8ce",
+    "cgr/tf_base.py": "0e3a94045b0b395c28efa02f181433bbc3aa2f569c05683ad83e1d1cf4f9699e",
+    "cgr/tf_cgr.py": "bd501df2e6b20dd19fd89da59c82a11efad3d80824ebbfbbb471b953eb7e0f85",
+    "cgr/tf_sham.py": "899998232217c3dd9a54288781fc906fe071f14005f426b682d939dd565a08fa",
+    "cgr/tf_block.py": "b23900962bd5b201627a27b1193312846814b7f179adb13e1bdafca29891f577",
+    "native/src/block_bilinear.py": "f57545a65e936add0ca23547e3eab78d5b2a099ec1d304c6e2f1d3e0155fce83",
+    "native/src/native_twofft.py": "6146ccb48bb64b90c7d1fb8da93b2d0b59e84c6e8100eb2f259e9ee22114168d",
+    "native/src/twofft.py": "c54e832716d72530e38a9b1090ca24f8f8b3c8f4185db0914d30e5f7e2ab9ff0",
+    "baseline/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "baseline/src/messages.py": "9b19937c90a6e2b15f30d4e326320a38cd2635f9c0c5b14814406991da25ec95",
+    "baseline/src/receiver.py": "44221f91a4ff510b7f21e36300d6c5657be2ec2171a866fd48efe38fa2d95562"
+  },
+  "old_four_arm_schedule": {
+    "observations": 25,
+    "calls": 100,
+    "block_before_base": 18,
+    "block_before_cgr": 12,
+    "block_before_sham": 6,
+    "block_first": 6
+  },
+  "old_sealed_independent_recount": {
+    "status": "pass",
+    "prefix_round0_bit_mismatches": 0,
+    "prefix_round1_bit_mismatches": 0,
+    "entering_mismatches": 0,
+    "frames": 25
+  },
+  "historical_base_final_bits": {
+    "main_analyzer_matched": 25,
+    "independently_recounted": false,
+    "historical_llr_parity": "not_covered"
+  },
+  "frozen_block_scope": {
+    "module_global_assignment": "tf_block.SOURCE_PATH only, performed by preflight bind_source after SHA verification",
+    "monkeypatches_shared_modules": false,
+    "uses_global_rng": false,
+    "mutates_input_observation_or_channel_or_code_found": false,
+    "shared_module_imports": [
+      "physical",
+      "messages"
+    ],
+    "domain_mismatch_execution_scope": "tf_block.scalar_joint when BLOCK selected"
+  },
+  "jvp_boundary_recheck": {
+    "sealed_base_target_steps": 160,
+    "data_reciprocal_floor_steps": 0,
+    "gain_reciprocal_floor_steps": 0,
+    "terminal_llrs_exactly_at_clip_boundary": 0,
+    "terminal_llrs_outside_clip_boundary": 0,
+    "input_timing_and_last_gain_zero_readout": "covered_by_previous_final_review"
+  },
+  "conclusion": {
+    "old_run_numerical_block_leak": "not_found",
+    "old_run_timing_memory_interference": "not_excluded",
+    "new_three_arm_execution": "not_yet_reviewed",
+    "four_arm_runner_usable_unchanged_for_768_call_budget": false
+  }
+}

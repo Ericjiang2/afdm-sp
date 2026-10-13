@@ -1,0 +1,19 @@
+# Corrected F2 candidate: synthetic implementation receipt
+
+The [frozen method](F2_METHOD_CONTRACT.md) is implemented as an **outcome-blind corrected specialization**, not a literal reproduction of the paper's inconsistent printed equations. The earlier [primary-paper equation map](../cstate_necessity_stageB_20260928/F2_EQUATION_TO_SOURCE_MAP.md) records the printed-versus-corrected derivation. No real observation, generator, receiver, LDPC decoder, or truth was run for this implementation receipt.
+
+| Contract element | New source |
+|---|---|
+| CPP/DAFT integer-delay and fractional-Doppler grid; same-delay atoms separate | `f2_estimator.py:initial_grid`, project `physical.Channel.regressors` |
+| Corrected positive GAMP variance, variance-prior shrink, complex adjoint; small full-posterior reference | `f2_estimator.py:_posterior` |
+| Weak-hyperprior δ, corrected likelihood-dimension β, top-Rbar and final posterior reconciliation | `f2_estimator.py:estimate`, `active_indices` |
+| Corrected real Doppler expected-loss QP, conjugate second moment, physical bounds | `f2_estimator.py:_grid_update` |
+| Paper hard-data feedback with project QPSK power `p_d=.5` and ridge `2σ²` | `f2_estimator.py:dense_channel`, `lmmse_hard_data`, `hard_qpsk` |
+| F2E two coded TF20/LDPC50 rounds; F2T **one** continuation round with native check prior and native APP hard seed | `f2_receiver.py:receive_f2e`, `continue_f2t`, `_coded_rounds` |
+| One first-frame, 120-second charged operational probe, still closed | `f2_probe.py`; [probe plan](F2_PROBE_PLAN.md) |
+
+The original Q1 two-point derivative fixture failed solely because its finite-difference truncation exceeded the frozen `1e−10` comparison; [attempt 01](F2_QUALIFICATION_ATTEMPT01.json) is retained. Main approved a **verifier-only** four-order stencil correction with unchanged tolerance in [qualification v2](F2_QUALIFICATION_v2.json). The [v2 result](F2_QUALIFICATION_RESULT_v2.json) passes Q1–Q5. In the complete small N64 physical case, full-posterior versus GAMP terminal effective-channel error is 0.01349 (gate 0.10), predictive-residual relative difference 0.00350 (gate 0.10), and median diagonal-variance relative difference 0.15750 (gate 0.20). Four low-energy top-Rbar ranks differ and are reported, not treated as an identity requirement. The P>8 interface test used **nine** paths in the unchanged one-step `scalar_joint`; it did not exercise real N1024/P155 timing.
+
+The small-case GAMP run recorded 29 sensing-matrix constructions, 29 posterior calls, 27 grid solves, one dense-H construction, and one charged LMMSE solve. The final local N64 qualification snapshot was 0.0883 seconds total; this is **not** a N1024 runtime estimate. Actual component clocks and cap hits are returned by the estimator and the future observed probe records them. The F2T handoff was separately tested using synthetic decoder stubs: one TF/LDPC call, native check prior retained, hard APP seed, and checkpoint ready time inclusive of F2 front-end time. No actual LDPC was called in that test.
+
+Verification: `test_f2_estimator.py` Q1–Q5 PASS; `test_f2_receiver.py` PASS with stubs and an actual `evidence.save_artifact/load_artifact` round trip of the **full synthetic probe raw payload plus both checkpoint envelopes**. This follow-up removed a `Channel` object from `timing.final_channel`; the channel remains serialized once as three arrays in `front.channel`, with [source-bound fix receipt](F2_SERIALIZATION_FIX_RECEIPT.json). Ruff critical `E4,E7,E9,F,B` PASS; `py_compile` PASS; mypy with `--no-site-packages --ignore-missing-imports --follow-imports=skip` PASS on the three producer modules. The probe is **not yet Git-manifest-frozen or executed**. Full-population F2E/F2E+CSTATE/F2T balancing, CSTATE trigger integration, original-input seals, and remote N1024/P155 runtime remain separate execution gates; none is certified by this synthetic receipt.

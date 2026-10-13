@@ -1,0 +1,43 @@
+{
+  "schema": "five-policy-independent-recount-recovery-proposal/1",
+  "status": "prepared_reviewed_not_authorized_not_executed",
+  "requested_action": "One execution of the corrected independent saved-output reader, then compare raw/checkpoint-to-truth outcomes, deadlines and complete costs with the Git-frozen primary tables, and finalize the existing closure packet if they agree.",
+  "new_receiver_calls": 0,
+  "new_observations": 0,
+  "method_changes": false,
+  "input_population_frames": 1024,
+  "primary_commit": "a5a8c3f301b6e5280c9fa67d05a6120e38005dc1",
+  "observed_commit": "1dbbd0f111de7d88e7e689aeb7b9b61f4a83ab27",
+  "bindings": {
+    "reader": {
+      "path": "experiments/cstate_necessity_stageB_resume_20260928/independent_recount_five.py",
+      "sha256": "36d8bd7918a45a8664daf89115d5212a2d7742f837a8f52829f23e41e368b889"
+    },
+    "review": {
+      "path": "results/cstate_necessity_stageB_resume_20260928/independent/F2_FIVE_RECOUNT_REPAIR_REVIEW.md",
+      "sha256": "e8753557478c7a161bfc76d4d3269b250cc25a7751b55a07d4105994d696a4f2"
+    },
+    "failed_attempt_receipt": {
+      "path": "results/cstate_necessity_stageB_resume_20260928/independent/failed_recount_v1/receipt.json",
+      "sha256": "6fae371de4708fa4f03edc6d7a3bbddbe44554489805d09f35b45f6c125c414b"
+    },
+    "prepared_argv": {
+      "path": "results/cstate_necessity_stageB_resume_20260928/independent/failed_recount_v1/attempt2/prepared_argv.json",
+      "sha256": "1c6862d65114607fec6fbf3a9606faa3ec4e0a4b6fd72af4cf6aac7571f241fd"
+    },
+    "prepared_command": {
+      "path": "results/cstate_necessity_stageB_resume_20260928/independent/failed_recount_v1/attempt2/prepared_command.txt",
+      "sha256": "4baf371f77c4dd9036de741592ea4386215de15e46ba6781b9a9fdc2957c8e63"
+    },
+    "primary_git_attestation": {
+      "path": "results/cstate_necessity_stageB_resume_20260928/F2_FIVE_PRIMARY_GIT_ATTESTATION.json",
+      "sha256": "1479074e1d7f6e9031d3774847af86436509250723969cb8b5281885b341fb9f"
+    }
+  },
+  "repair": "Check free_cols as 1024 unique codeword indices in [0,2048), with G[free_cols,:] identity; replaces incorrect arange(1024) assertion.",
+  "review_status": "static_pass_only",
+  "runtime_validation": "not_executed; automatic approval rejected the corrected retry",
+  "failure_preservation_limitations": "Original exit127 stderr was overwritten before archival; attempted reader byte snapshot unavailable, SHA retained. Exit1 free_cols stderr is archived exactly. Neither failure yielded an independent outcome result.",
+  "automatic_followup": "PAUSED",
+  "on_new_runtime_failure": "Preserve attempt evidence and stop; no automatic repair/rerun."
+}

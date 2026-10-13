@@ -1,0 +1,87 @@
+{
+  "compared_checks": 340,
+  "core": {
+    "complete_timing_A_D_E": "PASS",
+    "component_timing_from_sealed_ledger": "PASS",
+    "deadline_all_A_D": "PASS",
+    "information_errors": {
+      "A": 40,
+      "B": 6,
+      "C": 12,
+      "D": 0
+    },
+    "local_C_triggered_coverage": "PASS",
+    "six_pairwise_rescues_harms": {
+      "A_vs_B": {
+        "harms": 0,
+        "rescues": 34
+      },
+      "A_vs_C": {
+        "harms": 2,
+        "rescues": 30
+      },
+      "A_vs_D": {
+        "harms": 0,
+        "rescues": 40
+      },
+      "B_vs_C": {
+        "harms": 10,
+        "rescues": 4
+      },
+      "B_vs_D": {
+        "harms": 0,
+        "rescues": 6
+      },
+      "C_vs_D": {
+        "harms": 0,
+        "rescues": 12
+      }
+    },
+    "structure_same_delay_and_D_edit_counts": "PASS",
+    "trigger_counts": {
+      "A": 0,
+      "B": 40,
+      "C": 0,
+      "D": 12,
+      "E": 12
+    }
+  },
+  "coverage": {
+    "NOT_RECOUNTED": [
+      "coded BER",
+      "original 34-rescue absorption gate",
+      "structure addendum and physical-capture sufficiency",
+      "historical A/B raw arrays (only producer parity receipt links checked)"
+    ],
+    "independent_only_not_primary_report": [
+      "E subset deadline rows",
+      "per-path multiplicity histograms",
+      "C versus E subset paired outcomes"
+    ],
+    "independent_recounted": [
+      "A-D information correctness and FER",
+      "six paired 2x2 cells, rescues and harms",
+      "A-D and E triggers and latest-ready deadline counts",
+      "complete latency mean, p95, max",
+      "F1 same-delay counts and D edit categories",
+      "C/D/E F1 prefix parity, observed seal and truth identities"
+    ],
+    "ledger_consistency_only": [
+      "complete latency median and p99",
+      "acquisition/refit/TF/decoder/branch/serialization component timing mean, median, p95, p99, max"
+    ]
+  },
+  "failed_checks": {},
+  "inputs_sha256": {
+    "analysis/report.json": "ead52a749ef0e25f46b4f2f66248dddef6c2074a67cf8f4f857a95a9f0d08e75",
+    "analysis/structural_diagnostics.csv": "8e3c1cd0ce910da906099af9b8aa17b85dcccb13d1b6445fb8cfc9f19f1e4809",
+    "independent/recount.json": "5eb550fba0d6820b2f8808ceea0eaafdc5af584f7195d4c7d3b82c96733c3172",
+    "observed/ledger.jsonl": "80bc40f22ea58468d0a4e7375eabec458e0ececf1e3bbcef9db74eecaf4c5f55"
+  },
+  "observed_commit": "7f670af0359256c5152197a6bd675ff0d8dc16c5",
+  "primary_analysis_commit": "c829c89e",
+  "schema": "cstate-necessity-stage-a/independent-comparison/1",
+  "scope": "saved-output comparison only; no receiver/generator/decoder calls",
+  "status": "PASS",
+  "timing_ledger_to_primary_max_abs_delta_seconds": 0.0
+}

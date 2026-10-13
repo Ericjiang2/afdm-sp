@@ -1,0 +1,77 @@
+{
+  "captured_utc": "2026-09-29T00:07:06.021392+00:00",
+  "cpu64_sample": {
+    "entries": [
+      {
+        "comm": "cpuhp/64",
+        "pid": 399,
+        "stat": "S"
+      },
+      {
+        "comm": "idle_inject/64",
+        "pid": 400,
+        "stat": "S"
+      },
+      {
+        "comm": "migration/64",
+        "pid": 401,
+        "stat": "S"
+      },
+      {
+        "comm": "ksoftirqd/64",
+        "pid": 402,
+        "stat": "S"
+      },
+      {
+        "comm": "kworker/64:0H-events_highpri",
+        "pid": 404,
+        "stat": "I<"
+      },
+      {
+        "comm": "kworker/64:1-kblockd",
+        "pid": 976,
+        "stat": "I<"
+      },
+      {
+        "comm": "polkitd",
+        "pid": 2378,
+        "stat": "Ssl"
+      },
+      {
+        "comm": "kworker/64:1-cgroup_free",
+        "pid": 595497,
+        "stat": "I"
+      },
+      {
+        "comm": "kworker/64:2-mm_percpu_wq",
+        "pid": 596331,
+        "stat": "I"
+      }
+    ],
+    "interpretation": "No Stage-B/F2 task was listed on CPU 64. PSR is the CPU a task was scheduled on at the sample instant, not its CPU affinity.",
+    "method": "ps -eo pid,psr,stat,comm, filtered to psr 64 at the sample instant"
+  },
+  "disk": {
+    "available_bytes": 5530991443968,
+    "filesystem_bytes": 7937302376448,
+    "mount": "/data",
+    "use_percent": 27,
+    "used_bytes": 2006216065024
+  },
+  "old_f2_pid": {
+    "pid": 565846,
+    "present": false
+  },
+  "query_limits": "No remote file writes, process starts, truth or NPZ reads. Process-name query and population_five* directory query were bounded to the named Stage-B task/root.",
+  "read_only": true,
+  "remote_five_strategy_roots": {
+    "matches": [],
+    "pattern": "results/cstate_necessity_stageB_resume_20260928/population_five*"
+  },
+  "remote_project_root": "/data/guoyikun/00inbox/AFDM-channel-estimation",
+  "schema": "f2-five-policy-preparation-status/1",
+  "task_process_query": {
+    "matches": [],
+    "pattern": "f2_run_population|population_five|cstate_necessity_stageB_resume_20260928"
+  }
+}

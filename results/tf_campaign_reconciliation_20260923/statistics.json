@@ -1,0 +1,28 @@
+{
+  "scope": "Offline exact calculations only; no sampling, simulation or receiver calls.",
+  "comparability": "Conditional on the matched frozen TF+CSTATE/BASE mathematical settings and shared unconditional generator law established by source/config audit. This does not assert identical wrapper timing or byte-identical cross-frame outputs.",
+  "old_matched_receiver": {
+    "arm": "TF_CSTATE",
+    "failures": 6,
+    "n": 1024
+  },
+  "new_matched_receiver": {
+    "arm": "BASE",
+    "failures": 0,
+    "n": 256
+  },
+  "plugin_failure_probability": 0.005859375,
+  "expected_failures_in_256": 1.5,
+  "probability_zero_given_plugin_p": 0.22214792877636946,
+  "fisher_exact_two_sided_p": 0.6060142707407896,
+  "fisher_exact_one_sided_old_greater_p": 0.26137464721037446,
+  "new_zero_count_95pct_clopper_pearson": [
+    0,
+    0.014306362729039375
+  ],
+  "invalid_40_vs_0_calculation": "Not evaluated: TF and post-CSTATE BASE are different receivers; exchangeability prerequisite for the requested 40/1024 plug-in calculation is false.",
+  "evidence_sha256": {
+    "results/tf_cstate_prospective_20260923/recovery_20260923/analysis/RESULTS.md": "18aec354cf69b4707b3a653b6b97acd7cca5f3bd8365feae92c7cc396a650474",
+    "results/tf_cgr_prospective_mechanism_20260923/analysis/report.json": "63848c8d1658625e57486d08461a4bfc25d5d613e4068636ad09666ff19ea76b"
+  }
+}

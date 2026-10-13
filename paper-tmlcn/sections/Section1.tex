@@ -1,0 +1,117 @@
+\section{Introduction}
+\label{sec:intro}
+
+\IEEEPARstart{D}{oubly} dispersive doubly selective channels --- which arise
+both in high-mobility wireless and in underwater acoustic (UWA)
+communication --- defeat conventional orthogonal frequency-division
+multiplexing (OFDM) because the cyclic prefix required to absorb the
+delay spread and the residual fractional Doppler relative to the
+sub-carrier grid jointly demand a prohibitive fraction of spectral
+efficiency~\cite{stojanovic2009uwa,preisig2007uwa,berger2010uwasparse,huang2010uwamimoofdm}.
+Affine frequency-division multiplexing (AFDM)~\cite{bemani2023afdm} answers
+this problem by carrying information on a chirp basis whose two parameters
+$(c_1,c_2)$ can be aligned with the channel's delay--Doppler geometry, so
+that every physical path folds into a single sparse compact pattern on the
+chirp-domain effective channel~\cite{benzine2023sparseafdm,rou2024otfstoafdm,yin2025afdmoverview}.
+Combining this representation with a superimposed-pilot (SP) frame, in
+which every chirp sub-carrier simultaneously carries data and pilot
+energy~\cite{cui2007superimposed,tugnait2006superimposed,orozco2011superimposed},
+preserves the data-carrying capacity that would otherwise be lost to
+dedicated pilot symbols. In a UWA-style $\rhop=0.5$, $\Ppath=8$-path setting
+representative of the regime considered here, a one-shot orthogonal
+matching pursuit (OMP) plus message-passing (MP) receiver then floors at
+$\ber\approx 5\times 10^{-2}$ from $\snr\geq 15$~dB with a channel-estimation
+NMSE frozen at $-11.3$~dB irrespective of the noise variance, because the
+pilot--data interference term $\sqrt{1-\rhop}\,\xp^H\Heff\xd$ scales with the
+channel norm and not with $\sigma_n^2$.
+The natural response is to iterate channel estimation and symbol
+detection~\cite{wymeersch2007iterativereceiver,qing2024spafdm,zhao2024gifreeafdm}.
+Two naive recipes are however expensive: re-running OMP on every outer
+iteration costs a constant $T_\text{out}\times$ overhead with no support
+information added, while replacing OMP with a dense LMMSE estimator
+inflates the per-frame cost from $\mathcal{O}(\Ppath\Nsub^2)$ to
+$\mathcal{O}(\Nsub^3)$. Embedding a learned receiver inside the
+sparse-recovery skeleton is in principle attractive, but the existing
+learned/unrolled receivers for OFDM, OTFS, and AFDM
+\cite{he2020modeldrivenmimo,shlezinger2021deepsic,khani2020mmnet,xu2024detecttolearn,samuel2019detnet,afdm2025jointcesd}
+are (i) not initialization-faithful to the classical algorithm they
+unfold (random head initialisation does not recover classical behaviour);
+(ii) do not report comparable complexity audits, conflating the cost of a
+larger candidate budget with the cost of a single
+classical iteration; and (iii) conflate ``more atoms in the support'' with
+``the right atoms in the support'', so a same-budget classical heuristic
+is rarely tested. This paper develops the SP-AFDM joint receiver as a
+controlled instance in which all three methodological gaps can be closed
+at once.
+
+\subsection{Contributions}
+\label{ssec:contrib}
+
+The contributions are grouped along five axes; numerical evidence and
+mechanism diagnostics for each are given in Sections~\ref{sec:method}
+through~\ref{sec:discussion}.
+
+\begin{enumerate}[leftmargin=1.3em,itemsep=2pt]
+\item \textbf{Initialization-faithful differentiable unrolling.} A faithful
+vectorised unrolling of the classical joint OMP-once + DA-LS +
+sparse MP-BP receiver is constructed in which, at random head
+initialisation, the end-to-end forward pass equals the classical
+reference implementation to within relative tolerance $\varepsilon_\text{rel}=10^{-5}$
+on a 30-frame verification suite at $\Nsub=512$
+(Claim~\ref{thm:initfaithful}). The result is computational rather than
+analytical and rests on a deterministic reference-comparison protocol.
+
+\item \textbf{A 1\,041-parameter learned support-refinement head, with
+complexity class preserved.} A small deep-unfolding head sits between the
+single OMP pass and the iterative LS/MP-BP loop, scores off-support
+candidates against the active support, and appends the top-$\Kadd$ atoms.
+The head stays in the same $\mathcal{O}(\Ppath\Nsub^2)$ arithmetic class
+as the classical baseline at $\approx 8\%$ analytical complex-MAC
+overhead at $\Nsub=1024$, with measured GPU wall-clock parity at
+$\Nsub=1024$ ($402$~ms vs.\ $416$~ms for the classical Torch reference)
+and $+3.9\%$ at $\Nsub=2048$.
+
+\item \textbf{Multi-seed paired-McNemar significance and width-MLP envelope.}
+The 27\,k-frame four-SNR retraining delivers a consistent
+$\approx 2$~dB visible paired BER separation at $\snr\in\{20,25,30\}$~dB
+(pooled relative reductions $-37.7\%/-40.2\%/-37.6\%$, three independent
+evaluation seeds, continuity-corrected paired McNemar $p<10^{-6}$).
+Architectural ablations show that the width of a per-candidate MLP is the
+dominant scaling axis: at fixed unrolled depth $K=10$, raising the hidden
+width from $64$ to $256$ drops a pure-NN end-to-end BER from $0.0498$ to
+$0.0381$ ($-23.5\%$); attention modules and softsort-relaxed top-$K$
+heads do not add on top of width.
+
+\item \textbf{Same-budget classical heuristic comparator.} A
+classical-only OMP-$(\Ppath{+}K)$ extension that continues the greedy
+OMP loop for $K\in\{2,4,8,16\}$ extra atoms regresses BER monotonically
+at every SNR cell~--- e.g., at $\snr=20$~dB, $K{=}2/4/8/16$ produces
+$-61\%/-128\%/-337\%/-927\%$ \emph{gap closed} against the
+physical-support oracle, while the learned head closes $+81\%$.
+The gain is therefore non-linear support refinement, not a budget
+effect: extending greedy OMP picks data-leakage atoms, not the
+Dirichlet side-lobes that account for the structural residual.
+
+\item \textbf{DA-LS-inclusive complexity audit.} The standard MAC
+recipe~\cite{he2020modeldrivenmimo} omits the DA-LS solve and the
+adaptive-$\sigma^2$ update; including them, the fair $P=18$ unrolled
+receiver is worse than $P=10$ unrolled by $11\%$ MAC, and a free
+$\tau_h$-lookup eliminates another $11\%$. The audit is reported in
+\S\ref{ssec:complexity_results} and the attribution of the head
+additions to Dirichlet side-lobes (rather than to false positives) is
+established at the $>99\%$ level per Table~\ref{tab:attribution}.
+\end{enumerate}
+
+The remainder of the paper is structured as follows. \S\ref{sec:related}
+positions the contribution against the AFDM, SP, learned-receiver, and
+sparse-recovery unrolling literatures. \S\ref{sec:method} develops the
+SP-AFDM system model, the classical OMP-once + iterative LS/MP-BP
+receiver, and the differentiable unrolling, and states the
+initialization-faithful validation. \S\ref{sec:training} documents the
+training objective, the width-MLP architectural choice, and the
+multi-seed protocol. \S\ref{sec:results} reports the five experimental
+panels --- 4-arm waterfall, OMP-$(\Ppath{+}K)$ heuristic, sampling-rate
+sensitivity, multi-seed envelope, and complexity audit ---
+and \S\ref{sec:discussion} closes with mechanism attribution, limitations,
+and the open problems that the present design statement does not
+foreclose.

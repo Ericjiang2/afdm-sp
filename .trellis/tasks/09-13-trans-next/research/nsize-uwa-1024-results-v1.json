@@ -1,0 +1,196 @@
+{
+  "schema": "nsize-uwa-1024-analysis-v1",
+  "status": "AUDITED_DEVELOPMENT_ANALYSIS",
+  "scope": "same physical UWA channels; N, c1, normalized Doppler and W dictionary change together; uncoded OMP_BASE",
+  "old_evidence_scope": "N256 terminal endpoints only; no old per-round CE/Gram reconstruction",
+  "comparison_scope": "paired configuration contrast, not a pure-N causal effect or independent confirmation",
+  "primary": {
+    "unit": "16 independently generated physical channels; two SNR observations stay within each channel",
+    "statistic": "within-channel mean of 10/20 dB BER difference, then equal channel mean",
+    "bootstrap_draws": 20000,
+    "seed": 202609150502,
+    "method": "percentile; two Bonferroni simultaneous 95% intervals",
+    "contrasts": {
+      "p0": {
+        "point_difference_N1024_minus_N256": -0.1254119873046875,
+        "simultaneous_95_percentile_Bonferroni_CI": [
+          -0.141632080078125,
+          -0.10940532684326171
+        ],
+        "channel_differences": [
+          -0.13671875,
+          -0.08642578125,
+          -0.083740234375,
+          -0.132080078125,
+          -0.09033203125,
+          -0.1650390625,
+          -0.166748046875,
+          -0.172607421875,
+          -0.15625,
+          -0.10791015625,
+          -0.104248046875,
+          -0.105224609375,
+          -0.131591796875,
+          -0.099365234375,
+          -0.141357421875,
+          -0.126953125
+        ],
+        "interval_includes_zero": false
+      },
+      "pZ": {
+        "point_difference_N1024_minus_N256": -0.1099395751953125,
+        "simultaneous_95_percentile_Bonferroni_CI": [
+          -0.1283876419067383,
+          -0.09194908142089842
+        ],
+        "channel_differences": [
+          -0.0986328125,
+          -0.07080078125,
+          -0.139892578125,
+          -0.10302734375,
+          -0.095947265625,
+          -0.0849609375,
+          -0.10400390625,
+          -0.126953125,
+          -0.1376953125,
+          -0.104736328125,
+          -0.106689453125,
+          -0.042236328125,
+          -0.125244140625,
+          -0.081298828125,
+          -0.16943359375,
+          -0.16748046875
+        ],
+        "interval_includes_zero": false
+      }
+    }
+  },
+  "secondary": {
+    "p0/10dB": {
+      "channels": 16,
+      "BER_old": 0.20947265625,
+      "BER_new": 0.1033935546875,
+      "BER_paired_difference": -0.1060791015625,
+      "BER_paired_difference_range": [
+        -0.14697265625,
+        -0.0556640625
+      ],
+      "H_NMSE_old": 0.30271976513634047,
+      "H_NMSE_new": 0.06289068679064641,
+      "Hp_NMSE_old": 0.27472357195840597,
+      "Hp_NMSE_new": 0.06190601254591639,
+      "active_atoms_old": 94.375,
+      "active_atoms_new": 118.25,
+      "receiver_CPU_ms_bit_old": 1.301580985595701,
+      "receiver_CPU_ms_bit_new": 0.9584062175292958,
+      "new_initial_Gram_full_rank_all": true,
+      "new_final_Gram_full_rank_all": true,
+      "new_initial_Gram_rank_min": 86,
+      "new_final_Gram_rank_min": 86,
+      "new_initial_Gram_condition_median": 3.267157551768207,
+      "new_final_Gram_condition_median": 3.773078370453966,
+      "new_terminal_residual_sq_mean": 63.22016930259526
+    },
+    "p0/20dB": {
+      "channels": 16,
+      "BER_old": 0.1644287109375,
+      "BER_new": 0.019683837890625,
+      "BER_paired_difference": -0.144744873046875,
+      "BER_paired_difference_range": [
+        -0.19921875,
+        -0.08203125
+      ],
+      "H_NMSE_old": 0.24006323898841814,
+      "H_NMSE_new": 0.03389082472105036,
+      "Hp_NMSE_old": 0.21541252994109208,
+      "Hp_NMSE_new": 0.03332366838362966,
+      "active_atoms_old": 93.375,
+      "active_atoms_new": 113.75,
+      "receiver_CPU_ms_bit_old": 1.5862304078369052,
+      "receiver_CPU_ms_bit_new": 1.0433101083374021,
+      "new_initial_Gram_full_rank_all": true,
+      "new_final_Gram_full_rank_all": true,
+      "new_initial_Gram_rank_min": 77,
+      "new_final_Gram_rank_min": 77,
+      "new_initial_Gram_condition_median": 3.492256989081149,
+      "new_final_Gram_condition_median": 3.564045143605547,
+      "new_terminal_residual_sq_mean": 26.762961323577876
+    },
+    "pZ/10dB": {
+      "channels": 16,
+      "BER_old": 0.201171875,
+      "BER_new": 0.10101318359375,
+      "BER_paired_difference": -0.10015869140625,
+      "BER_paired_difference_range": [
+        -0.14990234375,
+        -0.02392578125
+      ],
+      "H_NMSE_old": 0.2959544866266788,
+      "H_NMSE_new": 0.06908154705439913,
+      "Hp_NMSE_old": 0.2775687930595789,
+      "Hp_NMSE_new": 0.061427354298780885,
+      "active_atoms_old": 93.3125,
+      "active_atoms_new": 118.5625,
+      "receiver_CPU_ms_bit_old": 1.269998132446285,
+      "receiver_CPU_ms_bit_new": 0.9615440586242687,
+      "new_initial_Gram_full_rank_all": true,
+      "new_final_Gram_full_rank_all": true,
+      "new_initial_Gram_rank_min": 98,
+      "new_final_Gram_rank_min": 98,
+      "new_initial_Gram_condition_median": 3.511169301647925,
+      "new_final_Gram_condition_median": 3.7351516238440183,
+      "new_terminal_residual_sq_mean": 64.00040380870638
+    },
+    "pZ/20dB": {
+      "channels": 16,
+      "BER_old": 0.1396484375,
+      "BER_new": 0.019927978515625,
+      "BER_paired_difference": -0.119720458984375,
+      "BER_paired_difference_range": [
+        -0.18896484375,
+        -0.060546875
+      ],
+      "H_NMSE_old": 0.21512842223584938,
+      "H_NMSE_new": 0.03740661961147736,
+      "Hp_NMSE_old": 0.19515705691037827,
+      "Hp_NMSE_new": 0.032522430424793664,
+      "active_atoms_old": 93.5,
+      "active_atoms_new": 114.0625,
+      "receiver_CPU_ms_bit_old": 1.6056459079589853,
+      "receiver_CPU_ms_bit_new": 1.0923786681213397,
+      "new_initial_Gram_full_rank_all": true,
+      "new_final_Gram_full_rank_all": true,
+      "new_initial_Gram_rank_min": 97,
+      "new_final_Gram_rank_min": 97,
+      "new_initial_Gram_condition_median": 3.6249917793472335,
+      "new_final_Gram_condition_median": 3.475781935429076,
+      "new_terminal_residual_sq_mean": 25.84510785500189
+    }
+  },
+  "resources": {
+    "new_F": 64,
+    "new_operator_constructions": 16,
+    "engineering_full_stage_CPU_ms_bit": 1.9609219891967775,
+    "development_full_stage_CPU_ms_bit": 1.861382784816197,
+    "full_stage_CPU_scope": "contract/source checks, old raw readback, model setup, N1024 operator, full receiver and archival I/O; producer audit excluded",
+    "old_receiver_source_sha256": "5c0fac1eab2b9d8d55c54110c988b0906661bc85be4de8d8d5e3502f1c0602b0",
+    "new_receiver_source_sha256": "05ac19e37a790c7046b22d8f63ce46d89e171d61c5aad8edf27c1587502bbf39",
+    "cost_comparison_limit": "per-call CPU uses the same process-time unit, but source versions, N and dictionaries differ; it is descriptive, not a pure-N cost effect. New full-stage CPU includes old raw readback and archival I/O and has no matching old full-stage quote"
+  },
+  "hashes": {
+    "registration": "33612b04c5298253244fc2745644493a157217e3acbc7ff13a350870f3d133d2",
+    "old_results": "b1046b1242932f5a16ebb5a702e70193f65075f662f886fe0726ee0d9f177899",
+    "old_risk": "268958d5441e31ba1f8c4cda8f911fe90fedba05e7949e6e5b88e038cea4a3d9",
+    "new_stages": {
+      "engineering": {
+        "summary_sha256": "1fa0614a7ab4bbfb9c5241c16ea5d30aabb3a52a5379a06837a178ea9429eb6f",
+        "audit_sha256": "59f30d56930f6d6dceb8319b13f5f22aab5e4954a3bcf4aa4a9087a9b2e275b9"
+      },
+      "development": {
+        "summary_sha256": "93436815deac0639b2a2690b32398bf0dd013693f44ddcb3b100b6364bda8719",
+        "audit_sha256": "47ce2cc89ba01461f3da916f329c468b64b395a1c98585cfd540513698cefc60"
+      }
+    }
+  },
+  "independence": "weak scientific self-review; audits verify saved arrays, not new independent confirmation"
+}

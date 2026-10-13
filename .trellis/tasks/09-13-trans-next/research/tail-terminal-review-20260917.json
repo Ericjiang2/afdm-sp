@@ -1,0 +1,69 @@
+{
+  "status": "PASS_LOCAL_SUMMARY_SCOPE_WITH_ACCOUNTING_FINDINGS",
+  "source_sha256": "28e69a5079e7411d3f9ea8440d08ce2328b8c45d091a3ebd032962b89d704ab6",
+  "input_result_sha256": "40075d292dca6a6ae624c882e1c12d3865de98ab922d5379c61de52ca6eb6ae9",
+  "endpoint_checks": {
+    "TAIL_minus_ORIGINAL": {
+      "mean": -0.09375,
+      "frozen_bootstrap_ci": [
+        -0.171875,
+        -0.03125
+      ],
+      "exploratory_exact_cluster_signflip_p": 0.03125,
+      "bonferroni_adjusted_p": 0.0625
+    },
+    "TAIL_minus_RIDGE_T": {
+      "mean": -0.046875,
+      "frozen_bootstrap_ci": [
+        -0.125,
+        0.03125
+      ],
+      "exploratory_exact_cluster_signflip_p": 0.375,
+      "bonferroni_adjusted_p": 0.75
+    }
+  },
+  "mechanism_descriptive": {
+    "7": {
+      "failed_TAIL_blocks": [
+        4,
+        11,
+        14,
+        15,
+        18,
+        22,
+        25,
+        27,
+        31
+      ],
+      "H_improved_vs_original": 32,
+      "H_improved_vs_ridge": 31,
+      "tail_worse_than_ridge_blocks": [
+        14
+      ]
+    },
+    "8": {
+      "failed_TAIL_blocks": [],
+      "H_improved_vs_original": 32,
+      "H_improved_vs_ridge": 27,
+      "tail_worse_than_ridge_blocks": []
+    }
+  },
+  "v4_v5_scores_equal": true,
+  "v5_calls": {
+    "T": 132,
+    "D": 132
+  },
+  "unique_method_terminals": 128,
+  "known_v4_v5_cumulative": {
+    "T": 264,
+    "D": 264,
+    "LDPC": 528,
+    "supervisor_seconds": 434.60212206840515
+  },
+  "limitations": [
+    "Original NPZ/result records absent locally; hashes here bind summaries, not a new raw audit.",
+    "v1-v3 failed-attempt counts and resource costs remain unharvested.",
+    "Sign-flip check is post-hoc sensitivity under paired sign exchangeability; does not replace the frozen gate.",
+    "No new receiver, BP, LDPC or physical samples executed by this audit."
+  ]
+}

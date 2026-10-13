@@ -1,0 +1,98 @@
+Loop 11 Round 2 — Oracle GPT-5.4-pro (browser, --engine browser --browser-manual-login)
+Slug: loop11-r2-results
+Started: 2026-04-22 17:56 UTC (01:56 CST 2026-04-23)
+Returned: 2026-04-23 ~02:08 CST (~12 min)
+
+================================================================================
+
+Compared with the R1 forecast, this overdelivered. It did not just scrape by; it landed above the optimistic case. The one nuance is that the 20 dB point is a near-threshold win, while 25/30 dB are emphatic wins.
+
+1. **Score: 8.2/10. Verdict: almost.**
+
+Why not higher:
+
+* The effect is clearly real and materially stronger than forecast.
+* The audit is clean.
+* The 25 and 30 dB gains are big enough to matter, not rounding-noise.
+
+Why not "ready" yet:
+
+* The key 20 dB headline point is still based on only 80 frames.
+* This is still one seed.
+* The best result uses a P=10-trained checkpoint transferred to P=8.
+* You still lack one fairness ablation I would want before submission.
+
+So my read is: **almost for paper-grade evidence, but ready for consolidation.**
+
+2. **Run R3 official long now. Do not spend another turn on an R1-style variant probe first.**
+
+That is the right next move.
+
+Reason:
+
+* The mechanism already proved itself harder than expected.
+* Another probe mostly answers "can I squeeze a bit more?" while the real open question is now "does this hold up under longer sampling and another seed?"
+* R3 directly attacks the real uncertainty. Another R1 probe mostly burns time.
+
+The only non-R3 thing I would still want is a **short fairness ablation**, but I would not block R3 on it.
+
+3. **Reproducibility: yes, the 80-frame floors are too thin for the final figure.**
+
+My recommendation:
+
+* **Minimum global floor for R3:** **200 frames**
+* **Preferred global floor:** **250 frames**
+
+If you can do it per SNR, better:
+
+* 10/15 dB: at least **200**
+* 20 dB: **250–300**
+* 25 dB: let target-errors drive it, but I'd want it to end up around **350+**
+* 30 dB: just run to the **500-frame cap**
+
+Why:
+
+* 20 dB is the threshold point and currently the least mature.
+* 25 dB is already strong, but longer sampling will make the magnitude harder to dispute.
+* 30 dB is low-BER enough that the 500-frame cap is more honest than pretending the error target will stabilize it.
+
+**Second seed:** **yes, needed.**
+
+Minimum acceptable:
+
+* run a second seed at **20 and 25 dB** with the official R3 config.
+
+Better:
+
+* full second-seed sweep.
+
+If compute is limited, I would prioritize seed-2 at **20/25** over extra variant fishing.
+
+4. **What you're still missing / brutal honesty**
+
+Top 3 remaining weaknesses, with minimum fix:
+
+**(a) The 20 dB result is real, but still the least settled point.**
+It basically hits the gate, rather than smashing through it. Using classical BER, it is 0.756; using torch-ref it is 0.755. That is fine scientifically, but it is not a "no-questions" point yet.
+**Minimum fix:** R3 official long with at least 200, preferably 250–300 minimum frames at 20 dB.
+
+**(b) You are still missing a compute-matched non-learned refinement baseline.**
+A reviewer can say: maybe the gain is from extra refinement rounds / defer-prune mechanics, not the learned scorer itself.
+**Minimum fix:** one short 20/25 ablation with the same two-round/defer-prune skeleton but classical candidate scoring. This does not need to block R3, but it should exist before you write strong causal language.
+
+**(c) Your strongest p-values are bit-level, but the more honest unit is partly the frame.**
+Bit-level McNemar is fine, but bit errors cluster within frames, so it can look more decisive than the cross-frame evidence. Your own frame-level stats already hint at this: 25 dB looks strong, 20 dB looks solid, 30 dB is less impressive at the frame level than the bit-level p-value suggests.
+**Minimum fix:** report per-frame paired deltas or a frame-level bootstrap/permutation CI alongside McNemar.
+
+Two more honest notes:
+
+* **Do not lead the paper with "closes X% of classical→PCSI gap"** when PCSI is zero at 20/25/30 on these runs. That framing is fragile and reviewer-bait. Lead with **relative BER reduction vs classical** and **visible dB separation** instead.
+* **Do not pause for P=8-specific retraining before R3.** The transferred P=10 checkpoint is already good enough to justify the official run. P=8-specific fine-tuning is a next lever only if seed-2 weakens the 20 dB point.
+
+My bottom line:
+
+**Almost overall, but ready for R3.**
+Run the official long now.
+Use **min-frames 200 absolute, 250 preferred**.
+Require **a second seed at 20/25**.
+Then add **one short compute-matched classical ablation** before you let this become a submission headline.

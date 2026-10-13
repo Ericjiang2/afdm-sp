@@ -1,0 +1,433 @@
+{
+  "arm_outcomes": {
+    "B": {
+      "coded_BER": 0.0006494522094726562,
+      "coded_bit_errors": 1362,
+      "coded_bits": 2097152,
+      "frames_max": 1023,
+      "frames_min": 0,
+      "info_failures": 6,
+      "information_FER": 0.005859375,
+      "n": 1024,
+      "syndrome_nonzero": 6,
+      "triggered_prefix_nonzero": 40,
+      "valid_but_wrong": 0
+    },
+    "Ccompat": {
+      "coded_BER": 0.0008082389831542969,
+      "coded_bit_errors": 1695,
+      "coded_bits": 2097152,
+      "frames_max": 1023,
+      "frames_min": 0,
+      "info_failures": 12,
+      "information_FER": 0.01171875,
+      "n": 1024,
+      "syndrome_nonzero": 12,
+      "triggered_prefix_nonzero": 0,
+      "valid_but_wrong": 0
+    },
+    "Cref": {
+      "coded_BER": 0.00154876708984375,
+      "coded_bit_errors": 203,
+      "coded_bits": 131072,
+      "frames_max": 1008,
+      "frames_min": 0,
+      "info_failures": 2,
+      "information_FER": 0.03125,
+      "n": 64,
+      "syndrome_nonzero": 2,
+      "triggered_prefix_nonzero": 0,
+      "valid_but_wrong": 0
+    }
+  },
+  "commit": "d87ae32c6b8febe826e8e4f2ecbdff40b347959c",
+  "conditional_branch_report_comparison": {
+    "checks": 8,
+    "matches": 8,
+    "mismatches": []
+  },
+  "conditional_branch_timing": {
+    "B": {
+      "max": 0.3030216390034184,
+      "mean": 0.2552782635204494,
+      "median": 0.25107350549660623,
+      "n": 40,
+      "p95": 0.2873843857087195,
+      "p99": 0.2994949863909278
+    },
+    "Ccompat": null,
+    "Cref": null
+  },
+  "deadlines": {
+    "B": {
+      "0.5": {
+        "correct": 1004,
+        "missing": 0,
+        "n": 1024,
+        "ready": 1024,
+        "wrong_ready": 20
+      },
+      "1.0": {
+        "correct": 1018,
+        "missing": 0,
+        "n": 1024,
+        "ready": 1024,
+        "wrong_ready": 6
+      }
+    },
+    "Ccompat": {
+      "0.5": {
+        "correct": 755,
+        "missing": 0,
+        "n": 1024,
+        "ready": 1024,
+        "wrong_ready": 269
+      },
+      "1.0": {
+        "correct": 1012,
+        "missing": 0,
+        "n": 1024,
+        "ready": 1024,
+        "wrong_ready": 12
+      }
+    },
+    "Cref": {
+      "0.5": {
+        "correct": 25,
+        "missing": 23,
+        "n": 64,
+        "ready": 41,
+        "wrong_ready": 16
+      },
+      "1.0": {
+        "correct": 62,
+        "missing": 0,
+        "n": 64,
+        "ready": 64,
+        "wrong_ready": 2
+      }
+    }
+  },
+  "naming_limit": "triggered_prefix_nonzero is recounted directly from the CSV triggered field; it denotes observed policy-trigger/branch-eligible events and is not the Ccompat cohort native syndrome count.",
+  "paired_information_outcomes": {
+    "B_vs_Ccompat": {
+      "both_correct": 1008,
+      "both_wrong": 2,
+      "first_only_correct_rescued_or_harmed": 10,
+      "n": 1024,
+      "second_only_correct_rescued_or_harmed": 4
+    },
+    "B_vs_Cref": {
+      "both_correct": 61,
+      "both_wrong": 0,
+      "first_only_correct_rescued_or_harmed": 2,
+      "n": 64,
+      "second_only_correct_rescued_or_harmed": 1
+    },
+    "Ccompat_vs_Cref": {
+      "both_correct": 62,
+      "both_wrong": 2,
+      "first_only_correct_rescued_or_harmed": 0,
+      "n": 64,
+      "second_only_correct_rescued_or_harmed": 0
+    }
+  },
+  "report_comparison": {
+    "checks": 243,
+    "matches": 243,
+    "mismatches": []
+  },
+  "row_counts": {
+    "component_timing": 2112,
+    "deadline_decisions": 4224,
+    "frame_outcomes": 2112
+  },
+  "schema": "f1-compat-independent-outcome-recount/1",
+  "scope": "Independent arithmetic over the four committed local analysis files only. No NPZ/raw/truth read; this does not independently verify raw-to-truth derivation.",
+  "source_files": {
+    "component_timing.csv": {
+      "bytes": 405899,
+      "committed_bytes_sha256": "93e743698e1ebcbb61e44adbd6e6e922d49b3e2202126130bb81c77e1c65a80c",
+      "git_blob_sha1": "afb35f6130801cd85559a6315aa4c1ec82ff344b",
+      "git_path": "00_Inbox/AFDM-channel-estimation/results/cstate_necessity_stageB_resume_20260928/analysis_f1_compat_v1/component_timing.csv",
+      "local_bytes_equal_committed": true,
+      "local_bytes_sha256": "93e743698e1ebcbb61e44adbd6e6e922d49b3e2202126130bb81c77e1c65a80c",
+      "path": "results/cstate_necessity_stageB_resume_20260928/analysis_f1_compat_v1/component_timing.csv"
+    },
+    "deadline_decisions.csv": {
+      "bytes": 169032,
+      "committed_bytes_sha256": "686af408c5d40edddd7b10929054301627467993c7f402b0d51709a649cbcd0e",
+      "git_blob_sha1": "6db370503096899320712db3f8baca71c31c212f",
+      "git_path": "00_Inbox/AFDM-channel-estimation/results/cstate_necessity_stageB_resume_20260928/analysis_f1_compat_v1/deadline_decisions.csv",
+      "local_bytes_equal_committed": true,
+      "local_bytes_sha256": "686af408c5d40edddd7b10929054301627467993c7f402b0d51709a649cbcd0e",
+      "path": "results/cstate_necessity_stageB_resume_20260928/analysis_f1_compat_v1/deadline_decisions.csv"
+    },
+    "frame_outcomes.csv": {
+      "bytes": 105614,
+      "committed_bytes_sha256": "3de23b71d60c5a58d7454cb1cc2da44c4f1640857d0952672e14e660f5446aad",
+      "git_blob_sha1": "4e559a1931abc5ff54bb1de5c885e662e8c08557",
+      "git_path": "00_Inbox/AFDM-channel-estimation/results/cstate_necessity_stageB_resume_20260928/analysis_f1_compat_v1/frame_outcomes.csv",
+      "local_bytes_equal_committed": true,
+      "local_bytes_sha256": "3de23b71d60c5a58d7454cb1cc2da44c4f1640857d0952672e14e660f5446aad",
+      "path": "results/cstate_necessity_stageB_resume_20260928/analysis_f1_compat_v1/frame_outcomes.csv"
+    },
+    "report.json": {
+      "bytes": 13171,
+      "committed_bytes_sha256": "433578655b2da7804661f8d6681a3ed8d8541de6d5eae60a7eaaf77440211e7d",
+      "git_blob_sha1": "69a14f06176fce204e621b1c8d5c58a5f5e3c9ee",
+      "git_path": "00_Inbox/AFDM-channel-estimation/results/cstate_necessity_stageB_resume_20260928/analysis_f1_compat_v1/report.json",
+      "local_bytes_equal_committed": true,
+      "local_bytes_sha256": "433578655b2da7804661f8d6681a3ed8d8541de6d5eae60a7eaaf77440211e7d",
+      "path": "results/cstate_necessity_stageB_resume_20260928/analysis_f1_compat_v1/report.json"
+    }
+  },
+  "timing": {
+    "B": {
+      "acquisition_seconds": {
+        "max": 0.11448594194371253,
+        "mean": 0.08203203298830886,
+        "median": 0.0786937159136869,
+        "n": 1024,
+        "p95": 0.09870575969689525,
+        "p99": 0.10506966664222998
+      },
+      "branch_complete_seconds": {
+        "max": 0.3030216390034184,
+        "mean": 0.009971807168767555,
+        "median": 0.0,
+        "n": 1024,
+        "p95": 0.0,
+        "p99": 0.2684773634048178
+      },
+      "branch_seconds": {
+        "max": 0.21972205000929534,
+        "mean": 0.007102542051939054,
+        "median": 0.0,
+        "n": 1024,
+        "p95": 0.0,
+        "p99": 0.18704150612233206
+      },
+      "complete_latency_seconds": {
+        "max": 0.6410718030529097,
+        "mean": 0.3463944937972201,
+        "median": 0.33514001400908455,
+        "n": 1024,
+        "p95": 0.38739753429545076,
+        "p99": 0.5859852440399117
+      },
+      "decision_record_seconds": {
+        "max": 0.03533073700964451,
+        "mean": 0.01002109698640652,
+        "median": 0.007865815539844334,
+        "n": 1024,
+        "p95": 0.02192803691141307,
+        "p99": 0.030335672423243518
+      },
+      "decoder_seconds": {
+        "max": 0.04853052902035415,
+        "mean": 0.036403922373438036,
+        "median": 0.03443567897193134,
+        "n": 1024,
+        "p95": 0.043912126298528156,
+        "p99": 0.04832595382235013
+      },
+      "native_seconds": {
+        "max": 0.3635649480856955,
+        "mean": 0.29175256353926216,
+        "median": 0.29026403347961605,
+        "n": 1024,
+        "p95": 0.3136490486038383,
+        "p99": 0.3233386239048559
+      },
+      "raw_serialization_seconds": {
+        "max": 0.084369309945032,
+        "mean": 0.022880617157056804,
+        "median": 0.019653723982628435,
+        "n": 1024,
+        "p95": 0.04188913348480116,
+        "p99": 0.0660615783964749
+      },
+      "refit_seconds": {
+        "max": 0.11277957505080849,
+        "mean": 0.09415550964922659,
+        "median": 0.09366786060854793,
+        "n": 1024,
+        "p95": 0.0998897586017847,
+        "p99": 0.10658240065095015
+      },
+      "tf_seconds": {
+        "max": 0.04955157497897744,
+        "mean": 0.03853016855475744,
+        "median": 0.03847599041182548,
+        "n": 1024,
+        "p95": 0.038872561877360566,
+        "p99": 0.03963938040891662
+      }
+    },
+    "Ccompat": {
+      "acquisition_seconds": {
+        "max": 0.31371364498045295,
+        "mean": 0.27433281786852604,
+        "median": 0.273624784022104,
+        "n": 1024,
+        "p95": 0.29082307980861516,
+        "p99": 0.2993177346163429
+      },
+      "branch_complete_seconds": {
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "n": 1024,
+        "p95": 0.0,
+        "p99": 0.0
+      },
+      "branch_seconds": {
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "n": 1024,
+        "p95": 0.0,
+        "p99": 0.0
+      },
+      "complete_latency_seconds": {
+        "max": 0.6478635120438412,
+        "mean": 0.5583123145142963,
+        "median": 0.5574890345451422,
+        "n": 1024,
+        "p95": 0.5947506165597588,
+        "p99": 0.6104038186068647
+      },
+      "decision_record_seconds": {
+        "max": 0.042809750069864094,
+        "mean": 0.012600956441929156,
+        "median": 0.00975199305685237,
+        "n": 1024,
+        "p95": 0.02716457471833563,
+        "p99": 0.035432196689071126
+      },
+      "decoder_seconds": {
+        "max": 0.04898706602398306,
+        "mean": 0.03646516149831314,
+        "median": 0.034703338460531086,
+        "n": 1024,
+        "p95": 0.042330899590160696,
+        "p99": 0.04850351094617508
+      },
+      "native_seconds": {
+        "max": 0.5642552030039951,
+        "mean": 0.5063073487137899,
+        "median": 0.5061785930301994,
+        "n": 1024,
+        "p95": 0.5317934267106466,
+        "p99": 0.5455151577759534
+      },
+      "raw_serialization_seconds": {
+        "max": 0.06121030601207167,
+        "mean": 0.02516780639064109,
+        "median": 0.02114952349802479,
+        "n": 1024,
+        "p95": 0.043632527923909946,
+        "p99": 0.05250454977387562
+      },
+      "refit_seconds": {
+        "max": 0.14204665808938444,
+        "mean": 0.10998142192795513,
+        "median": 0.10863628349034116,
+        "n": 1024,
+        "p95": 0.12280990915023719,
+        "p99": 0.12951859513064845
+      },
+      "tf_seconds": {
+        "max": 0.042212557047605515,
+        "mean": 0.03864042919781241,
+        "median": 0.03859797603217885,
+        "n": 1024,
+        "p95": 0.03899418189539574,
+        "p99": 0.03974981910549104
+      }
+    },
+    "Cref": {
+      "acquisition_seconds": {
+        "max": 0.44525204796809703,
+        "mean": 0.3642799493027269,
+        "median": 0.3628178400103934,
+        "n": 64,
+        "p95": 0.3779492004250642,
+        "p99": 0.4076939477724953
+      },
+      "branch_complete_seconds": {
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "n": 64,
+        "p95": 0.0,
+        "p99": 0.0
+      },
+      "branch_seconds": {
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "n": 64,
+        "p95": 0.0,
+        "p99": 0.0
+      },
+      "complete_latency_seconds": {
+        "max": 0.732294179033488,
+        "mean": 0.6336874235548748,
+        "median": 0.6326394724892452,
+        "n": 64,
+        "p95": 0.6632981100527103,
+        "p99": 0.702173497865442
+      },
+      "decision_record_seconds": {
+        "max": 0.020502684055827558,
+        "mean": 0.00876753257944074,
+        "median": 0.006787056510802358,
+        "n": 64,
+        "p95": 0.018582202499965197,
+        "p99": 0.019856183034135028
+      },
+      "decoder_seconds": {
+        "max": 0.0489031890174374,
+        "mean": 0.03759618097137718,
+        "median": 0.03650183603167534,
+        "n": 64,
+        "p95": 0.04304453108343295,
+        "p99": 0.048840632474748416
+      },
+      "native_seconds": {
+        "max": 0.6803471880266443,
+        "mean": 0.5904601672282297,
+        "median": 0.589540344546549,
+        "n": 64,
+        "p95": 0.61000373410061,
+        "p99": 0.6451653879636432
+      },
+      "raw_serialization_seconds": {
+        "max": 0.042734064045362175,
+        "mean": 0.02064495050399273,
+        "median": 0.019189791986718774,
+        "n": 64,
+        "p95": 0.028819926298456255,
+        "p99": 0.039094863337231785
+      },
+      "refit_seconds": {
+        "max": 0.11993752396665514,
+        "mean": 0.10800316027052759,
+        "median": 0.10737800394417718,
+        "n": 64,
+        "p95": 0.11736187665956092,
+        "p99": 0.11893902628333307
+      },
+      "tf_seconds": {
+        "max": 0.039808507077395916,
+        "mean": 0.03863396410633868,
+        "median": 0.038628118578344584,
+        "n": 64,
+        "p95": 0.038994554395321755,
+        "p99": 0.03938078178558498
+      }
+    }
+  }
+}

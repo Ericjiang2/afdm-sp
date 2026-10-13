@@ -1,0 +1,261 @@
+You are acting as a theory-to-code audit scientist for the SP-AFDM project.
+
+The immediate task is NOT to improve CGR, retune the receiver, run a new experiment, or search for a way to make the CGR result positive.
+
+Your only task is to reconcile an apparent discrepancy between two existing prospective campaigns and determine exactly why it exists.
+
+## Background
+
+The established frozen main receiver is TF+CSTATE.
+
+In the earlier fresh prospective TF+CSTATE campaign, at 6.5 dB:
+
+* 1024 fresh independent observations were evaluated.
+* TF had 40/1024 information-word/frame failures, FER = 3.91%.
+* TF+CSTATE reduced this to 6/1024.
+* CSTATE was triggered only when the TF syndrome was nonzero.
+
+In the later fixed prospective CGR mechanism test:
+
+* SNR = 6.5 dB.
+* 256 fresh observations.
+* 256 BASE, 256 CGR, and 256 SHAM wrappers all completed.
+* BASE had 0 final information-word failures among 256 observations.
+* Therefore there were no CGR rescue opportunities.
+* Only three observations entered the preregistered mechanism-eligible set E.
+* The test was therefore prospectively under-informative: M and U were insufficient, while calibration passed.
+* No BLOCK arm was run.
+
+The latest CGR report must remain unchanged: its prospective mechanism gate did not pass, `bounded_continue` did not pass, and no new outcome-driven receiver run is authorized.
+
+## Core question
+
+Why did the earlier 6.5 dB prospective population produce
+
+```
+40 / 1024 TF failures
+```
+
+while the later 6.5 dB CGR population produced
+
+```
+0 / 256 BASE final information-word failures?
+```
+
+Do NOT assume that this is a bug.
+
+Do NOT assume that these are the same receiver/population either.
+
+Determine exactly whether the difference is caused by one or more of:
+
+1. different receiver identity;
+2. TF versus TF+CSTATE versus post-CSTATE BASE semantics;
+3. different branch entry state;
+4. conditioning/selection of the 256-frame CGR population;
+5. triggered-only versus unconditional population;
+6. different generator/channel distribution;
+7. different random-seed or fresh-population construction;
+8. different SNR definition/noise scaling;
+9. different pilot/data power configuration;
+10. different LDPC/code/decoder settings;
+11. different iteration counts/damping/refinement settings;
+12. different syndrome/failure definitions;
+13. different deadline versus eventual correctness criterion;
+14. different wrapper behavior or bypass logic;
+15. different frozen source commit or runtime dependency;
+16. an actual implementation/configuration mismatch;
+17. or simply a statistically plausible fresh-sample fluctuation, if and only if the campaigns are truly exchangeable.
+
+## Evidence discipline
+
+Use existing archived source, configs, manifests, seals, reports, tables, and raw metadata only.
+
+Do not make new receiver calls.
+
+Do not run acquisition, CSTATE, CGR, SHAM, decoding, optimization, or Monte Carlo.
+
+Do not generate replacement observations.
+
+Do not retune anything.
+
+Static source inspection, manifest parsing, hash comparison, config diffing, and offline statistical calculations are allowed.
+
+Treat the following as separate historical campaigns unless byte/config evidence establishes equivalence:
+
+* the TF+CSTATE 3072-observation prospective campaign;
+* the historical 25-observation CGR four-arm campaign;
+* the later 256-observation fixed prospective CGR mechanism test.
+
+Do not silently transfer frame IDs, receiver states, or assumptions across campaigns.
+
+## Required audit
+
+### 1. Establish exact receiver identity
+
+For the earlier 6.5 dB TF+CSTATE prospective campaign and the later 256-frame CGR campaign, extract and compare:
+
+* Git commit / source hash;
+* receiver entry function;
+* BASE definition;
+* whether CSTATE is present, bypassed, already executed, or absent;
+* acquisition and physical support entering the tested branch;
+* TF iteration count;
+* number of coded rounds;
+* damping;
+* gain/data initialization;
+* decoder invocation count and iteration cap;
+* syndrome trigger rule;
+* final decision field used to count failure;
+* any branch-specific continuation state.
+
+Produce an explicit side-by-side table.
+
+The key question is:
+
+```
+Is CGR-BASE actually the same mathematical/algorithmic object as the earlier prospective TF arm?
+```
+
+Answer this from source/config evidence, not naming similarity.
+
+### 2. Establish exact population identity
+
+For both campaigns compare:
+
+* SNR and its precise numerical definition;
+* noise variance construction;
+* pilot/data power split;
+* N;
+* physical path count / model order;
+* delay distribution;
+* Doppler distribution, including fractional-Doppler law;
+* gain distribution and normalization;
+* codeword/message generation;
+* LDPC construction;
+* pilot sequence/configuration;
+* random seed derivation;
+* number of fresh observations;
+* whether observations were unconditional fresh draws or selected/filtered after another receiver stage;
+* whether any requirement such as triggered, rescued, coherent geometry, same-delay paths, or valid checkpoint restricted the CGR population.
+
+Explicitly determine whether the 256 CGR observations are an unconditional sample from the same law as the 1024 earlier 6.5 dB observations.
+
+### 3. Reconcile failure semantics
+
+Determine exactly what:
+
+```
+"TF failure"
+"BASE information-word failure"
+"syndrome nonzero"
+"correct at 0.5 s"
+"correct at 1.0 s"
+"final correct"
+```
+
+mean in each campaign.
+
+Check whether the earlier 40/1024 figure and later 0/256 figure use the same decision stage and same denominator.
+
+A different name for the same quantity is acceptable only if verified from code/records.
+
+### 4. Check for conditioning or accidental easy-population selection
+
+This is especially important.
+
+Trace how the 256 observation IDs were generated and admitted into the prospective CGR test.
+
+Determine whether they were:
+
+* fresh unconditional draws at 6.5 dB;
+* sampled from a control pool;
+* sampled after TF+CSTATE success;
+* restricted by a geometry/coherence predicate;
+* restricted by checkpoint availability;
+* selected from frames known to have particular historical behavior;
+* or otherwise conditioned.
+
+If there is conditioning, quantify it and explain why 0/256 BASE failures is or is not expected.
+
+### 5. Statistical plausibility only after exchangeability is established
+
+Only if the two populations and BASE receivers are shown to be exchangeable, evaluate the probability of observing 0 failures in 256 trials under an underlying failure probability corresponding to 40/1024.
+
+Compute:
+
+```
+p0 = (1 - 40/1024)^256
+```
+
+and an exact/binomial-compatible comparison, while clearly stating that independence/exchangeability is an assumption that must first be established from the experiment design.
+
+Do not use this calculation to paper over a configuration difference.
+
+### 6. Check for implementation/configuration drift
+
+Diff all material receiver and generator settings.
+
+Flag every difference as one of:
+
+* irrelevant;
+* plausibly performance-relevant;
+* definitely performance-relevant;
+* unable to determine.
+
+Pay special attention to any change made while fixing the previous BLOCK domain mismatch or while constructing the CGR-only prospective harness. Verify that no such change unintentionally altered BASE.
+
+### 7. Determine the scientific consequence
+
+End with exactly one of the following verdict classes:
+
+A. SAME receiver + SAME population law; 0/256 is statistically plausible sampling variation.
+
+B. SAME receiver but DIFFERENT/conditioned population; the discrepancy is expected from population construction.
+
+C. DIFFERENT receiver semantics; the two failure rates are not directly comparable.
+
+D. MATERIAL configuration/source drift; the CGR prospective test does not test the intended BASE population cleanly.
+
+E. Archive is insufficient to decide.
+
+Multiple contributing factors may be documented, but choose the dominant verdict class.
+
+## Important scientific boundary
+
+Do not use this audit to reopen CGR automatically.
+
+Even if the 256-frame prospective test is shown to have been underpowered or drawn from an easy population:
+
+* do not lower SNR;
+* do not search for more hard frames;
+* do not enlarge the cohort;
+* do not authorize another CGR run;
+* do not redesign E;
+* do not change the registered CGR verdict.
+
+This audit answers only:
+
+```
+Why was this prospective test nearly devoid of informative BASE failures/mechanism events?
+```
+
+A new CGR experiment would require a separate scientific decision after this reconciliation.
+
+## Deliverable
+
+Write a concise but evidence-heavy report containing:
+
+1. Executive verdict.
+2. Side-by-side receiver identity table.
+3. Side-by-side population/configuration table.
+4. Exact failure-definition reconciliation.
+5. Population-selection/conditioning trace.
+6. Source/config/hash differences.
+7. Statistical calculation, only if exchangeability is established.
+8. Root-cause classification A/B/C/D/E.
+9. Consequence for interpretation of the CGR result.
+10. A short list of unresolved archive fields, if any.
+
+For every material conclusion, cite the exact source file, config field, function, commit/hash, or archived record that supports it.
+
+Do not propose new methods. Do not optimize CGR. Do not write a paper narrative. This is a forensic experiment-reconciliation task.

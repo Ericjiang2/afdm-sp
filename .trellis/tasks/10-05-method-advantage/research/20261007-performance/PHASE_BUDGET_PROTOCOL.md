@@ -1,0 +1,13 @@
+# Deterministic phase-information calculation
+
+Question: does the exact circular-reference genie-Fano inequality in SCALING_REASONING.md constrain the current low-gain acquisition regime? This replaces the unadmitted N128 acquisition comparison with mathematical integration only. All four prior performance FAILs remain unchanged.
+
+Freeze nominal SNR5dB, radius uniform[.75,1.25], B∈{128,256}, M∈{1024,4096}. The B128/M1024 case matches current N64/T2; B256/M1024 and B256/M4096 describe the proposed N64/T4 and N128/T2 budgets. B128/M4096 is an auxiliary information-budget slice, not a new experiment. No candidate selection or new geometry. Recorder seed=0 is metadata only; no RNG is instantiated or drawn.
+
+Q computes d_phase via the direct two-dimensional QPSK/circular density ratio, Gauss-Hermite orders80/120. Radius averaging uses Gauss-Legendre orders64/128, with the positive part applied at each radius before averaging. Nine fixed radius points .75,.8125,.875,.9375,1,1.0625,1.125,1.1875,1.25 are also reported. All four resolutions are retained. Gaussian-reference and average-first bounds are reported as controls. No quadrature order chosen from the results.
+
+A independently computes every saved scalar state using separate one-dimensional adaptive integrals of Rician Bessel entropy and BPSK conditional entropy (absolute/relative tolerances2e-11). IntegrationWarning is an error. Require direct/independent differences≤2e-6 nats and each saved Fano value at all frozen resolutions versus the fixed finest (rho128, Hermite120) value≤3e-4 (not the maximum pairwise spread); failures remain failures. These are deterministic approximation checks, not mathematically certified interval enclosures. Quantitative lower-bound values must be labelled numerical evaluations of an exact inequality, not exact finite-decimal certificates.
+
+Run Q60s/A60s, total120s, CPU1, CUDAhidden, RSS2GiB/output20MiB. Reuse immutable attempt recorder; committed source admission and isolated remote Git snapshot on deinlab/AFDM. All writes under /data/guoyikun. Zero random draws, observations, receiver/acquisition/decoder calls, or code-design geometry. Engineering tests use only fixed small fixtures and are not scientific performance evidence. Failure does not authorize another acquisition seed or hidden numerical retry.
+
+Frozen config: experiments/afdm_phase_budget_20261007/STUDY_CONFIG.json. Output: afdm_sp_joint_unrolled/outputs_phase_budget_20261007/. Complete Q/A hashes, resources, and small outputs returned. This is an internal theoretical diagnostic, not a new practical receiver or proof of the joint performance-cost goal.

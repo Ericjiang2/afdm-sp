@@ -1,0 +1,23 @@
+{
+  "detector_id": "real-EP10-damp0.5-f64",
+  "status": "preregistered_before_D_mech",
+  "campaign_protocol_sha256": "4f307ad9f6c1f4667704eaa64f1594249c748f8ecf9c7707a32a1545e09c2941",
+  "algorithm": "Classical parallel expectation propagation in equivalent 2N real BPSK system, fixed10 iterations, exact dense Cholesky mean and covariance diagonal, damping0.5, no learning",
+  "noise": "input sigma2 is total complex CN variance; each real component sigma2/2",
+  "constellation": "same QPSK +/-0.5 +/-j0.5; real BPSK amplitude0.5",
+  "initial_sites": "lambda=1/a^2, gamma=0; uniform symbol prior; restart every call",
+  "numerical": "float64; moment variance floor1e-12; nonpositive proposed site precision retains previous site and logs reject count; nonfinite or Cholesky failure explicit error, no alternate detector fallback",
+  "LLR": "log P(bit0)/P(bit1), allI thenallQ, clip20, LDPCsamefixedcode/maxiter50",
+  "truth": "inputs y_cancelled,H_data,sigma,constellation only; supplied H may oracle only in diagnostic caller. No true bits, support, paths or parameters input.",
+  "scope": "diagnostic reference only; approximate, not ML/optimal or deployment candidate. No improvement cannot prove BP optimal.",
+  "reference": "https://arxiv.org/html/2404.15968v2#S2.SS2",
+  "adaptation": "Uses standard Gaussian site moment matching and real-valued representation; not the cited paper proposed iCG/variance approximation. Fixed parameters chosen before any mechanism results.",
+  "test_plan": [
+    "diagonal exact QPSK likelihood and sign",
+    "small coupled exact enumeration comparison with difference retained",
+    "zero channel uninformative LLR",
+    "unitary phase invariance where equivalent real solution permits",
+    "sigma variance/std negative input",
+    "real short code terminal decode"
+  ]
+}

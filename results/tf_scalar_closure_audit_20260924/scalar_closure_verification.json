@@ -1,0 +1,132 @@
+{
+  "authoring_role": "Codex theory-to-code audit",
+  "c1": 0.08064516129032258,
+  "c2": 0.00021551173900785387,
+  "cases": [
+    "one_path",
+    "distinct_delay",
+    "same_delay_integer",
+    "same_delay_fractional",
+    "near_duplicate",
+    "exact_duplicate",
+    "zero_hbar",
+    "near_zero_hbar",
+    "nonuniform_cross_delay",
+    "cpp_boundary"
+  ],
+  "comparisons": 30,
+  "cpp_wrap_phase_imag": 2.842789923676989e-14,
+  "cpp_wrap_phase_real": -1.0,
+  "date": "2026-09-24",
+  "dimension": 31,
+  "distinct_delay_nonuniform_cross_max": 0.8444184139478939,
+  "gain_precision_floor_cases": 6,
+  "maxima": {
+    "direct_CPP_operator": {
+      "max_absolute": 9.381548790820264e-15,
+      "max_relative": 2.0146095185204605e-14,
+      "relative_na_count": 0,
+      "worst_absolute_case": "nonuniform_cross_delay/seed=23",
+      "worst_relative_case": "same_delay_integer/seed=23"
+    },
+    "duplicate_null_physical": {
+      "max_absolute": 0.0,
+      "max_relative": null,
+      "relative_na_count": 3,
+      "worst_absolute_case": "exact_duplicate/seed=23",
+      "worst_relative_case": null
+    },
+    "eq1_source_Gamma": {
+      "max_absolute": 2.1768264359172057e-14,
+      "max_relative": 1.879849140404628e-15,
+      "relative_na_count": 0,
+      "worst_absolute_case": "near_duplicate/seed=7/nonuniform",
+      "worst_relative_case": "near_duplicate/seed=0/nonuniform"
+    },
+    "eq1_trace": {
+      "max_absolute": 3.552713678800501e-15,
+      "max_relative": 4.2968112842532635e-16,
+      "relative_na_count": 0,
+      "worst_absolute_case": "distinct_delay/seed=23/nonuniform",
+      "worst_relative_case": "same_delay_integer/seed=23/isotropic"
+    },
+    "eq2_isotropic": {
+      "max_absolute": 3.9914988252470985e-15,
+      "max_relative": 6.097289040154863e-16,
+      "relative_na_count": 0,
+      "worst_absolute_case": "nonuniform_cross_delay/seed=23/isotropic",
+      "worst_relative_case": "nonuniform_cross_delay/seed=23/isotropic"
+    },
+    "eq3_cross_support": {
+      "max_absolute": 5.901503769576108e-15,
+      "max_relative": null,
+      "relative_na_count": 60,
+      "worst_absolute_case": "nonuniform_cross_delay/seed=0/nonuniform",
+      "worst_relative_case": null
+    },
+    "eq3_same_delay": {
+      "max_absolute": 5.901503769576108e-15,
+      "max_relative": 7.008700800348655e-16,
+      "relative_na_count": 0,
+      "worst_absolute_case": "nonuniform_cross_delay/seed=0/nonuniform",
+      "worst_relative_case": "nonuniform_cross_delay/seed=0/nonuniform"
+    },
+    "eq4_Frobenius": {
+      "max_absolute": 8.526512829121202e-14,
+      "max_relative": 6.986719363018212e-16,
+      "relative_na_count": 15,
+      "worst_absolute_case": "cpp_boundary/seed=23/nonuniform",
+      "worst_relative_case": "nonuniform_cross_delay/seed=0/nonuniform"
+    },
+    "eq5_finite_gain_difference": {
+      "max_absolute": 3.376611507232129e-16,
+      "max_relative": 2.5444699000869148e-14,
+      "relative_na_count": 15,
+      "worst_absolute_case": "cpp_boundary/seed=0",
+      "worst_relative_case": "nonuniform_cross_delay/seed=0"
+    },
+    "eq6_physical_norm": {
+      "max_absolute": 6.661338147750939e-16,
+      "max_relative": 8.70913044427626e-15,
+      "relative_na_count": 18,
+      "worst_absolute_case": "cpp_boundary/seed=7",
+      "worst_relative_case": "near_duplicate/seed=0"
+    },
+    "eq6_quadratic_form": {
+      "max_absolute": 2.220446049250313e-16,
+      "max_relative": 1.0409440300945472e-14,
+      "relative_na_count": 18,
+      "worst_absolute_case": "cpp_boundary/seed=23",
+      "worst_relative_case": "nonuniform_cross_delay/seed=7"
+    },
+    "physical_R_trace": {
+      "max_absolute": 2.5829913666749907e-15,
+      "max_relative": 1.8263211163796793e-15,
+      "relative_na_count": 0,
+      "worst_absolute_case": "near_duplicate/seed=23",
+      "worst_relative_case": "near_duplicate/seed=23"
+    }
+  },
+  "new_decoder_calls": 0,
+  "new_observations": 0,
+  "new_receiver_calls": 0,
+  "schema": "tf-scalar-closure-numerical/1",
+  "script_sha256": "43480bb9f2da0475cdfa4d7437e55ee8e6fffaca929c232c10f35b264ea284bf",
+  "seeds": [
+    0,
+    7,
+    23
+  ],
+  "source_git_commit": "49ba637bba592dcda6e612609ff3bdc27048cb8d",
+  "source_sha256": {
+    "physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "tf_base.py": "0e3a94045b0b395c28efa02f181433bbc3aa2f569c05683ad83e1d1cf4f9699e",
+    "twofft.py": "c54e832716d72530e38a9b1090ca24f8f8b3c8f4185db0914d30e5f7e2ab9ff0"
+  },
+  "status": "pass",
+  "tolerance": {
+    "atol": 1e-10,
+    "relative_denominator": "max(norm(lhs),norm(rhs)); NA if <=atol",
+    "rtol": 1e-10
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "schema": "cstate-lineage-independent-recount/1",
+  "date": "2026-09-25",
+  "scope": "Independent read-only recount of generated Part A CSVs and their local source tables; no receiver, decoder, or acquisition replay.",
+  "result": "PASS for cohort counts, row joins, source hashes, and CSV transformation checks; acquisition-lineage causal classification remains unavailable where source artifacts were absent.",
+  "checks": {
+    "primary_final_prospective_6_5db": {
+      "source": "results/tf_cstate_prospective_20260923/recovery_20260923/analysis/frame_outcomes.csv",
+      "source_sha256": "e08a5517d95368fdc293428bf262994b1a72801d77be5c63a8aecf4e3f96131b",
+      "cell_rows": 1024,
+      "unique_observation_ids": 1024,
+      "source_triggers": 40,
+      "trigger_rescues": 34,
+      "trigger_remaining_failures": 6,
+      "first_frame_order_nontrigger_success_controls": 32,
+      "audit_rows": 72,
+      "audit_cohorts": {
+        "trigger_rescue": 34,
+        "trigger_remaining": 6,
+        "success_control": 32
+      },
+      "audit_ids_exactly_match_source_trigger_plus_controls": true,
+      "duplicate_audit_ids": 0,
+      "per_frame_observation_hashes_available": 0,
+      "per_frame_input_sha256_available": 0,
+      "population_seal_sha256": "7e4dedf025ebab1f2589e1bf76948081815dcc411cf8b2f09422fc5b4291f324",
+      "missing_raw_interpretation": "Remote manifest/raw unavailable locally; do not infer absence or zero lineage events."
+    },
+    "historical_geometry_reopen_population": {
+      "selection_source": "results/tf_geometry_reopen_20260922/observed/selection.json",
+      "selection_source_sha256": "daa23da54559d9bc24d26e6f67427cffa703c121ef07a814d20b8d59807fe090",
+      "frame_diagnosis_source": "results/tf_production_gap_audit_20260922/A/frame_diagnosis.csv",
+      "frame_diagnosis_source_sha256": "014064a4ef071cd134f1706602d4d94625238d0218e3c1bab5de7ca8c408c65a",
+      "selected_frames": 75,
+      "selected_failures": 43,
+      "deterministic_success_controls": 32,
+      "audit_rows": 75,
+      "audit_ids_exactly_match_selection": true,
+      "valid_64_hex_input_sha256": 75,
+      "input_sha256_join_matches_frame_diagnosis": 75,
+      "input_sha256_join_mismatches": 0,
+      "observation_hash_available": false,
+      "historical_path_rows": 1160,
+      "truth_grid_rank_source": "results/tf_geometry_reopen_20260922/analysis/truth_grid_ranks.csv",
+      "truth_grid_rank_source_sha256": "c624f95066b8e121287f3b8dd5cea7331364b2b3dadecd2dd815f786af47eeed",
+      "path_rows_match_selected_truth_rank_rows": 1160,
+      "path_row_mismatches": 0,
+      "pilot_only_selection_rank_available": 0,
+      "L0_L4_classifications_available": 0,
+      "classification_note": "All 1,160 rows explicitly unavailable_without_pilot_selected_atoms; no pilot-visibility counts were inferred."
+    },
+    "historical_global20_replacements": {
+      "source": "results/tf_geometry_reopen_20260922/analysis/global_steps.csv",
+      "source_sha256": "3bc84185aa9ef676d992033d434a7d3f9359251cb3a40850fb1244ce2249eb10",
+      "audit_rows": 145,
+      "source_rows": 145,
+      "row_transform_mismatches": 0,
+      "global_step_rows": {
+        "0": 75,
+        "1": 70
+      },
+      "accepted_step_rows": 123,
+      "rejected_step_rows": 22,
+      "arm_outcomes_source": "results/tf_geometry_reopen_20260922/analysis/arm_outcomes.csv",
+      "arm_outcomes_source_sha256": "6ec5205c12ae7d47b2679050fc17c4ec00a5ad93924117f75afbcab459143fd1",
+      "GLOBAL20_failure_cohort_n": 43,
+      "unique_GLOBAL20_failure_rescues": 31,
+      "unique_remaining_failures": 12,
+      "rescue_id_mapping_matches": true,
+      "counting_caution": "final_global_rescue is repeated across step rows; use unique frame outcomes, not the 62 true step-row values."
+    },
+    "source_bindings": {
+      "availability_source_entries_checked": 16,
+      "availability_source_hash_mismatches": 0,
+      "source_hashes_json_entries_checked": 12,
+      "source_hashes_json_mismatches": 0,
+      "B0_nomination": {
+        "recipe": "B0-p2-s0.5",
+        "B0_parameter_list": [
+          8,
+          16,
+          24,
+          40
+        ],
+        "p2_parameter": 24,
+        "capacity": 40,
+        "nomination_expression": "parameter when family B0; otherwise 40",
+        "source_path": "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_baselines.py",
+        "source_sha256": "1c9a8bcb08729d6a4a5707578aef2869beff23735c93366cc7e506ef14bd1fa1",
+        "locators": [
+          "line 25: PARAMETERS B0=(8,16,24,40)",
+          "lines 137-147: capacity check and fixed OMP nomination"
+        ]
+      },
+      "prospective_registration_source": "experiments/tf_cstate_prospective_20260923/run_prospective.py",
+      "prospective_registration_source_sha256": "0f5ad4c79a818e7290373a4aae9d95f6720344f581860cc9a462c319458649b0"
+    },
+    "readme_local_link_scan_at_recount": {
+      "local_links_checked": 23,
+      "missing_targets": [
+        "STAGE_A_PREREGISTRATION.md",
+        "PROVENANCE.json"
+      ],
+      "note": "Reported to implementation owner for coordination; main session owns final link validation."
+    },
+    "execution_boundary": {
+      "receiver_calls": 0,
+      "decoder_calls": 0,
+      "acquisition_replays": 0,
+      "new_observations": 0
+    },
+    "historical_witness_f0221": {
+      "observation_id": "s650_f0221",
+      "input_sha256": "99fe47272e9c163494a0b936de534e03b55a7750aa9338666be51411bd479230",
+      "same_hash_join": "selection.json → frame_diagnosis.csv → GLOBAL20 saved rows; all match the SHA above",
+      "global20_step_0": {
+        "new_path": {
+          "delay": 51,
+          "doppler": 0.75
+        },
+        "deleted_path": {
+          "delay": 94,
+          "doppler": -2.2615153298425454
+        },
+        "objective_decrease": 7.766918230940178
+      },
+      "global20_step_1": {
+        "new_path": {
+          "delay": 37,
+          "doppler": 0.75
+        },
+        "replaced_existing_path": {
+          "delay": 37,
+          "doppler": 0.7525803416246701
+        },
+        "slot": 2,
+        "objective_decrease": 0.018761056479775107
+      },
+      "interpretation": "No distinct GLOBAL arm/trace was found. Delay 37 was already present before step 0; step 0 inserts delay 51, while step 1 slightly recenters an existing delay-37 slot. Thus the report table’s step-1 accepted atom near the true delay-37 path must not be described as the first insertion of delay 37.",
+      "source_locators": [
+        "results/tf_geometry_reopen_20260922/RESULTS.md:60-65 (step-1 accepted candidate and true path locator)",
+        "results/tf_geometry_reopen_20260922/analysis/global_steps.csv (two rows for f0221: steps 0 and 1)",
+        "results/tf_production_gap_audit_20260922/A/frame_diagnosis.csv (pre-GLOBAL geometry already contains delay 37)",
+        "results/tf_geometry_reopen_20260922/analysis/arm_outcomes.csv (GLOBAL20 rescue; LOCAL20 does not rescue)",
+        "results/cstate_necessity_audit_20260925/CSTATE_ACQUISITION_LINEAGE_AUDIT.md:47 (explicit corrected chronology)"
+      ],
+      "new_audit_report_sha256": "a3d40b5b8dd0df703cfeb1b73098a8b9a785c1aaa12ac0612ada7e5a8d12c007"
+    }
+  },
+  "audit_csv_sha256": {
+    "acquisition_lineage.csv": "d225c519d8f26748165061915d00a3f3cde9a420f4b8221d71143a3550f7a2d3",
+    "path_lineage.csv": "00b74ec0e45f13944a4888016f98de2be85d1759fd5729b9ca84d7ab78296ae7",
+    "cstate_replacement_lineage.csv": "1e92239480784cee210e1a5e68d36e393afb1ff96c7196eb02d6a8e0efd22436"
+  }
+}

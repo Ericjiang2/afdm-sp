@@ -1,0 +1,2806 @@
+{
+  "schema": "innovation-reaction-development/1",
+  "mode": "development",
+  "locked_hashes": {
+    "runner_sha256": "8ecf53ca020f265a6d30269f61dbc47c7c9056df5bb2d895170c41110233f2f3",
+    "adapter_sha256": "586ffb8b59738e39e31b981930c7023928643c936198877e2e59a420097ad89f",
+    "source_hashes": {
+      "src/block_bilinear.py": "f57545a65e936add0ca23547e3eab78d5b2a099ec1d304c6e2f1d3e0155fce83",
+      "src/fast_bilinear.py": "873a83ff22c76b7c087c4e1aad3f7a5e6079be981b13e79a9462819ef00a9f12",
+      "src/joint_tangent.py": "b20e07d335cfa2a1b8621717193e936e2fad0a8c4874518a60100f151a57a487",
+      "src/joint_tangent_exploration.py": "93e9bd4ff9390d8876fad8a992aabeda014a009dc81e6de075539b118518781f",
+      "src/native_controls.py": "751a9e954409c1c9a4e0ef15db3bc69b9711e190e8480387931fb3995edcaf47",
+      "src/native_twofft.py": "6146ccb48bb64b90c7d1fb8da93b2d0b59e84c6e8100eb2f259e9ee22114168d",
+      "src/twofft.py": "c54e832716d72530e38a9b1090ca24f8f8b3c8f4185db0914d30e5f7e2ab9ff0",
+      "tests/audit_outputs.py": "7460d63bad3beceee5f7bf5673d843c23a5bec4228432d57a80f3d330f80e419",
+      "tests/benchmark_fourfft.py": "09298fb06c3c3972bc762a7f66de7670ea642649766ef718302e82b831f18782",
+      "tests/benchmark_twofft.py": "8641d29be43c2fb6a636fb8ff37156fabf10da52f78b4ca7f9b69805c9e51f12",
+      "tests/screen_block.py": "e3093023b6d7d695fec2cb2ce28b90c84ef9bef3d5bcaae70902efdd1b5b031c",
+      "tests/screen_fair_controls.py": "3a3d5cdcdbb188ada48cccd773c243fd1e13b485dc51bc40d08c58364ea2dabe",
+      "tests/screen_fastamp.py": "95b6d3028d9ce5a9c90e940964d05efb0e601ac2988d2faddfc1c3aab5d1340f",
+      "tests/screen_gain_factorial.py": "610de5b030062f22f933c7d8bf4047ab9adff1255584cefc8da320893ebad1cb",
+      "tests/screen_native.py": "e6f34e099e18ef5535c0195a1853bfa358cb11173150d9fb6543186cf801749a",
+      "tests/screen_point_clean.py": "59ac6d2b22d49ef2589ba40c30ab602b7120f0eb049033d0dae46aab8e406a1b",
+      "tests/screen_scalaramp.py": "e31dee8d31a3b5c2effed156e98e14c0e93a3be529016b076ff1ab8b1dbcad7c",
+      "tests/screen_six_db.py": "aa5d4b10adc640593f893eceee8967723686a63615f849c6e9966c4740569beb",
+      "tests/screen_tangent.py": "cd57b86f1772cf90e148901079f545d27c5957629a7bacc527d0db43115795cb",
+      "tests/screen_tangent_fixed.py": "43d82236d13d80fdaa90ff94ae60c74f8be5eb61d1cc8f225454b0ca3027aa33",
+      "tests/screen_twofft_native.py": "d68fe6ef9e53b30b9dda4f625ca2bc53213c90ab86216930c27b44ba48627454",
+      "tests/test_checkpoint_contract.py": "c72a30f38129e4273e1faa25fd4d778b13d84d661af053a15906a6c62e317126",
+      "tests/test_contractions.py": "e4a402d654f18feaf8bde1ed99dbb3d4b5d86104328538a885cebe58a206f6e1",
+      "tests/test_twofft.py": "6d337997233fd0ca307c4106e28163863d2f1939d41cf9b593192b188c614f34",
+      "docs/CODEX_HANDOFF.md": "9c764698e7b3e9271d313d2ad21233d81eb00f1fe59d07ef0815a5616c3beed7",
+      "docs/RESEARCH_VERDICT.md": "9b99fd27bddcdcfc4bd2b4197c8614fab18a952f2c9c8c27d39d80d8c6336e5d",
+      "protocol/frozen_next_ticket.json": "c0d988881501579324fbb1394464173518f4c44e290f0ea272627c192221ec17"
+    },
+    "baseline_hashes": {
+      "src/analyze.py": "94aae6c420ba593d6bc1a40de69954cf2e01267ea4a77f85e03cad64fc98cb39",
+      "src/bilinear.py": "6db5127f24622cb0222c1af457a2f03b79200ecd08eab5d8ef341cbfbb857228",
+      "src/evidence.py": "d778c545de277fe2a012db1cf065edfff1f035bf5c2565480361c49e7e6efb56",
+      "src/make_transfer_lock.py": "7072babc46383535306688e4ea7aac06966dce6cf926bde3ec8c0e0ae6d26618",
+      "src/messages.py": "9b19937c90a6e2b15f30d4e326320a38cd2635f9c0c5b14814406991da25ec95",
+      "src/offgrid.py": "d136655055700af7cc6299783f33caf47810c80e804fbf210b8b688e53e598f5",
+      "src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+      "src/receiver.py": "44221f91a4ff510b7f21e36300d6c5657be2ec2171a866fd48efe38fa2d95562",
+      "src/run_local.py": "2cf3a53e37730fb8311addd5fa1f3881e5d45675059203ba1a8a3c4480fd0794",
+      "src/seal.py": "893bdd8e1c09028fd900426a97ee23b58e97531bdfa39f3ec9e81d80694cea3c",
+      "src/structured_ep.py": "bf778850024de234a674c3283b268db8d894e57b8a17942d1b441a20d367cdd0",
+      "tests/benchmark_kernels.py": "6766111242355d03a45cc2caae84061c17984934929430367bb690572ac56144",
+      "tests/mechanism_screen.py": "539fc6666c2a2ee20b3cbc6366b055667c1248370b555fee197e08c4eb86ef55",
+      "tests/test_baselines.py": "633d05e23947fd45ff0fd4433bfbb64cf60659b525e8319b4d3e0d537820da26",
+      "tests/test_bilinear.py": "e7e7679fd151e5b0267e3825b8b89065df66eca2c854a998a3f044880bba638b",
+      "tests/test_cache.py": "5237bd1911fc5d22deace7bc5adcae8321e867b9559888cc012a2fe52e67f4ad",
+      "tests/test_core.py": "65ada9a5bf2c28f56dbd349521067224b573dbb7cb2440a4eabd8926b152f0f7",
+      "tests/test_decoder_observer.py": "16a06b360b5315fe2c1d1d7236db7a2cc8e440af9319a4e284c313793aa7c031",
+      "tests/test_evidence_contract.py": "c7cf289132023f2d6c641dd35643277540c182eb3eabe5115552ddf6ba1a11aa",
+      "tests/test_fallback.py": "7fe227455403313b0acf5285489fcaa2961358fbe150e2388effa9fb3483ac48",
+      "tests/test_fresh_decoder_accounting.py": "6b57dd606a6218692af6542628bf8e2ed0362a9fd643dc46ea6366778498f4fe",
+      "tests/test_integer_geometry.py": "53873a7251dd048edf922820b1236fc32286ebae804c64007964d02c45a09805",
+      "tests/test_integration.py": "25059a1f8501bb1949743792adc8fd029c685f18b2ac44fad8fcc7da5f21f501",
+      "tests/test_interface_control.py": "6f6b8a28c089326fa8ded86b15ad503d42eb012e34f8f318305b623372aba624",
+      "tests/test_native.py": "d1e0eb3aea444da6d13504869ec849eab1f22cf13ec393f16243f525ede72aec",
+      "tests/test_production_baselines.py": "f05cf2b6d1b98b2f44b780cedb13319888a35e7993cafbe4318589fadfb8efce",
+      "tests/test_protocol.py": "5b69aac3b69f40c4c33ecdc20431116a1093619f41d167ce20698d03bb6aba68",
+      "tests/verify_saved_decisions.py": "46843f0f98fc6481d2b8ab72d61d45c2bece77a7bf2a9054384d9d83a9bb5037",
+      "docs/DESIGN.md": "3076e3e467ec0efaf50de312d3e3f529b94a45111c81d0539d54be47acf8d14c",
+      "docs/LOCAL_PROTOCOL.md": "4d7232332d2a0fcb5ea5eead4c191169d06100a6e6a4536a0f14cfa89730e50a",
+      "docs/SOURCE_MAP.md": "9b2eaccfdc9eea43151584f5f4887562111691093c1d31d584597e1d5cb3fa0a",
+      "protocol/configurations.json": "ae840031ea37eb5d2ae1e7ebdc072e7385c4fe3e83ff0f399ee7a0e2042f814f",
+      "protocol/protocol.json": "8a68b115f682b9acecb01aa0f0ec8ab5ccdeae0592331294921826852c79a13b",
+      "upstream/spafdm_receiver_handoff/01_theory_and_state/DERIVATION_PACKAGE.md": "8fee146c64ee67464071beb16134d2cbad348f6847593b28b55382dced2b5199",
+      "upstream/spafdm_receiver_handoff/01_theory_and_state/STATE.md": "3c29d34670025ebffe3f23782fdc823d6976bee70db2f187b9713311a84f968e",
+      "upstream/spafdm_receiver_handoff/01_theory_and_state/l16-reassessment-v1.md": "527755e7b14caa1eee17f34d39534bed71b02bcb6f67267b0d5c31af007b2bfa",
+      "upstream/spafdm_receiver_handoff/01_theory_and_state/research-protocol.md": "bcda43cd342634b250d33ac8c06370029b14341ed196065bb3538e577bb0c526",
+      "upstream/spafdm_receiver_handoff/01_theory_and_state/theory_chapter.pdf": "170a1f446685980e1b32ff4429340984ca9c967f33cae4e7808a8c9cf4826697",
+      "upstream/spafdm_receiver_handoff/05_recent_evidence/tail-recheck-results-20260917.md": "a1cd16f94a350122ba503d1d743ffcd15e63d0de0a71f8bdfbcd11fd5337fe68",
+      "upstream/spafdm_receiver_handoff/05_recent_evidence/tail-terminal-results-v5.md": "c61def024c266fdfd2c9db35b23c0732f724193b42f829456fc97abc237d7492",
+      "upstream/spafdm_receiver_handoff/07_checkpoint/frozen-c2rel-checkpoint.pt": "052ecfab8eff7780c49038d9bb4f16f92272ee22322fa05b6f65029cc3112a91",
+      "upstream/spafdm_receiver_handoff/MANIFEST.txt": "64ebd706c1344922a838b393b6fcf1965e9d1d646c5de0fe50bbccd2323c317c",
+      "upstream/spafdm_receiver_handoff/README.md": "21f36b2d67671066dce3273961b650763fd337e7e99985d45db6eab78070eba3",
+      "upstream/spafdm_receiver_handoff/RUNTIME_CLOSURE.txt": "2192fd6e0760b8d9054151e1e2594a16689dc4420da1a8ed5ed4ca73ee504a62",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_baselines.py": "bc2457e5f21259df65fb1537021c50ea929991672ef1d9fb851213cb88f2d36a",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_env.py": "933ea6d8ac168f5af054754a6f58c41e378992a29a79fab91106b48209285487",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_layers.py": "2f242722450e4ad71820ab737e872f0bcbed1980f6ad0a545c81f659415a60c6",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_models.py": "af2186ebfceb744dab7a86efb76271724d7e4f9194a1adba52101487bead00c2",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_trainer.py": "41149471f5158566494a5a36e4143d1d06ed64f19a3b02b255153ecf2b3b7475",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/bandlimited_basis.py": "1642b2af1741c55ea8c9cbc96149c7db14c226bda83c83945ae735a7d10bac4d",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/bandlimited_estimation.py": "d916b9cf73ebc538c7abae87bb08f93b31fad8984d1e4e975ec9807c0c502f4d",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_frame_store.py": "4a9137ded59db12a97f0297cf973273b3dc4074e42ef104e0dcca72c369ad5dc",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_job_queue.py": "ec0bbcad0dcd91313d69f5a8cd83d646a5e099be2f3cc1d8e010db65e31a75a3",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_diagnostics.py": "c11c43d1353024a9ea873239b843743c9999a6cdf5f88644611282315c3999b9",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_eval.py": "86a03e3225640c44d88f8abc36c557729a4fb6c33b46721552d8ff94a8ea993c",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/cao_baseline/cao_isp_receiver.py": "804ff3b080ecd6f8287b7394ede9fea0fd3b32d1fc1f55559b9606e763515c59",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/classical_joint_unrolled.py": "412004661b718da8d6842ce37b48a090d528319211df2931c1940fafffafdec5",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/common_score.py": "0de40cfaa3543f1a553af4a24071d67c9a58bbdf0f2e533141f600dd1b8cafcb",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_bound.py": "0ada61369f573295d972208c88e2b5a15f3df7880f0bde4435bc081e08de199e",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_covhead_train.py": "11a6f603f8f233754bc3df1dc7dc81f1ea4eb794274859440c5cd23573bfe29f",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_gateA.py": "c1ebdfa5189829d8e8236c46d2c482a0247249f3bbc6dc02adc1d989a6f468a5",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_harvest.py": "b5344b320c6e36c94be1a569240bd6575e8d31c2bfa859ae454eef1dbdda3c61",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_metrics.py": "9677dbe42ef19378b84d06e0d01eb155933aa763886156ca99a8cd05688598a3",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_review.py": "19a7c99c68c50e22291d653dfea1d43000487d21f13a9150cf389509a292479d",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_budget.py": "e66305e0481d5583a0dbeb27cdd4a63b32fad09686501fecaaf77e44b197b65c",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_cancel.py": "5a3368aede97e04326c9f9828bac9da528adc3763eb27d38a80fff9ef2317b49",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_cancel_receiver.py": "2721995decde7c040f4e2d94ca94c1978a29caa7af35fd2e3a2c8e0f06198fb8",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_data.py": "4760b8a6f600b48405d2069e3cdf2147bef7c840170c1ca1379ebe8ee61c7ea0",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_detector.py": "34dc5e5669e534571ea07a2669ac1e4326bdcf8408feac137fa3445bad3afefb",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_factorial.py": "ec1863a2a4797f3ebc16208a1bd116fe9c6030da241ed8855e9430c993aea74e",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_logging.py": "db5beb7e1438268326520ddd9b201f501efdb39ff4478c144de366c3be2f5a16",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_physical.py": "fc752333f660b11a1e9bbc840283e0006a88a36f31f9d5aca9bfc6ee84368976",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_physical_receiver.py": "a2c803bd28230dcef4f17dcc95d450c1b50105d4d918e973f6b49d04589429c9",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_receiver.py": "56ea45f363b866fe851cc85de9185cb9f7ff87a431b917aab618cd7a828427fe",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_run.py": "0790c613ab1540a700766bcc5839858b7d136f4429a2141b1883baff7d5be3f4",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_select.py": "b4d23c45f2265774568baae95c4c675233b248de3c76d84667c8e833a1a5c65e",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_structure.py": "0f3beb7fd3fa218c6f9387a15699c13183a762729ede5d8614dca6b381abcf58",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/dirichlet_gain_prior.py": "c40b59c8fd228a1ede658051b0a832c8fedcadd77f5e9fd7ac560633fa2564ed",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/dirichlet_prior.py": "b2b0d29ce8b0a10bf8933e8ae14329e7d3b1f9a4194b60358e91d377bcdeb937",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/drce_baseline/drce_receiver.py": "0a1e0396277fdd61112a09d9c7a200f02fc11fb1735eff1ff219510526c342d7",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py": "dc58c3b28e1899fad05af72e72d7edc9e6a44c004bd7d176a93d1ba595672ba6",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc_coded_eval.py": "6bf60f1d8758f490c51ed429755c45ff33fe7f7ce52cfcdcf4e3e34f05fab8e9",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py": "3fd7031da28dec0ef917b4a1ac1a3e47552d981c8f0d0a3027b1d6aa693c76ef",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/feedback_diagnostics.py": "e98d5c01951f3f73d0561e5a1a4157d3bcc63dd9d2185e3f726858af715cc04a",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/fixed_basis_receiver.py": "6c6019481968b0adff7c4771711c7e050ba7d169a5e6d773d3b83878180c4868",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/light_gap_support_exchange.py": "c87cbee9facecd7ec68c64084003d47f21f7988689c4bb84646f43a10fa5b506",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/lmmse_baseline/lmmse_receiver.py": "77fa52a51d78263c0be7b9656fddc757534ca2bf0b4f375550a4f48ee985d914",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/loop9_cache_features.py": "56b0e444db72c1f7bd18dad6b4a403b0667d3d5fa41cec7e0e99602e0e03410b",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/mechanism_control.py": "5baa328c149a2aaee371dab3b5310401481b0ee2c11783146a2527d1134203c0",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/mp_detect_bp_torch.py": "5c3ef90babb745c887f90863f434960c2feeed90d802720de767b1fd8b684ec0",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/one_shot_true_data_ce.py": "ffc5313a408a719a6b7e360c5dad58e5b318cf518840c0f42f9ece5268060471",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/paired_learned_eval.py": "037ee917aaa376e94b3a63e55adfc2e70f92cfe0b19357fcde3d26a2116ab66e",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/pbigabp_baseline/pbigabp_receiver.py": "90b213578934c52b8d99602369ac30ed3ea075045e6f05be182fbd67655af171",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/pbigabp_baseline/pbigabp_receiver_v2.py": "a7b1b3e7bfcf185923e4ffe0c216d559376c8786c9236d8082c4bdae4e74de29",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/physical_stride.py": "abcb9950f53afa9eafa74cbb25ab9e708f551b92568078406c450aef63a69cdf",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/projected_gls.py": "5fe77aa16d7a0f92fd8e86398dbac0bd4b48cceba5d24a8fdea06fdd013db73d",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/representation_ledger.py": "1ebed901e0569fdad8fbf3c09c1e363120e6db43d6fa272ccbb5f8b10843928d",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/run_classical_baselines_python.py": "0a7eb3fef1252c7c776682a87dd2606a80249bd2f2152597838e287e1caefc98",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_a01_diagnostics.py": "f862c5542b847b3195d23da13c48c4bdfffc2b77b0bbc25ed8beb11a8ecfdf1c",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_baseline_run.py": "63acb125b20047faf7fc7344b5cc3b27d2e4b08824e6d5ba35f2d29096f2c4f9",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_baselines.py": "1c9a8bcb08729d6a4a5707578aef2869beff23735c93366cc7e506ef14bd1fa1",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_data.py": "494ab96e1ad68ea3319e61d54429730c061ef3cdba6117b362c2946af1feb303",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_detectors.py": "c4dc530c447be0ccb64c64afd21f7384b953529a9ed27d96b977e10b6005adc8",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_development_analysis.py": "faec0912e38e7773a6886e24a9bbc6c2f9b784ce9762648212b488c18b45c908",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback.py": "a423bdbe7cf6599ff3fe8ced4b8d5bcee1e38f77539d1a6ea3825e75be77dadc",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback_diagnostic.py": "80ab42f9c27d5402a825ef627c48c69446b11ad78e3056ae3fc0327e03f0081f",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback_run.py": "bff2adac28c72ca69795fb7ab51c180e737cc8590ae2c93d44bc666468c73635",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback_schedule.py": "9176d51cb4601f49e8375f803cf5357bdb23bf3b150e1b5dcaaa0ecfc6cb75b5",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py": "33533ffd1a04f7c2036cdd0dfb369dda76debdcea26c1c3f535e75291e81b49d",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_h01.py": "03a60b88698e851b13ec9f086101420829d47678aa0077add45e958ee2a42ea4",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_i02_cache.py": "e14939e9961e5678cbae764808b07d1390f46aef2f1db7376e915dc55135be1d",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_messages.py": "0db447e8b95d1ca42c765524054e8d9189ed483cd263bf4953fb41da5739215a",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilot_frames.py": "3caf24a71bda8b51a4166b6293b018efbf3015877aaecc7c5291663ff5cf8060",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilots.py": "c86755198ccf65c77526aa38b5729add21d352debd03da409becbe712b588964",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_profile.py": "6f369b3ac75e4d8d455ec5d9e2a1f293463513ebb01430c485ca079508b22a0c",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_run.py": "5ab53520d76ee3c5885815c03b1b0143215e7f3b305f4cf85dde497224f72e22",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_s01.py": "2af4d97676b0b8330ac7edfaf5f3b91e64d0387dce97a34d4b4fe218c2bc5369",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_scene_candidates.py": "c697779d856be10f231632ab435c8d669420f107081b6191a356a662fae4942c",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_scope.py": "d4d549041655b4c78b9a1fb94bfca83f455972d884c58b346f5a9f3458e6567d",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_siso_mmse.py": "dc4bc7f3c5047bdf0c321aa4446d46d42e7609ab97a865dfe0b8a4d8492c5aec",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_statistics.py": "e3c0961efeb3371287ae325c1074e43ab5822f7f1b59abde3bd4aa9542d15fdf",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_timing_authority.py": "b0e39b553f8b42e6f5b829acf56e8562f82e22cd1556b7dcaecfb5f36475340b",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_timing_catalogue.py": "2fc055ca86e51cb9ea6c95a9cab1bf20f5b78d8d4beb4f0eb27ad2928e01a12c",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/support_transaction.py": "823f0242d0a0f78f302777cb777818cf87480a68d3f9339eb4734fce5828e2b6",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/system_config.py": "3b8d1db067a0682b3c6620268ed5219e15025290c94d48350324dd61bd133656",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/v3_initial.py": "598f6dabceebfea5141bd235e3f233bd8aaba6863d395e6447be38d3ca98ca94",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/v3_metrics.py": "62cdcfd00e295053dc3142f761b3a26117374c120941c0143e2a3ace0b3d05f7",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/v3_protocol.py": "20e50a9bdf38694994e96955321282c08dfc2f3acd65f49564bbb990d0f20729",
+      "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/v3_statistics.py": "c853186514c6e65efe1f3120f94723f20a7132cddcb6f2f18ea411196ff6093a",
+      "upstream/spafdm_receiver_handoff/frozen-i1-smoke-fixture-v1.json": "f1f4bfd7c31fa65da37da15ede46d8203d10426f80cacff91039cd4ec6db9465",
+      "upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py": "6af9d98b27eaa8cd43039d3f95421e5ed8e32054786276098b9acc022e31ae88"
+    },
+    "helper_hashes": {
+      "experiments/tf_cstate_validation_20260922/analyze_validation.py": "68a0d7aa61aa0087a7e178889e8b7d20192529093c8427014a03e1a7815e6685",
+      "experiments/tf_cstate_validation_20260922/audit_local_trials.py": "499cce26f519cd128b6e3fc56fda9520ba7d62e7eefc9beb360d687c32011c44",
+      "experiments/tf_cstate_validation_20260922/compact_state.py": "60260777c506f397057c0bbe87319ebd134707cb80dd23d1ec865815d901e962",
+      "experiments/tf_cstate_validation_20260922/geometry_validation.py": "db75b16ce3b243e0e899198690f9e4c3d896a81638ef48b78ebf94a8c4323aab",
+      "experiments/tf_cstate_validation_20260922/qualify_validation.py": "d7d49cb3cdc9c4a89f15ca553a632c83fd3cfebfbd0600e6ba926f2041bf4ae6",
+      "experiments/tf_cstate_validation_20260922/run_validation.py": "fe3cde76449a3fe05a06c6202684ada9410329744b29498eda4ccfc3205b87bc",
+      "experiments/tf_cstate_validation_20260922/test_analyze_validation.py": "b8baf236445469df6a057d322e419690bad4fd409b2d9893b63283c909903791",
+      "experiments/tf_cstate_validation_20260922/test_audit_local_trials.py": "0ef04cc9fdaf93ef258f00a4ed64fc002de5bf8372f1c0a335ab9e352e64bb87",
+      "experiments/tf_cstate_validation_20260922/test_geometry_validation.py": "5aa8176a5d665f2081d8827136bbf0397930603cda1931043e8207b87ad0c403",
+      "experiments/tf_cstate_validation_20260922/test_qualify_validation.py": "5ea6e60e79aecb0a0c618b403255f5c0ddcceb001691ccb559c1344c0ab47bce",
+      "experiments/tf_cstate_validation_20260922/test_run_validation.py": "2e55295145dbdddbc1b370090994aa766b4a69e9b78f447f8107804a58793b82",
+      "experiments/tf_geometry_reopen_20260922/analyze_reopening.py": "8a2c141c71d02fd472514745c79967fe00dba7ece5c8e360f8e64a00e6809b0e",
+      "experiments/tf_geometry_reopen_20260922/geometry_reopen.py": "ad888de73a906d4167938a3391c288db68dd7edb4ec42da0d2e4598079ecf633",
+      "experiments/tf_geometry_reopen_20260922/qualify_reopening.py": "3106cb97e50071f2c5688d23d7a4a50479fc24e9b4cebaa825095caaa7424a1b",
+      "experiments/tf_geometry_reopen_20260922/run_reopening.py": "665c7203f12a8fd0265a80332305cc18c85e5372b703df5e2dd625bac2422b65",
+      "experiments/tf_geometry_reopen_20260922/test_analyze_reopening.py": "cf81ca23db02a6f441d9130d8af8d846ce0f086f655f79a42c55b36ece8a3c1c",
+      "experiments/tf_geometry_reopen_20260922/test_geometry_reopen.py": "14d8e3c205c910d8f9968d0bd8df08dc3a00de2e352ef5dff2b0e68dd3c844de",
+      "experiments/tf_geometry_reopen_20260922/test_run_reopening.py": "3cefcd028158d30e526c38859e081a9f2e277326ab34bb8daaae440e01fb08af",
+      "experiments/tf_production_gap_audit_20260922/audit_io.py": "6919e0672d87736ad040d87a6ad6a272972278646328dd7a2db0b5fe6d0c0ac7",
+      "experiments/tf_production_gap_audit_20260922/interventions.py": "b755c88230d245e74d88a6a92960a5f880946a3f8c44f39e8ada4f80187c1ec5",
+      "experiments/tf_production_gap_audit_20260922/metrics.py": "16dfe7249eec51c8b7895e0ee2cbecdaeab5d7f5ca417f32ee6c4bce7d9307b4",
+      "experiments/tf_production_gap_audit_20260922/run_interventions.py": "8b743dcf97f0dcf0b674d953e3430c09550918b2a9a22fa81acc4f71fdce219c",
+      "experiments/tf_production_gap_audit_20260922/test_interventions.py": "5dae5811261c3b8104cffb1fed315ccbdd8f7bd8a442fe62eb921dbe2f2faad6",
+      "experiments/tf_production_gap_audit_20260922/test_metrics.py": "25b7faeac48b396fe8a292b176f47d754114e69a775ecede55f3becc290677a8",
+      "experiments/tf_production_gap_audit_20260922/test_witness_analysis.py": "4be5d166265275ca5449894e5b6e1f357214b931aeb6e8c8aa3f55161c5e16cf",
+      "experiments/tf_production_gap_audit_20260922/verify_evidence.py": "b90e6e9947da05b02c68447cfdddb66c61a9900b96e7ff00a72642702cd438dc",
+      "experiments/tf_production_gap_audit_20260922/verify_witness.py": "b73437bedf1833c458b96f53a4e8d27bd577a31c660a77821cbd150f38600bc2",
+      "experiments/tf_production_gap_audit_20260922/witness_analysis.py": "9d5e25e94390282bebf570d326bcbbb4dac209ede5bb6110b7e1e02ff0c27c66"
+    },
+    "population_ledger_sha256": "ac143ab18206e8cafec50e49e42ecbb5066a7d631e2d4c3ad703d70f582b11e6",
+    "ldpc_cache_sha256": "cbb1557dbbd9ac27bdaf27099ccca2d831943bd1a27d14e46faedf4e9fb9c052"
+  },
+  "environment": {
+    "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "hostname": "liunxgpu",
+    "machine": "x86_64",
+    "numpy": "1.26.4",
+    "scipy": "1.10.1",
+    "torch": "2.5.1+cu121",
+    "matplotlib": "3.7.1",
+    "cuda_visible_devices": "",
+    "torch_cuda_available": false,
+    "torch_num_threads": 1,
+    "torch_num_interop_threads": 1,
+    "torch_pre_context_num_threads": 1,
+    "torch_pre_context_num_interop_threads": 64,
+    "torch_binding_authority": "receiver context build; verified before first receiver run",
+    "thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "context_header": {
+    "schema": "frozen-i1-smoke-fixture-v1",
+    "checkpoint_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/07_checkpoint/frozen-c2rel-checkpoint.pt",
+    "checkpoint_sha256": "052ecfab8eff7780c49038d9bb4f16f92272ee22322fa05b6f65029cc3112a91",
+    "code_g_sha256": "bfd4247263adedc9a095b87603c2a7a4c2f2e8cb83f7e78bad721c5b06eaa6af",
+    "receiver": {
+      "arm": "a0",
+      "receiver_shell": "direct40",
+      "active_cap": 40,
+      "repair": "disabled",
+      "outer_iterations": 10,
+      "bp_iterations": 20,
+      "ldpc_maxiter": 50
+    },
+    "system": {
+      "n_total": 1024,
+      "l_max_cap": 102,
+      "k_max_cap": 2,
+      "rho": 0.5,
+      "c1": 0.00244140625,
+      "c2": 1.9751241797117955e-07
+    },
+    "environment": {
+      "python": "3.10.20",
+      "numpy": "1.26.4",
+      "torch": "2.5.1+cu121"
+    },
+    "truth_access": "input hashes and offline scoring only; the receiver never reads H"
+  },
+  "setup_seconds": 3.0650953599251807,
+  "pid": 769541,
+  "argv": [
+    "issues/20261001-afdm-innovation-exploration/experiments/run_development.py",
+    "--project",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation",
+    "--out",
+    "issues/20261001-afdm-innovation-exploration/experiments/development_v1",
+    "--registration",
+    "issues/20261001-afdm-innovation-exploration/experiments/dev_registration.json",
+    "--run",
+    "--qualification",
+    "issues/20261001-afdm-innovation-exploration/experiments/qualify_v1"
+  ],
+  "started_epoch": 1790835971.761667,
+  "deadline_epoch": 1790838676.1024442,
+  "registration_sha256": "ae4f8e2e5343df4c3549e0e1e4f1442191d38c376023ba07b43c500ac4c7ccb4",
+  "registration": {
+    "schema": "innovation-dev/1",
+    "stage": "development",
+    "selection_source_sha256": "e08a5517d95368fdc293428bf262994b1a72801d77be5c63a8aecf4e3f96131b",
+    "observation_ids": [
+      "s650_f0000",
+      "s650_f0001",
+      "s650_f0002",
+      "s650_f0003",
+      "s650_f0004",
+      "s650_f0005",
+      "s650_f0006",
+      "s650_f0007",
+      "s650_f0008",
+      "s650_f0009",
+      "s650_f0010",
+      "s650_f0011",
+      "s650_f0012",
+      "s650_f0013",
+      "s650_f0014",
+      "s650_f0015",
+      "s650_f0016",
+      "s650_f0017",
+      "s650_f0018",
+      "s650_f0019",
+      "s650_f0020",
+      "s650_f0021",
+      "s650_f0022",
+      "s650_f0023",
+      "s650_f0024",
+      "s650_f0025",
+      "s650_f0026",
+      "s650_f0027",
+      "s650_f0028",
+      "s650_f0029",
+      "s650_f0030",
+      "s650_f0031",
+      "s650_f0032",
+      "s650_f0033",
+      "s650_f0034",
+      "s650_f0035",
+      "s650_f0036",
+      "s650_f0037",
+      "s650_f0038",
+      "s650_f0039",
+      "s650_f0040",
+      "s650_f0041",
+      "s650_f0042",
+      "s650_f0043",
+      "s650_f0044",
+      "s650_f0045",
+      "s650_f0046",
+      "s650_f0047",
+      "s650_f0048",
+      "s650_f0049",
+      "s650_f0050",
+      "s650_f0051",
+      "s650_f0052",
+      "s650_f0053",
+      "s650_f0054",
+      "s650_f0055",
+      "s650_f0056",
+      "s650_f0057",
+      "s650_f0058",
+      "s650_f0059",
+      "s650_f0060",
+      "s650_f0061",
+      "s650_f0062",
+      "s650_f0063",
+      "s650_f0064",
+      "s650_f0065",
+      "s650_f0066",
+      "s650_f0067",
+      "s650_f0068",
+      "s650_f0069",
+      "s650_f0070",
+      "s650_f0071",
+      "s650_f0072",
+      "s650_f0073",
+      "s650_f0074",
+      "s650_f0075",
+      "s650_f0076",
+      "s650_f0077",
+      "s650_f0078",
+      "s650_f0079",
+      "s650_f0080",
+      "s650_f0081",
+      "s650_f0082",
+      "s650_f0083",
+      "s650_f0084",
+      "s650_f0085",
+      "s650_f0086",
+      "s650_f0087",
+      "s650_f0088",
+      "s650_f0089",
+      "s650_f0090",
+      "s650_f0113",
+      "s650_f0127",
+      "s650_f0160",
+      "s650_f0197",
+      "s650_f0240",
+      "s650_f0275",
+      "s650_f0285",
+      "s650_f0390",
+      "s650_f0391",
+      "s650_f0413",
+      "s650_f0415",
+      "s650_f0456",
+      "s650_f0462",
+      "s650_f0464",
+      "s650_f0519",
+      "s650_f0579",
+      "s650_f0593",
+      "s650_f0644",
+      "s650_f0647",
+      "s650_f0678",
+      "s650_f0718",
+      "s650_f0720",
+      "s650_f0740",
+      "s650_f0761",
+      "s650_f0770",
+      "s650_f0797",
+      "s650_f0810",
+      "s650_f0815",
+      "s650_f0824",
+      "s650_f0827",
+      "s650_f0871",
+      "s650_f0882",
+      "s650_f0938",
+      "s650_f0955",
+      "s650_f0965",
+      "s650_f0996",
+      "s650_f1008"
+    ],
+    "arms": [
+      "scalar",
+      "coherent",
+      "full"
+    ],
+    "smoke_ids": [
+      "s650_f0044"
+    ],
+    "seconds_limit": 2700,
+    "allocation": "40 old TF failures + earliest88 TF successes; exposed enrichment, not population FER",
+    "branch": "unchanged CSTATE20; reaction only in third TF",
+    "gain_prior": "unchanged CN(0,I/P)",
+    "frame_order": "ascending ID",
+    "arm_order": "rotate by frame index",
+    "truth_policy": "producer accepts observed y/pilot/sigma2 only; separate scorer",
+    "source_sha256_pending": false,
+    "locked_hashes": {
+      "runner_sha256": "8ecf53ca020f265a6d30269f61dbc47c7c9056df5bb2d895170c41110233f2f3",
+      "adapter_sha256": "586ffb8b59738e39e31b981930c7023928643c936198877e2e59a420097ad89f",
+      "source_hashes": {
+        "src/block_bilinear.py": "f57545a65e936add0ca23547e3eab78d5b2a099ec1d304c6e2f1d3e0155fce83",
+        "src/fast_bilinear.py": "873a83ff22c76b7c087c4e1aad3f7a5e6079be981b13e79a9462819ef00a9f12",
+        "src/joint_tangent.py": "b20e07d335cfa2a1b8621717193e936e2fad0a8c4874518a60100f151a57a487",
+        "src/joint_tangent_exploration.py": "93e9bd4ff9390d8876fad8a992aabeda014a009dc81e6de075539b118518781f",
+        "src/native_controls.py": "751a9e954409c1c9a4e0ef15db3bc69b9711e190e8480387931fb3995edcaf47",
+        "src/native_twofft.py": "6146ccb48bb64b90c7d1fb8da93b2d0b59e84c6e8100eb2f259e9ee22114168d",
+        "src/twofft.py": "c54e832716d72530e38a9b1090ca24f8f8b3c8f4185db0914d30e5f7e2ab9ff0",
+        "tests/audit_outputs.py": "7460d63bad3beceee5f7bf5673d843c23a5bec4228432d57a80f3d330f80e419",
+        "tests/benchmark_fourfft.py": "09298fb06c3c3972bc762a7f66de7670ea642649766ef718302e82b831f18782",
+        "tests/benchmark_twofft.py": "8641d29be43c2fb6a636fb8ff37156fabf10da52f78b4ca7f9b69805c9e51f12",
+        "tests/screen_block.py": "e3093023b6d7d695fec2cb2ce28b90c84ef9bef3d5bcaae70902efdd1b5b031c",
+        "tests/screen_fair_controls.py": "3a3d5cdcdbb188ada48cccd773c243fd1e13b485dc51bc40d08c58364ea2dabe",
+        "tests/screen_fastamp.py": "95b6d3028d9ce5a9c90e940964d05efb0e601ac2988d2faddfc1c3aab5d1340f",
+        "tests/screen_gain_factorial.py": "610de5b030062f22f933c7d8bf4047ab9adff1255584cefc8da320893ebad1cb",
+        "tests/screen_native.py": "e6f34e099e18ef5535c0195a1853bfa358cb11173150d9fb6543186cf801749a",
+        "tests/screen_point_clean.py": "59ac6d2b22d49ef2589ba40c30ab602b7120f0eb049033d0dae46aab8e406a1b",
+        "tests/screen_scalaramp.py": "e31dee8d31a3b5c2effed156e98e14c0e93a3be529016b076ff1ab8b1dbcad7c",
+        "tests/screen_six_db.py": "aa5d4b10adc640593f893eceee8967723686a63615f849c6e9966c4740569beb",
+        "tests/screen_tangent.py": "cd57b86f1772cf90e148901079f545d27c5957629a7bacc527d0db43115795cb",
+        "tests/screen_tangent_fixed.py": "43d82236d13d80fdaa90ff94ae60c74f8be5eb61d1cc8f225454b0ca3027aa33",
+        "tests/screen_twofft_native.py": "d68fe6ef9e53b30b9dda4f625ca2bc53213c90ab86216930c27b44ba48627454",
+        "tests/test_checkpoint_contract.py": "c72a30f38129e4273e1faa25fd4d778b13d84d661af053a15906a6c62e317126",
+        "tests/test_contractions.py": "e4a402d654f18feaf8bde1ed99dbb3d4b5d86104328538a885cebe58a206f6e1",
+        "tests/test_twofft.py": "6d337997233fd0ca307c4106e28163863d2f1939d41cf9b593192b188c614f34",
+        "docs/CODEX_HANDOFF.md": "9c764698e7b3e9271d313d2ad21233d81eb00f1fe59d07ef0815a5616c3beed7",
+        "docs/RESEARCH_VERDICT.md": "9b99fd27bddcdcfc4bd2b4197c8614fab18a952f2c9c8c27d39d80d8c6336e5d",
+        "protocol/frozen_next_ticket.json": "c0d988881501579324fbb1394464173518f4c44e290f0ea272627c192221ec17"
+      },
+      "baseline_hashes": {
+        "src/analyze.py": "94aae6c420ba593d6bc1a40de69954cf2e01267ea4a77f85e03cad64fc98cb39",
+        "src/bilinear.py": "6db5127f24622cb0222c1af457a2f03b79200ecd08eab5d8ef341cbfbb857228",
+        "src/evidence.py": "d778c545de277fe2a012db1cf065edfff1f035bf5c2565480361c49e7e6efb56",
+        "src/make_transfer_lock.py": "7072babc46383535306688e4ea7aac06966dce6cf926bde3ec8c0e0ae6d26618",
+        "src/messages.py": "9b19937c90a6e2b15f30d4e326320a38cd2635f9c0c5b14814406991da25ec95",
+        "src/offgrid.py": "d136655055700af7cc6299783f33caf47810c80e804fbf210b8b688e53e598f5",
+        "src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+        "src/receiver.py": "44221f91a4ff510b7f21e36300d6c5657be2ec2171a866fd48efe38fa2d95562",
+        "src/run_local.py": "2cf3a53e37730fb8311addd5fa1f3881e5d45675059203ba1a8a3c4480fd0794",
+        "src/seal.py": "893bdd8e1c09028fd900426a97ee23b58e97531bdfa39f3ec9e81d80694cea3c",
+        "src/structured_ep.py": "bf778850024de234a674c3283b268db8d894e57b8a17942d1b441a20d367cdd0",
+        "tests/benchmark_kernels.py": "6766111242355d03a45cc2caae84061c17984934929430367bb690572ac56144",
+        "tests/mechanism_screen.py": "539fc6666c2a2ee20b3cbc6366b055667c1248370b555fee197e08c4eb86ef55",
+        "tests/test_baselines.py": "633d05e23947fd45ff0fd4433bfbb64cf60659b525e8319b4d3e0d537820da26",
+        "tests/test_bilinear.py": "e7e7679fd151e5b0267e3825b8b89065df66eca2c854a998a3f044880bba638b",
+        "tests/test_cache.py": "5237bd1911fc5d22deace7bc5adcae8321e867b9559888cc012a2fe52e67f4ad",
+        "tests/test_core.py": "65ada9a5bf2c28f56dbd349521067224b573dbb7cb2440a4eabd8926b152f0f7",
+        "tests/test_decoder_observer.py": "16a06b360b5315fe2c1d1d7236db7a2cc8e440af9319a4e284c313793aa7c031",
+        "tests/test_evidence_contract.py": "c7cf289132023f2d6c641dd35643277540c182eb3eabe5115552ddf6ba1a11aa",
+        "tests/test_fallback.py": "7fe227455403313b0acf5285489fcaa2961358fbe150e2388effa9fb3483ac48",
+        "tests/test_fresh_decoder_accounting.py": "6b57dd606a6218692af6542628bf8e2ed0362a9fd643dc46ea6366778498f4fe",
+        "tests/test_integer_geometry.py": "53873a7251dd048edf922820b1236fc32286ebae804c64007964d02c45a09805",
+        "tests/test_integration.py": "25059a1f8501bb1949743792adc8fd029c685f18b2ac44fad8fcc7da5f21f501",
+        "tests/test_interface_control.py": "6f6b8a28c089326fa8ded86b15ad503d42eb012e34f8f318305b623372aba624",
+        "tests/test_native.py": "d1e0eb3aea444da6d13504869ec849eab1f22cf13ec393f16243f525ede72aec",
+        "tests/test_production_baselines.py": "f05cf2b6d1b98b2f44b780cedb13319888a35e7993cafbe4318589fadfb8efce",
+        "tests/test_protocol.py": "5b69aac3b69f40c4c33ecdc20431116a1093619f41d167ce20698d03bb6aba68",
+        "tests/verify_saved_decisions.py": "46843f0f98fc6481d2b8ab72d61d45c2bece77a7bf2a9054384d9d83a9bb5037",
+        "docs/DESIGN.md": "3076e3e467ec0efaf50de312d3e3f529b94a45111c81d0539d54be47acf8d14c",
+        "docs/LOCAL_PROTOCOL.md": "4d7232332d2a0fcb5ea5eead4c191169d06100a6e6a4536a0f14cfa89730e50a",
+        "docs/SOURCE_MAP.md": "9b2eaccfdc9eea43151584f5f4887562111691093c1d31d584597e1d5cb3fa0a",
+        "protocol/configurations.json": "ae840031ea37eb5d2ae1e7ebdc072e7385c4fe3e83ff0f399ee7a0e2042f814f",
+        "protocol/protocol.json": "8a68b115f682b9acecb01aa0f0ec8ab5ccdeae0592331294921826852c79a13b",
+        "upstream/spafdm_receiver_handoff/01_theory_and_state/DERIVATION_PACKAGE.md": "8fee146c64ee67464071beb16134d2cbad348f6847593b28b55382dced2b5199",
+        "upstream/spafdm_receiver_handoff/01_theory_and_state/STATE.md": "3c29d34670025ebffe3f23782fdc823d6976bee70db2f187b9713311a84f968e",
+        "upstream/spafdm_receiver_handoff/01_theory_and_state/l16-reassessment-v1.md": "527755e7b14caa1eee17f34d39534bed71b02bcb6f67267b0d5c31af007b2bfa",
+        "upstream/spafdm_receiver_handoff/01_theory_and_state/research-protocol.md": "bcda43cd342634b250d33ac8c06370029b14341ed196065bb3538e577bb0c526",
+        "upstream/spafdm_receiver_handoff/01_theory_and_state/theory_chapter.pdf": "170a1f446685980e1b32ff4429340984ca9c967f33cae4e7808a8c9cf4826697",
+        "upstream/spafdm_receiver_handoff/05_recent_evidence/tail-recheck-results-20260917.md": "a1cd16f94a350122ba503d1d743ffcd15e63d0de0a71f8bdfbcd11fd5337fe68",
+        "upstream/spafdm_receiver_handoff/05_recent_evidence/tail-terminal-results-v5.md": "c61def024c266fdfd2c9db35b23c0732f724193b42f829456fc97abc237d7492",
+        "upstream/spafdm_receiver_handoff/07_checkpoint/frozen-c2rel-checkpoint.pt": "052ecfab8eff7780c49038d9bb4f16f92272ee22322fa05b6f65029cc3112a91",
+        "upstream/spafdm_receiver_handoff/MANIFEST.txt": "64ebd706c1344922a838b393b6fcf1965e9d1d646c5de0fe50bbccd2323c317c",
+        "upstream/spafdm_receiver_handoff/README.md": "21f36b2d67671066dce3273961b650763fd337e7e99985d45db6eab78070eba3",
+        "upstream/spafdm_receiver_handoff/RUNTIME_CLOSURE.txt": "2192fd6e0760b8d9054151e1e2594a16689dc4420da1a8ed5ed4ca73ee504a62",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_baselines.py": "bc2457e5f21259df65fb1537021c50ea929991672ef1d9fb851213cb88f2d36a",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_env.py": "933ea6d8ac168f5af054754a6f58c41e378992a29a79fab91106b48209285487",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_layers.py": "2f242722450e4ad71820ab737e872f0bcbed1980f6ad0a545c81f659415a60c6",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_models.py": "af2186ebfceb744dab7a86efb76271724d7e4f9194a1adba52101487bead00c2",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_trainer.py": "41149471f5158566494a5a36e4143d1d06ed64f19a3b02b255153ecf2b3b7475",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/bandlimited_basis.py": "1642b2af1741c55ea8c9cbc96149c7db14c226bda83c83945ae735a7d10bac4d",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/bandlimited_estimation.py": "d916b9cf73ebc538c7abae87bb08f93b31fad8984d1e4e975ec9807c0c502f4d",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_frame_store.py": "4a9137ded59db12a97f0297cf973273b3dc4074e42ef104e0dcca72c369ad5dc",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_job_queue.py": "ec0bbcad0dcd91313d69f5a8cd83d646a5e099be2f3cc1d8e010db65e31a75a3",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_diagnostics.py": "c11c43d1353024a9ea873239b843743c9999a6cdf5f88644611282315c3999b9",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_eval.py": "86a03e3225640c44d88f8abc36c557729a4fb6c33b46721552d8ff94a8ea993c",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/cao_baseline/cao_isp_receiver.py": "804ff3b080ecd6f8287b7394ede9fea0fd3b32d1fc1f55559b9606e763515c59",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/classical_joint_unrolled.py": "412004661b718da8d6842ce37b48a090d528319211df2931c1940fafffafdec5",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/common_score.py": "0de40cfaa3543f1a553af4a24071d67c9a58bbdf0f2e533141f600dd1b8cafcb",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_bound.py": "0ada61369f573295d972208c88e2b5a15f3df7880f0bde4435bc081e08de199e",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_covhead_train.py": "11a6f603f8f233754bc3df1dc7dc81f1ea4eb794274859440c5cd23573bfe29f",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_gateA.py": "c1ebdfa5189829d8e8236c46d2c482a0247249f3bbc6dc02adc1d989a6f468a5",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_harvest.py": "b5344b320c6e36c94be1a569240bd6575e8d31c2bfa859ae454eef1dbdda3c61",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_metrics.py": "9677dbe42ef19378b84d06e0d01eb155933aa763886156ca99a8cd05688598a3",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_review.py": "19a7c99c68c50e22291d653dfea1d43000487d21f13a9150cf389509a292479d",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_budget.py": "e66305e0481d5583a0dbeb27cdd4a63b32fad09686501fecaaf77e44b197b65c",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_cancel.py": "5a3368aede97e04326c9f9828bac9da528adc3763eb27d38a80fff9ef2317b49",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_cancel_receiver.py": "2721995decde7c040f4e2d94ca94c1978a29caa7af35fd2e3a2c8e0f06198fb8",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_data.py": "4760b8a6f600b48405d2069e3cdf2147bef7c840170c1ca1379ebe8ee61c7ea0",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_detector.py": "34dc5e5669e534571ea07a2669ac1e4326bdcf8408feac137fa3445bad3afefb",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_factorial.py": "ec1863a2a4797f3ebc16208a1bd116fe9c6030da241ed8855e9430c993aea74e",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_logging.py": "db5beb7e1438268326520ddd9b201f501efdb39ff4478c144de366c3be2f5a16",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_physical.py": "fc752333f660b11a1e9bbc840283e0006a88a36f31f9d5aca9bfc6ee84368976",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_physical_receiver.py": "a2c803bd28230dcef4f17dcc95d450c1b50105d4d918e973f6b49d04589429c9",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_receiver.py": "56ea45f363b866fe851cc85de9185cb9f7ff87a431b917aab618cd7a828427fe",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_run.py": "0790c613ab1540a700766bcc5839858b7d136f4429a2141b1883baff7d5be3f4",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_select.py": "b4d23c45f2265774568baae95c4c675233b248de3c76d84667c8e833a1a5c65e",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_structure.py": "0f3beb7fd3fa218c6f9387a15699c13183a762729ede5d8614dca6b381abcf58",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/dirichlet_gain_prior.py": "c40b59c8fd228a1ede658051b0a832c8fedcadd77f5e9fd7ac560633fa2564ed",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/dirichlet_prior.py": "b2b0d29ce8b0a10bf8933e8ae14329e7d3b1f9a4194b60358e91d377bcdeb937",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/drce_baseline/drce_receiver.py": "0a1e0396277fdd61112a09d9c7a200f02fc11fb1735eff1ff219510526c342d7",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py": "dc58c3b28e1899fad05af72e72d7edc9e6a44c004bd7d176a93d1ba595672ba6",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc_coded_eval.py": "6bf60f1d8758f490c51ed429755c45ff33fe7f7ce52cfcdcf4e3e34f05fab8e9",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py": "3fd7031da28dec0ef917b4a1ac1a3e47552d981c8f0d0a3027b1d6aa693c76ef",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/feedback_diagnostics.py": "e98d5c01951f3f73d0561e5a1a4157d3bcc63dd9d2185e3f726858af715cc04a",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/fixed_basis_receiver.py": "6c6019481968b0adff7c4771711c7e050ba7d169a5e6d773d3b83878180c4868",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/light_gap_support_exchange.py": "c87cbee9facecd7ec68c64084003d47f21f7988689c4bb84646f43a10fa5b506",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/lmmse_baseline/lmmse_receiver.py": "77fa52a51d78263c0be7b9656fddc757534ca2bf0b4f375550a4f48ee985d914",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/loop9_cache_features.py": "56b0e444db72c1f7bd18dad6b4a403b0667d3d5fa41cec7e0e99602e0e03410b",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/mechanism_control.py": "5baa328c149a2aaee371dab3b5310401481b0ee2c11783146a2527d1134203c0",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/mp_detect_bp_torch.py": "5c3ef90babb745c887f90863f434960c2feeed90d802720de767b1fd8b684ec0",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/one_shot_true_data_ce.py": "ffc5313a408a719a6b7e360c5dad58e5b318cf518840c0f42f9ece5268060471",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/paired_learned_eval.py": "037ee917aaa376e94b3a63e55adfc2e70f92cfe0b19357fcde3d26a2116ab66e",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/pbigabp_baseline/pbigabp_receiver.py": "90b213578934c52b8d99602369ac30ed3ea075045e6f05be182fbd67655af171",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/pbigabp_baseline/pbigabp_receiver_v2.py": "a7b1b3e7bfcf185923e4ffe0c216d559376c8786c9236d8082c4bdae4e74de29",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/physical_stride.py": "abcb9950f53afa9eafa74cbb25ab9e708f551b92568078406c450aef63a69cdf",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/projected_gls.py": "5fe77aa16d7a0f92fd8e86398dbac0bd4b48cceba5d24a8fdea06fdd013db73d",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/representation_ledger.py": "1ebed901e0569fdad8fbf3c09c1e363120e6db43d6fa272ccbb5f8b10843928d",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/run_classical_baselines_python.py": "0a7eb3fef1252c7c776682a87dd2606a80249bd2f2152597838e287e1caefc98",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_a01_diagnostics.py": "f862c5542b847b3195d23da13c48c4bdfffc2b77b0bbc25ed8beb11a8ecfdf1c",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_baseline_run.py": "63acb125b20047faf7fc7344b5cc3b27d2e4b08824e6d5ba35f2d29096f2c4f9",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_baselines.py": "1c9a8bcb08729d6a4a5707578aef2869beff23735c93366cc7e506ef14bd1fa1",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_data.py": "494ab96e1ad68ea3319e61d54429730c061ef3cdba6117b362c2946af1feb303",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_detectors.py": "c4dc530c447be0ccb64c64afd21f7384b953529a9ed27d96b977e10b6005adc8",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_development_analysis.py": "faec0912e38e7773a6886e24a9bbc6c2f9b784ce9762648212b488c18b45c908",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback.py": "a423bdbe7cf6599ff3fe8ced4b8d5bcee1e38f77539d1a6ea3825e75be77dadc",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback_diagnostic.py": "80ab42f9c27d5402a825ef627c48c69446b11ad78e3056ae3fc0327e03f0081f",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback_run.py": "bff2adac28c72ca69795fb7ab51c180e737cc8590ae2c93d44bc666468c73635",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback_schedule.py": "9176d51cb4601f49e8375f803cf5357bdb23bf3b150e1b5dcaaa0ecfc6cb75b5",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py": "33533ffd1a04f7c2036cdd0dfb369dda76debdcea26c1c3f535e75291e81b49d",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_h01.py": "03a60b88698e851b13ec9f086101420829d47678aa0077add45e958ee2a42ea4",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_i02_cache.py": "e14939e9961e5678cbae764808b07d1390f46aef2f1db7376e915dc55135be1d",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_messages.py": "0db447e8b95d1ca42c765524054e8d9189ed483cd263bf4953fb41da5739215a",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilot_frames.py": "3caf24a71bda8b51a4166b6293b018efbf3015877aaecc7c5291663ff5cf8060",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilots.py": "c86755198ccf65c77526aa38b5729add21d352debd03da409becbe712b588964",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_profile.py": "6f369b3ac75e4d8d455ec5d9e2a1f293463513ebb01430c485ca079508b22a0c",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_run.py": "5ab53520d76ee3c5885815c03b1b0143215e7f3b305f4cf85dde497224f72e22",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_s01.py": "2af4d97676b0b8330ac7edfaf5f3b91e64d0387dce97a34d4b4fe218c2bc5369",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_scene_candidates.py": "c697779d856be10f231632ab435c8d669420f107081b6191a356a662fae4942c",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_scope.py": "d4d549041655b4c78b9a1fb94bfca83f455972d884c58b346f5a9f3458e6567d",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_siso_mmse.py": "dc4bc7f3c5047bdf0c321aa4446d46d42e7609ab97a865dfe0b8a4d8492c5aec",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_statistics.py": "e3c0961efeb3371287ae325c1074e43ab5822f7f1b59abde3bd4aa9542d15fdf",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_timing_authority.py": "b0e39b553f8b42e6f5b829acf56e8562f82e22cd1556b7dcaecfb5f36475340b",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_timing_catalogue.py": "2fc055ca86e51cb9ea6c95a9cab1bf20f5b78d8d4beb4f0eb27ad2928e01a12c",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/support_transaction.py": "823f0242d0a0f78f302777cb777818cf87480a68d3f9339eb4734fce5828e2b6",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/system_config.py": "3b8d1db067a0682b3c6620268ed5219e15025290c94d48350324dd61bd133656",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/v3_initial.py": "598f6dabceebfea5141bd235e3f233bd8aaba6863d395e6447be38d3ca98ca94",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/v3_metrics.py": "62cdcfd00e295053dc3142f761b3a26117374c120941c0143e2a3ace0b3d05f7",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/v3_protocol.py": "20e50a9bdf38694994e96955321282c08dfc2f3acd65f49564bbb990d0f20729",
+        "upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/v3_statistics.py": "c853186514c6e65efe1f3120f94723f20a7132cddcb6f2f18ea411196ff6093a",
+        "upstream/spafdm_receiver_handoff/frozen-i1-smoke-fixture-v1.json": "f1f4bfd7c31fa65da37da15ede46d8203d10426f80cacff91039cd4ec6db9465",
+        "upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py": "6af9d98b27eaa8cd43039d3f95421e5ed8e32054786276098b9acc022e31ae88"
+      },
+      "helper_hashes": {
+        "experiments/tf_cstate_validation_20260922/analyze_validation.py": "68a0d7aa61aa0087a7e178889e8b7d20192529093c8427014a03e1a7815e6685",
+        "experiments/tf_cstate_validation_20260922/audit_local_trials.py": "499cce26f519cd128b6e3fc56fda9520ba7d62e7eefc9beb360d687c32011c44",
+        "experiments/tf_cstate_validation_20260922/compact_state.py": "60260777c506f397057c0bbe87319ebd134707cb80dd23d1ec865815d901e962",
+        "experiments/tf_cstate_validation_20260922/geometry_validation.py": "db75b16ce3b243e0e899198690f9e4c3d896a81638ef48b78ebf94a8c4323aab",
+        "experiments/tf_cstate_validation_20260922/qualify_validation.py": "d7d49cb3cdc9c4a89f15ca553a632c83fd3cfebfbd0600e6ba926f2041bf4ae6",
+        "experiments/tf_cstate_validation_20260922/run_validation.py": "fe3cde76449a3fe05a06c6202684ada9410329744b29498eda4ccfc3205b87bc",
+        "experiments/tf_cstate_validation_20260922/test_analyze_validation.py": "b8baf236445469df6a057d322e419690bad4fd409b2d9893b63283c909903791",
+        "experiments/tf_cstate_validation_20260922/test_audit_local_trials.py": "0ef04cc9fdaf93ef258f00a4ed64fc002de5bf8372f1c0a335ab9e352e64bb87",
+        "experiments/tf_cstate_validation_20260922/test_geometry_validation.py": "5aa8176a5d665f2081d8827136bbf0397930603cda1931043e8207b87ad0c403",
+        "experiments/tf_cstate_validation_20260922/test_qualify_validation.py": "5ea6e60e79aecb0a0c618b403255f5c0ddcceb001691ccb559c1344c0ab47bce",
+        "experiments/tf_cstate_validation_20260922/test_run_validation.py": "2e55295145dbdddbc1b370090994aa766b4a69e9b78f447f8107804a58793b82",
+        "experiments/tf_geometry_reopen_20260922/analyze_reopening.py": "8a2c141c71d02fd472514745c79967fe00dba7ece5c8e360f8e64a00e6809b0e",
+        "experiments/tf_geometry_reopen_20260922/geometry_reopen.py": "ad888de73a906d4167938a3391c288db68dd7edb4ec42da0d2e4598079ecf633",
+        "experiments/tf_geometry_reopen_20260922/qualify_reopening.py": "3106cb97e50071f2c5688d23d7a4a50479fc24e9b4cebaa825095caaa7424a1b",
+        "experiments/tf_geometry_reopen_20260922/run_reopening.py": "665c7203f12a8fd0265a80332305cc18c85e5372b703df5e2dd625bac2422b65",
+        "experiments/tf_geometry_reopen_20260922/test_analyze_reopening.py": "cf81ca23db02a6f441d9130d8af8d846ce0f086f655f79a42c55b36ece8a3c1c",
+        "experiments/tf_geometry_reopen_20260922/test_geometry_reopen.py": "14d8e3c205c910d8f9968d0bd8df08dc3a00de2e352ef5dff2b0e68dd3c844de",
+        "experiments/tf_geometry_reopen_20260922/test_run_reopening.py": "3cefcd028158d30e526c38859e081a9f2e277326ab34bb8daaae440e01fb08af",
+        "experiments/tf_production_gap_audit_20260922/audit_io.py": "6919e0672d87736ad040d87a6ad6a272972278646328dd7a2db0b5fe6d0c0ac7",
+        "experiments/tf_production_gap_audit_20260922/interventions.py": "b755c88230d245e74d88a6a92960a5f880946a3f8c44f39e8ada4f80187c1ec5",
+        "experiments/tf_production_gap_audit_20260922/metrics.py": "16dfe7249eec51c8b7895e0ee2cbecdaeab5d7f5ca417f32ee6c4bce7d9307b4",
+        "experiments/tf_production_gap_audit_20260922/run_interventions.py": "8b743dcf97f0dcf0b674d953e3430c09550918b2a9a22fa81acc4f71fdce219c",
+        "experiments/tf_production_gap_audit_20260922/test_interventions.py": "5dae5811261c3b8104cffb1fed315ccbdd8f7bd8a442fe62eb921dbe2f2faad6",
+        "experiments/tf_production_gap_audit_20260922/test_metrics.py": "25b7faeac48b396fe8a292b176f47d754114e69a775ecede55f3becc290677a8",
+        "experiments/tf_production_gap_audit_20260922/test_witness_analysis.py": "4be5d166265275ca5449894e5b6e1f357214b931aeb6e8c8aa3f55161c5e16cf",
+        "experiments/tf_production_gap_audit_20260922/verify_evidence.py": "b90e6e9947da05b02c68447cfdddb66c61a9900b96e7ff00a72642702cd438dc",
+        "experiments/tf_production_gap_audit_20260922/verify_witness.py": "b73437bedf1833c458b96f53a4e8d27bd577a31c660a77821cbd150f38600bc2",
+        "experiments/tf_production_gap_audit_20260922/witness_analysis.py": "9d5e25e94390282bebf570d326bcbbb4dac209ede5bb6110b7e1e02ff0c27c66"
+      },
+      "population_ledger_sha256": "ac143ab18206e8cafec50e49e42ecbb5066a7d631e2d4c3ad703d70f582b11e6",
+      "ldpc_cache_sha256": "cbb1557dbbd9ac27bdaf27099ccca2d831943bd1a27d14e46faedf4e9fb9c052"
+    }
+  },
+  "qualification_result_sha256": "57629ff325adca9c5175f6b5247fd512c555c25f93cf77f81de198dbd3403992",
+  "observations": [
+    {
+      "observation_id": "s650_f0000",
+      "observation_path": "observed/s650_f0000.npz",
+      "observation_sha256": "5fc0bcec3152b7053b6724a752bfca4a79af80a7a8846ea3565815df4ddc5c54"
+    },
+    {
+      "observation_id": "s650_f0001",
+      "observation_path": "observed/s650_f0001.npz",
+      "observation_sha256": "d481996f2e0e709d4f5a4952373ea804d5aad6fc1ef39d148a4d6fd038184db1"
+    },
+    {
+      "observation_id": "s650_f0002",
+      "observation_path": "observed/s650_f0002.npz",
+      "observation_sha256": "dca13d3aad19352fdf15c1c3c7e8b9fac1aee3e4c9181c718823bda4e399f33b"
+    },
+    {
+      "observation_id": "s650_f0003",
+      "observation_path": "observed/s650_f0003.npz",
+      "observation_sha256": "e24d057365b5200a4098e4f3657d5658ab15458d397fbd361ab621ee4642d389"
+    },
+    {
+      "observation_id": "s650_f0004",
+      "observation_path": "observed/s650_f0004.npz",
+      "observation_sha256": "ddb3a129d265ba5319826cfd9eb922b20537b72389c31c13a0c01814368d4c26"
+    },
+    {
+      "observation_id": "s650_f0005",
+      "observation_path": "observed/s650_f0005.npz",
+      "observation_sha256": "157551cc761441f6a4f15d2faf0da9ded9a30b0b631d9d92fd580d37cc3fdb3e"
+    },
+    {
+      "observation_id": "s650_f0006",
+      "observation_path": "observed/s650_f0006.npz",
+      "observation_sha256": "b7f197bce785014339438e3b61e98a664af3eb3383c4c8ac82d9db86cea2b161"
+    },
+    {
+      "observation_id": "s650_f0007",
+      "observation_path": "observed/s650_f0007.npz",
+      "observation_sha256": "c9d08e28677a53101d65605c554b95897bda2a679d05bc9630d671c5ca3410cf"
+    },
+    {
+      "observation_id": "s650_f0008",
+      "observation_path": "observed/s650_f0008.npz",
+      "observation_sha256": "a57e0a9f0715a7094c7d8abc6bce017e134d68bf6c234e4802a62e30f2b58137"
+    },
+    {
+      "observation_id": "s650_f0009",
+      "observation_path": "observed/s650_f0009.npz",
+      "observation_sha256": "862d4681e876732f71922eec76539c6ea4ab4387c27a4029309ee652dcdc841c"
+    },
+    {
+      "observation_id": "s650_f0010",
+      "observation_path": "observed/s650_f0010.npz",
+      "observation_sha256": "928fbf3c8112c75cbb979a06b1e08eddf9aace9caf714740a3410e73a082b164"
+    },
+    {
+      "observation_id": "s650_f0011",
+      "observation_path": "observed/s650_f0011.npz",
+      "observation_sha256": "9791439153c729dbafc61eb4dd752365aca8fcf94f27a547e5b11ed40dd3ab6a"
+    },
+    {
+      "observation_id": "s650_f0012",
+      "observation_path": "observed/s650_f0012.npz",
+      "observation_sha256": "fc08e1a8220d8dc00afca08c0c383cfed53bbef5a7b80bc525c094f683ff0545"
+    },
+    {
+      "observation_id": "s650_f0013",
+      "observation_path": "observed/s650_f0013.npz",
+      "observation_sha256": "9edf104af02868bd945e53178ac1a23c21906f7896b17e7d955fa6837fd82a92"
+    },
+    {
+      "observation_id": "s650_f0014",
+      "observation_path": "observed/s650_f0014.npz",
+      "observation_sha256": "cfca5ca05b00567d8e93d0c3b0776df91e47a8298d122109e54d61fc6a5111f5"
+    },
+    {
+      "observation_id": "s650_f0015",
+      "observation_path": "observed/s650_f0015.npz",
+      "observation_sha256": "bca201573da201bd7b9d211f5c1086d18cb5664e0f997d932176b0862c5a8ce9"
+    },
+    {
+      "observation_id": "s650_f0016",
+      "observation_path": "observed/s650_f0016.npz",
+      "observation_sha256": "4e5538466d6395125a4b7ee270a85b8bcce558b21439963c4a77896e8a837a50"
+    },
+    {
+      "observation_id": "s650_f0017",
+      "observation_path": "observed/s650_f0017.npz",
+      "observation_sha256": "1d6167a4d5151ad6170d07163b6505957b37e56df4f4ea2579e685594bfcc206"
+    },
+    {
+      "observation_id": "s650_f0018",
+      "observation_path": "observed/s650_f0018.npz",
+      "observation_sha256": "1b1b4331f441c34d21ee36bfb460b28d92865f4a53beeb79898ab0115ce9853c"
+    },
+    {
+      "observation_id": "s650_f0019",
+      "observation_path": "observed/s650_f0019.npz",
+      "observation_sha256": "711f4fdf61969e3ade97d2d2a66c0ba88e9d2e1b3d27b823054fc1406bdf6594"
+    },
+    {
+      "observation_id": "s650_f0020",
+      "observation_path": "observed/s650_f0020.npz",
+      "observation_sha256": "705335822af0778d7c4d82e91ff21b8909315f42d76a14d236975368307f9119"
+    },
+    {
+      "observation_id": "s650_f0021",
+      "observation_path": "observed/s650_f0021.npz",
+      "observation_sha256": "7ae4467c2c14f2ac15900de5f4fd7659a9bdbc43278bf2190e8f92620ebf63b4"
+    },
+    {
+      "observation_id": "s650_f0022",
+      "observation_path": "observed/s650_f0022.npz",
+      "observation_sha256": "4a1c9b3fd5907fc4f2002cf4572702728b572dc8d67f3890bba0d3ff3019ac84"
+    },
+    {
+      "observation_id": "s650_f0023",
+      "observation_path": "observed/s650_f0023.npz",
+      "observation_sha256": "cca968d8f1b2a5a33b892bcdc7ee5ff30f80096446c720ef378c2d4bed25b52b"
+    },
+    {
+      "observation_id": "s650_f0024",
+      "observation_path": "observed/s650_f0024.npz",
+      "observation_sha256": "c31d75d9d47b70f8a9c9a8d2729f53d908a478b51fceb554449088493bddb2d2"
+    },
+    {
+      "observation_id": "s650_f0025",
+      "observation_path": "observed/s650_f0025.npz",
+      "observation_sha256": "eeb38186abc03b57d6fc44c327a6af1ee1754b02d07f2ffa2beb2a5a8aee59f1"
+    },
+    {
+      "observation_id": "s650_f0026",
+      "observation_path": "observed/s650_f0026.npz",
+      "observation_sha256": "ce674d452709337c4521db2ec7a5e2caaad05adf1030fd7ed0da5c46943f0fff"
+    },
+    {
+      "observation_id": "s650_f0027",
+      "observation_path": "observed/s650_f0027.npz",
+      "observation_sha256": "1a7d13cfffe5bf31d2d6af24257b1a2ed8d4ace4917c4039d21fd9fe84d6ed2f"
+    },
+    {
+      "observation_id": "s650_f0028",
+      "observation_path": "observed/s650_f0028.npz",
+      "observation_sha256": "950260dd5378d6b7005800b8c52cc0399107fbdadb8f0965efd75a50b6e76400"
+    },
+    {
+      "observation_id": "s650_f0029",
+      "observation_path": "observed/s650_f0029.npz",
+      "observation_sha256": "bad0603014b3d704176d52aa874eec50def020531f359f7a3d0e62b37ff3b953"
+    },
+    {
+      "observation_id": "s650_f0030",
+      "observation_path": "observed/s650_f0030.npz",
+      "observation_sha256": "404d4c5ab363300d34f1e20b877686792b080d0701912ec0f1d8b72768445e12"
+    },
+    {
+      "observation_id": "s650_f0031",
+      "observation_path": "observed/s650_f0031.npz",
+      "observation_sha256": "cfc7b9a4cc8a29e410843a5e7fa15473de8d234c20f6cd04d68b4fc7e3c0132e"
+    },
+    {
+      "observation_id": "s650_f0032",
+      "observation_path": "observed/s650_f0032.npz",
+      "observation_sha256": "d6f805911308353b35717048d0a5120e2e3b45cadf9dcdcaca9db69902219744"
+    },
+    {
+      "observation_id": "s650_f0033",
+      "observation_path": "observed/s650_f0033.npz",
+      "observation_sha256": "81ab5ba36e417a440c55db8edfdb8e55703c49322727fb3ef231674d2ce37c88"
+    },
+    {
+      "observation_id": "s650_f0034",
+      "observation_path": "observed/s650_f0034.npz",
+      "observation_sha256": "de55892dc61e7841a456976de06da01d43d0b0908512fc4d4b41e23c7c8117ca"
+    },
+    {
+      "observation_id": "s650_f0035",
+      "observation_path": "observed/s650_f0035.npz",
+      "observation_sha256": "8b50aff812213aa5fe0070a55d55257fd8f4891c9bf78b758a689e3cf1d72bbf"
+    },
+    {
+      "observation_id": "s650_f0036",
+      "observation_path": "observed/s650_f0036.npz",
+      "observation_sha256": "a92740c92f2c5131ba82256d57a687884a357386d66ea223d0926ecde2395559"
+    },
+    {
+      "observation_id": "s650_f0037",
+      "observation_path": "observed/s650_f0037.npz",
+      "observation_sha256": "f2cdfb3a44e13e54b9c3cb3f0137c10efcecf2f74e0ea7cb253a944b32e0dcfa"
+    },
+    {
+      "observation_id": "s650_f0038",
+      "observation_path": "observed/s650_f0038.npz",
+      "observation_sha256": "d45517bf076fee5c898846e45a39bcf8a78bfdcbd273e58794d3154e6ae4a259"
+    },
+    {
+      "observation_id": "s650_f0039",
+      "observation_path": "observed/s650_f0039.npz",
+      "observation_sha256": "63cc5911ff8c71c0d1494b323e7a0b8621d2f21f949b9c88c2d25e5664782f01"
+    },
+    {
+      "observation_id": "s650_f0040",
+      "observation_path": "observed/s650_f0040.npz",
+      "observation_sha256": "a60b7055ab74808699c236d69882512e1685f85a624d8f9a6ddf27528936da57"
+    },
+    {
+      "observation_id": "s650_f0041",
+      "observation_path": "observed/s650_f0041.npz",
+      "observation_sha256": "29ada5647178e765e7cf7475a2e7f5cd3dac982f3d513f7a7249e84fc4552c2c"
+    },
+    {
+      "observation_id": "s650_f0042",
+      "observation_path": "observed/s650_f0042.npz",
+      "observation_sha256": "7ff23bd06f2445b2b77ff121f4cfff7e06d57b0d21d3a8096e595a734b68a17d"
+    },
+    {
+      "observation_id": "s650_f0043",
+      "observation_path": "observed/s650_f0043.npz",
+      "observation_sha256": "57296464e8f0fb15c6334285f2840d6864f957d0f02df064a6aa23a37d1dae70"
+    },
+    {
+      "observation_id": "s650_f0044",
+      "observation_path": "observed/s650_f0044.npz",
+      "observation_sha256": "0bdc3f446f7beed048a3276543e6d876faffde228493d43ccd93be7b21eec906"
+    },
+    {
+      "observation_id": "s650_f0045",
+      "observation_path": "observed/s650_f0045.npz",
+      "observation_sha256": "9d11603eb749416bdd3c2093feb57c4c29b9d20d30360263f4bda0d47c58e612"
+    },
+    {
+      "observation_id": "s650_f0046",
+      "observation_path": "observed/s650_f0046.npz",
+      "observation_sha256": "7775d2bd88adee11e7cbb1e2847caf31fd4e984d37cca5a0bd5295533f39777d"
+    },
+    {
+      "observation_id": "s650_f0047",
+      "observation_path": "observed/s650_f0047.npz",
+      "observation_sha256": "cbb67d3db9f7f27c800805a05863de69c1cd6b8e99387472c347291a6ac09907"
+    },
+    {
+      "observation_id": "s650_f0048",
+      "observation_path": "observed/s650_f0048.npz",
+      "observation_sha256": "5c7605f58e24ed97fa54ad99802b91c43b7f83620ea4601843af331296fb814b"
+    },
+    {
+      "observation_id": "s650_f0049",
+      "observation_path": "observed/s650_f0049.npz",
+      "observation_sha256": "389be2c2a3e2b5bd34830c86f938a8915759da2806b51635270981c192acefa8"
+    },
+    {
+      "observation_id": "s650_f0050",
+      "observation_path": "observed/s650_f0050.npz",
+      "observation_sha256": "5275e9c526aa4b4c7075a55fac126657f9ae0fac19e9228ebe29d2cacddffc52"
+    },
+    {
+      "observation_id": "s650_f0051",
+      "observation_path": "observed/s650_f0051.npz",
+      "observation_sha256": "ca2ebe23d1d1d04c758511751b0b9cbd72a092ebde55a3a8d492a2cb7ed4bb22"
+    },
+    {
+      "observation_id": "s650_f0052",
+      "observation_path": "observed/s650_f0052.npz",
+      "observation_sha256": "8084d26a68c9e86a86fad65dfd3e84d3fb6fd6f241ec7a8ed149292bba6dc27f"
+    },
+    {
+      "observation_id": "s650_f0053",
+      "observation_path": "observed/s650_f0053.npz",
+      "observation_sha256": "e945d27a43b780280fa3d20c549cd3085ae4b1c19d2db2b49b91ee123556315a"
+    },
+    {
+      "observation_id": "s650_f0054",
+      "observation_path": "observed/s650_f0054.npz",
+      "observation_sha256": "104efbdc4107a6b17d6d7fa35ba5b1b7e4f0b96e1b0054cb2d77407c87e19566"
+    },
+    {
+      "observation_id": "s650_f0055",
+      "observation_path": "observed/s650_f0055.npz",
+      "observation_sha256": "b38ebb633dec2c8701247de2334f7fb3e6f0c51409b4623b308b3cef9f4dc987"
+    },
+    {
+      "observation_id": "s650_f0056",
+      "observation_path": "observed/s650_f0056.npz",
+      "observation_sha256": "61aa19e452d5a62a12a8182093b5d6e5f03177369f3b9e8790f9397d965fdd28"
+    },
+    {
+      "observation_id": "s650_f0057",
+      "observation_path": "observed/s650_f0057.npz",
+      "observation_sha256": "5f381eb59d10b5540a2f87a1976efa7222ec155631cfec69e3c51e0438e815df"
+    },
+    {
+      "observation_id": "s650_f0058",
+      "observation_path": "observed/s650_f0058.npz",
+      "observation_sha256": "06aec4bee62c9924c5e4de9b52334c80da8a6767b018a353c861972fba29d89b"
+    },
+    {
+      "observation_id": "s650_f0059",
+      "observation_path": "observed/s650_f0059.npz",
+      "observation_sha256": "b31c630b054eebfbb0c9ab98e5721d21e608059d23f129c590f3aa958e0d2c6b"
+    },
+    {
+      "observation_id": "s650_f0060",
+      "observation_path": "observed/s650_f0060.npz",
+      "observation_sha256": "0b38f7ca15d3d69b928d34c05a1c753928fa1bb439f1b787911b296ff2ffd812"
+    },
+    {
+      "observation_id": "s650_f0061",
+      "observation_path": "observed/s650_f0061.npz",
+      "observation_sha256": "5fff201ad42cd70bafa9400807c9e938caea9cd4d5176020e1c9fde0324600fb"
+    },
+    {
+      "observation_id": "s650_f0062",
+      "observation_path": "observed/s650_f0062.npz",
+      "observation_sha256": "f54ae9b8a345a9a5cb486363402dfd3afe40ff77e055a2ac1fb9ca86a74bda59"
+    },
+    {
+      "observation_id": "s650_f0063",
+      "observation_path": "observed/s650_f0063.npz",
+      "observation_sha256": "6b62f70e24b64b53a5ed113864329c512532963f1f264f08764636afe05975c8"
+    },
+    {
+      "observation_id": "s650_f0064",
+      "observation_path": "observed/s650_f0064.npz",
+      "observation_sha256": "b60e41c93b5f05240af85b7148df3347736b7e122869cb97f2459be21cd88637"
+    },
+    {
+      "observation_id": "s650_f0065",
+      "observation_path": "observed/s650_f0065.npz",
+      "observation_sha256": "42428805d507595e4181b85ecfa97c96169fa4c41ef6a834f91ca1478b899b1c"
+    },
+    {
+      "observation_id": "s650_f0066",
+      "observation_path": "observed/s650_f0066.npz",
+      "observation_sha256": "76d4c4a6b038d9a93da71794353d051884d0fc2bcdea551b48a893a62937ad03"
+    },
+    {
+      "observation_id": "s650_f0067",
+      "observation_path": "observed/s650_f0067.npz",
+      "observation_sha256": "c637293de73c58ffe43ba87d3ad576329c6eb58b2031b245e94655d9b0bdecda"
+    },
+    {
+      "observation_id": "s650_f0068",
+      "observation_path": "observed/s650_f0068.npz",
+      "observation_sha256": "a8d962afe1fa4eb3991b09709d7fd608482c9a089269bbf60964f1a336084f5c"
+    },
+    {
+      "observation_id": "s650_f0069",
+      "observation_path": "observed/s650_f0069.npz",
+      "observation_sha256": "9f605deb4bab7fe466e77e1d907107b84425597f263b43ca80daedb5ad136965"
+    },
+    {
+      "observation_id": "s650_f0070",
+      "observation_path": "observed/s650_f0070.npz",
+      "observation_sha256": "92461a498d0d7b7eade867661128b390867c5235d142699ebe3b005d13e58dc0"
+    },
+    {
+      "observation_id": "s650_f0071",
+      "observation_path": "observed/s650_f0071.npz",
+      "observation_sha256": "99225693c279766fe21cd56a149b794ff2a148cb3bf3006836c961a92daa341e"
+    },
+    {
+      "observation_id": "s650_f0072",
+      "observation_path": "observed/s650_f0072.npz",
+      "observation_sha256": "0b49cb8ecb446349b5878aedd3698dc79526ff958e3fbad19248a9dfa44f48f9"
+    },
+    {
+      "observation_id": "s650_f0073",
+      "observation_path": "observed/s650_f0073.npz",
+      "observation_sha256": "e2df4af351d7cc9484df6bdb458b9a610a70c929ee939657dc977f691d81ad9a"
+    },
+    {
+      "observation_id": "s650_f0074",
+      "observation_path": "observed/s650_f0074.npz",
+      "observation_sha256": "46c626f78c3733acb8e06cbe5c65fae5d552bc2900413889651b46e41609decd"
+    },
+    {
+      "observation_id": "s650_f0075",
+      "observation_path": "observed/s650_f0075.npz",
+      "observation_sha256": "b26c34ca34c3953efa2019e87ea764721cd44d405b2536c00d6ac8051267a2a0"
+    },
+    {
+      "observation_id": "s650_f0076",
+      "observation_path": "observed/s650_f0076.npz",
+      "observation_sha256": "385f4d472a703d22d473f94374bbfadc6eee5029bb1fe22a6666a00bd3eadb85"
+    },
+    {
+      "observation_id": "s650_f0077",
+      "observation_path": "observed/s650_f0077.npz",
+      "observation_sha256": "dc675bf59588562ef98a0b7ddf501de44245b4ab108a29c2615e1ee7c53d279e"
+    },
+    {
+      "observation_id": "s650_f0078",
+      "observation_path": "observed/s650_f0078.npz",
+      "observation_sha256": "6f0fef21637d09fe7015054d7744d5b031ec46f9fbc23af2ddad05c9c5375c23"
+    },
+    {
+      "observation_id": "s650_f0079",
+      "observation_path": "observed/s650_f0079.npz",
+      "observation_sha256": "8bdd24f4080078903c7cbc33714885dd3f29251f933d44a682e8e4f4630cfdae"
+    },
+    {
+      "observation_id": "s650_f0080",
+      "observation_path": "observed/s650_f0080.npz",
+      "observation_sha256": "eff4960537746ee2db0cfebbc5d036d2bc711cb3cd2a05c2f59fa1739c19eb23"
+    },
+    {
+      "observation_id": "s650_f0081",
+      "observation_path": "observed/s650_f0081.npz",
+      "observation_sha256": "897acb7cd71423c3df2f8475f6e032d0595e7de8c3dd3feed034ab2de6868ce7"
+    },
+    {
+      "observation_id": "s650_f0082",
+      "observation_path": "observed/s650_f0082.npz",
+      "observation_sha256": "a6d8958dcf97cc0144a7c5fc7195bdf0e102670dc757af0d68734af03815f83d"
+    },
+    {
+      "observation_id": "s650_f0083",
+      "observation_path": "observed/s650_f0083.npz",
+      "observation_sha256": "4cb7373f18a399dc71a551bf3c3b397cdf57a7ad4a5dae3d159ee0c1c439f48f"
+    },
+    {
+      "observation_id": "s650_f0084",
+      "observation_path": "observed/s650_f0084.npz",
+      "observation_sha256": "2e8ea3967bfd57883e0434c5e94beeccd533bb24b287dba2bf086c12e90b3dac"
+    },
+    {
+      "observation_id": "s650_f0085",
+      "observation_path": "observed/s650_f0085.npz",
+      "observation_sha256": "8a63c734a92889ee91df4c3e1e52f03eace7f34edf794303a85ccaef9f8334ba"
+    },
+    {
+      "observation_id": "s650_f0086",
+      "observation_path": "observed/s650_f0086.npz",
+      "observation_sha256": "0358e4abe65540fd553ff4b80fc9b74f1df9f8f5537bb5f004af4f2f2290254f"
+    },
+    {
+      "observation_id": "s650_f0087",
+      "observation_path": "observed/s650_f0087.npz",
+      "observation_sha256": "c66e9cbcab51d360ba233689c640592ece6106e3c0acb061020e04210ede9681"
+    },
+    {
+      "observation_id": "s650_f0088",
+      "observation_path": "observed/s650_f0088.npz",
+      "observation_sha256": "f65e618efb4164fac9ede4b8b08a29599052983fb3807ecfb885fd26c09543e7"
+    },
+    {
+      "observation_id": "s650_f0089",
+      "observation_path": "observed/s650_f0089.npz",
+      "observation_sha256": "a552a5f4b01dff4da92c42dfec6580fd67f7e71a543c98a7e99f863e6cedf41f"
+    },
+    {
+      "observation_id": "s650_f0090",
+      "observation_path": "observed/s650_f0090.npz",
+      "observation_sha256": "577ae06ab26fa43accc48d8633ba333a91abd663fd28a650507a5105fb2314c1"
+    },
+    {
+      "observation_id": "s650_f0113",
+      "observation_path": "observed/s650_f0113.npz",
+      "observation_sha256": "6b35734bfac51e174f5382020be12ec6bc554f7bf6c5c946108c18f36f844dad"
+    },
+    {
+      "observation_id": "s650_f0127",
+      "observation_path": "observed/s650_f0127.npz",
+      "observation_sha256": "a2481a2e0499a2217d6fe93ff7e18a9cd177f51ea98c3710694d62cee191aae2"
+    },
+    {
+      "observation_id": "s650_f0160",
+      "observation_path": "observed/s650_f0160.npz",
+      "observation_sha256": "79ce2826f87c4ed751a0a365568a89656026fb753848c7d4b504a973355004f0"
+    },
+    {
+      "observation_id": "s650_f0197",
+      "observation_path": "observed/s650_f0197.npz",
+      "observation_sha256": "f1594455bf48f7d59ac4671ad7d7ec571b164e51c347c3aa0f7140e17c71bfab"
+    },
+    {
+      "observation_id": "s650_f0240",
+      "observation_path": "observed/s650_f0240.npz",
+      "observation_sha256": "9746b3858ce7fa711a00166e64dd40cf3948f0280fba1f3285447c1edfb7a67b"
+    },
+    {
+      "observation_id": "s650_f0275",
+      "observation_path": "observed/s650_f0275.npz",
+      "observation_sha256": "795d89bd2074b30f3addc30c554f8ae9a1da340866bebce731f4071c756d808e"
+    },
+    {
+      "observation_id": "s650_f0285",
+      "observation_path": "observed/s650_f0285.npz",
+      "observation_sha256": "55875180af8526e684f210ee804d7fa5e342af04ffe13969a56ad57e99bae039"
+    },
+    {
+      "observation_id": "s650_f0390",
+      "observation_path": "observed/s650_f0390.npz",
+      "observation_sha256": "c8708367e991fd3229c019889905c8c6ed30760a0c6321154c5b886d0ef6c16a"
+    },
+    {
+      "observation_id": "s650_f0391",
+      "observation_path": "observed/s650_f0391.npz",
+      "observation_sha256": "56612c3ae4ae6618b4e3db41a8243f9419df7a380913029aa8644780d1248b80"
+    },
+    {
+      "observation_id": "s650_f0413",
+      "observation_path": "observed/s650_f0413.npz",
+      "observation_sha256": "e0693107560bcdd02efc1f359eafd9f378abc16cd0cb001118337d339145e426"
+    },
+    {
+      "observation_id": "s650_f0415",
+      "observation_path": "observed/s650_f0415.npz",
+      "observation_sha256": "0127b6d3290723f004a61d6ab14c0467ae61ae31a6eec4c00724028f3c35df67"
+    },
+    {
+      "observation_id": "s650_f0456",
+      "observation_path": "observed/s650_f0456.npz",
+      "observation_sha256": "a2d0375aff25df01d115cc5607dda5700a6e5b50e3eddfa451dbdb05174b1649"
+    },
+    {
+      "observation_id": "s650_f0462",
+      "observation_path": "observed/s650_f0462.npz",
+      "observation_sha256": "44386aec817bef0d19bf2a223222c3c3f8b4824e41b6a6be7104de65498f64a0"
+    },
+    {
+      "observation_id": "s650_f0464",
+      "observation_path": "observed/s650_f0464.npz",
+      "observation_sha256": "6b31d64029f6d98ab2ac6c54c73b506df43f2c6e4e338b92db0af030bc2971b3"
+    },
+    {
+      "observation_id": "s650_f0519",
+      "observation_path": "observed/s650_f0519.npz",
+      "observation_sha256": "46b0802ef231582041833dfe3bb314a58fb68695303f2a5329537779401719c0"
+    },
+    {
+      "observation_id": "s650_f0579",
+      "observation_path": "observed/s650_f0579.npz",
+      "observation_sha256": "d72dc07df43cabc6bade395ebfe6e3d0b536d641c8be05e869116841ef3781e8"
+    },
+    {
+      "observation_id": "s650_f0593",
+      "observation_path": "observed/s650_f0593.npz",
+      "observation_sha256": "e247c76056a0f37e31188ea8dccf9c9b7bf8cd3d8966afdb157f81c39f174895"
+    },
+    {
+      "observation_id": "s650_f0644",
+      "observation_path": "observed/s650_f0644.npz",
+      "observation_sha256": "179a56fd345dd44a36ae520fd6d05c36652e797b2d0a85783dc313fb9df40bff"
+    },
+    {
+      "observation_id": "s650_f0647",
+      "observation_path": "observed/s650_f0647.npz",
+      "observation_sha256": "961213e4f1220f287bbbd8a66b45f5c17e358e19858cfbdc9d91074aa57220b0"
+    },
+    {
+      "observation_id": "s650_f0678",
+      "observation_path": "observed/s650_f0678.npz",
+      "observation_sha256": "d2b7f72ce54648681d38a669d44d81c56efa4edd7b2396d7b15e97bc6fbfd545"
+    },
+    {
+      "observation_id": "s650_f0718",
+      "observation_path": "observed/s650_f0718.npz",
+      "observation_sha256": "7dc4efef0b7954b8836486e7e2436b15d7ab2bd25e316df031a1e1ffe16a1ac7"
+    },
+    {
+      "observation_id": "s650_f0720",
+      "observation_path": "observed/s650_f0720.npz",
+      "observation_sha256": "7584ee9582e5fe330db28e3df9192617b6c8424608470b0d4f6e5470bf9f5646"
+    },
+    {
+      "observation_id": "s650_f0740",
+      "observation_path": "observed/s650_f0740.npz",
+      "observation_sha256": "f353fd4945b1c2463bc9135837a200c5bc96f68fe28b1baf618214ee67e70fc4"
+    },
+    {
+      "observation_id": "s650_f0761",
+      "observation_path": "observed/s650_f0761.npz",
+      "observation_sha256": "350805734eae23b3e1b8df31ca6c4a4c1a85f5328f3535afa8baa8eeafb2de91"
+    },
+    {
+      "observation_id": "s650_f0770",
+      "observation_path": "observed/s650_f0770.npz",
+      "observation_sha256": "2bd794b7920f79d6c914367c9b4eb39fbbbb5c6658da4fd7ad29ab84412c0b77"
+    },
+    {
+      "observation_id": "s650_f0797",
+      "observation_path": "observed/s650_f0797.npz",
+      "observation_sha256": "02075d1dd238532cee45f8f540427c45eec4b4e8da96dc3f3482eb96e0fa132f"
+    },
+    {
+      "observation_id": "s650_f0810",
+      "observation_path": "observed/s650_f0810.npz",
+      "observation_sha256": "74fcd5980cfb206e59ff94ca47dfad1636c9f5f15e3b9044d45ca1d332a5ef1d"
+    },
+    {
+      "observation_id": "s650_f0815",
+      "observation_path": "observed/s650_f0815.npz",
+      "observation_sha256": "66e2c7d6814f6289fe34ee3ae7ee3c92a9fcb9495da11c1f38d8dec3c1d31980"
+    },
+    {
+      "observation_id": "s650_f0824",
+      "observation_path": "observed/s650_f0824.npz",
+      "observation_sha256": "c4e24ddda6b3bd0bdd1f9fcf84d03393fbf0acff21c81c2e3d03fc18d34d98fa"
+    },
+    {
+      "observation_id": "s650_f0827",
+      "observation_path": "observed/s650_f0827.npz",
+      "observation_sha256": "d64a8ff0127dac36216d1cf62cf7ec0d99be78ea4f8c26441ec1b1d0530f4db6"
+    },
+    {
+      "observation_id": "s650_f0871",
+      "observation_path": "observed/s650_f0871.npz",
+      "observation_sha256": "ea25fd5b39816ff6172e20a29b0d5655e26472bd8f6c1dc94a316cae42fc8c56"
+    },
+    {
+      "observation_id": "s650_f0882",
+      "observation_path": "observed/s650_f0882.npz",
+      "observation_sha256": "20b5a84016b024b8966b35761851a20febddbab2415e27d0fd849daf0229be17"
+    },
+    {
+      "observation_id": "s650_f0938",
+      "observation_path": "observed/s650_f0938.npz",
+      "observation_sha256": "6cb78efcd69c67da934198682e0d9538603fb12fc5bbab27731ac29ec7be24fe"
+    },
+    {
+      "observation_id": "s650_f0955",
+      "observation_path": "observed/s650_f0955.npz",
+      "observation_sha256": "37e1335db44b4a948c958942c4c85b9967b4bf03820d5bda31dcdff9774213ba"
+    },
+    {
+      "observation_id": "s650_f0965",
+      "observation_path": "observed/s650_f0965.npz",
+      "observation_sha256": "39aedb4911da6625f92cad7a17041056b058d96196c169a92ba1d331c68f7372"
+    },
+    {
+      "observation_id": "s650_f0996",
+      "observation_path": "observed/s650_f0996.npz",
+      "observation_sha256": "832bff1432558d63ddba13913c2439f8081a22425f15390e7bab58276ebb95e3"
+    },
+    {
+      "observation_id": "s650_f1008",
+      "observation_path": "observed/s650_f1008.npz",
+      "observation_sha256": "3828ea6d583f9b5f1fbc8b5afc24335b858f9baa5634ebc746611f96cf0e5a5f"
+    }
+  ],
+  "planned_calls": [
+    [
+      "s650_f0000",
+      "scalar"
+    ],
+    [
+      "s650_f0000",
+      "coherent"
+    ],
+    [
+      "s650_f0000",
+      "full"
+    ],
+    [
+      "s650_f0001",
+      "coherent"
+    ],
+    [
+      "s650_f0001",
+      "full"
+    ],
+    [
+      "s650_f0001",
+      "scalar"
+    ],
+    [
+      "s650_f0002",
+      "full"
+    ],
+    [
+      "s650_f0002",
+      "scalar"
+    ],
+    [
+      "s650_f0002",
+      "coherent"
+    ],
+    [
+      "s650_f0003",
+      "scalar"
+    ],
+    [
+      "s650_f0003",
+      "coherent"
+    ],
+    [
+      "s650_f0003",
+      "full"
+    ],
+    [
+      "s650_f0004",
+      "coherent"
+    ],
+    [
+      "s650_f0004",
+      "full"
+    ],
+    [
+      "s650_f0004",
+      "scalar"
+    ],
+    [
+      "s650_f0005",
+      "full"
+    ],
+    [
+      "s650_f0005",
+      "scalar"
+    ],
+    [
+      "s650_f0005",
+      "coherent"
+    ],
+    [
+      "s650_f0006",
+      "scalar"
+    ],
+    [
+      "s650_f0006",
+      "coherent"
+    ],
+    [
+      "s650_f0006",
+      "full"
+    ],
+    [
+      "s650_f0007",
+      "coherent"
+    ],
+    [
+      "s650_f0007",
+      "full"
+    ],
+    [
+      "s650_f0007",
+      "scalar"
+    ],
+    [
+      "s650_f0008",
+      "full"
+    ],
+    [
+      "s650_f0008",
+      "scalar"
+    ],
+    [
+      "s650_f0008",
+      "coherent"
+    ],
+    [
+      "s650_f0009",
+      "scalar"
+    ],
+    [
+      "s650_f0009",
+      "coherent"
+    ],
+    [
+      "s650_f0009",
+      "full"
+    ],
+    [
+      "s650_f0010",
+      "coherent"
+    ],
+    [
+      "s650_f0010",
+      "full"
+    ],
+    [
+      "s650_f0010",
+      "scalar"
+    ],
+    [
+      "s650_f0011",
+      "full"
+    ],
+    [
+      "s650_f0011",
+      "scalar"
+    ],
+    [
+      "s650_f0011",
+      "coherent"
+    ],
+    [
+      "s650_f0012",
+      "scalar"
+    ],
+    [
+      "s650_f0012",
+      "coherent"
+    ],
+    [
+      "s650_f0012",
+      "full"
+    ],
+    [
+      "s650_f0013",
+      "coherent"
+    ],
+    [
+      "s650_f0013",
+      "full"
+    ],
+    [
+      "s650_f0013",
+      "scalar"
+    ],
+    [
+      "s650_f0014",
+      "full"
+    ],
+    [
+      "s650_f0014",
+      "scalar"
+    ],
+    [
+      "s650_f0014",
+      "coherent"
+    ],
+    [
+      "s650_f0015",
+      "scalar"
+    ],
+    [
+      "s650_f0015",
+      "coherent"
+    ],
+    [
+      "s650_f0015",
+      "full"
+    ],
+    [
+      "s650_f0016",
+      "coherent"
+    ],
+    [
+      "s650_f0016",
+      "full"
+    ],
+    [
+      "s650_f0016",
+      "scalar"
+    ],
+    [
+      "s650_f0017",
+      "full"
+    ],
+    [
+      "s650_f0017",
+      "scalar"
+    ],
+    [
+      "s650_f0017",
+      "coherent"
+    ],
+    [
+      "s650_f0018",
+      "scalar"
+    ],
+    [
+      "s650_f0018",
+      "coherent"
+    ],
+    [
+      "s650_f0018",
+      "full"
+    ],
+    [
+      "s650_f0019",
+      "coherent"
+    ],
+    [
+      "s650_f0019",
+      "full"
+    ],
+    [
+      "s650_f0019",
+      "scalar"
+    ],
+    [
+      "s650_f0020",
+      "full"
+    ],
+    [
+      "s650_f0020",
+      "scalar"
+    ],
+    [
+      "s650_f0020",
+      "coherent"
+    ],
+    [
+      "s650_f0021",
+      "scalar"
+    ],
+    [
+      "s650_f0021",
+      "coherent"
+    ],
+    [
+      "s650_f0021",
+      "full"
+    ],
+    [
+      "s650_f0022",
+      "coherent"
+    ],
+    [
+      "s650_f0022",
+      "full"
+    ],
+    [
+      "s650_f0022",
+      "scalar"
+    ],
+    [
+      "s650_f0023",
+      "full"
+    ],
+    [
+      "s650_f0023",
+      "scalar"
+    ],
+    [
+      "s650_f0023",
+      "coherent"
+    ],
+    [
+      "s650_f0024",
+      "scalar"
+    ],
+    [
+      "s650_f0024",
+      "coherent"
+    ],
+    [
+      "s650_f0024",
+      "full"
+    ],
+    [
+      "s650_f0025",
+      "coherent"
+    ],
+    [
+      "s650_f0025",
+      "full"
+    ],
+    [
+      "s650_f0025",
+      "scalar"
+    ],
+    [
+      "s650_f0026",
+      "full"
+    ],
+    [
+      "s650_f0026",
+      "scalar"
+    ],
+    [
+      "s650_f0026",
+      "coherent"
+    ],
+    [
+      "s650_f0027",
+      "scalar"
+    ],
+    [
+      "s650_f0027",
+      "coherent"
+    ],
+    [
+      "s650_f0027",
+      "full"
+    ],
+    [
+      "s650_f0028",
+      "coherent"
+    ],
+    [
+      "s650_f0028",
+      "full"
+    ],
+    [
+      "s650_f0028",
+      "scalar"
+    ],
+    [
+      "s650_f0029",
+      "full"
+    ],
+    [
+      "s650_f0029",
+      "scalar"
+    ],
+    [
+      "s650_f0029",
+      "coherent"
+    ],
+    [
+      "s650_f0030",
+      "scalar"
+    ],
+    [
+      "s650_f0030",
+      "coherent"
+    ],
+    [
+      "s650_f0030",
+      "full"
+    ],
+    [
+      "s650_f0031",
+      "coherent"
+    ],
+    [
+      "s650_f0031",
+      "full"
+    ],
+    [
+      "s650_f0031",
+      "scalar"
+    ],
+    [
+      "s650_f0032",
+      "full"
+    ],
+    [
+      "s650_f0032",
+      "scalar"
+    ],
+    [
+      "s650_f0032",
+      "coherent"
+    ],
+    [
+      "s650_f0033",
+      "scalar"
+    ],
+    [
+      "s650_f0033",
+      "coherent"
+    ],
+    [
+      "s650_f0033",
+      "full"
+    ],
+    [
+      "s650_f0034",
+      "coherent"
+    ],
+    [
+      "s650_f0034",
+      "full"
+    ],
+    [
+      "s650_f0034",
+      "scalar"
+    ],
+    [
+      "s650_f0035",
+      "full"
+    ],
+    [
+      "s650_f0035",
+      "scalar"
+    ],
+    [
+      "s650_f0035",
+      "coherent"
+    ],
+    [
+      "s650_f0036",
+      "scalar"
+    ],
+    [
+      "s650_f0036",
+      "coherent"
+    ],
+    [
+      "s650_f0036",
+      "full"
+    ],
+    [
+      "s650_f0037",
+      "coherent"
+    ],
+    [
+      "s650_f0037",
+      "full"
+    ],
+    [
+      "s650_f0037",
+      "scalar"
+    ],
+    [
+      "s650_f0038",
+      "full"
+    ],
+    [
+      "s650_f0038",
+      "scalar"
+    ],
+    [
+      "s650_f0038",
+      "coherent"
+    ],
+    [
+      "s650_f0039",
+      "scalar"
+    ],
+    [
+      "s650_f0039",
+      "coherent"
+    ],
+    [
+      "s650_f0039",
+      "full"
+    ],
+    [
+      "s650_f0040",
+      "coherent"
+    ],
+    [
+      "s650_f0040",
+      "full"
+    ],
+    [
+      "s650_f0040",
+      "scalar"
+    ],
+    [
+      "s650_f0041",
+      "full"
+    ],
+    [
+      "s650_f0041",
+      "scalar"
+    ],
+    [
+      "s650_f0041",
+      "coherent"
+    ],
+    [
+      "s650_f0042",
+      "scalar"
+    ],
+    [
+      "s650_f0042",
+      "coherent"
+    ],
+    [
+      "s650_f0042",
+      "full"
+    ],
+    [
+      "s650_f0043",
+      "coherent"
+    ],
+    [
+      "s650_f0043",
+      "full"
+    ],
+    [
+      "s650_f0043",
+      "scalar"
+    ],
+    [
+      "s650_f0044",
+      "full"
+    ],
+    [
+      "s650_f0044",
+      "scalar"
+    ],
+    [
+      "s650_f0044",
+      "coherent"
+    ],
+    [
+      "s650_f0045",
+      "scalar"
+    ],
+    [
+      "s650_f0045",
+      "coherent"
+    ],
+    [
+      "s650_f0045",
+      "full"
+    ],
+    [
+      "s650_f0046",
+      "coherent"
+    ],
+    [
+      "s650_f0046",
+      "full"
+    ],
+    [
+      "s650_f0046",
+      "scalar"
+    ],
+    [
+      "s650_f0047",
+      "full"
+    ],
+    [
+      "s650_f0047",
+      "scalar"
+    ],
+    [
+      "s650_f0047",
+      "coherent"
+    ],
+    [
+      "s650_f0048",
+      "scalar"
+    ],
+    [
+      "s650_f0048",
+      "coherent"
+    ],
+    [
+      "s650_f0048",
+      "full"
+    ],
+    [
+      "s650_f0049",
+      "coherent"
+    ],
+    [
+      "s650_f0049",
+      "full"
+    ],
+    [
+      "s650_f0049",
+      "scalar"
+    ],
+    [
+      "s650_f0050",
+      "full"
+    ],
+    [
+      "s650_f0050",
+      "scalar"
+    ],
+    [
+      "s650_f0050",
+      "coherent"
+    ],
+    [
+      "s650_f0051",
+      "scalar"
+    ],
+    [
+      "s650_f0051",
+      "coherent"
+    ],
+    [
+      "s650_f0051",
+      "full"
+    ],
+    [
+      "s650_f0052",
+      "coherent"
+    ],
+    [
+      "s650_f0052",
+      "full"
+    ],
+    [
+      "s650_f0052",
+      "scalar"
+    ],
+    [
+      "s650_f0053",
+      "full"
+    ],
+    [
+      "s650_f0053",
+      "scalar"
+    ],
+    [
+      "s650_f0053",
+      "coherent"
+    ],
+    [
+      "s650_f0054",
+      "scalar"
+    ],
+    [
+      "s650_f0054",
+      "coherent"
+    ],
+    [
+      "s650_f0054",
+      "full"
+    ],
+    [
+      "s650_f0055",
+      "coherent"
+    ],
+    [
+      "s650_f0055",
+      "full"
+    ],
+    [
+      "s650_f0055",
+      "scalar"
+    ],
+    [
+      "s650_f0056",
+      "full"
+    ],
+    [
+      "s650_f0056",
+      "scalar"
+    ],
+    [
+      "s650_f0056",
+      "coherent"
+    ],
+    [
+      "s650_f0057",
+      "scalar"
+    ],
+    [
+      "s650_f0057",
+      "coherent"
+    ],
+    [
+      "s650_f0057",
+      "full"
+    ],
+    [
+      "s650_f0058",
+      "coherent"
+    ],
+    [
+      "s650_f0058",
+      "full"
+    ],
+    [
+      "s650_f0058",
+      "scalar"
+    ],
+    [
+      "s650_f0059",
+      "full"
+    ],
+    [
+      "s650_f0059",
+      "scalar"
+    ],
+    [
+      "s650_f0059",
+      "coherent"
+    ],
+    [
+      "s650_f0060",
+      "scalar"
+    ],
+    [
+      "s650_f0060",
+      "coherent"
+    ],
+    [
+      "s650_f0060",
+      "full"
+    ],
+    [
+      "s650_f0061",
+      "coherent"
+    ],
+    [
+      "s650_f0061",
+      "full"
+    ],
+    [
+      "s650_f0061",
+      "scalar"
+    ],
+    [
+      "s650_f0062",
+      "full"
+    ],
+    [
+      "s650_f0062",
+      "scalar"
+    ],
+    [
+      "s650_f0062",
+      "coherent"
+    ],
+    [
+      "s650_f0063",
+      "scalar"
+    ],
+    [
+      "s650_f0063",
+      "coherent"
+    ],
+    [
+      "s650_f0063",
+      "full"
+    ],
+    [
+      "s650_f0064",
+      "coherent"
+    ],
+    [
+      "s650_f0064",
+      "full"
+    ],
+    [
+      "s650_f0064",
+      "scalar"
+    ],
+    [
+      "s650_f0065",
+      "full"
+    ],
+    [
+      "s650_f0065",
+      "scalar"
+    ],
+    [
+      "s650_f0065",
+      "coherent"
+    ],
+    [
+      "s650_f0066",
+      "scalar"
+    ],
+    [
+      "s650_f0066",
+      "coherent"
+    ],
+    [
+      "s650_f0066",
+      "full"
+    ],
+    [
+      "s650_f0067",
+      "coherent"
+    ],
+    [
+      "s650_f0067",
+      "full"
+    ],
+    [
+      "s650_f0067",
+      "scalar"
+    ],
+    [
+      "s650_f0068",
+      "full"
+    ],
+    [
+      "s650_f0068",
+      "scalar"
+    ],
+    [
+      "s650_f0068",
+      "coherent"
+    ],
+    [
+      "s650_f0069",
+      "scalar"
+    ],
+    [
+      "s650_f0069",
+      "coherent"
+    ],
+    [
+      "s650_f0069",
+      "full"
+    ],
+    [
+      "s650_f0070",
+      "coherent"
+    ],
+    [
+      "s650_f0070",
+      "full"
+    ],
+    [
+      "s650_f0070",
+      "scalar"
+    ],
+    [
+      "s650_f0071",
+      "full"
+    ],
+    [
+      "s650_f0071",
+      "scalar"
+    ],
+    [
+      "s650_f0071",
+      "coherent"
+    ],
+    [
+      "s650_f0072",
+      "scalar"
+    ],
+    [
+      "s650_f0072",
+      "coherent"
+    ],
+    [
+      "s650_f0072",
+      "full"
+    ],
+    [
+      "s650_f0073",
+      "coherent"
+    ],
+    [
+      "s650_f0073",
+      "full"
+    ],
+    [
+      "s650_f0073",
+      "scalar"
+    ],
+    [
+      "s650_f0074",
+      "full"
+    ],
+    [
+      "s650_f0074",
+      "scalar"
+    ],
+    [
+      "s650_f0074",
+      "coherent"
+    ],
+    [
+      "s650_f0075",
+      "scalar"
+    ],
+    [
+      "s650_f0075",
+      "coherent"
+    ],
+    [
+      "s650_f0075",
+      "full"
+    ],
+    [
+      "s650_f0076",
+      "coherent"
+    ],
+    [
+      "s650_f0076",
+      "full"
+    ],
+    [
+      "s650_f0076",
+      "scalar"
+    ],
+    [
+      "s650_f0077",
+      "full"
+    ],
+    [
+      "s650_f0077",
+      "scalar"
+    ],
+    [
+      "s650_f0077",
+      "coherent"
+    ],
+    [
+      "s650_f0078",
+      "scalar"
+    ],
+    [
+      "s650_f0078",
+      "coherent"
+    ],
+    [
+      "s650_f0078",
+      "full"
+    ],
+    [
+      "s650_f0079",
+      "coherent"
+    ],
+    [
+      "s650_f0079",
+      "full"
+    ],
+    [
+      "s650_f0079",
+      "scalar"
+    ],
+    [
+      "s650_f0080",
+      "full"
+    ],
+    [
+      "s650_f0080",
+      "scalar"
+    ],
+    [
+      "s650_f0080",
+      "coherent"
+    ],
+    [
+      "s650_f0081",
+      "scalar"
+    ],
+    [
+      "s650_f0081",
+      "coherent"
+    ],
+    [
+      "s650_f0081",
+      "full"
+    ],
+    [
+      "s650_f0082",
+      "coherent"
+    ],
+    [
+      "s650_f0082",
+      "full"
+    ],
+    [
+      "s650_f0082",
+      "scalar"
+    ],
+    [
+      "s650_f0083",
+      "full"
+    ],
+    [
+      "s650_f0083",
+      "scalar"
+    ],
+    [
+      "s650_f0083",
+      "coherent"
+    ],
+    [
+      "s650_f0084",
+      "scalar"
+    ],
+    [
+      "s650_f0084",
+      "coherent"
+    ],
+    [
+      "s650_f0084",
+      "full"
+    ],
+    [
+      "s650_f0085",
+      "coherent"
+    ],
+    [
+      "s650_f0085",
+      "full"
+    ],
+    [
+      "s650_f0085",
+      "scalar"
+    ],
+    [
+      "s650_f0086",
+      "full"
+    ],
+    [
+      "s650_f0086",
+      "scalar"
+    ],
+    [
+      "s650_f0086",
+      "coherent"
+    ],
+    [
+      "s650_f0087",
+      "scalar"
+    ],
+    [
+      "s650_f0087",
+      "coherent"
+    ],
+    [
+      "s650_f0087",
+      "full"
+    ],
+    [
+      "s650_f0088",
+      "coherent"
+    ],
+    [
+      "s650_f0088",
+      "full"
+    ],
+    [
+      "s650_f0088",
+      "scalar"
+    ],
+    [
+      "s650_f0089",
+      "full"
+    ],
+    [
+      "s650_f0089",
+      "scalar"
+    ],
+    [
+      "s650_f0089",
+      "coherent"
+    ],
+    [
+      "s650_f0090",
+      "scalar"
+    ],
+    [
+      "s650_f0090",
+      "coherent"
+    ],
+    [
+      "s650_f0090",
+      "full"
+    ],
+    [
+      "s650_f0113",
+      "coherent"
+    ],
+    [
+      "s650_f0113",
+      "full"
+    ],
+    [
+      "s650_f0113",
+      "scalar"
+    ],
+    [
+      "s650_f0127",
+      "full"
+    ],
+    [
+      "s650_f0127",
+      "scalar"
+    ],
+    [
+      "s650_f0127",
+      "coherent"
+    ],
+    [
+      "s650_f0160",
+      "scalar"
+    ],
+    [
+      "s650_f0160",
+      "coherent"
+    ],
+    [
+      "s650_f0160",
+      "full"
+    ],
+    [
+      "s650_f0197",
+      "coherent"
+    ],
+    [
+      "s650_f0197",
+      "full"
+    ],
+    [
+      "s650_f0197",
+      "scalar"
+    ],
+    [
+      "s650_f0240",
+      "full"
+    ],
+    [
+      "s650_f0240",
+      "scalar"
+    ],
+    [
+      "s650_f0240",
+      "coherent"
+    ],
+    [
+      "s650_f0275",
+      "scalar"
+    ],
+    [
+      "s650_f0275",
+      "coherent"
+    ],
+    [
+      "s650_f0275",
+      "full"
+    ],
+    [
+      "s650_f0285",
+      "coherent"
+    ],
+    [
+      "s650_f0285",
+      "full"
+    ],
+    [
+      "s650_f0285",
+      "scalar"
+    ],
+    [
+      "s650_f0390",
+      "full"
+    ],
+    [
+      "s650_f0390",
+      "scalar"
+    ],
+    [
+      "s650_f0390",
+      "coherent"
+    ],
+    [
+      "s650_f0391",
+      "scalar"
+    ],
+    [
+      "s650_f0391",
+      "coherent"
+    ],
+    [
+      "s650_f0391",
+      "full"
+    ],
+    [
+      "s650_f0413",
+      "coherent"
+    ],
+    [
+      "s650_f0413",
+      "full"
+    ],
+    [
+      "s650_f0413",
+      "scalar"
+    ],
+    [
+      "s650_f0415",
+      "full"
+    ],
+    [
+      "s650_f0415",
+      "scalar"
+    ],
+    [
+      "s650_f0415",
+      "coherent"
+    ],
+    [
+      "s650_f0456",
+      "scalar"
+    ],
+    [
+      "s650_f0456",
+      "coherent"
+    ],
+    [
+      "s650_f0456",
+      "full"
+    ],
+    [
+      "s650_f0462",
+      "coherent"
+    ],
+    [
+      "s650_f0462",
+      "full"
+    ],
+    [
+      "s650_f0462",
+      "scalar"
+    ],
+    [
+      "s650_f0464",
+      "full"
+    ],
+    [
+      "s650_f0464",
+      "scalar"
+    ],
+    [
+      "s650_f0464",
+      "coherent"
+    ],
+    [
+      "s650_f0519",
+      "scalar"
+    ],
+    [
+      "s650_f0519",
+      "coherent"
+    ],
+    [
+      "s650_f0519",
+      "full"
+    ],
+    [
+      "s650_f0579",
+      "coherent"
+    ],
+    [
+      "s650_f0579",
+      "full"
+    ],
+    [
+      "s650_f0579",
+      "scalar"
+    ],
+    [
+      "s650_f0593",
+      "full"
+    ],
+    [
+      "s650_f0593",
+      "scalar"
+    ],
+    [
+      "s650_f0593",
+      "coherent"
+    ],
+    [
+      "s650_f0644",
+      "scalar"
+    ],
+    [
+      "s650_f0644",
+      "coherent"
+    ],
+    [
+      "s650_f0644",
+      "full"
+    ],
+    [
+      "s650_f0647",
+      "coherent"
+    ],
+    [
+      "s650_f0647",
+      "full"
+    ],
+    [
+      "s650_f0647",
+      "scalar"
+    ],
+    [
+      "s650_f0678",
+      "full"
+    ],
+    [
+      "s650_f0678",
+      "scalar"
+    ],
+    [
+      "s650_f0678",
+      "coherent"
+    ],
+    [
+      "s650_f0718",
+      "scalar"
+    ],
+    [
+      "s650_f0718",
+      "coherent"
+    ],
+    [
+      "s650_f0718",
+      "full"
+    ],
+    [
+      "s650_f0720",
+      "coherent"
+    ],
+    [
+      "s650_f0720",
+      "full"
+    ],
+    [
+      "s650_f0720",
+      "scalar"
+    ],
+    [
+      "s650_f0740",
+      "full"
+    ],
+    [
+      "s650_f0740",
+      "scalar"
+    ],
+    [
+      "s650_f0740",
+      "coherent"
+    ],
+    [
+      "s650_f0761",
+      "scalar"
+    ],
+    [
+      "s650_f0761",
+      "coherent"
+    ],
+    [
+      "s650_f0761",
+      "full"
+    ],
+    [
+      "s650_f0770",
+      "coherent"
+    ],
+    [
+      "s650_f0770",
+      "full"
+    ],
+    [
+      "s650_f0770",
+      "scalar"
+    ],
+    [
+      "s650_f0797",
+      "full"
+    ],
+    [
+      "s650_f0797",
+      "scalar"
+    ],
+    [
+      "s650_f0797",
+      "coherent"
+    ],
+    [
+      "s650_f0810",
+      "scalar"
+    ],
+    [
+      "s650_f0810",
+      "coherent"
+    ],
+    [
+      "s650_f0810",
+      "full"
+    ],
+    [
+      "s650_f0815",
+      "coherent"
+    ],
+    [
+      "s650_f0815",
+      "full"
+    ],
+    [
+      "s650_f0815",
+      "scalar"
+    ],
+    [
+      "s650_f0824",
+      "full"
+    ],
+    [
+      "s650_f0824",
+      "scalar"
+    ],
+    [
+      "s650_f0824",
+      "coherent"
+    ],
+    [
+      "s650_f0827",
+      "scalar"
+    ],
+    [
+      "s650_f0827",
+      "coherent"
+    ],
+    [
+      "s650_f0827",
+      "full"
+    ],
+    [
+      "s650_f0871",
+      "coherent"
+    ],
+    [
+      "s650_f0871",
+      "full"
+    ],
+    [
+      "s650_f0871",
+      "scalar"
+    ],
+    [
+      "s650_f0882",
+      "full"
+    ],
+    [
+      "s650_f0882",
+      "scalar"
+    ],
+    [
+      "s650_f0882",
+      "coherent"
+    ],
+    [
+      "s650_f0938",
+      "scalar"
+    ],
+    [
+      "s650_f0938",
+      "coherent"
+    ],
+    [
+      "s650_f0938",
+      "full"
+    ],
+    [
+      "s650_f0955",
+      "coherent"
+    ],
+    [
+      "s650_f0955",
+      "full"
+    ],
+    [
+      "s650_f0955",
+      "scalar"
+    ],
+    [
+      "s650_f0965",
+      "full"
+    ],
+    [
+      "s650_f0965",
+      "scalar"
+    ],
+    [
+      "s650_f0965",
+      "coherent"
+    ],
+    [
+      "s650_f0996",
+      "scalar"
+    ],
+    [
+      "s650_f0996",
+      "coherent"
+    ],
+    [
+      "s650_f0996",
+      "full"
+    ],
+    [
+      "s650_f1008",
+      "coherent"
+    ],
+    [
+      "s650_f1008",
+      "full"
+    ],
+    [
+      "s650_f1008",
+      "scalar"
+    ]
+  ],
+  "source_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_native_joint_reviewed_20260921",
+  "baseline_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921",
+  "timing_boundary": "complete_artifact_seconds: observed load through durable raw write; includes checkpoint writes and serialization, excludes setup and final ledger append/fsync; receiver_seconds includes prefix checkpoint writes; record_states observer enabled in third TF",
+  "compute_budget": "Equal TF/LDPC iteration caps, not equal wall-clock budgets. Full Gamma calls/Gram/FFT work is included in measured time but excluded from the frozen native fft_count; actual reaction_gamma_calls is saved.",
+  "correctness": "No truth opened. Zero syndrome is not proof of correct codeword."
+}

@@ -1,0 +1,67 @@
+{
+  "seed": [
+    20261005,
+    152129,
+    10
+  ],
+  "new_observations": 0,
+  "new_scientific_nodes": 0,
+  "new_scientific_rules": 0,
+  "receiver_calls": 0,
+  "decoder_calls": 0,
+  "new_confirmation_stream": false,
+  "wall_seconds": 120,
+  "source_stage_path": "results/afdm_efficient_information/oracle_identifiability_v1",
+  "source_git_head": "70e4fc629565ccc1ed50235884d24a25b9def746",
+  "bound_records": {
+    "registration.json": "df69ea6637e29698671c18ebd2229d1a88d5784aa04ec82edae7d902a004d98c",
+    "attempt.json": "f2434b69441bbba4df5380c018260d951864758eb133e869dbeeb9b535f451cc"
+  },
+  "consumed_artifacts": {
+    "oracle_control.npz": "8891bf504a747307906c4f12eb683807660ad96ba8dc67baf5092c2fb8747f2e",
+    "oracle_actual.npz": "201c31bcc7935e808752913c7764e7333e613c0cfa6e85a2c96597de2b3b17bd",
+    "oracle_pairs.json": "d29b686ba3fcbf12ee281e0ec0516b7e91d144ba64f136f1ccaf5e4584a0029c",
+    "input_audit.json": "60883da688eeec09be82d2c0b523c44805b3bf0007946df6f5b4e7af53680eb1"
+  },
+  "protected_manifest_sha256": "1b02a214c97d6d156fb3fac52ca811c41e6a8cdaba80f8cb3bb7709c1e93c07f",
+  "expected_rows": 112,
+  "interval_failure_probability": 0.05,
+  "simultaneous_comparisons": 224,
+  "families": {
+    "control": {
+      "pairs": 48,
+      "repeats": [
+        1,
+        8
+      ],
+      "evaluation_groups": 32,
+      "distance_target": "TV and unhalved Hellinger squared of the declared analytic Gaussian-control law, conditional on exact likelihood arithmetic",
+      "interval_target": "expectation of bounded fixed evaluated bridge functions under genuine source P0/P1 draws; no machine-roundoff certificate"
+    },
+    "actual": {
+      "pairs": 8,
+      "repeats": [
+        1,
+        4
+      ],
+      "evaluation_groups": 64,
+      "distance_target": "bounded bridge proxy using saved refined actual-prior likelihoods; true TV/Hellinger not certified",
+      "interval_target": "equal-weight expectation of proxy bridge functions under genuine source P0/P1 draws only"
+    }
+  },
+  "projection_repeats": [
+    1,
+    4,
+    8,
+    16,
+    64,
+    256
+  ],
+  "expected_projection_rows": 336,
+  "calibration_usage": "none; only original evaluation LLR arrays enter statistics",
+  "interval_method": "stratified weighted Hoeffding with each source law weighted 1/2; simultaneous Bonferroni over 112 rows times 2 metrics",
+  "reuse": "shared null populations across alternatives and R-prefix reuse; no joint independence assumption",
+  "proxy_error": "no certified global log-ratio error bound; observed refinement error is never promoted to one",
+  "projection": "monotone single-frame Hellinger plug-in and band propagation; exact iid-law theorem only under exact true-distance premise; actual proxy extrapolation has no distance or calibration guarantee",
+  "science_scope": "saved-data bounded distances, not rerunning detection or adding receiver/decoder/confirmation observations"
+}

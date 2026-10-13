@@ -1,0 +1,71 @@
+{
+  "schema": "COST02-formal-bootstrap-resource-quote-v1",
+  "status": "SYNTHETIC_ARITHMETIC_QUOTE_ONLY",
+  "contract_sha256": "f6477286e16b42d823ec4875d9d5255b47e9ac33e7614e0cae4ae20ffd1255d4",
+  "script_sha256": "53aafc8cbf369ba49c938ea227c0db8025bbcdf23327d91596e9cd0b84785420",
+  "observed_unix": 1789116297.6078541,
+  "manufactured_input_shape": [
+    1024,
+    45
+  ],
+  "endpoint_count": 306,
+  "timings": [
+    {
+      "block_length": 8,
+      "synthetic_resamples": 2048,
+      "seconds": 0.7522720419801772,
+      "projected_full_worker_seconds": 3673.203329981334,
+      "fits_frozen_six_hour_cap": true
+    },
+    {
+      "block_length": 16,
+      "synthetic_resamples": 2048,
+      "seconds": 0.543030412052758,
+      "projected_full_worker_seconds": 2651.5156838513576,
+      "fits_frozen_six_hour_cap": true
+    },
+    {
+      "block_length": 32,
+      "synthetic_resamples": 2048,
+      "seconds": 0.43978040001820773,
+      "projected_full_worker_seconds": 2147.365234463905,
+      "fits_frozen_six_hour_cap": true
+    }
+  ],
+  "synthetic_resamples": 6144,
+  "maximum_wall_seconds": 120,
+  "CPU_threads": 1,
+  "GPU_processes": 0,
+  "calls": {
+    "F": 0,
+    "E": 0,
+    "T": 0,
+    "MC": 0
+  },
+  "real_formal_records_read": 0,
+  "remote_statistical_settings_exact_match": true,
+  "elapsed_seconds": 2.0848034020746127,
+  "rank_probability_verification": {
+    "split_ranks": {
+      "low": 57,
+      "point": 106,
+      "high": 163,
+      "lower_failure_probability": 1.1135935418402877e-07,
+      "upper_failure_probability": 9.942119743886282e-08,
+      "expected_tail_draws": 105.04201680672271
+    },
+    "pooled_ranks": {
+      "low": 140,
+      "point": 211,
+      "high": 290,
+      "lower_failure_probability": 1.1242598039484892e-07,
+      "upper_failure_probability": 1.0512542488835516e-07,
+      "expected_tail_draws": 210.08403361344543
+    }
+  },
+  "limitations": [
+    "Single-thread synthetic arithmetic price, not a runtime upper bound or bootstrap coverage.",
+    "No timing inference is produced. Final extreme-order sorting and file I/O are not priced separately.",
+    "Six-hour workers retain explicit finite caps and fail on timeout."
+  ]
+}

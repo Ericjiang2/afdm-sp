@@ -1,0 +1,36 @@
+{
+  "schema": "independent-f2-five-recount-schema-repair/1",
+  "status": "local_schema_check_pass; independent_recount_not_run",
+  "authorization": "results/cstate_necessity_stageB_resume_20260928/independent/recount_schema_recovery_v2/authorization.json",
+  "primary_git_commit": "a5a8c3f301b6e5280c9fa67d05a6120e38005dc1",
+  "failed_attempt": {
+    "receipt": "results/cstate_necessity_stageB_resume_20260928/independent/failed_recount_v1/attempt2/attempt_receipt.json",
+    "receipt_sha256": "4b77f8f8bfdf6ec7e91acf7ae68a6199952840b0ad4ef08a158509254852e577",
+    "stderr_sha256": "b2ef55f18b915da288541b00f03d7d6946805a595be7bc69cbd0b63f54197732",
+    "error": "KeyError: 'mean' at independent_recount_five.py:551"
+  },
+  "reader": {
+    "old_path": "experiments/cstate_necessity_stageB_resume_20260928/independent_recount_five.py",
+    "old_sha256": "36d8bd7918a45a8664daf89115d5212a2d7742f837a8f52829f23e41e368b889",
+    "new_path": "experiments/cstate_necessity_stageB_resume_20260928/independent_recount_five_v2.py",
+    "new_sha256": "d06c42f135c9d927b8c5a678ea230636fc3f3703bff5b7cfc4f61e6a9309e8fa",
+    "exact_code_change": [
+      "add primary_complete_latency(arm): return arm[\"timing\"][\"complete_latency_seconds\"]",
+      "replace theirs[\"timing\"][key] with primary_complete_latency(theirs)[key] in existing complete-latency comparison"
+    ],
+    "unchanged": "all recount inputs, metric definitions, population, thresholds, tolerances, primary artifact bindings, truth gates, and receiver-free behavior"
+  },
+  "frozen_summaries": {
+    "report_sha256": "dbc93d3df5b40e8ee16b7323da413df5c7e659801defda3b6fdf1ac76f729c16",
+    "subgroup_sha256": "a34991980a492608a731b71319344f2569f1d006da6539dc6e6f06d215e6dd26"
+  },
+  "local_validation": {
+    "test_path": "experiments/cstate_necessity_stageB_resume_20260928/test_independent_recount_five_v2_schema.py",
+    "test_sha256": "5f7596c48571686eae35d79794c04fb6085c203e9e99bb9042efb5c3193a5ab6",
+    "test_result": "3 passed against frozen report and subgroup JSON; no raw or truth payload opened",
+    "ruff": "pass",
+    "py_compile": "pass",
+    "runtime_limit": "local Python lacks NumPy, so full independent recount was not run locally"
+  },
+  "recount_result": null
+}

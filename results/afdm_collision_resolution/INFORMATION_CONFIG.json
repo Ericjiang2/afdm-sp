@@ -1,0 +1,32 @@
+{
+  "schema": "afdm-collision-information/1",
+  "seed": [20261005, 152129, 31],
+  "new_observations": 8192,
+  "observations_per_point": 2048,
+  "train_size": 1024,
+  "heldout_size": 1024,
+  "points": [
+    {"mu": 0.27, "tau": 1.0, "sigma2": 0.2},
+    {"mu": 0.27, "tau": 1.0, "sigma2": 1.0},
+    {"mu": 0.35, "tau": 1.0, "sigma2": 0.2},
+    {"mu": 0.35, "tau": 1.0, "sigma2": 1.0}
+  ],
+  "wall_seconds": 600,
+  "receiver_calls": 0,
+  "decoder_calls": 0,
+  "new_confirmation_stream": false,
+  "new_integration_nodes": 0,
+  "n": 4,
+  "model": "actual normalized G0 P2/common rounded delay zero, symmetric marginal PDP fixed branch",
+  "score_columns": ["r=q log(1/q)", "mu", "log_tau", "log_sigma2"],
+  "nuisance_fd_steps": [0.0001, 0.00005, 0.000025],
+  "nuisance_fd_abs_tolerance": 0.00003,
+  "batch_count": 8,
+  "rcond": 1e-10,
+  "positive_standard_errors": 4.0,
+  "feature_spaces": ["powers_degree1", "powers_degree1_and2"],
+  "feature_selection": "fixed before sampling, 4 power and all 10 quadratic power products",
+  "positivity_scope": "batch-SE diagnostic only; no population Fisher or global numerical certificate",
+  "scientific_admission": "teacher formula qualifications and density/nuisance theory reviewed before GO",
+  "failure_rule": "retain every base point, sample, failed FD qualification and unstable estimate without replacement"
+}

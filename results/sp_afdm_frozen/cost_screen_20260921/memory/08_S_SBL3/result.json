@@ -1,0 +1,103 @@
+{
+  "schema": "sp-afdm-isolated-arm-memory-v1",
+  "_argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_frozen/cost_screen_20260921/run_memory_arm.py",
+    "--source",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921",
+    "--screen",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_frozen/cost_screen_20260921/cost_screen_run",
+    "--arm",
+    "S_SBL3",
+    "--out",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_frozen/cost_screen_20260921/memory/08_S_SBL3/result.json"
+  ],
+  "_config": {
+    "family": "shared_SBL",
+    "method": "sbl",
+    "grid_iterations": 3
+  },
+  "source_boundary_commit": "31d5ec0d",
+  "pid": 435713,
+  "source_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921",
+  "source_identity_sha256": "bfd7c999da103dc77bf5a5c36f4bce7f2764ba65730d82352df19cebfe05847b",
+  "run_identity_sha256": "5517905f8cea2ca43239cbd2aaa18622c736d7cb8fae54e45d3d14d55f2e99d9",
+  "input_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_frozen/cost_screen_20260921/cost_screen_run/arrays/c02_f00000_input.npz",
+  "input_sha256": "07767086e4ff179b429ad3306136a16af5430b1f51c0ae99d1338fd809df7f74",
+  "truth_loaded": false,
+  "cell": {
+    "id": 2,
+    "snr_db": 7
+  },
+  "arm": "S_SBL3",
+  "configuration": {
+    "family": "shared_SBL",
+    "method": "sbl",
+    "grid_iterations": 3
+  },
+  "setup_kind": "shared/I1 full registered context",
+  "system": {
+    "n_total": 1024,
+    "l_max_cap": 102,
+    "k_max_cap": 2,
+    "rho": 0.5,
+    "c1": 0.00244140625,
+    "c2": 1.9751241797117955e-07
+  },
+  "code_g_sha256": "bfd4247263adedc9a095b87603c2a7a4c2f2e8cb83f7e78bad721c5b06eaa6af",
+  "environment": {
+    "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "hostname": "liunxgpu",
+    "machine": "x86_64",
+    "numpy": "1.26.4",
+    "scipy": "1.10.1",
+    "torch": "2.5.1+cu121",
+    "matplotlib": "3.7.1",
+    "cuda_visible_devices": "",
+    "torch_cuda_available": false,
+    "torch_num_threads": 1,
+    "torch_num_interop_threads": 1,
+    "torch_pre_context_num_threads": 1,
+    "torch_pre_context_num_interop_threads": 64,
+    "torch_binding_authority": "receiver context build; verified before first receiver run",
+    "thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "warmup": {
+    "same_original_receiver_call": true,
+    "observed_input_reused": true,
+    "wall_seconds": 2.5950510710245,
+    "decoded_sha256": "4042b1596ae0af2dcf4d95099c3ba8e7c32da79d7504d77cdd5a88823c1f7082"
+  },
+  "online_memory_snapshots": {
+    "before_call": {
+      "rss_kib": 657092,
+      "high_water_kib": 727276
+    },
+    "after_call": {
+      "rss_kib": 656996,
+      "high_water_kib": 730596
+    },
+    "interpretation": "diagnostic process snapshots; not an exact online incremental peak"
+  },
+  "actual": {
+    "wall_seconds": 2.5843789710197598,
+    "decoded_sha256": "4042b1596ae0af2dcf4d95099c3ba8e7c32da79d7504d77cdd5a88823c1f7082",
+    "info_hat_sha256": "033d0b648160225106002e0c0d3e292e6c3f22f5f16e91717354c92feec19d5b",
+    "llr_sha256": "caa355797f48ea60feea54ab9f87850fa40aa8b572deffd72222f5b4e7586bf6",
+    "receiver_times": {
+      "seconds_complete": 2.5843588339630514,
+      "front_seconds": 0.9951330340118147,
+      "refit_seconds": 1.439111209998373,
+      "detector_seconds": 0.12086113600526005,
+      "decoder_seconds": 0.025705957028549165,
+      "instrumentation_seconds": 0.0
+    },
+    "state_source": "formal_I1_preterminal"
+  },
+  "whole_process_rss_authority": "sibling time.txt from /usr/bin/time -v"
+}

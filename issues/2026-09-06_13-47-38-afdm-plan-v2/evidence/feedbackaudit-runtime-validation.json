@@ -1,0 +1,145 @@
+{
+  "scope": "one fixed calibration frame engineering qualification, no FER inference",
+  "arms": {
+    "f_mean": {
+      "production_primary_exact": true,
+      "production_soft_exact": {
+        "final_bp_mu_sha256": false,
+        "final_bp_var_sha256": false,
+        "final_llr_sha256": false
+      },
+      "isolated_deterministic_reference_primary_and_soft_exact": true,
+      "info_errors": 0,
+      "dals_events": 9
+    },
+    "f_uniform": {
+      "production_primary_exact": true,
+      "production_soft_exact": {
+        "final_bp_mu_sha256": false,
+        "final_bp_var_sha256": false,
+        "final_llr_sha256": false
+      },
+      "isolated_deterministic_reference_primary_and_soft_exact": true,
+      "info_errors": 0,
+      "dals_events": 9
+    },
+    "f_dynamic": {
+      "production_primary_exact": true,
+      "production_soft_exact": {
+        "final_bp_mu_sha256": false,
+        "final_bp_var_sha256": false,
+        "final_llr_sha256": false
+      },
+      "isolated_deterministic_reference_primary_and_soft_exact": true,
+      "info_errors": 0,
+      "dals_events": 9
+    },
+    "o_data": {
+      "production_primary_exact": true,
+      "production_soft_exact": {
+        "final_bp_mu_sha256": false,
+        "final_bp_var_sha256": false,
+        "final_llr_sha256": false
+      },
+      "isolated_deterministic_reference_primary_and_soft_exact": true,
+      "info_errors": 0,
+      "dals_events": 9
+    }
+  },
+  "queue": {
+    "manifest_sha256": "dfa014bd38a213942a04b14a7de756fb14a6708b449ec92e59dcb535db666d98",
+    "identity": {
+      "pid": 114221,
+      "start_ticks": "25727207",
+      "boot_id": "46271cdb-c8f7-410a-aa8e-330aa822e32f"
+    },
+    "started_at": 1788685111.1889544,
+    "complete": true,
+    "runs": [
+      {
+        "name": "on",
+        "identity": {
+          "pid": 114226,
+          "start_ticks": "25727222",
+          "boot_id": "46271cdb-c8f7-410a-aa8e-330aa822e32f"
+        },
+        "started_at": 1788685111.2914681,
+        "exit_code": 0,
+        "affinity": "16,17,18,19",
+        "device": "cuda",
+        "ended_at": 1788685120.7390544
+      },
+      {
+        "name": "off",
+        "identity": {
+          "pid": 114229,
+          "start_ticks": "25727227",
+          "boot_id": "46271cdb-c8f7-410a-aa8e-330aa822e32f"
+        },
+        "started_at": 1788685111.3406591,
+        "exit_code": 0,
+        "affinity": "20,21,22,23",
+        "device": "cuda",
+        "ended_at": 1788685118.4566944
+      },
+      {
+        "name": "det_on",
+        "identity": {
+          "pid": 114287,
+          "start_ticks": "25727996",
+          "boot_id": "46271cdb-c8f7-410a-aa8e-330aa822e32f"
+        },
+        "started_at": 1788685119.0236428,
+        "exit_code": 0,
+        "affinity": "20,21,22,23",
+        "device": "cuda",
+        "ended_at": 1788685128.5104396
+      },
+      {
+        "name": "det_off",
+        "identity": {
+          "pid": 114305,
+          "start_ticks": "25728225",
+          "boot_id": "46271cdb-c8f7-410a-aa8e-330aa822e32f"
+        },
+        "started_at": 1788685121.321996,
+        "exit_code": 0,
+        "affinity": "16,17,18,19",
+        "device": "cuda",
+        "ended_at": 1788685127.9673738
+      }
+    ],
+    "peak_gpu_mib": 1341,
+    "ended_at": 1788685128.5265856
+  },
+  "primary_exact_fields": [
+    "output_h_sha256",
+    "output_x_sha256",
+    "sigma2_final",
+    "raw_errors",
+    "info_errors",
+    "decoded_bits_sha256"
+  ],
+  "limitation": "ordinary production final BP soft reductions are not bitwise repeatable; separate deterministic reference only, production backend unchanged",
+  "frozen_mean_snapshot": {
+    "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_feedbackaudit-1788685100/on/dals-states/frame-0.pt",
+    "sha256": "3a1b3a186dde1bea05dfde9d6737709a9b2b157b32ab4fe55cffe1bce8fa540f"
+  },
+  "offline_matrix_seconds": 1.8102961159602273,
+  "snapshot_io_seconds": 0.1674954420013819,
+  "artifact_sha256": {
+    "queue-status.json": "881c79402a74ae58f046f231e9103a39e346eccb981b770427ccd94e33c792d3",
+    "on/status.json": "6d8a604ec863f0b9c26000bbaaf9cfdd7c06b23c81a8a2eec7e4e5ba3ca02935",
+    "on/frames.jsonl": "a2fc07995546bed97dd89100b26b98a9b78a8e3b65d5ec74ab80329bc043bde5",
+    "off/status.json": "b86ea90ae5f94300c1af7d5a1a5bccda9562d2de7db8622005b493da5966586d",
+    "off/frames.jsonl": "65cfd2c0f996577e020f1dfd6d1fc417875e6f3f4c57e55270e2a981554ed7b1",
+    "det_on/status.json": "91640a7b82a8a76728585f9f6ebc47d197a4851d4008e02a27b6850daf61a490",
+    "det_on/frames.jsonl": "562d8cea581f66f38fe4facb7c1fd1a88afe600ca93a0acf7a8f65192c3f6f45",
+    "det_off/status.json": "c50a432a9de5ee6369459388c526f2c43f2dba498ac1de168cb3847ec1445273",
+    "det_off/frames.jsonl": "4a1cd7e1b3f899a1f6908f44c3da3d661f9638dbe41c98a3990fbe0f56c5047e",
+    "on.log": "b7f8dfdf0f4dc8bfd373227a69de7037e0c1f1e26e19a1dcd18a1c0380896207",
+    "off.log": "b7f8dfdf0f4dc8bfd373227a69de7037e0c1f1e26e19a1dcd18a1c0380896207",
+    "det_on.log": "b7f8dfdf0f4dc8bfd373227a69de7037e0c1f1e26e19a1dcd18a1c0380896207",
+    "det_off.log": "b7f8dfdf0f4dc8bfd373227a69de7037e0c1f1e26e19a1dcd18a1c0380896207"
+  }
+}

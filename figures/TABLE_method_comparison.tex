@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\caption{Method evolution from failed residual correction to the final frozen direct-bit corrector.}
+\label{tab:method_evolution}
+\begin{tabular}{p{2.6cm}p{2.8cm}p{3.2cm}p{6.4cm}}
+\toprule
+Method & Family & Test protocol & Headline outcome \\
+\midrule
+JointOMPMP & Classical iterative baseline & direct evaluation & historical anchor baseline \\
+CurrentJoint & Learned baseline & direct evaluation & base receiver for the final method \\
+vx\_recal\_v1 & Detector calibration & corrected same-test-set evaluation & no meaningful BER change \\
+distill\_pure\_iter0 & Mean-residual distillation & corrected same-test-set evaluation & headline claim collapses after correction \\
+Observable direct-bit corrector & Split-specific probe & split-specific evaluation & gain 6.8359e-04 to 9.2773e-04 \\
+Frozen direct-bit corrector & Final method & train-once/test-on-many & nominal gain 1.0590e-03; survives 3 shifts \\
+\bottomrule
+\end{tabular}
+\end{table*}

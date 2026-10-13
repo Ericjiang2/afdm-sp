@@ -1,0 +1,222 @@
+{
+  "checks": 33278,
+  "maximum_absolute_error": 6.111804395914078e-10,
+  "failures": [],
+  "passed": true,
+  "stages": [
+    {
+      "stage": "cost_v1",
+      "input_stages": 8,
+      "source_derived_operation_corrections": [
+        {
+          "stage": "feature_control_v1",
+          "point": 0,
+          "cholesky_matrices": 256,
+          "general_solve_matrices": 256,
+          "reported_field": "teacher_covariance_factorizations counts Cholesky matrices only; general solve additionally factors each covariance"
+        },
+        {
+          "stage": "feature_control_v1",
+          "point": 1,
+          "cholesky_matrices": 256,
+          "general_solve_matrices": 256,
+          "reported_field": "teacher_covariance_factorizations counts Cholesky matrices only; general solve additionally factors each covariance"
+        },
+        {
+          "stage": "inference_control_v1",
+          "cholesky_matrices": 15360,
+          "general_solve_matrices": 15360,
+          "reported_field": "covariance_factorizations counts Cholesky matrices only; general solves are additional"
+        }
+      ],
+      "timing_scope": "all original whole-stage wall/CPU already includes both operations; do not alter measured time"
+    },
+    {
+      "stage": "feature_actual_v1",
+      "observations": 1280,
+      "full_feature_rows": 1280,
+      "layers": 5
+    },
+    {
+      "stage": "feature_control_v1",
+      "observations": 10240,
+      "full_feature_rows": 10240,
+      "layers": 10
+    },
+    {
+      "stage": "inference_actual_v1",
+      "observations": 12288,
+      "evaluation_cases": 256,
+      "all_candidate_objectives_rebuilt": true,
+      "likelihood_replay_rows": 256,
+      "likelihood_replay_candidates": 16,
+      "all_saved_order48_subset_replayed": true
+    },
+    {
+      "stage": "inference_control_v1",
+      "observations": 49152,
+      "evaluation_cases": 720,
+      "all_candidate_objectives_rebuilt": true,
+      "likelihood_replay_rows": 46080,
+      "likelihood_replay_candidates": 60,
+      "all_saved_order48_subset_replayed": false
+    },
+    {
+      "stage": "prior_geometry_v1",
+      "dense_geometry_cases": 108,
+      "collision_tail_fits": 6,
+      "covariance_scope": "saved analytic covariance changes and asymptotic fits; no new covariance quadrature"
+    },
+    {
+      "stage": "prior_information_v1",
+      "all_score_statistic_rows": 1536,
+      "reconstructed_existing_rule_rows_per_case": 8,
+      "rules_per_case": 3,
+      "saved_component_replay": false,
+      "existing_rule_reconstruction": true,
+      "new_scientific_rules": 0
+    },
+    {
+      "stage": "prior_refinement_v1",
+      "all_score_rows": 1024,
+      "reused_observations": 256,
+      "source_active_nodes": 18944,
+      "source_unused_initialization_nodes": 32,
+      "audit_new_nodes": 0,
+      "component_replay_rows_per_rule": 8
+    },
+    {
+      "stage": "transfer_v2",
+      "raw_observations": 7680,
+      "all_predictions_reconstructed": true,
+      "small_n_reference_cases": 8,
+      "saved_quadrature_nodes_reused": true,
+      "dense_geometry_rows": 72
+    }
+  ],
+  "input_hash_counts": {
+    "protected": 4307,
+    "sources": 1896,
+    "snapshots": 1896,
+    "artifacts": 3156,
+    "committed_blobs": 65
+  },
+  "new_observations": 0,
+  "new_scientific_nodes": 0,
+  "new_scientific_rules": 0,
+  "reused_existing_nodes": true,
+  "input_costs": {
+    "counts": {
+      "protected": 4307,
+      "sources": 1896,
+      "snapshots": 1896,
+      "artifacts": 3156,
+      "committed_blobs": 65
+    },
+    "stages": [
+      {
+        "stage": "cost_v1",
+        "status": "complete",
+        "observations": 0,
+        "reserved_wall": 60,
+        "wall": 0.35936375000164844,
+        "cpu": 0.21481499999999998,
+        "rss": 293191680
+      },
+      {
+        "stage": "feature_actual_v1",
+        "status": "complete",
+        "observations": 1280,
+        "reserved_wall": 300,
+        "wall": 34.177884165997966,
+        "cpu": 33.962199,
+        "rss": 1609433088
+      },
+      {
+        "stage": "feature_control_v1",
+        "status": "complete",
+        "observations": 10240,
+        "reserved_wall": 300,
+        "wall": 0.6503255830029957,
+        "cpu": 0.5586709999999999,
+        "rss": 95698944
+      },
+      {
+        "stage": "inference_actual_v1",
+        "status": "complete",
+        "observations": 12288,
+        "reserved_wall": 1800,
+        "wall": 198.92028666600527,
+        "cpu": 198.692934,
+        "rss": 1154220032
+      },
+      {
+        "stage": "inference_control_v1",
+        "status": "complete",
+        "observations": 49152,
+        "reserved_wall": 900,
+        "wall": 7.210564624998369,
+        "cpu": 7.080101,
+        "rss": 382091264
+      },
+      {
+        "stage": "prior_geometry_v1",
+        "status": "complete",
+        "observations": 0,
+        "reserved_wall": 120,
+        "wall": 0.8541154999984428,
+        "cpu": 0.6995649999999999,
+        "rss": 293273600
+      },
+      {
+        "stage": "prior_information_v1",
+        "status": "complete",
+        "observations": 1536,
+        "reserved_wall": 900,
+        "wall": 46.05923425000219,
+        "cpu": 45.864655,
+        "rss": 2556035072
+      },
+      {
+        "stage": "prior_refinement_v1",
+        "status": "complete",
+        "observations": 0,
+        "reserved_wall": 900,
+        "wall": 47.238238749996526,
+        "cpu": 46.928924,
+        "rss": 1691549696
+      },
+      {
+        "stage": "transfer_v2",
+        "status": "complete",
+        "observations": 7680,
+        "reserved_wall": 900,
+        "wall": 4.937763082998572,
+        "cpu": 4.793224,
+        "rss": 919961600
+      }
+    ],
+    "total_reserved_observations": 82176,
+    "total_reserved_wall": 6180,
+    "actual_wall": 340.407776373002,
+    "actual_cpu": 338.795088
+  },
+  "pre_registration_rejections": [
+    {
+      "stage_requested": "transfer_v1",
+      "status": "rejected_before_registration",
+      "new_observations": 0,
+      "reserved_wall_seconds": 0,
+      "failed_source_commit": "15d1b051",
+      "root_cause": "torch.ops and torch.classes advertise synthetic relative __file__ values; collector incorrectly resolved them to project source paths",
+      "reproduction": "test_preloaded_sources_exclude_torch_virtual_namespace_filenames: failed before fix, passed after fix",
+      "fix": "exclude only exact known PyTorch virtual namespace metadata, preserve real source path enforcement",
+      "validation": "11 transfer tests passed",
+      "retry_stage": "transfer_v2",
+      "record_sha256": "579742bf3ab12231b9e635ce1a9a387b92e072131280b3f651e185acdfe33563",
+      "cost_scope": "no registered stage/observation/wall reservation; unrecorded diagnostic wall is not invented"
+    }
+  ],
+  "own_attempt_cost_separate": true,
+  "scope": "all feature/prediction/statistic rows; independent density integration scope declared per adapter"
+}

@@ -1,0 +1,9 @@
+# F2E→LOCAL 输入表示域停机诊断
+
+**结论：已确认接口表示域不相容。** 第 19 次尝试 `s650_f0004/F2E_LOCAL` 在 LOCAL 的几何入口校验失败，尚未执行几何搜索、续接 TF/LDPC 或产生该分支 checkpoint。整次运行保持 `invalid_partial`；不可用前 18 次成功调用推算全体 FER。
+
+只读的远端保存的 F2E raw `population_v1/raw/s650_f0004_F2E.npz`（完整远端路径见 JSON，SHA-256 `51ce9e68d8593b78f4dfeece93cb879da8dcbd99315ca3126dec73d3e76defd7`，202452 B，与完成 ledger 一致）显示：r1 的数组索引 5、6 槽（从 0 计数）均为 delay 15，Doppler 分别为 `0.4842091048886865`、`0.48420910489879293`，差 `1.0106415704314031e-11`，远低于冻结的严格 `<1e-6` 重复阈值。两槽分别来自 F2 grid index 109、108；两者在保存的四个 F2 pass 的 active set 中均被选中，最终 `delta` 分别约 `0.01873353492112338`、`0.018733534921028607`，非空槽。初始 grid 的这两个同 delay 原子中心分别为 ν=1、0；保存的最终 `front.channel` 与 coded r0/r1 几何逐槽一致。r1 两增益见 [诊断 JSON](F2_DOMAIN_FAILURE_DIAGNOSIS.json)。保存状态只给最终 ν，并不提供每次 EM 的逐原子 ν 轨迹。
+
+源码链：[`f2_estimator.py`](../../experiments/cstate_necessity_stageB_resume_20260928/f2_estimator.py) 的 `initial_grid`（45–53）、`active_indices`（56–65）、`_grid_update`（164–201）、`estimate`（约 320–380）允许各原子独立移动，并按超方差取 top155，没有同 delay 最小间距门；[`f2_receiver.py`](../../experiments/cstate_necessity_stageB_resume_20260928/f2_receiver.py) 33–99 将这 155 槽传过两个 coded round；[`run_validation.py`](../../experiments/tf_cstate_validation_20260922/run_validation.py) 39–65 直接从 r1 建 LOCAL 输入，设 `duplicate_tolerance=1e-6`；[`geometry_validation.py`](../../experiments/tf_cstate_validation_20260922/geometry_validation.py) 84–99 在入口 `_validate` 拒绝同 delay 且 Doppler 间距 `<1e-6` 的任意两槽。冻结 source SHA 与运行清单绑定见 JSON。故这是 F2 可产生的输出与 LOCAL/CSTATE 旧表示域契约之间的真实冲突，未见 raw 读写或分支调度错位证据；不能据此宣称 F2 网格优化数值有误。
+
+失败收据 [`failure.json`](population_v1/failure.json) 记 19 次已 journal 尝试、10 个 prefix 与 8 个 continuation 成功、此次收费 `0.009851524024270475 s`、0 checkpoint、`truth_values_read=false`。本次只读保存的 NPZ、ledger、failure 和源码；**0 次新 receiver/TF/decoder、0 次 truth 读取**。不删并路径、不放宽阈值、不改冻结源、不自动重试。

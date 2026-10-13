@@ -1,0 +1,44 @@
+AFDM System initialized: N_total=1024 subcarriers (from 32x32)
+  Chirp parameters: c1=0.002441, c2=0.000000
+  Caps: l_max=15, k_max=2, delta_max=77 < N=1024: OK
+  UWA params: fc=12.0 kHz, B=4.0 kHz, fs=8.0 kHz, Ts=125.0 us
+  UWA channel: P=10, tau_spread=10.0 ms, v_mean=2.00 m/s, v_std=0.50 m/s
+  Supported AFDM delay window: 1.0 ms
+  Backward-compat speed cap: 12.6 km/h
+  Channel matrix size: 1024x1024
+[_make_system_variable_N] N_total=1024  l_max=102  k_max=4  δ_max=922  < N: True  c1=0.004395  c2=1.98e-07
+[eval] loaded afdm_sp_joint_unrolled/outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt variant=C2-rel
+[LOOP5_CONFIG] variant=C2-rel mp_mode=bp pic_damp=0.5 N=1024 v=2.0 P=8 tau=10.00ms SNRs=[10, 15, 20, 25, 30] frames=80 cdtype=complex64 ckpt=afdm_sp_joint_unrolled/outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt
+  [snr=10 fi=  0]  classical=7.568e-02 (155)  torch-ref=7.568e-02 (155)  learned=7.715e-02 (158)  [2s]
+  [snr=10 fi= 10]  classical=9.317e-02 (2099)  torch-ref=9.317e-02 (2099)  learned=9.446e-02 (2128)  [19s]
+  [snr=10 fi= 20]  classical=9.933e-02 (4272)  torch-ref=9.933e-02 (4272)  learned=9.903e-02 (4259)  [40s]
+  [snr=10 early-stop] classical cum errs 6231 >= target 800 at fi=30
+  [snr=15 fi=  0]  classical=4.980e-02 (102)  torch-ref=4.980e-02 (102)  learned=4.980e-02 (102)  [61s]
+  [snr=15 fi= 10]  classical=3.893e-02 (877)  torch-ref=3.893e-02 (877)  learned=3.791e-02 (854)  [79s]
+  [snr=15 fi= 20]  classical=3.541e-02 (1523)  torch-ref=3.541e-02 (1523)  learned=3.504e-02 (1507)  [96s]
+  [snr=15 early-stop] classical cum errs 2169 >= target 800 at fi=30
+  [snr=20 fi=  0]  classical=0.000e+00 (0)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  [115s]
+  [snr=20 fi= 10]  classical=8.878e-05 (2)  torch-ref=8.878e-05 (2)  learned=8.878e-05 (2)  [136s]
+  [snr=20 fi= 20]  classical=1.070e-03 (46)  torch-ref=1.070e-03 (46)  learned=1.070e-03 (46)  [155s]
+  [snr=20 fi= 30]  classical=2.615e-03 (166)  torch-ref=2.615e-03 (166)  learned=2.662e-03 (169)  [172s]
+  [snr=20 fi= 40]  classical=2.394e-03 (201)  torch-ref=2.370e-03 (199)  learned=2.287e-03 (192)  [189s]
+  [snr=20 fi= 50]  classical=2.738e-03 (286)  torch-ref=2.719e-03 (284)  learned=2.709e-03 (283)  [207s]
+  [snr=20 fi= 60]  classical=2.818e-03 (352)  torch-ref=2.802e-03 (350)  learned=2.794e-03 (349)  [227s]
+  [snr=20 fi= 70]  classical=2.827e-03 (411)  torch-ref=2.813e-03 (409)  learned=2.772e-03 (403)  [250s]
+  [snr=25 fi=  0]  classical=0.000e+00 (0)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  [267s]
+  [snr=25 fi= 10]  classical=9.766e-04 (22)  torch-ref=6.658e-04 (15)  learned=8.878e-05 (2)  [286s]
+  [snr=25 fi= 20]  classical=6.975e-04 (30)  torch-ref=3.488e-04 (15)  learned=4.650e-05 (2)  [304s]
+  [snr=25 fi= 30]  classical=2.473e-03 (157)  torch-ref=2.158e-03 (137)  learned=1.811e-03 (115)  [324s]
+  [snr=25 fi= 40]  classical=1.870e-03 (157)  torch-ref=1.632e-03 (137)  learned=1.370e-03 (115)  [343s]
+  [snr=25 fi= 50]  classical=1.532e-03 (160)  torch-ref=1.350e-03 (141)  learned=1.101e-03 (115)  [363s]
+  [snr=25 fi= 60]  classical=1.281e-03 (160)  torch-ref=1.129e-03 (141)  learned=9.205e-04 (115)  [380s]
+  [snr=25 fi= 70]  classical=1.128e-03 (164)  torch-ref=9.697e-04 (141)  learned=7.909e-04 (115)  [397s]
+  [snr=30 fi=  0]  classical=0.000e+00 (0)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  [414s]
+  [snr=30 fi= 10]  classical=1.065e-03 (24)  torch-ref=1.199e-03 (27)  learned=1.376e-03 (31)  [435s]
+  [snr=30 fi= 20]  classical=6.045e-04 (26)  torch-ref=6.510e-04 (28)  learned=7.208e-04 (31)  [457s]
+  [snr=30 fi= 30]  classical=4.095e-04 (26)  torch-ref=4.410e-04 (28)  learned=4.883e-04 (31)  [479s]
+  [snr=30 fi= 40]  classical=3.454e-04 (29)  torch-ref=3.692e-04 (31)  learned=4.406e-04 (37)  [496s]
+  [snr=30 fi= 50]  classical=3.255e-04 (34)  torch-ref=3.255e-04 (34)  learned=4.117e-04 (43)  [513s]
+  [snr=30 fi= 60]  classical=2.802e-04 (35)  torch-ref=2.722e-04 (34)  learned=4.082e-04 (51)  [531s]
+  [snr=30 fi= 70]  classical=2.407e-04 (35)  torch-ref=2.338e-04 (34)  learned=3.507e-04 (51)  [550s]
+[done] wrote afdm_sp_joint_unrolled/outputs_loop10_smoke_p8

@@ -1,0 +1,33 @@
+🧿 oracle 0.9.0 — Hallucinations checked at the door.
+Launching browser mode (gpt-5.4-pro) with ~45,118 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+Yes—the listed files arrived, and the backbone/trainer already give you the right plumbing: the current C1 hook is identity-safe, and the trainer already has `VARIANT_HEADS`, hard-eval, patience, and gate-style checkpoint selection.   
+
+**Q1. Pick:** a cleaner 4th option, **`C2-rel` candidate-active relation head**. If you force me to choose only from E1/E2/E3, choose **E2**. Loop 8 falsified scores built mainly from post-LS residual projections: residual-MF recall@6 was only `0.031/0.035` at `15/20`, D3-lite was worse, and Round 2’s diagnosis was “wrong-but-coherent atom explains away nearby true atom.” The unused signal in your briefing is candidate↔active geometry plus pre-LS pilot MF; that argues for a small candidate-active relation block, not E1’s scalar summaries or E3’s full-grid CNN.  
+
+**Interface point:** insert once at `t==0`, immediately after `omp_sparse_torch(...)` returns `support_idx` / first LS gains and before `expand_cluster_support(...)`. Reuse C1’s identity-init convention, but do **not** reuse C1’s late `t>=1` post-DA-LS residual input; that late signal is exactly what Loop 8 showed is near-empty. Action: score off-support candidates, add up to `K_add_max=4`, solve pilot-only LS on the union, prune back to `P`, refit LS, then continue the existing classical path unchanged.  
+
+**Features:** candidate-local
+`u_j = [log|phi_j^H y|, margin_to_Pth_OMP_pick, l_j/l_max, k_j/k_max, d_l_nn/l_max, d_k_nn/k_max, log sigma2]`.
+Pair-to-active features
+`v_{j,s} = [coh_js, log(|alpha_s|*coh_js+eps), Δl_js/l_max, Δk_js/k_max, 1{|Δl|=0}, 1{|Δk|<=2}]`,
+with `coh_js = |a_j^H a_s| / (||a_j|| ||a_s||)`. Build candidates from top-`M=48` off-support atoms by **pre-LS pilot MF** `|Phi^H y|`; use **raw OMP support**, not cluster-expanded support, for the relation block. This directly instantiates the four unused signals in the briefing. 
+
+**Architecture:** pair MLP `6->16->16` with SiLU; max-pool and mean-pool over active `s`; candidate scorer MLP `(7 + 16 + 16)->16->1`. Zero-init the final linear weights and set final bias to `-8`; inference adds only logits `>0`, capped at 4. That stays far below the complexity budget: a few thousand params, pair work only `M*|S|` (about `48*10`). No transformer block, no CNN, no dictionary extension. For this round, train it as a cached supervised support head, then freeze it for BER evaluation.  
+
+**Loss / schedule:** cached supervised training only. Label `y_j=1` iff candidate `j` is in `S_oracle \ S_omp`. Use
+`L = BCE_miss + 0.5*rank(pos > hard_neg)`
+with SNR weights `0.2/0.4/0.4` for `10/15/20`, and frame weight `x2` if classical frame BER>0. Start with `60k` cached frames, mix `1:2:2` over `10/15/20`, batch `512`, AdamW `lr=1e-3`, `wd=1e-4`, 4 epochs, early-stop after 2 flat val evals. Only if a frozen cached-trained head wins held-out BER at 15 and 20 with non-regression at 10 should you bother with an optional one-epoch online tune. Reuse the trainer’s hard-eval / gate-style selection logic rather than selecting on tiny debug runs.  
+
+**Q2. Micro-verify gate:** adapt `loop8_diagnose.py`. Cache `~250` paired frames per gate SNR with the same seeds; for each frame build the `M=48` candidate set and the relation features above. Fit a cheap L2 logistic regression on a train split of the cached candidates, then rank candidates by predicted probability on held-out frames. Compute `recall@K_add` exactly the Loop-8 way, but replace residual-MF scores with proxy probabilities. Hard pass only if, at both 15 and 20 dB, `recall_proxy@K / recall_resMF@K >= 2.0` for `K=2,4,6`, **and** `recall_proxy@6 >= 0.10` at 15 dB and `>= 0.12` at 20 dB. Also track `hit_any@6`; require `>=0.35/0.45` at `15/20`. If ratio passes but absolute floors fail, stop.  
+
+**Q3. Posterior:** `0.30` blind, `0.48` if the micro-gate clears both the relative and absolute thresholds above. My reasoning is that support is the whole channel-side gap at 20 dB and a large piece at 15 dB, but only 14% of the gap at 10 dB, so this can win 15 and 20 while still doing nothing at 10 unless adds are tightly suppressed. That posterior is an inference from the Loop 8 diagnostics, not a measured result.  
+
+**Q4. Stop rules:** no training if the proxy gate fails any `K` or any absolute floor; no `500f` McNemar until one frozen checkpoint shows held-out `1000f/gate` BER improvement at both 15 and 20 with `10 dB <= +3%` relative regression and normal BER/MSE waterfalls; reject any checkpoint with non-monotone waterfall or above-PCSI behavior; run exactly one official paired `500f` significance eval after checkpoint lock; if the best cached-trained head only wins on one bad-frame slice and not on a second disjoint `1000f/gate` eval, stop the round. This matches the trainer’s existing patience / best-checkpoint / hard-eval philosophy.  
+
+**Q5. Score:** `8/10`. **GO — but only as a hard-gated support-repair round.** If you want a list-only answer, pick **E2**, but strip it down to candidate↔active relations; full candidate-candidate self-attention is extra variance you do not need here. 
+
+
+16m41s · gpt-5.4-pro[browser] · ↑45.12k ↓1.27k ↻0 Δ46.38k
+files=9

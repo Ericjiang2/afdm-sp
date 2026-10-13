@@ -1,0 +1,19 @@
+{
+  "status": "unit_contracts_passed_integration_pending",
+  "tests_passed": 6,
+  "command": "OPENBLAS_NUM_THREADS=1 python -m unittest afdm_sp_joint_unrolled.test_direction_structure afdm_sp_joint_unrolled.test_direction_structure_replay -v",
+  "exit_code": 0,
+  "logs": [
+    "structure-contract-tests-v1.log",
+    "structure-contract-tests-v2.log",
+    "structure-contract-tests-v3.log"
+  ],
+  "source_sha256": {
+    "direction_structure.py": "0f3beb7fd3fa218c6f9387a15699c13183a762729ede5d8614dca6b381abcf58",
+    "test_direction_structure.py": "430320f05187a061aa7fd72c8a0c1dff26e5bbca630052f9fb40df762b887a6f",
+    "direction_structure_replay.py": "0018d890ed2b418c40e179832925353fe44a656428de87b87012a6e9a93654b0",
+    "test_direction_structure_replay.py": "fea835d79541a791a6ffa87c8e67b69f5e681d8e99cfe817cb07f80d631195ab"
+  },
+  "failure_history": "v1 wiring fixture added unit noise without sqrt(thermal variance), causing exact residual check to fail. Corrected fixture observation; no tolerance relaxed. v2/v3 all6 pass.",
+  "scope": "Five real small numerical fits plus one mocked terminal routing test. No N1024 structure call or M-01 completion claim."
+}

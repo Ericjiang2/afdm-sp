@@ -1,0 +1,599 @@
+<title>SP-AFDM 自举悬崖</title>
+<meta name="description" content="叠加导频 AFDM 接收机为何在信道模型变大时骤然失效，以及第一轮接收所传递信息量的第一性原理规律。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Noto+Sans+SC:wght@500;700&family=Noto+Serif+SC:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column (~40em CJK) inside a 1040px frame; figures and tables take the full frame width. */
+:root {
+  --paper: #f3f6f6;
+  --surface: #ffffff;
+  --ink: #15202a;
+  --muted: #586773;
+  --rule: #d3dbdf;
+  --accent: #0f6f86;      /* chirp trace: model curves, links */
+  --accent-soft: #d7ebf0;
+  --signal: #b06a00;      /* code threshold I*, cliff markers */
+  --ok: #2c7a4b;
+  --hyp: #6a4c9c;
+  --bad: #a83c3c;
+  --display: "Bricolage Grotesque", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --body: "Source Serif 4", "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, "Noto Sans SC", "PingFang SC", monospace;
+  --step--1: .84rem;
+  --step-0: 1.04rem;
+  --step-1: 1.26rem;
+  --step-2: 1.66rem;
+  --step-3: clamp(2.1rem, 4.6vw, 3rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0e1418; --surface: #151d22; --ink: #e2e8ea; --muted: #94a3ac; --rule: #2a353c;
+    --accent: #52b6cb; --accent-soft: #173640; --signal: #e3a43c; --ok: #5fbf86; --hyp: #a98fdc; --bad: #e07a7a;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0e1418; --surface: #151d22; --ink: #e2e8ea; --muted: #94a3ac; --rule: #2a353c;
+  --accent: #52b6cb; --accent-soft: #173640; --signal: #e3a43c; --ok: #5fbf86; --hyp: #a98fdc; --bad: #e07a7a;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 var(--step-0)/1.8 var(--body);
+  padding: 0 20px;
+}
+.frame { max-width: 1040px; margin: 0 auto; padding-block: 48px 72px; display: grid; gap: 56px; }
+.prose { max-width: 40em; display: grid; gap: 14px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.25; }
+h1 { font-size: var(--step-3); font-weight: 700; }
+h2 { font-size: var(--step-2); font-weight: 700; }
+h3 { font-size: var(--step-1); font-weight: 500; margin-top: 10px; }
+p { margin: 0; }
+b { font-weight: 600; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+code, .mono { font-family: var(--mono); font-size: .86em; }
+var { font-style: italic; font-family: "Source Serif 4", Georgia, serif; }
+.eyebrow { font: 500 var(--step--1)/1.3 var(--mono); letter-spacing: .06em; color: var(--muted); }
+.sec-head { display: grid; gap: 8px; border-top: 1px solid var(--rule); padding-top: 22px; }
+section { display: grid; gap: 22px; }
+
+/* header */
+header { display: grid; gap: 18px; }
+.lede { font-size: var(--step-1); line-height: 1.65; max-width: 34em; color: var(--ink); }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 400 var(--step--1)/1.4 var(--mono); color: var(--muted); }
+.meta b { font-weight: 500; color: var(--ink); }
+
+/* findings */
+.findings { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.finding { background: var(--surface); padding: 18px 18px 20px; display: grid; gap: 10px; align-content: start; }
+.finding .num { font: 700 1.9rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.finding p { font-size: .96rem; line-height: 1.7; }
+.chip { justify-self: start; font: 500 .74rem/1 var(--mono); letter-spacing: .04em; padding: 5px 7px; border-radius: 3px; border: 1px solid currentColor; white-space: nowrap; }
+.chip.est { color: var(--ok); }
+.chip.cal { color: var(--accent); }
+.chip.hyp { color: var(--hyp); }
+.chip.no { color: var(--bad); }
+
+/* spec grid */
+.spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px 24px; margin: 0; }
+.spec div { display: grid; gap: 2px; border-left: 2px solid var(--rule); padding-left: 10px; }
+.spec dt { font: 500 .78rem/1.3 var(--mono); color: var(--muted); }
+.spec dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+/* receiver loop diagram */
+.loop { display: grid; gap: 10px; }
+.loop-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; gap: 10px; }
+.stage { background: var(--surface); border: 1px solid var(--rule); padding: 14px; display: grid; gap: 4px; align-content: start; }
+.stage b { font-family: var(--display); font-weight: 500; font-size: 1.05rem; }
+.stage span { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+.stage.inner { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.arrow { align-self: center; font: 500 1.2rem var(--mono); color: var(--muted); }
+.feedback { border: 1px dashed var(--muted); padding: 10px 14px; font-size: .9rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.feedback b { color: var(--ink); font-weight: 600; }
+
+/* tables */
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .93rem; line-height: 1.6; }
+th, td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+th { font: 500 .78rem/1.4 var(--mono); color: var(--muted); background: var(--paper); }
+tr:last-child td { border-bottom: 0; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: .86rem; }
+caption { caption-side: bottom; text-align: left; padding: 10px 12px; font-size: .86rem; color: var(--muted); }
+
+/* timeline */
+ol.timeline { list-style: none; counter-reset: t; margin: 0; padding: 0; display: grid; gap: 14px; max-width: 44em; }
+ol.timeline li { counter-increment: t; display: grid; grid-template-columns: 2.4rem 1fr; gap: 12px; }
+ol.timeline li::before { content: counter(t); font: 700 1.2rem/1.5 var(--display); color: var(--muted); font-variant-numeric: tabular-nums; }
+ol.timeline .c { font: 400 .78rem var(--mono); color: var(--muted); }
+
+/* math */
+math { font-family: math, "STIX Two Math", "Cambria Math", serif; font-size: 1.08em; }
+.eq { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; padding: 10px 16px; background: var(--surface); border-left: 3px solid var(--accent); overflow-x: auto; }
+.eq .tag { font: 400 .8rem var(--mono); color: var(--muted); }
+.step { display: grid; gap: 10px; }
+.step h3 { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+
+/* figures */
+figure { margin: 0; display: grid; gap: 10px; }
+figcaption { font-size: .9rem; color: var(--muted); max-width: 46em; line-height: 1.7; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.chart { background: var(--surface); border: 1px solid var(--rule); padding: 10px; }
+.chart svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 400 .8rem var(--mono); color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: inline-block; width: 22px; height: 0; border-top: 2px solid; }
+svg text { font-family: var(--mono); font-size: 11px; fill: var(--muted); }
+svg .axis { stroke: var(--rule); stroke-width: 1; fill: none; }
+svg .grid { stroke: var(--rule); stroke-width: 1; stroke-dasharray: 2 4; fill: none; }
+svg .diag { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 5 4; fill: none; }
+svg .istar { stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 6 4; fill: none; }
+svg .istar-t { fill: var(--signal); }
+svg .curve { stroke: var(--accent); fill: none; stroke-linejoin: round; }
+svg .stair { stroke: var(--signal); stroke-width: 2; fill: none; }
+svg .stair-pt { fill: var(--signal); stroke: none; }
+svg .start { fill: var(--surface); stroke: var(--accent); stroke-width: 1.5; }
+svg .lab { fill: var(--ink); }
+svg .m-hw { stroke: var(--accent); stroke-width: 2.6; fill: none; }
+svg .m-ind { stroke: var(--muted); stroke-width: 1.4; stroke-dasharray: 7 4; fill: none; }
+svg .m-coh { stroke: var(--hyp); stroke-width: 1.4; stroke-dasharray: 2 3; fill: none; }
+svg .m-lim { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 1 3; fill: none; opacity: .8; }
+svg .obs { fill: var(--ink); stroke: none; }
+svg .whisk { stroke: var(--ink); stroke-width: 1.2; fill: none; }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.box { background: var(--surface); border: 1px solid var(--rule); padding: 16px 18px; display: grid; gap: 10px; align-content: start; }
+.box h3 { margin: 0; font-size: 1.08rem; }
+.box ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; font-size: .96rem; }
+.note { font-size: .92rem; color: var(--muted); max-width: 46em; }
+footer { font: 400 .8rem/1.7 var(--mono); color: var(--muted); border-top: 1px solid var(--rule); padding-top: 18px; display: grid; gap: 4px; }
+
+@media (max-width: 720px) {
+  .loop-row { grid-template-columns: 1fr; }
+  .arrow { transform: rotate(90deg); justify-self: center; }
+  .frame { padding-block: 28px 48px; gap: 44px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="frame" lang="zh-CN">
+
+<header>
+  <div class="eyebrow">AFDM 信道估计 · 研究简报 · 2026-10-09</div>
+  <h1>SP-AFDM 自举悬崖</h1>
+  <p class="lede">叠加导频（SP）AFDM 接收机在信道模型系数不多时工作良好。系数数 <var>K</var> 超过某个范围后，性能会在很窄的区间内骤然崩溃。本简报说明系统模型、问题的来由、决定悬崖位置的因素，以及接收机第一轮所能传递信息量的一条新规律。</p>
+  <div class="meta">
+    <span>任务 <b>10-08-doppler-cluster</b></span>
+    <span>分支 <b>trans/tcom-main</b></span>
+    <span>理论提交 <b>2d0a2f90</b></span>
+    <span>规格 <b>research/c1-round1-loop-theory.md</b></span>
+  </div>
+</header>
+
+<section aria-label="主要结论">
+  <div class="findings">
+    <div class="finding">
+      <span class="chip est">已确立</span>
+      <div class="num">I* = 0.577</div>
+      <p>LDPC 码在同一个输入信息量处有一半概率失败，SP、真实信道和 AWGN 输入完全一致，没有任何拟合参数。</p>
+    </div>
+    <div class="finding">
+      <span class="chip cal">已标定</span>
+      <div class="num">6 / 6</div>
+      <p>实测返回映射预测了 1 至 4 轮接收后的悬崖位置，每个格点的误差都在 7% 以内。</p>
+    </div>
+    <div class="finding">
+      <span class="chip est">推导，56/56 格</span>
+      <div class="num">(1 − c)<sup>−2</sup></div>
+      <p>软符号每次迭代都会把一部分信道误差吸收回来。第一轮信道误差在全部 56 个存量格点中都落在两个无参数极限之间。</p>
+    </div>
+    <div class="finding">
+      <span class="chip hyp">假设</span>
+      <div class="num">±0.036</div>
+      <p>若残留比例等于重估中数据所占的能量份额，该规律在 12 个点上与第一轮信息量相差不超过 0.036 bit。新格点检验的预测已冻结。</p>
+    </div>
+  </div>
+</section>
+
+<section id="background">
+  <div class="sec-head">
+    <div class="eyebrow">1 · 背景</div>
+    <h2>项目研究什么</h2>
+  </div>
+  <div class="prose">
+    <p>AFDM（仿射频分复用）把数据调制在线性调频（chirp）信号上，chirp 的斜率按信道调整。在双色散信道中，每条路径都有自己的时延和多普勒频移。AFDM 在其 chirp 域中把各条路径分开，从而收集它们带来的分集。</p>
+    <p>这里的接收机采用<b>叠加导频</b>（SP）：导频与数据同时占用相同的 N 个 chirp 位置。导频占功率比例 <var>ρ</var>，数据占 <var>a</var> = 1 − <var>ρ</var>。这样不需要任何保护间隔，但导频与数据会互相干扰，所以接收机必须联合估计信道和数据。</p>
+    <p>本工作所属的论文主线研究这样一类信道：多条射线落在同一个时延格内，且多普勒扩展小于一个格。接收机用 8 个 DPSS（离散长椭球序列）基函数描述每个时延抽头，因此有 <var>L</var> 个抽头的信道需要 <var>K</var> = 8<var>L</var> 个复系数。信道越丰富，<var>K</var> 越大。</p>
+    <p><b>问题 C1。</b><var>K</var> 增大到多少时 SP 接收机会失效？是什么物理量决定了这个极限？</p>
+  </div>
+  <dl class="spec">
+    <div><dt>块长</dt><dd>N = 1024 个 chirp，QPSK</dd></div>
+    <div><dt>信道模型</dt><dd>K = 8L 个 DPSS-BEM 系数</dd></div>
+    <div><dt>信道码</dt><dd>LDPC (3,6)，n = 2048，和积译码 ≤ 50 次迭代</dd></div>
+    <div><dt>导频比例</dt><dd>ρ ∈ {0.2, 0.3, 0.5}</dd></div>
+    <div><dt>信噪比范围</dt><dd>5 至 11 dB</dd></div>
+    <div><dt>生产配置</dt><dd>2 轮编码迭代</dd></div>
+  </dl>
+</section>
+
+<section id="model">
+  <div class="sec-head">
+    <div class="eyebrow">2 · 建模方法</div>
+    <h2>信号模型与接收环路</h2>
+  </div>
+  <div class="prose">
+    <p>接收块为 <var>y</var> = <var>H</var>(<var>h</var>)(<var>p</var> + <var>x</var>) + <var>w</var>，其中 <var>p</var> 是导频，<var>x</var> 是数据，噪声功率 <var>n</var> = 10<sup>−SNR/10</sup>，信道 <var>H</var>(<var>h</var>) = Σ<sub><var>k</var></sub> <var>h<sub>k</sub></var> <var>B<sub>k</sub></var>。信道对系数是线性的，所以 <var>H</var>(<var>h</var>)<var>s</var> = <var>A</var>(<var>s</var>)<var>h</var>，其中 N × K 矩阵 <var>A</var>(<var>s</var>) 由发送块构成。估计 <var>h</var> 就是对 <var>A</var>(<var>p</var> + <var>x̂</var>) 做回归，效果取决于软数据 <var>x̂</var> 的质量。</p>
+    <p>所有数值都采用物理单位：发射功率为 1，信道能量为 1，导频功率为 <var>ρ</var>，数据功率为 <var>a</var>。</p>
+  </div>
+
+  <figure class="loop" aria-label="接收环路">
+    <div class="loop-row">
+      <div class="stage"><b>信道重估</b><span>基于导频和当前软数据，对 K 个系数做 LMMSE 估计。第一轮只用导频。</span></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="stage inner"><b>联合检测器 · 20 次更新</b><span>信道增益与数据符号联合更新，内部不含信道码。第 6 节研究的就是这个第一轮环路。</span></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="stage"><b>LDPC 译码器</b><span>和积算法，最多 50 次迭代，校验通过即提前停止。</span></div>
+    </div>
+    <div class="feedback"><span><b>下一轮：</b>检测器先验 = 译码器校验外信息 LLR</span><span><b>重估</b>使用 APP 软符号</span><span>LLR 截断到 ±20</span></div>
+    <figcaption>一轮接收。译码器的信念输入下一轮的检测器和重估。信道估计每轮都重新构建。</figcaption>
+  </figure>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>量</th><th>含义</th><th>单位</th></tr></thead>
+      <tbody>
+        <tr><td><code>eps_ce_r</code>，<code>eps_det_r</code></td><td>第 <var>r</var> 轮重估之后、以及 20 次联合更新之后的信道误差 ‖H − Ĥ‖²<sub>F</sub>/N</td><td>能量比例</td></tr>
+        <tr><td><var>I</var><sub>in</sub></td><td>译码器输入端每个编码比特的信息量，即其 LLR 的 1 − logloss</td><td>bit</td></tr>
+        <tr><td><var>I</var>*</td><td>码有一半概率失败时的译码器输入信息量（AWGN 标定）</td><td>bit</td></tr>
+        <tr><td>Φ<sub><var>K</var></sub>(<var>I</var>)</td><td>返回映射：给定上一轮译码器输入信息量 <var>I</var>，下一轮的 <var>I</var><sub>in</sub></td><td>bit → bit</td></tr>
+        <tr><td><var>I</var><sub>1</sub>(<var>K</var>)</td><td>仅用导频起步时第一轮的译码器输入信息量，等于 Φ<sub><var>K</var></sub>(none)</td><td>bit</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="origin">
+  <div class="sec-head">
+    <div class="eyebrow">3 · 问题的来由</div>
+    <h2>问题如何逐步明确</h2>
+  </div>
+  <ol class="timeline">
+    <li><div><b>首轮代理指标。</b>早期图景使用首轮 SINR 阈值 <var>γ</var> ≈ 1.37 和系数预算 <var>K</var>* = <var>κN</var>，并认为性能随信道丰富度呈 U 形。<span class="c">0b1088b8, 35225b4c</span></div></li>
+    <li><div><b>外部评审。</b>Codex 指出，反解 <var>K</var>* 属于经典的 SP-OFDM 分析（Liang、Rave、Fettweis）；悬崖本身不能证明自举机制；导频列也并不正交（最大相关 0.150）。<span class="c">39eb9885</span></div></li>
+    <li><div><b>存量数据筛查（T0）。</b>在悬崖附近，第一轮几乎从不译码成功。成功的帧是后续轮次靠译码器反馈救回来的，而实现的信道能量主导了哪些帧失败。<span class="c">32a62d27</span></div></li>
+    <li><div><b>标量误差模型（T2），比较前已冻结。</b>结果失败：第一轮信道误差比预测大 1.55 至 3 倍，因此放弃一维误差闭合。<span class="c">1dfb182c, 722a150e</span></div></li>
+    <li><div><b>换坐标（D2）。</b>以每编码比特信息量衡量时，码阈值是普适的：SP、真实信道和 AWGN 输入都是 <var>I</var>* = 0.577。旧的 <var>γ</var> = 1.37 是 SINR 代理单位造成的伪影。<span class="c">ac08735a</span></div></li>
+    <li><div><b>干预实验。</b>增加轮数会移动悬崖；精确的信道初值在第一轮内就被遗忘；冻结信道估计则会失败（FER ≈ 1）。<span class="c">bdad1a06</span></div></li>
+    <li><div><b>返回映射。</b>在数据产生之前冻结的预测，正确给出了 1 至 4 轮的悬崖位置。<span class="c">9473a774, 6b3ebda9</span></div></li>
+    <li><div><b>第一轮规律（本简报）。</b>推导 <var>I</var><sub>1</sub>(<var>K</var>)，这是此前唯一只能测量、不能预测的曲线。<span class="c">2d0a2f90</span></div></li>
+  </ol>
+</section>
+
+<section id="cliff">
+  <div class="sec-head">
+    <div class="eyebrow">4 · 原理</div>
+    <h2>悬崖为何出现</h2>
+  </div>
+  <div class="prose">
+    <p><b>状态是译码器的信念。</b>接收机每轮都重建信道估计，并忘记自己从哪里起步。真正向前传递的，是译码器返回的信息。</p>
+    <p><b>码有固定的阈值。</b>译码器输入信息量达到 <var>I</var>* = 0.577 bit 时，译码约有一半概率成功。这个值只由码本身决定。</p>
+    <p><b>每一轮是映射上的一步。</b>第 <var>r</var> + 1 轮给出 Φ<sub><var>K</var></sub>(<var>I<sub>r</sub></var>)，起点是第一轮的 <var>I</var><sub>1</sub>(<var>K</var>)。<var>K</var> 增大时，起点和整条映射都向对角线下沉。映射与对角线之间的间隙是迭代要爬过的隧道。隧道越窄，需要的轮数越多，所以两轮时看到的悬崖在四轮时会移动。</p>
+    <p><b>隧道在折叠点闭合。</b>在 300 个新帧上测得的加密映射（A4 运行，10 月 9 日）显示，平均映射在 <var>K</var> = 224、256 和 288 时都低于对角线，置信区间不含零。从 <var>K</var> = 224 起，映射有两个稳定状态：0.42 附近的陷阱和译码成功状态。两者之间隔着一个不稳定点，它随 <var>K</var> 增大向 <var>I</var>* 靠近（0.533、0.547、0.559）。从仅导频起步的 10 轮运行会停滞：<var>K</var> = 192、224、256 时第 10 轮后 FER 分别为 0.61、0.85、0.95，每一帧要么停在 0.40 附近，要么到达 0.78 附近，中间没有帧。</p>
+    <p><b>平均映射在折叠点附近高估了长期成功率。</b><var>K</var> = 192 时平均映射仍然张开，但 61% 的帧停滞。10 轮运行把 10 轮后的悬崖定在 <var>K</var> ≈ 180（176 至 185），低于平均映射的折叠点（约 210）；第 5 轮之后，再增加轮次只让悬崖移动不到 8。各帧之间存在差异，在同一批帧上测得的逐帧映射说明了哪些帧会停滞：自身映射直到 <var>I</var>* 都低于对角线的帧，没有一帧译出（0/459）。映射张开是必要条件，但不充分：这类帧只有 29% 至 49% 译出，因为理想化映射略高于真实轨迹。</p>
+    <p><b>同一帧，两个终态。</b>从仅导频起步而停滞的帧中，62% 至 70% 在 <var>I</var>* 以下的注入起点 2 轮内译出；在 <var>I</var>* 以下没有逃逸区间的帧几乎从不译出（1/150）。因此，对同一观测，结果取决于译码器从何处起步。停滞状态是否真正稳定尚未证明；注入起点是理想化的译码器信念，真实接收机状态能否到达译码成功状态也仍待检验。</p>
+  </div>
+
+  <figure>
+    <div class="chart"><svg id="exit" viewBox="0 0 640 520" role="img" aria-label="6.5 dB 下的 EXIT 返回映射，以及 K 等于 160 时的阶梯"></svg></div>
+    <div class="legend">
+      <span><i style="border-color: var(--accent)"></i>实测 Φ<sub>K</sub>，颜色越深 K 越大</span>
+      <span><i style="border-color: var(--signal); border-top-style: dashed"></i>码阈值 I* = 0.577</span>
+      <span><i style="border-color: var(--signal)"></i>阶梯，K = 160</span>
+      <span><i style="border-color: var(--muted); border-top-style: dashed"></i>对角线</span>
+    </div>
+    <figcaption><b>6.5 dB、ρ = 0.3、第 500 至 599 帧的返回映射。</b>空心圆标出每条曲线在对角线上的仅导频起点 <var>I</var><sub>1</sub>。<var>K</var> = 160 的阶梯依次为 0.449 → 0.513 → 0.568 → 0.682：第 1 至 3 轮低于 <var>I</var>*，第 4 轮越过。该设置在第 1 至 4 轮后的实测 FER 分别为 0.99、0.75、0.51、0.42。</figcaption>
+  </figure>
+
+  <div class="tablewrap">
+    <table>
+      <caption>悬崖位置 <var>K</var><sub>c</sub>：R 轮阶梯到达 <var>I</var>* 处的 <var>K</var>。预测在悬崖网格上测量映射之前就已冻结于 9473a774。预注册标准：80% 的格点满足 |ln| ≤ 0.15。</caption>
+      <thead><tr><th>信噪比、轮数</th><th class="n">K<sub>c</sub> 预测</th><th class="n">K<sub>c</sub> 实测</th><th class="n">ln(预测/实测)</th><th>来源</th></tr></thead>
+      <tbody>
+        <tr><td>6.5 dB，R1</td><td class="n">77.7</td><td class="n">75.7</td><td class="n">+0.026</td><td>4 轮运行，400 帧</td></tr>
+        <tr><td>6.5 dB，R2</td><td class="n">136.4</td><td class="n">134</td><td class="n">+0.018</td><td>存量 map 数据，1000 帧</td></tr>
+        <tr><td>6.5 dB，R3</td><td class="n">158.5</td><td class="n">159.2</td><td class="n">−0.004</td><td>4 轮运行</td></tr>
+        <tr><td>6.5 dB，R4</td><td class="n">180.3</td><td class="n">168.1</td><td class="n">+0.070</td><td>4 轮运行</td></tr>
+        <tr><td>8 dB，R1</td><td class="n">138.8</td><td class="n">141</td><td class="n">−0.016</td><td>存量 boot 数据</td></tr>
+        <tr><td>8 dB，R2</td><td class="n">203.5</td><td class="n">201</td><td class="n">+0.012</td><td>存量 boot 数据</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">适用范围：映射是在 SP 接收机上、用另一批帧上的模拟译码器信念测得的；译码器一侧只来自码本身；没有任何量对 FER 做拟合。R1 一行几乎可由 D2 直接推出；R2 至 R4 检验的是多轮如何复合。</p>
+</section>
+
+<section id="novelty">
+  <div class="sec-head">
+    <div class="eyebrow">5 · 贡献</div>
+    <h2>哪些是新的，哪些是标准方法</h2>
+  </div>
+  <div class="two">
+    <div class="box">
+      <h3>这里用到的标准工具</h3>
+      <ul>
+        <li>EXIT 图与阶梯预测（ten Brink，2001）。</li>
+        <li>软数据辅助的 LMMSE 信道估计；含 K 个未知量时的训练代价（Hassibi 与 Hochwald，2003）。</li>
+        <li>双线性消息传递及其在随机混合下的状态演化（BiG-AMP，Parker、Schniter、Cevher，2014）。</li>
+        <li>Stein 恒等式：后验均值的导数等于后验方差与噪声方差之比。</li>
+        <li>迭代 SP-OFDM 接收机的密度演化（Liang、Rave、Fettweis），这是最接近的已有工作。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>候选贡献</h3>
+      <ul>
+        <li><span class="chip est">已确立</span> SP 接收机的码阈值在信息单位下是普适的；此前使用的 SINR 阈值是单位伪影。</li>
+        <li><span class="chip cal">已标定</span> <var>K</var> 是驱动折叠的变量；轮数决定有限轮悬崖的位置；信道初值会被遗忘。</li>
+        <li><span class="chip est">推导</span> 一条闭式的第一轮规律，包含相干自吸收因子和 K/N 负载标度。</li>
+        <li><span class="chip hyp">假设</span> 残留的相干比例等于重估 Gram 矩阵中数据所占的份额。</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">目前不主张新颖性。在写任何新颖性表述之前，需要做一次文献核对：对照半盲估计与叠加训练方面的分析，以及面向结构化算子的 OAMP、VAMP 修正。</p>
+</section>
+
+<section id="law">
+  <div class="sec-head">
+    <div class="eyebrow">6 · 第一性原理模型</div>
+    <h2>第一轮环路能传递多少信息</h2>
+  </div>
+  <div class="prose">
+    <p>第一轮从仅导频的信道估计出发，在没有信道码帮助的情况下对信道和数据做 20 次联合更新。它输出的信息量 <var>I</var><sub>1</sub>(<var>K</var>) 决定了每条阶梯的第一步。下面分四步求这个环路的不动点，只用到信噪比、<var>ρ</var>、<var>K</var>、<var>N</var>、真实信道检测器效率 <var>η</var> 和码的 AWGN 曲线。</p>
+  </div>
+
+  <div class="step">
+    <h3>第 1 步 · 用软数据重估 <span class="chip est">推导 · 已核对</span></h3>
+    <div class="prose"><p>归一化误差为 <var>v</var> 的软数据相当于能量为 <var>a</var>(1 − <var>v</var>) 的额外导频，其误差又贡献了噪声 <var>av</var>。用平坦先验的 LMMSE 从 <var>N</var> 个样本拟合 <var>K</var> 个系数，剩余的信道误差为</p></div>
+    <div class="eq"><math display="block"><msub><mi>e</mi><mtext>ind</mtext></msub><mo>(</mo><mi>v</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>K</mi><mi>s</mi></mrow><mrow><mn>1</mn><mo>+</mo><mi>K</mi><mi>s</mi></mrow></mfrac><mo>,</mo><mspace width="1.4em"></mspace><mi>s</mi><mo>(</mo><mi>v</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>n</mi><mo>+</mo><mi>a</mi><mi>v</mi></mrow><mrow><mo>(</mo><mi>ρ</mi><mo>+</mo><mi>a</mi><mo>(</mo><mn>1</mn><mo>−</mo><mi>v</mi><mo>)</mo><mo>)</mo><mi>N</mi></mrow></mfrac></math><span class="tag">(1)</span></div>
+    <div class="prose"><p>每个系数的收缩因子为 <var>β</var> = 1/(1 + <var>Ks</var>)。取 <var>v</var> = 1（仅导频）时，该式在全部 56 个存量格点上与实测第一轮重估误差相差在 3% 以内。</p></div>
+  </div>
+
+  <div class="step">
+    <h3>第 2 步 · 检测器链路 <span class="chip est">推导</span></h3>
+    <div class="prose"><p>LMMSE 估计与其误差正交，所以估计出的信道保留能量 1 − <var>e</var>，其余部分表现为干扰。检测器的等效 SINR 与软数据误差为</p></div>
+    <div class="eq"><math display="block"><mi>q</mi><mo>(</mo><mi>e</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>η</mi><mi>a</mi><mo>(</mo><mn>1</mn><mo>−</mo><mi>e</mi><mo>)</mo></mrow><mrow><mi>n</mi><mo>+</mo><mi>e</mi></mrow></mfrac><mo>,</mo><mspace width="1.4em"></mspace><mi>v</mi><mo>=</mo><msub><mi>M</mi><mtext>QPSK</mtext></msub><mo>(</mo><mi>q</mi><mo>)</mo></math><span class="tag">(2)</span></div>
+    <div class="prose"><p><var>η</var> 取自真实信道接收机，因此 <var>e</var> = 0 时精确还原该接收机。失败的 T2 模型用的是 <var>ηa</var>/(<var>n</var> + <var>e</var>)，缺少因子 1 − <var>e</var>；当 <var>e</var> 达到 0.2 至 0.4 时，这个差别很重要。</p></div>
+  </div>
+
+  <div class="step">
+    <h3>第 3 步 · 信道误差的自吸收 <span class="chip est">推导</span></h3>
+    <div class="prose">
+      <p>这是 T2 模型缺少的一项。检测器的软符号是用当前有误差的信道算出的后验均值。由 Stein 恒等式，后验均值随输入变化的平均速率等于后验方差除以噪声方差；对 QPSK，这个速率是 <var>d</var> = <var>qv</var>。因此软符号带有信道误差的一个线性像 <var>d</var> · <var>G</var>Δ<var>H</var><var>s</var>。</p>
+      <p>在下一次重估中，这个像以 −<var>d A</var>(<var>s</var>)Δ<var>h</var> 的形式进入残差。它位于回归量张成的空间内，所以重估会把旧误差的一部分交还回来：</p>
+    </div>
+    <div class="eq"><math display="block"><mi>Δ</mi><msub><mi>h</mi><mtext>new</mtext></msub><mo>=</mo><mi>c</mi><mspace width=".2em"></mspace><mi>Δ</mi><mi>h</mi><mo>+</mo><mi>Δ</mi><msub><mi>h</mi><mtext>fresh</mtext></msub><mo>,</mo><mspace width="1.2em"></mspace><mi>c</mi><mo>=</mo><mi>κ</mi><mi>β</mi><mi>d</mi><mo>,</mo><mspace width="1.2em"></mspace><mn>0</mn><mo>≤</mo><mi>κ</mi><mo>≤</mo><mn>1</mn></math><span class="tag">(3)</span></div>
+    <div class="prose"><p>每次迭代面对的噪声和数据都相同，所以新增部分每次都是同一个向量，幅度直接相加。不动点为</p></div>
+    <div class="eq"><math display="block"><msup><mi>e</mi><mo>*</mo></msup><mo>=</mo><mfrac><mrow><msub><mi>e</mi><mtext>ind</mtext></msub><mo>(</mo><mi>v</mi><mo>(</mo><msup><mi>e</mi><mo>*</mo></msup><mo>)</mo><mo>)</mo></mrow><msup><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>c</mi><mo>)</mo></mrow><mn>2</mn></msup></mfrac></math><span class="tag">(4)</span></div>
+    <div class="prose"><p><var>κ</var> = 0 是教科书图景，即软符号误差与信道误差相互独立，也就是失败的 T2 结构；<var>κ</var> = 1 是完全相干吸收。这两个极限在<b>全部 56 个</b>存量格点中都夹住了实测的第一轮信道误差，不含任何拟合参数。</p></div>
+  </div>
+
+  <div class="step">
+    <h3>第 4 步 · 接收机修正后还剩多少 <span class="chip hyp">事后假设</span></h3>
+    <div class="prose">
+      <p>联合检测器本身带有 Onsager 型修正项。这些修正只有在每个符号与每个系数随机混合时才是精确的。在 SP-AFDM 中，相干像是 Δ<var>h</var> 的确定线性函数，修正只能去掉其中一部分。导频回归量是精确的，起锚定作用；污染经由软数据回归量进入。因此一个自然的猜测是按它们在重估 Gram 矩阵中的份额加权：</p>
+    </div>
+    <div class="eq"><math display="block"><mi>κ</mi><mo>=</mo><mi>w</mi><mo>(</mo><mi>v</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>a</mi><mo>(</mo><mn>1</mn><mo>−</mo><mi>v</mi><mo>)</mo></mrow><mrow><mi>ρ</mi><mo>+</mo><mi>a</mi><mo>(</mo><mn>1</mn><mo>−</mo><mi>v</mi><mo>)</mo></mrow></mfrac><mo>,</mo><mspace width="1.4em"></mspace><msub><mi>I</mi><mn>1</mn></msub><mo>(</mo><mi>K</mi><mo>)</mo><mo>=</mo><msub><mi>J</mi><mtext>QPSK</mtext></msub><mo>(</mo><mi>q</mi><mo>(</mo><msup><mi>e</mi><mo>*</mo></msup><mo>)</mo><mo>)</mo></math><span class="tag">(5)</span></div>
+    <div class="prose"><p>这个选择是在对存量数据逐格拟合 <var>κ</var>（使用 T2 链路）之后做出的：拟合值在 0.31 到 0.97 之间，并随 <var>ρ</var> 变化。它仍然只是假设。第 7 节会直接测量 <var>c</var>，并在尚未仿真过的格点上检验这条规律。</p></div>
+  </div>
+
+  <figure>
+    <div class="panels">
+      <div class="chart"><svg id="i1a" viewBox="0 0 470 360" role="img" aria-label="6.5 dB 下第一轮信息量随 K 的变化"></svg></div>
+      <div class="chart"><svg id="i1b" viewBox="0 0 470 360" role="img" aria-label="8 dB 下第一轮信息量随 K 的变化"></svg></div>
+    </div>
+    <div class="legend">
+      <span><i style="border-color: var(--accent); border-top-width: 3px"></i>规律，κ = w</span>
+      <span><i style="border-color: var(--muted); border-top-style: dashed"></i>κ = 0，误差独立</span>
+      <span><i style="border-color: var(--hyp); border-top-style: dotted"></i>κ = 1，完全吸收</span>
+      <span><i style="border-color: var(--muted); border-top-style: dotted; opacity: .8"></i>理想数据（上）、仅导频（下）</span>
+      <span>● 实测 Φ<sub>K</sub>(none)，95% 置信区间</span>
+    </div>
+    <figcaption><b>第一轮信息量 <var>I</var><sub>1</sub> 随 <var>K</var> 的变化，ρ = 0.3。</b>实测点每格 100 帧。规律与实测相差不超过 0.036 bit。第一轮悬崖是曲线与 <var>I</var>* 的交点：6.5 dB 预测 62、实测 76；8 dB 预测 133、实测 141。</figcaption>
+  </figure>
+
+  <h3>这条规律说明了什么</h3>
+  <div class="prose">
+    <p><b>每个系数都有信息代价。</b><var>K</var> 较小时，<var>e</var>* ≈ (<var>K</var>/<var>N</var>)Λ<sub>0</sub>。Λ<sub>0</sub> 介于理想数据的代价 <var>n</var> 和仅导频的代价 (<var>n</var> + <var>a</var>)/<var>ρ</var> 之间。在 6.5 dB 时，自吸收使它大约翻倍。</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <caption>ρ = 0.3 时每单位 K/N 的信道误差。效率 = 在仅导频与理想数据之间的对数差距中，环路弥补的比例。</caption>
+      <thead><tr><th>信噪比</th><th class="n">理想数据</th><th class="n">环路，κ = w</th><th class="n">环路，κ = 0</th><th class="n">仅导频</th><th class="n">效率 κ = w</th><th class="n">效率 κ = 0</th></tr></thead>
+      <tbody>
+        <tr><td>6.5 dB</td><td class="n">0.224</td><td class="n">0.985</td><td class="n">0.485</td><td class="n">3.08</td><td class="n">44%</td><td class="n">71%</td></tr>
+        <tr><td>8 dB</td><td class="n">0.158</td><td class="n">0.585</td><td class="n">0.307</td><td class="n">2.86</td><td class="n">55%</td><td class="n">77%</td></tr>
+        <tr><td>11 dB</td><td class="n">0.079</td><td class="n">0.205</td><td class="n">0.135</td><td class="n">2.60</td><td class="n">73%</td><td class="n">85%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <p><b>起作用的只有 K/N。</b>每一项都只通过 <var>K</var> 与 <var>N</var> 的比值依赖于二者。若 <var>η</var> 和 <var>κ</var> 不随 <var>N</var> 变化，第一轮悬崖满足 <var>K</var><sub>c</sub> ∝ <var>N</var>。这一点尚未检验，因为冻结的接收机只接受 N = 1024。</p>
+    <p><b>第一轮环路在这个参数区不会折叠。</b>对所有存量信噪比和 <var>ρ</var>，直到 <var>K</var> = 1024，该映射都只有一个不动点，且不动点处斜率不超过 0.75（中位数 0.17），所以 20 次更新足以收敛。这解释了精确的信道初值为何会被遗忘。悬崖的陡峭来自码的阈值，而不是环路本身。</p>
+    <p><b>环路增益随 K 衰减。</b>仅导频误差按 <var>Ks</var>/(1 + <var>Ks</var>) 饱和，而环路自身的误差随 <var>K</var>/<var>N</var> 持续增长，并被下降的 SINR 和 (1 − <var>c</var>)<sup>−2</sup> 放大。因此第一轮误差与仅导频误差之比从 0.16 升到 0.63，与实测一致。</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>在存量数据上的回溯检验。事后性质：κ = w 一列是在看过这些数据之后选定的。</caption>
+      <thead><tr><th>检查项</th><th class="n">κ = 0</th><th class="n">κ = w</th><th class="n">κ = 1</th></tr></thead>
+      <tbody>
+        <tr><td>第一轮信道误差，56 格：ln(预测/实测) 中位数</td><td class="n">−0.54</td><td class="n">+0.12</td><td class="n">+0.77</td></tr>
+        <tr><td>第一轮信道误差：|ln| ≤ 0.30 的格点比例</td><td class="n">2%</td><td class="n">79%</td><td class="n">7%</td></tr>
+        <tr><td>12 个点上的 I<sub>1</sub>：最大误差（bit）</td><td class="n">0.184</td><td class="n">0.036</td><td class="n">0.179</td></tr>
+        <tr><td>第一轮悬崖，7 组：|ln(预测/实测)|</td><td class="n">5 组无交点</td><td class="n">0.03 至 0.21</td><td class="n">0.64 至 0.89</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="verify">
+  <div class="sec-head">
+    <div class="eyebrow">7 · 验证</div>
+    <h2>供你和 Codex 使用的轻量检验</h2>
+  </div>
+  <div class="prose"><p>完整规格（含精确的通过规则与分支）见 <code>research/c1-round1-loop-theory.md</code> 第 7 节。新格点的预测已在提交 2d0a2f90 中冻结，当时这些数据都还不存在。</p></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>检验</th><th>检验内容</th><th>成本</th><th>通过标准</th><th>若失败</th></tr></thead>
+      <tbody>
+        <tr><td><b>V1</b> 链路</td><td>逐帧用实测的第一轮信道误差，经链路 (2) 预测该帧的信息量</td><td>无新帧，使用服务器上的存量数据</td><td>80% 的格点中位误差 ≤ 0.03 bit；75% 的格点优于 T2 链路</td><td>误差来自链路，先修正第 2 步</td></tr>
+        <tr><td><b>V2</b> 探针</td><td>轻推已收敛的信道，直接测量环路增益 <var>c</var>；并用独立软数据做重估</td><td>6 格 × 40 帧，CPU 分钟级</td><td><var>c</var> 位于 [0, <var>βd</var>]；<var>c</var>/(<var>βd</var>) 与 <var>w</var> 相差在 25% 以内；误差比符合 (1 − <var>c</var>)<sup>−2</sup></td><td>保留规律、改用实测 κ；若误差比不符，则否定自吸收机制</td></tr>
+        <tr><td><b>V3</b> 盲测</td><td>在 9.5 dB ρ 0.3、8 dB ρ 0.4、6.5 dB ρ 0.2 上检验规律</td><td>3 组 × 6 至 7 个 K × 200 帧</td><td>80% 的格点 I<sub>1</sub> 误差 ≤ 0.05 bit；每组悬崖 |ln| ≤ 0.25</td><td>放弃 κ = w，保留无参数括号</td></tr>
+        <tr><td><b>V4</b> K/N</td><td>N = 512 的接收机副本，悬崖应减半</td><td>需要一个非冻结的接收机副本</td><td>|ln| ≤ 0.15</td><td>推迟到 V2、V3 通过之后</td></tr>
+        <tr><td><b>V5</b> 起点</td><td>在每个 V3 组的最大 K 上，比较精确信道起点与仅导频起点</td><td>V3 的低成本附加项</td><td>第一轮信息量相差 ≤ 0.01</td><td>说明存在第一轮折叠，需重新审视第 6 节</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <caption>V3 的参考预测，<var>η</var> 由现有格点插值得到。计分用的预测则通过冻结规则，从新的真实信道数据中取 <var>η</var>。</caption>
+      <thead><tr><th>组</th><th class="n">K 范围</th><th class="n">预测第一轮悬崖 K<sub>c</sub></th><th class="n">最小 K 处 I<sub>1</sub></th><th class="n">最大 K 处 I<sub>1</sub></th></tr></thead>
+      <tbody>
+        <tr><td>9.5 dB，ρ 0.3</td><td class="n">64 至 256</td><td class="n">163</td><td class="n">0.784</td><td class="n">0.425</td></tr>
+        <tr><td>8 dB，ρ 0.4</td><td class="n">64 至 256</td><td class="n">125</td><td class="n">0.662</td><td class="n">0.417</td></tr>
+        <tr><td>6.5 dB，ρ 0.2</td><td class="n">32 至 192</td><td class="n">63</td><td class="n">0.659</td><td class="n">0.349</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <p><b>结果（10 月 9 日）。</b>盲测 V3 通过：在 20 个此前无人仿真过的格点上，首轮信息的预测误差全部 ≤ 0.042 bit；两个极限在每个格点都成立；悬崖位置在两组中误差为 6% 至 8%，在 6.5 dB、ρ 0.2 组提前 22%，恰在界线上。总体上该规律偏悲观。</p>
+    <p>探针 V2 否定了机理。扰动收敛后的信道可以测得交替“检测–重拟合”映射的环路增益很大（<var>c</var> ≈ 0.5 至 0.7），超过界限 <var>βd</var>；按这个增益，信道误差应是独立误差情形的 4 至 9 倍。接收机实际只有 1.2 至 1.7 倍（与真实质量相同的独立软数据相比）。也就是说，它自带的修正抵消了约四分之三的相干增益。剩余部分相当于有效 <var>κ</var> 为 0.21 至 0.56，随 <var>ρ</var> 增大而下降，约为 0.7 <var>w</var>。因此 <var>κ</var> = <var>w</var> 高估了它，也不是机理。</p>
+    <p>链路检验 V1 有一条未通过：信道误差小时，推导出的链路并不稳定地优于旧链路；误差大时，它在 0.02 bit 以内，而旧链路最多偏差 0.10。因此，这一规律目前是带一个有效常数的校准预测器，而不是推导出的机理；要推导该常数，需要接收机的联合更新动力学。</p>
+  </div>
+</section>
+
+<section id="status">
+  <div class="sec-head">
+    <div class="eyebrow">8 · 状态</div>
+    <h2>当前进展</h2>
+  </div>
+  <div class="two">
+    <div class="box">
+      <h3>已记录</h3>
+      <ul>
+        <li>证据链 d79a578d → 6b3ebda9（T0、T1、T2、D1 至 D3、干预实验、返回映射）。</li>
+        <li>第一轮规律、回溯检验与冻结的 V3 数值见 2d0a2f90（<code>c1r1_model.py</code>、<code>out/c1r1/</code>）。</li>
+        <li>结果卡草稿 <code>res-20261009-01</code>、STATE.md 条目与英文版概览见 bf35001e，待你验收。</li>
+        <li>折叠点运行 A4：预注册 4d517d17；结果见 <code>out/c1f/</code>。</li>
+        <li>逐帧运行 A5：预注册 882e676f；结果见 <code>out/c1g/</code>。</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>待定</h3>
+      <ul>
+        <li>真实接收机状态（而非注入状态）能否到达上方吸引域，例如通过热启动。</li>
+        <li>有效 κ：Claude 第一轮解释了其量级（软符号吸收部分噪声，抵消了大部分反馈），但未给出其数值和 ρ 趋势；首轮输出并非不动点。Codex 的分解（J12）表明它主要来自接收机自身软符号误差的结构，ρ 趋势也由此产生；增加内迭代次数（40 或 80 次，而非 20 次）可进一步降低信道误差。第二轮未能把它化为公式，因此保留 κ = w 规律。</li>
+        <li>内迭代预算：每轮 40 次（而非 20 次）内迭代在全部六个测试工况中使各轮悬崖右移 8% 至 40%；30 至 40 次即已足够。10 轮悬崖从 K ≈ 180 移到 214；4 轮×30 次以约 55% 的计算量胜过默认的 10 轮×20 次。结果卡 res-20261010-01（draft）；文献核查待做。</li>
+        <li>把规律从 Φ<sub>K</sub>(none) 推广到整个返回映射。</li>
+        <li>任何新颖性主张之前的文献核对。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>代码：experiments/headroom_ladder_20261008/ · 笔记：.trellis/tasks/10-08-doppler-cluster/research/</span>
+  <span>原始数据保存在 deinlab 的 /data/guoyikun/00inbox/AFDM-channel-estimation/ 下，md5 见各 REMOTE_ROWS_MD5.txt。</span>
+</footer>
+
+</div>
+
+<script>
+const OBS={"6.5":[[64,0.598,0.579,0.616],[96,0.549,0.537,0.562],[128,0.503,0.492,0.514],[160,0.449,0.44,0.459],[192,0.411,0.403,0.42],[224,0.375,0.366,0.384]],"8":[[64,0.708,0.688,0.728],[96,0.656,0.641,0.67],[128,0.599,0.587,0.612],[160,0.534,0.523,0.544],[192,0.486,0.477,0.495],[224,0.44,0.431,0.45]]};
+const PHI={"L8":{"none":0.598,"pts":[[0.42,0.62],[0.45,0.629],[0.5,0.648],[0.53,0.668],[0.55,0.693],[0.57,0.735],[0.6,0.787],[0.65,0.799]]},"L16":{"none":0.503,"pts":[[0.42,0.547],[0.45,0.562],[0.5,0.596],[0.53,0.628],[0.55,0.663],[0.57,0.714],[0.6,0.77],[0.65,0.783]]},"L20":{"none":0.449,"pts":[[0.42,0.497],[0.45,0.514],[0.5,0.552],[0.53,0.588],[0.55,0.63],[0.57,0.688],[0.6,0.75],[0.65,0.762]]},"L24":{"none":0.411,"pts":[[0.42,0.464],[0.45,0.481],[0.5,0.523],[0.53,0.564],[0.55,0.609],[0.57,0.673],[0.6,0.737],[0.65,0.749]]},"L28":{"none":0.375,"pts":[[0.42,0.427],[0.45,0.445],[0.5,0.489],[0.53,0.534],[0.55,0.584],[0.57,0.651],[0.6,0.716],[0.65,0.729]]}};
+const CUR={"6.5":[[16,0.671,0.655,0.629,0.605,0.679],[24,0.671,0.647,0.606,0.578,0.683],[32,0.67,0.639,0.584,0.554,0.686],[40,0.662,0.623,0.554,0.526,0.683],[48,0.654,0.606,0.526,0.5,0.679],[56,0.645,0.589,0.499,0.476,0.675],[64,0.636,0.572,0.475,0.454,0.671],[72,0.628,0.557,0.454,0.435,0.668],[80,0.62,0.543,0.436,0.417,0.665],[88,0.613,0.529,0.418,0.401,0.663],[96,0.605,0.515,0.403,0.387,0.66],[104,0.597,0.503,0.389,0.373,0.658],[112,0.59,0.49,0.376,0.36,0.655],[120,0.582,0.478,0.364,0.348,0.653],[128,0.574,0.467,0.352,0.338,0.651],[136,0.566,0.455,0.341,0.327,0.648],[144,0.557,0.444,0.331,0.317,0.645],[152,0.548,0.433,0.321,0.307,0.642],[160,0.54,0.423,0.312,0.298,0.64],[168,0.531,0.412,0.304,0.29,0.637],[176,0.522,0.403,0.296,0.282,0.634],[184,0.513,0.394,0.288,0.275,0.631],[192,0.504,0.385,0.281,0.267,0.629],[200,0.495,0.376,0.274,0.261,0.626],[208,0.486,0.368,0.268,0.254,0.624],[216,0.478,0.36,0.262,0.248,0.621],[224,0.469,0.352,0.256,0.242,0.618],[232,0.459,0.344,0.25,0.236,0.615],[240,0.449,0.336,0.243,0.231,0.611],[248,0.439,0.328,0.238,0.225,0.608],[256,0.429,0.321,0.233,0.219,0.604]],"8.0":[[16,0.782,0.771,0.755,0.702,0.788],[24,0.777,0.759,0.731,0.663,0.785],[32,0.771,0.746,0.702,0.627,0.783],[40,0.767,0.734,0.672,0.596,0.782],[48,0.762,0.722,0.641,0.569,0.781],[56,0.758,0.709,0.609,0.543,0.78],[64,0.754,0.696,0.58,0.52,0.779],[72,0.75,0.683,0.552,0.5,0.778],[80,0.745,0.669,0.528,0.481,0.777],[88,0.741,0.655,0.506,0.464,0.776],[96,0.737,0.642,0.486,0.447,0.775],[104,0.731,0.627,0.467,0.432,0.774],[112,0.726,0.613,0.45,0.418,0.773],[120,0.721,0.598,0.435,0.404,0.771],[128,0.715,0.585,0.42,0.392,0.77],[136,0.708,0.57,0.407,0.38,0.768],[144,0.701,0.556,0.394,0.368,0.766],[152,0.695,0.542,0.382,0.357,0.764],[160,0.688,0.529,0.371,0.347,0.762],[168,0.681,0.517,0.361,0.338,0.76],[176,0.673,0.505,0.351,0.329,0.758],[184,0.666,0.493,0.342,0.32,0.756],[192,0.659,0.482,0.334,0.312,0.754],[200,0.65,0.471,0.325,0.304,0.752],[208,0.642,0.46,0.317,0.296,0.749],[216,0.633,0.449,0.309,0.289,0.747],[224,0.624,0.439,0.302,0.282,0.744],[232,0.615,0.429,0.295,0.276,0.742],[240,0.606,0.419,0.288,0.269,0.739],[248,0.597,0.41,0.282,0.263,0.737],[256,0.587,0.402,0.276,0.258,0.734]]};
+(function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent, text) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function scale(d0, d1, r0, r1) { return v => r0 + (v - d0) * (r1 - r0) / (d1 - d0); }
+  function path(pts) { return pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' '); }
+  function axes(svg, X, Y, xt, yt, box, xl, yl, fx, fy) {
+    for (const t of xt) {
+      el('line', { x1: X(t), x2: X(t), y1: box.t, y2: box.b, class: 'grid' }, svg);
+      el('text', { x: X(t), y: box.b + 16, 'text-anchor': 'middle' }, svg, fx(t));
+    }
+    for (const t of yt) {
+      el('line', { x1: box.l, x2: box.r, y1: Y(t), y2: Y(t), class: 'grid' }, svg);
+      el('text', { x: box.l - 8, y: Y(t) + 4, 'text-anchor': 'end' }, svg, fy(t));
+    }
+    el('rect', { x: box.l, y: box.t, width: box.r - box.l, height: box.b - box.t, class: 'axis' }, svg);
+    el('text', { x: (box.l + box.r) / 2, y: box.b + 36, 'text-anchor': 'middle', class: 'lab' }, svg, xl);
+    el('text', { x: 16, y: (box.t + box.b) / 2, 'text-anchor': 'middle', class: 'lab', transform: `rotate(-90 16 ${(box.t + box.b) / 2})` }, svg, yl);
+  }
+
+  // EXIT chart
+  (function () {
+    const svg = document.getElementById('exit');
+    const box = { l: 64, r: 560, t: 20, b: 460 };
+    const lo = 0.36, hi = 0.82;
+    const X = scale(lo, hi, box.l, box.r), Y = scale(lo, hi, box.b, box.t);
+    const ticks = [0.40, 0.50, 0.60, 0.70, 0.80];
+    axes(svg, X, Y, ticks, ticks, box, '第 r 轮译码器输入信息量（bit）', '第 r + 1 轮（bit）', t => t.toFixed(2), t => t.toFixed(2));
+    el('line', { x1: X(lo), y1: Y(lo), x2: X(hi), y2: Y(hi), class: 'diag' }, svg);
+    const IS = 0.577;
+    el('line', { x1: X(IS), x2: X(IS), y1: box.t, y2: box.b, class: 'istar' }, svg);
+    el('text', { x: X(IS) + 6, y: box.t + 14, class: 'istar-t' }, svg, 'I* = 0.577');
+    const order = ['L8', 'L16', 'L20', 'L24', 'L28'];
+    const op = [0.35, 0.5, 0.7, 0.85, 1];
+    order.forEach((L, i) => {
+      const c = PHI[L], K = 8 * parseInt(L.slice(1), 10);
+      const pts = c.pts.map(p => [X(p[0]), Y(p[1])]);
+      el('path', { d: path(pts), class: 'curve', 'stroke-width': L === 'L28' ? 2.4 : 1.8, 'stroke-opacity': op[i] }, svg);
+      const last = c.pts[c.pts.length - 1];
+      el('text', { x: X(last[0]) + 6, y: Y(last[1]) + 4, class: 'lab' }, svg, 'K ' + K);
+      el('circle', { cx: X(c.none), cy: Y(c.none), r: 4, class: 'start', 'stroke-opacity': op[i] }, svg);
+    });
+    // staircase for K = 160 (L20), linear interpolation with Phi(0) = Phi(none)
+    const g = [[0, PHI.L20.none]].concat(PHI.L20.pts);
+    const f = x => { for (let i = 0; i < g.length - 1; i++) if (x >= g[i][0] && x <= g[i + 1][0]) return g[i][1] + (g[i + 1][1] - g[i][1]) * (x - g[i][0]) / (g[i + 1][0] - g[i][0]); return g[g.length - 1][1]; };
+    let I = PHI.L20.none; const st = [[X(I), Y(I)]]; const vals = [I];
+    for (let r = 0; r < 3; r++) { const n = f(I); st.push([X(I), Y(n)]); st.push([X(n), Y(n)]); I = n; vals.push(I); }
+    el('path', { d: path(st), class: 'stair' }, svg);
+    vals.forEach((v, i) => {
+      el('circle', { cx: X(v), cy: Y(v), r: 3.2, class: 'stair-pt' }, svg);
+      el('text', { x: X(v) + 7, y: Y(v) + 14, class: 'istar-t' }, svg, 'I' + (i + 1));
+    });
+    el('text', { x: X(0.37), y: Y(0.795), class: 'lab' }, svg, '6.5 dB · ρ 0.3');
+    el('text', { x: X(0.43), y: Y(0.395), class: 'lab' }, svg, 'K 224 贴近对角线');
+  })();
+
+  // I1(K) panels; CUR rows: [K, kappa0, kappa_w, kappa1, pilot-only, genie]
+  function panel(id, cur, obs, title, kc) {
+    const svg = document.getElementById(id);
+    const box = { l: 58, r: 452, t: 18, b: 300 };
+    const X = scale(16, 256, box.l, box.r), Y = scale(0.2, 0.85, box.b, box.t);
+    axes(svg, X, Y, [32, 64, 96, 128, 160, 192, 224, 256], [0.3, 0.4, 0.5, 0.6, 0.7, 0.8], box, 'K（信道系数个数）', 'I₁（bit）', t => String(t), t => t.toFixed(1));
+    const IS = 0.577;
+    el('line', { x1: box.l, x2: box.r, y1: Y(IS), y2: Y(IS), class: 'istar' }, svg);
+    el('text', { x: box.r - 4, y: Y(IS) - 6, 'text-anchor': 'end', class: 'istar-t' }, svg, 'I*');
+    const line = (col, cls) => el('path', { d: path(cur.map(r => [X(r[0]), Y(r[col])])), class: cls }, svg);
+    line(5, 'm-lim'); line(4, 'm-lim'); line(1, 'm-ind'); line(3, 'm-coh'); line(2, 'm-hw');
+    for (const o of obs) {
+      el('line', { x1: X(o[0]), x2: X(o[0]), y1: Y(o[2]), y2: Y(o[3]), class: 'whisk' }, svg);
+      el('circle', { cx: X(o[0]), cy: Y(o[1]), r: 3.6, class: 'obs' }, svg);
+    }
+    el('text', { x: box.l + 10, y: box.t + 18, class: 'lab' }, svg, title);
+    el('text', { x: box.l + 10, y: box.t + 34 }, svg, kc);
+  }
+  panel('i1a', CUR['6.5'], OBS['6.5'], '6.5 dB · ρ 0.3', '第一轮悬崖：规律 62，实测 76');
+  panel('i1b', CUR['8.0'], OBS['8'], '8 dB · ρ 0.3', '第一轮悬崖：规律 133，实测 141');
+})();
+</script>

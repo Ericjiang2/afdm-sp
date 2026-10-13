@@ -1,0 +1,999 @@
+{
+  "verdict": "FAIL",
+  "reason_code": "NUMERIC_SOURCE_AND_AGGREGATION_MISMATCHES",
+  "summary": "FAIL: 46 of 69 audited quantitative claim groups have missing evidence, numeric mismatches, config/source mismatches, aggregation errors, or scope overclaims.",
+  "total_claims_extracted": 69,
+  "claims": [
+    {
+      "claim_id": 1,
+      "location": "Abstract lines 13-26",
+      "paper_text": "\"1,041-parameter learned support-refinement head\"",
+      "paper_value": "1041 parameters",
+      "evidence_file": "No supplied raw result file",
+      "evidence_value": "No parameter-count key for the deployed C2-rel head in supplied JSON/log evidence",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "The paper architecture text internally adds 384+657, but the permitted raw evidence files do not contain a deployed-head parameter count."
+    },
+    {
+      "claim_id": 2,
+      "location": "Abstract lines 17-19; Section1 lines 77-81; Section5 lines 99-100; Section6 lines 141-145",
+      "paper_text": "\"pooled 3-seed reductions -37.7%/-40.2%/-37.6% at SNR in {20,25,30} dB, p<10^-6\"",
+      "paper_value": "-37.7%/-40.2%/-37.6%, p<1e-6",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json",
+      "evidence_value": "SNR 20: frames=600, classical_errs=3686, learned_errs=2295, delta=-37.737%, p=1.1e-208, SNR 25: frames=773, classical_errs=2209, learned_errs=1322, delta=-40.154%, p=4.75e-134, SNR 30: frames=1300, classical_errs=1160, learned_errs=724, delta=-37.586%, p=2.9e-59",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "Pooled relative changes from classical_errs to learned_errs round to -37.7%, -40.2%, -37.6%; McNemar p-values are all far below 1e-6."
+    },
+    {
+      "claim_id": 3,
+      "location": "Abstract lines 20-23",
+      "paper_text": "\"K=16 closes -927% of the physical-support oracle gap at SNR=20 dB versus the head's +81%\"",
+      "paper_value": "K=16: -927%; learned head: +81%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json",
+      "evidence_value": "OMP K16 SNR20 gap_closed=-927.136% from OMP file; learned BER=7.393973214285715e-05 from seed 20260425 gives gap_closed=80.976% when combined with OMP file baseline/oracle seed 20260419",
+      "status": "config_mismatch",
+      "severity": "critical",
+      "details": "The K=16 value matches the OMP-extension file, but the learned-head +81% is computed by mixing a different result file, seed, and frame count with the OMP-extension baseline/oracle."
+    },
+    {
+      "claim_id": 4,
+      "location": "Abstract lines 24-25; Section1 lines 71-75; Section3 lines 261-262; Section6 lines 145-146",
+      "paper_text": "\"≈8% analytical MAC overhead at N=1024\"",
+      "paper_value": "approx 8% overhead; 18.6M core; 1.5M added; 20.1M learned",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_complexity/runtime_table.json",
+      "evidence_value": "runtime_table.json contains wall-clock rows only, no MAC/frame fields; Table 4 MAC counts are absent from supplied raw JSON evidence",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "The arithmetic 20.1/18.6≈1.08 is internally consistent, but the requested raw evidence files do not support the MAC counts themselves."
+    },
+    {
+      "claim_id": 5,
+      "location": "Abstract lines 24-27; Section5 lines 369-376; Section6 lines 146-148",
+      "paper_text": "\"$>99%$ of head additions attributed to Dirichlet side-lobe / virtual taps\"",
+      "paper_value": ">99%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_attribution/attribution.json",
+      "evidence_value": "SNR15: 499/500=99.800%; SNR20: 498/501=99.401%; SNR25: 498/500=99.600%",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "All supplied attribution cells exceed 99%; the table values round to 99.8%, 99.4%, and 99.6%."
+    },
+    {
+      "claim_id": 6,
+      "location": "Section1 lines 20-24; Section5 lines 92-94",
+      "paper_text": "\"serial receiver floors at BER≈5×10^-2 from SNR≥15 dB with NMSE frozen at -11.3 dB\"",
+      "paper_value": "BER≈5e-2; NMSE=-11.3 dB; SNR>=15",
+      "evidence_file": "Supplied result JSON files",
+      "evidence_value": "No raw key for Serial receiver BER/NMSE; available classical/learned/pcsi NMSE values do not show a -11.3 dB frozen serial NMSE series",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "The raw files expose classical_ber, torch_ref_ber, learned_ber, and pcsi_ber; they do not expose the Serial column used in the paper."
+    },
+    {
+      "claim_id": 7,
+      "location": "Section1 lines 58-65; Section3 theorem lines 176-195; Appendix lines 61-68",
+      "paper_text": "\"bit-exactly on N in {512,1024}; max difference = 0 over 64 seeded test frames per N\"",
+      "paper_value": "N=512/1024; 64 frames per N; max diff 0",
+      "evidence_file": "No supplied verifier JSON/log file",
+      "evidence_value": "No raw verifier output among supplied evidence paths",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "This may be true, but none of the allowed raw evidence files records the verifier output."
+    },
+    {
+      "claim_id": 8,
+      "location": "Section1 lines 71-75",
+      "paper_text": "\"measured GPU wall-clock parity at N=1024 (402 ms vs. 416 ms) and +3.9% at N=2048\"",
+      "paper_value": "402 ms vs 416 ms; +3.9%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_complexity/runtime_table.json",
+      "evidence_value": "learned N=1024 mean_ms=402.3166916333139; torch classical N=1024 mean_ms=416.0120290517807; learned/classical N=2048 delta=3.916%; config fs_factor=2.0",
+      "status": "config_mismatch",
+      "severity": "moderate",
+      "details": "The displayed wall-clock numbers round correctly, but the raw runtime config has fs_factor=2.0 while the surrounding paper scope repeatedly says 4B."
+    },
+    {
+      "claim_id": 9,
+      "location": "Section1 line 77",
+      "paper_text": "\"5-seed paired-McNemar significance and width-MLP envelope\"",
+      "paper_value": "5-seed",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260425/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260425/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260425/results.json",
+      "evidence_value": "headline Table 1 uses 3 evaluation seeds; canonical grid has 3 train seeds x 3 eval seeds; no five-seed McNemar raw aggregate is present",
+      "status": "aggregation_mismatch",
+      "severity": "moderate",
+      "details": "The heading says 5-seed, but the supplied raw evidence for the headline reductions is a 3-evaluation-seed pool."
+    },
+    {
+      "claim_id": 10,
+      "location": "Section1 lines 84-86; Section4 lines 32-38",
+      "paper_text": "\"hidden width from 64 to 256 drops BER from 0.0498 to 0.0381 (-23.5%)\"",
+      "paper_value": "0.0498 -> 0.0381; -23.5%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathF_unrolled_omp_full/train_log.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_wider256/train_log.json",
+      "evidence_value": "hidden64 best_eval_ber=0.0498046875; hidden256 best_eval_ber=0.038102213541666666; relative=-23.497%",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "Best-eval BERs and relative decrease round as stated."
+    },
+    {
+      "claim_id": 11,
+      "location": "Section1 lines 91-94; Section5 Table 2",
+      "paper_text": "\"at SNR=20 dB, K=2/4/8/16 produces -61%/-128%/-337%/-927% gap closed, while learned head closes +81%\"",
+      "paper_value": "-61%/-128%/-337%/-927%; +81%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json",
+      "evidence_value": "OMP gaps=omp_extended_k2:-61.307%, omp_extended_k4:-128.141%, omp_extended_k8:-336.683%, omp_extended_k16:-927.136%; learned cross-source gap=80.976%",
+      "status": "config_mismatch",
+      "severity": "critical",
+      "details": "The OMP K values match the OMP file; the learned value is not from that file and is computed by cross-source aggregation."
+    },
+    {
+      "claim_id": 12,
+      "location": "Section1 lines 100-104; Section5 lines 337-349",
+      "paper_text": "\"fair P=18 unrolled receiver consumes ≈20.7M MAC, worse than P=10 at 18.6M; tau_h lookup eliminates ≈11%\"",
+      "paper_value": "20.7M, 18.6M, 11%, 11%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_complexity/runtime_table.json",
+      "evidence_value": "No P=18/P=10 MAC or tau_h lookup measurements in runtime_table.json or other supplied raw files",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "The supplied complexity JSON only contains timing/memory rows."
+    },
+    {
+      "claim_id": 13,
+      "location": "Section3 lines 34-45; Section5 Table 1",
+      "paper_text": "\"canonical simulator: P=8, tau_spread=10 ms, v~N(2,0.5^2), fc=12 kHz, B=4 kHz, fs=4B, k_leak=2, five virtual taps/path\"",
+      "paper_value": "P=8; tau=10ms; v_mean=2; v_std=0.5; fc=12kHz; B=4kHz; fs=4B; k_leak=2",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_attribution/attribution.json",
+      "evidence_value": "main BER configs: N=1024, P_paths=8, tau_spread_ms=10.0, v_mean=2.0; OMP config l_max=160, k_max=2; attribution k_leak=2",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "Most canonical physical/config values are present and consistent in the supplied main-result files."
+    },
+    {
+      "claim_id": 14,
+      "location": "Section3 lines 50-54; Figure 1 caption",
+      "paper_text": "\"worst-case residual 0.5: two bins ≈41% each; next-nearest ≈4.4%; tail ≈8.3%; p_real≈28\"",
+      "paper_value": "41%, 4.4%, 8.3%, p_real≈28",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_support_recall/recall_by_snr.json",
+      "evidence_value": "recall file does not store Dirichlet energy percentages; aggregate p_real can only be inferred approximately from missed/(1-recall), e.g. SNR20 1.3125/(1-0.9529168664198053)=27.876",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "The p_real≈28 cross-check is supported indirectly; the 41/4.4/8.3% Dirichlet energy claims are analytical and absent from raw result files."
+    },
+    {
+      "claim_id": 15,
+      "location": "Section3 lines 151-153",
+      "paper_text": "\"empirical support Jaccard between OMP iterations exceeds 0.94 from iteration 2 onwards\"",
+      "paper_value": ">0.94 from iteration 2",
+      "evidence_file": "No supplied raw Jaccard file",
+      "evidence_value": "No Jaccard metric appears in supplied JSON/log evidence",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "The support-recall file supports recall, not inter-iteration Jaccard."
+    },
+    {
+      "claim_id": 16,
+      "location": "Section3 lines 151-154; Section5 lines 210-215; Table 3",
+      "paper_text": "\"support-recall probe confirms ≈95% recall; frames with >=1 missed atom 67--71%\"",
+      "paper_value": "≈95%; 67--71%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_support_recall/recall_by_snr.json",
+      "evidence_value": "SNR10: mean_recall=0.9490595887715205, mean_missed=1.4146666666666667, frac_missed=0.712, frames=3000; SNR15: mean_recall=0.9514590322451374, mean_missed=1.3483333333333334, frac_missed=0.6885, frames=6000; SNR20: mean_recall=0.9529168664198053, mean_missed=1.3125, frac_missed=0.67, frames=6000; SNR25: mean_recall=0.9525042078942397, mean_missed=1.32575, frac_missed=0.674, frames=12000",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "Support recall table values match the raw recall_by_snr.json values by standard rounding."
+    },
+    {
+      "claim_id": 17,
+      "location": "Section3 lines 207-233",
+      "paper_text": "\"pair encoder 384 params, scorer 657 params, total 1,041 trainable parameters\"",
+      "paper_value": "384 + 657 = 1041",
+      "evidence_file": "No supplied deployed-head model summary",
+      "evidence_value": "No raw JSON/log key for these parameter counts",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "The arithmetic in the paper is internally consistent, but this audit cannot trace it to supplied raw evidence."
+    },
+    {
+      "claim_id": 18,
+      "location": "Section3 lines 236-241; Attribution config",
+      "paper_text": "\"M=96 candidates; top-Kadd=4; executed twice; bias patched to +10\"",
+      "paper_value": "M=96, Kadd=4, refine rounds=2, bias=+10",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_attribution/attribution.json",
+      "evidence_value": "cand_topm=96, refine_rounds=2; no Kadd=4 or bias=+10 field in attribution.json",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "M=96 and two refine rounds are supported; Kadd=4 and the inference bias patch are not recorded in supplied raw evidence."
+    },
+    {
+      "claim_id": 19,
+      "location": "Section4 lines 19-24",
+      "paper_text": "\"deployed checkpoint trained on a 27k-frame 4-SNR cache with weights {0.2,0.3,0.3,0.2}\"",
+      "paper_value": "27k frames; SNR={10,15,20,25}; weights 0.2/0.3/0.3/0.2; 8 epochs; patience 2",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json",
+      "evidence_value": "evaluation config only: frames=350, ckpt=afdm_sp_joint_unrolled/outputs_loop13_4B_train_27k_with_snr25/ckpt_c2rel_force_topk.pt; no training-cache size, epochs, patience, or per-SNR weights in supplied raw evidence",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "The result file names imply retrain27k, but the raw JSON content does not contain the training protocol numbers."
+    },
+    {
+      "claim_id": 20,
+      "location": "Section4 lines 32-38",
+      "paper_text": "\"best-eval BERs 0.0498, 0.0555, 0.0381, 0.0355 for hidden 64/128/256/512\"",
+      "paper_value": "0.0498, 0.0555, 0.0381, 0.0355",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathF_unrolled_omp_full/train_log.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_wider128/train_log.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_wider256/train_log.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_wider512/train_log.json",
+      "evidence_value": "64=0.0498046875, 128=0.05548502604166667, 256=0.038102213541666666, 512=0.035546875",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "The four best_eval_ber values round to the paper values."
+    },
+    {
+      "claim_id": 21,
+      "location": "Section4 line 36",
+      "paper_text": "\"hidden widths 64 (46k params), 128 (174k), 256 (676k), 512 (2.66M)\"",
+      "paper_value": "46k, 174k, 676k, 2.66M",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathF_unrolled_omp_full/train_log.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_wider128/train_log.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_wider256/train_log.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_wider512/train_log.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_2B_wider256/run.log; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_2B_wider512/run.log",
+      "evidence_value": "4B train_log JSON files do not store params; 2B logs show params=675860 for 256 and 2662420 for 512, but no supplied 64/128 parameter counts",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "Partial support exists for 256/512 via 2B logs, but the claimed 4B parameter counts are not fully present in supplied raw evidence."
+    },
+    {
+      "claim_id": 22,
+      "location": "Section4 lines 39-43",
+      "paper_text": "\"Attention modules (8-head additive over the 32-D pair descriptor) ... converge to 0.0405 (+6.3%)\"",
+      "paper_value": "8 heads; BER=0.0405; +6.3%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathJ_attn256/train_log.json",
+      "evidence_value": "path_f_attn_heads=4; best_eval_ber=0.04178059895833333; relative_vs_I256=9.654%",
+      "status": "number_mismatch",
+      "severity": "major",
+      "details": "Raw config has 4 attention heads, not 8; raw best BER is 0.0417806, not 0.0405, and the relative penalty is about +9.65%, not +6.3%."
+    },
+    {
+      "claim_id": 23,
+      "location": "Section4 lines 41-43",
+      "paper_text": "\"softsort ... tau annealed 1.0->0.05 ... converges to 0.0401 (+5.2%)\"",
+      "paper_value": "tau 1.0->0.05; BER=0.0401; +5.2%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathH_softsort256_v2/train_log.json",
+      "evidence_value": "softsort_tau_init=1.0, softsort_tau_final=0.05, best_eval_ber=0.040120442708333336, relative_vs_I256=5.297%",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "Softsort values round to the paper values."
+    },
+    {
+      "claim_id": 24,
+      "location": "Section4 lines 47-51",
+      "paper_text": "\"scaling capacity further changes BER only at the third significant digit; representable at 1,041 parameters\"",
+      "paper_value": "third significant digit; 1041 params",
+      "evidence_file": "Supplied width train logs; no C2-rel capacity-scaling raw file",
+      "evidence_value": "Width logs show much larger pure-NN BER differences; no supplied raw evidence for C2-rel capacity-scaling at 1041 params",
+      "status": "unsupported_claim",
+      "severity": "moderate",
+      "details": "The supplied width-MLP logs do not support this deployed-head capacity statement."
+    },
+    {
+      "claim_id": 25,
+      "location": "Section4 lines 56-64",
+      "paper_text": "\"3 train seeds x 3 eval seeds at SNR=20 dB with 600 paired frames per cell\"",
+      "paper_value": "3x3; 600 frames/cell",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260425/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260425/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260425/results.json",
+      "evidence_value": "9 files; all frames=[600, 600, 600, 600, 600, 600, 600, 600, 600]",
+      "status": "exact_match",
+      "severity": "minor",
+      "details": "Nine canonical-grid result files are present and each has 600 frames at SNR 20."
+    },
+    {
+      "claim_id": 26,
+      "location": "Section4 lines 61-64; Section6 lines 115-119",
+      "paper_text": "\"cross-train-seed mean±std ... -5.17%±0.57 pp\"",
+      "paper_value": "-5.17% ± 0.57 pp",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260425/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260425/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260425/results.json",
+      "evidence_value": "per-train-seed pooled deltas=[-5.496183, -4.503817, -5.496183]; mean=-5.165394%, sample_std=0.572943 pp",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "The 3-train-seed pooled mean and sample standard deviation match the claim."
+    },
+    {
+      "claim_id": 27,
+      "location": "Section4 lines 63-64",
+      "paper_text": "\"two of three training seeds produce bit-identical paired counts on every cell\"",
+      "paper_value": "2 of 3 train seeds bit-identical",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260425/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260425/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260425/results.json",
+      "evidence_value": "Train seeds 20260507 and 20260509 have identical learned/classical counts for eval seeds 20260423/424/425; 20260508 differs",
+      "status": "exact_match",
+      "severity": "minor",
+      "details": "Raw canonical grid counts support this exactly."
+    },
+    {
+      "claim_id": 28,
+      "location": "Section4 lines 70-74",
+      "paper_text": "\"Default bit budget 8.19e5 per SNR point; CP 95% CIs; McNemar on n10,n01\"",
+      "paper_value": "8.19e5 bits default",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json",
+      "evidence_value": "observed high-SNR pooled bits: SNR20=1228800, SNR25=1583104, SNR30=2662400; loop13 SNR25 bits=716800",
+      "status": "aggregation_mismatch",
+      "severity": "moderate",
+      "details": "The supplied evaluated bit counts do not equal 8.19e5 for the headline high-SNR cells; the statement may describe a nominal default, not the actual adaptive/pool counts."
+    },
+    {
+      "claim_id": 29,
+      "location": "Section4 lines 75-77",
+      "paper_text": "\"training blocks 20260420/421; evaluation frames from {20260423,424,425}\"",
+      "paper_value": "train seeds 20260420/421; eval seeds 20260423/424/425",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260507_e20260425/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260508_e20260425/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260423/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260424/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid/t20260509_e20260425/results.json",
+      "evidence_value": "Evaluation seeds 20260423/424/425 are present in raw configs; no supplied raw file records training blocks 20260420/421",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "Only the eval seed half of the train/eval separation claim is supported by supplied raw files."
+    },
+    {
+      "claim_id": 30,
+      "location": "Section5 Table 1 caption lines 70-72",
+      "paper_text": "\"3-seed pooled (seeds 20260423/424/425; adaptive frame counts 600/773/1300 at SNR=20/25/30 dB)\"",
+      "paper_value": "seeds 20260423/424/425; frames 600/773/1300",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json",
+      "evidence_value": "SNR20 frames=600; SNR25 frames=773; SNR30 frames=1300; configs seeds=[20260423, 20260424, 20260423]",
+      "status": "exact_match",
+      "severity": "minor",
+      "details": "The caption frame counts and seed set match the three loop12 result files."
+    },
+    {
+      "claim_id": 31,
+      "location": "Section5 Table 1 row SNR=10",
+      "paper_text": "\"10 & 7.1e-2 & 4.8e-2 & 4.5e-2 & 2.2e-2 & -2.2%\"",
+      "paper_value": "serial=0.071,classical=0.048,learned=0.045,oracle=0.022,delta=-2.2%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json",
+      "evidence_value": "r3 has classical=0.100537109375, learned=0.09828125, pcsi=0.0615966796875, rel_delta=-2.243807673627977; loop13 has classical=0.091961669921875, learned=0.089520263671875, pcsi=0.061346435546875; no serial key",
+      "status": "number_mismatch",
+      "severity": "major",
+      "details": "The -2.2% delta is traceable to r3 by rounding, but none of the supplied raw BER values match the table absolute BER cells."
+    },
+    {
+      "claim_id": 32,
+      "location": "Section5 Table 1 row SNR=15",
+      "paper_text": "\"15 & 4.3e-2 & 1.9e-2 & 1.7e-2 & 7.4e-3 & -7.4%\"",
+      "paper_value": "serial=0.043,classical=0.019,learned=0.017,oracle=0.0074,delta=-7.4%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json",
+      "evidence_value": "r3 classical=0.0314111328125, learned=0.0290869140625, pcsi=0.00445556640625, rel_delta=-7.3993471164309; loop13 learned=0.01507568359375; OMP baseline=0.01975390625, oracle_physical=0.012091796875",
+      "status": "number_mismatch",
+      "severity": "major",
+      "details": "The -7.4% delta matches r3 rounding, but the table combines/misstates absolute values relative to supplied raw files."
+    },
+    {
+      "claim_id": 33,
+      "location": "Section5 Table 1 row SNR=20 absolute BER/CI cells",
+      "paper_text": "\"20 & 4.1e-2 & 5.0e-4 & 3.1e-4 & 1.2e-4 & -37.7% & [2.8e-4,3.4e-4]\"",
+      "paper_value": "absolute BER and CP CI cells as displayed",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json",
+      "evidence_value": "pooled classical_ber=0.0029996744791666668, learned_ber=0.00186767578125, pcsi_ber=0.0, learned_CP95=[0.001792105136497592,0.0019456095685023453]; no serial key",
+      "status": "number_mismatch",
+      "severity": "critical",
+      "details": "The displayed high-SNR relative delta matches the pooled files, but the absolute BER and learned CP interval cells do not match the same raw evidence."
+    },
+    {
+      "claim_id": 34,
+      "location": "Section5 Table 1 row SNR=20 delta/p-value",
+      "paper_text": "\"20 & 4.1e-2 & 5.0e-4 & 3.1e-4 & 1.2e-4 & -37.7% & [2.8e-4,3.4e-4]\"",
+      "paper_value": "delta -37.7%, p<1e-6",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json",
+      "evidence_value": "delta=-37.737385%, McNemar chi2=950.368913, p=1.1e-208",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "The delta and significance portions of the row are supported by the pooled loop12 evidence."
+    },
+    {
+      "claim_id": 35,
+      "location": "Section5 Table 1 row SNR=25 absolute BER/CI cells",
+      "paper_text": "\"25 & 4.1e-2 & 1.0e-4 & 6.0e-5 & 0 (UB 3.2e-6) & -40.2% & [4.8e-5,7.4e-5]\"",
+      "paper_value": "absolute BER and CP CI cells as displayed",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json",
+      "evidence_value": "pooled classical_ber=0.0013953600016170763, learned_ber=0.0008350683214747736, pcsi_ber=0.0, learned_CP95=[0.0007906721752553486,0.0008813065968624351]; no serial key",
+      "status": "number_mismatch",
+      "severity": "critical",
+      "details": "The displayed high-SNR relative delta matches the pooled files, but the absolute BER and learned CP interval cells do not match the same raw evidence."
+    },
+    {
+      "claim_id": 36,
+      "location": "Section5 Table 1 row SNR=25 delta/p-value",
+      "paper_text": "\"25 & 4.1e-2 & 1.0e-4 & 6.0e-5 & 0 (UB 3.2e-6) & -40.2% & [4.8e-5,7.4e-5]\"",
+      "paper_value": "delta -40.2%, p<1e-6",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json",
+      "evidence_value": "delta=-40.153916%, McNemar chi2=607.112142, p=4.75e-134",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "The delta and significance portions of the row are supported by the pooled loop12 evidence."
+    },
+    {
+      "claim_id": 37,
+      "location": "Section5 Table 1 row SNR=30 absolute BER/CI cells",
+      "paper_text": "\"30 & 4.1e-2 & 1.8e-5 & 1.1e-5 & 0 (UB 1.4e-6) & -37.6% & [7.4e-6,1.6e-5]\"",
+      "paper_value": "absolute BER and CP CI cells as displayed",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json",
+      "evidence_value": "pooled classical_ber=0.0004356971153846154, learned_ber=0.0002719350961538462, pcsi_ber=7.512019230769231e-07, learned_CP95=[0.0002524874633206036,0.00029248284161845244]; no serial key",
+      "status": "number_mismatch",
+      "severity": "critical",
+      "details": "The displayed high-SNR relative delta matches the pooled files, but the absolute BER and learned CP interval cells do not match the same raw evidence."
+    },
+    {
+      "claim_id": 38,
+      "location": "Section5 Table 1 row SNR=30 delta/p-value",
+      "paper_text": "\"30 & 4.1e-2 & 1.8e-5 & 1.1e-5 & 0 (UB 1.4e-6) & -37.6% & [7.4e-6,1.6e-5]\"",
+      "paper_value": "delta -37.6%, p<1e-6",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json",
+      "evidence_value": "delta=-37.586207%, McNemar chi2=263.544568, p=2.9e-59",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "The delta and significance portions of the row are supported by the pooled loop12 evidence."
+    },
+    {
+      "claim_id": 39,
+      "location": "Section5 lines 106-116; Section6 lines 76-79; Appendix lines 105-113",
+      "paper_text": "\"native-config 16-pilot reproduction matches published Fig. 3 to ±0.2 log-decade at 4/6 SNR cells on 1000 frames\"",
+      "paper_value": "16 pilots; ±0.2 log-decade; 4/6 cells; 1000 frames",
+      "evidence_file": "No supplied qing/cao baseline raw file",
+      "evidence_value": "The cited qing_baseline/outputs/consistency_1000frames path is not among the evidence files provided for this audit",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "This external-baseline numerical claim cannot be verified under the evidence boundary."
+    },
+    {
+      "claim_id": 40,
+      "location": "Section5 Table 2 OMP-extension rows excluding learned head",
+      "paper_text": "\"baseline, OMP-(P+2/4/8/16), oracle_phys BER and GC over 250 frames seed 20260419\"",
+      "paper_value": "all OMP rows except learned head",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json",
+      "evidence_value": "baseline {SNR15: ber=0.01975390625, GC=0.000%, SNR20: ber=0.000388671875, GC=0.000%, SNR25: ber=0.000345703125, GC=0.000%}; omp_extended_k2 {SNR15: ber=0.020419921875, GC=-8.692%, SNR20: ber=0.000626953125, GC=-61.307%, SNR25: ber=0.00027734375, GC=19.774%}; omp_extended_k4 {SNR15: ber=0.02133984375, GC=-20.698%, SNR20: ber=0.00088671875, GC=-128.141%, SNR25: ber=0.000326171875, GC=5.650%}; omp_extended_k8 {SNR15: ber=0.023232421875, GC=-45.399%, SNR20: ber=0.001697265625, GC=-336.683%, SNR25: ber=0.000640625, GC=-85.311%}; omp_extended_k16 {SNR15: ber=0.027541015625, GC=-101.631%, SNR20: ber=0.0039921875, GC=-927.136%, SNR25: ber=0.001931640625, GC=-458.757%}; oracle_physical {SNR15: ber=0.012091796875, GC=100.000%, SNR20: ber=0.0, GC=100.000%, SNR25: ber=0.0, GC=100.000%}",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "The baseline, OMP-extension, and oracle_phys rows round to the table values."
+    },
+    {
+      "claim_id": 41,
+      "location": "Section5 Table 2 learned-head row",
+      "paper_text": "\"learned head: 1.51e-2,+61%; 7.4e-5,+81%; 5.6e-6,+98%\"",
+      "paper_value": "learned BER/GC at SNR 15/20/25",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json",
+      "evidence_value": "learned BERs from loop13 seed=20260425 frames 80/350/350: [0.01507568359375, 7.393973214285715e-05, 5.580357142857143e-06]; GC computed against OMP seed=20260419 250-frame baseline/oracle: [61.057, 80.976, 98.386]%",
+      "status": "config_mismatch",
+      "severity": "critical",
+      "details": "This row is not from the same 250-frame seed-20260419 source as the OMP rows, despite appearing inside the same same-budget table."
+    },
+    {
+      "claim_id": 42,
+      "location": "Section5 lines 155-157",
+      "paper_text": "\"every K>=2 in OMP-(P+K) regresses BER monotonically ... at every SNR cell\"",
+      "paper_value": "every K>=2 regresses at every SNR",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json",
+      "evidence_value": "At SNR25, baseline=0.000345703125; K2=0.00027734375 and K4=0.000326171875 are lower than baseline, with GC +19.774% and +5.650%",
+      "status": "scope_overclaim",
+      "severity": "major",
+      "details": "The table itself and raw evidence show K=2 and K=4 improve BER at SNR=25, so the universal regression statement is false."
+    },
+    {
+      "claim_id": 43,
+      "location": "Section5 lines 156-157",
+      "paper_text": "\"worst case at K=16 giving -927.1% gap-closed at SNR=20 dB\"",
+      "paper_value": "-927.1%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json",
+      "evidence_value": "SNR20 K16 gap_closed=-927.135678%",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "This specific worst-case number rounds correctly."
+    },
+    {
+      "claim_id": 44,
+      "location": "Section5 lines 170-184; Section6 lines 53-59",
+      "paper_text": "\"2B hidden256/512 best-eval BERs 0.0903 and 0.0894\"",
+      "paper_value": "0.0903, 0.0894",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_2B_wider256/run.log; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_2B_wider512/run.log",
+      "evidence_value": "2B-256 evals=[(500, 0.42905), (1000, 0.22210000000000002), (1500, 0.13384000000000001), (2000, 0.13631000000000001), (2500, 0.13638999999999998), (3000, 0.10604000000000001), (3500, 0.09658200000000002), (4000, 0.09145500000000001), (4500, 0.090316)], best=0.090316 at iter 4500; 2B-512 evals=[(500, 0.43301), (1000, 0.27583), (1500, 0.12988), (2000, 0.11955), (2500, 0.10798000000000002), (3000, 0.10998000000000002), (3500, 0.09335900000000001), (4000, 0.085465), (4500, 0.089421)], best=0.085465 at iter 4000, last=(4500, 0.089421)",
+      "status": "number_mismatch",
+      "severity": "major",
+      "details": "0.0903 matches the best 2B-256 eval by rounding. For 2B-512, 0.0894 is the last logged eval at 4500, not the best; the best logged eval is 0.085465 at 4000."
+    },
+    {
+      "claim_id": 45,
+      "location": "Section5 lines 177-179; Section6 lines 55-57",
+      "paper_text": "\"2B is 2.4x worse than 4B counterparts (0.0381 and 0.0355)\"",
+      "paper_value": "2.4x worse; 4B BERs 0.0381/0.0355",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_2B_wider256/run.log; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_2B_wider512/run.log; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_wider256/train_log.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_wider512/train_log.json",
+      "evidence_value": "using raw best values: 2B256/4B256=0.090316/0.038102213541666666=2.370; 2B512/4B512=0.085465/0.035546875=2.404",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "The 2.4x ratio is supported if the raw best 2B-512 value is used, not the paper-displayed 0.0894."
+    },
+    {
+      "claim_id": 46,
+      "location": "Section5 lines 180-184; Section6 lines 58-59",
+      "paper_text": "\"2B grid has kmax=4 vs kmax=2 at 4B, giving 918 bins versus 510; 4B shrinks grid by 1.8x\"",
+      "paper_value": "kmax 4 vs 2; 918 vs 510; 1.8x",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_2B_wider256/run.log; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_iter_convergence_4B_merged/results.json",
+      "evidence_value": "2B log: l_max=102, k_max=4, Q=918; supplied 4B OMP/iter configs: l_max=160/160, k_max=2/2, Q=800; not 510",
+      "status": "config_mismatch",
+      "severity": "critical",
+      "details": "The 2B 918-bin value is supported, but supplied 4B raw configs and Table simparams use Q=800, not 510; the 1.8x shrink claim is not supported by these files."
+    },
+    {
+      "claim_id": 47,
+      "location": "Section5 lines 191-198",
+      "paper_text": "\"convergence over t=1..4; SNR20 t=4->5 classical 8.81->9.07e-4 (+3%), learned 4.51->5.42e-4 (+20%, ≈3σ)\"",
+      "paper_value": "8.81->9.07e-4; +3%; 4.51->5.42e-4; +20%; approx 3sigma",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_iter_convergence_4B_merged/results.json",
+      "evidence_value": "classical SNR20 t4=0.0008805338541666666, t5=0.0009065755208333333, rel=2.957%; learned t4=0.00045084635416666667, t5=0.0005419921875, rel=20.217%; no sigma field",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "The BER moves and percentages round correctly; the ≈3σ statement is not directly evidenced by the JSON."
+    },
+    {
+      "claim_id": 48,
+      "location": "Section5 Table 3",
+      "paper_text": "\"support recall table: SNR 10/15/20/25 mean recall, missed atoms, missed-frame fraction, frames\"",
+      "paper_value": "Table values 0.949/1.41/71.2/3000; 0.951/1.35/68.9/6000; 0.953/1.31/67.0/6000; 0.953/1.33/67.4/12000",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_support_recall/recall_by_snr.json",
+      "evidence_value": "SNR10: mean_recall=0.9490595887715205, mean_missed=1.4146666666666667, frac_missed=0.712, frames=3000; SNR15: mean_recall=0.9514590322451374, mean_missed=1.3483333333333334, frac_missed=0.6885, frames=6000; SNR20: mean_recall=0.9529168664198053, mean_missed=1.3125, frac_missed=0.67, frames=6000; SNR25: mean_recall=0.9525042078942397, mean_missed=1.32575, frac_missed=0.674, frames=12000",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "All table cells match recall_by_snr.json by standard rounding."
+    },
+    {
+      "claim_id": 49,
+      "location": "Section5 lines 246-254",
+      "paper_text": "\"learned head closes 61/81/98% of baseline-to-oracle gap; physical oracle zero on 5.12e5 bits at SNR 20/25\"",
+      "paper_value": "61/81/98%; 5.12e5 bits",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json",
+      "evidence_value": "GC values require loop13 learned BERs combined with OMP baseline/oracle. OMP oracle zero bits at 20/25: frames=250 -> bits=512000",
+      "status": "config_mismatch",
+      "severity": "critical",
+      "details": "The zero-oracle bit budget is supported by the OMP file. The learned-head gap-closed percentages are cross-source, not same-cell evidence."
+    },
+    {
+      "claim_id": 50,
+      "location": "Section5 Table 7 baseline/oracle_phys cells",
+      "paper_text": "\"Top-P physical-support-oracle headroom baseline/oracle_phys cells at 250 frames\"",
+      "paper_value": "baseline 1.98e-2/3.89e-4/3.46e-4; oracle_phys 1.21e-2/0/0",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json",
+      "evidence_value": "baseline/oracle_physical BERs: [('15', 0.01975390625, 0.012091796875), ('20', 0.000388671875, 0.0), ('25', 0.000345703125, 0.0)]",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "Baseline and physical-oracle cells match the OMP-extension file."
+    },
+    {
+      "claim_id": 51,
+      "location": "Section5 Table 7 learned-head cells",
+      "paper_text": "\"LearnedHead 1.51e-2, 7.39e-5, 5.58e-6 and GC 61/81/98%\"",
+      "paper_value": "learned BERs and GC",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json",
+      "evidence_value": "learned BERs from loop13 seed 20260425, frames [80, 350, 350]; baseline/oracle from OMP seed 20260419, frames 250",
+      "status": "config_mismatch",
+      "severity": "critical",
+      "details": "Same issue as Table 2: learned-head row is sourced from a different seed/frame-count file than the baseline and physical oracle."
+    },
+    {
+      "claim_id": 52,
+      "location": "Section5 Table 7 Oracle column",
+      "paper_text": "\"Oracle column: 7.42e-3, 1.17e-4, 0 (censored)\"",
+      "paper_value": "PCSI+MMSE Oracle BERs",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_headroom_4B_big/headroom_results.json",
+      "evidence_value": "loop13 pcsi BERs: [0.00360107421875, 0.0, 1.3950892857142857e-06]; OMP file has no PCSI+MMSE oracle column; headroom oracle_support BERs: [0.0194453125, 0.00076953125, 3.7109375e-05]",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "No supplied raw file contains the displayed Oracle column values."
+    },
+    {
+      "claim_id": 53,
+      "location": "Section5 Table 4",
+      "paper_text": "\"MAC/frame: 14.0M, 18.6M, 20.1M, 48.6M, 2.7G, 2.7G; relative 0.75x/1.00x/1.08x/2.61x/145x/145x\"",
+      "paper_value": "MAC counts and relative ratios",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_complexity/runtime_table.json",
+      "evidence_value": "runtime_table.json has no MAC/frame or relative-ratio fields",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "The ratios are internally plausible but cannot be traced to supplied raw evidence."
+    },
+    {
+      "claim_id": 54,
+      "location": "Section5 Table 5 runtime",
+      "paper_text": "\"Wall-clock: NumPy 207/463/1855, Torch 242/416/803, Learned 257/402/834; peak mem 355/368 MB at N=2048\"",
+      "paper_value": "runtime table values",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_complexity/runtime_table.json",
+      "evidence_value": "NumPy [207.19876801595092, 462.848769556731, 1855.1391286030412]; Torch [242.41447746753693, 416.0120290517807, 802.7087084576488]; Learned [256.47112376987934, 402.3166916333139, 834.1414560936391]; mem Torch/Learned N=512/1024/2048=[(29, 30), (89, 92), (355, 368)]; config fs_factor=2.0",
+      "status": "config_mismatch",
+      "severity": "moderate",
+      "details": "Runtime values round correctly, but the raw runtime config records fs_factor=2.0 while the paper context says results use 4B."
+    },
+    {
+      "claim_id": 55,
+      "location": "Section5 lines 351-358",
+      "paper_text": "\"at N=2048 CPU/GPU gap is 2.3x; learned adds at most 31 ms (≈3.8%); peak GPU allocation goes 30->89->368 MB\"",
+      "paper_value": "2.3x; 31 ms; 3.8%; 30/89/368 MB",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_complexity/runtime_table.json",
+      "evidence_value": "CPU/GPU 2048=2.311x; learned delta=31.433ms, 3.916%; learned mem=30/92/368, torch mem=29/89/355",
+      "status": "number_mismatch",
+      "severity": "moderate",
+      "details": "The speed and delta claims round acceptably, but the peak-memory sequence 30->89->368 mixes receiver rows; no single receiver has exactly that sequence."
+    },
+    {
+      "claim_id": 56,
+      "location": "Section5 Table 6 attribution",
+      "paper_text": "\"SNR15/20/25 added/frame 2.00; counts main/side/virtual/false; Side+Virt 99.8/99.4/99.6%\"",
+      "paper_value": "Table attribution counts and percentages",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_attribution/attribution.json",
+      "evidence_value": "SNR15: added/frame=2.0, counts={'main_lobe_collision': 1, 'dirichlet_sidelobe': 316, 'virtual_tap': 183, 'false_positive': 0}, side+virt=99.800%; SNR20: added/frame=2.004, counts={'main_lobe_collision': 3, 'dirichlet_sidelobe': 303, 'virtual_tap': 195, 'false_positive': 0}, side+virt=99.401%; SNR25: added/frame=2.0, counts={'main_lobe_collision': 0, 'dirichlet_sidelobe': 302, 'virtual_tap': 196, 'false_positive': 2}, side+virt=99.600%",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "Attribution table cells match raw counts. SNR20 added/frame is 2.004, displayed as 2.00 by rounding/truncation."
+    },
+    {
+      "claim_id": 57,
+      "location": "Section5 lines 369-376",
+      "paper_text": "\"main-lobe collisions <=3/250 and false positives <=2/250; >99% across all evaluated SNRs\"",
+      "paper_value": "<=3/250; <=2/250; >99%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_attribution/attribution.json",
+      "evidence_value": "main counts [1, 3, 0]; false counts [0, 0, 2]; frames=250",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "The count bounds and >99% summary are supported."
+    },
+    {
+      "claim_id": 58,
+      "location": "Section6 lines 7-12",
+      "paper_text": "\"side-lobes at ±1 Doppler offsets carrying 5--20% of main-lobe energy\"",
+      "paper_value": "5--20%",
+      "evidence_file": "No supplied raw side-lobe energy distribution file",
+      "evidence_value": "No per-path side-lobe energy data in supplied JSON/log files",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "This mechanism claim may be analytical, but it is not traceable to raw evidence files."
+    },
+    {
+      "claim_id": 59,
+      "location": "Section6 lines 34-43",
+      "paper_text": "\"Five ListNet retrainings produce 64 bit errors / 204800 bits per seed; widening 16->64 changes 1041->13377 params (12.8x), BCE 1.9x tighter, -5.1% paired reduction, McNemar p=0.34\"",
+      "paper_value": "5 retrainings; 64/204800; 13377 params; 12.8x; 1.9x; -5.1%; p=0.34",
+      "evidence_file": "No supplied outputs_b3_pairh64 or outputs_use_hard_listwise raw files",
+      "evidence_value": "No evidence files for these ablations were included in the allowed list",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "The TeX comments cite files not provided to the auditor; under the requested evidence boundary this entire ablation paragraph is unsupported."
+    },
+    {
+      "claim_id": 60,
+      "location": "Section6 lines 76-82",
+      "paper_text": "\"16-pilot reproduction matches ±0.2 log-decade at 4/6 cells on 1000 frames; Q≈N/3 at N≥1024\"",
+      "paper_value": "16 pilots; ±0.2; 4/6; 1000; Q≈N/3",
+      "evidence_file": "No supplied qing baseline file; supplied 4B configs",
+      "evidence_value": "No qing baseline evidence. Supplied 4B Q from OMP/iter configs is 800 at N=1024, i.e. Q/N=0.781, not approximately 1/3",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "External reproduction is unverifiable; the Q≈N/3 statement conflicts with supplied 4B Q=800."
+    },
+    {
+      "claim_id": 61,
+      "location": "Section6 lines 128-130",
+      "paper_text": "\"Scope fixed at single-antenna, QPSK, rho=0.5, vmax=3 m/s; high-velocity (>5 m/s) out of scope\"",
+      "paper_value": "rho=0.5; vmax=3 m/s; >5 m/s",
+      "evidence_file": "Supplied configs/logs",
+      "evidence_value": "rho=0.5 appears in iter config and table text; supplied 2B section/log uses v_max=3.5 in paper text and logs do not contain vmax=3; no raw vmax field in main JSON configs",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "rho is supported; v_max=3 m/s is not present in supplied raw evidence, and Section5 uses v_max=3.5 for the 2B grid claim."
+    },
+    {
+      "claim_id": 62,
+      "location": "Appendix lines 137",
+      "paper_text": "\"all Monte-Carlo results in the main chapter operate exclusively at fs=4B; fs=2B appears only in a reference scaling illustration\"",
+      "paper_value": "all main Monte-Carlo results exclusively 4B; 2B only reference scaling",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_2B_wider256/run.log; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathI_2B_wider512/run.log; sections/Section5.tex",
+      "evidence_value": "Section5 reports a sampling-rate sensitivity experiment using 2B run logs; run logs show fs=8.0 kHz and 2B training/eval values",
+      "status": "scope_overclaim",
+      "severity": "major",
+      "details": "The appendix statement is contradicted by the paper’s own Section5 experiment and the supplied 2B run logs."
+    },
+    {
+      "claim_id": 63,
+      "location": "Appendix lines 159",
+      "paper_text": "\"SNR=25 learned arm: k=4 bit errors at n≈7.17e5 bits; CI≈[1.52e-6,1.43e-5]\"",
+      "paper_value": "k=4; n≈7.17e5; CI [1.52e-6,1.43e-5]",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json",
+      "evidence_value": "loop13 SNR25 learned_errs=4, cum_bits=716800, CP95=[1.5204615314883367e-06,1.4287868423248535e-05]",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "This appendix CI matches loop13 exactly, but it does not reconcile with Table 1, which labels SNR25 as 3-seed pooled with 773 frames and different absolute BER/CI."
+    },
+    {
+      "claim_id": 64,
+      "location": "Appendix lines 160",
+      "paper_text": "\"SNR=25 Oracle runs to n=8.19e5 bits with k=0; UB≈4.5e-6; same-budget UB≈5.1e-6\"",
+      "paper_value": "n=8.19e5, k=0, UB 4.5e-6; n≈7.17e5 UB 5.1e-6",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json",
+      "evidence_value": "loop12 pooled PCSI SNR25: bits=1583104, errs=0; loop13 SNR25 pcsi_errs=1, bits=716800; OMP oracle_physical bits=512000, errs=0",
+      "status": "missing_evidence",
+      "severity": "major",
+      "details": "No supplied raw oracle result has k=0 at n=8.19e5 bits; available files have different oracle definitions/counts."
+    },
+    {
+      "claim_id": 65,
+      "location": "Appendix lines 170-174; recall_by_snr _meta",
+      "paper_text": "\"recall and precision are not equal; previous draft claim withdrawn\"",
+      "paper_value": "recall != precision",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_support_recall/recall_by_snr.json",
+      "evidence_value": "raw _meta note says: 'recall = (p_real - missed) / p_real; precision == recall because |OMP|=|oracle|=sparsity'",
+      "status": "unsupported_claim",
+      "severity": "moderate",
+      "details": "The paper statement may be methodologically correct, but the supplied raw recall JSON metadata explicitly says precision == recall, creating an evidence/documentation conflict."
+    },
+    {
+      "claim_id": 66,
+      "location": "Appendix lines 182",
+      "paper_text": "\"mean recall≈0.953, mean missed≈1.31; 1.31/(1-0.953)≈28\"",
+      "paper_value": "0.953, 1.31, 28",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_support_recall/recall_by_snr.json",
+      "evidence_value": "SNR20 mean_recall=0.9529168664198053, mean_missed=1.3125, ratio=27.876224",
+      "status": "rounding_ok",
+      "severity": "minor",
+      "details": "The aggregate bookkeeping cross-check matches by rounding."
+    },
+    {
+      "claim_id": 67,
+      "location": "Appendix lines 186",
+      "paper_text": "\"post-processing pass runs in ≈30 s on the 27k-frame 4B cache\"",
+      "paper_value": "approx 30 s; 27k-frame cache",
+      "evidence_file": "No supplied timing/log file for recall post-processing",
+      "evidence_value": "No such timing appears in recall_by_snr.json",
+      "status": "missing_evidence",
+      "severity": "minor",
+      "details": "This runtime claim is not supported by supplied evidence."
+    },
+    {
+      "claim_id": 68,
+      "location": "Appendix lines 211-216",
+      "paper_text": "\"learned bias≈-8, patch=+10, Δb=+18; gate threshold shifts z_i>8 to z_i>-10\"",
+      "paper_value": "-8, +10, +18, thresholds 8/-10",
+      "evidence_file": "No supplied raw log/model parameter dump for bias",
+      "evidence_value": "No bias values in supplied JSON/log files",
+      "status": "missing_evidence",
+      "severity": "moderate",
+      "details": "The force-topk bias-patch numerical values are not traceable to supplied raw evidence."
+    },
+    {
+      "claim_id": 69,
+      "location": "Section6 lines 141-150",
+      "paper_text": "\"Conclusion: 1041-param head delivers -37.7/-40.2/-37.6 reductions, p<1e-6, approx 8% MAC overhead, >99% attribution, closes 61/81/98% ceiling\"",
+      "paper_value": "1041; reductions; p<1e-6; 8%; >99%; 61/81/98%",
+      "evidence_file": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_seed2_s20_s25_s30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_matched_f2p_s20_30/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_attribution/attribution.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json; /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_complexity/runtime_table.json",
+      "evidence_value": "Reductions and attribution are supported; 1041 and MAC counts lack raw evidence; 61/81/98% headroom is cross-source (loop13 learned + OMP baseline/oracle)",
+      "status": "config_mismatch",
+      "severity": "critical",
+      "details": "The conclusion combines supported numbers with unsupported MAC/parameter evidence and cross-source headroom percentages."
+    }
+  ],
+  "mismatches_summary": [
+    {
+      "claim_id": 1,
+      "severity": "moderate",
+      "issue": "missing_evidence: The paper architecture text internally adds 384+657, but the permitted raw evidence files do not contain a deployed-head parameter count."
+    },
+    {
+      "claim_id": 3,
+      "severity": "critical",
+      "issue": "config_mismatch: The K=16 value matches the OMP-extension file, but the learned-head +81% is computed by mixing a different result file, seed, and frame count with the OMP-extension baseline/oracle."
+    },
+    {
+      "claim_id": 4,
+      "severity": "major",
+      "issue": "missing_evidence: The arithmetic 20.1/18.6≈1.08 is internally consistent, but the requested raw evidence files do not support the MAC counts themselves."
+    },
+    {
+      "claim_id": 6,
+      "severity": "major",
+      "issue": "missing_evidence: The raw files expose classical_ber, torch_ref_ber, learned_ber, and pcsi_ber; they do not expose the Serial column used in the paper."
+    },
+    {
+      "claim_id": 7,
+      "severity": "major",
+      "issue": "missing_evidence: This may be true, but none of the allowed raw evidence files records the verifier output."
+    },
+    {
+      "claim_id": 8,
+      "severity": "moderate",
+      "issue": "config_mismatch: The displayed wall-clock numbers round correctly, but the raw runtime config has fs_factor=2.0 while the surrounding paper scope repeatedly says 4B."
+    },
+    {
+      "claim_id": 9,
+      "severity": "moderate",
+      "issue": "aggregation_mismatch: The heading says 5-seed, but the supplied raw evidence for the headline reductions is a 3-evaluation-seed pool."
+    },
+    {
+      "claim_id": 11,
+      "severity": "critical",
+      "issue": "config_mismatch: The OMP K values match the OMP file; the learned value is not from that file and is computed by cross-source aggregation."
+    },
+    {
+      "claim_id": 12,
+      "severity": "major",
+      "issue": "missing_evidence: The supplied complexity JSON only contains timing/memory rows."
+    },
+    {
+      "claim_id": 14,
+      "severity": "moderate",
+      "issue": "missing_evidence: The p_real≈28 cross-check is supported indirectly; the 41/4.4/8.3% Dirichlet energy claims are analytical and absent from raw result files."
+    },
+    {
+      "claim_id": 15,
+      "severity": "moderate",
+      "issue": "missing_evidence: The support-recall file supports recall, not inter-iteration Jaccard."
+    },
+    {
+      "claim_id": 17,
+      "severity": "moderate",
+      "issue": "missing_evidence: The arithmetic in the paper is internally consistent, but this audit cannot trace it to supplied raw evidence."
+    },
+    {
+      "claim_id": 18,
+      "severity": "moderate",
+      "issue": "missing_evidence: M=96 and two refine rounds are supported; Kadd=4 and the inference bias patch are not recorded in supplied raw evidence."
+    },
+    {
+      "claim_id": 19,
+      "severity": "major",
+      "issue": "missing_evidence: The result file names imply retrain27k, but the raw JSON content does not contain the training protocol numbers."
+    },
+    {
+      "claim_id": 21,
+      "severity": "moderate",
+      "issue": "missing_evidence: Partial support exists for 256/512 via 2B logs, but the claimed 4B parameter counts are not fully present in supplied raw evidence."
+    },
+    {
+      "claim_id": 22,
+      "severity": "major",
+      "issue": "number_mismatch: Raw config has 4 attention heads, not 8; raw best BER is 0.0417806, not 0.0405, and the relative penalty is about +9.65%, not +6.3%."
+    },
+    {
+      "claim_id": 24,
+      "severity": "moderate",
+      "issue": "unsupported_claim: The supplied width-MLP logs do not support this deployed-head capacity statement."
+    },
+    {
+      "claim_id": 28,
+      "severity": "moderate",
+      "issue": "aggregation_mismatch: The supplied evaluated bit counts do not equal 8.19e5 for the headline high-SNR cells; the statement may describe a nominal default, not the actual adaptive/pool counts."
+    },
+    {
+      "claim_id": 29,
+      "severity": "moderate",
+      "issue": "missing_evidence: Only the eval seed half of the train/eval separation claim is supported by supplied raw files."
+    },
+    {
+      "claim_id": 31,
+      "severity": "major",
+      "issue": "number_mismatch: The -2.2% delta is traceable to r3 by rounding, but none of the supplied raw BER values match the table absolute BER cells."
+    },
+    {
+      "claim_id": 32,
+      "severity": "major",
+      "issue": "number_mismatch: The -7.4% delta matches r3 rounding, but the table combines/misstates absolute values relative to supplied raw files."
+    },
+    {
+      "claim_id": 33,
+      "severity": "critical",
+      "issue": "number_mismatch: The displayed high-SNR relative delta matches the pooled files, but the absolute BER and learned CP interval cells do not match the same raw evidence."
+    },
+    {
+      "claim_id": 35,
+      "severity": "critical",
+      "issue": "number_mismatch: The displayed high-SNR relative delta matches the pooled files, but the absolute BER and learned CP interval cells do not match the same raw evidence."
+    },
+    {
+      "claim_id": 37,
+      "severity": "critical",
+      "issue": "number_mismatch: The displayed high-SNR relative delta matches the pooled files, but the absolute BER and learned CP interval cells do not match the same raw evidence."
+    },
+    {
+      "claim_id": 39,
+      "severity": "major",
+      "issue": "missing_evidence: This external-baseline numerical claim cannot be verified under the evidence boundary."
+    },
+    {
+      "claim_id": 41,
+      "severity": "critical",
+      "issue": "config_mismatch: This row is not from the same 250-frame seed-20260419 source as the OMP rows, despite appearing inside the same same-budget table."
+    },
+    {
+      "claim_id": 42,
+      "severity": "major",
+      "issue": "scope_overclaim: The table itself and raw evidence show K=2 and K=4 improve BER at SNR=25, so the universal regression statement is false."
+    },
+    {
+      "claim_id": 44,
+      "severity": "major",
+      "issue": "number_mismatch: 0.0903 matches the best 2B-256 eval by rounding. For 2B-512, 0.0894 is the last logged eval at 4500, not the best; the best logged eval is 0.085465 at 4000."
+    },
+    {
+      "claim_id": 46,
+      "severity": "critical",
+      "issue": "config_mismatch: The 2B 918-bin value is supported, but supplied 4B raw configs and Table simparams use Q=800, not 510; the 1.8x shrink claim is not supported by these files."
+    },
+    {
+      "claim_id": 47,
+      "severity": "moderate",
+      "issue": "missing_evidence: The BER moves and percentages round correctly; the ≈3σ statement is not directly evidenced by the JSON."
+    },
+    {
+      "claim_id": 49,
+      "severity": "critical",
+      "issue": "config_mismatch: The zero-oracle bit budget is supported by the OMP file. The learned-head gap-closed percentages are cross-source, not same-cell evidence."
+    },
+    {
+      "claim_id": 51,
+      "severity": "critical",
+      "issue": "config_mismatch: Same issue as Table 2: learned-head row is sourced from a different seed/frame-count file than the baseline and physical oracle."
+    },
+    {
+      "claim_id": 52,
+      "severity": "major",
+      "issue": "missing_evidence: No supplied raw file contains the displayed Oracle column values."
+    },
+    {
+      "claim_id": 53,
+      "severity": "major",
+      "issue": "missing_evidence: The ratios are internally plausible but cannot be traced to supplied raw evidence."
+    },
+    {
+      "claim_id": 54,
+      "severity": "moderate",
+      "issue": "config_mismatch: Runtime values round correctly, but the raw runtime config records fs_factor=2.0 while the paper context says results use 4B."
+    },
+    {
+      "claim_id": 55,
+      "severity": "moderate",
+      "issue": "number_mismatch: The speed and delta claims round acceptably, but the peak-memory sequence 30->89->368 mixes receiver rows; no single receiver has exactly that sequence."
+    },
+    {
+      "claim_id": 58,
+      "severity": "moderate",
+      "issue": "missing_evidence: This mechanism claim may be analytical, but it is not traceable to raw evidence files."
+    },
+    {
+      "claim_id": 59,
+      "severity": "major",
+      "issue": "missing_evidence: The TeX comments cite files not provided to the auditor; under the requested evidence boundary this entire ablation paragraph is unsupported."
+    },
+    {
+      "claim_id": 60,
+      "severity": "major",
+      "issue": "missing_evidence: External reproduction is unverifiable; the Q≈N/3 statement conflicts with supplied 4B Q=800."
+    },
+    {
+      "claim_id": 61,
+      "severity": "moderate",
+      "issue": "missing_evidence: rho is supported; v_max=3 m/s is not present in supplied raw evidence, and Section5 uses v_max=3.5 for the 2B grid claim."
+    },
+    {
+      "claim_id": 62,
+      "severity": "major",
+      "issue": "scope_overclaim: The appendix statement is contradicted by the paper’s own Section5 experiment and the supplied 2B run logs."
+    },
+    {
+      "claim_id": 64,
+      "severity": "major",
+      "issue": "missing_evidence: No supplied raw oracle result has k=0 at n=8.19e5 bits; available files have different oracle definitions/counts."
+    },
+    {
+      "claim_id": 65,
+      "severity": "moderate",
+      "issue": "unsupported_claim: The paper statement may be methodologically correct, but the supplied raw recall JSON metadata explicitly says precision == recall, creating an evidence/documentation conflict."
+    },
+    {
+      "claim_id": 67,
+      "severity": "minor",
+      "issue": "missing_evidence: This runtime claim is not supported by supplied evidence."
+    },
+    {
+      "claim_id": 68,
+      "severity": "moderate",
+      "issue": "missing_evidence: The force-topk bias-patch numerical values are not traceable to supplied raw evidence."
+    },
+    {
+      "claim_id": 69,
+      "severity": "critical",
+      "issue": "config_mismatch: The conclusion combines supported numbers with unsupported MAC/parameter evidence and cross-source headroom percentages."
+    }
+  ]
+}

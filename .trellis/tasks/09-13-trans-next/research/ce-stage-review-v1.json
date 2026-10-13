@@ -1,0 +1,47 @@
+{
+  "schema": "ce-stage-review-v1",
+  "status": "PASS_STAGE_EVIDENCE_SYNTHESIS_WITH_SCOPE_LIMITS",
+  "review_scope": "STAGE-REVIEW-02 for SYN-02 saved development evidence and conditional PILOT-03 disposition; no independent method CONF, formal COST, PAPER, or full-project REVIEW-01",
+  "reviewer_independence": "partial: reviewer wrote O3 terminal analysis script/report earlier in this same stage, and SYN report is main-session synthesis; no claim of fully independent scientific review",
+  "input_sha256": {
+    "frozen_prediction": "43af7798d79530dbab59ae61ee1fd8cec700bd273f4483eb7bca19cdafab6941",
+    "synthesis_md": "e197e56779938312eb0df735fcea90254b79979944de4d8570d3d65406d5bcdb",
+    "synthesis_json": "8debf15a1b6adb8b68c84c643c6968504d50d9a253e9ca2ebd9815ef00c506bc",
+    "stage_cost": "fab98ad2b4d766d01a87f0c3697fe002a4de383d2330ddc8adaa0abc874e9f8b",
+    "pilot_promotion": "7834c85543454dda68aa97a6ce0501339862860da0bb5c0b5279215393d3d990",
+    "pilot_disposition": "961b1577daf5f9f79b4255947ed962cf8f0eabbe2f9b4251b0cdbfcf27086453",
+    "pilot_mechanism": "0b0b452e697bf69bc24d354f9156ed7704324345c27f17f6beeb065bbf061e0f",
+    "O2_FULL_mechanism_summary": "f3322ad0842826283c941148140559d6c97c0a3ce0f69d6897cc7fedf56cc7dc",
+    "O2_FULL_mechanism_rows": "469d500083b24b7df83889e0ef5a352185ac43842dfbe1f89e937380ce8bfbc8",
+    "O2_FULL_mechanism_raw_audit": "31f18b025ff0c8fec02e84b073debcc73b49424ee04d4ba644936d5eb6a3d860",
+    "O3_report": "a5373c8b2afbab1b2ac1284af3f40304c5fe4d47fcb2c2e3910ea4e7d660bd37",
+    "Gamma_report": "af85f3a5c65cef6d70dcd4da9ca182418ee953d788c38a5d13b2b4ad924d13b7",
+    "NSIZE_report": "fa2b8936815f14fb64f1e23cd03733a33ff4195398f2070d5ccedf040e606753"
+  },
+  "checks": {
+    "PILOT_promotion": "32 paired physical channel clusters x both 7/8dB, 4 simultaneous Bonferroni 20000-bootstrap contrasts with frozen seed202609150402 independently recomputed earlier; no candidate passes point direction or interval selection",
+    "PILOT_P1": "320 mechanism A rows and 5x64 aggregates, 4 squares+6 real-pair crosses affine closure, saved/contract gamma ratio, C33/C54 premise 64/64 each and P02/P03/P04 0/64; 0 new F/CE/BP/LDPC; original gamma lacks /K24 and remains preserved",
+    "O2_decomposition": "9 available file SHA checks pass; 64 rows/32 per SNR, squared+cross affine closure, actual after-minus-before, 8-bin histograms and summary means pass; Q_consumed=0",
+    "old_FULL_positions": "64 terminal rows and 32 same-physical-channel overlaps aggregate arithmetic and zero-denominator defined counts pass; lag1 linear no wrap and cross-SNR overlap post-hoc only",
+    "cost": "33 supervisor exit JSON files locally available and SHA matched; 4 failed exits retained; stage group sums and <7200s cap bounded to recorded supervisor exits; local test/summary CPU excluded",
+    "audits": "PILOT producer/development independent raw audit PASS; O3 two-stage raw audits PASS; O2/FULL saved-state mechanism raw audit PASS but same-process reread weak independence; mechanism tests 5 PASS and promotion tests 2 PASS reported by main session"
+  },
+  "dispositions": {
+    "P1": "restricted algebraic applicability confirmed only in 128 qualifying C33/C54 initial states, no nontrivial predictive hit; old producer auxiliary gamma error does not affect endpoints",
+    "P2": "O2 coefficient response and O3 7dB 25/32->11/32, 8dB 6/32->1/32 exposed-development response; no frozen directional hypothesis or isolated source-dominance claim",
+    "P3": "DIR historical ranking retrospective, no prospective prediction success/failure label",
+    "PILOT03": "CONDITIONALLY_EXCLUDED, 0 new F/BP/LDPC as frozen no-promotion rule",
+    "Gamma": "fixed baseline already includes Gamma C(mu); candidate-varying C shows 658 vs658 real-component errors, not overall Gamma benefit, FER or exact posterior",
+    "five_directions": "direction1 mechanism/risk conditional evidence only; direction2 pilot candidate no promotion; direction3 Q/Gamma diagnostics bounded; direction4 lag1/interleaver evidence descriptive and unidentifiable; direction5 structure/tracking deferred"
+  },
+  "limits": [
+    "all numerical endpoints share exposed development inputs",
+    "O3 analysis authorship limits reviewer independence",
+    "O2/FULL self-audit second pass in same process is weak",
+    "PILOT mechanism source-v3/contract/engineering+development receipts were source-bound by producer/extractor but not all locally rehashed in this review",
+    "exact code/interleaver mapping and random/JSG counterfactual absent",
+    "no pure N effect for NSIZE and no Gamma=0 comparison",
+    "no 0.2dB cliff shift, independent predictive validation, formal COST, or publication claim"
+  ],
+  "remaining_stage_gate": "none for STAGE-REVIEW-02 evidence synthesis; future CONF/COST/PAPER require separate scope and frozen protocol"
+}

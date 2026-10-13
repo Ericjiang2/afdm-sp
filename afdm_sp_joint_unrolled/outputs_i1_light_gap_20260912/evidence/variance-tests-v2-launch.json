@@ -1,0 +1,29 @@
+{
+  "job": {
+    "name": "variance-tests-v2",
+    "root": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_i1_light_gap_20260912",
+    "cwd": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_i1_light_gap_20260912/source-variance-v2",
+    "timeout_seconds": 60,
+    "command": [
+      "/home/guoyikun/.conda/envs/AFDM/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "afdm_sp_joint_unrolled.test_light_gap_bp_temperature",
+      "afdm_sp_joint_unrolled.test_supplement_feedback_adapter",
+      "afdm_sp_joint_unrolled.test_bottleneck_pilot",
+      "afdm_sp_joint_unrolled.test_supplement_feedback",
+      "afdm_sp_joint_unrolled.test_direction_detector"
+    ]
+  },
+  "job_sha256": "78c44485b9cc2b225cfe2868fa03050b73d0e48443daf7fe22c2df201b3a4ae5",
+  "pid": 622776,
+  "started_at": 1789206488.1037507,
+  "timeout_seconds": 60,
+  "environment_overrides": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "TMPDIR": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_i1_light_gap_20260912/cache/variance-tests-v2/tmpdir",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

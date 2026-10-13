@@ -1,0 +1,87 @@
+{
+  "commit": "fede85fed219c32eed30bfd1fa44cb6249839b64",
+  "ledger_counts": {
+    "arms": {
+      "B": 1024,
+      "Ccompat": 1024,
+      "Cref": 64
+    },
+    "complete_ok": 2112,
+    "fixed_matched_subset": {
+      "first_frame": 0,
+      "last_frame": 1008,
+      "n": 64,
+      "per_arm": {
+        "B": 64,
+        "Ccompat": 64,
+        "Cref": 64
+      },
+      "rule": "frame index divisible by 16"
+    }
+  },
+  "limitations": [
+    "Timing recount uses ledger metadata only.",
+    "No truth, raw arrays, or checkpoint NPZ payloads were opened."
+  ],
+  "profile_ratios": {
+    "abs_delta_vs_committed_profile_receipt": {
+      "complete_latency_reduction_fraction_matched64": 4.163336342344337e-17,
+      "full1024_Ccompat_to_B_acquisition_ratio": 0.0,
+      "full1024_Ccompat_to_B_complete_latency_ratio": 0.0,
+      "removable_acquisition_excess_fraction_matched64": 0.0
+    },
+    "recomputed": {
+      "complete_latency_reduction_fraction_matched64": 0.12175686768761196,
+      "full1024_Ccompat_to_B_acquisition_ratio": 3.3442157639519157,
+      "full1024_Ccompat_to_B_complete_latency_ratio": 1.611781724339802,
+      "removable_acquisition_excess_fraction_matched64": 0.3209193274198916
+    },
+    "rounded_display": {
+      "complete_latency_reduction_matched64": "12.1757%",
+      "full1024_Ccompat_to_B_acquisition": "3.3442x",
+      "full1024_Ccompat_to_B_complete_latency": "1.61178x",
+      "removable_acquisition_excess": "32.0919%"
+    }
+  },
+  "schema": "f1-compat-timing-independent-recount/1",
+  "scope": "Read-only recount from saved observed ledger and timing CSV. No truth or raw NPZ read; no receiver run.",
+  "sources": {
+    "equivalence_receipt_profile_reference": {
+      "byte_identical_to_commit": true,
+      "bytes": 3100,
+      "git_blob_sha1": "260687fbefaf1900fdf29da0e0afcf1a181f36a8",
+      "path": "results/cstate_necessity_stageB_resume_20260928/F1_FAST_EQUIVALENCE_RECEIPT.json",
+      "sha256": "2c1aad24ee8ef6e6b7e19d31f77f0b1ff78f0a9c0ee33c7aba21342b25081768"
+    },
+    "ledger": {
+      "byte_identical_to_commit": true,
+      "bytes": 4547401,
+      "git_blob_sha1": "418631d4eb7d112a6dec93d4c1b3a3ff2122b8cc",
+      "path": "results/cstate_necessity_stageB_resume_20260928/observed_f1_compat_v1/ledger.jsonl",
+      "sha256": "fe04491d815fad44e9187b6e043b7cb26341f03418e4e13656087cec7032b1f3"
+    },
+    "timing_csv": {
+      "byte_identical_to_commit": true,
+      "bytes": 6997,
+      "git_blob_sha1": "f7a46280e3460614ab65d45ef2f90e2986637594",
+      "path": "results/cstate_necessity_stageB_resume_20260928/F1_FAST_TIMING.csv",
+      "sha256": "65b3994764d7ecb4ebac7064919d689691077da526760f7b2101ba6200daec0a"
+    }
+  },
+  "status": "pass",
+  "timing_csv_recount": {
+    "max_abs_delta_vs_csv_seconds": {
+      "max_seconds": 4.914957330015568e-13,
+      "mean_seconds": 4.739542092124793e-13,
+      "median_seconds": 4.889422200449189e-13,
+      "min_seconds": 4.929390229335695e-13,
+      "p95_seconds": 4.976019596369952e-13,
+      "p99_seconds": 4.952704912852823e-13
+    },
+    "n_all_match": true,
+    "pass_tolerance_seconds": 1e-09,
+    "row_keys_equal": true,
+    "rows_expected_and_checked": 54,
+    "statistics": "Independent mean, median, p95, p99, max, min recomputed from ledger; linear interpolation quantiles (type 7). Final-checkpoint timing taken from checkpoints[-1].ready_seconds. Paired differences joined by frame."
+  }
+}

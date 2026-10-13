@@ -1,0 +1,97 @@
+{
+  "schema": "A02-development-representative-freeze-v1",
+  "status": "frozen_for_future_independent_confirmation",
+  "selected_soft_arm": "A02-soft-lambda1",
+  "normalized_lambda": 1.0,
+  "selection_policy_sha256": "9620125f82ce144ef2e0cec3ebcd7b773fba52615b4c36114c61b41fdcbb0502",
+  "development_summary_sha256": "d73ae62383fc9b95cfe4449e2bead29135c887035cf82c2ec317236f536c6f3b",
+  "source_archive_sha256": "934efb98eeaa636e0607829469f77c0ab77ab3150d4e2d2ceccad7c236a0c951",
+  "data_protocol_sha256": "3b24ce24142a10b162ba577f71071795777ed6a93cf102ccefd268b34b439960",
+  "a02_protocol_sha256": "cdd9e6fba5dfaaf20793e9bd218df257b40a59fdfe210000ba7403e480971bf9",
+  "checkpoint_sha256": "052ecfab8eff7780c49038d9bb4f16f92272ee22322fa05b6f65029cc3112a91",
+  "symbolic_arm_mapping": {
+    "B_star_1": "A02-Bstar",
+    "B_star_2": "A02-hard",
+    "group_or_hierarchical": "A02-group",
+    "bounded_hard": "A02-hard",
+    "legal_soft": "A02-soft-lambda1",
+    "high_compute_parameter_reference": "A02-reference"
+  },
+  "recipes": {
+    "B_star_1": {
+      "a02_role": "Bstar",
+      "family": "B0",
+      "id": "A02-Bstar",
+      "parameter": 24,
+      "parameter_index": 2,
+      "source_recipe_id": "B0-p2-s0.5",
+      "stage": "initial_CE",
+      "terminal_scale": 0.5
+    },
+    "B_star_2": {
+      "a02_role": "hard",
+      "family": "bounded-param",
+      "id": "A02-hard",
+      "parameter": 8,
+      "parameter_index": 3,
+      "source_recipe_id": "bounded-param-p3-s1",
+      "stage": "terminal_refit",
+      "terminal_scale": 1.0
+    },
+    "group_or_hierarchical": {
+      "a02_role": "group",
+      "family": "group",
+      "id": "A02-group",
+      "parameter": 2.0,
+      "parameter_index": 3,
+      "source_recipe_id": "group-p3-s1",
+      "stage": "terminal_refit",
+      "terminal_scale": 1.0
+    },
+    "bounded_hard": {
+      "a02_role": "hard",
+      "family": "bounded-param",
+      "id": "A02-hard",
+      "parameter": 8,
+      "parameter_index": 3,
+      "source_recipe_id": "bounded-param-p3-s1",
+      "stage": "terminal_refit",
+      "terminal_scale": 1.0
+    },
+    "legal_soft": {
+      "a02_role": "soft",
+      "family": "soft",
+      "id": "A02-soft-lambda1",
+      "matched_hard_recipe_id": "bounded-param-p3-s1",
+      "normalized_lambda": 1.0,
+      "outer_receiver_family": "sbl",
+      "outer_receiver_kind": "ObservedReceiver",
+      "outer_receiver_parameter": 0.001,
+      "parameter": 1.0,
+      "parameter_index": 4,
+      "stage": "terminal_refit",
+      "terminal_scale": 1.0
+    },
+    "high_compute_parameter_reference": {
+      "a02_role": "reference",
+      "deployment_eligible": false,
+      "family": "reference",
+      "id": "A02-reference",
+      "matched_hard_recipe_id": "bounded-param-p3-s1",
+      "outer_receiver_family": "sbl",
+      "outer_receiver_kind": "ObservedReceiver",
+      "outer_receiver_parameter": 0.001,
+      "parameter": null,
+      "parameter_index": 0,
+      "stage": "terminal_refit",
+      "terminal_scale": 1.0
+    }
+  },
+  "frozen_global_alpha": 0.0071428571428571435,
+  "frozen_global_m": 441,
+  "duplicate_physical_arm_policy": "B_star_2 and bounded_hard retain their symbolic slots and m; shared future data only under identical lineage",
+  "controlled_old_soft_lambda": 0.01,
+  "high_compute_reference_deployment": false,
+  "confirmation_data_accessed": false,
+  "scope": "Operational development selection only; no confirmed benefit, equivalence, cost pass, or scientific question closure"
+}

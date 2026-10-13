@@ -1,0 +1,48 @@
+{
+  "device": "cpu",
+  "threads": 1,
+  "old_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_trans_next_20260913",
+  "reference_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_trans_next_20260913",
+  "checkpoint_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+  "checkpoint_sha256": "052ecfab8eff7780c49038d9bb4f16f92272ee22322fa05b6f65029cc3112a91",
+  "source_sha256": "5c0fac1eab2b9d8d55c54110c988b0906661bc85be4de8d8d5e3502f1c0602b0",
+  "schema": "g1-strong-reference-v1",
+  "tag": "g1-strong-engineering-v1",
+  "stage": "engineering",
+  "old_inputs": {
+    "runs/refs-v1/development/summary.json": "90cbc1f7a94e482deec27e091945d79615302d79bd480947e51697655a05554b",
+    "runs/refs-v1/development/environment.json": "2d3acd86b382d41f50384ba5bcfdc422cd67ab920fd038c2f0426ac3f06a8e32",
+    "runs/terminal-controls-development-recovery-v1/development/summary.json": "f576b1cdd3dc3a3cbeba2066cfe2a4e003c18d5a5d8310c1cbe2824a7521a828",
+    "evidence/terminal-controls-development-recovery-v1-raw-audit.json": "53c1f05d63ea8cd8558964c567518abc3d25f8a1267b4ac5525f94729ade292c",
+    "evidence/g1-cpu-qualification-v1.json": "bead1eb9adc6cef3228e168d68d863ab52d123ffe9b69a960051a696be856da4",
+    "evidence/g1-cpu-qualification-v1-operators.json": "82b9a8517c5f0d6c23ac6aea7c54a11b4a2ec2b42da17b79166c11840ed4de9c"
+  },
+  "blocks": [
+    0,
+    20
+  ],
+  "snrs": [
+    7,
+    8
+  ],
+  "arms": [
+    "G1_FULL",
+    "G1_REPEAT",
+    "G1_STOP"
+  ],
+  "bounds": {
+    "A": 2,
+    "F": 12,
+    "D": 12,
+    "seconds": 600
+  },
+  "output_bytes": 4294967296,
+  "prefix_length": 102,
+  "audited_inputs": {
+    "runs/terminal-controls-development-recovery-v1/development/summary.json": "evidence/terminal-controls-development-recovery-v1-raw-audit.json"
+  },
+  "generator_qualification": "evidence/g1-cpu-qualification-v1.json",
+  "generator_operator_evidence": "evidence/g1-cpu-qualification-v1-operators.json",
+  "scope": "Engineering only: old CPU blocks0/20, integer delays and continuous Doppler, full CPP102 all bins. Same gains/noise/code/power; no renormalization. Direct physical observations. Exact receiver repeat and STOP prefix, exact unmodified decoder replay. Physics closure tol1e-10. Not new independent data, CONF, COST or novel contribution.",
+  "admission": "82 receiver tests plus13 G1/CPP tests and6 operator cases passed on source5c. Development requires engineering raw audit PASS and bounded price."
+}

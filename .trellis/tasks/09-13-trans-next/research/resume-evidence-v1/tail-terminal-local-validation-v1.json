@@ -1,0 +1,66 @@
+{
+  "schema": "tail-terminal-local-validation-v1",
+  "status": "PASS_LOCAL_SCOPE",
+  "checks": [
+    {
+      "name": "targeted_tests",
+      "command": [
+        "/private/tmp/afdm-resume-validation-20260915/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/.trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py",
+        "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/.trellis/tasks/09-13-trans-next/research/test_tail_terminal_pipeline_v1.py"
+      ],
+      "exit_code": 0,
+      "stdout": "............                                                             [100%]\n12 passed in 3.88s\n",
+      "stderr": "",
+      "seconds": 4.662240791833028
+    },
+    {
+      "name": "source_SHA_and_python_syntax",
+      "status": "PASS",
+      "files": 6,
+      "scope": "static syntax; not type checking"
+    },
+    {
+      "name": "CLI_engineering",
+      "exit_code": 0,
+      "stdout": "{\"status\": \"PASS_LOCAL_CONTRACT_AND_IMPLEMENTATION_HASHES_ONLY\", \"planned_T\": 12, \"new_calls\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "name": "CLI_development",
+      "exit_code": 0,
+      "stdout": "{\"status\": \"PASS_LOCAL_CONTRACT_AND_IMPLEMENTATION_HASHES_ONLY\", \"planned_T\": 120, \"new_calls\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "name": "job_bundle",
+      "status": "PASS",
+      "jobs": 4,
+      "upload_files": 9,
+      "T": 132,
+      "D": 132,
+      "timeout_sum": 7200
+    }
+  ],
+  "contract_sha256": "a3242bfc8c70d8e2c85ca3811f932c97000f79dec6289f4c1360120e8f095512",
+  "implementation_sha256": {
+    "tail_completion_v2.py": "198a356c119405753bf04ddb4dc58848fb26b9fc31fdf18f5032b6d2d175899a",
+    "tail_terminal_v1.py": "c8ebf344f76cdf9e66d2504499afa70f6a5975c516089a23837c45d022050721",
+    "tail_terminal_run_v1.py": "f5c0e5a3e1420b2c50900bd70a81496b8cb326fc12a566ad58b38cc350306821",
+    "tail_terminal_analyze_v1.py": "98dcd342cc597a6a11ea5db768e782c4314089f34dd3542c96ffbb3aff8bce00",
+    "test_tail_terminal_v1.py": "d6788ce632897a0bb81456d83f5e48928ad0bbacbc225e1c16ecd33840595e19",
+    "test_tail_terminal_pipeline_v1.py": "297df38c9e52ca5d37c48ea65532d86d58604f4a1db34755496dda11c3f103ee"
+  },
+  "target_G1_runs": 0,
+  "limitations": [
+    "No target raw input or remote runner execution: SSH approval endpoint returned404.",
+    "Instrumented runner import not validated locally: matplotlib absent and PyPI DNS unavailable. Public BP/LDPC did run in synthetic tests.",
+    "No project type checker/linter/build command is defined; Python syntax and CLI checks do not replace remote integration."
+  ]
+}

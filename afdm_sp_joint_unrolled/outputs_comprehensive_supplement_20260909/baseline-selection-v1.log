@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-baseline-selector-v1/afdm_sp_joint_unrolled/supplement_baseline_select.py", line 343, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-baseline-selector-v1/afdm_sp_joint_unrolled/supplement_baseline_select.py", line 324, in main
+    protocol=validate_selection_protocol(args.selection_protocol)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-baseline-selector-v1/afdm_sp_joint_unrolled/supplement_baseline_select.py", line 312, in validate_selection_protocol
+    if value.get('baseline_design_sha256')!=file_hash(Path(path).parent/'baseline-design.json'):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-baseline-selector-v1/afdm_sp_joint_unrolled/supplement_baseline_select.py", line 29, in file_hash
+    with Path(path).open('rb') as stream:
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/pathlib.py", line 1119, in open
+    return self._accessor.open(self, mode, buffering, encoding, errors,
+FileNotFoundError: [Errno 2] No such file or directory: '/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-baseline-selector-v1/baseline-design.json'

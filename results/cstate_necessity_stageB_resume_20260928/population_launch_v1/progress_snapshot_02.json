@@ -1,0 +1,52 @@
+{
+  "schema": "f2-population-readonly-progress-snapshot/1",
+  "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/cstate_necessity_stageB_resume_20260928/population_v1",
+  "query": "single read-only SSH snapshot; no NPZ/truth reads, no hashing, no rerun or poll",
+  "process": {
+    "pid": 565846,
+    "live": false,
+    "evidence": "ps returned no row; taskset reported no such process"
+  },
+  "attempts": {
+    "path": "attempts.jsonl",
+    "exists": true,
+    "rows": 19,
+    "last_rows": [
+      {
+        "observation_id": "s650_f0003",
+        "arm": "F2E_LOCAL"
+      },
+      {
+        "observation_id": "s650_f0004",
+        "arm": "F0"
+      },
+      {
+        "observation_id": "s650_f0004",
+        "arm": "F2E"
+      },
+      {
+        "observation_id": "s650_f0004",
+        "arm": "F2E_LOCAL"
+      }
+    ]
+  },
+  "ledger": {
+    "path": "ledger.jsonl",
+    "exists": true,
+    "rows": 18,
+    "status_counts": {
+      "ok": 18
+    },
+    "last_completed": {
+      "observation_id": "s650_f0004",
+      "arm": "F2E"
+    }
+  },
+  "inferred_unledgered_started_attempts": 1,
+  "seal": {
+    "observed_seal.json": false,
+    "exit_code.txt": false,
+    "launch_exit.txt": false
+  },
+  "interpretation": "PID is not live; population output is partial and has no pass seal/exit artifact. The last listed attempt starts s650_f0004/F2E_LOCAL, while ledger completion ends at s650_f0004/F2E."
+}

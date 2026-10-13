@@ -1,0 +1,168 @@
+🧿 oracle 0.9.0 — Your code's confessional booth.
+Launching browser mode (gpt-5.4-pro) with ~38,118 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+**Score: 5/10. Verdict: not ready.**
+
+The engineering base is now credible: you have a faithful torch replica with an explicit identity contract, the classical structure is preserved, and the current learned heads are inserted in sane places. But as a paper/result, this is still below the bar because the primary claim has not been met under the only evaluation that matters here: hard BER. More importantly, the code path suggests two structural reasons beyond “B3 had the wrong feature”: support is effectively seeded once and then only refit in gain space, so gain-only heads cannot repair miss-support; and the trainer still builds the module in soft mode and selects checkpoints by eval delta in that mode, जबकि paired evaluation can flip to hard with `--use-hard`. That means you are optimizing and selecting for a surrogate that your rubric explicitly does not accept.     
+
+**What I think is actually broken**
+
+Your dead-feature diagnosis is probably correct: on the active support, `c_i = A_active^H(y - Ag_LS)` is exactly the wrong feature to bet on once DA-LS has nearly solved that local problem. But the deeper issue is this: if iter 0 OMP/cluster expansion misses a fractional-Doppler leakage component, later DA-LS never gets a mechanism to add it back. B3 can only massage gains on a frozen support, and B2 as currently written only sees global `sigma2` and residual norms, not symbolwise reliability, so it is too weak to correct detector-side local mistakes.  
+
+## 1) Head redesigns that can still carry signal under hard operation
+
+**1. Off-support residual-correlation head (best option).**
+This is the one I would bet on. After DA-LS at iter `t>=1`, compute **off-support** correlations on a detached hard-aligned branch:
+
+* `x_hd_det = hard_qpsk(x_soft.detach())`
+* `A_full_det = construct_sensing_matrix_torch(N, x_pilot + x_hd_det, ...)`
+* `r_det = y - A_active g_new`
+* `c_full = A_full_det^H r_det`
+* mask the active support, take top `M` inactive columns by `|c_full|`.
+
+Then learn only a **small additive channel correction** on those candidate atoms:
+
+* per candidate features: `[Re(b_j), Im(b_j), |b_j|, log|c_j|, l_j/l_max, k_j/k_max, d_nn, t/(T-1), log sigma2_eff, log ||r||², mean decision margin]`
+* where `b_j = c_j / (||a_j||² + lambda_ls)` is a physics-based provisional gain and `d_nn` is distance to nearest active tap
+* shared MLP `11 -> 32 -> 32 -> 1`, zero-init final layer
+* `delta_g_j = 0.5 * tanh(alpha_j) * b_j`
+* reconstruct `H_corr` from these `delta_g_j` and add it to `H_new` **before** channel damping.
+
+Why this is the best design: the off-support correlations are nonzero exactly when the classical frozen support is wrong, so this head sees signal where B3 sees none. It also preserves identity at init because `delta_g_j = 0` when the last layer is zero. This directly attacks the most likely high-SNR failure mode: missed support/leakage, not gain bias on the already-selected support. The current code already has the right insertion point for a CE-side head, so this is not a large surgery. 
+
+**2. Reliability-gated final ensemble over outer-iteration symbol states.**
+Your current B2 blends `x_soft_history` using only global `sigma2`, iter index, and residual norm. That is too coarse. Replace it with a **per-symbol** ensemble head that sees the trajectory:
+
+* inputs per symbol: `{Re(x_t), Im(x_t), margin_t}` for `t=0..T-1`
+* `margin_t` can be a cheap BP confidence proxy such as `min(|Re(mu_t)|, |Im(mu_t)|)` if you do not want to expose full posterior variances
+* head: depthwise 1D temporal conv or tiny MLP over the `T=5` trajectory, outputting blend weights over iterations plus an optional final delta logit.
+
+This head has live signal under hard eval because detector reliability does not vanish at the LS optimum. It is less powerful than the off-support CE head because it cannot repair support, but it is safer than B3 and more aligned with your rubric than the current B2. It should improve line shape more than raw point gains. The current module already stores `x_soft_history` and `resnorm_history`, so the plumbing exists. 
+
+**3. LS-step delta head (pre-LS vs post-LS, not residual-on-active-support).**
+If you want a CE-side alternative that stays on the active support, stop using `A_active^H r` and use the **LS step itself**:
+
+* features per active tap: `[g_prev, g_new, delta_g_ls = g_new - g_prev, |g_new|, |delta_g_ls|, diag(A^H A), t_norm, log sigma2, log ||r_pre||², log ||r_post||²]`
+* output a tiny multiplicative shrink/boost on `delta_g_ls` or a local gate on `g_new`.
+
+This is a better active-support head than B3 because `delta_g_ls` and residual drop remain informative even when the post-LS gradient is near zero. I still rank it below the first two because it cannot create missing atoms and will usually be trying to squeeze percent-level gains out of a locally near-optimal solve. 
+
+## 2) Ranking by probability of clearing the rubric gate at P=8
+
+1. **Off-support residual-correlation head** — **best chance**, roughly a *moderate* shot if headroom exists.
+2. **Per-symbol reliability ensemble over `x_soft_history`** — **second-best**, mainly for line-shape cleanup and modest BER gains.
+3. **LS-step delta head** — **third**, because the fixed-support bottleneck remains.
+
+I would not put anything above “moderate chance.” No honest reviewer can say this “will” win unless the diagnostic shows meaningful off-support mass at 15–20 dB. If your extended diagnostic shows that off-support residual correlations are also tiny and the learned-vs-perfect-CSI gap is already small at P=8, then this benchmark does **not** have enough exploitable headroom for a head-only fix. At that point, the architecture that has to change is the support mechanism itself: you need a learned add/drop support step, not another gain corrector.
+
+## 3) Training target I would use
+
+Make the objective match the gate.
+
+Use:
+
+[
+L = L_{\text{BCE-final}} + 0.05,L_{\text{chan-eff}} + 0.05,L_{\text{off-support}}
+]
+
+with:
+
+* `L_BCE-final`: BCE on final bit logits from the final `x_soft`
+* `L_chan-eff`: your effective-channel NMSE term, but only as a light auxiliary
+* `L_off-support`: normalized residual off-support energy after the correction, e.g. average `|c_off_after|^2 / (||r||^2 + eps)` on the same top-`M` inactive candidates.
+
+I would **not** let raw symbol MSE dominate. At this stage it is more likely to optimize soft geometry than hard BER. If you keep it, cap it at something like `lambda_sym <= 0.02`.
+
+Curriculum:
+
+* first third: SNRs `{15,20,25}` only
+* remaining two thirds: `{10,15,20,25}` with extra mass on 15/20
+* do **not** spend budget on 0/5 dB; ties there are acceptable by your own rubric.
+
+Most important training fix: **validate in hard mode and select checkpoints in hard mode**. Right now the trainer constructs the module with `use_soft_decisions=True` and uses that same object inside `_evaluate`, while paired eval can explicitly flip with `--use-hard`. That mismatch is a major reason your soft gains do not survive the final test. Also change model selection from “mean delta over all SNRs” to a gate-shaped score that prioritizes `{10,15,20}` and penalizes any positive delta there.  
+
+## 4) The one concrete experiment I would run next
+
+**Variant name:** `C1 = off_support_corr_head`
+
+**Do not sweep P first.** Run this at **P=8 only**. If it does not turn negative on hard BER at P=8, the sweep is wasted motion.
+
+**Head architecture**
+
+* insertion point: right after DA-LS at `t>=1`, before `reconstruct_H_torch`
+* candidate set: top `M=12` inactive columns by `|c_full|`
+* local features per candidate:
+
+  * `Re(b_j), Im(b_j), |b_j|`
+  * `log(|c_j| + eps)`
+  * `l_norm, k_norm`
+  * nearest-support distance `d_nn`
+  * `t_norm`
+  * `log sigma2_eff`
+  * `log ||r_det||²`
+  * global detector margin `m_t = mean(min(|Re(x_mp)|, |Im(x_mp)|))`
+* network: shared `11 -> 32 -> 32 -> 1` MLP with SiLU, zero-init last layer
+* output: `alpha_j`
+* correction: `delta_g_j = 0.5 * tanh(alpha_j) * b_j`
+* reconstructed correction channel: `H_corr = reconstruct_H_torch(... candidate taps ..., delta_g)`
+* final per-iter channel update: `H_new = H_active + H_corr`
+
+**Training recipe**
+
+* dtype: `complex128` everywhere
+* batch: `2`
+* optimizer: Adam
+* lr: `3e-4`, cosine decay to `3e-5`
+* grad clip: `1.0`
+* total steps: `320`
+* steps `0–80`: only `{15,20,25}` dB, losses `BCE + 0.1*chan_eff + 0.05*off_support`
+* steps `81–320`: `{10,15,20,25}` with probs roughly `{0.15, 0.3, 0.35, 0.2}`, losses `BCE + 0.03*chan_eff + 0.03*off_support`
+* freeze scalars and all other heads; isolate this mechanism
+* every 20 steps: paired **hard** eval on 40 held-out paired frames/SNR
+* checkpoint score: lexicographic
+
+  1. minimize `max(Δ10, Δ15, Δ20)`
+  2. then minimize `2*Δ20 + Δ15 + Δ10`
+
+That score matches your gate much better than the current soft-mode mean-delta checkpointing. 
+
+**Pass/fail metric**
+
+* final paired hard eval
+* minimum: `300` paired frames at `10` and `15` dB, `500` paired frames at `20` dB
+* pass only if:
+
+  * learned BER Wilson upper bound is below classical Wilson lower bound at `10,15,20`
+  * BER and NMSE are monotone
+  * learned stays above perfect-CSI BP.
+
+At BER `1e-3`, a 95% half-width is about `1.6e-4` with `150k` bits, about `6.8e-5` with `400` frames of `N=1024` QPSK (`819,200` bits), and about `6.1e-5` with `500` frames. If you only expect a ~10% relative gain at `1e-3`, I would budget `800–1000` frames/SNR for the final 20 dB claim; those halve the half-width further to about `4.8e-5` and `4.3e-5`.
+
+## 5) Review of your proposed Loop-6 plan
+
+The **dead-feature diagnostic** is necessary, but I would strengthen it. Do not only measure `|A_active^H r|`. Measure:
+
+* `max_on_support |A^H r|`
+* `max_off_support |A^H r|`
+* ratio `max_off / max_on`
+* how often the top off-support atom is a Doppler neighbor of an active atom.
+
+That tells you whether support-misspecification headroom actually exists.
+
+The **P sweep** is fine later, but not first. I would first test the mechanism at `P=8`, because that is your stated target. If C1 fails there and the diagnostic shows no off-support mass, the current fixed-support architecture is probably tapped out. Then the honest next change is a learned add/drop support step or a different benchmark with more fractional-Doppler headroom, not another residual MLP. The **300–400 frame** budget is good for screening, but for the final 20 dB CI claim I would go above that unless the gain is clearly bigger than ~15%.
+
+## Bottom line
+
+You are **almost done with the debugging phase**, but you are **not ready for a venue submission phase**. The next result that matters is not “another head trains stably.” It is:
+
+1. hard-mode checkpoint selection,
+2. a head that uses **off-support** misspecification signal, and
+3. a paired hard-eval win with CI at `10/15/20` dB.
+
+If that experiment does not go negative at P=8, I would stop iterating on gain-only correctors. At that point the conclusion is that the fixed-support unroll is the bottleneck, not the MLP capacity.
+
+
+17m46s · gpt-5.4-pro[browser] · ↑38.12k ↓2.76k ↻0 Δ40.88k
+files=5
+Saved assistant output to /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/_memory/loop6_oracle_roundA.md

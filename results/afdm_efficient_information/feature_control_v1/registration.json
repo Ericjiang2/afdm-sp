@@ -1,0 +1,174 @@
+{
+  "schema": "efficient-information-attempt/1",
+  "stage": "feature_control_v1",
+  "config": {
+    "seed": [
+      20261005,
+      104835,
+      20
+    ],
+    "new_observations": 10240,
+    "n": 4,
+    "public_points": [
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.5
+      ],
+      [
+        0.0,
+        0.4,
+        1.3,
+        0.7
+      ]
+    ],
+    "score_columns": [
+      "q",
+      "mu",
+      "tau",
+      "sigma2"
+    ],
+    "split_sizes": [
+      2048,
+      1024,
+      2048
+    ],
+    "levels": [
+      "energy",
+      "old_T",
+      "powers",
+      "phase",
+      "gauge"
+    ],
+    "ridges": [
+      0.0,
+      0.0001,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "bootstrap_replicates": 128,
+    "wall_seconds": 300,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "feature_design": "first four levels nested; gauge is separate O(N) sufficient-orbit input in circular models",
+    "covariance_rank_tolerance": 1e-10,
+    "primary_model_for_transfer": "point1_phase chosen before data",
+    "independence": "each point has 5120 independent channel/data/noise frames; disjoint train/validation/test; points use distinct seeds; feature levels share identical observations",
+    "teacher_scope": "exact finite QPSK Gaussian-control likelihood; public local teacher is conditional known statistical point, not unknown-nuisance deployment",
+    "information_scope": "heldout score-moment plug-in lower-bound estimates with bootstrap uncertainty; not certified feature Fisher or an exact retention rate",
+    "selection": "ridge chosen by validation standardized four-score MSE; test cannot select levels or transfer point"
+  },
+  "_config": {
+    "seed": [
+      20261005,
+      104835,
+      20
+    ],
+    "new_observations": 10240,
+    "n": 4,
+    "public_points": [
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.5
+      ],
+      [
+        0.0,
+        0.4,
+        1.3,
+        0.7
+      ]
+    ],
+    "score_columns": [
+      "q",
+      "mu",
+      "tau",
+      "sigma2"
+    ],
+    "split_sizes": [
+      2048,
+      1024,
+      2048
+    ],
+    "levels": [
+      "energy",
+      "old_T",
+      "powers",
+      "phase",
+      "gauge"
+    ],
+    "ridges": [
+      0.0,
+      0.0001,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "bootstrap_replicates": 128,
+    "wall_seconds": 300,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "feature_design": "first four levels nested; gauge is separate O(N) sufficient-orbit input in circular models",
+    "covariance_rank_tolerance": 1e-10,
+    "primary_model_for_transfer": "point1_phase chosen before data",
+    "independence": "each point has 5120 independent channel/data/noise frames; disjoint train/validation/test; points use distinct seeds; feature levels share identical observations",
+    "teacher_scope": "exact finite QPSK Gaussian-control likelihood; public local teacher is conditional known statistical point, not unknown-nuisance deployment",
+    "information_scope": "heldout score-moment plug-in lower-bound estimates with bootstrap uncertainty; not certified feature Fisher or an exact retention rate",
+    "selection": "ridge chosen by validation standardized four-score MSE; test cannot select levels or transfer point"
+  },
+  "argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_efficient_information/features_study.py",
+    "--stage",
+    "feature_control_v1"
+  ],
+  "_argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_efficient_information/features_study.py",
+    "--stage",
+    "feature_control_v1"
+  ],
+  "seed": [
+    20261005,
+    104835,
+    20
+  ],
+  "source_sha256": {
+    ".mission/20261001_23-33-35-afdm-innovation-space/controls/thread_binding.py": "d54170644d336fe6b0eb383ff533e5863857f1bbdc8dd0a873a1c233f50846ac",
+    ".mission/20261005_10-48-35-afdm-efficient-information/run_contract.json": "43435a499f2ae16a016c308ee5c0153d9ac13de7f7dc6cdd40ae62c37ea5fd20",
+    "experiments/afdm_efficient_information/__init__.py": "86b4e0eb26b4a781a374db0addad1e9fbc485c7c653a3bc54868ad3d7c0cbedd",
+    "experiments/afdm_efficient_information/features.py": "55e14c96c847086e600aa6dffa543892664bc187409d3449fff4845e69c88d7c",
+    "experiments/afdm_efficient_information/features_study.py": "33f6e2b2aa61f3e53787adc89d4efc8ab0940bc9bc2ce3d04b9a8706ebd78b76",
+    "experiments/afdm_efficient_information/protocol.py": "ecfb800796f418924640ce8e98c7b1797c92fa27e9f480715c30115b56a67498",
+    "experiments/afdm_efficient_information/score.py": "ed13aaea5607e3a2fd230f5446931f4bd0a6ee460218e64eb54e4accd56897b2",
+    "experiments/afdm_efficient_information/test_score.py": "b28eb7c48c7b90d66ca109c14a01cfec1c909229c0db8aebd9252a92b08311cf",
+    "experiments/afdm_higher_order_information/moments.py": "8925478c366ebb9b3b865fab8a0704681187fd6c1dd6641e0d9f072608fac6a8",
+    "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+    "experiments/afdm_inference_causal_20261002/exact_oracle.py": "d6fae6c9d0e708db9fb2ab6c3809729f12146bb307802f2cb892be6f795b5b77",
+    "experiments/afdm_shared_channel_20261004/common.py": "705cb6103442cdb122fbce0e58f091c6d42d64cce2e0f39cd24e8dfe095e758d",
+    "experiments/afdm_shared_channel_20261004/conditional_solver.py": "f209d5aa3b3f3128104ff12d7dd3223f92aae6cd4e6b1867507af7a68428e9e3",
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "results/afdm_efficient_information/FEATURE_CONTROL_CONFIG.json": "19c798b3eb983c88a38c512f7d2dbe3f2256e8f3ca6d13e79a3bcadc2cf9a0dc"
+  },
+  "git": {
+    "head": "4e919eca134dc1fd2fb40ed55e2d6c7b9a23a93d",
+    "committed_task_source_sha256": {
+      "experiments/afdm_efficient_information/__init__.py": "86b4e0eb26b4a781a374db0addad1e9fbc485c7c653a3bc54868ad3d7c0cbedd",
+      "experiments/afdm_efficient_information/features.py": "55e14c96c847086e600aa6dffa543892664bc187409d3449fff4845e69c88d7c",
+      "experiments/afdm_efficient_information/features_study.py": "33f6e2b2aa61f3e53787adc89d4efc8ab0940bc9bc2ce3d04b9a8706ebd78b76",
+      "experiments/afdm_efficient_information/protocol.py": "ecfb800796f418924640ce8e98c7b1797c92fa27e9f480715c30115b56a67498",
+      "experiments/afdm_efficient_information/score.py": "ed13aaea5607e3a2fd230f5446931f4bd0a6ee460218e64eb54e4accd56897b2",
+      "experiments/afdm_efficient_information/test_score.py": "b28eb7c48c7b90d66ca109c14a01cfec1c909229c0db8aebd9252a92b08311cf"
+    },
+    "other_sources": "frozen helpers and artifacts independently SHA-256 bound"
+  },
+  "git_head": "4e919eca134dc1fd2fb40ed55e2d6c7b9a23a93d",
+  "pid": 32244,
+  "wall_cap_seconds": 300,
+  "started_utc": "2026-10-05T03:34:02.515697+00:00",
+  "deadline_utc": "2026-10-05T03:39:02.515697+00:00",
+  "cumulative_reserved_new_observations": 10240,
+  "evidence_level": "local mathematical/development; no receiver/decoder/confirmation",
+  "cumulative_reserved_wall_seconds": 300.0
+}

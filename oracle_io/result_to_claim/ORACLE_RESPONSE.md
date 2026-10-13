@@ -1,0 +1,170 @@
+I based this on the supplied result-to-claim bundle, thesis excerpts, reproduction notes, and JSON snippets. 
+
+## 1. claim_supported
+
+| Claim                                                                                          |                        Verdict | Reason                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------------------------------------------------------------------------------------------- | -----------------------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **C1 — pooled learned head gives consistent ≈2 dB paired separation at 20/25/30 dB**           |                    **partial** | The **relative paired BER reductions** are supported for the pooled runs: −37.7%, −40.2%, −37.6%, with the stated frame counts and significance. But the stronger wording “consistent ≈2 dB separation” overreaches unless carefully defined, because the checked-in pooled evidence is **2B-scaled while the thesis table is 4B-scaled**, the claim is based on **one trained checkpoint**, and seed-level/training-seed variability is not shown. |
+| **C2 — serial arm floors; joint arm removes the bottleneck**                                   | **partial / mostly supported** | The serial floor at ≈4.1e−2 BER with frozen NMSE ≈−11.3 dB is well supported, and the joint arm’s large BER recovery is real. But the phrase “data-detection bottleneck, not channel estimation” should be sharpened: the evidence shows **SP data interference corrupts estimation and joint CE/DD helps**, not that channel/support errors cease to matter.                                                                                       |
+| **C3 — learned module is arithmetic-class-preserving, not embedded low-complexity or optimal** |                        **yes** | This is appropriately bounded. The module is small and sub-dominant in asymptotic arithmetic under fixed hyperparameters, but the thesis does not claim hardware low-complexity or optimality. That wording fits the evidence.                                                                                                                                                                                                                      |
+| **C4 — mechanism is high-SNR Dirichlet side-lobe repair**                                      |                    **partial** | The data are **consistent with** this mechanism: low-SNR gains are tiny, high-SNR gains appear, and OMP misses persist structurally. But the causal statement is not directly proven. There is no decisive per-candidate evidence that the learned head’s successful additions are specifically ±1 Doppler Dirichlet side-lobe atoms, nor an ablation showing that removing that geometric information removes the gain.                            |
+| **C5 — essentially zero gain at SNR ≤ 5 dB**                                                   |           **yes, empirically** | The reported 0 and 5 dB rows show essentially no gain. The “designed behaviour” interpretation is plausible and consistent with the mechanism, though it should still be phrased as interpretation rather than proof.                                                                                                                                                                                                                               |
+
+My overall verdict: **the thesis has real evidence for a learned-head improvement in this simulator, but the headline should be framed as an observed single-checkpoint paired improvement, not as a broadly general 2 dB receiver gain.**
+
+---
+
+## 2. what_results_support
+
+The strongest supported result is this:
+
+**For the tested C2-rel F2-P checkpoint, on the stated UWA-style simulator, the learned head improves the classical joint receiver in the high-SNR paired evaluations.** The pooled high-SNR deltas are tightly clustered: −37.74%, −40.15%, −37.59% at 20, 25, and 30 dB. Those ratios are not a one-point fluke; they repeat across three adjacent high-SNR operating points.
+
+The relative reductions also correspond to roughly a **2 dB vertical BER-ratio improvement**, because
+10 log10(learned/classical) is approximately:
+
+|   SNR | learned/classical ratio | BER-ratio dB |
+| ----: | ----------------------: | -----------: |
+| 20 dB |                   0.623 |     −2.06 dB |
+| 25 dB |                   0.598 |     −2.23 dB |
+| 30 dB |                   0.624 |     −2.05 dB |
+
+So, if “≈2 dB separation” means **vertical separation on a log-BER axis**, that part is defensible. If it means **horizontal SNR gain**, it needs interpolation and confidence intervals.
+
+C2 is supported in its empirical core. The serial OMP + MMSE arm floors around 4.1e−2 from 15 dB upward while NMSE stays frozen around −11.3 dB. The classical joint arm then recovers roughly 2.5 orders of magnitude by 25 dB. That is strong evidence that the naive serial SP receiver is not noise-limited at high SNR and that iterative joint processing is doing essential work.
+
+C3 is well supported. The learned head adds a small, fixed-budget ranking module and does not change the dominant sparse-receiver arithmetic class under fixed (M), (K_{\mathrm{add}}), (P), and (N=1024). The thesis also correctly avoids stronger claims about embedded latency, memory, energy, or complexity optimality.
+
+C5 is directly supported by the low-SNR rows. At 0 and 5 dB, the learned and classical BERs are essentially identical in the single-seed F2-P file, and the reported pooled low-SNR gain is also tiny. That is exactly what one would expect if the learned head repairs structured support misses rather than improving noise-limited detection.
+
+---
+
+## 3. what_results_dont_support
+
+The main overreach is **C1’s wording**, not the existence of the gain.
+
+The thesis can say: “we observed a statistically significant paired BER reduction at 20/25/30 dB.” It should be more careful saying: “consistent ≈2 dB gain” unless it defines the 2 dB as vertical BER-ratio separation. A relative BER reduction of ~38–40% is indeed about 2 dB in BER-ratio terms, but it is not automatically a 2 dB horizontal SNR gain.
+
+The **2B/4B mismatch matters**. The pooled deltas and frame counts are reproducible from the checked-in 2B JSONs, while the paper’s absolute Table 3 values are 4B-scaled. The relative improvements may transfer, but the local evidence does not fully prove the exact 4B pooled headline table as written. For a thesis, this is not fatal if disclosed clearly, but it weakens the “headline” wording.
+
+The **single-seed 400-frame row should not be used as claim support**. The audited caveat says the 20 dB classical and learned columns were pasted from different runs with different frame counts/checkpoints. That makes the −80.6% row unsuitable as a paired comparison. The valid 350-frame F2-P run still shows improvement at 20 dB, but the 25 dB single-seed result has only 6 classical errors versus 4 learned errors, so it is far too small-count to carry much inferential weight.
+
+C4 is the largest causal gap. The data show that:
+
+* OMP misses remain present at high SNR.
+* Learned-head gains are larger at high SNR.
+* Low-SNR gains are near zero.
+
+That is **consistent with** the Dirichlet side-lobe story. But the evidence does not yet prove that the head is specifically repairing weak ±1 Doppler side-lobe atoms. The support-recall table is flat across SNR, and the oracle-support diagnostic is anomalous at 20 dB, where the oracle-support arm is worse than the joint arm. That does not refute the learned mechanism, but it means the mechanism is not cleanly established.
+
+C2 also needs wording care. The serial arm being estimation-limited is clear. But the learned support head improving the joint receiver means support/channel-side residuals still matter. So the stronger statement “not channel estimation” is too blunt. The better statement is that **joint data-aided estimation/detection breaks the SP-induced serial floor**, after which residual support refinement gives a smaller additional gain.
+
+---
+
+## 4. missing_evidence
+
+The highest-value missing evidence is:
+
+1. **A true 4B pooled source JSON** for the headline 20/25/30 dB table, with the same frame counts, deltas, p-values, and absolute BERs. This would close the 2B/4B traceability gap.
+
+2. **Per-evaluation-seed deltas**, not only pooled deltas. “Consistent” should mean each seed block is directionally positive, or at least that a hierarchical/random-effects CI excludes zero.
+
+3. **Training-seed variance.** The claim is currently one-checkpoint evidence. It does not show that the learned gain survives retraining randomness.
+
+4. **Frame-level paired uncertainty.** Bit-level McNemar is useful, but bits within a frame are correlated. A paired frame bootstrap, seed-block bootstrap, or mixed-effects model would make the statistical claim stronger.
+
+5. **Direct mechanism logging for C4.** For every added candidate, classify whether it is:
+
+   * true ±1 Doppler side-lobe,
+   * other Dirichlet virtual tap,
+   * physical main-lobe correction,
+   * false support atom,
+   * noise/interference atom.
+
+6. **Mechanism ablations.** Remove or corrupt the pair-relative features, forbid ±1 Doppler-neighbour additions, randomise candidate scores within amplitude bands, and compare against a simple hand-coded side-lobe heuristic.
+
+7. **Robustness sweeps.** The current claim is one simulator setting: (P=8), (v=2) m/s, (\rho_p=0.5), (N=1024), 4B oversampling. Generality would need sweeps over (P), Doppler, pilot fraction, delay spread, and possibly MSML/time-scaling UWA channels.
+
+---
+
+## 5. suggested_claim_revision
+
+I would **weaken and reframe C1**, not remove it.
+
+A defensible revision would be:
+
+> On the tested UWA-style sparse delay-Doppler simulator, for one trained C2-rel F2-P checkpoint, paired evaluation pooled across three evaluation-seed blocks shows a repeatable high-SNR BER reduction relative to the classical joint receiver: −37.7%, −40.2%, and −37.6% at 20, 25, and 30 dB, respectively, with paired McNemar significance under the reported protocol. These reductions correspond to about a 2 dB vertical BER-ratio separation on the waterfall. Because the checked-in pooled source is 2B-scaled while the paper’s absolute BER table is 4B-scaled, and because retraining-seed variance is not measured, this should be read as a single-checkpoint simulator observation rather than a general 2 dB SNR-gain claim.
+
+I would also demote the single-seed row to something like:
+
+> A favourable single-seed run is reported only as an illustrative observation and is not used as evidence for the headline claim.
+
+Or remove it entirely from the main table if the pasted-row issue cannot be repaired.
+
+For C4, I would revise:
+
+> The observed SNR dependence is consistent with a Dirichlet side-lobe support-repair mechanism, but the present experiments do not uniquely identify the repaired atoms as ±1 Doppler side-lobes.
+
+That is much safer than “the mechanism is specifically effective when...”
+
+---
+
+## 6. next_experiments_needed
+
+For **C1**, run a clean 4B pooled reproduction:
+
+* Same checkpoint, same paired protocol, same SNRs: 20, 25, 30 dB.
+* At least **5 independent evaluation seeds**.
+* Use adaptive stopping based on learned-arm errors, not only frames.
+* Target at least **150–200 learned errors pooled per SNR**.
+
+Approximate pooled frame counts at the paper’s 4B BER scale:
+
+|   SNR | learned BER scale | frames for ~200 learned errors, assuming 2048 bits/frame |
+| ----: | ----------------: | -------------------------------------------------------: |
+| 20 dB |           ~3.1e−4 |                                              ~315 frames |
+| 25 dB |           ~6.0e−5 |                                            ~1,630 frames |
+| 30 dB |           ~1.1e−5 |                                            ~8,900 frames |
+
+The 30 dB point is the real bottleneck. Current 30 dB evidence with 29 learned errors is suggestive but thin.
+
+For **training variance**, train **5 independent checkpoints** with different optimisation/data-order seeds. Evaluate all five on the same fixed 4B paired evaluation bank. Report mean, standard deviation, and seed-block bootstrap CI for relative BER reduction.
+
+For **C4 mechanism**, run a candidate-level audit on at least **10,000 frames per SNR** at 5, 10, 15, 20, 25, and 30 dB. For each learned addition, record its offset from the nearest physical/virtual oracle tap and whether it reduces bit errors. Then run ablations:
+
+* learned head without pair-relative features,
+* learned head with shuffled active-support geometry,
+* random top-(K_{\mathrm{add}}) among matched-filter candidates,
+* hand-coded ±1 Doppler-neighbour heuristic,
+* learned head with ±1 candidates forbidden.
+
+For **C2 bottleneck decomposition**, run oracle ablations at 15/20/25 dB with ~500–1000 frames per cell:
+
+* OMP support + true gains,
+* true support + LS gains,
+* true channel + MP-BP,
+* PCSI-MMSE,
+* learned support + classical gains,
+* classical support + learned/reranked additions.
+
+That would separate support error, gain-estimation error, and detector residual.
+
+For **generality**, run smaller sweeps, e.g. 3 seeds × 500 frames at 20/25 dB, over:
+
+* (P \in {4,8,12}),
+* (v_{\mathrm{mean}} \in {1,2,4}) m/s,
+* (\rho_p \in {0.25,0.5,0.75}),
+* (f_s \in {2B,4B}),
+* one MSML/time-scaling channel variant.
+
+---
+
+## 7. confidence
+
+**Medium.**
+
+I have high confidence that the data show a real high-SNR paired improvement for the tested checkpoint and simulator. I also have high confidence that C3 and the empirical part of C5 are appropriately supported.
+
+I do **not** have high confidence in the broad headline wording, because C1 depends on a pooled 2B delta source while the thesis table presents 4B absolute BERs, there is no training-seed variance, the 30 dB count is small, and the single-seed illustrative row has a methodological defect. C4 is plausible but not causally proven.
+
+For a BEng FYP, the evidence is credible if the claim is narrowed. For a research-paper-style general claim, it would need the additional experiments above.

@@ -1,0 +1,24 @@
+% TABLE4_fyp_complexity.tex — updated for the learned-classical fusion rule.
+\begin{table}[t]
+\centering
+\caption{Deployment-time complexity of the four-parameter learned-classical fusion rule compared to the earlier frozen 12-feature BCE corrector.  The classical teacher's compute cost is not tabulated here because it is already incurred by the classical receiver characterised in Section~\ref{ssec:midterm_uwa_results}; only the marginal cost of the fusion rule itself is shown.}
+\label{tab:fyp_complexity}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lll}
+\toprule
+\textbf{Property} & \textbf{Fusion rule (this work)} & \textbf{BCE corrector (prior best)} \\
+\midrule
+Model type & Logistic regression & 2-hidden-layer MLP classifier \\
+Input features & $[|\mu_\mathrm{teacher}|, |\mathrm{LLR}^\mathrm{model}|, \mathrm{SNR}]$ & $12$-D observable trajectory \\
+Hidden layers & None & $2$ layers ($32, 16$ units) \\
+Activation & Sigmoid output & ReLU hidden, sigmoid output \\
+Total parameters & $\mathbf{4}$ & $961$ \\
+Training data & Single training cache, $\approx 5.9 \times 10^{3}$ actionable bits & Single training cache, $\approx 10^{5}$ bits \\
+Training time (commodity GPU) & $< 2$\,s & $\approx 30$\,s \\
+Deployment & Frozen per-actionable-bit scalar rule & Frozen vectorised MLP pass per frame \\
+Memory overhead & $16$\,B ($3 + 1$ float$32$) & $\approx 3.8$\,kB \\
+Inference cost per actionable bit & $\approx 8$\,FLOPs & $\approx 1.8 \times 10^{3}$\,FLOPs \\
+Marginal cost per $N = 512$ frame & $< 5 \times 10^{2}$\,FLOPs & $\approx 2.4 \times 10^{5}$\,FLOPs \\
+\bottomrule
+\end{tabular}
+\end{table}

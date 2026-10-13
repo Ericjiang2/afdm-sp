@@ -1,0 +1,40 @@
+# Residual-CFO phase-code contribution assessment
+
+Current goal: innovation improvement, not merely the previous 4.649x grid replacement. User accepts a modest OFDM-to-AFDM adaptation with useful mathematical content. No claim of first discovery or publication acceptance.
+
+## Three core claims and their actual delta
+
+1. **Exact random-payload transfer and branch robustness.** In coherent fixed-gain snapshots, fourth-power CAZAC column coding makes the population complex correlation equal -h^4 g_delta(k-r)^4. This extends the previous exact-fractional bridge to all residuals, with a strict correct-branch peak throughout |delta|<1/2. It also specifies a fixed safety margin for noisy inference. Mature ingredients: independent-source moment algebra, circulant correlation and Dirichlet geometry. Candidate increment: their exact combination for unknown full-band payload and this AFDM column-code criterion.
+2. **A complete population CFO inversion, plus its statistical weakness.** Fourth roots of adjacent correlation-modulus ratios recover CFO modulo N for N>=3; no fractional front end is required in the coherent population model. Adjacent-bin spectral interpolation itself is classical. The proposed interface from random payload to the interpolatable fourth-moment signature is the candidate increment. Crucially, the naive plug-in has T^(-1/8) error scale at integer CFO with positive Gaussian noise; no accuracy or runtime advantage claim follows. A consistent construction can still be a poor finite-sample estimator.
+3. **Validity boundaries for data reuse and coherence.** A finite-coefficient uniform strong law permits same-data fractional correction without false conditional Gaussian assumptions. Consecutive free-running CFO frames have an extra block-start phase: unaligned fourth-moment averaging usually cancels the signature. These are bounded receiver-theory results and restrictions, not new universal probability methods. The exact coherent-model theorem must not be sold as a continuous-frame receiver.
+
+The three claims form one focused contribution: phase-code identifiability under residual CFO, constructive recovery, and the limits separating population identifiability from practical estimation. They do not claim a new CAZAC sequence, a new three-point update, or general multipath synchronization.
+
+## Closest primary sources actually inspected
+
+| Source and access | Overlap | Difference supported by the inspected scope |
+|---|---|---|
+| Al-Dweik et al., TVT2010, DOI10.1109/TVT.2009.2034169; previous round read original Appendix22–30, retained unchanged | Exact sample harmonic and three-point CFO solution | Those steps have zero novelty here and are not the current endpoint. |
+| [Bölcskei, TCOM2001, DOI10.1109/26.930629](https://www.mins.ee.ethz.ch/pubs/files/synch.pdf); author-hosted PDF intro, §III and §IV text read | Blind full-band CFO, precoding, FFT and consistent estimators already exist | Its stated mechanism is second-order cyclostationarity, using unequal subcarrier powers/pulse shaping/periodic precoding. Our phase-only column code preserves isotropic covariance and uses the holomorphic fourth moment. PDF formula extraction is incomplete; no theorem-by-theorem exclusion claim. |
+| [Boonkajay & Adachi, APCC2018, Modified Blind Selected Mapping](https://adachifumiyuki.jp/wp-content/pdf/inter_2018/12_in_2018_amnart.pdf); author-hosted PDF intro and §III/eq7–9 read | Fourth-power constellation and blind phase-sequence identification already exist | Inspected method identifies an SLM rotation sequence using constellation distances/Viterbi. It is not the present residual-CFO convolution and adjacent-bin decoder. Do not claim first fourth-power phase-code identification. |
+| [Tang et al., arXiv2310.07141v1](https://arxiv.org/html/2310.07141v1); §II/III and introduction read in this and previous round | AFDM CFO estimation, no extra pilot, residual ICI mitigation already exist | Uses CPP correlation and mirror mapping; our specified statistic uses the useful full block, no CPP, and known column code. No “first blind AFDM CFO” wording. |
+| [Gunasekara & Bedeer, arXiv2512.10036v1](https://arxiv.org/html/2512.10036v1); §II/III primary HTML read | Residual CFO leakage in AFDM and receiver compensation | Explicitly does not estimate CFO; combines residual error and IQ imbalance in an LMMSE detector. Our proper-noise theorem excludes IQ imbalance. |
+| [Cedron Dawg, 2017, Two Bin Exact Frequency Formula](https://www.dsprelated.com/showarticle/1039.php); original derivation eq5–22 read | Exact neighboring DFT-bin inversion and gain cancellation | Classical interpolation of an observed pure tone; no novelty claimed for the final arctangent. Our candidate is constructing an appropriate population signature from unknown multicarrier payload. This is a technical primary exposition, not a peer-reviewed novelty certificate. |
+
+## Relevant leads with limited access
+
+- Serpedin et al., TSP2000 DOI10.1109/78.852019: previous author institution abstract plus current indexed original introduction describe second-order transmitter cyclostationarity and channel/CFO asymptotic analysis. Attempt to open indexed full PDF failed. Strong conceptual predecessor; full theorem overlap remains unresolved.
+- Xu/Fu WPC2013 DOI10.1007/s11277-012-0829-6: prior publication abstract on linearly precoded integer CFO. Full text still unavailable; no exact non-overlap assertion.
+- Peng et al., Sensors2023 DOI10.3390/s23063168: publisher/indexed abstract describes a designed ZC preamble and peak-based synchronization. PMC returned CAPTCHA; publisher fetch failed. Initially attempted wrong URL ending3161, corrected to verified3168; wrong URL is not evidence.
+- Analytical solutions for frequency estimators by interpolation of DFT coefficients, Signal Processing2014, PII S0165168414000309: search metadata only; publisher open failed. Reinforces treating interpolation as classical, without asserting equivalence of exact equations.
+- AFDM2026 preambles, CAZAC chirp division multiplexing and chirp/PAPR design were returned in current searches; titles or snippets cannot exclude overlap. Prior round arxiv2606.04698 primary reading concerns PAPR/WISL c2 perturbation; not reused as proof of no CFO work.
+
+## Search record and freshness
+
+Current .mission/20261006-residual-cfo-innovation/search_1..4.json, primary_1..2.json, interpolation_search.json preserve actual responses. Queries cover residual CFO+fourth power+CAZAC; OFDM fourth-order/phase precoding; blind integer CFO; recent AFDM synchronization including 2025/2026/September; exact adjacent-bin arctangent interpolation; fourth-power blind SLM. Search output includes recent 2026 work. No-match phrases are not proof of novelty. A first attempted connector call used an unsupported argument and returned an empty error; corrected calls use system2_search_query. No scientific experiment was run.
+
+## Claim language and assessment
+
+Cross-model assessment (completed job 7ed3cde1d50b4da7a8b6b027200fe6a4): **qualified pass for modest analytical extension, retain with caution**. Strongest supported framing is “an exact fourth-moment transfer and recovery analysis for phase-coded AFDM under residual CFO, including same-data validity, nonregular inversion and coherent-frame limitations.” The innovation increment is the receiver-specific theorem package; all underlying tools have precedent. Whether the exact package was previously published remains open, so no exclusivity, high novelty score or publication guarantee is stated.
+
+The old pilot does not validate the new decoder, its T-asymptotics, or continuous-frame behavior. Its failed design gate remains failed. A new finite-sample study would require its own frozen SSH protocol; none is claimed or necessary to prove the present mathematical statements. The completed expanded cross-model review judges this a substantive modest increment under the user's stated acceptance policy. Final Mission vision review still checks delivery and claim coverage.

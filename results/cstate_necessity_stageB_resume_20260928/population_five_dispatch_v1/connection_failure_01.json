@@ -1,0 +1,21 @@
+{
+  "schema": "f2-five-policy-connection-status/1",
+  "captured_utc": "2026-09-29T12:31:42.446066+00:00",
+  "status": "remote_connection_closed_before_deployment",
+  "attempts": [
+    {
+      "operation": "read-only remote planned-file hash query",
+      "exit_code": 255,
+      "stderr_not_retained": true
+    },
+    {
+      "operation": "ssh BatchMode ConnectTimeout15 pwd",
+      "exit_code": 255,
+      "error": "Connection closed by remote host port 22"
+    }
+  ],
+  "remote_writes": false,
+  "receiver_calls": 0,
+  "truth_read": false,
+  "next_action": "finish local source review and Git freeze, then bounded reconnect; do not restart old campaign"
+}

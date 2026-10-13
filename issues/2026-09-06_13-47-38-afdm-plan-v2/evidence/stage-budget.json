@@ -1,0 +1,293 @@
+{
+  "schema": "afdm-stage-budget-v1",
+  "accounting": "conservative continuous execution windows; no union revision accepted",
+  "old_work_scope": "registered S2 and S3/S4 work through 2026-09-06T02:29:08.109Z",
+  "stages": {
+    "S1": {
+      "limit_seconds": 3600,
+      "known_consumed_lower_seconds": 4281.790248,
+      "additional_seconds": 0,
+      "additional_3600_acceptance": "pending",
+      "remaining_seconds": null
+    },
+    "S2": {
+      "limit_seconds": 14400,
+      "old_consumed_upper_seconds": 8822.425,
+      "old_remaining_lower_seconds": 5577.575
+    },
+    "S3S4": {
+      "limit_seconds": 28800,
+      "old_consumed_upper_seconds": 2896.034,
+      "old_remaining_lower_seconds": 25903.966
+    },
+    "S5S7": {
+      "limit_seconds": 86400,
+      "remaining_seconds": null,
+      "activation": "formal gates not met; no Dtest access"
+    }
+  },
+  "new_execution_windows": [
+    {
+      "stage": "S3S4",
+      "started_unix": 1788673991,
+      "ended_unix": 1788685834.04475,
+      "reason": "current authorized mission implementation including preparation and local tests; conservative full active window",
+      "source": "active goal createdAt"
+    },
+    {
+      "stage": "S2",
+      "started_unix": 1788685834.04475,
+      "ended_unix": null,
+      "reason": "representation ledger/graph/independent LS while supplemental feedback sampling awaits user decision",
+      "source": "current approved CSV REP01/02 WIRE02"
+    }
+  ],
+  "batch_reservations": [
+    {
+      "name": "pilot-1788677090",
+      "stage": "S3S4",
+      "seconds": 360,
+      "registered_unix": 1788677090.693105,
+      "deadline_unix": 1788677450.693105,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_pilot-1788677090",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "recovery-1788677625",
+      "stage": "S3S4",
+      "seconds": 120,
+      "registered_unix": 1788677625.0929248,
+      "deadline_unix": 1788677745.0929248,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_recovery-1788677625",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "deadline_fixture_1788677625",
+      "stage": "S3S4",
+      "seconds": 15,
+      "registered_unix": 1788677788.6282444,
+      "deadline_unix": 1788677803.6282444,
+      "actual_elapsed_seconds": 15.366635799407959,
+      "infrastructure_fixture": true,
+      "accounting": "contained in current continuous window; observed overrun retained"
+    },
+    {
+      "name": "deadlinefix-1788677955",
+      "stage": "S3S4",
+      "seconds": 45,
+      "registered_unix": 1788677955.6012878,
+      "deadline_unix": 1788678000.6012878,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_deadlinefix-1788677955",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "prior400-1788678282",
+      "stage": "S3S4",
+      "seconds": 360,
+      "registered_unix": 1788678282.750113,
+      "deadline_unix": 1788678642.750113,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_prior400-1788678282",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "a2wire-1788678714",
+      "stage": "S3S4",
+      "seconds": 120,
+      "registered_unix": 1788678714.303019,
+      "deadline_unix": 1788678834.303019,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_a2wire-1788678714",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "legacyvector-1788679326",
+      "stage": "S3S4",
+      "seconds": 180,
+      "registered_unix": 1788679326.639512,
+      "deadline_unix": 1788679506.639512,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_legacyvector-1788679326",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "fit192-1788679921",
+      "stage": "S3S4",
+      "seconds": 1200,
+      "registered_unix": 1788679921.005054,
+      "deadline_unix": 1788681121.005054,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_fit192-1788679921",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "vt1smoke-1788680527",
+      "stage": "S3S4",
+      "seconds": 120,
+      "registered_unix": 1788680527.059538,
+      "deadline_unix": 1788680647.059538,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_vt1smoke-1788680527",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "vt1smoke-1788680793",
+      "stage": "S3S4",
+      "seconds": 300,
+      "registered_unix": 1788680793.505121,
+      "deadline_unix": 1788681093.505121,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_vt1smoke-1788680793",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "vt1192-1788681076",
+      "stage": "S3S4",
+      "seconds": 900,
+      "registered_unix": 1788681076.012704,
+      "deadline_unix": 1788681976.012704,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_vt1192-1788681076",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "wiremechanism-1788682223",
+      "stage": "S3S4",
+      "seconds": 360,
+      "registered_unix": 1788682223.130217,
+      "deadline_unix": 1788682583.130217,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_wiremechanism-1788682223",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "wireoff-1788682445",
+      "stage": "S3S4",
+      "seconds": 180,
+      "registered_unix": 1788682445.758466,
+      "deadline_unix": 1788682625.758466,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_wireoff-1788682445",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "bprepeat-1788682696",
+      "stage": "S3S4",
+      "seconds": 240,
+      "registered_unix": 1788682696.495043,
+      "deadline_unix": 1788682936.495043,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_bprepeat-1788682696",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "commonkeep-1788683498",
+      "stage": "S3S4",
+      "seconds": 360,
+      "registered_unix": 1788683498.106632,
+      "deadline_unix": 1788683858.106632,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_commonkeep-1788683498",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "commonkeepfix-1788683605",
+      "stage": "S3S4",
+      "seconds": 360,
+      "registered_unix": 1788683605.667441,
+      "deadline_unix": 1788683965.667441,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_commonkeepfix-1788683605",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "mechanism48-1788683670",
+      "stage": "S3S4",
+      "seconds": 1200,
+      "registered_unix": 1788683670.3688278,
+      "deadline_unix": 1788684870.3688278,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_mechanism48-1788683670",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "feedbackwire-1788684696",
+      "stage": "S3S4",
+      "seconds": 600,
+      "registered_unix": 1788684696.772247,
+      "deadline_unix": 1788685296.772247,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_feedbackwire-1788684696",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "feedbackdet-1788684885",
+      "stage": "S3S4",
+      "seconds": 300,
+      "registered_unix": 1788684885.9658802,
+      "deadline_unix": 1788685185.9658802,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_feedbackdet-1788684885",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "feedbackdetfix-1788684974",
+      "stage": "S3S4",
+      "seconds": 300,
+      "registered_unix": 1788684974.116499,
+      "deadline_unix": 1788685274.116499,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_feedbackdetfix-1788684974",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "feedbackaudit-1788685100",
+      "stage": "S3S4",
+      "seconds": 600,
+      "registered_unix": 1788685100.563061,
+      "deadline_unix": 1788685700.563061,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_feedbackaudit-1788685100",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "feedback48-1788685420",
+      "stage": "S3S4",
+      "seconds": 900,
+      "registered_unix": 1788685420.76618,
+      "deadline_unix": 1788686320.76618,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_feedback48-1788685420",
+      "accounting": "contained in current continuous S3S4 window; do not add twice"
+    },
+    {
+      "name": "repwire-1788686663",
+      "stage": "S2",
+      "seconds": 360,
+      "registered_unix": 1788686663.5172758,
+      "deadline_unix": 1788687023.5172758,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_repwire-1788686663",
+      "accounting": "contained in active continuous S2 window; do not add twice"
+    },
+    {
+      "name": "repwirefix-1788686809",
+      "stage": "S2",
+      "seconds": 360,
+      "registered_unix": 1788686809.224617,
+      "deadline_unix": 1788687169.224617,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_repwirefix-1788686809",
+      "accounting": "contained in active continuous S2 window; do not add twice"
+    },
+    {
+      "name": "repwirejson-1788686884",
+      "stage": "S2",
+      "seconds": 360,
+      "registered_unix": 1788686884.089477,
+      "deadline_unix": 1788687244.089477,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_repwirejson-1788686884",
+      "accounting": "contained in active continuous S2 window; do not add twice"
+    },
+    {
+      "name": "repwiresets-1788686980",
+      "stage": "S2",
+      "seconds": 360,
+      "registered_unix": 1788686980.022151,
+      "deadline_unix": 1788687340.022151,
+      "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_budgeted_support_repair/v2_repwiresets-1788686980",
+      "accounting": "contained in active continuous S2 window; do not add twice"
+    }
+  ],
+  "rules": {
+    "minimum_margin_fraction": 0.2,
+    "first_packet_gpu_seconds_max": 7200,
+    "first_packet_machine_seconds_max": 7200,
+    "cross_stage_borrowing": false,
+    "unknown_cost_action": "reject except explicitly bounded measurement pilot reserved against remaining budget",
+    "live_window": "subtract now-started_unix while end is null; settle exact end before another window; reserve within both remaining GPU and machine limits",
+    "cpu_core_hours": "record separately; historical exact value unavailable",
+    "termination_grace_seconds": 6
+  },
+  "source_report": ".trellis/tasks/09-05-budgeted-support-repair/research/mission-budget-evidence-20260906.md"
+}

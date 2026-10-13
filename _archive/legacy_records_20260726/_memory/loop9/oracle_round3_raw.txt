@@ -1,0 +1,21 @@
+🧿 oracle 0.9.0 — Fine, I'll write the test for the AI too.
+Launching browser mode (gpt-5.4-pro) with ~34,824 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+My close-call: **yes, close it**, but frame it as a **learned top-K ranker with classical refit/prune**, not as a calibrated miss-probability head. 
+
+**Q1. Score / bar:** **8/10.** This is a real win after the confound fix: vs the matched torch reference, the learned arm is positive at 10 dB, strongly positive at 20 dB and 25 dB, and becomes clearly positive at 15 dB in the 200-frame extension; the standout is **20 dB: −15.18% BER and −0.64 dB NMSE**. Two things keep it out of 9+/10: the base 15 dB official slice is only **p = 0.056**, so the “all-SNR stat-sig” claim depends on the extension, and the uploaded official JSON does **not** actually show `torch-ref == classical` at 25 dB (1916 vs 2046 errors; 20 dB differs by 1 as well). So: **passes an internal submission bar**, but I would clean those two writeup issues before claiming a paper-grade artifact.  
+
+**Q2. Bias-hack:** acceptable as an **implementation shortcut**, not as the scientific story. Your code path is “score candidates, then `select_additions` keeps those with `logit > tau`, capped at `k_add_max`,” while training is **BCE + 0.5·rank** with scorer final bias initialized at **−8**; that setup is plainly much better aligned to **ranking** than to absolute calibration. I would therefore defend the method as: **use the learned score only to rank off-support atoms; proposal is deterministic top-K; accept/reject is delegated to union-LS + prune + refit**. If you revisit training later, the cleaner version is **rank/top-K loss for the scorer** plus a **separate gate / miss-count head** if you want adaptive K.  
+
+**Q3. Generalisation risk:** yes, the failure mode is real in principle: on zero-miss frames, forced additions can create gain-splitting and evict a correct atom. The aggregate BER/NMSE curves say that risk is **not dominating on this channel** right now, but it is still the main thing I would worry about out of distribution. The cheapest principled safety valve is **sequential add-and-test**: add candidates in score order, but keep an added atom only if, after union-LS, it **survives top-P pruning and reduces pilot residual by at least ε**, or its refit gain beats the weakest retained OMP atom by a margin **η**. That is relative, physics-based, and avoids the brittle absolute-logit threshold that disabled the head.  
+
+**Q4. Paper framing:** pick **(c)**. I would write it as: **“ranking-informed support augmentation”** or **“learned off-support ranking with deterministic top-K proposal and classical refit/prune.”** That is the honest description of what worked. Do **not** write the paper as “probability-calibrated missed-path detection,” and do **not** foreground “bias += 18”; that is a debugging patch, not the contribution.  
+
+**Q5. Close decision:** **close Loop 9 as a success.** I would **not** do another model-development round. The only extra step I would allow is a **single frozen-protocol archival rerun** tomorrow: same checkpoint, same hard-decision backend, same stopping rule at all SNRs, and report against the matched torch reference only. Tonight, though: **close it.**   
+
+One writeup fix before you send anything around: **do not claim “torch-ref matches NumPy classical bit-exactly” unless you rerun that check**, because the uploaded official file contradicts that at 25 dB. 
+
+
+13m42s · gpt-5.4-pro[browser] · ↑34.82k ↓829 ↻0 Δ35.65k
+files=9

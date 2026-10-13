@@ -1,0 +1,163 @@
+{
+  "schema": "higher-order-attempt/1",
+  "stage": "theory_information_v1",
+  "config": {
+    "seed": [
+      20261004,
+      213705,
+      11
+    ],
+    "n": 4,
+    "delay": 3,
+    "center": 0.23,
+    "power": 1.3,
+    "noise": 0.5,
+    "observations": 8192,
+    "new_observations": 8192,
+    "independent_clusters": 8192,
+    "sharing": "all q paths and difference steps evaluated on the same q=0 draws; each row is one independent channel+data+noise draw",
+    "projection_training": 4096,
+    "batches": 16,
+    "lags": [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "q_steps": [
+      0.01,
+      0.003,
+      0.001,
+      0.0003,
+      0.0001,
+      3e-05
+    ],
+    "finite_difference_observations": 256,
+    "kl_q": [
+      0.1,
+      0.03,
+      0.01,
+      0.003,
+      0.001
+    ],
+    "density_tolerance": 2e-11,
+    "last_difference_rmse_tolerance": 0.03,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "uncertainty": "information and KL integrations are Monte Carlo with independent batch SE; algebraic score comparisons are deterministic",
+    "truth_boundary": "gain/word/noise saved only as simulator audit; score and feature APIs consume y and declared working model"
+  },
+  "_config": {
+    "seed": [
+      20261004,
+      213705,
+      11
+    ],
+    "n": 4,
+    "delay": 3,
+    "center": 0.23,
+    "power": 1.3,
+    "noise": 0.5,
+    "observations": 8192,
+    "new_observations": 8192,
+    "independent_clusters": 8192,
+    "sharing": "all q paths and difference steps evaluated on the same q=0 draws; each row is one independent channel+data+noise draw",
+    "projection_training": 4096,
+    "batches": 16,
+    "lags": [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "q_steps": [
+      0.01,
+      0.003,
+      0.001,
+      0.0003,
+      0.0001,
+      3e-05
+    ],
+    "finite_difference_observations": 256,
+    "kl_q": [
+      0.1,
+      0.03,
+      0.01,
+      0.003,
+      0.001
+    ],
+    "density_tolerance": 2e-11,
+    "last_difference_rmse_tolerance": 0.03,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "uncertainty": "information and KL integrations are Monte Carlo with independent batch SE; algebraic score comparisons are deterministic",
+    "truth_boundary": "gain/word/noise saved only as simulator audit; score and feature APIs consume y and declared working model"
+  },
+  "argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_higher_order_information/theory_study.py",
+    "--mode",
+    "information",
+    "--stage",
+    "theory_information_v1"
+  ],
+  "_argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_higher_order_information/theory_study.py",
+    "--mode",
+    "information",
+    "--stage",
+    "theory_information_v1"
+  ],
+  "seed": [
+    20261004,
+    213705,
+    11
+  ],
+  "source_sha256": {
+    ".mission/20261001_23-33-35-afdm-innovation-space/controls/thread_binding.py": "d54170644d336fe6b0eb383ff533e5863857f1bbdc8dd0a873a1c233f50846ac",
+    ".mission/20261004_21-37-05-afdm-higher-order-information/run_contract.json": "1e91b5c570ea22169451937293a15a4f81e45fdaa1c3949421f34cbc1f30eac3",
+    "experiments/afdm_higher_order_information/__init__.py": "00ec0fce13d3db63195bf81e021bbf9b3abad69b9ba7781be9327c3b86b52b75",
+    "experiments/afdm_higher_order_information/moments.py": "8925478c366ebb9b3b865fab8a0704681187fd6c1dd6641e0d9f072608fac6a8",
+    "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+    "experiments/afdm_higher_order_information/test_moments.py": "be247a6280fcd7a99019d2b32c76d0cb859617df0707b3346affa5d6dda3e0f4",
+    "experiments/afdm_higher_order_information/theory_study.py": "d8d0cb6f17fa1845adacedf3ac821aac2d7351fa4e9999c55eaa9e8782a4d7c0",
+    "experiments/afdm_inference_causal_20261002/exact_oracle.py": "d6fae6c9d0e708db9fb2ab6c3809729f12146bb307802f2cb892be6f795b5b77",
+    "experiments/afdm_shared_channel_20261004/common.py": "705cb6103442cdb122fbce0e58f091c6d42d64cce2e0f39cd24e8dfe095e758d",
+    "experiments/afdm_shared_channel_20261004/conditional_solver.py": "f209d5aa3b3f3128104ff12d7dd3223f92aae6cd4e6b1867507af7a68428e9e3",
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "results/afdm_higher_order_information/THEORY_CONFIG.json": "bc484a4154c9b21f368b7344d128054b5221a0867631997b5bfeee299d322c61"
+  },
+  "git": {
+    "head": "09bfc7bc7fd54e7134e2d3c3a26c0aaf0710d3df",
+    "committed_task_source_sha256": {
+      "experiments/afdm_higher_order_information/__init__.py": "00ec0fce13d3db63195bf81e021bbf9b3abad69b9ba7781be9327c3b86b52b75",
+      "experiments/afdm_higher_order_information/moments.py": "8925478c366ebb9b3b865fab8a0704681187fd6c1dd6641e0d9f072608fac6a8",
+      "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+      "experiments/afdm_higher_order_information/test_moments.py": "be247a6280fcd7a99019d2b32c76d0cb859617df0707b3346affa5d6dda3e0f4",
+      "experiments/afdm_higher_order_information/theory_study.py": "d8d0cb6f17fa1845adacedf3ac821aac2d7351fa4e9999c55eaa9e8782a4d7c0"
+    },
+    "other_sources": "frozen helpers and artifacts independently SHA-256 bound"
+  },
+  "git_head": "09bfc7bc7fd54e7134e2d3c3a26c0aaf0710d3df",
+  "pid": 54637,
+  "wall_cap_seconds": 600,
+  "started_utc": "2026-10-04T16:24:47.336597+00:00",
+  "deadline_utc": "2026-10-04T16:34:47.336597+00:00",
+  "cumulative_reserved_new_observations": 8192,
+  "evidence_level": "local mathematical/development; no receiver/decoder/confirmation"
+}

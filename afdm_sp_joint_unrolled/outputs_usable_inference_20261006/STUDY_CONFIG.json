@@ -1,0 +1,234 @@
+{
+  "schema": "afdm-usable-inference/1",
+  "seed": [
+    20261006,
+    152404
+  ],
+  "new_observations": 0,
+  "receiver_calls": 0,
+  "decoder_calls": 0,
+  "new_confirmation_stream": false,
+  "reservations": {
+    "algebra": 2000,
+    "sensitivity": 6000,
+    "contrast": 20000,
+    "symmetry": 8000
+  },
+  "branch": [
+    0.26,
+    0.36
+  ],
+  "algebra": {
+    "Ns": [
+      9,
+      16,
+      64,
+      1024
+    ],
+    "mu": 0.31,
+    "deltas": [
+      0.01,
+      0.04
+    ],
+    "raw_gains": {
+      "generic": [
+        [
+          1.0,
+          0.2
+        ],
+        [
+          -0.4,
+          0.7
+        ]
+      ],
+      "raw_aligned": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.0
+        ]
+      ]
+    },
+    "noise_variances": [
+      0.0,
+      0.2,
+      1.0
+    ],
+    "tau_values": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "counterexample": {
+      "N": 5,
+      "S": 7.0,
+      "P": 12.0,
+      "rho": 1.001,
+      "branch": [
+        0.22,
+        0.42
+      ]
+    },
+    "identity_atol": 2e-11,
+    "node_atol": 2e-07,
+    "rank_rtol": 1e-12
+  },
+  "sensitivity": {
+    "Ns": [
+      9,
+      16,
+      64,
+      1024
+    ],
+    "mu": 0.31,
+    "deltas": [
+      0.01,
+      0.04
+    ],
+    "effective_phases": [
+      0.0,
+      0.001,
+      0.1,
+      1.5707963267948966
+    ],
+    "effective_amplitude_ratio": 0.7,
+    "noise_variances": [
+      0.0,
+      0.2,
+      1.0
+    ],
+    "moment_perturbation_scales": [
+      1e-08,
+      1e-06,
+      0.0001
+    ],
+    "directions": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0
+      ]
+    ],
+    "jacobian_relative_steps": [
+      1e-05,
+      5e-06
+    ],
+    "jacobian_rtol": 0.003,
+    "target_node_rmse": 0.01,
+    "rank_rtol": 1e-12
+  },
+  "contrast": {
+    "N": 5,
+    "rho": 1.001,
+    "S": 7.0,
+    "P": 12.0,
+    "common_amplitudes": [
+      [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        0.7,
+        1.0,
+        1.2,
+        0.9,
+        1.1
+      ]
+    ],
+    "candidate_phases": [
+      "true",
+      "paired_ambiguous",
+      "true_character_1",
+      "true_plus_fixed_offset"
+    ],
+    "fixed_phase_offset": [
+      0.0,
+      0.13,
+      -0.17,
+      0.21,
+      -0.11
+    ],
+    "noise_variances": [
+      0.0,
+      0.2,
+      1.0
+    ],
+    "identity_atol": 3e-10,
+    "gradient_atol": 3e-07,
+    "gradient_steps": [
+      1e-05,
+      5e-06
+    ],
+    "qpsk_state_count": 1024,
+    "branch": [
+      0.22,
+      0.42
+    ]
+  },
+  "numerics": {
+    "weak_I4_relative": 1e-12,
+    "root_xtol": 1e-12,
+    "reconstruction_rtol": 1e-09
+  },
+  "evidence": "deterministic population/perturbation/local-delta-method only; no random observations or finite-sample performance claim",
+  "branch_scope": "five_atom_inverse_only",
+  "symmetry": {
+    "Ns": [
+      9,
+      16,
+      64,
+      1024
+    ],
+    "mu": 0.31,
+    "delta": 0.02,
+    "common_shift": 0.015,
+    "raw_gains": [
+      [
+        1.0,
+        0.2
+      ],
+      [
+        -0.4,
+        0.7
+      ]
+    ],
+    "noise_variance": 0.2,
+    "tau": 1.0,
+    "identity_atol": 3e-11,
+    "g0_min_power_difference": 1e-09,
+    "minimum_quartic_gap": 1e-10,
+    "rank_rtol": 1e-11,
+    "scope": "actual frozen G0 vs direct G1 and complete Dirichlet synthesis; deterministic model-symmetry audit, no inference benefit claim"
+  }
+}

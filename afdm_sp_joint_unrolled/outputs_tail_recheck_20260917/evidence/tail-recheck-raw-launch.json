@@ -1,0 +1,33 @@
+{
+  "job": {
+    "name": "tail-recheck-raw",
+    "root": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_recheck_20260917",
+    "cwd": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_recheck_20260917",
+    "timeout_seconds": 900,
+    "command": [
+      "/usr/bin/env",
+      "CUDA_VISIBLE_DEVICES=",
+      "/home/guoyikun/.conda/envs/AFDM/bin/python",
+      "-B",
+      "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_recheck_20260917/source/tail_recheck_20260917.py",
+      "--base",
+      "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled",
+      "--output",
+      "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_recheck_20260917/raw",
+      "--contract",
+      "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_recheck_20260917/source/tail-recheck-gpu-contract-20260917.json",
+      "--mode",
+      "raw"
+    ]
+  },
+  "job_sha256": "010a00dc1c79c1fc10f5ed8e7d402846c46e1978c4582e75cfe5a0d8bf2ae90e",
+  "pid": 94840,
+  "started_at": 1789627752.6223128,
+  "timeout_seconds": 900,
+  "environment_overrides": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "TMPDIR": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_recheck_20260917/cache/tail-recheck-raw/tmpdir",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

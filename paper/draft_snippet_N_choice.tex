@@ -1,0 +1,49 @@
+% Drop-in paragraph for Section 3 "UWA channel setup", replacing the existing
+% one-liner about the choice of N = 512.  This version is kappa-driven: it
+% explains *why* shorter frames such as N = 256 or N = 128 are infeasible for
+% this specific UWA configuration, without claiming a universal lower bound.
+
+The choice of $N = 512$ is not a convenience default: it is dictated by the
+Doppler quantisation that governs the Dirichlet $k$-leak expansion of
+Section~\ref{ssec:frac_doppler}.  With $v_\mathrm{mean} = 2$\,m/s,
+$f_c = 12$\,kHz, $c_\mathrm{sound} = 1500$\,m/s, and $f_s = 8$\,kHz the
+normalised Doppler of the typical path is
+$D \;=\; v f_c / (c_\mathrm{sound} f_s) \;\approx\; 0.002$,
+so the real-valued Doppler bin index is $k_\mathrm{real} = DN = 0.002\,N$.
+The Dirichlet expansion is dominated by a \emph{single} virtual tap when the
+fractional residual $\kappa = k_\mathrm{real} - \mathrm{round}(k_\mathrm{real})$
+is close to zero, and spreads each physical path over the full $2K_\mathrm{leak}+1 = 5$
+virtual taps when $|\kappa|$ approaches $0.5$.  The virtual tap count
+$P_\mathrm{actual}$ therefore satisfies $P_\mathrm{actual} \approx P$ in the
+near-integer regime and $P_\mathrm{actual} \approx (2K_\mathrm{leak}+1)P$ in
+the worst fractional regime.
+
+For this UWA configuration the three candidate frame lengths fall at very
+different points of that curve:
+
+\begin{center}
+\small
+\begin{tabular}{cccccc}
+\toprule
+$N$ & $k_\mathrm{real} = 0.002N$ & $|\kappa|$ & $P_\mathrm{actual}$ (typical) & Full-diversity $\delta_\mathrm{max} < N$? & Joint BER at 20\,dB \\
+\midrule
+$128$ & $0.256$ & $0.256$ & $\approx 45$--$50$ & Yes ($\delta_\mathrm{max} = 62$) & $\approx 0.22$--$0.29$ \\
+$256$ & $0.512$ & $0.488$\textbf{(worst)}    & $\approx 43$--$44$ & Yes ($\delta_\mathrm{max} = 127$) & $\approx 0.18$--$0.21$ \\
+$512$ & $1.024$ & $0.024$ & $\approx 17$--$33$ & Yes ($\delta_\mathrm{max} = 252$) & $\approx 0.01$--$0.05$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+With the canonical UWA parameters, $N = 256$ is within a few bins of the
+half-integer worst case ($\kappa \approx 0.49$), so every physical path
+spills into the full five-tap Dirichlet neighbourhood and the sparse-support
+assumption breaks: OMP is forced to estimate $\sim 50$ taps from
+$Q \approx 130$ dictionary columns, and the joint receiver loses its
+advantage over the serial baselines.  $N = 128$ lands at $\kappa \approx 0.26$
+with the same symptom.  $N = 512$ places the typical path at
+$k_\mathrm{real} \approx 1.02$, i.e.\ barely off the integer grid, so
+$P_\mathrm{actual}$ stays close to $P$ and the sparse-support assumption
+continues to hold.  Choosing a different $N$ would require either a lower
+velocity regime or a larger sampling rate to restore the near-integer
+condition; within the canonical UWA configuration $N = 512$ is the smallest
+frame length that keeps the Dirichlet expansion benign.

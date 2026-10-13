@@ -1,0 +1,105 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\citation{bemani2023afdm}
+\citation{hadani2017otfs,wei2021otfspromising}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Materials and Methods}{8}{section.2}\protected@file@percent }
+\newlabel{sec:method}{{2}{8}{Materials and Methods}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}AFDM signal model and the DAFT}{8}{subsection.2.1}\protected@file@percent }
+\newlabel{ssec:daft}{{2.1}{8}{AFDM signal model and the DAFT}{subsection.2.1}{}}
+\newlabel{eq:idaft}{{1}{8}{AFDM signal model and the DAFT}{equation.1}{}}
+\newlabel{eq:afdm_model}{{2}{8}{AFDM signal model and the DAFT}{equation.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Doubly-dispersive simulator channel and effective-channel sparsity}{8}{subsection.2.2}\protected@file@percent }
+\newlabel{ssec:channel}{{2.2}{8}{Doubly-dispersive simulator channel and effective-channel sparsity}{subsection.2.2}{}}
+\citation{yin2024drceafdm}
+\newlabel{eq:delaydoppler_mapping}{{3}{9}{Doubly-dispersive simulator channel and effective-channel sparsity}{equation.3}{}}
+\newlabel{eq:dirichlet}{{4}{9}{Doubly-dispersive simulator channel and effective-channel sparsity}{equation.4}{}}
+\citation{kaleh2005zadoffchu}
+\citation{orozco2011superimposed,tugnait2006superimposed}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Dirichlet-kernel magnitude $|D(\delta )| = |\sin (\pi \delta ) / (N\sin (\pi \delta / N))|$ from \eqref  {eq:dirichlet} at $N= 1024$, plotted against the integer-Doppler offset $\delta $. Two cases are overlaid: the integer-aligned residual ($\kappa = k_p^{\text  {real}} - k_p = 0$, blue), where the kernel collapses to a sampling indicator and an integer-Doppler dictionary loses no per-path energy; and the worst-case fractional residual ($|\kappa | = 0.5$, red), where the integer-bin samples (red circles) at $\delta \in \{0, +1\}$ each carry $\approx 41\%$ of per-path energy and the samples at $\delta \in \{-1, +2\}$ each carry $\approx 4.4\%$. The dashed vertical lines mark the $k_{\mathrm  {leak}}= 2$ truncation boundary used by the simulator; the two-sided sum of squared truncated coefficients beyond $|\delta | > k_{\mathrm  {leak}}$ amounts to $\approx 8.3\%$ of per-path energy at $|\kappa | = 0.5$, the figure quoted in the paragraph above. The non-zero side-lobes flanking the kernel peak are the structurally predictable energy that the post-OMP virtual-tap expansion (\S  \ref {ssec:joint}) and the learned support-refinement ranker (\S  \ref {ssec:c2rel}) are designed to recover.}}{10}{figure.caption.16}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:dirichlet}{{1}{10}{Dirichlet-kernel magnitude $|D(\delta )| = |\sin (\pi \delta ) / (\Nsub \sin (\pi \delta / \Nsub ))|$ from \eqref {eq:dirichlet} at $\Nsub = 1024$, plotted against the integer-Doppler offset $\delta $. Two cases are overlaid: the integer-aligned residual ($\kappa = k_p^{\text {real}} - k_p = 0$, blue), where the kernel collapses to a sampling indicator and an integer-Doppler dictionary loses no per-path energy; and the worst-case fractional residual ($|\kappa | = 0.5$, red), where the integer-bin samples (red circles) at $\delta \in \{0, +1\}$ each carry $\approx 41\%$ of per-path energy and the samples at $\delta \in \{-1, +2\}$ each carry $\approx 4.4\%$. The dashed vertical lines mark the $\kleak = 2$ truncation boundary used by the simulator; the two-sided sum of squared truncated coefficients beyond $|\delta | > \kleak $ amounts to $\approx 8.3\%$ of per-path energy at $|\kappa | = 0.5$, the figure quoted in the paragraph above. The non-zero side-lobes flanking the kernel peak are the structurally predictable energy that the post-OMP virtual-tap expansion (\S \ref {ssec:joint}) and the learned support-refinement ranker (\S \ref {ssec:c2rel}) are designed to recover}{figure.caption.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Superimposed pilot signal model}{10}{subsection.2.3}\protected@file@percent }
+\newlabel{ssec:sp}{{2.3}{10}{Superimposed pilot signal model}{subsection.2.3}{}}
+\newlabel{eq:sp_frame}{{5}{10}{Superimposed pilot signal model}{equation.5}{}}
+\newlabel{eq:pilot_projection}{{6}{10}{Superimposed pilot signal model}{equation.6}{}}
+\newlabel{eq:interferencevar}{{7}{11}{Superimposed pilot signal model}{equation.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Sparse-baseline OMP dictionary}{11}{subsection.2.4}\protected@file@percent }
+\newlabel{ssec:dictionary}{{2.4}{11}{Sparse-baseline OMP dictionary}{subsection.2.4}{}}
+\newlabel{eq:lmax}{{9}{11}{Sparse-baseline OMP dictionary}{equation.9}{}}
+\newlabel{eq:kmax}{{10}{11}{Sparse-baseline OMP dictionary}{equation.10}{}}
+\newlabel{eq:Qlinear}{{11}{11}{Sparse-baseline OMP dictionary}{equation.11}{}}
+\citation{wymeersch2007iterativereceiver}
+\citation{kschischang2001factorgraph}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces OMP dictionary size under the canonical AFDM configuration used throughout this report ($\tau _{\text  {spread}} = 10$~ms, $v_{\max } = 3$~m/s, $f_c= 12$~kHz, $f_s= 4B = 16$~kHz). Under the fixed-$f_s$ convention, $l_{\max }= \lceil \tau _{\text  {spread}} f_s\rceil = 160$ is independent of $N$, while $k_{\max }= \lceil v_{\max }f_cN/(cf_s)\rceil $ grows linearly with $N$. The Chapter~\ref {sec:results} operating point ($N= 1024$) corresponds to the middle row.}}{12}{table.caption.17}\protected@file@percent }
+\newlabel{tab:dictsize}{{1}{12}{OMP dictionary size under the canonical AFDM configuration used throughout this report ($\tau _{\text {spread}} = 10$~ms, $v_{\max } = 3$~m/s, $\fc = 12$~kHz, $\fs = 4B = 16$~kHz). Under the fixed-$\fs $ convention, $\lmax = \lceil \tau _{\text {spread}} \fs \rceil = 160$ is independent of $\Nsub $, while $\kmax = \lceil v_{\max }\fc \Nsub /(c\fs )\rceil $ grows linearly with $\Nsub $. The Chapter~\ref {sec:results} operating point ($\Nsub = 1024$) corresponds to the middle row}{table.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Classical OMP-once + iterative LS/MP-BP joint receiver (Algorithm~\ref {alg:joint} in block-diagram form). The outer loop (dashed rectangle) runs for $T_\text  {out} = 5$ iterations; each iteration forms a data-cancellation residual, refits the path gains on a locked support via damped DA-LS, runs sparse MP-BP detection on the Dirichlet-expanded virtual-tap factor graph, updates the adaptive noise-variance estimate, and prunes the support.}}{12}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:classical_joint_arch}{{2}{12}{Classical OMP-once + iterative LS/MP-BP joint receiver (Algorithm~\ref {alg:joint} in block-diagram form). The outer loop (dashed rectangle) runs for $T_\text {out} = 5$ iterations; each iteration forms a data-cancellation residual, refits the path gains on a locked support via damped DA-LS, runs sparse MP-BP detection on the Dirichlet-expanded virtual-tap factor graph, updates the adaptive noise-variance estimate, and prunes the support}{figure.caption.18}{}}
+\newlabel{eq:omp_cost}{{12}{12}{Sparse-baseline OMP dictionary}{equation.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Joint OMP-once + iterative LS/MP-BP receiver}{12}{subsection.2.5}\protected@file@percent }
+\newlabel{ssec:joint}{{2.5}{12}{Joint OMP-once + iterative LS/MP-BP receiver}{subsection.2.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{MP-BP messages on the sparse chirp-domain factor graph.}{12}{section*.19}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Classical joint OMP-once + iterative LS/MP-BP receiver.}}{13}{algorithm.1}\protected@file@percent }
+\newlabel{alg:joint}{{1}{13}{Classical joint OMP-once + iterative LS/MP-BP receiver}{algorithm.1}{}}
+\newlabel{eq:dals_resid}{{13}{13}{Classical joint OMP-once + iterative LS/MP-BP receiver}{equation.13}{}}
+\newlabel{eq:dals}{{14}{13}{Classical joint OMP-once + iterative LS/MP-BP receiver}{equation.14}{}}
+\newlabel{eq:mpbp_input}{{15}{13}{MP-BP messages on the sparse chirp-domain factor graph}{equation.15}{}}
+\newlabel{eq:mpbp_var}{{16}{13}{MP-BP messages on the sparse chirp-domain factor graph}{equation.16}{}}
+\citation{wymeersch2007iterativereceiver}
+\newlabel{eq:mpbp_fact_mean}{{17}{14}{MP-BP messages on the sparse chirp-domain factor graph}{equation.17}{}}
+\newlabel{eq:mpbp_fact_var}{{18}{14}{MP-BP messages on the sparse chirp-domain factor graph}{equation.18}{}}
+\newlabel{eq:mpbp_post}{{19}{14}{MP-BP messages on the sparse chirp-domain factor graph}{equation.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Learned support-refinement head}{15}{subsection.2.6}\protected@file@percent }
+\newlabel{ssec:c2rel}{{2.6}{15}{Learned support-refinement head}{subsection.2.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Features.}{15}{section*.22}\protected@file@percent }
+\newlabel{eq:pairfeature}{{20}{15}{Features}{equation.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Integration of the learned support-refinement head into the classical OMP-once + iterative LS/MP-BP receiver. The learned block (dark blue) is invoked twice at the initialisation step ($t = 0$), immediately after OMP-once and before the iterative LS/MP-BP loop begins; it ranks the top-$M = 96$ off-support candidates and appends the top-$K_{\mathrm  {add}}$ atoms to the support. All other blocks are identical to Fig.~\ref {fig:classical_joint_arch}: the head replaces neither OMP-once nor the iterative LS/MP-BP block. The detailed head architecture is given in Fig.~\ref {fig:head_arch}.}}{16}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:pipeline_integration}{{3}{16}{Integration of the learned support-refinement head into the classical OMP-once + iterative LS/MP-BP receiver. The learned block (dark blue) is invoked twice at the initialisation step ($t = 0$), immediately after OMP-once and before the iterative LS/MP-BP loop begins; it ranks the top-$M = 96$ off-support candidates and appends the top-$\Kadd $ atoms to the support. All other blocks are identical to Fig.~\ref {fig:classical_joint_arch}: the head replaces neither OMP-once nor the iterative LS/MP-BP block. The detailed head architecture is given in Fig.~\ref {fig:head_arch}}{figure.caption.20}{}}
+\@writefile{toc}{\contentsline {paragraph}{Feature design rationale.}{16}{section*.23}\protected@file@percent }
+\citation{elfwing2018silu}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Learned support-refinement head (architecture). Two parallel inputs per candidate $i$: a 7-D self-feature $\mathbf  {u}_i$ and a set of 6-D pair features $\{\mathbf  {v}_{i,s}\}_{s \in \hat  {S}}$ indexed over the current active support $\hat  {S}$. The shared pair-encoder ($\mathbb  {R}^6 \!\to \! \mathbb  {R}^{16} \!\to \! \mathbb  {R}^{16}$, 384 parameters) is applied element-wise over $(i, s)$ pairs; order-invariant pooling (concat of channel-wise max and mean over $s \in \hat  {S}$) produces a 32-D pair descriptor per candidate, which is concatenated with $\mathbf  {u}_i$ to form $\boldsymbol  {\phi }_i \in \mathbb  {R}^{39}$. The shared scorer ($\mathbb  {R}^{39} \!\to \! \mathbb  {R}^{16} \!\to \! \mathbb  {R}^1$, 657 parameters) emits a scalar logit $s_i$; the deterministic top-$K_{\mathrm  {add}}$ ranker selects the atoms to append. Total trainable parameters: $384 + 657 = 1\,041$. The logits are used only for ranking.}}{17}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:head_arch}{{4}{17}{Learned support-refinement head (architecture). Two parallel inputs per candidate $i$: a 7-D self-feature $\mathbf {u}_i$ and a set of 6-D pair features $\{\mathbf {v}_{i,s}\}_{s \in \hat {S}}$ indexed over the current active support $\hat {S}$. The shared pair-encoder ($\mathbb {R}^6 \!\to \! \mathbb {R}^{16} \!\to \! \mathbb {R}^{16}$, 384 parameters) is applied element-wise over $(i, s)$ pairs; order-invariant pooling (concat of channel-wise max and mean over $s \in \hat {S}$) produces a 32-D pair descriptor per candidate, which is concatenated with $\mathbf {u}_i$ to form $\boldsymbol {\phi }_i \in \mathbb {R}^{39}$. The shared scorer ($\mathbb {R}^{39} \!\to \! \mathbb {R}^{16} \!\to \! \mathbb {R}^1$, 657 parameters) emits a scalar logit $s_i$; the deterministic top-$\Kadd $ ranker selects the atoms to append. Total trainable parameters: $384 + 657 = 1\,041$. The logits are used only for ranking}{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {paragraph}{Architecture.}{17}{section*.24}\protected@file@percent }
+\citation{loshchilov2019adamw}
+\@writefile{toc}{\contentsline {paragraph}{Inference.}{18}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Training}{18}{subsection.2.7}\protected@file@percent }
+\newlabel{ssec:training}{{2.7}{18}{Training}{subsection.2.7}{}}
+\newlabel{eq:loss}{{21}{18}{Training}{equation.21}{}}
+\@writefile{toc}{\contentsline {paragraph}{Ranking-only deployment.}{18}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.8}Complexity analysis}{19}{subsection.2.8}\protected@file@percent }
+\newlabel{ssec:complexity}{{2.8}{19}{Complexity analysis}{subsection.2.8}{}}
+\newlabel{eq:classcomplex}{{22}{19}{Complexity analysis}{equation.22}{}}
+\newlabel{eq:headcomplex}{{23}{19}{Complexity analysis}{equation.23}{}}
+\citation{tropp2007signal,berger2010uwasparse}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.9}Evaluation protocol}{20}{subsection.2.9}\protected@file@percent }
+\newlabel{ssec:eval}{{2.9}{20}{Evaluation protocol}{subsection.2.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10}Baseline selection and fairness}{20}{subsection.2.10}\protected@file@percent }
+\newlabel{ssec:fairness}{{2.10}{20}{Baseline selection and fairness}{subsection.2.10}{}}
+\@setckpt{sections/Section2}{
+\setcounter{page}{22}
+\setcounter{equation}{23}
+\setcounter{enumi}{7}
+\setcounter{enumii}{4}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{section}{2}
+\setcounter{subsection}{10}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{4}
+\setcounter{table}{1}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{parentequation}{0}
+\setcounter{float@type}{8}
+\setcounter{algorithm}{1}
+\setcounter{section@level}{2}
+\setcounter{Item}{17}
+\setcounter{Hfootnote}{0}
+\setcounter{bookmark@seq@number}{22}
+}

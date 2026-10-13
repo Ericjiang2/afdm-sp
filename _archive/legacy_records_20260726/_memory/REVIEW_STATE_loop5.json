@@ -1,0 +1,61 @@
+{
+  "loop_topic": "Loop 5 — N=1024 v=2 τ=10ms P=8 learned joint BP vs classical BP(torch); user rubric requires learned < classical at SNR {10,15,20} with 95% Wilson separation",
+  "round": 3,
+  "threadId": "019dadb9-f4ec-7d30-93df-49b3c04a9ee5",
+  "status": "completed",
+  "completion_timestamp": "2026-04-21T06:50:00+0800",
+  "final_score": 4.0,
+  "final_verdict": "not ready — rubric #1 still fails (learned not below classical at SNR 10/15/20). BUT the evaluation stack is now trustworthy (torch-ref ≡ NumPy classical bit-exactly at 400-frame × 5-SNR paired eval) and the waterfall is physically sane. Loop-4's 'N=1024 identity drift' traced to a one-line n_paths sparsity mismatch in paired_learned_eval.py.",
+  "score_progression": {
+    "round1_plan_review": "8.5/10 (Codex gate-on-P=8, low-DoF λ_ls-only head, hard pass criterion)",
+    "round2_slam_400f_soft_eval": "2/10 (soft-decision torch pipeline has 10-20× BER floor at SNR≥15; λ_ls cannot bridge gap)",
+    "round3_b3_400f_hard_eval_post_fix": "4/10 (pipeline trusted now; B3 mild regression 0-5.8% across SNRs under hard eval)"
+  },
+  "rubric_achievement": {
+    "criterion_1_learned_below_classical_snr10_15_20": "FAIL — B3 hard-eval: +0.1% @ 10 dB, +0.7% @ 15 dB, +5.8% @ 20 dB. S-lam same direction.",
+    "criterion_2_physically_plausible_waterfall": "PASS — monotone BER, all three arms above perf-CSI-BP lower bound, no cliffs/crossings, channel NMSE decreasing with SNR.",
+    "criterion_3_adequate_mc_frames_ci": "PASS — 400 paired frames × 5 SNRs, Wilson 95% CI, seed 5151.",
+    "criterion_4_gpu": "PASS — RTX 4090 shared, complex128 (avoids soft-decision precision noise), tmux g_loop5_* sessions."
+  },
+  "canonical_hard_eval_BER_P8_400frames": {
+    "snr_5dB":  {"classical": 1.905e-1, "torch_ref": 1.905e-1, "learned_B3": 1.905e-1},
+    "snr_10dB": {"classical": 1.047e-1, "torch_ref": 1.047e-1, "learned_B3": 1.048e-1},
+    "snr_15dB": {"classical": 3.184e-2, "torch_ref": 3.184e-2, "learned_B3": 3.208e-2},
+    "snr_20dB": {"classical": 2.164e-3, "torch_ref": 2.164e-3, "learned_B3": 2.290e-3},
+    "snr_25dB": {"classical": 1.383e-3, "torch_ref": 1.383e-3, "learned_B3": 1.455e-3}
+  },
+  "root_cause_loop4_drift": {
+    "name": "paired_learned_eval.py n_paths mismatch (NOT a numerics bug)",
+    "before_fix": "torch module.cfg.n_paths = sys_obj.P_paths (fixed at 8 in config) vs NumPy n_paths = _P_actual (Dirichlet-expanded ~20-36)",
+    "fix": "per-frame `module.cfg.n_paths = sparsity` in paired_learned_eval.py line ~166",
+    "result": "torch-ref (hard, heads=()) ≡ NumPy classical bit-exactly on all 400 frames × 5 SNRs"
+  },
+  "soft_vs_hard_decision_gap_finding": {
+    "at_N1024_v2_tau10ms_P8_BP": true,
+    "snr_10dB_torch_soft_vs_numpy_hard": "1.22e-1 vs 1.05e-1 (17% worse)",
+    "snr_15dB_torch_soft_vs_numpy_hard": "5.70e-2 vs 3.18e-2 (79% worse)",
+    "snr_20dB_torch_soft_vs_numpy_hard": "3.20e-2 vs 2.16e-3 (~14× worse)",
+    "implication": "use_soft_decisions=True needed for gradients, but must NOT be used at inference. Codex R2 fix: train with soft, eval with --use-hard."
+  },
+  "b3_soft_train_hard_eval_does_not_generalize": {
+    "soft_eval_best_mean_delta": -1.46e-3,
+    "hard_eval_mean_delta": 1.3e-4,
+    "reason_per_codex": "at LS optimality on active support, c_i = A_i^H r ≈ 0 so B3 is learning on a dead feature; soft-decision mode introduces spurious non-LS residuals that mask this."
+  },
+  "artefacts_remote": [
+    "afdm_sp_joint_unrolled/outputs_loop5_slam_p8_v2/classical_joint_unrolled_best.pt (S-lam best)",
+    "afdm_sp_joint_unrolled/outputs_loop5_b3_p8/classical_joint_unrolled_best.pt (B3 best)",
+    "afdm_sp_joint_unrolled/outputs_loop5_paired_p8/results.{json,md} (S-lam soft-eval 400f)",
+    "afdm_sp_joint_unrolled/outputs_loop5_paired_b3_hard/results.{json,md} (B3 hard-eval 400f)",
+    "figures/loop5/loop5_ber_mse_p8.png + loop5_b3_hard_p8.png"
+  ],
+  "scripts_added_or_patched": [
+    "afdm_sp_joint_unrolled/classical_joint_unrolled.py — LearnableScalars.lam_ls_clip (optional tuple clamp on effective lambda_ls_factor)",
+    "afdm_sp_joint_unrolled/train_classical_joint_unrolled.py — S-lam variant, --lam-ls-clip CLI, [LOOP5_CONFIG] echo",
+    "afdm_sp_joint_unrolled/paired_learned_eval.py — --use-hard flag, per-frame n_paths sync (FIX), dual-baseline reporting (NumPy-hard + torch-ref), [LOOP5_CONFIG] echo, S-lam variant entry",
+    "afdm_sp_joint_unrolled/plot_loop4_ber_mse.py — auto-detects torch_ref arm and plots it",
+    "afdm_sp_joint_unrolled/verify_classical_unrolled_matches_numpy.py — --p-paths and --mp-mode CLI flags"
+  ],
+  "recommended_single_next_step_per_codex": "Before any new head/retrain: instrument the HARD pipeline to log |A_active^H r| after DA-LS and confirm the feature is near-zero at LS optimum. Then test final-iter-only no-feedback correction. If feature is dead, redesign the head — current `channel_tap_corrector` architecture has no usable signal under hard decisions.",
+  "estimated_effort_for_next_round": "2-4 hours of careful instrumentation + one targeted retrain with redesigned head"
+}

@@ -1,0 +1,192 @@
+{
+  "schema": "afdm-archived-action-value/1",
+  "receiver_calls": 0,
+  "evidence_class": "paired old exposed developmental labels; no new receiver execution",
+  "source_hashes": {
+    "results/cstate_necessity_stageB_resume_20260928/population_five_analysis_v2/frame_outcomes.csv": "fe3fd3382d3490641ae3f829eeae87ddd1b6b748acebcaec73067433b1b690e8",
+    "results/cstate_necessity_stageB_resume_20260928/population_five_analysis_v2/deadline_decisions.csv": "a5e5a45cba54360cd62316933cf3957684089a16b67132fb3ccfbbf04cb6b992",
+    "results/cstate_necessity_stageB_resume_20260928/population_five_v1/policy_ledger.jsonl": "f92b2c60f29dcd271caf5c97671c42fcc1e9d32b05c6cbba95e2d872fdc25d69",
+    "results/cstate_necessity_stageB_resume_20260928/population_five_v1/observed_seal.json": "69bc4006a814fd5946c3810209d9d9b24db9c64df34aa4129fa4a2abf554c3fc",
+    "results/cstate_necessity_stageA_20260928/analysis/frame_outcomes.csv": "17cf2d9a801388f983e0842d596674411a654fb6764fa26db32638b209a6eb03",
+    "results/cstate_necessity_stageA_20260928/observed/ledger.jsonl": "80bc40f22ea58468d0a4e7375eabec458e0ececf1e3bbcef9db74eecaf4c5f55",
+    "results/cstate_necessity_stageA_20260928/observed/observed_seal.json": "eb261e6183b8266220eb2abb7faec5bdf65ba253959374bed121f34523d65afa"
+  },
+  "binding": "all 5120 policies share per-frame input SHA; F0/B decoded SHA equal Stage-A A/B",
+  "metrics": {
+    "F0": {
+      "n": 1024,
+      "correct": 984,
+      "errors": 40,
+      "fer": 0.0390625,
+      "mean_complete_seconds": 0.35432787159129475
+    },
+    "F0_LOCAL": {
+      "n": 1024,
+      "correct": 995,
+      "errors": 29,
+      "fer": 0.0283203125,
+      "mean_complete_seconds": 0.362872761925928
+    },
+    "B": {
+      "n": 1024,
+      "correct": 1018,
+      "errors": 6,
+      "fer": 0.005859375,
+      "mean_complete_seconds": 0.3649903174027713
+    },
+    "F2T": {
+      "n": 1024,
+      "correct": 985,
+      "errors": 39,
+      "fer": 0.0380859375,
+      "mean_complete_seconds": 0.9868371556874536
+    },
+    "F2E": {
+      "n": 1024,
+      "correct": 3,
+      "errors": 1021,
+      "fer": 0.9970703125,
+      "mean_complete_seconds": 15.630671752944409
+    }
+  },
+  "pairs": [
+    {
+      "left": "F0",
+      "right": "F0_LOCAL",
+      "left_only": 0,
+      "right_only": 11,
+      "both_wrong": 29
+    },
+    {
+      "left": "F0",
+      "right": "B",
+      "left_only": 0,
+      "right_only": 34,
+      "both_wrong": 6
+    },
+    {
+      "left": "F0",
+      "right": "F2T",
+      "left_only": 0,
+      "right_only": 1,
+      "both_wrong": 39
+    },
+    {
+      "left": "F0",
+      "right": "F2E",
+      "left_only": 981,
+      "right_only": 0,
+      "both_wrong": 40
+    },
+    {
+      "left": "F0_LOCAL",
+      "right": "B",
+      "left_only": 0,
+      "right_only": 23,
+      "both_wrong": 6
+    },
+    {
+      "left": "F0_LOCAL",
+      "right": "F2T",
+      "left_only": 11,
+      "right_only": 1,
+      "both_wrong": 28
+    },
+    {
+      "left": "F0_LOCAL",
+      "right": "F2E",
+      "left_only": 992,
+      "right_only": 0,
+      "both_wrong": 29
+    },
+    {
+      "left": "B",
+      "right": "F2T",
+      "left_only": 33,
+      "right_only": 0,
+      "both_wrong": 6
+    },
+    {
+      "left": "B",
+      "right": "F2E",
+      "left_only": 1015,
+      "right_only": 0,
+      "both_wrong": 6
+    },
+    {
+      "left": "F2T",
+      "right": "F2E",
+      "left_only": 982,
+      "right_only": 0,
+      "both_wrong": 39
+    }
+  ],
+  "current_family": [
+    "F0",
+    "F0_LOCAL",
+    "B"
+  ],
+  "final_oracle": {
+    "errors": 6,
+    "extra_correct_vs_B": 0,
+    "mean_complete_seconds_excluding_selection_cost": 0.3628328138008783,
+    "action_counts": {
+      "F0": 990,
+      "F0_LOCAL": 10,
+      "B": 24
+    },
+    "failure_ids": [
+      "s650_f0390",
+      "s650_f0415",
+      "s650_f0718",
+      "s650_f0720",
+      "s650_f0770",
+      "s650_f0996"
+    ]
+  },
+  "deadline_oracles": [
+    {
+      "deadline_seconds": 0.5,
+      "individual_correct": {
+        "F0": 984,
+        "F0_LOCAL": 987,
+        "B": 986
+      },
+      "oracle_correct": 988,
+      "oracle_extra_vs_B": 2,
+      "oracle_missing_or_wrong": 36
+    },
+    {
+      "deadline_seconds": 1.0,
+      "individual_correct": {
+        "F0": 984,
+        "F0_LOCAL": 995,
+        "B": 1018
+      },
+      "oracle_correct": 1018,
+      "oracle_extra_vs_B": 0,
+      "oracle_missing_or_wrong": 6
+    }
+  ],
+  "F1": {
+    "n": 1024,
+    "F1_errors": 12,
+    "F1_CSTATE_errors": 0,
+    "LOCAL_trigger_count": 12,
+    "LOCAL_trigger_correct": 11,
+    "LOCAL_population_timed_arm": false
+  },
+  "deployable_policy": {
+    "name": "native nonzero syndrome -> CSTATE, otherwise STOP",
+    "same_as_B": true,
+    "oracle_labels_used": false,
+    "additional_gate_trained": false
+  },
+  "limitations": [
+    "Outcome counts are recomputed from saved analysis CSV; original raw-to-truth recount exists in prior independent receipt.",
+    "No new learned/risk threshold gate is fitted on exposed labels.",
+    "Oracle cost omits selection cost and knows correctness; it is not achievable evidence.",
+    "Deadline oracle switches whole logged policies; it is not a tested scheduling system.",
+    "F1 timings belong to another campaign and are not combined here."
+  ]
+}

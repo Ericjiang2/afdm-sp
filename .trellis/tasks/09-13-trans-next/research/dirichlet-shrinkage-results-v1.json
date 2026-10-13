@@ -1,0 +1,1085 @@
+{
+  "scope": "32 reused G1 development blocks; engineering not independent; descriptive paired inference only",
+  "bootstrap": {
+    "seed": 202609141902,
+    "replicates": 20000,
+    "unit": "channel block shared across SNR",
+    "FER_family": 6,
+    "offline_HNMSE_family": 24
+  },
+  "FER": [
+    {
+      "snr": 7,
+      "kind": "ridge",
+      "frames": 32,
+      "failures": 13,
+      "info_bit_errors": 1583,
+      "H_NMSE": 0.07226104767551682,
+      "receiver_seconds": 2.75752701500096,
+      "prior_seconds": 0.08611750743511948,
+      "resource_counts": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      }
+    },
+    {
+      "snr": 7,
+      "kind": "diagonal",
+      "frames": 32,
+      "failures": 21,
+      "info_bit_errors": 2785,
+      "H_NMSE": 0.08201321048788081,
+      "receiver_seconds": 2.4359131712990347,
+      "prior_seconds": 0.08362348686569021,
+      "resource_counts": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      }
+    },
+    {
+      "snr": 7,
+      "kind": "dirichlet",
+      "frames": 32,
+      "failures": 21,
+      "info_bit_errors": 2672,
+      "H_NMSE": 0.07739537277357254,
+      "receiver_seconds": 1.8032563537708484,
+      "prior_seconds": 0.05733050179333077,
+      "resource_counts": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      }
+    },
+    {
+      "snr": 8,
+      "kind": "ridge",
+      "frames": 32,
+      "failures": 2,
+      "info_bit_errors": 194,
+      "H_NMSE": 0.07097573810634249,
+      "receiver_seconds": 2.6968851919737062,
+      "prior_seconds": 0.08550258821560419,
+      "resource_counts": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      }
+    },
+    {
+      "snr": 8,
+      "kind": "diagonal",
+      "frames": 32,
+      "failures": 5,
+      "info_bit_errors": 671,
+      "H_NMSE": 0.0705677944527569,
+      "receiver_seconds": 2.4428579042978527,
+      "prior_seconds": 0.08390516553481575,
+      "resource_counts": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      }
+    },
+    {
+      "snr": 8,
+      "kind": "dirichlet",
+      "frames": 32,
+      "failures": 4,
+      "info_bit_errors": 420,
+      "H_NMSE": 0.06513451901864883,
+      "receiver_seconds": 1.754791823499545,
+      "prior_seconds": 0.05688267732330132,
+      "resource_counts": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      }
+    }
+  ],
+  "FER_pairs": [
+    {
+      "snr": 7,
+      "arm": "dirichlet",
+      "reference": "ridge",
+      "delta": 0.25,
+      "simultaneous95": [
+        0.0625,
+        0.46875
+      ],
+      "rescued": [],
+      "harmed": [
+        0,
+        5,
+        6,
+        7,
+        12,
+        13,
+        19,
+        28
+      ]
+    },
+    {
+      "snr": 7,
+      "arm": "diagonal",
+      "reference": "ridge",
+      "delta": 0.25,
+      "simultaneous95": [
+        0.0625,
+        0.46875
+      ],
+      "rescued": [],
+      "harmed": [
+        5,
+        6,
+        7,
+        12,
+        13,
+        19,
+        23,
+        28
+      ]
+    },
+    {
+      "snr": 7,
+      "arm": "dirichlet",
+      "reference": "diagonal",
+      "delta": 0.0,
+      "simultaneous95": [
+        -0.125,
+        0.125
+      ],
+      "rescued": [
+        23
+      ],
+      "harmed": [
+        0
+      ]
+    },
+    {
+      "snr": 8,
+      "arm": "dirichlet",
+      "reference": "ridge",
+      "delta": 0.0625,
+      "simultaneous95": [
+        -0.09375,
+        0.25
+      ],
+      "rescued": [
+        25
+      ],
+      "harmed": [
+        14,
+        17,
+        18
+      ]
+    },
+    {
+      "snr": 8,
+      "arm": "diagonal",
+      "reference": "ridge",
+      "delta": 0.09375,
+      "simultaneous95": [
+        -0.0625,
+        0.28125
+      ],
+      "rescued": [
+        25
+      ],
+      "harmed": [
+        2,
+        14,
+        17,
+        27
+      ]
+    },
+    {
+      "snr": 8,
+      "arm": "dirichlet",
+      "reference": "diagonal",
+      "delta": -0.03125,
+      "simultaneous95": [
+        -0.1875,
+        0.09375
+      ],
+      "rescued": [
+        2,
+        27
+      ],
+      "harmed": [
+        18
+      ]
+    }
+  ],
+  "offline": [
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 0.01,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.09710223702326204,
+      "ridge_H_NMSE": 0.09636227863548513,
+      "delta": 0.0007399583877769082,
+      "relative_delta": 0.0076789216512406205,
+      "simultaneous95": [
+        0.000473611374155854,
+        0.0010140504957805994
+      ],
+      "mean_Hp_NMSE": 0.09501362120061146,
+      "ridge_Hp_NMSE": 0.09428500029723591
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 0.01,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.09740167365195007,
+      "ridge_H_NMSE": 0.09636227863548513,
+      "delta": 0.0010393950164649507,
+      "relative_delta": 0.010786326674535449,
+      "simultaneous95": [
+        0.0007468987144493754,
+        0.0013457199646945367
+      ],
+      "mean_Hp_NMSE": 0.0953115350953042,
+      "ridge_Hp_NMSE": 0.09428500029723591
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 0.1,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.09182443635825813,
+      "ridge_H_NMSE": 0.08832943793066059,
+      "delta": 0.0034949984275975355,
+      "relative_delta": 0.03956776482989897,
+      "simultaneous95": [
+        0.0013746811401259128,
+        0.005701132633061115
+      ],
+      "mean_Hp_NMSE": 0.08984105289637885,
+      "ridge_Hp_NMSE": 0.08640743027758305
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 0.1,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.09188924129098228,
+      "ridge_H_NMSE": 0.08832943793066059,
+      "delta": 0.003559803360321687,
+      "relative_delta": 0.040301437931894966,
+      "simultaneous95": [
+        0.0011152800136242258,
+        0.0061101443287336545
+      ],
+      "mean_Hp_NMSE": 0.08989484325455545,
+      "ridge_Hp_NMSE": 0.08640743027758305
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 1.0,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.13607544076389105,
+      "ridge_H_NMSE": 0.2673420513525362,
+      "delta": -0.13126661058864517,
+      "relative_delta": -0.4910062218964113,
+      "simultaneous95": [
+        -0.1436335747435941,
+        -0.11762655545530301
+      ],
+      "mean_Hp_NMSE": 0.13433741624107645,
+      "ridge_Hp_NMSE": 0.26536006184909916
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 1.0,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.10861852321306002,
+      "ridge_H_NMSE": 0.2673420513525362,
+      "delta": -0.15872352813947618,
+      "relative_delta": -0.5937095467640147,
+      "simultaneous95": [
+        -0.1684964389633699,
+        -0.14745350323663195
+      ],
+      "mean_Hp_NMSE": 0.10686967823080244,
+      "ridge_Hp_NMSE": 0.26536006184909916
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 0.01,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.07891547216334124,
+      "ridge_H_NMSE": 0.07884097558822062,
+      "delta": 7.449657512063521e-05,
+      "relative_delta": 0.0009448966678155301,
+      "simultaneous95": [
+        -9.340472578302931e-05,
+        0.0002752353382926184
+      ],
+      "mean_Hp_NMSE": 0.07741907015605763,
+      "ridge_Hp_NMSE": 0.07733593839229866
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 0.01,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.07900792042834238,
+      "ridge_H_NMSE": 0.07884097558822062,
+      "delta": 0.00016694484012176993,
+      "relative_delta": 0.0021174882588174447,
+      "simultaneous95": [
+        -3.847118057762083e-05,
+        0.0004188135198110361
+      ],
+      "mean_Hp_NMSE": 0.07751021652596972,
+      "ridge_Hp_NMSE": 0.07733593839229866
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 0.1,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.07884149071122316,
+      "ridge_H_NMSE": 0.08139342759717288,
+      "delta": -0.0025519368859497123,
+      "relative_delta": -0.031353107508625806,
+      "simultaneous95": [
+        -0.0043167428607805555,
+        -0.000378949630287311
+      ],
+      "mean_Hp_NMSE": 0.07740344599307708,
+      "ridge_Hp_NMSE": 0.07986800186492445
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 0.1,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.07747375270406914,
+      "ridge_H_NMSE": 0.08139342759717288,
+      "delta": -0.003919674893103733,
+      "relative_delta": -0.04815714252141753,
+      "simultaneous95": [
+        -0.0057486385094277495,
+        -0.0016280236374467646
+      ],
+      "mean_Hp_NMSE": 0.07602676515267325,
+      "ridge_Hp_NMSE": 0.07986800186492445
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 1.0,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.1405868137891686,
+      "ridge_H_NMSE": 0.28814673042996974,
+      "delta": -0.14755991664080112,
+      "relative_delta": -0.5120999166661154,
+      "simultaneous95": [
+        -0.16039818524837943,
+        -0.1314563359248364
+      ],
+      "mean_Hp_NMSE": 0.13911779371439387,
+      "ridge_Hp_NMSE": 0.2862805445619676
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 1.0,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.11028084748243983,
+      "ridge_H_NMSE": 0.28814673042996974,
+      "delta": -0.1778658829475299,
+      "relative_delta": -0.6172753814770695,
+      "simultaneous95": [
+        -0.18706708161593835,
+        -0.16740146814481766
+      ],
+      "mean_Hp_NMSE": 0.10881518614429402,
+      "ridge_Hp_NMSE": 0.2862805445619676
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 0.01,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.09138451461741856,
+      "ridge_H_NMSE": 0.09033743468376397,
+      "delta": 0.0010470799336545896,
+      "relative_delta": 0.011590764529898453,
+      "simultaneous95": [
+        0.0006100532251509187,
+        0.001507820345790027
+      ],
+      "mean_Hp_NMSE": 0.08991074886262468,
+      "ridge_Hp_NMSE": 0.08886768814370476
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 0.01,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.09182453093916779,
+      "ridge_H_NMSE": 0.09033743468376397,
+      "delta": 0.0014870962554038303,
+      "relative_delta": 0.016461572775556144,
+      "simultaneous95": [
+        0.0009360065149346713,
+        0.002085409536682967
+      ],
+      "mean_Hp_NMSE": 0.09035101971831921,
+      "ridge_Hp_NMSE": 0.08886768814370476
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 0.1,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.08433785752713543,
+      "ridge_H_NMSE": 0.07893038875892266,
+      "delta": 0.005407468768212768,
+      "relative_delta": 0.06850933909281527,
+      "simultaneous95": [
+        0.001712128267226387,
+        0.009335137845980461
+      ],
+      "mean_Hp_NMSE": 0.08291619300679183,
+      "ridge_Hp_NMSE": 0.07750219991960448
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 0.1,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.08532159440423737,
+      "ridge_H_NMSE": 0.07893038875892266,
+      "delta": 0.00639120564531471,
+      "relative_delta": 0.08097268676625159,
+      "simultaneous95": [
+        0.0018021225853370253,
+        0.011349365476868887
+      ],
+      "mean_Hp_NMSE": 0.0839015594919573,
+      "ridge_Hp_NMSE": 0.07750219991960448
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 1.0,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.12637818204746465,
+      "ridge_H_NMSE": 0.26236936383300424,
+      "delta": -0.13599118178553962,
+      "relative_delta": -0.5183195926491508,
+      "simultaneous95": [
+        -0.15091030981363068,
+        -0.1199184831416046
+      ],
+      "mean_Hp_NMSE": 0.12495960106302631,
+      "ridge_Hp_NMSE": 0.26051858911647435
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 1.0,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.09896976145017858,
+      "ridge_H_NMSE": 0.26236936383300424,
+      "delta": -0.16339960238282566,
+      "relative_delta": -0.6227846117232958,
+      "simultaneous95": [
+        -0.17612985040903895,
+        -0.14917100350035092
+      ],
+      "mean_Hp_NMSE": 0.09758064081734646,
+      "ridge_Hp_NMSE": 0.26051858911647435
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 0.01,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.06937378681568382,
+      "ridge_H_NMSE": 0.06925540014636855,
+      "delta": 0.00011838666931527372,
+      "relative_delta": 0.0017094214900941758,
+      "simultaneous95": [
+        -0.00016737398130841334,
+        0.0005203467512012342
+      ],
+      "mean_Hp_NMSE": 0.06835579638551983,
+      "ridge_Hp_NMSE": 0.06822551943055925
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 0.01,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.0694750646186506,
+      "ridge_H_NMSE": 0.06925540014636855,
+      "delta": 0.0002196644722820681,
+      "relative_delta": 0.0031718028026380025,
+      "simultaneous95": [
+        -0.0001409608915205716,
+        0.0007027965979092324
+      ],
+      "mean_Hp_NMSE": 0.06845740068039835,
+      "ridge_Hp_NMSE": 0.06822551943055925
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 0.1,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.06983181488394917,
+      "ridge_H_NMSE": 0.07273606461215842,
+      "delta": -0.002904249728209251,
+      "relative_delta": -0.03992860685679415,
+      "simultaneous95": [
+        -0.00571678854067331,
+        0.00081673308175739
+      ],
+      "mean_Hp_NMSE": 0.06881903543953176,
+      "ridge_Hp_NMSE": 0.07160041883163663
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 0.1,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.06853388134049958,
+      "ridge_H_NMSE": 0.07273606461215842,
+      "delta": -0.004202183271658848,
+      "relative_delta": -0.0577730358944443,
+      "simultaneous95": [
+        -0.0073049999304295775,
+        -4.08394748675294e-05
+      ],
+      "mean_Hp_NMSE": 0.0675227087446324,
+      "ridge_Hp_NMSE": 0.07160041883163663
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 1.0,
+      "kind": "diagonal",
+      "mean_H_NMSE": 0.13589513804917214,
+      "ridge_H_NMSE": 0.29127576199542404,
+      "delta": -0.15538062394625185,
+      "relative_delta": -0.5334485193062267,
+      "simultaneous95": [
+        -0.16960295503630599,
+        -0.1378869430162225
+      ],
+      "mean_Hp_NMSE": 0.13467655931168018,
+      "ridge_Hp_NMSE": 0.2895405778712451
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 1.0,
+      "kind": "dirichlet",
+      "mean_H_NMSE": 0.10466841937988028,
+      "ridge_H_NMSE": 0.29127576199542404,
+      "delta": -0.18660734261554374,
+      "relative_delta": -0.6406552379681882,
+      "simultaneous95": [
+        -0.19771094470513023,
+        -0.17384646902726117
+      ],
+      "mean_Hp_NMSE": 0.1034735660370612,
+      "ridge_Hp_NMSE": 0.2895405778712451
+    }
+  ],
+  "provenance": {
+    "raw_root": "afdm_sp_joint_unrolled/outputs_dirichlet_shrinkage_20260914",
+    "audits": [
+      {
+        "status": "PASS",
+        "target": "engineering",
+        "blocks": [
+          0,
+          20
+        ],
+        "raw_records": 340,
+        "offline_prior_groups": 36,
+        "independent_LDPC_replays": 16,
+        "new_receiver_calls": 0,
+        "summary_sha256": "8c9ee40cd4dd43468cc1d9eda51f5f501f36377d8c766d263c86e9035489544c",
+        "contract_sha256": "a224031d7692219f9faccb1e73b715f0f9f78c753edebfec3e8bd1313717058f",
+        "source_sha256": "50fb12ce9f4846a30a7d5644782ad6bd71afaadac70ca84629560804a31628df",
+        "script_sha256": "b93e3ccd60133bf0a11dc6b4e7bb77e15e05ef64e7aaae070e385def24d1423c",
+        "engineering_origin": {
+          "summary_sha256": "8c9ee40cd4dd43468cc1d9eda51f5f501f36377d8c766d263c86e9035489544c",
+          "contract_sha256": "55cb673347d2e77ab9f817d0b08976f37fdc93e8440f2c4a250c97901766fb55",
+          "script_sha256": "baba47e7e115681052def891cfa38554639c81b12a198fbf48b3e2dcde672099"
+        },
+        "wall_seconds": 27.991474151611328,
+        "scope": "Fixed support N1024 G1 CPU development, saved32blocks; no new physical channel, no G0 modification, no continuous parameter estimation; same solve/iteration budget, actual cost measured, no formal CONF/COST"
+      },
+      {
+        "status": "PASS",
+        "target": "development",
+        "blocks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "raw_records": 5040,
+        "offline_prior_groups": 540,
+        "independent_LDPC_replays": 180,
+        "new_receiver_calls": 0,
+        "summary_sha256": "04cfa02b7600bd9a53ac4d0a5c97ae5caafdef94816ce0697917af81aa75cda7",
+        "contract_sha256": "a224031d7692219f9faccb1e73b715f0f9f78c753edebfec3e8bd1313717058f",
+        "source_sha256": "50fb12ce9f4846a30a7d5644782ad6bd71afaadac70ca84629560804a31628df",
+        "script_sha256": "b93e3ccd60133bf0a11dc6b4e7bb77e15e05ef64e7aaae070e385def24d1423c",
+        "engineering_origin": null,
+        "wall_seconds": 397.2301776409149,
+        "scope": "Fixed support N1024 G1 CPU development, saved32blocks; no new physical channel, no G0 modification, no continuous parameter estimation; same solve/iteration budget, actual cost measured, no formal CONF/COST"
+      }
+    ],
+    "reference_source": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_trans_next_20260913/runs/g1-strong-development-recovery-v1/development/summary.json",
+    "reference_sha256": "c9bbc984198a8c0e69cb0bb37316150c506f0e11b84fbec741fa54ef91e16955",
+    "analyzer_sha256": "5dcb5c7c9c6411a0de538d4d9decd9dcb9b148c557e93c1a30964148aafcff60",
+    "exposure": "Retrospective: generated results and some endpoints were read before this analysis."
+  },
+  "accounting": {
+    "offline_CE_solves": 5184,
+    "new_full_receivers": 192,
+    "default_full_replays": 4,
+    "audited_raw_records": 5380,
+    "independent_LDPC_replays": 196,
+    "new_physical_channels": 0,
+    "original_engineering_final_meter_failure_retained": true
+  },
+  "historical_G1_FULL": {
+    "7": {
+      "failures": 25
+    },
+    "8": {
+      "failures": 6
+    }
+  },
+  "offline_means": [
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 0.01,
+      "kind": "ridge",
+      "coefficient_risk": 0.03848796535241737,
+      "H_NMSE": 0.09636227863548513,
+      "Hp_NMSE": 0.09428500029723591,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 0.01,
+      "kind": "diagonal",
+      "coefficient_risk": 0.039248641274917714,
+      "H_NMSE": 0.09710223702326203,
+      "Hp_NMSE": 0.09501362120061146,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 0.01,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.039561397780473434,
+      "H_NMSE": 0.09740167365195009,
+      "Hp_NMSE": 0.0953115350953042,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 0.1,
+      "kind": "ridge",
+      "coefficient_risk": 0.030186755621792887,
+      "H_NMSE": 0.0883294379306606,
+      "Hp_NMSE": 0.08640743027758305,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 0.1,
+      "kind": "diagonal",
+      "coefficient_risk": 0.03379781863123484,
+      "H_NMSE": 0.09182443635825814,
+      "Hp_NMSE": 0.08984105289637885,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 0.1,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.03387351158739228,
+      "H_NMSE": 0.09188924129098229,
+      "Hp_NMSE": 0.08989484325455545,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 1.0,
+      "kind": "ridge",
+      "coefficient_risk": 0.2146479912027542,
+      "H_NMSE": 0.26734205135253625,
+      "Hp_NMSE": 0.26536006184909916,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 1.0,
+      "kind": "diagonal",
+      "coefficient_risk": 0.07958638545808522,
+      "H_NMSE": 0.13607544076389105,
+      "Hp_NMSE": 0.13433741624107645,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 7,
+      "strength": 1.0,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.05112301390549428,
+      "H_NMSE": 0.10861852321306002,
+      "Hp_NMSE": 0.10686967823080244,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 0.01,
+      "kind": "ridge",
+      "coefficient_risk": 0.021324713849810495,
+      "H_NMSE": 0.07884097558822062,
+      "Hp_NMSE": 0.07733593839229866,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 0.01,
+      "kind": "diagonal",
+      "coefficient_risk": 0.021401712724451884,
+      "H_NMSE": 0.07891547216334124,
+      "Hp_NMSE": 0.07741907015605763,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 0.01,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.021500345780944816,
+      "H_NMSE": 0.0790079204283424,
+      "Hp_NMSE": 0.07751021652596972,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 0.1,
+      "kind": "ridge",
+      "coefficient_risk": 0.02391091918616768,
+      "H_NMSE": 0.08139342759717288,
+      "Hp_NMSE": 0.07986800186492445,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 0.1,
+      "kind": "diagonal",
+      "coefficient_risk": 0.021311562309810142,
+      "H_NMSE": 0.07884149071122315,
+      "Hp_NMSE": 0.07740344599307708,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 0.1,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.019903924333394094,
+      "H_NMSE": 0.07747375270406914,
+      "Hp_NMSE": 0.07602676515267325,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 1.0,
+      "kind": "ridge",
+      "coefficient_risk": 0.23692161403894366,
+      "H_NMSE": 0.28814673042996974,
+      "Hp_NMSE": 0.2862805445619676,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 1.0,
+      "kind": "diagonal",
+      "coefficient_risk": 0.08514399590148201,
+      "H_NMSE": 0.1405868137891686,
+      "Hp_NMSE": 0.13911779371439387,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "mean9",
+      "snr": 8,
+      "strength": 1.0,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.05373742297316151,
+      "H_NMSE": 0.11028084748243984,
+      "Hp_NMSE": 0.10881518614429402,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 0.01,
+      "kind": "ridge",
+      "coefficient_risk": 0.03232655379242916,
+      "H_NMSE": 0.09033743468376397,
+      "Hp_NMSE": 0.08886768814370476,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 0.01,
+      "kind": "diagonal",
+      "coefficient_risk": 0.03340454901513297,
+      "H_NMSE": 0.09138451461741856,
+      "Hp_NMSE": 0.08991074886262468,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 0.01,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.03386452084981907,
+      "H_NMSE": 0.09182453093916779,
+      "Hp_NMSE": 0.09035101971831921,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 0.1,
+      "kind": "ridge",
+      "coefficient_risk": 0.020501209577991817,
+      "H_NMSE": 0.07893038875892266,
+      "Hp_NMSE": 0.07750219991960448,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 0.1,
+      "kind": "diagonal",
+      "coefficient_risk": 0.026095680416691996,
+      "H_NMSE": 0.08433785752713543,
+      "Hp_NMSE": 0.08291619300679183,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 0.1,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.027133582447130974,
+      "H_NMSE": 0.08532159440423737,
+      "Hp_NMSE": 0.0839015594919573,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 1.0,
+      "kind": "ridge",
+      "coefficient_risk": 0.20941001384398933,
+      "H_NMSE": 0.26236936383300424,
+      "Hp_NMSE": 0.26051858911647435,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 1.0,
+      "kind": "diagonal",
+      "coefficient_risk": 0.06952903507915803,
+      "H_NMSE": 0.12637818204746465,
+      "Hp_NMSE": 0.12495960106302631,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "last",
+      "snr": 7,
+      "strength": 1.0,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.041127181659127786,
+      "H_NMSE": 0.09896976145017858,
+      "Hp_NMSE": 0.09758064081734646,
+      "projection_floor": 0.05909558529859761
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 0.01,
+      "kind": "ridge",
+      "coefficient_risk": 0.011420402541387842,
+      "H_NMSE": 0.06925540014636855,
+      "Hp_NMSE": 0.06822551943055925,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 0.01,
+      "kind": "diagonal",
+      "coefficient_risk": 0.011546942639234017,
+      "H_NMSE": 0.06937378681568382,
+      "Hp_NMSE": 0.06835579638551983,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 0.01,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.011655282447518178,
+      "H_NMSE": 0.0694750646186506,
+      "Hp_NMSE": 0.06845740068039835,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 0.1,
+      "kind": "ridge",
+      "coefficient_risk": 0.014915185938520925,
+      "H_NMSE": 0.07273606461215842,
+      "Hp_NMSE": 0.07160041883163663,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 0.1,
+      "kind": "diagonal",
+      "coefficient_risk": 0.011985523950429889,
+      "H_NMSE": 0.06983181488394917,
+      "Hp_NMSE": 0.06881903543953176,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 0.1,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.010655156353425298,
+      "H_NMSE": 0.06853388134049958,
+      "Hp_NMSE": 0.0675227087446324,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 1.0,
+      "kind": "ridge",
+      "coefficient_risk": 0.24000177103078757,
+      "H_NMSE": 0.29127576199542404,
+      "Hp_NMSE": 0.2895405778712451,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 1.0,
+      "kind": "diagonal",
+      "coefficient_risk": 0.08019712268724938,
+      "H_NMSE": 0.13589513804917214,
+      "Hp_NMSE": 0.13467655931168018,
+      "projection_floor": 0.058210478713790356
+    },
+    {
+      "aggregate": "last",
+      "snr": 8,
+      "strength": 1.0,
+      "kind": "dirichlet",
+      "coefficient_risk": 0.04785164591578593,
+      "H_NMSE": 0.10466841937988028,
+      "Hp_NMSE": 0.1034735660370612,
+      "projection_floor": 0.058210478713790356
+    }
+  ],
+  "decision": {
+    "dirichlet_qualified": false,
+    "reason": "No FER advantage over ridge/diagonal; 7 dB is worse than ridge in the registered comparison.",
+    "future_strong_classical": "Frozen ridge strength 0.1 is an ordinary reference, not a novel contribution.",
+    "no_online_strength_reselection": true,
+    "formal_COST_CONF_passed": false
+  }
+}

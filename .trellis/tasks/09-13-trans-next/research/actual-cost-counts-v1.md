@@ -1,0 +1,9 @@
+# 无audit的实际成本计数
+
+真实小接收机已复现receiver_resources在audit=False时IndexError；即使绕过终端读取，CE数组为空也会漏计。修复沿用现有BP schedule：实际soft_gain_update成功返回后累加completed_ce_solves；终端BP透传已有廉价edge_count_observer，记录实际边数与执行迭代，空图0迭代、早停0终端调用。资源函数读取这些实际字段。历史已审计结果仅在缺少新字段时使用原图/CE记录；无图的旧记录明确报错，不默认造计数。
+
+v4失败保留；v5真实52项回归通过（1.501秒），含真实CE求解spy、audit开关数值/计数一致、terminal空/非空图、真实检查点0早停。源码快照678b4d1997031d775239964edfc90daca81b0ad2349a8bc9c8dc841aa4e04921。只改变记账，消息算术未变。默认不请求BP schedule的返回结构保留。
+
+下一资格为N1024既有2块×7/8dB×4臂16F，600秒/4GiB/1线程及原始CE/LDPC回放。原68F报价的不可变源码和结果不改；报价统计仍按其已记录的计数局限解释。此修复仅覆盖本次BP schedule路径，不宣称所有SISO无audit资源接口已修复。
+
+N1024回归已完成：16F 49.435秒，原始审计15.653秒，1980数组、114个CE状态、42次嵌套/10次终端LDPC、130次外层BP通过。新廉价计数与真实OperatorProfile调用及保存原始CE一致。摘要SHA256 `778c7aa0a3bc74104cc276d37597410cb4647aa97781c3ec8cfb3b1930326950`，audit SHA256 `1e6de8dc81013f24ab460e402b6e017cc81f5ab1165d765f887a076b624840c4`。本次完整工程启用audit；audit=False的精确计数由真实小模型测试证明，后续完整报价继续核验大模型关闭audit路径。

@@ -1,0 +1,39 @@
+{
+  "schema": "supplement-pilot-receiver-selection-protocol-v1",
+  "frozen_unix": 1788951971.756778,
+  "scope": "Pmatched development selection only; no confirmation data access",
+  "basis": "reuse existing BASE select_references rule unchanged per pilot",
+  "selector_source_sha256": "3fc90e191fbc3e87ef602ae58aa993cfcd249af4ecdb4e0c7b6aee7fa29545a2",
+  "blocks": 192,
+  "snr_db": 8,
+  "pilots": [
+    "p0",
+    "p1",
+    "p2"
+  ],
+  "recipes": [
+    "B0-p2-s0.5",
+    "bounded-param-p3-s1",
+    "group-p3-s1",
+    "ridge-p3-s0.5",
+    "SBL-p2-s0.5",
+    "B0-p3-s0.5",
+    "B0-p2-s1",
+    "bounded-param-p2-s1"
+  ],
+  "qualification": "all192 baseline_eligible flags must match actual frozen initializer/refit diagnostic qualification; no failed frame dropping",
+  "cost": "same original validated A2 complete-F quote and1.1 ratio as BASE provisional screen; preserve all complete elapsed values; concurrent development time is not formal COST-02 acceptance",
+  "ranking": [
+    "FER",
+    "mean_seconds",
+    "recipe_id"
+  ],
+  "comparison_family": "all28 unordered within-pilot recipe pairs x3 pilots =84 exploratory paired comparisons",
+  "alpha_development": 0.05,
+  "comparisons": 84,
+  "primary": "first reference returned by existing select_references per pilot",
+  "uncertainty": "retain returned secondary, family representatives and all not-demonstrably-worse alternatives; not selected does not mean defeated",
+  "power": "report all power violations without filtering frames or selecting pilot from outcome; simulation gate failure prevents deployable claim",
+  "confirmation": "both Pfixed and Pmatched retain p1-p0,p2-p0,p1-p2; freeze primary receiver for each pilot before confirmation; no automatic new confirmation arms",
+  "failure": "if no qualified budget reference, report no eligible Pmatched primary; do not substitute an unqualified/overbudget arm or silently change denominator"
+}

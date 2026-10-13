@@ -1,0 +1,241 @@
+{
+  "status": "complete",
+  "receiver_calls": 5,
+  "raw_calls": [
+    {
+      "arm": "native_one",
+      "call": 1,
+      "status": "complete",
+      "wall_seconds": 0.09195874992292374,
+      "cpu_seconds": 0.07308899999999996,
+      "operation_calls": {
+        "pilot_front": 1,
+        "channel_regressors": 1,
+        "regressor_columns": 515,
+        "numpy_ifft": 24,
+        "fft_vector_transforms": 560,
+        "numpy_fft": 22,
+        "time_refine": 1,
+        "numpy_solve": 138,
+        "scalar_joint": 1,
+        "path_responses_time": 20,
+        "path_adjoint_time": 20,
+        "decoder_messages": 1
+      },
+      "raw_path": "raw/native_one.npz",
+      "raw_sha256": "a614c7a77b6f3695b256fc68e858b5e9105fff107bf76f8eb3ebe8cc75f94aa4"
+    },
+    {
+      "arm": "disabled_replay",
+      "call": 2,
+      "status": "complete",
+      "wall_seconds": 0.06910545809660107,
+      "cpu_seconds": 0.06892199999999993,
+      "operation_calls": {
+        "pilot_front": 1,
+        "channel_regressors": 1,
+        "regressor_columns": 515,
+        "numpy_ifft": 24,
+        "fft_vector_transforms": 560,
+        "numpy_fft": 22,
+        "time_refine": 1,
+        "numpy_solve": 138,
+        "scalar_joint": 1,
+        "path_responses_time": 20,
+        "path_adjoint_time": 20,
+        "decoder_messages": 1
+      },
+      "raw_path": "raw/disabled_replay.npz",
+      "raw_sha256": "3aeef9cf095c4a00111fb8eeb659f083cb4d99a125bf2a695b50681995f4291c"
+    },
+    {
+      "arm": "native_two",
+      "call": 3,
+      "status": "complete",
+      "wall_seconds": 0.11190512508619577,
+      "cpu_seconds": 0.11175899999999994,
+      "operation_calls": {
+        "pilot_front": 1,
+        "channel_regressors": 1,
+        "regressor_columns": 515,
+        "numpy_ifft": 47,
+        "fft_vector_transforms": 604,
+        "numpy_fft": 43,
+        "time_refine": 2,
+        "numpy_solve": 284,
+        "scalar_joint": 2,
+        "path_responses_time": 40,
+        "path_adjoint_time": 40,
+        "decoder_messages": 2
+      },
+      "raw_path": "raw/native_two.npz",
+      "raw_sha256": "6ccb5bf2a26bb2f3bbc9c3a4141f56ca8d630b004a9d3e44a9114b4c266dcc3e"
+    },
+    {
+      "arm": "pair",
+      "call": 4,
+      "status": "complete",
+      "wall_seconds": 0.6993447090499103,
+      "cpu_seconds": 0.698876,
+      "operation_calls": {
+        "pilot_front": 1,
+        "channel_regressors": 1,
+        "regressor_columns": 515,
+        "numpy_ifft": 1029,
+        "fft_vector_transforms": 1545,
+        "numpy_fft": 2,
+        "time_refine": 1,
+        "numpy_solve": 10378,
+        "gaussian_pass": 1,
+        "path_responses_time": 1025,
+        "gaussian_blocks": 512,
+        "numpy_cholesky": 8704,
+        "gaussian_likelihood_batches": 512,
+        "local_word_likelihoods": 8192,
+        "decoder_messages": 1
+      },
+      "raw_path": "raw/pair.npz",
+      "raw_sha256": "f8ad333d0ebb9665f217abacc5daa8ed530ccae116b3d1f5833c1b4bc5d1a89e"
+    },
+    {
+      "arm": "single",
+      "call": 5,
+      "status": "complete",
+      "wall_seconds": 0.635298958979547,
+      "cpu_seconds": 0.6350630000000002,
+      "operation_calls": {
+        "pilot_front": 1,
+        "channel_regressors": 1,
+        "regressor_columns": 515,
+        "numpy_ifft": 1029,
+        "fft_vector_transforms": 1545,
+        "numpy_fft": 2,
+        "time_refine": 1,
+        "numpy_solve": 8330,
+        "gaussian_pass": 1,
+        "path_responses_time": 1025,
+        "gaussian_blocks": 1024,
+        "numpy_cholesky": 5120,
+        "gaussian_likelihood_batches": 1024,
+        "local_word_likelihoods": 4096,
+        "decoder_messages": 1
+      },
+      "raw_path": "raw/single.npz",
+      "raw_sha256": "53ce896684d2e5d1eb4040a31625ac24955e7407eed40c9d277989ab51cd2fa9"
+    }
+  ],
+  "metrics": {
+    "native_one": {
+      "bit_log_score": 0.09917304547998286,
+      "bit_brier": 0.010404139933411634,
+      "coded_errors": 0,
+      "coded_FER": 0,
+      "information_errors": 0,
+      "information_BER": 0.0,
+      "syndrome_weight": 0,
+      "undetected_frame_error": false,
+      "decoder_iterations": 2,
+      "decode_ok": true,
+      "rescued_vs_native_two": 0,
+      "harmed_vs_native_two": 0
+    },
+    "disabled_replay": {
+      "bit_log_score": 0.09917304547998286,
+      "bit_brier": 0.010404139933411634,
+      "coded_errors": 0,
+      "coded_FER": 0,
+      "information_errors": 0,
+      "information_BER": 0.0,
+      "syndrome_weight": 0,
+      "undetected_frame_error": false,
+      "decoder_iterations": 2,
+      "decode_ok": true,
+      "rescued_vs_native_two": 0,
+      "harmed_vs_native_two": 0
+    },
+    "native_two": {
+      "bit_log_score": 0.015779018496952603,
+      "bit_brier": 0.0028596994500609246,
+      "coded_errors": 0,
+      "coded_FER": 0,
+      "information_errors": 0,
+      "information_BER": 0.0,
+      "syndrome_weight": 0,
+      "undetected_frame_error": false,
+      "decoder_iterations": 1,
+      "decode_ok": true,
+      "rescued_vs_native_two": 0,
+      "harmed_vs_native_two": 0
+    },
+    "pair": {
+      "bit_log_score": 0.13880070837571729,
+      "bit_brier": 0.028329303262173314,
+      "coded_errors": 0,
+      "coded_FER": 0,
+      "information_errors": 0,
+      "information_BER": 0.0,
+      "syndrome_weight": 0,
+      "undetected_frame_error": false,
+      "decoder_iterations": 2,
+      "decode_ok": true,
+      "rescued_vs_native_two": 0,
+      "harmed_vs_native_two": 0
+    },
+    "single": {
+      "bit_log_score": 0.13878326640650976,
+      "bit_brier": 0.028322944241733403,
+      "coded_errors": 0,
+      "coded_FER": 0,
+      "information_errors": 0,
+      "information_BER": 0.0,
+      "syndrome_weight": 0,
+      "undetected_frame_error": false,
+      "decoder_iterations": 2,
+      "decode_ok": true,
+      "rescued_vs_native_two": 0,
+      "harmed_vs_native_two": 0
+    }
+  },
+  "default_off": {
+    "status": "byte_exact",
+    "numerical_arrays": 17
+  },
+  "setup": {
+    "wall_seconds": 1.8760587089927867,
+    "cpu_seconds": 1.342644,
+    "context_build_seconds": 0.805719209020026,
+    "context_build_calls": 1
+  },
+  "generation": {
+    "wall_seconds": 0.139971167081967,
+    "cpu_seconds": 0.13783499999999993
+  },
+  "totals": {
+    "wall_seconds": 3.668063541990705,
+    "cpu_seconds": 3.111907
+  },
+  "development_projection": {
+    "cpu_seconds": {
+      "projected": 11.544690000000001,
+      "with_safety_reserve": 44.63407,
+      "shared_setup": 1.342644,
+      "generation_per_frame": 0.13783499999999993,
+      "four_arm_calls": 1.518787,
+      "measured_other_quote": 0.04371900000000006
+    },
+    "wall_seconds": {
+      "projected": 12.213454958400689,
+      "with_safety_reserve": 46.64036487520207,
+      "shared_setup": 1.8760587089927867,
+      "generation_per_frame": 0.139971167081967,
+      "four_arm_calls": 1.5385075430385768,
+      "measured_other_quote": 0.04442066478077322
+    },
+    "admitted_by_cost": true
+  },
+  "process_peak_rss_bytes": 499613696,
+  "rss_scope": "macOS process cumulative high-water mark, includes setup/generation; not method-specific",
+  "source_files_verified": 264,
+  "development_executed": false,
+  "inference_scope": "quote only; one observation cannot establish transfer/FER efficacy"
+}

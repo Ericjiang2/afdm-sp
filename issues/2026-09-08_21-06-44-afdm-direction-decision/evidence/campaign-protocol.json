@@ -1,0 +1,258 @@
+{
+  "campaign_id": "afdm-direction-20260908-v1",
+  "frozen_at": "2026-09-08T13:27:49.276817+00:00",
+  "authorization": "authorization.json current direct user approval to execute full CSV on server",
+  "prior_campaigns": "read-only sources; no old holdout or D_test in tuning/confirmation",
+  "system": {
+    "N": 1024,
+    "physical_paths": 8,
+    "active_cap": 40,
+    "rho": 0.5,
+    "l_max": 102,
+    "k_max": 2,
+    "k_leak": 2,
+    "frac_prune_rel_thres": 0.01,
+    "v_mean": 2,
+    "tau_ms": 10,
+    "fs_factor": 4,
+    "modulation": "QPSK",
+    "ldpc": {
+      "n": 2048,
+      "dv": 3,
+      "dc": 6,
+      "seed": 20260726,
+      "maxiter": 50,
+      "G_sha256": "bfd4247263adedc9a095b87603c2a7a4c2f2e8cb83f7e78bad721c5b06eaa6af"
+    },
+    "interleaver": "identity, current code convention; no random extra interleaver",
+    "checkpoint_sha256": "052ecfab8eff7780c49038d9bb4f16f92272ee22322fa05b6f65029cc3112a91",
+    "outer": 10,
+    "BP": 20,
+    "final_BP": 20,
+    "dtype_outer": "complex64",
+    "dtype_BP": "complex128",
+    "early_outer_stop": false,
+    "prior400": "frozen; B0/no-repair families do not consume it; A2 identity must hash actual file"
+  },
+  "power": {
+    "expected_tx_symbol_energy": 1.0,
+    "thermal_variance": "10**(-snr_db/10)",
+    "record_actual": "norm(pilot_scaled+data_scaled)^2/N and cross term; do not renormalize individual frames",
+    "report_data_snr": "snr_db+10*log10(1-rho)"
+  },
+  "splits": {
+    "engineering": {
+      "id": 90,
+      "blocks_max": 32,
+      "role": "numerical/unit/smoke/timing micro only"
+    },
+    "design": {
+      "id": 91,
+      "blocks": 192,
+      "SNR": [
+        8
+      ],
+      "role": "B_star and hyperparameter choice only"
+    },
+    "mechanism": {
+      "id": 92,
+      "blocks": 256,
+      "SNR": [
+        7,
+        8,
+        9
+      ],
+      "role": "exploratory route choice only"
+    },
+    "confirm": {
+      "id": 93,
+      "blocks_max": 4096,
+      "SNR": [
+        7,
+        8,
+        9
+      ],
+      "locked_until": "FREEZE-01 completed"
+    },
+    "counterexample": {
+      "id": 94,
+      "blocks_per_scene": 128,
+      "locked_until": "scene criteria freeze"
+    },
+    "timing": {
+      "id": 95,
+      "role": "isolated deployment timing, no performance selection"
+    }
+  },
+  "rng": {
+    "namespace_words": [
+      20260908,
+      210644,
+      731901
+    ],
+    "components": {
+      "channel": 1,
+      "data": 2,
+      "noise": 3,
+      "code": 4,
+      "interleaver": 5,
+      "pilot-design": 6,
+      "order": 7
+    },
+    "frame_key": "namespace + split + block + component; SNR deliberately absent to pair normalized noise across SNR",
+    "code_interleaver": "code fixed seed/hash, identity interleaver; independent namespace reserved but not used to change frozen code"
+  },
+  "design": {
+    "resolution_of_source_conflict": "eight TOTAL configurations, not 8x5 families; 192x8x1SNR=1536 full calls",
+    "recipes": [
+      {
+        "id": "b0-s0.5",
+        "family": "b0",
+        "parameter": null,
+        "terminal_scale": 0.5
+      },
+      {
+        "id": "b0-s1",
+        "family": "b0",
+        "parameter": null,
+        "terminal_scale": 1.0
+      },
+      {
+        "id": "size-s0.5",
+        "family": "size",
+        "parameter": 1.0,
+        "terminal_scale": 0.5
+      },
+      {
+        "id": "size-s1",
+        "family": "size",
+        "parameter": 1.0,
+        "terminal_scale": 1.0
+      },
+      {
+        "id": "ridge-s0.5",
+        "family": "ridge",
+        "parameter": 0.01,
+        "terminal_scale": 0.5
+      },
+      {
+        "id": "ridge-s1",
+        "family": "ridge",
+        "parameter": 0.01,
+        "terminal_scale": 1.0
+      },
+      {
+        "id": "sbl-s0.5",
+        "family": "sbl",
+        "parameter": 0.001,
+        "terminal_scale": 0.5
+      },
+      {
+        "id": "sbl-s1",
+        "family": "sbl",
+        "parameter": 0.001,
+        "terminal_scale": 1.0
+      }
+    ],
+    "parameter_rationale": "size1 is conventional BIC; ridge/SBL logarithmic-grid middle; identical scale options for every family; not chosen from old holdout",
+    "selection": "coded FER/isolated latency Pareto; default lowest FER within cost; if paired interval cannot separate top cost-class contenders retain top two for confirmation; no inference from a single point",
+    "retain_failures": true
+  },
+  "factorial": {
+    "cells": "cancel=hat/true x data=hat/true x detector=BP/reference (8)",
+    "sigma": "each block uses frozen B_star terminal sigma value multiplied by its frozen terminal scale across ALL eight cells",
+    "normal_output": "B_star own final output logged separately",
+    "detector_reference": "pre-fixed high-compute soft detector validated in DET-01 before mechanism; no reference tuning on mechanism",
+    "fresh_graph_each_cell": true,
+    "contrasts_at_8dB": [
+      "cancellation within each detector",
+      "data H within each detector",
+      "interaction within each detector",
+      "detector effect within each of four H cells"
+    ],
+    "main_mechanism_family_size": 10,
+    "uncertainty": "paired per-block contrasts; FER differences use Bonferroni-adjusted exact marginal binomial bounds; interaction uses pre-fixed paired-block bootstrap20000 with family-adjusted percentile intervals, exploratory only; zero-degenerate intervals not equivalence"
+  },
+  "statistics": {
+    "primary": "delta=FER_Bstar-FER_new",
+    "alpha_one_sided": 0.025,
+    "delta0": 0.02,
+    "delta1": 0.05,
+    "power_target": 0.9,
+    "primary_interval": "conservative exact paired win/loss: lower=CP_lower(wins,n,alpha/2)-CP_upper(losses,n,alpha/2); no independence between wins/losses assumed, union bound; upper analog",
+    "primary_pass": "lower strictly >0.02",
+    "neighbor_harm_margin": 0.01,
+    "neighbor_family_size": 2,
+    "neighbor_rule": "at each7/9dB, lower bound of delta > -0.01 using one-sided family0.05 Bonferroni alpha0.025 per endpoint; insufficient width/zero cells recorded as bounds not equivalence",
+    "confirmed_n_options": [
+      1024,
+      2048,
+      4096
+    ],
+    "neighbor_max_n": 2048,
+    "confirm_max_arms": 3,
+    "no_optional_stopping": true,
+    "sample_size": "source normal approx first; account conservative interval width in final n freeze; if >4096/approved cost then resource STOP, never add to significance",
+    "alternative_equivalence_objective": "not selected; cannot switch after seeing confirmation"
+  },
+  "route_rules": {
+    "frozen_before_Dmech": true,
+    "priority": [
+      "first correct dominant detector/cancellation classical baseline",
+      "M if mapping-underused and structural oracle budget gate passes",
+      "I-feedback or I-cancel only if structure unsuitable or relevant interface dominates",
+      "T only severe geometry alert",
+      "STOP if no sufficient realizable case"
+    ],
+    "oracle_resource_gate": "8dB point delta>=0.05 and7/9 point directions nonnegative; exploration allocation only; no precision rescue sampling",
+    "cancellation_gate": "BP cancellation-only delta>=0.05 and family-adjusted lower>0; same frozen sigma already used so oracle relief tests error not free scalar tuning",
+    "detector_dominance": "same H detector effect delta>=0.05, family lower>0, and point gain exceeds max(cancel-only,data-only) by>=0.01;7/9 no point reversal",
+    "tie": "choose higher effect per measured full cost; if within0.01 prefer M then I-cancel then I-feedback; never concatenate branches",
+    "precision_insufficient": "record uncertain and no automatic expansion; route is resource decision only",
+    "baseline_correction": "append explicit implementation/validation issue before candidate comparison; freeze only from independent design data, register all additional costs",
+    "chosen_prototype_max": 1,
+    "H_T_phase0_gate": false,
+    "H_T_evidence": "pilot-geometry.json: mu_max~0.376, no mu>=0.99 pair"
+  },
+  "budget": {
+    "limits": {
+      "host_seconds": 28800,
+      "gpu_seconds": 28800,
+      "cpu_core_seconds": 460800
+    },
+    "phase0_cpu_seconds": 600,
+    "calls_caps": {
+      "engineering_full": 128,
+      "engineering_terminal": 256,
+      "baseline_full": 1536,
+      "mechanism_full": 768,
+      "mechanism_terminal": 6144,
+      "structure_CE": 3072,
+      "structure_terminal": 3072,
+      "prototype_full": 2304,
+      "confirmation_full": 24576,
+      "counterexample_full": 2304,
+      "timing_full": 1200
+    },
+    "phase_costs": "NF*cF+NT*cT+NE*cE + source/test/independent audit/prior/transfer overhead; failures count; reserve before launch",
+    "fit_policy": "microcost first, shrink shared development/non-loadbearing scenes if needed, preserve main confirm precision or decline confirmation",
+    "parallel": "up to2 GPU workers after microcost/memory checks, separate CPU affinity groups4 cores, BLAS threads1; isolated timing single worker no GPU overlap",
+    "CPU_geometry_seconds": 5.928816182,
+    "heartbeat_minutes": 15
+  },
+  "cost_gate": {
+    "reference": "same-harness A2 achievable F2-P",
+    "mean_ratio_max": 1.1,
+    "p95_ratio_max": 1.1,
+    "peak_memory_GiB_max": 22,
+    "minimum_timing_samples_total": 1000,
+    "minimum_interleaved_blocks": 10,
+    "warmup_frames_per_arm": 10,
+    "batch": 1,
+    "pass": "block-bootstrap upper bound of each mean/p95 ratio<=1.1; overlap inconclusive",
+    "timer_original": "device-ready y to decoded bits including final BP/LLR/LDPC; simulation and logging excluded",
+    "additional_costs": "transfer/init reported separately and end-to-end inclusive report provided",
+    "A2_unavailable": "gate unverified; do not replace denominator"
+  },
+  "final_action": "one decision from source§13, not many possibilities; honest no-effect vs low-power vs resource-stop; project claims/pivot require user acceptance"
+}

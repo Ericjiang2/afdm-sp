@@ -1,0 +1,25 @@
+# F2 slot-capacity lookup (read-only source inspection)
+
+Scope: inspected local F1/Stage-B, native two-FFT, keep-slots, and LOCAL/CSTATE source interfaces. The native joint/physical paths cited below are local source paths; this lookup did not verify their byte identity against any reviewed/deployed alias or alias hash. No receiver was run and no raw/truth artifact was opened. The cited F2 support-rank estimate is treated as a design input, not independently verified here.
+
+## Where eight is a hard boundary
+
+- `experiments/cstate_necessity_stageA_20260928/f1.py:202-203,221-239` sets `stopping='eight_slots'` and executes `for _ in range(8)`. F1 acquisition therefore emits at most eight paths.
+- `experiments/cstate_necessity_stageB_20260928/f1_fast.py:156-158` inherits the same eight-iteration acquisition loop. `native_f1.py:23-28,33-38` and `f1_fast_native.py:28-41` instantiate this acquisition and pass `max_paths=8`; neither accepts an injected external support.
+- `experiments/sp_afdm_native_joint_20260921/src/native_twofft.py:16-22` calls `time_refine(..., max_paths=8)`. `src/twofft.py:82-89` groups incoming slots by unique delay, ranks delay groups by aggregate gain energy, keeps the top `max_paths`, then takes one strongest-gain Doppler center per retained delay. Thus it can collapse same-delay/multiple-Doppler slots even before its eight-delay-group cap.
+- `experiments/cstate_necessity_stageA_20260928/native_f1.py:33-38` and `f1_fast_native.py:38-43` call `time_refine_keep_slots(..., max_paths=8)` and assert the delay vector and slot count are unchanged. These call sites preserve slots only within the eight-slot F1 prefix.
+
+## Variable-count consumers
+
+- `experiments/cstate_necessity_stageA_20260928/keep_slots.py:23-40,75-98` accepts aligned delay/Doppler/gain arrays of any length `1..max_paths`, including repeated delays at distinct Dopplers; there is no intrinsic constant-eight cap. The default is eight, and current native wrappers explicitly pass eight. Its matrices scale with P (`keep_slots.py:48-60`), so large P is accepted by shape but not performance-qualified.
+- `experiments/sp_afdm_frozen_20260920/src/physical.py:92-102` defines `Channel.p` as `len(delays)` and validates equal nonzero array lengths without an eight-slot ceiling. `src/twofft.py:11-20,30-46,78-79` derives P from `c.p`, creates P-sized path operators/covariances, and has no literal path limit. These are variable-count downstream interfaces, with dense P×P work.
+- `experiments/tf_cstate_validation_20260922/geometry_validation.py:53-93,274-293,298-304` accepts a nonempty path list and sets `P=len(current)`; its kernel uses P-sized matrices. The only explicit ceiling is `max_edits <= 2` (`:72-79`), which limits replacement steps, not support size. LOCAL is `max_edits=0`; local refinement loops over every slot (`:438-470`). CSTATE preserves path count and can replace at most two slots. Wrapper checks this explicitly in `run_validation.py:48-65,82-89`.
+
+## Trigger-state reuse and integration boundary
+
+- In Stage B, arm B is the F0+TF+CSTATE arm: its native F0 prefix is run first, and a nonzero syndrome triggers `_branch(..., arrays, 'CSTATE20')` (`experiments/cstate_necessity_stageB_20260928/f1_run_stage_b.py:266-289`). The branch consumes second-round `r1_app`, `r1_check`, `r1_delays`, `r1_dopplers`, and `r1_gains` from that same F0 native call (`experiments/tf_cstate_validation_20260922/run_validation.py:45-63`), then reuses those paths for TF/LDPC continuation (`:82-92`). It is not an F1 acquisition state; the local F0 `native_twofft.receive` implementation calls `time_refine(..., max_paths=8)` (`experiments/sp_afdm_native_joint_20260921/src/native_twofft.py:16-22`), whose paired local source compresses to at most eight distinct-delay groups (`src/twofft.py:82-89`).
+- Stage A documents that C/D/E each execute their own F1 prefix (`experiments/cstate_necessity_stageA_20260928/run_stage_a.py:1-4`). C/D/E prefixes are cross-checked for equality, but E does not reuse C's saved state; it reruns and then feeds its own arrays to LOCAL20 (`:319-339,343-347`). There is no literal `F0` API name in these reviewed files; if “F0 trigger” means the existing baseline-trigger branch, the Stage-B behavior above applies.
+
+## Minimal integration advice
+
+For F2 support rank above eight, do not route the support through either `PhysicalF1` acquisition or `native_twofft.receive`/`twofft.time_refine`: those paths cap at eight and/or compress by delay. Have the F2 observed-only stage provide an explicit ordered `(delays, dopplers, gains)` vector of length P plus the required posterior/message state; construct a variable-length `Channel` and enter `scalar_joint` directly. If reusing `keep_slots`, set and record `max_paths >= P` and assert exact slot-count preservation. For LOCAL/CSTATE, seed the geometry adapter with all P F2 paths; LOCAL refines them, while CSTATE can change no more than two of them and cannot create missing support. Do not silently truncate a P≈155 support to eight. Capacity acceptance is visible in code; numerical/runtime qualification at that P remains unverified.

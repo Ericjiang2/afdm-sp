@@ -1,0 +1,68 @@
+🧿 oracle 0.9.0 — AI babysitter with merge rights.
+Launching browser mode (gpt-5.4-pro) with ~5,154 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+1. **At 25 dB: downgrade.**
+   It is **real**, but I would no longer call that single operating point a **clear, material gain** by the stricter bar you set in R1. The evidence says the sign is stable and the effect is not noise: bootstrap CI stays above 0, McNemar is overwhelming, seed-2 lands in the same ballpark, and the NMSE plot moves the same way. But the reproducible visible shift looks like roughly **2.2–2.3 dB**, not 3+ dB. That is not trivial in engineering terms, but it is below the earlier “floor.” So my paper-language verdict would be: **“reproducible moderate gain”**. If you force me into your two buckets, I would put **25 dB alone** into **“small but real”**, while still calling the **20 dB region** clearly material.
+
+2. **Yes, the mechanics threshold is satisfied.**
+   The matched-frame attribution numbers **0% / 12.4% / 21.4%** are below the **30%** bar, and the no-learn control being basically zero is the stronger piece of evidence. That is enough for me to sign off on the claim that **the learned scorer is doing the large majority of the work**. One caveat: this is still attribution-by-ablation, not a perfectly additive causal decomposition. But for a NeurIPS/ICML review standard, this is already better than what most comms-ML papers provide.
+
+3. **Yes, the P10-vs-P8 story needs to be rewritten, decisively.**
+   The old story — “P=10 is more conservative / P=8 is less selective” — is dead. Your own diagnostic kills it:
+
+* both checkpoints hit **exactly 4 adds every frame**,
+* thresholding is therefore **inactive**,
+* and P=8 does **not** show lower confidence.
+
+The safe rewrite is:
+
+> Under force-topk, both checkpoints saturate the fixed add budget; differences are driven by **which candidates are selected within that budget**, not by abstention or selectivity.
+
+One important reviewer correction: I would **not** claim “better calibration” from raw logit magnitudes across checkpoints unless you actually show calibration plots. Different checkpoints can have different logit scales. The strong claim you *can* make is: **the mechanism is ranking quality under a fixed budget, not add-count behavior**.
+
+4. **Do not switch the paper headline to “P=8 wins.” Keep the locked mainline, but change the scientific headline.**
+   If this were my paper, I would **keep P=10 ckpt on P=8 task as the primary/mainline config**, because:
+
+* it is the already-established line from Loop-11,
+* it has the cleanest full 5-SNR official evaluation,
+* and switching now would look post hoc.
+
+But I would **stop implying that P=10 is the universally best checkpoint**. The real scientific headline is now:
+
+> Learned ranking helps robustly under F2-P, but performance depends on a **checkpoint × task × SNR interaction**.
+
+Even there, I would soften the wording to **“suggests a three-way interaction”** unless you run a fuller factorial across more seeds. Right now the interaction story is convincing qualitatively, but not fully nailed statistically.
+
+5. **30 dB fragility is acceptable for submission only if you report it honestly.**
+   The pretty **4.13 dB** point is not trustworthy as a flagship number anymore. Seed-2 at **1.49 dB** says that clearly. But I do **not** think this kills the paper, because:
+
+* the sign stays positive,
+* bootstrap remains above 0,
+* and the NMSE curve improves in the same direction in both figures.
+
+So the right stance is: **high-SNR gain is positive but high-variance**. I would report a multi-seed mean/CI and explicitly de-emphasize the single-run 30 dB point. A working estimate of **~2–2.5 dB** is reasonable, but I would not call it a proven “true ceiling” yet from two seeds plus one matched subset. The fragility is acceptable; **overselling it is not**.
+
+6. **Final score: 8.1/10.**
+   That is a strong score, but not a 9-level story.
+
+Why it is still strong:
+
+* consistent positive sign at all tested SNRs,
+* paired bootstrap CIs exclude 0 everywhere,
+* classical-mechanics attribution is now genuinely convincing,
+* no-learn control is clean,
+* BER and NMSE agree in both figures.
+
+Why it is **not** a 9:
+
+* the **25 dB** point misses the earlier materiality bar,
+* the **30 dB** effect is clearly fragile,
+* the checkpoint story got messier, not cleaner,
+* and the best scientific interpretation is now **interaction-heavy**, not a simple dominant recipe.
+
+Bluntly: this moved from **“big, clean headline win”** to **“real, well-controlled, but more modest and more conditional result.”** That is still publishable. It is just no longer a chest-thumping paper. If the writing is disciplined and you present **means/CI across seeds** instead of the lucky 30 dB point, I would be positive. If you keep the old stronger narrative, I would cut this score materially.
+
+
+9m39s · gpt-5.4-pro[browser] · ↑5.15k ↓1.19k ↻0 Δ6.34k
+files=3

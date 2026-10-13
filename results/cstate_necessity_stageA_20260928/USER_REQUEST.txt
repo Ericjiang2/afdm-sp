@@ -1,0 +1,537 @@
+You are now executing the next frozen stage of the CSTATE necessity audit.
+
+This task is no longer method discovery.
+
+The research question is:
+
+> Can a modest, multiplicity-preserving, Newtonized physical front end remove most of the structural failures currently repaired by CSTATE at comparable or lower complete receiver cost?
+
+The current evidence must be interpreted exactly as follows.
+
+The latest acquisition-lineage audit on the fixed 72-frame diagnostic set found that, among 64 accepted structural modifications on the 34 CSTATE-rescued frames:
+
+- 13 modifications, involving 11 frames, inserted a delay that had been selected by the original coarse OMP but was later discarded by delay grouping;
+- 9 modifications inserted a delay not selected by the original coarse OMP;
+- 42 modifications involved a delay already retained before CSTATE.
+
+These categories overlap at the frame level and are not causal percentages.
+
+The audit therefore did NOT upgrade to A1/A2/A3. It remains unknown whether a stronger but still economical physical acquisition front end would make CSTATE unnecessary.
+
+Do not reinterpret the lineage audit beyond that boundary.
+
+The F1 specification, equation-to-source map, complexity ledger, and Stage-A preregistration have already been frozen in the project repository.
+
+Your job is to implement and execute that frozen test faithfully.
+
+--------------------------------------------------
+1. SOURCE PRECEDENCE
+--------------------------------------------------
+
+Before any receiver call, locate and verify the frozen records:
+
+- F1_NOMP_AFDM_SPEC.md
+- F1_EQUATION_TO_SOURCE_MAP.md
+- F1_COMPLEXITY_LEDGER.md
+- STAGE_A_PREREGISTRATION.md
+- CSTATE_ACQUISITION_LINEAGE_AUDIT.md
+- associated provenance / manifest / source hashes
+
+Use those records as authoritative.
+
+Do not silently redesign F1 from this prompt if the frozen specification is more precise.
+
+If any material F1 parameter or interface remains genuinely unspecified, STOP BEFORE running receiver comparisons and report the ambiguity.
+
+Do not choose a value after inspecting performance.
+
+--------------------------------------------------
+2. HARD EXPERIMENT BOUNDARY
+--------------------------------------------------
+
+This is a DEVELOPMENTAL Stage-A experiment on the already studied archived 6.5-dB 1024-observation population.
+
+It is NOT fresh confirmation.
+
+The results may:
+
+- falsify the current CSTATE systems story;
+- justify a stronger-front-end follow-up;
+- identify the need for F2;
+- or motivate a later fresh preregistered campaign.
+
+They must NOT be described as prospective confirmation.
+
+No observation may be added, removed, replaced, or selected based on outcome.
+
+Use the full frozen 1024-observation population.
+
+Preserve exact observation hashes and paired identity across arms.
+
+--------------------------------------------------
+3. IMPLEMENT F1 EXACTLY AS FROZEN
+--------------------------------------------------
+
+F1 is the previously frozen:
+
+> multiplicity-preserving Newtonized physical OMP / NOMP-style AFDM acquisition comparator.
+
+It is a hostile classical comparator, NOT a claimed new contribution.
+
+Its purpose is to remove the most questionable restrictions of F0:
+
+- coarse leakage-atom compression;
+- delay-energy grouping as final model selection;
+- one-Doppler-center-per-delay restriction.
+
+F1 must use only legal observed information available to the original acquisition stage:
+
+- received observation;
+- known pilot;
+- declared noise/configuration;
+- frozen AFDM/CPP physical operator;
+- no decoder APP at initial acquisition;
+- no truth.
+
+F1 must preserve same-delay multiplicity when independently selected physical paths support it.
+
+Do not pass F1 through any native regrouping function that destroys this multiplicity.
+
+--------------------------------------------------
+4. PRE-RECEIVER IMPLEMENTATION TESTS
+--------------------------------------------------
+
+Before Stage A, independently verify the F1 implementation.
+
+At minimum test:
+
+A. Physical path response
+
+For arbitrary allowed (l, nu),
+
+    direct F1 response
+    vs
+    authoritative frozen AFDM/CPP path action
+
+must agree numerically.
+
+B. Doppler derivative
+
+Verify the analytical derivative used by Newton refinement against a centered finite-difference or complex-step reference where mathematically valid.
+
+If second derivatives are used, verify those too.
+
+C. Newton / bounded refinement
+
+On synthetic single-path and small multipath observations, verify that the objective does not change contrary to the frozen acceptance rule.
+
+D. Joint gain refit
+
+Verify the F1 gain refit against a direct LS / declared regularized solution.
+
+E. Same-delay multiplicity
+
+Construct a legal synthetic pair
+
+    (l, nu1), (l, nu2)
+
+and verify that F1 can retain both simultaneously and that the TF comparator handoff preserves both.
+
+F. Duplicate handling
+
+Verify the frozen minimum-separation / duplicate rule.
+
+G. Model-order / slot budget
+
+Verify that the frozen maximum path count and stopping rule are applied exactly.
+
+H. No hidden truth
+
+Instrument the F1 call interface and confirm no truth delays, Dopplers, gains, transmitted data, or error labels are accepted.
+
+Archive every unit-test residual.
+
+If a mathematical or source mismatch is discovered, STOP and repair the implementation before Stage A. Do not compensate by tuning algorithm parameters.
+
+--------------------------------------------------
+5. F1 -> TF INTERFACE
+--------------------------------------------------
+
+This is critical.
+
+The native pre-CSTATE `time_refine` enforces one retained Doppler center per delay.
+
+F1 output must therefore use the frozen comparator-specific handoff described in the F1 specification.
+
+The handoff must:
+
+- preserve F1 physical slots;
+- preserve same-delay multiplicity;
+- use the same low-level TF scalar joint inference map;
+- use the same decoder and code;
+- use the same gain-prior convention appropriate for the resulting path dimension;
+- not alter the frozen F0 receiver.
+
+Explicitly verify, frame by frame:
+
+    F1 output geometry
+    ==
+    geometry actually entering TF
+
+up to declared numerical representation.
+
+Any hidden regrouping invalidates the comparison.
+
+--------------------------------------------------
+6. STAGE-A ARMS
+--------------------------------------------------
+
+Run exactly the frozen developmental comparison:
+
+A: F0 + TF
+
+B: F0 + TF + CSTATE
+
+C: F1 + TF
+
+D: F1 + TF + CSTATE
+
+Use identical paired observations.
+
+Where the frozen preregistration requires it, also run the matched F1 LOCAL continuation on F1-triggered frames:
+
+F1 + TF
+    -> syndrome trigger
+    -> same APP access
+    -> local refinement only
+    -> TF20 / LDPC continuation
+
+with no global replacement.
+
+The LOCAL arm is a mechanism control and must not be substituted for one of A-D.
+
+Do not add extra arms because an intermediate result looks interesting.
+
+Do not implement F2 / D-GAMP-GESBL in this stage.
+
+--------------------------------------------------
+7. NO RETUNING
+--------------------------------------------------
+
+After the first Stage-A receiver call:
+
+- no F1 parameter change;
+- no search-grid change;
+- no Newton-cap change;
+- no path-budget change;
+- no duplicate threshold change;
+- no damping change;
+- no decoder change;
+- no CSTATE change;
+- no cohort change.
+
+If F1 performs badly, report it.
+
+If F1 performs surprisingly well, report it.
+
+Do not optimize it after seeing Stage-A outcomes.
+
+--------------------------------------------------
+8. PRIMARY SCIENTIFIC CONTRASTS
+--------------------------------------------------
+
+The most important comparisons are:
+
+(1) C versus B
+
+    F1 + TF
+        vs
+    F0 + TF + CSTATE
+
+This asks:
+
+> Can a modest stronger initializer replace the current cheap-front-end + rescue architecture?
+
+(2) D versus C
+
+    F1 + TF + CSTATE
+        vs
+    F1 + TF
+
+This asks:
+
+> Does CSTATE retain incremental value after the known F0 weaknesses have been removed?
+
+(3) F1 LOCAL versus F1 CSTATE on triggered frames
+
+This asks:
+
+> If D improves over C, is the improvement specifically associated with global model-space reopening rather than merely another continuation/refinement/decoder round?
+
+These contrasts matter more than channel NMSE.
+
+--------------------------------------------------
+9. METRICS
+--------------------------------------------------
+
+Record at minimum:
+
+Receiver outcomes:
+- final information-word FER;
+- wrong/correct frame IDs;
+- rescues;
+- harms;
+- valid-but-wrong decoded words;
+- syndrome-trigger count.
+
+Deadline behavior:
+- frozen preregistered deadline FER;
+- latest-ready correct decision at deadline;
+- no-ready-decision count.
+
+Complete computation:
+- complete mean latency;
+- median;
+- p95;
+- p99;
+- acquisition/front-end time;
+- local refinement time;
+- CSTATE time;
+- TF time;
+- decoder time;
+- number of decoder calls;
+- peak memory / active state if already specified.
+
+Front-end diagnostics:
+- number of physical paths selected;
+- delay multiplicity;
+- same-delay multiple-Doppler count;
+- acquisition stopping reason;
+- Newton/cyclic-refinement iterations;
+- numerical failures.
+
+Structural diagnostics:
+- final F1 geometry;
+- whether original CSTATE rescue directions were already captured by F1;
+- whether CSTATE still changes geometry after F1;
+- type of those changes:
+    missed delay,
+    multiplicity,
+    Doppler relocation,
+    slot reallocation,
+    other.
+
+Channel NMSE or physical mismatch may be reported only as diagnostic quantities.
+
+They are not the decision criterion.
+
+--------------------------------------------------
+10. COST ACCOUNTING
+--------------------------------------------------
+
+Do not compare historical timing from another run against new F1 timing.
+
+Run A-D under the same timing environment and balanced execution ordering specified in the preregistration.
+
+Report both:
+
+- complete receiver latency;
+- component-level timing.
+
+For F0 and F1 report an acquisition-specific cost ledger.
+
+Confirm empirically what the frozen complexity ledger predicted and identify where runtime differs from nominal correlation-count comparisons.
+
+Do not claim
+
+    8 x 2575 == 40 x 515
+
+means equal runtime.
+
+It is only a nominal correlation-work sanity check.
+
+--------------------------------------------------
+11. DECISION LOGIC
+--------------------------------------------------
+
+Apply the frozen Stage-A decision rules.
+
+At minimum distinguish these scientific outcomes.
+
+OUTCOME K — CSTATE systems rationale strongly weakened
+
+If
+
+    F1 + TF
+
+matches or dominates
+
+    F0 + TF + CSTATE
+
+on communication risk at comparable or lower complete cost,
+
+then conclude that the current CSTATE operating point is substantially explained by a weaker front end.
+
+Do not rescue the narrative by immediately modifying CSTATE.
+
+OUTCOME S — CSTATE becomes scoped
+
+If F1 removes most CSTATE incremental benefit:
+
+    D approximately C
+
+while F1 improves over F0,
+
+then CSTATE should be interpreted mainly as a compact rescue mechanism for the declared economical F0 architecture.
+
+OUTCOME C — complementarity survives
+
+If F1 materially improves over F0 but:
+
+    D materially improves over C
+
+beyond the matched LOCAL continuation and at worthwhile complete cost,
+
+then CSTATE has evidence of value not confined to the original F0 weaknesses.
+
+OUTCOME E — economical deferred estimation
+
+If F1 + TF reaches comparable communication performance only with materially larger complete receiver cost than F0 + TF + CSTATE, then the conditional-computation argument is strengthened.
+
+OUTCOME U — unresolved
+
+If sample precision or numerical instability prevents a defensible decision, report unresolved.
+
+Do not use nonsignificance as proof of equivalence.
+
+Use the preregistered effect-size / uncertainty criteria.
+
+--------------------------------------------------
+12. IMPORTANT INTERPRETATION OF STAGE A
+--------------------------------------------------
+
+This 1024-frame population has already been studied extensively.
+
+Therefore:
+
+Stage A = developmental adjudication.
+
+Even if CSTATE survives spectacularly, do NOT convert the result into a new confirmatory manuscript claim.
+
+If Stage A justifies continuation, the next step will be:
+
+- freeze the surviving strongest front-end policy;
+- determine whether F2 is still necessary;
+- design a fresh confirmation campaign separately.
+
+Do not start that fresh campaign in this task.
+
+--------------------------------------------------
+13. F2 STOP RULE
+--------------------------------------------------
+
+Do not implement D-GAMP-GESBL merely because it is modern or published.
+
+After Stage A:
+
+If F1 + TF already dominates F0 + TF + CSTATE:
+    STOP.
+    Report the threat as established enough to revisit the paper.
+
+If F1 is strong and CSTATE still adds meaningful value:
+    only then assess whether F2 is required to test a stronger published estimator.
+
+If F1 is obviously inadequate because of a clearly identified capability absent from F1 but present in F2:
+    document that reason before requesting F2 implementation.
+
+F2 requires a separate authorization.
+
+--------------------------------------------------
+14. REPOSITORY RECORD
+--------------------------------------------------
+
+Write the complete Stage-A execution and decision record into the project repository.
+
+Create/update a dedicated record such as:
+
+    research_records/2026-09-27_cstate_necessity_stageA/
+
+or the nearest existing project-native path.
+
+At minimum retain:
+
+- README.md
+- IMPLEMENTATION_RECEIPT.md
+- F1_UNIT_TESTS.md
+- F1_UNIT_TESTS.json
+- EXPERIMENT_MANIFEST.json
+- ARM_DEFINITIONS.md
+- FRAME_OUTCOMES.parquet or CSV
+- COMPONENT_TIMING.parquet or CSV
+- STRUCTURAL_DIAGNOSTICS.parquet or CSV
+- STAGE_A_RESULTS.md
+- STAGE_A_DECISION.md
+- PROVENANCE.json
+- independent recount receipt
+
+Update:
+
+- project STATE;
+- research index;
+- CSTATE necessity record;
+- open-question / negative-results ledger where appropriate.
+
+Use stable searchable terms:
+
+    CSTATE necessity
+    F1
+    NOMP
+    stronger initializer
+    front-end strength
+    Stage A
+    CSTATE complementarity
+    acquisition replacement
+    risk-cost frontier
+
+--------------------------------------------------
+15. INDEPENDENT RECOUNT
+--------------------------------------------------
+
+After the primary analysis is frozen, perform an independent mechanical recount of:
+
+- A/B/C/D final correctness;
+- rescues/harms;
+- trigger counts;
+- deadline correctness;
+- timing aggregates;
+- structural classification counts.
+
+The recount must use saved arm outputs, not rerun receivers.
+
+Any discrepancy must remain in the provenance record.
+
+--------------------------------------------------
+16. FINAL RESPONSE
+--------------------------------------------------
+
+Return a concise research decision packet containing:
+
+1. Whether F1 implementation passed all frozen unit/interface tests.
+2. Exact A/B/C/D FER counts and rates.
+3. Primary paired contrasts.
+4. Complete latency / deadline comparison.
+5. F1 versus F0 front-end cost.
+6. D versus C incremental CSTATE value.
+7. F1-LOCAL versus F1-CSTATE mechanism contrast.
+8. What happened to the historical CSTATE rescue mechanisms under F1.
+9. Stage-A scientific verdict:
+       K / S / C / E / U.
+10. Whether F2 is scientifically necessary.
+11. Whether a fresh confirmation campaign is justified.
+12. Exact repository artifacts and hashes.
+
+Do not propose a new method in the final response.
+
+Do not soften an unfavorable result.
+
+This experiment is explicitly allowed to show that the current CSTATE systems story is unnecessary.

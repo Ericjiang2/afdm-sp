@@ -1,0 +1,52 @@
+% ============================================================
+%  AUGMENTATION 3 -- New Appendix E
+%  OMP Dictionary Atom Construction and Algorithm Steps
+%  Insert after current Appendix D (McNemar paired-bit test, label app:mcnemar)
+%  as a new appendix section.
+% ============================================================
+
+\section{OMP Dictionary Atom Construction and Algorithm Steps}
+\label{app:omp}
+
+This appendix gives an explicit construction of the chirp-domain dictionary atoms used by the OMP step of Algorithm~\ref{alg:joint} and writes out the OMP iteration with per-step complexity annotations, recovering the bound $C_\text{OMP} = \mathcal{O}(\Ppath \Nsub^2)$ stated in~\eqref{eq:omp_cost}.
+
+\subsection*{E.1\quad Dictionary atom construction}
+
+The OMP dictionary $\mbPhi \in \C^{\Nsub \times Q}$ has one column per integer delay--Doppler bin $(l, k)$ with $l \in \{0, \dots, \lmax - 1\}$ and $k \in \{-\kmax, \dots, \kmax\}$, so $Q = (2\kmax + 1)\,\lmax$. The $(l, k)$ atom is the chirp-domain response that the unit-energy Zadoff--Chu pilot $\xp$ would produce if the channel consisted of a single path of unit gain with integer delay $l$ and integer Doppler $k$. Writing the IDAFT of~\eqref{eq:idaft} in matrix form as $\mathbf{F}^{-1}$ and the forward DAFT as $\mathbf{F}$, the time-domain cyclic delay operator as $\mathbf{T}_l$ (the cyclic shift by $l$ samples), and the time-domain Doppler shift as $\mathbf{D}_k = \mathrm{diag}\bigl(e^{j 2\pi k n / \Nsub}\bigr)_{n=0}^{\Nsub-1}$, the atom is
+\begin{equation}
+\boldsymbol{\phi}_{(l,k)} \;=\; \sqrt{\rhop}\, \mathbf{F}\, \mathbf{D}_k\, \mathbf{T}_l\, \mathbf{F}^{-1}\, \xp \;\in\; \C^{\Nsub}, \label{eq:atom_construction}
+\end{equation}
+which encodes the round trip ``transmit pilot through the chirp domain $\to$ apply delay-$l$ Doppler-$k$ in time $\to$ observe in the chirp domain''. Because $\mathbf{F}$ is unitary, $\mathbf{T}_l$ is a permutation matrix, and $\mathbf{D}_k$ has unit-modulus diagonal entries, the energy of every atom is exactly the pilot fraction: $\|\boldsymbol{\phi}_{(l,k)}\|^2 = \rhop \cdot \|\xp\|^2 = \rhop$ for all $(l, k)$. This places OMP's matched-filter scoring on a common energy scale across the dictionary and is the reason no per-column normalisation is needed inside the OMP iteration.
+
+The dictionary spans physical integer $(l, k)$ bins only. Each fractional-Doppler physical path $(\tau_p, k_p^\text{real})$ of \S\ref{ssec:channel} excites one main-lobe column $\boldsymbol{\phi}_{(l_p, k_p)}$ together with $2\kleak$ side-lobe columns at $(l_p, k_p \pm 1), \dots, (l_p, k_p \pm \kleak)$ through the Dirichlet kernel of~\eqref{eq:dirichlet}; OMP recovers a subset of these columns directly, and the post-OMP DA-LS refit and MP-BP detection blocks of \S\ref{ssec:joint} operate on the $(2\kleak{+}1)$-fold expanded virtual-tap representation. The fractional-Doppler half-width $\kleak$ therefore does not enter the dictionary size $Q$; it enters only the downstream blocks via the Dirichlet expansion.
+
+\subsection*{E.2\quad OMP algorithm steps}
+
+Given the chirp-domain observation $\mby$ and the dictionary $\mbPhi$, OMP recovers a sparse support $\hat{S}$ of size $\Ppath$ together with the corresponding least-squares path-gain estimate $\hat{\mbh}$. The iteration is summarised in Algorithm~\ref{alg:omp} with per-step complex-multiplication counts.
+
+\begin{algorithm}[t]
+\caption{Orthogonal Matching Pursuit on the chirp-domain pilot dictionary~\cite{tropp2007signal}.}
+\label{alg:omp}
+\begin{small}
+\textbf{Input}: chirp-domain observation $\mby \in \C^{\Nsub}$, dictionary $\mbPhi \in \C^{\Nsub \times Q}$, target sparsity $\Ppath$. \\
+\textbf{Output}: support $\hat{S} \subseteq \{0, \dots, Q-1\}$ with $|\hat{S}| = \Ppath$, path-gain vector $\hat{\mbh} \in \C^{\Ppath}$.
+\begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
+  \item Initialise residual $\mathbf{r}^{(0)} = \mby$ and support $\hat{S}^{(0)} = \emptyset$.
+  \item \textbf{For} $s = 1, \dots, \Ppath$:
+  \begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item Compute the matched-filter response: $\mathbf{c}^{(s)} = \mbPhi^H \mathbf{r}^{(s-1)} \in \C^{Q}$. \hfill ($\mathcal{O}(\Nsub Q)$)
+    \item Pick the strongest unselected atom: $\hat{j}^{(s)} = \arg\max_{j \notin \hat{S}^{(s-1)}} |c_j^{(s)}|$. \hfill ($\mathcal{O}(Q)$)
+    \item Append it to the support: $\hat{S}^{(s)} = \hat{S}^{(s-1)} \cup \{\hat{j}^{(s)}\}$.
+    \item Solve the restricted least-squares problem on the current support, $\hat{\mbh}^{(s)} = \mbPhi_{\hat{S}^{(s)}}^{\dagger}\, \mby$, by QR or normal-equations factorisation. \hfill ($\mathcal{O}(\Nsub s + s^3)$)
+    \item Update the residual: $\mathbf{r}^{(s)} = \mby - \mbPhi_{\hat{S}^{(s)}}\, \hat{\mbh}^{(s)}$. \hfill ($\mathcal{O}(\Nsub s)$)
+  \end{enumerate}
+  \item Return $\hat{S} = \hat{S}^{(\Ppath)}$ and $\hat{\mbh} = \hat{\mbh}^{(\Ppath)}$.
+\end{enumerate}
+\end{small}
+\end{algorithm}
+
+The dominant per-iteration cost is the matched-filter sweep at $\mathcal{O}(\Nsub Q)$ in step~2(a); the least-squares solve at $\mathcal{O}(\Nsub s + s^3)$ is sub-dominant because the support size $s \leq \Ppath = 8$ remains small throughout and $s^3$ is therefore bounded by a constant much less than $\Nsub$. Summing the matched-filter sweep across $\Ppath$ iterations and the least-squares cost across $s = 1, \dots, \Ppath$ gives a total of
+\begin{equation*}
+C_\text{OMP} \;=\; \mathcal{O}(\Ppath \Nsub Q) \;+\; \mathcal{O}\!\bigl(\Nsub \sum_{s=1}^{\Ppath} s + \sum_{s=1}^{\Ppath} s^3\bigr) \;=\; \mathcal{O}(\Ppath \Nsub Q + \Ppath^2 \Nsub + \Ppath^4) \;=\; \mathcal{O}(\Ppath \Nsub Q),
+\end{equation*}
+where the absorption uses $\Ppath \ll \Nsub$ and $Q = \mathcal{O}(\Nsub)$ from~\eqref{eq:Qlinear}. With $Q = \mathcal{O}(\Nsub)$ the bound reduces to $\mathcal{O}(\Ppath \Nsub^2)$, which is the form recorded in~\eqref{eq:omp_cost}. This makes the matched-filter sweep step~2(a) the dominant block in the per-frame budget of~\eqref{eq:classcomplex}, with a measured $14$--$18.6$\,M MAC at $\Nsub = 1024$ per Table~\ref{tab:complexity}.

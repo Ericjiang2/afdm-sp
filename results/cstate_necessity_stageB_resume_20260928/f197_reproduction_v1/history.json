@@ -1,0 +1,2403 @@
+{
+  "mode": "history",
+  "records": [
+    {
+      "compact": {
+        "bank_centers": [
+          1.0,
+          1.0,
+          1.25,
+          1.0,
+          0.5,
+          0.75,
+          1.25,
+          1.0
+        ],
+        "counters": {
+          "accepted_coordinates": 63,
+          "bank_scans": 8,
+          "bank_scores": 20600,
+          "coordinate_scores": 997,
+          "coordinate_visits": 80,
+          "joint_solves": 71,
+          "newton_steps": 320
+        },
+        "delays": [
+          2,
+          5,
+          25,
+          36,
+          30,
+          42,
+          45,
+          13
+        ],
+        "dopplers": [
+          1.0661876863103503,
+          0.9675477555066025,
+          1.1489829409711407,
+          1.077461638856615,
+          0.48200818176951615,
+          0.8195123211479354,
+          1.2057818255993653,
+          0.8850997700944825
+        ],
+        "gains_re_im": [
+          [
+            0.40870492534859265,
+            -0.4795932842516149
+          ],
+          [
+            -0.2774829131904294,
+            0.30430569771266797
+          ],
+          [
+            0.30502044463002836,
+            0.2412826625161736
+          ],
+          [
+            0.3667290520984775,
+            -0.0110530002335636
+          ],
+          [
+            0.20100390201152096,
+            -0.12557239105313453
+          ],
+          [
+            -0.20906351478033502,
+            -0.06380513214368803
+          ],
+          [
+            -0.15895891169728577,
+            -0.08398212952135037
+          ],
+          [
+            -0.09202663940400037,
+            0.08915883413773901
+          ]
+        ],
+        "objective_history": [
+          1252.2739606370808,
+          1053.0447926021075,
+          1050.2125788738706,
+          962.0853230402137,
+          961.6217606171607,
+          961.6211299098455,
+          961.6211298644456,
+          886.3395901823889,
+          883.9003322704287,
+          883.9002793718471,
+          883.9002678758561,
+          883.9002678750887,
+          883.9002678741973,
+          816.4736880789294,
+          814.9688964245063,
+          814.9673567783499,
+          814.960620503114,
+          814.9606101136956,
+          814.9606064528928,
+          814.9606059274082,
+          814.9606059210232,
+          786.2775617795685,
+          786.252300622847,
+          786.252292345531,
+          786.2522595774415,
+          786.2522503888235,
+          786.2522090371705,
+          786.2522090336511,
+          786.2522090311595,
+          786.2522090009624,
+          762.0848362409286,
+          761.7635477604387,
+          761.7622292844477,
+          761.7620856840423,
+          761.7620853321608,
+          761.7618293295142,
+          761.7616357490473,
+          761.7616355456558,
+          761.7616355230397,
+          761.7616353700566,
+          761.7616353695703,
+          745.5811611482513,
+          745.4612743975927,
+          745.4612150854076,
+          745.4608013882724,
+          745.4605883666115,
+          745.460543832326,
+          745.4605197484045,
+          745.4605175036033,
+          745.460517460792,
+          745.4605174051316,
+          745.4605173614896,
+          745.4605173610277,
+          745.4605173606986,
+          737.35769604268,
+          737.0576368610889,
+          737.0575836185494,
+          737.0575835978445,
+          737.0574911594224,
+          737.0573485240011,
+          737.0573371684605,
+          737.0562973160149,
+          737.0554130588985,
+          737.0554130570803,
+          737.0554129345513,
+          737.0554128953365,
+          737.0554128948106,
+          737.0554128883847,
+          737.055412760998,
+          737.0554126383855,
+          737.055412638232,
+          737.0554126381599
+        ],
+        "stopping_reason": "eight_slots"
+      },
+      "coordinate_scores": 997,
+      "input_and_cache_layout": {
+        "delay_base": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": false,
+          "shape": [
+            1024,
+            103
+          ],
+          "strides": [
+            1648,
+            16
+          ]
+        },
+        "pilot": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "y": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        }
+      },
+      "kind": "fast",
+      "output_layout": {
+        "delays": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "int64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "dopplers": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 32,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "gains": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "objective_history": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            72
+          ],
+          "strides": [
+            8
+          ]
+        }
+      },
+      "runtime": {
+        "environment": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "numpy": "1.26.4",
+        "numpy_config": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"cc\",\n      \"args\": \"-fno-strict-aliasing\",\n      \"linker args\": \"-Wl,--strip-debug, -fno-strict-aliasing\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.0.8\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"c++\",\n      \"linker args\": \"-Wl,--strip-debug\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    },\n    \"build\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"openblas64\",\n      \"found\": true,\n      \"version\": \"0.3.23.dev\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"/usr/local/include\",\n      \"lib directory\": \"/usr/local/lib\",\n      \"openblas configuration\": \"USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= HASWELL MAX_THREADS=2\",\n      \"pc file directory\": \"/usr/local/lib/pkgconfig\"\n    },\n    \"lapack\": {\n      \"name\": \"dep139863411681952\",\n      \"found\": true,\n      \"version\": \"1.26.4\",\n      \"detection method\": \"internal\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"/opt/python/cp310-cp310/bin/python\",\n    \"version\": \"3.10\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"SSE\",\n      \"SSE2\",\n      \"SSE3\"\n    ],\n    \"found\": [\n      \"SSSE3\",\n      \"SSE41\",\n      \"POPCNT\",\n      \"SSE42\",\n      \"AVX\",\n      \"F16C\",\n      \"FMA3\",\n      \"AVX2\",\n      \"AVX512F\",\n      \"AVX512CD\",\n      \"AVX512_SKX\",\n      \"AVX512_CLX\",\n      \"AVX512_CNL\",\n      \"AVX512_ICL\"\n    ],\n    \"not found\": [\n      \"AVX512_KNL\",\n      \"AVX512_KNM\"\n    ]\n  }\n}\n",
+        "python": "3.10.20"
+      },
+      "stem": "s650_f0189",
+      "traced": false
+    },
+    {
+      "compact": {
+        "bank_centers": [
+          1.25,
+          1.0,
+          1.25,
+          0.75,
+          0.75,
+          1.25,
+          1.0,
+          0.75
+        ],
+        "counters": {
+          "accepted_coordinates": 59,
+          "bank_scans": 8,
+          "bank_scores": 20600,
+          "coordinate_scores": 960,
+          "coordinate_visits": 80,
+          "joint_solves": 67,
+          "newton_steps": 320
+        },
+        "delays": [
+          3,
+          50,
+          46,
+          41,
+          8,
+          19,
+          47,
+          32
+        ],
+        "dopplers": [
+          1.159043745879077,
+          1.077607679720288,
+          1.3709544649060608,
+          0.6999896963148429,
+          0.7982427378434528,
+          1.3249569844636329,
+          1.0902290444619522,
+          0.6486299121202617
+        ],
+        "gains_re_im": [
+          [
+            -0.4613160387951614,
+            -0.28604350668626066
+          ],
+          [
+            0.46411626291487934,
+            0.0728218446338056
+          ],
+          [
+            -0.15174240177417986,
+            0.40321802483286306
+          ],
+          [
+            -0.09468045526722751,
+            0.30202286881972157
+          ],
+          [
+            -0.22734153090392717,
+            -0.17032665746929382
+          ],
+          [
+            -0.007412476738095087,
+            -0.2830159167041152
+          ],
+          [
+            0.016648008698918054,
+            0.2544294493827566
+          ],
+          [
+            -0.09041039512643272,
+            0.16582721159536143
+          ]
+        ],
+        "objective_history": [
+          1278.1528472593673,
+          1131.110953839777,
+          1126.7231063191316,
+          1014.8760742400295,
+          1012.909590894874,
+          1012.9095495325304,
+          1012.9095495316591,
+          923.6657179821322,
+          919.0245166683064,
+          919.0243975073976,
+          919.02437853551,
+          919.0243785352731,
+          868.2146163778459,
+          867.8221554837863,
+          867.8220015466118,
+          867.8219818013908,
+          867.8219634368517,
+          867.8219634208755,
+          867.8219634201521,
+          827.1006479364931,
+          826.7316552676465,
+          826.731607850698,
+          826.7314962904128,
+          826.7314867163935,
+          826.7285845163223,
+          826.7285844352509,
+          826.7285843021161,
+          826.7285841939713,
+          826.7285841298677,
+          826.7285841273631,
+          786.6503845821592,
+          785.8398766991489,
+          785.839832638009,
+          785.8369294052444,
+          785.836917406618,
+          785.8368220072989,
+          785.8368178047871,
+          785.8368160269098,
+          785.8368160237318,
+          785.8368160226865,
+          753.2267313731957,
+          752.4696805112395,
+          752.4696568408141,
+          752.4695272956599,
+          752.4692513583889,
+          752.4692487733716,
+          752.4691195340082,
+          752.4691194971899,
+          752.4691194921838,
+          752.4691194918769,
+          752.4691194911222,
+          752.4691194879933,
+          752.4691194845044,
+          752.4691194843983,
+          734.5784389985134,
+          734.2019368726986,
+          734.2010521993689,
+          734.2010520007541,
+          734.2008305842373,
+          734.2007135279347,
+          734.2005906301576,
+          734.2005846589483,
+          734.2005829235751,
+          734.2005821297929,
+          734.2005821292398,
+          734.2005821276406,
+          734.2005821257932,
+          734.2005821254832
+        ],
+        "stopping_reason": "eight_slots"
+      },
+      "coordinate_scores": 960,
+      "input_and_cache_layout": {
+        "delay_base": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": false,
+          "shape": [
+            1024,
+            103
+          ],
+          "strides": [
+            1648,
+            16
+          ]
+        },
+        "pilot": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 32,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "y": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        }
+      },
+      "kind": "fast",
+      "output_layout": {
+        "delays": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "int64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "dopplers": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "gains": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "objective_history": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            68
+          ],
+          "strides": [
+            8
+          ]
+        }
+      },
+      "runtime": {
+        "environment": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "numpy": "1.26.4",
+        "numpy_config": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"cc\",\n      \"args\": \"-fno-strict-aliasing\",\n      \"linker args\": \"-Wl,--strip-debug, -fno-strict-aliasing\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.0.8\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"c++\",\n      \"linker args\": \"-Wl,--strip-debug\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    },\n    \"build\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"openblas64\",\n      \"found\": true,\n      \"version\": \"0.3.23.dev\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"/usr/local/include\",\n      \"lib directory\": \"/usr/local/lib\",\n      \"openblas configuration\": \"USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= HASWELL MAX_THREADS=2\",\n      \"pc file directory\": \"/usr/local/lib/pkgconfig\"\n    },\n    \"lapack\": {\n      \"name\": \"dep139863411681952\",\n      \"found\": true,\n      \"version\": \"1.26.4\",\n      \"detection method\": \"internal\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"/opt/python/cp310-cp310/bin/python\",\n    \"version\": \"3.10\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"SSE\",\n      \"SSE2\",\n      \"SSE3\"\n    ],\n    \"found\": [\n      \"SSSE3\",\n      \"SSE41\",\n      \"POPCNT\",\n      \"SSE42\",\n      \"AVX\",\n      \"F16C\",\n      \"FMA3\",\n      \"AVX2\",\n      \"AVX512F\",\n      \"AVX512CD\",\n      \"AVX512_SKX\",\n      \"AVX512_CLX\",\n      \"AVX512_CNL\",\n      \"AVX512_ICL\"\n    ],\n    \"not found\": [\n      \"AVX512_KNL\",\n      \"AVX512_KNM\"\n    ]\n  }\n}\n",
+        "python": "3.10.20"
+      },
+      "stem": "s650_f0190",
+      "traced": false
+    },
+    {
+      "compact": {
+        "bank_centers": [
+          1.25,
+          1.0,
+          1.0,
+          0.75,
+          1.25,
+          0.75,
+          1.75,
+          0.5
+        ],
+        "counters": {
+          "accepted_coordinates": 66,
+          "bank_scans": 8,
+          "bank_scores": 20600,
+          "coordinate_scores": 982,
+          "coordinate_visits": 80,
+          "joint_solves": 74,
+          "newton_steps": 320
+        },
+        "delays": [
+          0,
+          4,
+          17,
+          29,
+          34,
+          7,
+          27,
+          32
+        ],
+        "dopplers": [
+          1.1454510771992452,
+          0.9321325087760227,
+          1.0199118909506406,
+          0.6452869584548988,
+          1.1866239569701125,
+          0.7717827960944175,
+          1.6350416975801263,
+          0.6089864540993645
+        ],
+        "gains_re_im": [
+          [
+            -0.18512020383365324,
+            0.552909760075982
+          ],
+          [
+            -0.013245248177852147,
+            -0.37283193073267906
+          ],
+          [
+            -0.2120563631747236,
+            0.29832020919021135
+          ],
+          [
+            -0.20090768449690838,
+            -0.23294397394391386
+          ],
+          [
+            0.22947429612325201,
+            -0.1930991716663882
+          ],
+          [
+            0.1594070881705651,
+            -0.15000853798621017
+          ],
+          [
+            -0.16515319769971915,
+            0.07341904875676183
+          ],
+          [
+            0.020778509191206693,
+            -0.11680032004201228
+          ]
+        ],
+        "objective_history": [
+          1230.5948520869292,
+          1060.3120943328959,
+          1054.4721840294853,
+          970.6156551396895,
+          967.6298419139259,
+          967.6293134464371,
+          967.6293134394956,
+          898.5408582293394,
+          898.4395901692951,
+          898.439538915958,
+          898.4395151124021,
+          898.4395151121957,
+          851.8946594387787,
+          850.0528958539878,
+          850.0524760448154,
+          850.0523850951489,
+          850.0522755739488,
+          850.0522754790913,
+          850.0522754775856,
+          805.9282062381335,
+          805.4536020942054,
+          805.4507234929956,
+          805.1207740677002,
+          805.1207519897606,
+          805.1207045679583,
+          805.1166614020284,
+          805.116656482386,
+          805.1165428863077,
+          805.1165428858501,
+          805.1165427098291,
+          805.116540395341,
+          780.6899797942411,
+          780.6470099111147,
+          780.6469646571917,
+          780.646879236797,
+          780.6467743996717,
+          780.6466087244538,
+          780.6465265156618,
+          780.6465264964362,
+          780.6465264832234,
+          780.6465259052923,
+          780.6465258960469,
+          780.6465258916473,
+          780.646525870324,
+          780.6465258702982,
+          764.6964602643484,
+          763.9407504361058,
+          763.9407102292437,
+          763.940708753214,
+          763.94070427709,
+          763.940649105121,
+          763.9406340954976,
+          763.9405845314714,
+          763.9405845225847,
+          763.9405845215769,
+          763.9405844283361,
+          763.9405844272295,
+          763.9405844266512,
+          763.9405844212755,
+          756.9859688497652,
+          756.7352146045291,
+          756.7352045186747,
+          756.7349016384309,
+          756.7349003341501,
+          756.734900312895,
+          756.7345022673965,
+          756.7344460540455,
+          756.7344395315687,
+          756.7344395309669,
+          756.7344368791564,
+          756.7344368770978,
+          756.7344368630185,
+          756.7344367344249,
+          756.7344367342702,
+          756.7344367341159
+        ],
+        "stopping_reason": "eight_slots"
+      },
+      "coordinate_scores": 982,
+      "input_and_cache_layout": {
+        "delay_base": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": false,
+          "shape": [
+            1024,
+            103
+          ],
+          "strides": [
+            1648,
+            16
+          ]
+        },
+        "pilot": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 48,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "y": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        }
+      },
+      "kind": "fast",
+      "output_layout": {
+        "delays": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 32,
+          "dtype": "int64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "dopplers": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "gains": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 48,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "objective_history": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            75
+          ],
+          "strides": [
+            8
+          ]
+        }
+      },
+      "runtime": {
+        "environment": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "numpy": "1.26.4",
+        "numpy_config": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"cc\",\n      \"args\": \"-fno-strict-aliasing\",\n      \"linker args\": \"-Wl,--strip-debug, -fno-strict-aliasing\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.0.8\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"c++\",\n      \"linker args\": \"-Wl,--strip-debug\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    },\n    \"build\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"openblas64\",\n      \"found\": true,\n      \"version\": \"0.3.23.dev\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"/usr/local/include\",\n      \"lib directory\": \"/usr/local/lib\",\n      \"openblas configuration\": \"USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= HASWELL MAX_THREADS=2\",\n      \"pc file directory\": \"/usr/local/lib/pkgconfig\"\n    },\n    \"lapack\": {\n      \"name\": \"dep139863411681952\",\n      \"found\": true,\n      \"version\": \"1.26.4\",\n      \"detection method\": \"internal\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"/opt/python/cp310-cp310/bin/python\",\n    \"version\": \"3.10\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"SSE\",\n      \"SSE2\",\n      \"SSE3\"\n    ],\n    \"found\": [\n      \"SSSE3\",\n      \"SSE41\",\n      \"POPCNT\",\n      \"SSE42\",\n      \"AVX\",\n      \"F16C\",\n      \"FMA3\",\n      \"AVX2\",\n      \"AVX512F\",\n      \"AVX512CD\",\n      \"AVX512_SKX\",\n      \"AVX512_CLX\",\n      \"AVX512_CNL\",\n      \"AVX512_ICL\"\n    ],\n    \"not found\": [\n      \"AVX512_KNL\",\n      \"AVX512_KNM\"\n    ]\n  }\n}\n",
+        "python": "3.10.20"
+      },
+      "stem": "s650_f0191",
+      "traced": false
+    },
+    {
+      "compact": {
+        "bank_centers": [
+          0.5,
+          1.25,
+          0.75,
+          1.0,
+          1.25,
+          0.75,
+          0.75,
+          0.25
+        ],
+        "counters": {
+          "accepted_coordinates": 68,
+          "bank_scans": 8,
+          "bank_scores": 20600,
+          "coordinate_scores": 1046,
+          "coordinate_visits": 80,
+          "joint_solves": 76,
+          "newton_steps": 320
+        },
+        "delays": [
+          12,
+          16,
+          15,
+          42,
+          8,
+          17,
+          7,
+          38
+        ],
+        "dopplers": [
+          0.610877854246895,
+          1.3181143998776126,
+          0.8130665818526832,
+          1.063662051747431,
+          1.134832876485025,
+          0.6667066415884233,
+          0.8110441651565641,
+          0.2633828278113214
+        ],
+        "gains_re_im": [
+          [
+            0.4919012351670092,
+            0.15431574195120132
+          ],
+          [
+            -0.19232576225543957,
+            0.39223841323426406
+          ],
+          [
+            -0.3811952022081821,
+            -0.0642759149865185
+          ],
+          [
+            -0.21591192622266658,
+            0.31160711077160963
+          ],
+          [
+            -0.26568180941465336,
+            -0.16191671230044818
+          ],
+          [
+            0.15673839719718347,
+            -0.22997449744982754
+          ],
+          [
+            -0.1816316846294597,
+            -0.015413466069382412
+          ],
+          [
+            0.05704452406261042,
+            -0.07956506050827414
+          ]
+        ],
+        "objective_history": [
+          1252.9552778816917,
+          1115.5165524459699,
+          1108.3106892835972,
+          1012.9725382482407,
+          1011.9854155901295,
+          1011.9851106411171,
+          1011.9851106397599,
+          936.1203813146635,
+          935.228933339881,
+          935.2275817099168,
+          935.2264329821553,
+          935.2264329448509,
+          935.2264329431245,
+          864.5420526389928,
+          863.6169799009881,
+          863.5360520324093,
+          863.5072653963205,
+          863.5015012527317,
+          863.5011227571966,
+          863.5011176004181,
+          863.5011167785613,
+          863.5011167160727,
+          863.5011166854669,
+          815.168851105671,
+          812.9734646048211,
+          812.9734525183178,
+          812.9734508370238,
+          812.9713341033087,
+          812.9702058054793,
+          812.970204691002,
+          812.9702027518331,
+          812.9702019048333,
+          812.9702016619615,
+          812.9702016278396,
+          812.9702016276653,
+          774.3253359313046,
+          773.3524483975551,
+          773.3523753343828,
+          773.3507918460157,
+          773.3496916919405,
+          773.3495735026883,
+          773.3495653640157,
+          773.3495647039632,
+          773.3495646075736,
+          773.3495644532492,
+          773.3495644211915,
+          773.3495644167768,
+          756.6419619709422,
+          756.4399395493502,
+          756.4396140972965,
+          756.4396066231753,
+          756.4395339543702,
+          756.439326922321,
+          756.437872553761,
+          756.4378538418731,
+          756.437853806805,
+          756.4378536709117,
+          756.4378534684201,
+          756.4378531949358,
+          756.4378531936358,
+          756.4378531927142,
+          751.5389294245346,
+          751.5366413988636,
+          751.536347946629,
+          751.5363126641064,
+          751.5363126497297,
+          751.536261762783,
+          751.5362390214309,
+          751.5362381337458,
+          751.5361898162762,
+          751.5361881842887,
+          751.5361881737877,
+          751.5361881270927,
+          751.5361881269965,
+          751.5361881184939,
+          751.5361881170929,
+          751.5361881170302
+        ],
+        "stopping_reason": "eight_slots"
+      },
+      "coordinate_scores": 1046,
+      "input_and_cache_layout": {
+        "delay_base": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": false,
+          "shape": [
+            1024,
+            103
+          ],
+          "strides": [
+            1648,
+            16
+          ]
+        },
+        "pilot": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "y": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        }
+      },
+      "kind": "fast",
+      "output_layout": {
+        "delays": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "int64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "dopplers": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "gains": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 48,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "objective_history": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            77
+          ],
+          "strides": [
+            8
+          ]
+        }
+      },
+      "runtime": {
+        "environment": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "numpy": "1.26.4",
+        "numpy_config": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"cc\",\n      \"args\": \"-fno-strict-aliasing\",\n      \"linker args\": \"-Wl,--strip-debug, -fno-strict-aliasing\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.0.8\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"c++\",\n      \"linker args\": \"-Wl,--strip-debug\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    },\n    \"build\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"openblas64\",\n      \"found\": true,\n      \"version\": \"0.3.23.dev\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"/usr/local/include\",\n      \"lib directory\": \"/usr/local/lib\",\n      \"openblas configuration\": \"USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= HASWELL MAX_THREADS=2\",\n      \"pc file directory\": \"/usr/local/lib/pkgconfig\"\n    },\n    \"lapack\": {\n      \"name\": \"dep139863411681952\",\n      \"found\": true,\n      \"version\": \"1.26.4\",\n      \"detection method\": \"internal\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"/opt/python/cp310-cp310/bin/python\",\n    \"version\": \"3.10\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"SSE\",\n      \"SSE2\",\n      \"SSE3\"\n    ],\n    \"found\": [\n      \"SSSE3\",\n      \"SSE41\",\n      \"POPCNT\",\n      \"SSE42\",\n      \"AVX\",\n      \"F16C\",\n      \"FMA3\",\n      \"AVX2\",\n      \"AVX512F\",\n      \"AVX512CD\",\n      \"AVX512_SKX\",\n      \"AVX512_CLX\",\n      \"AVX512_CNL\",\n      \"AVX512_ICL\"\n    ],\n    \"not found\": [\n      \"AVX512_KNL\",\n      \"AVX512_KNM\"\n    ]\n  }\n}\n",
+        "python": "3.10.20"
+      },
+      "stem": "s650_f0192",
+      "traced": false
+    },
+    {
+      "compact": {
+        "bank_centers": [
+          1.0,
+          0.5,
+          0.75,
+          1.0,
+          0.5,
+          1.5,
+          1.25,
+          0.75
+        ],
+        "counters": {
+          "accepted_coordinates": 62,
+          "bank_scans": 8,
+          "bank_scores": 20600,
+          "coordinate_scores": 1002,
+          "coordinate_visits": 80,
+          "joint_solves": 70,
+          "newton_steps": 320
+        },
+        "delays": [
+          12,
+          10,
+          29,
+          39,
+          7,
+          15,
+          49,
+          22
+        ],
+        "dopplers": [
+          0.93608070448272,
+          0.5670930946058113,
+          0.8301902968675264,
+          1.112589391680297,
+          0.6177295902534076,
+          1.4643121180359424,
+          1.288745327646047,
+          0.6816814288605272
+        ],
+        "gains_re_im": [
+          [
+            0.46900314653193037,
+            -0.2924668040556486
+          ],
+          [
+            0.3505878600616404,
+            0.23052362018274908
+          ],
+          [
+            0.39227569172661114,
+            -0.07390393735223068
+          ],
+          [
+            -0.25936792241496304,
+            0.2320910868195863
+          ],
+          [
+            -0.18293117627741592,
+            0.25803280564895764
+          ],
+          [
+            -0.020961226068667266,
+            -0.2317774724627451
+          ],
+          [
+            -0.07074991811898244,
+            -0.20609291231686463
+          ],
+          [
+            -0.203334809015682,
+            -0.060189727249430953
+          ]
+        ],
+        "objective_history": [
+          1304.945597549794,
+          1151.3630867852753,
+          1149.2841227800595,
+          1059.0237936397632,
+          1057.7578668748326,
+          1057.7576572451255,
+          1057.7576572125522,
+          977.3928389562894,
+          975.8124915369345,
+          975.8123904375447,
+          975.8095770870401,
+          975.8095767656484,
+          975.8095761961158,
+          975.8095761956855,
+          916.9544978373922,
+          914.4539258463446,
+          914.4527539069353,
+          914.4526487025805,
+          914.4526274694297,
+          914.4526272966094,
+          914.4526272759861,
+          914.4526272726423,
+          865.6363423115731,
+          863.1088270327899,
+          863.1084317063761,
+          863.1083167869725,
+          863.108154711052,
+          863.10813108534,
+          863.1081310240729,
+          863.1081310117437,
+          863.1081309981687,
+          835.3498906962626,
+          835.2444818842132,
+          835.2444293169067,
+          835.2439793218869,
+          835.2436887509267,
+          835.2436522811889,
+          835.2436520194483,
+          835.2436520014771,
+          835.2436519386138,
+          835.2436519121545,
+          835.2436519120649,
+          810.7959371280447,
+          810.6663010290777,
+          810.6662195450535,
+          810.666194443434,
+          810.666185097601,
+          810.6661791148939,
+          810.6661417442216,
+          810.6660294325537,
+          810.6660294274022,
+          810.6660294236476,
+          810.6660294183432,
+          810.6660293986638,
+          810.6660293912784,
+          788.0089203596966,
+          787.643072168185,
+          787.6430482527674,
+          787.6425015775367,
+          787.6397844766772,
+          787.6397827797879,
+          787.6396749432048,
+          787.6393783901952,
+          787.6392255336466,
+          787.6392255321792,
+          787.6392254400425,
+          787.6392250708794,
+          787.6392249672405,
+          787.6392249484499,
+          787.6392249466609,
+          787.6392249398351
+        ],
+        "stopping_reason": "eight_slots"
+      },
+      "coordinate_scores": 1002,
+      "input_and_cache_layout": {
+        "delay_base": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": false,
+          "shape": [
+            1024,
+            103
+          ],
+          "strides": [
+            1648,
+            16
+          ]
+        },
+        "pilot": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "y": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        }
+      },
+      "kind": "fast",
+      "output_layout": {
+        "delays": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "int64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "dopplers": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "gains": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 48,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "objective_history": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 32,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            71
+          ],
+          "strides": [
+            8
+          ]
+        }
+      },
+      "runtime": {
+        "environment": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "numpy": "1.26.4",
+        "numpy_config": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"cc\",\n      \"args\": \"-fno-strict-aliasing\",\n      \"linker args\": \"-Wl,--strip-debug, -fno-strict-aliasing\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.0.8\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"c++\",\n      \"linker args\": \"-Wl,--strip-debug\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    },\n    \"build\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"openblas64\",\n      \"found\": true,\n      \"version\": \"0.3.23.dev\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"/usr/local/include\",\n      \"lib directory\": \"/usr/local/lib\",\n      \"openblas configuration\": \"USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= HASWELL MAX_THREADS=2\",\n      \"pc file directory\": \"/usr/local/lib/pkgconfig\"\n    },\n    \"lapack\": {\n      \"name\": \"dep139863411681952\",\n      \"found\": true,\n      \"version\": \"1.26.4\",\n      \"detection method\": \"internal\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"/opt/python/cp310-cp310/bin/python\",\n    \"version\": \"3.10\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"SSE\",\n      \"SSE2\",\n      \"SSE3\"\n    ],\n    \"found\": [\n      \"SSSE3\",\n      \"SSE41\",\n      \"POPCNT\",\n      \"SSE42\",\n      \"AVX\",\n      \"F16C\",\n      \"FMA3\",\n      \"AVX2\",\n      \"AVX512F\",\n      \"AVX512CD\",\n      \"AVX512_SKX\",\n      \"AVX512_CLX\",\n      \"AVX512_CNL\",\n      \"AVX512_ICL\"\n    ],\n    \"not found\": [\n      \"AVX512_KNL\",\n      \"AVX512_KNM\"\n    ]\n  }\n}\n",
+        "python": "3.10.20"
+      },
+      "stem": "s650_f0193",
+      "traced": false
+    },
+    {
+      "compact": {
+        "bank_centers": [
+          0.75,
+          0.5,
+          1.0,
+          1.25,
+          1.0,
+          0.75,
+          1.25,
+          1.25
+        ],
+        "counters": {
+          "accepted_coordinates": 65,
+          "bank_scans": 8,
+          "bank_scores": 20600,
+          "coordinate_scores": 1024,
+          "coordinate_visits": 80,
+          "joint_solves": 73,
+          "newton_steps": 320
+        },
+        "delays": [
+          13,
+          4,
+          1,
+          36,
+          33,
+          42,
+          81,
+          0
+        ],
+        "dopplers": [
+          0.7877969255253356,
+          0.4408883900605064,
+          0.9903621552809277,
+          1.2526327670523896,
+          1.0746449015306867,
+          0.8628862537547479,
+          1.272267335457678,
+          1.2449925339467924
+        ],
+        "gains_re_im": [
+          [
+            -0.2629672555218212,
+            0.5797627632944259
+          ],
+          [
+            0.3874828456792826,
+            0.2147884235315746
+          ],
+          [
+            0.35893757497142154,
+            -0.09188516954244358
+          ],
+          [
+            0.07447220590333319,
+            -0.356212648301794
+          ],
+          [
+            -0.2468875413283572,
+            -0.15373513736697217
+          ],
+          [
+            0.09302851832555564,
+            0.14849660304215576
+          ],
+          [
+            -0.04608641711832879,
+            -0.09359675436726854
+          ],
+          [
+            0.04468555489955283,
+            -0.09415472347794708
+          ]
+        ],
+        "objective_history": [
+          1267.9793547044683,
+          1060.9325055262755,
+          1060.1499773353198,
+          958.3107053021394,
+          957.2211441103151,
+          957.2210505063497,
+          886.7507631415284,
+          886.7197120297516,
+          886.7185465449473,
+          886.7165356859804,
+          886.7165356853653,
+          886.7165356837195,
+          819.2697593642886,
+          819.2684689316378,
+          819.2682117950113,
+          819.2643022666686,
+          819.2637926173709,
+          819.2637925046383,
+          819.2637924737402,
+          819.2637924704478,
+          777.3725999418734,
+          776.4671517661786,
+          776.4670665602771,
+          776.4615830642732,
+          776.4601599872689,
+          776.4601227491254,
+          776.460117534273,
+          776.4601174826587,
+          776.4601174823141,
+          776.460117481498,
+          776.4601174812885,
+          761.3708171699759,
+          760.725401398784,
+          760.7213542424856,
+          760.721348512673,
+          760.7213421366658,
+          760.7212785906128,
+          760.7212756101527,
+          760.7212756081578,
+          760.721275522675,
+          760.721275521105,
+          760.721275518175,
+          760.7212755177444,
+          755.1568583801062,
+          755.1487414289888,
+          755.1487402497712,
+          755.1486874237164,
+          755.1486620908559,
+          755.1486620361426,
+          755.1486449055266,
+          755.1486408450335,
+          755.1486408444889,
+          755.148640843358,
+          755.1486408285256,
+          755.1486408280052,
+          755.148640827597,
+          749.5962407423084,
+          749.5956358596795,
+          749.5956358345563,
+          749.5955785964593,
+          749.5954900740626,
+          749.5954314397325,
+          749.5908410092744,
+          749.5908407335337,
+          749.590773277177,
+          749.5907710614906,
+          749.590771059827,
+          749.5907659619436,
+          749.5907658726104,
+          749.5907656928422,
+          749.5907656575596,
+          749.5907656555886,
+          749.5907656554673,
+          749.5907656553998
+        ],
+        "stopping_reason": "eight_slots"
+      },
+      "coordinate_scores": 1024,
+      "input_and_cache_layout": {
+        "delay_base": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": false,
+          "shape": [
+            1024,
+            103
+          ],
+          "strides": [
+            1648,
+            16
+          ]
+        },
+        "pilot": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "y": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        }
+      },
+      "kind": "fast",
+      "output_layout": {
+        "delays": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "int64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "dopplers": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "gains": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 32,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "objective_history": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 48,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            74
+          ],
+          "strides": [
+            8
+          ]
+        }
+      },
+      "runtime": {
+        "environment": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "numpy": "1.26.4",
+        "numpy_config": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"cc\",\n      \"args\": \"-fno-strict-aliasing\",\n      \"linker args\": \"-Wl,--strip-debug, -fno-strict-aliasing\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.0.8\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"c++\",\n      \"linker args\": \"-Wl,--strip-debug\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    },\n    \"build\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"openblas64\",\n      \"found\": true,\n      \"version\": \"0.3.23.dev\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"/usr/local/include\",\n      \"lib directory\": \"/usr/local/lib\",\n      \"openblas configuration\": \"USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= HASWELL MAX_THREADS=2\",\n      \"pc file directory\": \"/usr/local/lib/pkgconfig\"\n    },\n    \"lapack\": {\n      \"name\": \"dep139863411681952\",\n      \"found\": true,\n      \"version\": \"1.26.4\",\n      \"detection method\": \"internal\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"/opt/python/cp310-cp310/bin/python\",\n    \"version\": \"3.10\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"SSE\",\n      \"SSE2\",\n      \"SSE3\"\n    ],\n    \"found\": [\n      \"SSSE3\",\n      \"SSE41\",\n      \"POPCNT\",\n      \"SSE42\",\n      \"AVX\",\n      \"F16C\",\n      \"FMA3\",\n      \"AVX2\",\n      \"AVX512F\",\n      \"AVX512CD\",\n      \"AVX512_SKX\",\n      \"AVX512_CLX\",\n      \"AVX512_CNL\",\n      \"AVX512_ICL\"\n    ],\n    \"not found\": [\n      \"AVX512_KNL\",\n      \"AVX512_KNM\"\n    ]\n  }\n}\n",
+        "python": "3.10.20"
+      },
+      "stem": "s650_f0194",
+      "traced": false
+    },
+    {
+      "compact": {
+        "bank_centers": [
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.0,
+          -0.75,
+          1.0,
+          -1.25
+        ],
+        "counters": {
+          "accepted_coordinates": 69,
+          "bank_scans": 8,
+          "bank_scores": 20600,
+          "coordinate_scores": 1092,
+          "coordinate_visits": 80,
+          "joint_solves": 77,
+          "newton_steps": 320
+        },
+        "delays": [
+          16,
+          0,
+          51,
+          4,
+          51,
+          77,
+          80,
+          18
+        ],
+        "dopplers": [
+          0.7126352634823486,
+          0.6271566392159369,
+          0.7838394229178474,
+          0.8187748111974411,
+          0.11509088164504935,
+          -0.8599377122927025,
+          0.9684029737507096,
+          -1.2304709601612975
+        ],
+        "gains_re_im": [
+          [
+            0.6798451586703375,
+            -0.2746510587936407
+          ],
+          [
+            0.448973798502154,
+            0.24516096669783904
+          ],
+          [
+            -0.251499336467243,
+            0.3295388566475712
+          ],
+          [
+            0.29668449407536923,
+            -0.06560587419511867
+          ],
+          [
+            0.11189497701273997,
+            -0.05768310290556783
+          ],
+          [
+            -0.10066889376792397,
+            0.0007483188416987425
+          ],
+          [
+            -0.06655928842033054,
+            0.060279243141586475
+          ],
+          [
+            -0.08175697187308485,
+            -0.03765204883698282
+          ]
+        ],
+        "objective_history": [
+          1293.389632189747,
+          1019.0264252841525,
+          1017.8975133292929,
+          890.9056562215774,
+          884.647797742729,
+          884.6470230990376,
+          884.6470230986814,
+          792.599502806379,
+          792.5916207217263,
+          792.5905168944962,
+          792.5904328844433,
+          745.8536632738151,
+          745.223620500693,
+          745.2231609635849,
+          745.2231598217444,
+          745.222238046939,
+          745.2222380399677,
+          745.2222380353434,
+          738.9311299261094,
+          738.8967539145297,
+          738.896541528713,
+          738.896458568086,
+          738.8509802226224,
+          738.8509241801512,
+          738.833956044509,
+          738.833955964793,
+          738.8339559287615,
+          738.8159123485615,
+          738.8159122492611,
+          738.8065451468849,
+          733.5618590621826,
+          733.3405297231116,
+          733.3345145494056,
+          733.3345124065527,
+          733.3172467380565,
+          733.3172413484554,
+          733.3138822358342,
+          733.3138822330498,
+          733.3138822306987,
+          733.3138822182619,
+          733.3063620533543,
+          733.3063619936062,
+          733.3042072321231,
+          733.3042072305367,
+          729.185719525268,
+          729.1771793146186,
+          729.1771459322683,
+          729.1771442261625,
+          729.1770436981831,
+          729.1770343821927,
+          729.176211165388,
+          729.1761452680099,
+          729.1761448820101,
+          729.176144881572,
+          729.1761448522151,
+          729.1760756585456,
+          729.1760756583601,
+          729.1755776744372,
+          729.1755776352204,
+          729.1755775719153,
+          725.0504857958254,
+          725.0458510680661,
+          725.0456504632582,
+          725.0456437633064,
+          725.0456427430729,
+          725.0456376274493,
+          725.0396247018655,
+          725.038904612465,
+          725.0387582636477,
+          725.0387459296741,
+          725.0387454551536,
+          725.0387454528701,
+          725.0387225271687,
+          725.0387225109064,
+          725.035261517551,
+          725.0352615033365,
+          725.0352613321818,
+          725.0352609390576
+        ],
+        "stopping_reason": "eight_slots"
+      },
+      "coordinate_scores": 1092,
+      "input_and_cache_layout": {
+        "delay_base": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": false,
+          "shape": [
+            1024,
+            103
+          ],
+          "strides": [
+            1648,
+            16
+          ]
+        },
+        "pilot": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "y": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        }
+      },
+      "kind": "fast",
+      "output_layout": {
+        "delays": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 32,
+          "dtype": "int64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "dopplers": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "gains": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 32,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "objective_history": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            78
+          ],
+          "strides": [
+            8
+          ]
+        }
+      },
+      "runtime": {
+        "environment": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "numpy": "1.26.4",
+        "numpy_config": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"cc\",\n      \"args\": \"-fno-strict-aliasing\",\n      \"linker args\": \"-Wl,--strip-debug, -fno-strict-aliasing\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.0.8\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"c++\",\n      \"linker args\": \"-Wl,--strip-debug\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    },\n    \"build\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"openblas64\",\n      \"found\": true,\n      \"version\": \"0.3.23.dev\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"/usr/local/include\",\n      \"lib directory\": \"/usr/local/lib\",\n      \"openblas configuration\": \"USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= HASWELL MAX_THREADS=2\",\n      \"pc file directory\": \"/usr/local/lib/pkgconfig\"\n    },\n    \"lapack\": {\n      \"name\": \"dep139863411681952\",\n      \"found\": true,\n      \"version\": \"1.26.4\",\n      \"detection method\": \"internal\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"/opt/python/cp310-cp310/bin/python\",\n    \"version\": \"3.10\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"SSE\",\n      \"SSE2\",\n      \"SSE3\"\n    ],\n    \"found\": [\n      \"SSSE3\",\n      \"SSE41\",\n      \"POPCNT\",\n      \"SSE42\",\n      \"AVX\",\n      \"F16C\",\n      \"FMA3\",\n      \"AVX2\",\n      \"AVX512F\",\n      \"AVX512CD\",\n      \"AVX512_SKX\",\n      \"AVX512_CLX\",\n      \"AVX512_CNL\",\n      \"AVX512_ICL\"\n    ],\n    \"not found\": [\n      \"AVX512_KNL\",\n      \"AVX512_KNM\"\n    ]\n  }\n}\n",
+        "python": "3.10.20"
+      },
+      "stem": "s650_f0195",
+      "traced": false
+    },
+    {
+      "compact": {
+        "bank_centers": [
+          1.5,
+          1.0,
+          0.75,
+          1.0,
+          1.0,
+          0.75,
+          1.5,
+          1.0
+        ],
+        "counters": {
+          "accepted_coordinates": 64,
+          "bank_scans": 8,
+          "bank_scores": 20600,
+          "coordinate_scores": 973,
+          "coordinate_visits": 80,
+          "joint_solves": 72,
+          "newton_steps": 320
+        },
+        "delays": [
+          11,
+          0,
+          16,
+          32,
+          35,
+          31,
+          18,
+          9
+        ],
+        "dopplers": [
+          1.4180650374229347,
+          0.9994945438726209,
+          0.719648532263454,
+          1.0533376849069742,
+          0.9738410338242102,
+          0.7890628929380811,
+          1.5491129510484967,
+          0.9464696438939617
+        ],
+        "gains_re_im": [
+          [
+            -0.5426118716905532,
+            -0.22956289240836047
+          ],
+          [
+            0.5135913364267407,
+            0.17166538065438466
+          ],
+          [
+            -0.40722121106899384,
+            -0.02388419004128115
+          ],
+          [
+            0.29479803202216504,
+            -0.0014383279721818369
+          ],
+          [
+            -0.18396846677246553,
+            -0.025097135477808213
+          ],
+          [
+            -0.1360575958114922,
+            0.09091384171225424
+          ],
+          [
+            0.05107778991352871,
+            -0.14170874624306035
+          ],
+          [
+            -0.10762248766896045,
+            -0.00012903428304477608
+          ]
+        ],
+        "objective_history": [
+          1250.945207572105,
+          1077.464215642354,
+          1073.3897477817668,
+          923.156793311635,
+          923.1562481845018,
+          923.1562007967436,
+          923.1562007964636,
+          837.9404863117007,
+          837.682141742305,
+          837.6820161264204,
+          837.681798632919,
+          837.6817986316314,
+          793.9412600297173,
+          793.509186403074,
+          793.5085255746108,
+          793.4946274313103,
+          793.4946157149229,
+          793.4946155782402,
+          793.4946155003473,
+          793.4946154982657,
+          775.7839077052172,
+          775.7616450923938,
+          775.7616124919409,
+          775.7616113174938,
+          775.7607239526112,
+          775.760723708387,
+          775.76072359248,
+          775.7607235798284,
+          775.7607235726297,
+          762.1267130900101,
+          762.042272828759,
+          762.042270286404,
+          762.0327187087317,
+          762.0326809339277,
+          762.0317117354085,
+          762.0316889835301,
+          762.0316885278418,
+          762.0316882171472,
+          762.031688207482,
+          762.0316882072696,
+          762.0316882042351,
+          750.5471893237033,
+          750.4527870658983,
+          750.452736423994,
+          750.452736421656,
+          750.452736351622,
+          750.4527333931202,
+          750.4527320941708,
+          750.4526800337146,
+          750.4526800215604,
+          750.4526800212234,
+          750.4526800133192,
+          750.4526800129198,
+          750.4526800127865,
+          750.4526800125451,
+          750.4526800124772,
+          744.6034750768819,
+          744.5284485768854,
+          744.528278024838,
+          744.5282190775516,
+          744.5276091738612,
+          744.5275953972695,
+          744.5243910473599,
+          744.5243570927614,
+          744.5243391654758,
+          744.524339005485,
+          744.5243390051616,
+          744.5243389067565,
+          744.5243385542522,
+          744.5243384110674,
+          744.5243384103929,
+          744.5243384103801,
+          744.5243384103319
+        ],
+        "stopping_reason": "eight_slots"
+      },
+      "coordinate_scores": 973,
+      "input_and_cache_layout": {
+        "delay_base": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": false,
+          "shape": [
+            1024,
+            103
+          ],
+          "strides": [
+            1648,
+            16
+          ]
+        },
+        "pilot": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "y": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        }
+      },
+      "kind": "fast",
+      "output_layout": {
+        "delays": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "int64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "dopplers": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "gains": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 48,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "objective_history": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 48,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            73
+          ],
+          "strides": [
+            8
+          ]
+        }
+      },
+      "runtime": {
+        "environment": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "numpy": "1.26.4",
+        "numpy_config": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"cc\",\n      \"args\": \"-fno-strict-aliasing\",\n      \"linker args\": \"-Wl,--strip-debug, -fno-strict-aliasing\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.0.8\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"c++\",\n      \"linker args\": \"-Wl,--strip-debug\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    },\n    \"build\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"openblas64\",\n      \"found\": true,\n      \"version\": \"0.3.23.dev\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"/usr/local/include\",\n      \"lib directory\": \"/usr/local/lib\",\n      \"openblas configuration\": \"USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= HASWELL MAX_THREADS=2\",\n      \"pc file directory\": \"/usr/local/lib/pkgconfig\"\n    },\n    \"lapack\": {\n      \"name\": \"dep139863411681952\",\n      \"found\": true,\n      \"version\": \"1.26.4\",\n      \"detection method\": \"internal\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"/opt/python/cp310-cp310/bin/python\",\n    \"version\": \"3.10\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"SSE\",\n      \"SSE2\",\n      \"SSE3\"\n    ],\n    \"found\": [\n      \"SSSE3\",\n      \"SSE41\",\n      \"POPCNT\",\n      \"SSE42\",\n      \"AVX\",\n      \"F16C\",\n      \"FMA3\",\n      \"AVX2\",\n      \"AVX512F\",\n      \"AVX512CD\",\n      \"AVX512_SKX\",\n      \"AVX512_CLX\",\n      \"AVX512_CNL\",\n      \"AVX512_ICL\"\n    ],\n    \"not found\": [\n      \"AVX512_KNL\",\n      \"AVX512_KNM\"\n    ]\n  }\n}\n",
+        "python": "3.10.20"
+      },
+      "stem": "s650_f0196",
+      "traced": false
+    },
+    {
+      "against_stage_a": {
+        "continuous": {
+          "dopplers": {
+            "max_abs": 0.0,
+            "shape_equal": true,
+            "within_atol": true
+          },
+          "gains": {
+            "max_abs": 0.0,
+            "shape_equal": true,
+            "within_atol": true
+          },
+          "last_coordinate_gain": {
+            "max_abs": 0.0,
+            "shape_equal": true,
+            "within_atol": true
+          },
+          "objective_history": {
+            "max_abs": 0.0,
+            "shape_equal": true,
+            "within_atol": true
+          }
+        },
+        "exact_discrete_and_counters": true
+      },
+      "against_stopped_fast": {
+        "continuous": {
+          "dopplers": {
+            "max_abs": 6.56386056618885e-11,
+            "shape_equal": true,
+            "within_atol": true
+          },
+          "gains": {
+            "max_abs": 9.141135253025823e-11,
+            "shape_equal": true,
+            "within_atol": true
+          },
+          "last_coordinate_gain": {
+            "max_abs": 4.265225829801708e-13,
+            "shape_equal": true,
+            "within_atol": true
+          },
+          "objective_history": {
+            "max_abs": 1.879243427538313e-10,
+            "shape_equal": true,
+            "within_atol": true
+          }
+        },
+        "exact_discrete_and_counters": false
+      },
+      "compact": {
+        "bank_centers": [
+          1.25,
+          0.75,
+          1.0,
+          1.0,
+          0.75,
+          1.5,
+          1.75,
+          0.5
+        ],
+        "counters": {
+          "accepted_coordinates": 66,
+          "bank_scans": 8,
+          "bank_scores": 20600,
+          "coordinate_scores": 995,
+          "coordinate_visits": 80,
+          "joint_solves": 74,
+          "newton_steps": 320
+        },
+        "delays": [
+          24,
+          15,
+          9,
+          11,
+          28,
+          40,
+          22,
+          101
+        ],
+        "dopplers": [
+          1.1642829109655308,
+          0.7191455580899446,
+          1.0338957045015253,
+          0.9849415265158259,
+          0.8167768348116049,
+          1.5256274481743421,
+          1.7766634753723094,
+          0.3987079367281619
+        ],
+        "gains_re_im": [
+          [
+            0.597366689856481,
+            0.0794591532151343
+          ],
+          [
+            0.18471736219503976,
+            0.39560412551290586
+          ],
+          [
+            0.2014085929089928,
+            0.3556880947996512
+          ],
+          [
+            0.26550008919992674,
+            -0.2964124987835243
+          ],
+          [
+            0.012306379562187806,
+            0.39486564416929526
+          ],
+          [
+            -0.0943265984037913,
+            0.14590875115681853
+          ],
+          [
+            0.034549981292103474,
+            -0.09792666775267161
+          ],
+          [
+            0.07903087361195499,
+            0.06174623113859816
+          ]
+        ],
+        "objective_history": [
+          1298.177260025975,
+          1115.7116512131713,
+          1111.2854155053903,
+          1014.140667975186,
+          1013.829793114869,
+          1013.8297877763067,
+          1013.8297877761771,
+          930.9027490145363,
+          930.7492794793823,
+          930.7490774904292,
+          930.748233951283,
+          930.7482339369628,
+          930.7482339169551,
+          849.0960425475962,
+          848.9638931336293,
+          848.9635871201214,
+          848.963514896606,
+          848.9619170495381,
+          848.9619170200568,
+          848.9619169818608,
+          770.0995589634599,
+          769.0029140072038,
+          769.0027473088062,
+          769.0023432809189,
+          768.9978564370116,
+          768.997766323623,
+          768.997765823038,
+          768.9977657844529,
+          768.997765665305,
+          768.9977656609012,
+          753.5228005064424,
+          753.4938347324749,
+          753.4937976599589,
+          753.4934128753742,
+          753.4894221880618,
+          753.4849620738206,
+          753.4848477292453,
+          753.4848467312416,
+          753.4848465957816,
+          753.4848463954534,
+          753.4848463068657,
+          753.4848463067095,
+          747.9503028763439,
+          747.935512937927,
+          747.9353190960636,
+          747.9340287716491,
+          747.9340045004021,
+          747.9339992257878,
+          747.9339945915474,
+          747.9339904815822,
+          747.9339903168262,
+          747.9339902781437,
+          747.9339902766395,
+          747.9339902677289,
+          747.9339902650712,
+          747.9339902650075,
+          747.9339902650013,
+          743.0046126868267,
+          742.8008753860205,
+          742.8008562323461,
+          742.8006749064675,
+          742.7995695379914,
+          742.7972000645385,
+          742.797197018077,
+          742.7955055606062,
+          742.7954711476641,
+          742.7954659783325,
+          742.7954658990758,
+          742.7954658904199,
+          742.7954628702449,
+          742.7954618224153,
+          742.7954617842372,
+          742.7954617513705,
+          742.79546175095,
+          742.7954617488457
+        ],
+        "stopping_reason": "eight_slots"
+      },
+      "coordinate_scores": 995,
+      "input_and_cache_layout": {
+        "delay_base": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": false,
+          "shape": [
+            1024,
+            103
+          ],
+          "strides": [
+            1648,
+            16
+          ]
+        },
+        "pilot": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "y": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            1024
+          ],
+          "strides": [
+            16
+          ]
+        }
+      },
+      "kind": "fast",
+      "output_layout": {
+        "delays": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 0,
+          "dtype": "int64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "dopplers": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            8
+          ]
+        },
+        "gains": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 32,
+          "dtype": "complex128",
+          "f_contiguous": true,
+          "shape": [
+            8
+          ],
+          "strides": [
+            16
+          ]
+        },
+        "objective_history": {
+          "c_contiguous": true,
+          "data_pointer_mod64": 16,
+          "dtype": "float64",
+          "f_contiguous": true,
+          "shape": [
+            75
+          ],
+          "strides": [
+            8
+          ]
+        }
+      },
+      "runtime": {
+        "environment": {
+          "CUDA_VISIBLE_DEVICES": "",
+          "MKL_NUM_THREADS": "1",
+          "NUMEXPR_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "numpy": "1.26.4",
+        "numpy_config": "{\n  \"Compilers\": {\n    \"c\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"cc\",\n      \"args\": \"-fno-strict-aliasing\",\n      \"linker args\": \"-Wl,--strip-debug, -fno-strict-aliasing\"\n    },\n    \"cython\": {\n      \"name\": \"cython\",\n      \"linker\": \"cython\",\n      \"version\": \"3.0.8\",\n      \"commands\": \"cython\"\n    },\n    \"c++\": {\n      \"name\": \"gcc\",\n      \"linker\": \"ld.bfd\",\n      \"version\": \"10.2.1\",\n      \"commands\": \"c++\",\n      \"linker args\": \"-Wl,--strip-debug\"\n    }\n  },\n  \"Machine Information\": {\n    \"host\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    },\n    \"build\": {\n      \"cpu\": \"x86_64\",\n      \"family\": \"x86_64\",\n      \"endian\": \"little\",\n      \"system\": \"linux\"\n    }\n  },\n  \"Build Dependencies\": {\n    \"blas\": {\n      \"name\": \"openblas64\",\n      \"found\": true,\n      \"version\": \"0.3.23.dev\",\n      \"detection method\": \"pkgconfig\",\n      \"include directory\": \"/usr/local/include\",\n      \"lib directory\": \"/usr/local/lib\",\n      \"openblas configuration\": \"USE_64BITINT=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER= NO_CBLAS= NO_LAPACK= NO_LAPACKE= NO_AFFINITY=1 USE_OPENMP= HASWELL MAX_THREADS=2\",\n      \"pc file directory\": \"/usr/local/lib/pkgconfig\"\n    },\n    \"lapack\": {\n      \"name\": \"dep139863411681952\",\n      \"found\": true,\n      \"version\": \"1.26.4\",\n      \"detection method\": \"internal\",\n      \"include directory\": \"unknown\",\n      \"lib directory\": \"unknown\",\n      \"openblas configuration\": \"unknown\",\n      \"pc file directory\": \"unknown\"\n    }\n  },\n  \"Python Information\": {\n    \"path\": \"/opt/python/cp310-cp310/bin/python\",\n    \"version\": \"3.10\"\n  },\n  \"SIMD Extensions\": {\n    \"baseline\": [\n      \"SSE\",\n      \"SSE2\",\n      \"SSE3\"\n    ],\n    \"found\": [\n      \"SSSE3\",\n      \"SSE41\",\n      \"POPCNT\",\n      \"SSE42\",\n      \"AVX\",\n      \"F16C\",\n      \"FMA3\",\n      \"AVX2\",\n      \"AVX512F\",\n      \"AVX512CD\",\n      \"AVX512_SKX\",\n      \"AVX512_CLX\",\n      \"AVX512_CNL\",\n      \"AVX512_ICL\"\n    ],\n    \"not found\": [\n      \"AVX512_KNL\",\n      \"AVX512_KNM\"\n    ]\n  }\n}\n",
+        "python": "3.10.20"
+      },
+      "stem": "s650_f0197",
+      "traced": false
+    }
+  ],
+  "schema": "stage-b-f1-resume-diagnostic/1",
+  "trace_sha256": null
+}

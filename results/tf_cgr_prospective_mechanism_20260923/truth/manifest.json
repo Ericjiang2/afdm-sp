@@ -1,0 +1,64 @@
+{
+  "schema": "tf-cgr-prospective-mechanism/1",
+  "registration_sha256": "397afed908a644d4c0294f8b5f4a06f3118a10f4be63f3ea7c4496a12aa04aa8",
+  "registration_commit": "ef44db445929f4059ebd2dd781199e3e9b6ce95f",
+  "namespace_sha256": "838a7a32e01601d704629e90338ad7215aaa79e076511917d0745443633a737e",
+  "source_bindings_sha256": "fac587dea0c229ec68c04f2468f00aeea56f69a17a2cc74c283d2c8d41940724",
+  "population": {
+    "snr_centi_db": 650,
+    "frames": 256
+  },
+  "runtime_environment": {
+    "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]",
+    "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+    "hostname": "liunxgpu",
+    "machine": "x86_64",
+    "numpy": "1.26.4",
+    "scipy": "1.10.1",
+    "torch": "2.5.1+cu121",
+    "matplotlib": "3.7.1",
+    "cuda_visible_devices": "",
+    "torch_cuda_available": false,
+    "torch_num_threads": 1,
+    "torch_num_interop_threads": 1,
+    "torch_pre_context_num_threads": 1,
+    "torch_pre_context_num_interop_threads": 64,
+    "torch_binding_authority": "receiver context build; verified before first receiver run",
+    "thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "system": {
+    "n": 1024,
+    "rho": 0.5,
+    "c1": 0.00244140625,
+    "c2": 1.9751241797117955e-07,
+    "l_max_cap": 102
+  },
+  "setup_seconds": 2.094791861018166,
+  "argv": [
+    "experiments/tf_cgr_prospective_mechanism_20260923/generate.py",
+    "--source",
+    "experiments/sp_afdm_native_joint_reviewed_20260921",
+    "--baseline",
+    "experiments/sp_afdm_frozen_reviewed_20260921",
+    "--registration",
+    "results/tf_cgr_prospective_mechanism_20260923/protocol/registration.json",
+    "--registration-commit",
+    "ef44db445929f4059ebd2dd781199e3e9b6ce95f",
+    "--observed",
+    "results/tf_cgr_prospective_mechanism_20260923/observed/population",
+    "--truth",
+    "results/tf_cgr_prospective_mechanism_20260923/truth",
+    "--seconds",
+    "900",
+    "--bytes-cap",
+    "8589934592"
+  ],
+  "pid": 2240306,
+  "kind": "truth",
+  "observed_manifest_sha256": "20ad92ca0d5a81fbc2d998deab7f74f8e6599d828fd10f7a6e0c7547f0380d74"
+}

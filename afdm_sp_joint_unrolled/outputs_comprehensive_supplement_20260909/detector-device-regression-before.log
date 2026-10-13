@@ -1,0 +1,28 @@
+F
+======================================================================
+FAIL: test_cuda_current_index_reaches_allocator_terminal_and_contract (afdm_sp_joint_unrolled.test_supplement_detector_run.DetectorRunTests.test_cuda_current_index_reaches_allocator_terminal_and_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/test_supplement_detector_run.py", line 49, in test_cuda_current_index_reaches_allocator_terminal_and_contract
+    self.assertEqual(run.execute(args),0)
+                     ^^^^^^^^^^^^^^^^^
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/supplement_detector_run.py", line 171, in execute
+    device=torch.device('cuda');torch.cuda.set_per_process_memory_fraction(.25,device)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/guoyikun/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/guoyikun/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/guoyikun/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1204, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/test_supplement_detector_run.py", line 24, in cap
+    self.assertEqual(device,expected)
+AssertionError: device(type='cuda') != device(type='cuda', index=2)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+FAILED (failures=1)

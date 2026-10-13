@@ -1,0 +1,692 @@
+You are continuing the frozen CSTATE-necessity audit.
+
+The remaining questions are now:
+
+1. Was Stage-A F1 materially penalized by an inefficient Python/reference implementation rather than by the intrinsic computation of the frozen F1 algorithm?
+2. Can the strongest relevant published data-aided / grid-evolution AFDM estimator, especially D-GAMP-GESBL, replace CSTATE on the complete receiver risk–cost frontier?
+3. If that estimator is used under the same syndrome-triggered scheduling policy as CSTATE, is CSTATE itself still practically distinctive?
+
+Do not invent a new receiver.
+
+Do not tune CSTATE.
+
+Do not reopen CGR.
+
+Do not use fresh confirmation data in this task.
+
+This is the final DEVELOPMENTAL stress test before deciding what deserves fresh confirmation.
+
+======================================================================
+0. CURRENT FROZEN EVIDENCE
+======================================================================
+
+Stage A used the existing paired 6.5-dB, 1024-observation development population.
+
+Frozen outcomes:
+
+A = F0 + TF
+    40 / 1024 information failures
+    FER = 3.906%
+    mean complete latency = 0.349 s
+
+B = F0 + TF + CSTATE
+    6 / 1024
+    FER = 0.586%
+    mean complete latency = 0.363 s
+
+C = F1 + TF
+    12 / 1024
+    FER = 1.172%
+    mean complete latency = 0.668 s
+
+D = F1 + TF + CSTATE
+    0 / 1024
+    FER = 0%
+    mean complete latency = 0.668 s
+
+F1 LOCAL control on the 12 C-triggered frames:
+    D/CSTATE = 12/12 correct
+    LOCAL    = 11/12 correct
+
+Therefore:
+
+- F1 removes a large fraction of F0 structural failures;
+- F1 does not currently dominate F0+CSTATE on risk–cost;
+- after F1, most additional triggered recoveries do not require global CSTATE replacement;
+- current evidence supports economical deferred estimation against this F1 implementation, but does NOT yet establish that CSTATE beats an efficiently implemented F1 or a stronger published geometry estimator.
+
+Current measured acquisition times:
+
+F0 acquisition ≈ 0.083 s/frame
+F1 acquisition ≈ 0.377 s/frame
+
+Nominal work ledger:
+
+F0:
+    maximum 24 × 515 = 12,360 greedy correlation products
+
+F1:
+    8 × 2,575 = 20,600 physical-bank scores
+    plus 80 coordinate visits per full-slot wrapper
+
+The score-count increase is only about 1.67× whereas measured acquisition time is about 4.54×.
+
+This discrepancy must be audited before using F1 latency as an algorithmic conclusion.
+
+Preserve all Stage-A outputs and decisions unchanged.
+
+======================================================================
+PART I — F1 IMPLEMENTATION-EFFICIENCY AUDIT
+======================================================================
+
+1. Freeze the algorithm first
+
+Read the already frozen:
+
+- F1_NOMP_AFDM_SPEC.md
+- F1_EQUATION_TO_SOURCE_MAP.md
+- F1_COMPLEXITY_LEDGER.md
+- Stage-A implementation receipt
+- Stage-A timing tables
+
+Define precisely what constitutes the F1 ALGORITHM and what is merely its current reference implementation.
+
+The following must remain unchanged during optimization:
+
+- physical candidate bank;
+- path budget;
+- scoring objective;
+- Newton/refinement equations;
+- number of allowed refinement/cyclic passes;
+- acceptance rule;
+- duplicate rule;
+- stopping rule;
+- gain-refit objective;
+- information available to F1;
+- F1 -> TF geometry interface.
+
+No parameter may change in response to performance.
+
+2. Profile the current F1 implementation
+
+On a fixed, deterministic profiling subset selected without reference to timing outcome, obtain a detailed breakdown of F1 acquisition time.
+
+At minimum separate:
+
+- construction of physical path responses;
+- candidate-bank generation;
+- residual correlations / candidate scoring;
+- Python loop overhead;
+- NumPy dispatch overhead;
+- temporary allocations/copies;
+- CPP/phase construction;
+- Newton first derivative;
+- Newton second derivative if used;
+- scalar coordinate-search logic;
+- cyclic refinement;
+- LS / Gram construction;
+- gain refits / linear solves;
+- duplicate checking;
+- bookkeeping;
+- cache misses or repeated invariant construction;
+- serialization, if accidentally included in acquisition timing.
+
+Use appropriate profilers and explicit timers.
+
+Record call counts and cumulative/self time.
+
+3. Classify every major F1 cost
+
+For each major cost, label it:
+
+A. intrinsic algorithmic work;
+B. avoidable repeated computation;
+C. Python/interpreter overhead;
+D. avoidable allocation/data-layout overhead;
+E. reference-implementation artifact;
+F. unclear.
+
+The purpose is to answer:
+
+> Is the observed 4.54× F0/F1 acquisition ratio representative of the algorithm, or mainly of the first Python implementation?
+
+4. Construct F1-fast only through semantics-preserving optimization
+
+You MAY construct an optimized F1 implementation, but only if it implements exactly the same frozen algorithm.
+
+Allowed examples:
+
+- vectorizing candidate-bank scoring;
+- batching physical response evaluation;
+- caching candidate-independent phases/shifts;
+- precomputing immutable CPP/Doppler factors;
+- reducing Python loops;
+- reusing allocated buffers;
+- batched BLAS/NumPy operations;
+- compiled/JIT kernels if already supportable in the project environment;
+- avoiding repeated construction of invariant arrays;
+- algebraically equivalent derivative evaluation.
+
+Forbidden:
+
+- changing the Doppler grid;
+- reducing refinement visits;
+- pruning candidates differently;
+- changing Newton caps;
+- changing the model-order rule;
+- modifying the duplicate threshold;
+- changing LS regularization;
+- approximate top-K shortcuts;
+- lower precision unless equivalence is separately established and frozen;
+- using truth or decoder information.
+
+5. Equivalence gate
+
+Before using F1-fast timing, prove implementation equivalence.
+
+On deterministic unit tests and then the full 1024 Stage-A observations, compare reference F1 and F1-fast:
+
+- selected physical path count;
+- ordered or set-valued geometry, according to frozen tie semantics;
+- delays;
+- Dopplers;
+- gains;
+- stopping reason;
+- objective values;
+- TF-entry geometry;
+- final receiver bits when connected to the same TF backend.
+
+Preferred result:
+    exact same discrete geometry and final bits,
+    numerical continuous parameters within a declared tolerance.
+
+If optimized implementation changes a discrete path choice on any material frame, do NOT silently call it the same F1.
+
+Either:
+- diagnose and restore numerical equivalence, or
+- classify it as a new comparator requiring separate freezing.
+
+6. Re-measure F1 risk–cost
+
+If F1-fast passes the equivalence gate, re-run timing under the same balanced single-machine measurement protocol used for the current comparison.
+
+Report:
+
+F1-reference:
+    acquisition and complete latency
+
+F1-fast:
+    acquisition and complete latency
+
+F0:
+    same-environment acquisition and complete latency
+
+Important:
+
+Stage-A historical timing is not erased.
+F1-fast is an implementation-efficiency correction to the same algorithm.
+
+State both.
+
+Determine:
+
+- algorithmic speedup from implementation optimization;
+- remaining F1/F0 acquisition ratio;
+- remaining F1+TF versus F0+TF+CSTATE complete-latency ratio;
+- 0.5-s and 1.0-s deadline behavior if materially changed.
+
+Do not infer a complexity theorem from Python timing.
+
+======================================================================
+PART II — F2 PUBLISHED-ESTIMATOR ADAPTATION
+======================================================================
+
+7. Retrieve and reconcile the exact published method
+
+The primary target is:
+
+Luo et al.,
+“Data-aided Channel Estimation and Sensing With Sparse Bayesian Learning for AFDM-ISAC System”
+D-GESBL / D-GAMP-GESBL.
+
+Use the actual paper, algorithms, supplementary material, and official source if available.
+
+Do not implement the method from a secondary summary.
+
+Identify separately:
+
+- full GESBL / D-GESBL reference algorithm;
+- lower-complexity D-GAMP-GESBL;
+- pilot-only initialization;
+- data-aided feedback;
+- grid-evolution update;
+- hyperparameter updates;
+- stopping conditions;
+- support/model-order handling.
+
+Create a source-to-equation implementation map before receiver experiments.
+
+8. Adaptation principles
+
+The adaptation must preserve the published algorithmic idea while making the physical setting comparable to the current paper.
+
+Primary project setting:
+
+- coded SISO SP-AFDM;
+- integer sample delay model;
+- fractional Doppler retained;
+- same pilot/data observation;
+- same CPP;
+- same channel ensemble;
+- same code/decoder for downstream comparison.
+
+Do not:
+
+- import the paper’s multi-antenna gain as a free advantage;
+- estimate fractional delay and then silently round it;
+- give F2 truth information;
+- destroy F2 geometry by forcing it through F0’s unique-delay grouping;
+- claim the adaptation is byte-identical reproduction of the original paper.
+
+Document every adaptation.
+
+If faithful specialization is not scientifically possible, STOP and report why.
+
+9. Full GESBL as reference, GAMP-GESBL as practical arm
+
+Use full GESBL primarily as a small-scale or bounded numerical reference for the adapted implementation.
+
+Verify that the practical GAMP-GESBL implementation approximates the intended estimator on a manageable frozen subset before using it as the main F2 systems arm.
+
+Do not run full dense GESBL over all 1024 frames merely to create an expensive strawman if the published method itself proposes GAMP-GESBL as the practical solution.
+
+10. Validate the implementation before receiver comparison
+
+Unit/reference checks should include:
+
+- physical measurement matrix consistency;
+- pilot-only special case;
+- integer-Doppler special case;
+- single-path case;
+- multipath case;
+- grid-evolution direction;
+- support/model-order behavior;
+- GAMP mean/variance consistency on a small case;
+- comparison against full GESBL on small dimensions;
+- no truth leakage;
+- no decoder-information leakage before the declared data-aided stage.
+
+Archive all residuals and deviations.
+
+======================================================================
+PART III — TWO F2 EXECUTION POLICIES
+======================================================================
+
+11. F2-EARLY
+
+Construct the fairest early/data-aided strong-estimation policy.
+
+Conceptually:
+
+    pilot observation
+        -> F2 pilot estimate
+        -> allowed data estimate / reliable-data feedback
+        -> grid evolution
+        -> final F2 geometry
+        -> same TF backend
+        -> same LDPC decoder
+
+All computation required to obtain the data-aided feedback is charged.
+
+Do not treat detected data as free side information.
+
+Do not give F2 more coded information than its declared policy allows without charging the corresponding decoder/detector work.
+
+Call this policy:
+
+    F2E + TF
+
+Also evaluate, if interface-valid:
+
+    F2E + TF + CSTATE
+
+This contrast tests whether CSTATE retains incremental value after the strongest practical early geometry policy.
+
+12. F2-TRIGGERED SUBSTITUTE
+
+This is equally important.
+
+Start from the exact original economical path:
+
+    F0 + TF
+
+If the native syndrome is zero:
+    stop.
+
+If nonzero:
+    invoke adapted D-GAMP-GESBL / GAMP-GESBL geometry correction
+    using only information available at that point,
+    then execute the same bounded continuation budget used after CSTATE.
+
+Call this:
+
+    F0 + TF + triggered-F2
+
+This arm must be directly comparable to:
+
+    F0 + TF + CSTATE
+
+on the same original 40 F0-triggered frames.
+
+The point is to ask:
+
+> Is the practical value specific to CSTATE, or is any competent syndrome-triggered geometry estimator equally good at comparable cost?
+
+13. Matched controls
+
+For attribution, retain/use appropriate matched continuations.
+
+At minimum compare on original F0 triggers:
+
+- F0 LOCAL continuation
+- CSTATE
+- triggered F2
+
+They should receive the same legal decoder state and comparable continuation budget after their geometry operation.
+
+Do not attribute benefit to geometry correction if another plain continuation explains it.
+
+For F2E-triggered failures, if testing CSTATE increment:
+
+- F2E + TF
+- F2E + LOCAL continuation
+- F2E + CSTATE
+
+must be compared on the same F2E trigger population where feasible.
+
+======================================================================
+PART IV — STAGE B DEVELOPMENTAL COMPARISON
+======================================================================
+
+14. Population
+
+Use the same already-studied paired 6.5-dB 1024-observation development population.
+
+Do NOT call this fresh confirmation.
+
+Do not select only hard frames for population FER.
+
+Triggered-subset analyses are secondary mechanism/cost analyses.
+
+15. Required Stage-B systems arms
+
+At minimum include:
+
+B:
+    F0 + TF + CSTATE
+
+Cfast:
+    optimized semantics-equivalent F1 + TF
+    if F1-fast passes equivalence
+
+F2E:
+    early/data-aided F2 + TF
+
+F2EC:
+    early/data-aided F2 + TF + CSTATE
+    if interface-valid
+
+F2T:
+    F0 + TF + syndrome-triggered F2 + matched continuation
+
+Reuse/recompute A = F0+TF only as needed for exact pairing and timing.
+
+Do not add arbitrary method variants after seeing results.
+
+16. Primary scientific questions
+
+Q1:
+Does implementation optimization make F1 + TF competitive with B?
+
+Q2:
+Does F2E + TF dominate B on complete risk–cost?
+
+Q3:
+Does CSTATE materially improve F2E after matched LOCAL continuation?
+
+Q4:
+Does triggered F2 match or dominate CSTATE when both are invoked only after the same F0 syndrome failure?
+
+Q5:
+If several methods reach similar FER, which lies on the best complete reliability–latency frontier?
+
+======================================================================
+PART V — METRICS AND COST
+======================================================================
+
+17. Communication metrics
+
+For every population arm record:
+
+- information-word FER;
+- coded BER;
+- paired rescues/harms;
+- valid-but-wrong words;
+- syndrome counts;
+- numerical failures.
+
+18. Deadline metrics
+
+Use the same frozen deadlines where possible:
+
+- 0.5 s;
+- 1.0 s;
+
+with:
+
+- correct ready;
+- wrong ready;
+- missing.
+
+19. Complete cost
+
+Report:
+
+- mean complete latency;
+- median;
+- p95;
+- p99;
+- max;
+- acquisition/estimation time;
+- geometry-update time;
+- TF time;
+- decoder time;
+- branch time;
+- decoder-call count;
+- memory/state footprint.
+
+Do not compare a kernel timer from one algorithm with complete-wrapper latency from another.
+
+For triggered policies report both:
+
+- population-average extra cost;
+- triggered-frame conditional cost.
+
+20. Instrumentation fairness
+
+Run competing timing arms in balanced/interleaved order under the same machine/process policy where practical.
+
+Keep evidence instrumentation symmetric.
+
+Do not allow serialization/checkpoint differences to decide the apparent winner.
+
+If instrumentation cannot be made symmetric, report both:
+
+- evidence-inclusive complete latency;
+- a consistently defined computation-only latency.
+
+======================================================================
+PART VI — DECISION RULES
+======================================================================
+
+21. F1 implementation verdict
+
+Issue one of:
+
+F1-PYTHON-BOUND:
+    Most of the 4.54× acquisition penalty was avoidable implementation overhead, and an equivalent optimized F1 materially changes the risk–cost comparison.
+
+F1-INTRINSICALLY-HEAVIER:
+    Optimization helps, but F1 remains materially more expensive because of its actual physical-search/refinement work.
+
+F1-UNRESOLVED:
+    profiling/equivalence does not permit a clean conclusion.
+
+22. CSTATE systems verdict
+
+Use the strongest practical competitors.
+
+KILL / PRACTICALLY REPLACEABLE:
+A stronger practical estimator reaches B-like or better communication risk at no larger meaningful complete cost.
+
+SCOPED:
+CSTATE is useful for F0, but either F2E removes its incremental value or triggered F2 matches it at comparable cost.
+
+COMPLEMENTARY:
+A genuinely stronger front end improves over F0, yet CSTATE still yields a material increment beyond matched LOCAL continuation.
+
+ECONOMICAL-DEFERRED:
+Strong early estimation can reach similar reliability only at clearly greater complete cost, while triggered alternatives do not match CSTATE’s risk–cost point.
+
+UNRESOLVED:
+developmental evidence cannot distinguish these possibilities.
+
+Do not force a favorable category.
+
+23. Important interpretation rule
+
+If triggered F2 matches CSTATE:
+
+do NOT conclude the entire architecture is useless.
+
+Conclude instead that:
+
+    syndrome-triggered geometry correction is supported,
+    while CSTATE's specific structural-update mechanism lacks unique practical advantage.
+
+If F2E beats B:
+
+accept that the current cheap-front-end + CSTATE operating point is practically dominated in the tested implementation.
+
+If CSTATE survives both F1-fast and F2:
+
+this strongly justifies a later fresh confirmation campaign.
+
+======================================================================
+PART VII — NO FRESH CAMPAIGN YET
+======================================================================
+
+24. Do not run new Monte Carlo observations.
+
+Stage B remains developmental.
+
+After Stage B, recommend exactly one of:
+
+A. STOP / rewrite current paper because CSTATE is practically replaceable.
+
+B. Retain CSTATE as scoped engineering realization; no broad necessity claim.
+
+C. Freeze the strongest challenger and prepare one fresh confirmatory campaign.
+
+D. More development is required for a specifically identified implementation/fairness defect.
+
+Do not initiate option C without separate authorization.
+
+======================================================================
+PART VIII — REPOSITORY / TRACEABILITY
+======================================================================
+
+25. Archive the complete logic chain.
+
+Create/update a dedicated record such as:
+
+research_records/2026-09-28_cstate_necessity_stageB/
+
+At minimum retain:
+
+- README.md
+- F1_PROFILE_REPORT.md
+- F1_PROFILE_RAW.json
+- F1_FAST_EQUIVALENCE.md
+- F1_FAST_TIMING.csv
+- F2_LITERATURE_AND_ADAPTATION.md
+- F2_EQUATION_TO_SOURCE_MAP.md
+- F2_UNIT_TESTS.md
+- F2_UNIT_TESTS.json
+- F2_IMPLEMENTATION_RECEIPT.md
+- STAGE_B_ARM_DEFINITIONS.md
+- STAGE_B_MANIFEST.json
+- STAGE_B_FRAME_OUTCOMES.csv/parquet
+- STAGE_B_COMPONENT_TIMING.csv/parquet
+- STAGE_B_DEADLINE_DECISIONS.csv/parquet
+- STAGE_B_RESULTS.md
+- STAGE_B_DECISION.md
+- PROVENANCE.json
+- independent recount receipt
+
+Update project:
+
+- STATE.md
+- research index
+- CSTATE necessity navigation
+- negative-results / open-question ledger
+- reviewer Q&A ledger
+
+26. Reviewer-traceability requirement
+
+The archived record must let a future reviewer question:
+
+> “Why not just use a better initializer or published data-aided grid-evolution estimator?”
+
+be answered through an explicit chain:
+
+F0 weakness
+ -> F1
+ -> F1 implementation-efficiency audit
+ -> published F2 adaptation
+ -> early F2 comparison
+ -> triggered F2 comparison
+ -> complete FER/deadline/latency frontier
+ -> final scoped claim.
+
+Do not rely on this chat history.
+
+======================================================================
+FINAL RESPONSE
+======================================================================
+
+Return a compact decision packet with:
+
+1. F1 profiling verdict.
+2. Reference-F1 vs optimized-F1 acquisition and complete latency.
+3. Proof/evidence that optimized F1 preserves the frozen algorithm.
+4. F2 adaptation fidelity verdict.
+5. Full GESBL vs GAMP-GESBL small-reference agreement.
+6. F2E population FER / BER / latency.
+7. F2E+CSTATE incremental result and LOCAL control.
+8. Triggered-F2 vs CSTATE on the same F0-triggered frames.
+9. Complete risk–cost frontier.
+10. Final CSTATE verdict:
+       KILL / SCOPED / COMPLEMENTARY / ECONOMICAL-DEFERRED / UNRESOLVED.
+11. Whether a fresh confirmation campaign is scientifically justified.
+12. Repository artifacts and hashes.
+
+Do not invent another method.
+
+Do not optimize parameters after observing receiver results.
+
+Do not protect the current narrative.
+
+The goal is to answer the strongest remaining objection:
+
+> Could a better and efficiently implemented geometry estimator solve the problem earlier—or solve it conditionally just as well—making CSTATE unnecessary?

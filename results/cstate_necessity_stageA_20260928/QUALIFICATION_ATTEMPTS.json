@@ -1,0 +1,41 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "phase": "synthetic remote qualification",
+      "status": "failed_before_test_execution",
+      "cause": "AFDM Python has no pytest module",
+      "source_precheck": "7 staged Python source hashes and physical/twofft/evidence loaded paths matched; runtime versions matched original",
+      "exit_code": 1,
+      "production_receiver_calls": 0,
+      "decoder_calls": 0,
+      "new_observations": 0,
+      "log": "qualification_attempt1.log",
+      "next_action": "Use an existing test harness or standard-library synthetic checks; do not install packages or change production algorithm."
+    },
+    {
+      "attempt": 2,
+      "phase": "standalone synthetic qualification source precheck",
+      "status": "failed_before_test_execution",
+      "cause": "Uploaded test_stage_a.py was older than the final qualification manifest; all preceding source checks passed.",
+      "exit_code": 1,
+      "production_receiver_calls": 0,
+      "decoder_calls": 0,
+      "new_observations": 0,
+      "log": "qualification_attempt2.log",
+      "next_action": "Upload final test_stage_a.py; production source and parameters unchanged."
+    },
+    {
+      "attempt": 3,
+      "phase": "remote original AFDM standalone stdlib qualification",
+      "status": "pass",
+      "exit_code": 0,
+      "source_precheck": "all7 source SHA and authoritative loaded module paths matched",
+      "production_receiver_calls": 0,
+      "decoder_calls": 0,
+      "new_observations": 0,
+      "log": "qualification_attempt3.log",
+      "receipt": "F1_UNIT_TESTS_remote.json"
+    }
+  ]
+}

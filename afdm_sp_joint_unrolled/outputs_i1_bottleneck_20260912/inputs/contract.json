@@ -1,0 +1,62 @@
+{
+  "schema": "i1-bottleneck-pilot-v1",
+  "campaign_id": "afdm-bottleneck-20260912-112500",
+  "namespace": [
+    20260912,
+    112500,
+    731921
+  ],
+  "snrs": [
+    7,
+    8
+  ],
+  "engineering_blocks": 2,
+  "development_blocks": 64,
+  "full_arms": [
+    "I1",
+    "I1_DET_ONLY",
+    "I1_CE_ONLY",
+    "I1_ZERO"
+  ],
+  "terminal_arms": [
+    "BP_EST_NOISE",
+    "BP_TRUE_BASE",
+    "BP_TRUE_NOISE",
+    "EP_EST_NOISE",
+    "EP_TRUE_NOISE"
+  ],
+  "ep_recipe": "stable-EP-40-d0.5",
+  "bounds": {
+    "golden": {
+      "F": 4,
+      "T": 0,
+      "seconds": 600
+    },
+    "engineering": {
+      "F": 20,
+      "T": 28,
+      "seconds": 1200
+    },
+    "development": {
+      "F": 512,
+      "T": 640,
+      "seconds": 5400
+    }
+  },
+  "total_bounds": {
+    "F": 536,
+    "T": 668,
+    "seconds": 7200,
+    "output_bytes": 8589934592,
+    "threads": 1,
+    "gpu_memory_fraction": 0.25
+  },
+  "device": "cuda:0",
+  "checkpoint_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_canonical_grid_s20260507/ckpt_c2rel.pt.force_topk",
+  "checkpoint_sha256": "052ecfab8eff7780c49038d9bb4f16f92272ee22322fa05b6f65029cc3112a91",
+  "baseline_archive": ".mission/20260911_19-55-51-afdm-i1-cost-adjacent-pivots/dispatch/source-v1.tar.gz",
+  "baseline_archive_sha256": "458ffb538498c591db914705f1868be69560b2f9790063e34c29d3ed7351b23b",
+  "plan_sha256": "2b9d0a11050a2db695d785f568c3336efdec14a38834a1f6c192732cb630dc23",
+  "authorization": "user 2026-09-12: 先进行下一步的试验和仿真，开始做",
+  "created_at": "2026-09-12T03:20:40.314759+00:00"
+}

@@ -1,0 +1,39 @@
+{
+  "audit_skill": "paper-claim-audit",
+  "verdict": "WARN",
+  "reason_code": "stale_after_fig3_fig5_data_refresh_requires_rerun",
+  "summary": "The original manual arithmetic check found 18/18 verifiable claims matched, but the draft was later refreshed for Fig. 3 and Fig. 5. Treat this audit as stale until paper-claim-audit is rerun on the current PDF/TeX. The current paper-facing Fig. 5 source is outputs_omp_extended_4B_big_headroom_results.json; the old outputs_loop13_headroom_4B_big/headroom_results.json source is superseded.",
+  "audited_input_hashes": {
+    "main.tex": "sha256:89d4d7838f4f1b50cbcb16b07f37a944de0fb1ba176e96968933c008432cd3d3",
+    "sections/Abstract.tex": "sha256:7b7f6c640fcd1232dea50b8cfe9fe982574175e1875a2fea47d0a32ccdf8ee2a",
+    "sections/Section4.tex": "sha256:dfc1d12a6e04b2808b97d75944c2758cf8bbf0b7c08f1b209b6b9cd1e025020a",
+    "sections/Section5.tex": "sha256:720e87434206276e5f2e660892b73d3068b559d762ab9edfc6f22b9374aaf2e4",
+    "sections/Section6.tex": "sha256:e7e132870e4798c8680b74f98c02829ae34067cb3949e50a5984ada02f00d171",
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/scripts/pooled_paired_eval_4B_table_ber4b.md": "sha256:91b2110eb4facaaf3c0ee43e1f09e5873cbf114d10b043351cc3dc18a244d3d6",
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json": "sha256:fa064bab166947497eece7a5d79691b29c077cd7f14c10dae9600a0cddd25e22",
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json": "sha256:b6a109979bc4472bde75fb82b9f389c3f77c70aa17c2d91ba2feca7125270f3f",
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_ablation_H_outer_iter_20/CEILING_TEST_SUMMARY.md": "sha256:106ddbb5adbc6a39613ef18e6af221e96885b8d42eae9622fe6a0b6019d74726",
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json": "sha256:a7d1498e5232c54d336e2079db63306ac5fa018eef2659353a1fe37725735264",
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathJ_attn256/train_log.json": "sha256:3d51b4b3bd3db5aa04b5b99f8e3d7219aa6a6093121cab69e11fa000200ea09a"
+  },
+  "trace_path": ".aris/traces/paper-claim-audit/2026-05-16_run02/",
+  "thread_id": "manual_verification_no_codex",
+  "reviewer_model": "manual (Claude Sonnet 4.6 \u2014 same model as executor; reviewer independence NOT achieved)",
+  "reviewer_reasoning": "xhigh",
+  "generated_at": "2026-05-16T08:40:12.149234Z",
+  "details": {
+    "total_claims": 18,
+    "exact_match": 17,
+    "rounding_ok": 1,
+    "mismatches": [],
+    "result_files": [
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/scripts/pooled_paired_eval_4B_table_ber4b.md",
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop12_r3_official/results.json",
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_omp_extended_4B_big_headroom_results.json",
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_ablation_H_outer_iter_20/CEILING_TEST_SUMMARY.md",
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_loop13_4B_retrain27k_snr25_eval_f2p/results.json",
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_e2e_ladder_phase2/pathJ_attn256/train_log.json"
+    ],
+    "note": "Codex MCP auth expired. Manual arithmetic verification was performed before the Fig. 3/Fig. 5 data refresh. Current paper-facing Fig. 3 and Fig. 5 sources were manually rechecked and reviewed by a Codex fallback subagent, but this audit artifact remains WARN/stale until a full paper-claim-audit rerun."
+  }
+}

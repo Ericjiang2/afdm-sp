@@ -1,0 +1,47 @@
+test_duplicate_slots_minimum_norm_and_empty_I (afdm_sp_joint_unrolled.test_direction_structure.StructureTests) ... ok
+test_group_shrinkage_is_not_LS_and_matches_closed_form (afdm_sp_joint_unrolled.test_direction_structure.StructureTests) ... ok
+test_overlap_unique_coefficients_and_residuals (afdm_sp_joint_unrolled.test_direction_structure.StructureTests) ... ok
+test_restricted_unknown_gain_link_and_free (afdm_sp_joint_unrolled.test_direction_structure.StructureTests) ... ok
+test_sham_preserves_incidence_spectrum_rank (afdm_sp_joint_unrolled.test_direction_structure.StructureTests) ... ok
+test_shared_fit_input_and_terminal_routing (afdm_sp_joint_unrolled.test_direction_structure_replay.StructureReplayTests) ... FAIL
+
+======================================================================
+FAIL: test_shared_fit_input_and_terminal_routing (afdm_sp_joint_unrolled.test_direction_structure_replay.StructureReplayTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/guoyikun/tmp/direction-stats-check/afdm_sp_joint_unrolled/test_direction_structure_replay.py", line 31, in test_shared_fit_input_and_terminal_routing
+    result=run_arm(prepared,ToySystem(),{},arm,device='cpu',before_call=lambda *x:events.append(x))
+  File "/data/guoyikun/tmp/direction-stats-check/afdm_sp_joint_unrolled/direction_structure_replay.py", line 73, in run_arm
+    residual=residual_ledger(s,H,H)
+  File "/data/guoyikun/tmp/direction-stats-check/afdm_sp_joint_unrolled/direction_factorial.py", line 23, in residual_ledger
+    if closure>1e-10:raise AssertionError('factorial residual identity failed')
+AssertionError: factorial residual identity failed
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.013s
+
+FAILED (failures=1)
+Command exited with non-zero status 1
+	Command being timed: "/home/guoyikun/.conda/envs/AFDM/bin/python -m unittest afdm_sp_joint_unrolled.test_direction_structure afdm_sp_joint_unrolled.test_direction_structure_replay -v"
+	User time (seconds): 1.28
+	System time (seconds): 0.18
+	Percent of CPU this job got: 95%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.54
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 429452
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 10
+	Minor (reclaiming a frame) page faults: 58603
+	Voluntary context switches: 146
+	Involuntary context switches: 141
+	Swaps: 0
+	File system inputs: 2040
+	File system outputs: 168
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

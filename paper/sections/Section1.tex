@@ -1,0 +1,365 @@
+\section{Introduction and Literature Survey}
+\label{sec:intro}
+
+\subsection{Background and motivation}
+\label{ssec:motivation}
+
+Underwater acoustic (UWA) communications carry much of the non-tethered data
+traffic between autonomous underwater vehicles, ocean-bottom sensors, and surface
+platforms. Their physical layer is shaped by two channel pathologies that, taken
+together, are harder to handle than almost any terrestrial radio-frequency link.
+The multipath between the sea surface, the water column, and the sea bed produces
+delay spreads of several to tens of milliseconds, which at the 4--12~kHz bandwidth
+budgets typical of UWA modems translates to hundreds of resolvable delay
+bins~\cite{stojanovic2009uwa,preisig2007uwa}. The propagation speed of $c \approx
+1500$~m/s, combined with platform motion of even a few~m/s, yields a relative
+Doppler of order $v / c \sim 10^{-3}$~--- three to four orders of magnitude larger
+than in a typical RF link --- and produces both strong inter-carrier interference
+and fractional Doppler offsets relative to the underlying multicarrier
+grid~\cite{berger2010uwasparse,huang2010uwamimoofdm}. A conventional OFDM receiver
+cannot absorb either pathology cleanly: a cyclic prefix long enough for the full
+delay spread costs a prohibitive fraction of spectral efficiency, while a residual
+fractional Doppler of even a few tenths of a sub-carrier corrupts sub-carrier
+orthogonality in a way that a single-tap frequency-domain equaliser cannot repair.
+
+Affine Frequency Division Multiplexing (AFDM)~\cite{bemani2023afdm} was designed
+for precisely such doubly dispersive channels. By placing information on a chirp
+basis defined through the discrete affine Fourier transform (DAFT), and choosing
+the two chirp coefficients $(c_1, c_2)$ to align with the channel's
+delay--Doppler geometry, AFDM folds every physical delay--Doppler pair into a
+single sparse structured effective channel on the chirp-domain received signal,
+rather than into the full two-dimensional delay--Doppler grid that Orthogonal
+Time Frequency Space (OTFS) modulation~\cite{hadani2017otfs,raviteja2018otfs,%
+wei2021otfspromising} would produce. The resulting sparsity is what makes
+sparse-recovery channel estimation with orthogonal matching pursuit
+(OMP)~\cite{tropp2007signal} tractable~\cite{benzine2023sparseafdm,%
+rou2024otfstoafdm}, and is the starting point of every receiver considered in
+this report.
+
+Pilot overhead nonetheless remains a first-order constraint on spectral
+efficiency in UWA contexts where the bandwidth budget is only a few kilohertz.
+To preserve the data-carrying capacity that an AFDM frame would otherwise lose
+to dedicated pilots, this work adopts a superimposed-pilot (SP)
+transmission~\cite{orozco2011superimposed,tugnait2006superimposed} in which
+every chirp sub-carrier simultaneously carries data and pilot energy under a
+fixed power split $\rhop$. SP doubles the available data capacity relative to a
+comparable embedded-pilot (EP) frame, but it also introduces a new estimation
+problem: the pilot observation is now systematically contaminated by
+unknown-data interference, and at mid-to-high SNR this interference does not
+average out. In a UWA-style $\rhop = 0.5$, $\Ppath = 8$-path simulation
+representative of the regime considered here, the resulting error floor for a
+one-shot OMP + MP-BP receiver sits at $\ber \approx 5 \times 10^{-2}$ from
+$\snr \geq 15$~dB, with an OMP channel-estimation NMSE frozen near $-11.3$~dB
+irrespective of the noise variance. The presence of this floor --- not the SNR
+--- defines the engineering regime that this work has to address.
+
+The natural response to a structured estimation residual is to iterate between
+channel estimation and symbol detection~\cite{wymeersch2007iterativereceiver}:
+each detection pass produces tentative data estimates that can be subtracted
+from the pilot observation, sharpening the next channel estimate. Two naive
+realisations of this idea are expensive, however. Re-running OMP at every outer
+iteration multiplies the per-frame cost by a 5$\times$ constant factor at five
+outer iterations, and replacing OMP with a dense LMMSE channel estimator
+inflates the per-frame complexity by two orders of magnitude at $\Nsub = 1024$.
+This work therefore investigates a third option: estimate the channel support
+\emph{once} with OMP, lock that support, and iterate only the cheap downstream
+blocks --- a damped data-aided least-squares refit of the path gains and sparse
+message-passing belief propagation (MP-BP) on the chirp-domain factor graph.
+The central engineering question is whether such a single-OMP receiver,
+optionally augmented with a small learned module that repairs the support
+residual that fractional-Doppler leakage leaves behind, can close the SP error
+floor at a complexity comparable to a single OMP pass.
+
+
+\subsection{Critical literature survey}
+\label{ssec:lit}
+
+The proposed receiver sits at the intersection of four research streams that
+have, until now, evolved largely in isolation from each other: AFDM as a
+chirp-domain waveform engineered for doubly dispersive channels; superimposed
+pilot transmission as a spectral-efficiency mechanism whose joint
+estimation--detection challenge predates AFDM by nearly two decades;
+sparse-recovery and message-passing receiver primitives developed in the
+OFDM/OTFS lineage and now inherited by AFDM; and the deep-unfolding tradition
+that motivates the embedding of small learned modules within otherwise
+model-based receivers. This section traces each thread to the point at which
+it constrains a specific design choice in Chapter~\ref{sec:method}, and
+concludes by identifying the narrow gap that the present work occupies.
+
+\paragraph{AFDM as a doubly-dispersive waveform and its channel-estimation
+primitives.}
+AFDM was introduced by Bemani \emph{et al.}~\cite{bemani2023afdm} as a
+chirp-based multicarrier waveform whose two tunable DAFT parameters $(c_1,
+c_2)$ can be aligned with the delay--Doppler geometry of the underlying
+channel, yielding a sparse one-dimensional input--output relation that
+recovers the diversity advantages of the two-dimensional OTFS
+modulation~\cite{hadani2017otfs,raviteja2018otfs,wei2021otfspromising} on
+doubly dispersive links. Subsequent investigations established the
+receiver-side primitives that make this representation operational. Yin and
+Tang~\cite{yin2022fractionaldopplerafdm} developed the pilot-aided AFDM
+channel estimator for the integer delay--Doppler grid, formalising the
+threshold-based recovery rule that later sparse and Bayesian extensions would
+refine. Benzine \emph{et al.}~\cite{benzine2023sparseafdm} reformulated AFDM
+channel estimation as a sparse-recovery problem under embedded-pilot (EP)
+guard intervals, importing OMP~\cite{tropp2007signal} into the AFDM
+literature and demonstrating that the sparsity of the chirp-domain effective
+channel makes greedy recovery a natural fit. Yin \emph{et
+al.}~\cite{yin2024drceafdm} extended this line to MIMO-AFDM by deriving a
+diagonal-reconstruction estimator that explicitly addresses the inter-Doppler
+interference produced by fractional Doppler residuals, while the comparative
+survey of Rou \emph{et al.}~\cite{rou2024otfstoafdm} situated AFDM alongside
+OTFS and OCDM within an integrated sensing-and-communication context. Two
+practitioner-oriented overviews~\cite{yin2025afdmoverview,zhou2025afdmicsc}
+now collect these threads. Across this body of work, the EP frame keeps the
+pilot observation pilot-only and yields analytically clean sparse-recovery
+guarantees, but it does so at a spectral-efficiency cost that is hard to
+absorb at the few-kilohertz bandwidth budgets typical of UWA modems, and the
+analytical tractability disappears once the EP assumption is dropped.
+
+\paragraph{Superimposed pilots and the joint estimation--detection challenge.}
+The superimposed-pilot principle, in which every symbol simultaneously
+carries data and pilot energy under a fixed power split, was developed for
+OFDM more than a decade before AFDM. Cui and
+Tellambura~\cite{cui2007superimposed} derived ML and MMSE iterative
+estimators for SP-OFDM and proved that the equispaced equipowered placement
+minimises the Cram\'er--Rao bound, while Tugnait and
+Meng~\cite{tugnait2006superimposed} characterised SP-training
+power-allocation tradeoffs and frame-synchronisation behaviour. Orozco-Lugo
+\emph{et al.}~\cite{orozco2011superimposed} established the optimality of
+the equipowered training pattern under the spectral-efficiency constraint. Liang
+\emph{et al.}~\cite{liang2011iterativesp} subsequently demonstrated that
+superimposed pilots can match preamble-based channel estimation in OFDM-WLAN
+at the cost of an iterative receiver, isolating the regime in which the
+iteration overhead is justified by the bandwidth saving. The structural
+observation that survives the transfer from OFDM to delay--Doppler waveforms
+is that the pilot--data interference does not decay with the noise variance
+and therefore produces a high-SNR error floor that single-pass estimation
+cannot remove. In delay--Doppler waveforms specifically, Mishra \emph{et
+al.}~\cite{mishra2022otfssp} extended the SP framework to OTFS, and Neelam
+and Sahu~\cite{neelam2023otsmsp} carried it to OTSM, in both cases confirming
+that an iterative loop alternating pilot-data interference cancellation and
+channel re-estimation is unavoidable once the EP assumption is abandoned.
+
+The most directly relevant SP-AFDM line is the recent cluster initiated by
+Zheng \emph{et al.}~\cite{qing2024spafdm}, which adapts the OFDM SP machinery
+to the chirp domain and introduces an iterative SP-AFDM channel estimator
+and signal detector with optimised pilot placement. Cao \emph{et
+al.}~\cite{cao2024spomp} subsequently combined the SP frame with an OMP
+front-end, leveraging the chirp-domain sparsity to lower the per-iteration
+estimation cost. Both works establish that, under SP-AFDM, an iterative loop
+is structurally required, but they re-execute the sparse-recovery step on
+every outer iteration and contain no learning component, leaving open the
+question of whether the support recovered by the first OMP pass already
+captures the bulk of the channel energy and therefore makes per-iteration
+re-OMP redundant. Adjacent to these SP-focused works, Zhou \emph{et
+al.}~\cite{zhao2024gifreeafdm} reach a structurally similar conclusion via a
+guard-interval-free pilot-aided AFDM design with iterative interference
+cancellation; their formulation, however, departs from SP in that it
+preserves a separation between pilot and data symbols and addresses only
+data-to-pilot and pilot-to-data interference rather than the multiplicative
+pilot--data coupling that defines the SP frame. Huang \emph{et
+al.}~\cite{afdm2025jointcesd} propose AFDM channel-estimation and
+symbol-detection receivers including a DNN-based design and a separate
+GI-free iterative design, demonstrating that learning-augmented AFDM
+receivers are tractable in principle, but their learned element is placed at
+the detector rather than at the channel-support-selection step, and the work
+targets neither an SP frame nor a UWA-style channel model. Across this cluster, the iterative joint-receiver
+philosophy is now well established within AFDM, yet no published
+contribution simultaneously preserves the SP framework, retains the
+sparse-recovery skeleton without re-running OMP, and places a small learned
+module at the OMP support-refinement step.
+
+\paragraph{Sparse channel estimation in UWA contexts and physical-layer
+refinements.}
+The choice of OMP as the sparse-recovery primitive in this work inherits a
+long line of evidence that UWA channels are well approximated by a sparse
+delay--Doppler representation. Stojanovic and
+Preisig~\cite{stojanovic2009uwa} characterised the underwater acoustic
+channel as severely doubly dispersive with a sparse impulse response in
+which each physical path acts as a time-varying low-pass filter, while
+Preisig~\cite{preisig2007uwa} formalised the propagation considerations
+governing UWA system design. Berger \emph{et al.}~\cite{berger2010uwasparse}
+then established compressive sensing as the natural channel-estimation
+primitive for multicarrier UWA links, and Huang \emph{et
+al.}~\cite{huang2010uwamimoofdm} extended the sparse-recovery toolkit to
+MIMO-OFDM-UWA with iterative channel estimation and decoding. Within the
+OFDM-UWA literature this lineage diversified into greedy variants such as
+backtracking OMP~\cite{junejo2018labomp} and Bayesian variants based on
+sparse Bayesian learning, all of which testify to the practical robustness
+of the sparse-recovery approach but operate within OFDM rather than within a
+chirp-domain waveform.
+
+The closest physical-layer refinements to the AFDM-UWA setting considered
+here form a cluster of three threads. Ranasinghe \emph{et
+al.}~\cite{ma2024oversampledafdm} show that observing the chirp-domain signal
+at twice the Nyquist rate yields a tangible channel-estimation improvement
+that is independent of any learned component; this directly motivates the
+$\fs = 4B$ operating point adopted in the present report, although their
+result is established in a non-SP, non-learning configuration and does not
+address either pilot-data interference or fractional-Doppler support
+residuals. Cao \emph{et al.}~\cite{zhou2024msmlafdm} extend AFDM-OMP to
+multi-scale multi-lag (MSML) UWA channels in which each physical path
+carries an independent time-scale factor, establishing that the AFDM
+sparse-recovery primitive transfers to a more physically faithful UWA
+channel model; their work, however, is non-SP and contains no learning
+component, and therefore engages with neither the SP-induced estimation
+floor nor the Dirichlet-leakage support residual that motivates the present
+design. The fractional-Doppler problem itself has been treated directly by
+Yin \emph{et al.}~\cite{yin2024drceafdm} via a diagonal-reconstruction
+estimator targeting the very Dirichlet leakage that single-pass OMP fails to
+capture, but the formulation is non-SP and the leakage repair is not
+embedded inside an iterative joint receiver. Together these three threads
+establish the individual physical-layer ingredients --- oversampling, MSML
+treatment, Dirichlet-leakage repair --- yet none is integrated with the
+SP-induced estimation-limited floor that this report is designed to close.
+
+\paragraph{Sparse message-passing detection.}
+On the detection side, the proposed inner LS/MP-BP loop inherits from the
+sparse delay--Doppler message-passing literature pioneered by Raviteja
+\emph{et al.}~\cite{raviteja2018otfs}, in which a low-complexity
+factor-graph detector exploits the natural sparsity of the OTFS channel
+matrix and explicitly handles the inter-Doppler interference produced by
+fractional Doppler shifts. Subsequent OTFS detector designs --- including
+unitary-AMP variants~\cite{yuan2022uampotfs}, expectation-propagation
+formulations~\cite{pu2024epotfs}, and graph-neural-network
+refinements~\cite{zhuang2024amgnnotfs} --- have refined the
+complexity--accuracy tradeoff but preserve the sparse-graph philosophy. The
+present work transports this MP-BP machinery into the chirp-domain factor
+graph induced by the Dirichlet-expanded AFDM virtual-tap representation,
+and uses it as a fixed inner-loop detector throughout.
+
+\paragraph{Deep unfolding for model-based receivers.}
+At the architectural level, the proposed learned head sits within the
+deep-unfolding tradition surveyed by Monga \emph{et
+al.}~\cite{monga2021unrolling} and Balatsoukas-Stimming and
+Studer~\cite{balatsoukasstimming2019deepunfolding}, and rooted in the
+seminal Learned ISTA architecture of Gregor and
+LeCun~\cite{gregor2010lista}, in which iterations of a sparse-recovery
+algorithm are unrolled into trainable layers; the AMP-Inspired Deep
+Networks of Borgerding \emph{et al.}~\cite{borgerding2017amp} extend this
+template to approximate-message-passing iterations and demonstrate that
+unfolded sparse-recovery networks recover the linear-inverse-problem
+performance of their model-based counterparts at a fraction of the
+iteration count. The model-driven survey of He
+\emph{et al.}~\cite{he2019modeldrivensurvey} situates this philosophy
+within physical-layer communications, arguing that combining domain-derived
+structure with learned components reduces both the training-data demand and
+the inference complexity relative to fully data-driven receivers. The bulk
+of the resulting literature targets MIMO detection --- exemplified by the
+model-driven detectors of He \emph{et
+al.}~\cite{he2020modeldrivenmimo}, the soft interference
+cancellation network DeepSIC~\cite{shlezinger2021deepsic}, the
+adaptive-detection scheme MMNet~\cite{khani2020mmnet}, and the
+attention-augmented receiver of Xu \emph{et
+al.}~\cite{xu2024detecttolearn}. Within AFDM specifically, learned
+components have so far appeared at the detector~\cite{afdm2025jointcesd}
+rather than at the channel-support-selection step, and within the broader
+sparse-recovery literature the unrolling of greedy-OMP iterations has been
+studied only recently~\cite{mohammadtaheri2025deepgreedyunfolding}, where
+the non-differentiable argsort operator is approached via softsort
+relaxations. The OMP support-refinement slot inside an SP-AFDM joint
+receiver, however, remains untouched by learning.
+
+\paragraph{Synthesis and identified gap.}
+Across the four threads above, the design space for an SP-AFDM receiver in
+a UWA-style sparse fractional-Doppler regime leaves a narrow opening. The
+receiver should preserve the spectral-efficiency advantage of SP and the
+sparse-recovery prior that makes AFDM attractive in UWA, while avoiding
+both the per-iteration re-OMP overhead that the existing SP-AFDM iterative
+receivers incur and the cubic per-frame cost of a dense LMMSE estimator.
+It should additionally address the residual fractional-Doppler support
+errors that classical OMP leaves behind, ideally without enlarging the
+dictionary or altering the asymptotic complexity class. To the author's
+knowledge, no published AFDM receiver simultaneously runs OMP only once,
+iterates only over a damped data-aided least-squares path-gain refit and
+sparse MP-BP detection, and embeds a small learned module dedicated to OMP
+support refinement under the UWA-style sparse SP regime. The receiver
+developed in this report is positioned precisely at this intersection.
+
+
+\subsection{Research question and objectives}
+\label{ssec:rq}
+
+The central research question of the report is:
+\begin{quote}
+\emph{Can an SP-AFDM receiver close the structured pilot-data interference
+floor at mid-to-high SNR while remaining complexity-preserving relative to both
+re-OMP-per-iteration and dense-LMMSE alternatives, and can a minimal learned
+module further reduce the residual support-selection error without leaving the
+sparse-recovery complexity class?}
+\end{quote}
+
+This question is decomposed into three operational objectives. The first is to
+characterise the SP-induced estimation floor and demonstrate quantitatively
+that a one-shot OMP + MP-BP receiver is estimation-limited rather than
+noise-limited. The second is to design and justify an OMP-once + iterative
+LS/MP-BP receiver against both its re-OMP-per-iteration overhead variant and
+its dense-LMMSE alternative, and to verify the design choice with a direct
+support-recall measurement. The third is to design a learned
+support-refinement module that strictly preserves the classical
+sparse-recovery complexity class, and to quantify its BER contribution under
+a paired-frame statistical protocol.
+
+
+\subsection{Contributions}
+\label{ssec:contrib}
+
+The report makes three contributions, each summarised below.
+
+\begin{enumerate}[leftmargin=1.3em,itemsep=2pt]
+\item \textbf{A complexity-preserving joint OMP--MP receiver for AFDM-SP under a
+UWA-style fractional-Doppler regime.} The proposed receiver runs OMP only
+once, locks the recovered support, and iterates only the cheap downstream
+blocks: a damped data-aided least-squares refit of the path gains and sparse
+MP-BP detection on the chirp-domain factor graph. A direct support-recall
+probe shows that the first OMP pass already recovers a mean $\approx 95\%$ of
+the effective Dirichlet-expanded virtual-tap support, with the residual
+$\approx 5\%$ stable across SNR and therefore structurally rather than
+noise-driven; re-running OMP across outer iterations is consequently a wasted
+constant-factor overhead. The proposed receiver recovers two to three orders
+of magnitude in BER over the one-shot OMP + MP-BP baseline at $\snr = 25$~dB,
+while staying within the sparse $\mathcal{O}(\Ppath \Nsub^2)$ arithmetic
+class.
+
+\item \textbf{A 1\,041-parameter learned support-refinement head deployed as a
+deterministic top-$\Kadd$ ranker.} A small deep-unfolding head, inserted
+between the single OMP pass and the iterative LS/MP-BP loop, scores
+off-support candidates and appends a fixed number of top-ranked atoms to the
+active support. Pooled across three independent evaluation-seed blocks, the
+head delivers a consistent $\approx 2$~dB paired BER separation from the
+classical joint receiver at $\snr \in \{20, 25, 30\}$~dB, while keeping the
+receiver in the same $\mathcal{O}(\Ppath \Nsub^2)$ arithmetic class as the
+classical baseline. The analytical complex-MAC overhead at $\Nsub = 1024$ is
+$\approx 8\%$ over the classical core; on a CPU/GPU reference,
+the measured wall-clock latency is at parity with the classical-Torch baseline
+at $\Nsub = 1024$ and within $+3.9\%$ at $\Nsub = 2048$, so the analytical
+overhead does not reverse in practice.
+
+\item \textbf{A mechanism analysis grounding the learned gain.} A
+top-$\Ppath$ physical-support-oracle diagnostic provides a valid ceiling on
+the BER reduction available from any support-refinement strategy operating on
+the proposed dictionary. Against this ceiling, the learned head closes
+$61\%/81\%/98\%$ of the achievable gap at $\snr = 15/20/25$~dB. Combined with
+the support-recall probe of Contribution~1, this attributes the learned
+head's BER contribution specifically to the recovery of Dirichlet side-lobe
+atoms that single-pass OMP discards under fractional-Doppler leakage, rather
+than to a generic noise-averaging effect.
+\end{enumerate}
+
+
+\subsection{Report structure}
+\label{ssec:structure}
+
+Chapter~\ref{sec:method} develops the AFDM-SP system model, the OMP
+dictionary derivation, the proposed OMP-once + iterative LS/MP-BP recipe, the
+learned support-refinement head with its training and inference setup, and
+the per-frame complexity analysis. It also documents the paired-frame
+evaluation protocol and the choice of baselines.
+Chapter~\ref{sec:results} reports four experiments: the main BER waterfall,
+the outer-iteration convergence probe, the design-rationale support-recovery
+probes, and the complexity comparison.
+Chapter~\ref{sec:discussion} interprets the results mechanistically, situates
+them against the prior AFDM literature, and discusses methodological and
+scope limitations.
+Chapter~\ref{sec:conclusion} summarises the conclusions and outlines concrete
+follow-up work.

@@ -1,0 +1,114 @@
+\section{Related Work}
+\label{sec:related}
+
+The contribution sits at the intersection of four lines of work; each is
+summarised compactly and the specific gap that the present design fills
+is identified at the end.
+
+\subsection{AFDM and SP-AFDM receivers}
+\label{ssec:related_afdm}
+
+AFDM~\cite{bemani2023afdm} engineered the chirp-domain effective channel
+to be sparse on doubly dispersive links; sparse-recovery channel
+estimation under embedded pilots was developed
+in~\cite{benzine2023sparseafdm,yin2022fractionaldopplerafdm,yin2024drceafdm,rou2024otfstoafdm}
+and surveyed in~\cite{yin2025afdmoverview,zhou2025afdmicsc}. Superimposed
+pilots were originally developed for
+OFDM~\cite{cui2007superimposed,tugnait2006superimposed,orozco2011superimposed,liang2011iterativesp},
+extended to OTFS~\cite{mishra2022otfssp} and
+OTSM~\cite{neelam2023otsmsp}, and recently
+transferred to AFDM by Zheng \emph{et al.}~\cite{qing2024spafdm} and Cao
+\emph{et al.}~\cite{cao2024spomp}; both works re-execute OMP on every
+outer iteration. The guard-interval-free pilot-aided design
+of~\cite{zhao2024gifreeafdm} reaches a structurally similar conclusion
+under a non-SP frame, and~\cite{afdm2025jointcesd} places a learned
+component at the symbol detector rather than at the channel-support
+step. Across this body of work no published receiver
+simultaneously preserves SP, runs OMP exactly once, and embeds a small
+learned module dedicated to OMP support refinement.
+
+\subsection{Learned and unrolled receivers}
+\label{ssec:related_learned}
+
+The deep-unfolding tradition is rooted in the seminal LISTA architecture
+of Gregor and LeCun~\cite{gregor2010lista}; subsequent
+AMP-inspired~\cite{borgerding2017amp} and model-driven
+surveys~\cite{he2019modeldrivensurvey,monga2021unrolling,balatsoukasstimming2019deepunfolding,shlezinger2022modelbasedsurvey}
+established that unfolding sparse-recovery iterations into trainable
+layers reduces both the training-data demand and the inference cost
+relative to fully data-driven receivers. The bulk of the resulting
+detector designs target MIMO --- DetNet by Samuel \emph{et
+al.}~\cite{samuel2019detnet}, OAMPNet by He \emph{et al.}~\cite{he2020modeldrivenmimo},
+MMNet by Khani and Alizadeh~\cite{khani2020mmnet},
+DeepSIC~\cite{shlezinger2021deepsic}, and the attention-augmented
+receiver of~\cite{xu2024detecttolearn} ---
+or OTFS detection~\cite{yuan2022uampotfs,pu2024epotfs,zhuang2024amgnnotfs}.
+These designs do not generally preserve initialization-classical
+equivalence, do not report comparable complexity audits against an
+equally-tuned classical baseline, and do not run a same-budget classical
+heuristic comparator. We adopt the structural template (learned modules
+embedded inside a model-based skeleton) while addressing all three
+methodological gaps explicitly: the unrolling is verified against a
+classical reference implementation at random init to a specified numerical
+tolerance (Claim~\ref{thm:initfaithful}), the per-frame MAC overhead is
+audited inclusive of the DA-LS solve (\S\ref{ssec:complexity_results}),
+and a same-budget OMP-$(\Ppath{+}K)$ classical heuristic is reported in
+\S\ref{ssec:exp_omppk}.
+
+\subsection{Sparse-recovery deep unrolling}
+\label{ssec:related_sparse}
+
+Beyond MIMO detection, a separate thread treats sparse recovery itself.
+LISTA~\cite{gregor2010lista} learns end-to-end matrix weights as
+unfoldings of ISTA iterations;
+ALISTA~\cite{liu2019alista,chen2018theoreticallinearconv} demonstrates
+that the learned weight matrices can be replaced by analytic ones at
+essentially no BER cost, and trainable-ISTA~\cite{takabe2019trainableistarobust}
+extends the recipe to general sparse-recovery problems.
+Unfolding greedy-OMP iterations specifically has been studied only
+recently in~\cite{mohammadtaheri2025deepgreedyunfolding},
+where the non-differentiable argsort operator is approached via softsort
+relaxations. Our head differs structurally from this family in that the
+candidate dictionary is fixed (the chirp-domain pilot dictionary
+$\mbPhi$, identical to the classical OMP baseline); only a small
+per-candidate attribution scorer is learned, over an OMP-derived
+candidate pool. The head does not modify the sparse-recovery dictionary,
+nor learn LISTA-style weight matrices; it functions as a deterministic
+per-candidate ranker over a frozen pool. This is the slot inside a joint
+SP-AFDM receiver that the prior unrolling literature has not occupied.
+
+\subsection{UWA physical-layer refinements}
+\label{ssec:related_uwa}
+
+The choice of OMP as the sparse-recovery primitive inherits a long line
+of evidence that UWA channels are well approximated by a sparse
+delay--Doppler representation~\cite{stojanovic2009uwa,preisig2007uwa,berger2010uwasparse,huang2010uwamimoofdm,junejo2018labomp}.
+Three AFDM-specific physical-layer refinements bear directly on the
+operating point of this paper. Ranasinghe \emph{et
+al.}~\cite{ma2024oversampledafdm} show that observing the chirp-domain
+signal at twice the Nyquist rate yields a tangible channel-estimation
+improvement that is independent of any learned component; this motivates
+the $\fs=4B$ operating point, and the present paper reports a direct $2B$
+vs.\ $4B$ sensitivity (\S\ref{ssec:exp_fs}) confirming that $4B$ is
+paper-defensible rather than artifact. Cao \emph{et
+al.}~\cite{zhou2024msmlafdm} extend AFDM-OMP to multi-scale multi-lag
+UWA propagation; that physics is folded into the simulator at first
+order. Yin \emph{et al.}~\cite{yin2024drceafdm} treat fractional-Doppler
+leakage via a diagonal-reconstruction estimator; the present design
+addresses the same leakage but does so by learning a candidate ranker
+over the existing OMP pool, leaving the integer-bin dictionary
+unchanged.
+
+\subsection{Identified gap}
+\label{ssec:related_gap}
+
+The opening of the design space is narrow. The receiver should preserve
+SP spectral efficiency and the sparse-recovery prior that makes AFDM
+attractive in UWA, avoid both the per-iteration re-OMP overhead and the
+cubic per-frame cost of a dense LMMSE estimator, and address the
+residual fractional-Doppler support errors that classical OMP leaves
+behind without enlarging the dictionary or altering the asymptotic
+complexity class. The differentiable-unrolling embedding must
+additionally be initialization-faithful, complexity-audited, and
+distinguishable from a same-budget classical heuristic. To the authors'
+knowledge no published receiver simultaneously occupies this position.

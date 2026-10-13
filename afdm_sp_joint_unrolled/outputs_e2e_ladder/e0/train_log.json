@@ -1,0 +1,89 @@
+{
+  "_argv": [
+    "afdm_sp_joint_unrolled/train_path_e.py",
+    "--model",
+    "e0",
+    "--n-total",
+    "1024",
+    "--snr-list",
+    "20",
+    "--iters",
+    "200",
+    "--batch",
+    "4",
+    "--lr",
+    "1e-4",
+    "--warmup",
+    "20",
+    "--eval-every",
+    "100",
+    "--eval-frames",
+    "10",
+    "--out-dir",
+    "/data/guoyikun/tmp/e0_smoke"
+  ],
+  "_config": {
+    "model": "e0",
+    "n_total": 1024,
+    "fs_factor": 4.0,
+    "v_mean": 2.0,
+    "p_paths": 8,
+    "tau_spread": 0.01,
+    "snr_list": [
+      20
+    ],
+    "d_model": 128,
+    "nhead": 4,
+    "num_layers": 4,
+    "dim_ff": 512,
+    "base_ch": 32,
+    "iters": 200,
+    "batch": 4,
+    "lr": 0.0001,
+    "warmup": 20,
+    "lr_min": 1e-06,
+    "lam_bce": 1.0,
+    "lam_sym": 0.5,
+    "bce_scale": 8.0,
+    "grad_clip": 5.0,
+    "eval_every": 100,
+    "eval_frames": 10,
+    "cdtype": "complex64",
+    "seed": 2026,
+    "device": "auto",
+    "out_dir": "/data/guoyikun/tmp/e0_smoke"
+  },
+  "best_eval_ber": 0.495556640625,
+  "log": [
+    {
+      "iter": 1,
+      "lr": 5e-06,
+      "loss": 1.1336719989776611,
+      "train_ber": 0.5,
+      "eval_ber_learned": 0.508544921875,
+      "eval_ber_classical": 0.0,
+      "rel_delta_pct": 5.08544921875e+31,
+      "elapsed_s": 836.3965308666229
+    },
+    {
+      "iter": 100,
+      "lr": 5.994504527113897e-05,
+      "loss": 0.949158251285553,
+      "train_ber": 0.499267578125,
+      "eval_ber_learned": 0.495556640625,
+      "eval_ber_classical": 0.0,
+      "rel_delta_pct": 4.955566406249999e+31,
+      "elapsed_s": 1715.4648232460022
+    },
+    {
+      "iter": 200,
+      "lr": 1.007539089758632e-06,
+      "loss": 0.9470473527908325,
+      "train_ber": 0.491455078125,
+      "eval_ber_learned": 0.50322265625,
+      "eval_ber_classical": 0.0,
+      "rel_delta_pct": 5.032226562499999e+31,
+      "elapsed_s": 2638.93306183815
+    }
+  ]
+}

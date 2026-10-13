@@ -1,0 +1,16 @@
+dcf69c7ee9629fa8f994c761d820fedd  -
+106M	.
+70
+remote: /data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/out/m1_dpss_main (rows_shard*.jsonl; line above = md5 of 'md5sum rows_shard*.jsonl' output; 72720 rows; M1 MAIN: D1,N4a,N4b,J4 x SNR 6..11 x frames 0..599 x arms P1,P2,P3,P4,P6 (+GX on frames%20==0); 70 shards)
+
+e14544ff3a9858c69e9ccbb3fd506ef4  -
+4.1M	.
+6
+remote: /data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/out/m1_dpss_d1ext (rows_shard*.jsonl; line above = md5 of 'md5sum rows_shard*.jsonl' output; 3000 rows; SUPPLEMENT: D1 only, SNR 5.5, frames 0..599, arms P1,P2,P3,P4,P6 (bracket for D1 crossings); 6 shards)
+
+173607faecdf501d4c87c8226861decf  -
+12M	.
+20
+remote: /data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/out/m1_dpss_p8 (rows_shard*.jsonl; line above = md5 of 'md5sum rows_shard*.jsonl' output; 7200 rows; EXTENSION beyond specified ladder: N4b,J4 x SNR 6..11 x frames 0..599, arm P8; 20 shards)
+
+analysis: m1_analyze.py --out-dir out/m1_dpss_analysis --B 20000 --a3 out/f2_order,out/f2_order_d1ext --m1 out/m1_dpss_main out/m1_dpss_d1ext out/m1_dpss_p8 (A3 = F2 A3 rows, same cells)

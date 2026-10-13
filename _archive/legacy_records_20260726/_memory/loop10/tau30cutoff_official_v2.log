@@ -1,0 +1,79 @@
+AFDM System initialized: N_total=1024 subcarriers (from 32x32)
+  Chirp parameters: c1=0.002441, c2=0.000000
+  Caps: l_max=15, k_max=2, delta_max=77 < N=1024: OK
+  UWA params: fc=12.0 kHz, B=4.0 kHz, fs=8.0 kHz, Ts=125.0 us
+  UWA channel: P=10, tau_spread=10.0 ms, v_mean=2.00 m/s, v_std=0.50 m/s
+  Supported AFDM delay window: 1.0 ms
+  Backward-compat speed cap: 12.6 km/h
+  Channel matrix size: 1024x1024
+[_make_system_variable_N] N_total=1024  l_max=102  k_max=4  δ_max=922  < N: True  c1=0.004395  c2=1.98e-07
+[eval] loaded afdm_sp_joint_unrolled/outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt variant=C2-rel
+[tau-lookup] set {10: 0.0, 15: 0.0, 20: 0.0, 25: 0.0, 30: 999.0}
+[LOOP5_CONFIG] variant=C2-rel mp_mode=bp pic_damp=0.5 N=1024 v=2.0 P=8 tau=10.00ms SNRs=[10, 15, 20, 25, 30] frames=200 cdtype=complex64 ckpt=afdm_sp_joint_unrolled/outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt
+  [snr=10 fi=  0]  classical=7.568e-02 (155)  torch-ref=7.568e-02 (155)  learned=7.715e-02 (158)  pcsi=5.811e-02 (119)  [3s]
+  [snr=10 fi= 10]  classical=9.317e-02 (2099)  torch-ref=9.317e-02 (2099)  learned=9.446e-02 (2128)  pcsi=5.686e-02 (1281)  [29s]
+  [snr=10 fi= 20]  classical=9.933e-02 (4272)  torch-ref=9.933e-02 (4272)  learned=9.903e-02 (4259)  pcsi=5.955e-02 (2561)  [55s]
+  [snr=10 fi= 30]  classical=1.023e-01 (6496)  torch-ref=1.023e-01 (6496)  learned=1.017e-01 (6454)  pcsi=6.146e-02 (3902)  [83s]
+  [snr=10 fi= 40]  classical=1.039e-01 (8728)  torch-ref=1.039e-01 (8728)  learned=1.034e-01 (8682)  pcsi=6.195e-02 (5202)  [106s]
+  [snr=10 early-stop] classical cum errs 10606 >= target 800 at fi=50
+  [snr=15 fi=  0]  classical=3.857e-02 (79)  torch-ref=3.857e-02 (79)  learned=3.857e-02 (79)  pcsi=1.611e-02 (33)  [130s]
+  [snr=15 fi= 10]  classical=3.351e-02 (755)  torch-ref=3.351e-02 (755)  learned=3.396e-02 (765)  pcsi=6.170e-03 (139)  [158s]
+  [snr=15 fi= 20]  classical=2.674e-02 (1150)  torch-ref=2.674e-02 (1150)  learned=2.676e-02 (1151)  pcsi=4.720e-03 (203)  [181s]
+  [snr=15 fi= 30]  classical=2.760e-02 (1752)  torch-ref=2.760e-02 (1752)  learned=2.701e-02 (1715)  pcsi=4.725e-03 (300)  [203s]
+  [snr=15 fi= 40]  classical=3.087e-02 (2592)  torch-ref=3.087e-02 (2592)  learned=3.058e-02 (2568)  pcsi=4.668e-03 (392)  [227s]
+  [snr=15 early-stop] classical cum errs 3039 >= target 800 at fi=50
+  [snr=20 fi=  0]  classical=5.859e-03 (12)  torch-ref=5.859e-03 (12)  learned=1.953e-03 (4)  pcsi=0.000e+00 (0)  [250s]
+  [snr=20 fi= 10]  classical=4.306e-03 (97)  torch-ref=4.306e-03 (97)  learned=4.217e-03 (95)  pcsi=0.000e+00 (0)  [273s]
+  [snr=20 fi= 20]  classical=3.790e-03 (163)  torch-ref=3.790e-03 (163)  learned=3.743e-03 (161)  pcsi=0.000e+00 (0)  [299s]
+  [snr=20 fi= 30]  classical=3.497e-03 (222)  torch-ref=3.497e-03 (222)  learned=3.386e-03 (215)  pcsi=0.000e+00 (0)  [330s]
+  [snr=20 fi= 40]  classical=3.489e-03 (293)  torch-ref=3.478e-03 (292)  learned=3.275e-03 (275)  pcsi=0.000e+00 (0)  [355s]
+  [snr=20 fi= 50]  classical=3.341e-03 (349)  torch-ref=3.332e-03 (348)  learned=2.978e-03 (311)  pcsi=0.000e+00 (0)  [376s]
+  [snr=20 fi= 60]  classical=3.338e-03 (417)  torch-ref=3.330e-03 (416)  learned=2.914e-03 (364)  pcsi=0.000e+00 (0)  [404s]
+  [snr=20 fi= 70]  classical=4.009e-03 (583)  torch-ref=4.003e-03 (582)  learned=3.617e-03 (526)  pcsi=0.000e+00 (0)  [430s]
+  [snr=20 fi= 80]  classical=3.997e-03 (663)  torch-ref=3.973e-03 (659)  learned=3.352e-03 (556)  pcsi=0.000e+00 (0)  [458s]
+  [snr=20 fi= 90]  classical=3.708e-03 (691)  torch-ref=3.686e-03 (687)  learned=3.134e-03 (584)  pcsi=0.000e+00 (0)  [482s]
+  [snr=20 fi=100]  classical=3.447e-03 (713)  torch-ref=3.428e-03 (709)  learned=2.930e-03 (606)  pcsi=0.000e+00 (0)  [502s]
+  [snr=20 fi=110]  classical=3.220e-03 (732)  torch-ref=3.207e-03 (729)  learned=2.754e-03 (626)  pcsi=0.000e+00 (0)  [523s]
+  [snr=20 fi=120]  classical=3.152e-03 (781)  torch-ref=3.140e-03 (778)  learned=2.675e-03 (663)  pcsi=0.000e+00 (0)  [550s]
+  [snr=20 early-stop] classical cum errs 801 >= target 800 at fi=125
+  [snr=25 fi=  0]  classical=0.000e+00 (0)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  pcsi=0.000e+00 (0)  [565s]
+  [snr=25 fi= 10]  classical=1.731e-03 (39)  torch-ref=1.731e-03 (39)  learned=1.332e-03 (30)  pcsi=0.000e+00 (0)  [592s]
+  [snr=25 fi= 20]  classical=9.068e-04 (39)  torch-ref=9.068e-04 (39)  learned=6.975e-04 (30)  pcsi=0.000e+00 (0)  [619s]
+  [snr=25 fi= 30]  classical=6.143e-04 (39)  torch-ref=6.143e-04 (39)  learned=4.725e-04 (30)  pcsi=0.000e+00 (0)  [641s]
+  [snr=25 fi= 40]  classical=8.337e-04 (70)  torch-ref=7.503e-04 (63)  learned=6.431e-04 (54)  pcsi=0.000e+00 (0)  [662s]
+  [snr=25 fi= 50]  classical=6.989e-04 (73)  torch-ref=6.032e-04 (63)  learned=5.362e-04 (56)  pcsi=0.000e+00 (0)  [688s]
+  [snr=25 fi= 60]  classical=7.204e-04 (90)  torch-ref=6.324e-04 (79)  learned=5.763e-04 (72)  pcsi=0.000e+00 (0)  [715s]
+  [snr=25 fi= 70]  classical=8.734e-04 (127)  torch-ref=7.359e-04 (107)  learned=7.084e-04 (103)  pcsi=0.000e+00 (0)  [742s]
+  [snr=25 fi= 80]  classical=1.061e-03 (176)  torch-ref=1.055e-03 (175)  learned=9.464e-04 (157)  pcsi=0.000e+00 (0)  [765s]
+  [snr=25 fi= 90]  classical=9.444e-04 (176)  torch-ref=9.390e-04 (175)  learned=8.424e-04 (157)  pcsi=0.000e+00 (0)  [785s]
+  [snr=25 fi=100]  classical=9.814e-04 (203)  torch-ref=8.605e-04 (178)  learned=8.267e-04 (171)  pcsi=0.000e+00 (0)  [812s]
+  [snr=25 fi=110]  classical=1.073e-03 (244)  torch-ref=8.578e-04 (195)  learned=8.270e-04 (188)  pcsi=0.000e+00 (0)  [837s]
+  [snr=25 fi=120]  classical=1.013e-03 (251)  torch-ref=8.313e-04 (206)  learned=7.587e-04 (188)  pcsi=0.000e+00 (0)  [859s]
+  [snr=25 fi=130]  classical=9.356e-04 (251)  torch-ref=7.678e-04 (206)  learned=7.007e-04 (188)  pcsi=0.000e+00 (0)  [884s]
+  [snr=25 fi=140]  classical=1.035e-03 (299)  torch-ref=8.450e-04 (244)  learned=7.549e-04 (218)  pcsi=0.000e+00 (0)  [908s]
+  [snr=25 fi=150]  classical=9.733e-04 (301)  torch-ref=8.278e-04 (256)  learned=7.243e-04 (224)  pcsi=0.000e+00 (0)  [930s]
+  [snr=25 fi=160]  classical=9.735e-04 (321)  torch-ref=8.280e-04 (273)  learned=7.309e-04 (241)  pcsi=0.000e+00 (0)  [954s]
+  [snr=25 fi=170]  classical=9.452e-04 (331)  torch-ref=8.224e-04 (288)  learned=7.310e-04 (256)  pcsi=0.000e+00 (0)  [980s]
+  [snr=25 fi=180]  classical=9.118e-04 (338)  torch-ref=7.904e-04 (293)  learned=6.906e-04 (256)  pcsi=0.000e+00 (0)  [1006s]
+  [snr=25 fi=190]  classical=8.641e-04 (338)  torch-ref=7.490e-04 (293)  learned=6.545e-04 (256)  pcsi=0.000e+00 (0)  [1030s]
+  [snr=30 fi=  0]  classical=0.000e+00 (0)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  pcsi=0.000e+00 (0)  [1050s]
+  [snr=30 fi= 10]  classical=0.000e+00 (0)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  pcsi=0.000e+00 (0)  [1074s]
+  [snr=30 fi= 20]  classical=0.000e+00 (0)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  pcsi=0.000e+00 (0)  [1100s]
+  [snr=30 fi= 30]  classical=4.725e-05 (3)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  pcsi=0.000e+00 (0)  [1125s]
+  [snr=30 fi= 40]  classical=2.620e-04 (22)  torch-ref=1.072e-04 (9)  learned=2.025e-04 (17)  pcsi=0.000e+00 (0)  [1148s]
+  [snr=30 fi= 50]  classical=4.308e-04 (45)  torch-ref=2.106e-04 (22)  learned=2.106e-04 (22)  pcsi=0.000e+00 (0)  [1174s]
+  [snr=30 fi= 60]  classical=3.602e-04 (45)  torch-ref=1.761e-04 (22)  learned=1.761e-04 (22)  pcsi=0.000e+00 (0)  [1199s]
+  [snr=30 fi= 70]  classical=5.983e-04 (87)  torch-ref=3.095e-04 (45)  learned=3.507e-04 (51)  pcsi=0.000e+00 (0)  [1221s]
+  [snr=30 fi= 80]  classical=5.666e-04 (94)  torch-ref=3.135e-04 (52)  learned=3.436e-04 (57)  pcsi=0.000e+00 (0)  [1246s]
+  [snr=30 fi= 90]  classical=5.312e-04 (99)  torch-ref=3.273e-04 (61)  learned=3.327e-04 (62)  pcsi=0.000e+00 (0)  [1269s]
+  [snr=30 fi=100]  classical=4.786e-04 (99)  torch-ref=2.949e-04 (61)  learned=2.997e-04 (62)  pcsi=0.000e+00 (0)  [1292s]
+  [snr=30 fi=110]  classical=8.358e-04 (190)  torch-ref=6.774e-04 (154)  learned=6.202e-04 (141)  pcsi=0.000e+00 (0)  [1317s]
+  [snr=30 fi=120]  classical=1.045e-03 (259)  torch-ref=9.120e-04 (226)  learned=8.353e-04 (207)  pcsi=0.000e+00 (0)  [1336s]
+  [snr=30 fi=130]  classical=9.654e-04 (259)  torch-ref=8.573e-04 (230)  learned=7.716e-04 (207)  pcsi=0.000e+00 (0)  [1353s]
+  [snr=30 fi=140]  classical=8.969e-04 (259)  torch-ref=7.965e-04 (230)  learned=7.168e-04 (207)  pcsi=0.000e+00 (0)  [1372s]
+  [snr=30 fi=150]  classical=8.375e-04 (259)  torch-ref=7.437e-04 (230)  learned=6.791e-04 (210)  pcsi=0.000e+00 (0)  [1392s]
+  [snr=30 fi=160]  classical=8.916e-04 (294)  torch-ref=7.794e-04 (257)  learned=7.006e-04 (231)  pcsi=0.000e+00 (0)  [1410s]
+  [snr=30 fi=170]  classical=8.481e-04 (297)  torch-ref=7.338e-04 (257)  learned=6.596e-04 (231)  pcsi=0.000e+00 (0)  [1428s]
+  [snr=30 fi=180]  classical=8.066e-04 (299)  torch-ref=7.041e-04 (261)  learned=6.259e-04 (232)  pcsi=0.000e+00 (0)  [1451s]
+  [snr=30 fi=190]  classical=7.644e-04 (299)  torch-ref=6.698e-04 (262)  learned=5.931e-04 (232)  pcsi=0.000e+00 (0)  [1476s]
+[done] wrote afdm_sp_joint_unrolled/outputs_loop10_tau30cutoff_official_v2

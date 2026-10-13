@@ -1,0 +1,53 @@
+{
+  "status": "accepted",
+  "scope": "DATA-01 G0 data isolation and engineering recorder; new scenarios and confirmation execution remain downstream",
+  "source_sha256": {
+    "supplement_data.py": "3d22481771ca83e915474f2ee47c2a6983e496370fa26509e8fb7010ebc2a58b",
+    "test_supplement_data.py": "8615147048ffcddfef3770261c431cda4ec652d0198dce82a8ee4e48b6f104c0",
+    "supplement_run.py": "5ab53520d76ee3c5885815c03b1b0143215e7f3b305f4cf85dde497224f72e22",
+    "test_supplement_run.py": "061f05d166ae66a99263508f03dfa5603ea79787e972b0ed191591fffcbcf191"
+  },
+  "protocol_sha256": "3b24ce24142a10b162ba577f71071795777ed6a93cf102ccefd268b34b439960",
+  "evidence_level": [
+    "source review",
+    "14 unit/fixture contracts",
+    "real N1024 LDPC generation across 7/8/9dB",
+    "real receiver BP+LDPC engineering 4 calls v5 and1 call v6"
+  ],
+  "tests": {
+    "path": "afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/engineering-test-v6.log",
+    "exit_code": 0,
+    "count": 14
+  },
+  "real_generation": "afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/data-smoke-v2.json",
+  "real_receiver": [
+    "afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/engineering-v5/complete.json",
+    "afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/engineering-v6/complete.json"
+  ],
+  "failure_history": {
+    "v3": "pytest absent; changed to stdlib unittest without server installation",
+    "v4": "missing code cache directory; failed before any receiver call; preserved log/failure.json",
+    "fixes": [
+      "mkdir before build_code",
+      "decoded shape and integer denominators checked",
+      "block/SNR/protocol/recipe identity binding",
+      "generation failure identity retained"
+    ]
+  },
+  "review": {
+    "agent": "supplement_data_check",
+    "model": "gpt-6-astra",
+    "effort": "low",
+    "result": "specific defects corrected; fresh remote regression and actual receiver verified"
+  },
+  "pairing": "same exogenous engineering block uses same H/data/standard noise across SNR; arm/SNR excluded from seed; split/family/scenario/component in namespace",
+  "truth_boundary": "only immutable frame.observed passed to receiver; truth used by post-reception evaluator",
+  "data_access": "no old holdout/v3/D_test or new confirmation generated",
+  "limits": [
+    "v6 real integration: one block, one B0 arm only; not performance evidence",
+    "G0 engineering runner only; scenario and later-family orchestration implemented by downstream rows",
+    "reserved code/interleaver streams are declared; actual LDPC and identity interleaver remain fixed",
+    "engineering timing is instrumented and not COST-02"
+  ],
+  "continue_now": "STAT-01/COST-01"
+}

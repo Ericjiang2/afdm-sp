@@ -1,0 +1,113 @@
+{
+  "schema": "supplement-base-01-evidence-v1",
+  "status": "development_reference_freeze",
+  "selection_sha256": "43b4d2f145243e89ee8fd6fd54af44df60369be048bffd3fef0698cf161c2823",
+  "primary": "B0-p2-s0.5",
+  "secondary": "bounded-param-p3-s1",
+  "recipes": {
+    "B0-p2-s0.5": {
+      "id": "B0-p2-s0.5",
+      "family": "B0",
+      "parameter": 24,
+      "terminal_scale": 0.5,
+      "parameter_index": 2,
+      "stage": "initial_CE"
+    },
+    "bounded-param-p3-s1": {
+      "id": "bounded-param-p3-s1",
+      "family": "bounded-param",
+      "parameter": 8,
+      "terminal_scale": 1.0,
+      "parameter_index": 3,
+      "stage": "terminal_refit"
+    }
+  },
+  "metrics": {
+    "B0-p2-s0.5": {
+      "FER": 0.08854166666666667,
+      "budget_screen": true,
+      "cost_ratio_to_A2": 0.5183319788632027,
+      "family": "B0",
+      "frame_errors": 17,
+      "mean_seconds": 0.7380158776541066,
+      "n": 192,
+      "qualification_failure_rate": 0.0,
+      "qualification_failures": 0,
+      "qualified": true
+    },
+    "SBL-p2-s0.5": {
+      "FER": 0.140625,
+      "budget_screen": true,
+      "cost_ratio_to_A2": 0.5735039629401648,
+      "family": "SBL",
+      "frame_errors": 27,
+      "mean_seconds": 0.816571324570153,
+      "n": 192,
+      "qualification_failure_rate": 0.0,
+      "qualification_failures": 0,
+      "qualified": true
+    },
+    "bounded-param-p3-s1": {
+      "FER": 0.09375,
+      "budget_screen": true,
+      "cost_ratio_to_A2": 0.6851760834407296,
+      "family": "bounded-param",
+      "frame_errors": 18,
+      "mean_seconds": 0.9755732796520533,
+      "n": 192,
+      "qualification_failure_rate": 0.0,
+      "qualification_failures": 0,
+      "qualified": true
+    },
+    "group-p3-s1": {
+      "FER": 0.125,
+      "budget_screen": true,
+      "cost_ratio_to_A2": 0.6695175689488838,
+      "family": "group",
+      "frame_errors": 24,
+      "mean_seconds": 0.9532782394332268,
+      "n": 192,
+      "qualification_failure_rate": 0.0,
+      "qualification_failures": 0,
+      "qualified": true
+    },
+    "ridge-p3-s0.5": {
+      "FER": 0.13020833333333334,
+      "budget_screen": true,
+      "cost_ratio_to_A2": 0.5918317207756679,
+      "family": "ridge",
+      "frame_errors": 25,
+      "mean_seconds": 0.8426669097085929,
+      "n": 192,
+      "qualification_failure_rate": 0.0,
+      "qualification_failures": 0,
+      "qualified": true
+    }
+  },
+  "coverage": {
+    "families": 5,
+    "configs_per_family": 8,
+    "paired_blocks": 192,
+    "full_calls": 7680,
+    "simultaneous_development_comparisons": 780
+  },
+  "verification": "Remote selector exited0 after every raw terminal hash/shape/input/error-count/qualification and 192x40 pairing checks; local231artifact harvest SHA verified",
+  "source_evidence": [
+    "baseline-design.json",
+    "baseline-selection-protocol.json",
+    "baseline-development-admission.json",
+    "baseline-selection-v2/selection.json",
+    "baseline-selection-inputs-v1/host-binding.json"
+  ],
+  "historical_mapping": {
+    "A2": "original direct40 prior400 estimated-H learned scorer and complete receiver in supplement_profile.A2_SOURCE; not a new catalogue arm",
+    "B0": "historical b0 terminal scale1; new catalogue nominal counterpart B0-p3-s1 (40 nominations), no retrospective 192-block A2 equivalence claim",
+    "old-Bstar": "historical sbl pruning.001 terminal scale.5; new catalogue nominal counterpart SBL-p1-s0.5; historical source/cache identity retained separately"
+  },
+  "limits": [
+    "development only; no confirm data consumed",
+    "A2 cost uses one real engineering sample, only provisional screen; COST02 remains",
+    "no claim that nonselected family representatives are proven inferior",
+    "remaining H/M/A/I/P/R experiments and detector qualification must continue"
+  ]
+}

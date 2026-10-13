@@ -1,0 +1,26 @@
+🧿 oracle 0.9.0 — Background magic with foreground receipts.
+[verbose] Browser config: {"chromeProfile":"Default","chromePath":null,"chromeCookiePath":null,"debugPort":null,"inlineCookiesSource":null,"desiredModel":"GPT-5.4 Pro","modelStrategy":"select","debug":true,"allowCookieErrors":true}
+[verbose] Browser prompt length: 744 chars
+[verbose] Browser attachments: .aris/citation-audit/oracle_prompt.md, references.bib, .aris/citation-audit/contexts.txt
+Launching browser mode (gpt-5.4-pro) with ~19,603 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Chrome automation does not stream output; this may take a minute...
+[browser-mode] config: {"chromeProfile":"Default","chromePath":null,"chromeCookiePath":null,"url":"https://chatgpt.com/","chatgptUrl":"https://chatgpt.com/","timeoutMs":1200000,"debugPort":null,"inputTimeoutMs":60000,"assistantRecheckDelayMs":0,"assistantRecheckTimeoutMs":120000,"reuseChromeWaitMs":10000,"profileLockTimeoutMs":300000,"autoReattachDelayMs":0,"autoReattachIntervalMs":0,"autoReattachTimeoutMs":120000,"cookieSync":true,"cookieNames":null,"cookieSyncWaitMs":0,"inlineCookies":null,"inlineCookiesSource":null,"headless":false,"keepBrowser":false,"hideWindow":false,"desiredModel":"GPT-5.4 Pro","modelStrategy":"select","debug":true,"allowCookieErrors":true,"manualLogin":false,"manualLoginProfileDir":null,"manualLoginCookieSync":false,"promptLength":744}
+Created temporary Chrome profile at /var/folders/bz/l077nwpd4p54yv13zbzpk6fm0000gn/T/oracle-browser-r36Z77
+Launched Chrome (pid 52716) on port 9222
+Opened isolated browser tab (target=F5A5960858DDF6F0588BA590F61298E1)
+Heads-up: macOS may prompt for your Keychain password to read Chrome cookies; use --copy or --render for manual flow.
+No Chrome cookies found; continuing without session reuse
+Failed to complete ChatGPT run: No ChatGPT cookies were applied from your Chrome profile; cannot proceed in browser mode. Make sure ChatGPT is signed in in the selected profile, use --browser-manual-login / inline cookies, or retry with --browser-cookie-wait 5s if Keychain prompts are slow.
+BrowserAutomationError: No ChatGPT cookies were applied from your Chrome profile; cannot proceed in browser mode. Make sure ChatGPT is signed in in the selected profile, use --browser-manual-login / inline cookies, or retry with --browser-cookie-wait 5s if Keychain prompts are slow.
+    at runBrowserMode (file:///opt/homebrew/lib/node_modules/@steipete/oracle/dist/src/browser/index.js:231:19)
+    at async runBrowserSessionExecution (file:///opt/homebrew/lib/node_modules/@steipete/oracle/dist/src/browser/sessionRunner.js:49:25)
+    at async performSessionRun (file:///opt/homebrew/lib/node_modules/@steipete/oracle/dist/src/cli/sessionRunner.js:62:28)
+    at async runInteractiveSession (file:///opt/homebrew/lib/node_modules/@steipete/oracle/dist/bin/oracle-cli.js:1125:9)
+    at async runRootCommand (file:///opt/homebrew/lib/node_modules/@steipete/oracle/dist/bin/oracle-cli.js:1093:9)
+    at async Command.<anonymous> (file:///opt/homebrew/lib/node_modules/@steipete/oracle/dist/bin/oracle-cli.js:1412:5)
+    at async Command.parseAsync (/opt/homebrew/lib/node_modules/@steipete/oracle/node_modules/commander/lib/command.js:1122:5)
+    at async main (file:///opt/homebrew/lib/node_modules/@steipete/oracle/dist/bin/oracle-cli.js:1417:20)
+Cleanup attempted • 5.6s total
+ERROR: No ChatGPT cookies were applied from your Chrome profile; cannot proceed in browser mode. Make sure ChatGPT is signed in in the selected profile, use --browser-manual-login / inline cookies, or retry with --browser-cookie-wait 5s if Keychain prompts are slow.
+User error (browser-automation): No ChatGPT cookies were applied from your Chrome profile; cannot proceed in browser mode. Make sure ChatGPT is signed in in the selected profile, use --browser-manual-login / inline cookies, or retry with --browser-cookie-wait 5s if Keychain prompts are slow.

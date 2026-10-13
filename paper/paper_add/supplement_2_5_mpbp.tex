@@ -1,0 +1,30 @@
+% ============================================================
+%  AUGMENTATION 1 -- MP-BP message-passing derivation
+%  Insert this block in Section 2.5 between:
+%    end{figure}  (figure:classical_joint_arch)
+%  and the paragraph:
+%    "Four design choices in Algorithm~\ref{alg:joint} are central..."
+% ============================================================
+
+\paragraph{MP-BP messages on the sparse chirp-domain factor graph.}
+The data-detection block of Algorithm~\ref{alg:joint} follows the iterative-receiver framework of Wymeersch~\cite{wymeersch2007iterativereceiver} and the factor-graph paradigm surveyed by Kschischang~\emph{et~al.}~\cite{kschischang2001factorgraph}, and is implemented as Gaussian message passing on a bipartite factor graph derived from the pilot-subtracted observation. Subtracting the estimated pilot contribution from~\eqref{eq:afdm_model} yields, for every $j \in \{0, \dots, \Nsub - 1\}$,
+\begin{equation}
+\tilde{y}_j \;:=\; y_j - \sqrt{\rhop}\, [\Heff(\hat{\mbh}^{(t)})\, \xp]_j \;=\; \sum_{i \in \mathcal{N}(j)} \tilde{H}_{j,i}\, x_{d,i} \;+\; n_j, \label{eq:mpbp_input}
+\end{equation}
+where $\tilde{H}_{j,i} := \sqrt{1-\rhop}\, [\Heff(\hat{\mbh}^{(t)})]_{j,i}$ absorbs the data-power normalisation and $\mathcal{N}(j) := \{i : \tilde{H}_{j,i} \neq 0\}$ is the index set of variables coupled to factor $j$. The factor graph carries $\Nsub$ variable nodes (one per data symbol $x_{d,i}$) and $\Nsub$ factor nodes (one per row of~\eqref{eq:mpbp_input}). The neighbourhood degree is bounded by $|\mathcal{N}(j)| \leq \Ppath \cdot (2\kleak + 1) = 40$ in the nominal Dirichlet expansion and averages $\preal \approx 28$ per frame after pruning of negligible Dirichlet-weighted entries (App.~\ref{app:recall}); both bounds are constants in $\Nsub$, which is the property that enables $\mathcal{O}(\Nsub)$ per-iteration message passing.
+
+At inner iteration $\ell$, the variable-to-factor message from $x_{d,i}$ to factor $j$ is parameterised as a Gaussian with mean $\mu_{i \to j}^{(\ell)}$ and variance $v_{i \to j}^{(\ell)}$, obtained by aggregating all incoming factor-to-variable messages with the one returning from $j$ excluded:
+\begin{equation}
+\frac{1}{v_{i \to j}^{(\ell)}} \;=\; \!\sum_{j' \in \mathcal{M}(i) \setminus \{j\}}\! \frac{1}{v_{j' \to i}^{(\ell-1)}}, \qquad \frac{\mu_{i \to j}^{(\ell)}}{v_{i \to j}^{(\ell)}} \;=\; \!\sum_{j' \in \mathcal{M}(i) \setminus \{j\}}\! \frac{\mu_{j' \to i}^{(\ell-1)}}{v_{j' \to i}^{(\ell-1)}}, \label{eq:mpbp_var}
+\end{equation}
+where $\mathcal{M}(i) := \{j : i \in \mathcal{N}(j)\}$ shares the same constant degree bound. The factor-to-variable message marginalises the row-$j$ Gaussian likelihood over all variables in $\mathcal{N}(j) \setminus \{i\}$,
+\begin{align}
+\mu_{j \to i}^{(\ell)} &\;=\; \frac{1}{\tilde{H}_{j,i}} \left( \tilde{y}_j - \!\!\sum_{i' \in \mathcal{N}(j) \setminus \{i\}}\!\! \tilde{H}_{j, i'}\, \mu_{i' \to j}^{(\ell)} \right),
+\label{eq:mpbp_fact_mean} \\
+v_{j \to i}^{(\ell)} &\;=\; \frac{1}{|\tilde{H}_{j,i}|^2} \left( \hat{\sigma}_n^2 + \!\!\sum_{i' \in \mathcal{N}(j) \setminus \{i\}}\!\! |\tilde{H}_{j, i'}|^2\, v_{i' \to j}^{(\ell)} \right), \label{eq:mpbp_fact_var}
+\end{align}
+where $\hat{\sigma}_n^2$ is the adaptive noise-variance estimate updated at the end of each outer iteration. Both message updates are damped with $\eta = 0.5$ to suppress oscillations on the short cycles characteristic of the Dirichlet-expanded factor graph, $\mu_{i \to j}^{(\ell)} \leftarrow \eta\, \tilde{\mu}_{i \to j}^{(\ell)} + (1-\eta)\, \mu_{i \to j}^{(\ell-1)}$ and analogously for the variances, where $\tilde{\mu}_{i \to j}^{(\ell)}$ denotes the undamped update of~\eqref{eq:mpbp_var}. After $T_\text{mp} = 20$ inner iterations, the posterior on each data symbol is read off by aggregating all incoming factor messages,
+\begin{equation}
+\frac{1}{\sigma_{d,i}^2} \;=\; \!\sum_{j \in \mathcal{M}(i)}\! \frac{1}{v_{j \to i}^{(T_\text{mp})}}, \qquad \frac{\hat{x}_{d,i}}{\sigma_{d,i}^2} \;=\; \!\sum_{j \in \mathcal{M}(i)}\! \frac{\mu_{j \to i}^{(T_\text{mp})}}{v_{j \to i}^{(T_\text{mp})}}, \label{eq:mpbp_post}
+\end{equation}
+followed by a Gray-coded QPSK projection $\hat{x}_{d,i} \mapsto \mathrm{QPSK\text{-}demap}(\hat{x}_{d,i})$ that returns the hard-decision data symbol. The Gaussian approximation maintained throughout the inner loop is the standard soft-Gaussian belief-propagation form for finite-alphabet symbols~\cite{wymeersch2007iterativereceiver}, with the QPSK constraint enforced only at the final projection. Because $|\mathcal{N}(j)|$ and $|\mathcal{M}(i)|$ are bounded by constants independent of $\Nsub$, each inner iteration evaluates $\mathcal{O}(\preal \cdot \Nsub)$ scalar updates across all factor and variable nodes, so the data-detection block costs $\mathcal{O}(T_\text{mp} \Nsub)$ per outer iteration. This is the source of the $\mathcal{O}(T_\text{mp} \Nsub)$ term in the per-frame budget of~\eqref{eq:classcomplex}, and it is two orders of magnitude cheaper than a chirp-domain dense MMSE equaliser's $\mathcal{O}(\Nsub^3)$ at $\Nsub = 1024$.

@@ -1,0 +1,22 @@
+{
+  "schema": "f2-synthetic-serializer-fix/1",
+  "status": "pass_synthetic_only",
+  "issue": "probe raw timing carried a Channel object via timing.final_channel",
+  "fix": "omit redundant timing.final_channel; the source-bound front.channel is explicitly serialized as delay, Doppler and gain arrays",
+  "old_receiver_sha256": "6abdec524e4e6ad3460956351c9ebdecbb694a22bd01a9273c1da44f05d16b44",
+  "receiver_sha256": "4e0a2e902e784860aa542bf1e1a4ce5def6acfe4737f5a2a30832ae1ebe00841",
+  "estimator_sha256": "f86321834db43dc860e39f63143cdecd66c17c2af37f8bee1413daf40124a432",
+  "probe_sha256": "5dfff25c1a1df2069d6cfa9bd784a017d7fbff6bcb25d5ec5d229c00567547f5",
+  "test_sha256": "88a3c8dd9d9493102a122cb51041813aad0c4eed0432cf4e3b9f1b49f924e69d",
+  "prior_q1_to_q5_result_sha256": "974a88acc7ef2a12d89c72db6d18c5eef3dffad0de77bf0ba4def08c9762e788",
+  "test_command": "/opt/anaconda3/bin/python experiments/cstate_necessity_stageB_resume_20260928/test_f2_receiver.py",
+  "tested_payload": "probe raw observation_id/input_sha256/final_decoded/coded_arrays/front/timing and both checkpoint event/decoded envelopes",
+  "serializer": "evidence.save_artifact/load_artifact",
+  "result": "pass",
+  "real_observations_read": false,
+  "real_receiver_calls": 0,
+  "real_decoder_calls": 0,
+  "lint": "Ruff E4,E7,E9,F,B pass",
+  "typecheck": "mypy --no-site-packages --ignore-missing-imports --follow-imports=skip pass",
+  "compile": "py_compile pass"
+}

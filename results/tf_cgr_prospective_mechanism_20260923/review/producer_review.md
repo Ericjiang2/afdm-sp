@@ -1,0 +1,9 @@
+# Prospective producer admission review
+
+**PASS for registration and the bounded production phases**, conditional only on the already specified Git blob/attestation gates succeeding at each phase. This is code admission, not a claim that any receiver attempt has run or that I/M/U/L passed.
+
+Reviewed `common.py`, `freeze_registration.py`, `generate.py`, `branch.py`, `run_phase.py`, `predict.py`, `finalize.py`, and `attest.py` against the frozen three-arm protocol. The call enumerator is exactly 256 BASE plus 512 scheduled CGR/SHAM wrappers; failed/inflight calls remain in the ledger and stop execution. The intervention entry verifies the sealed BASE and prediction handoff before receiver work. Generation stores observed inputs and truth separately; the BASE runner and predictor read observed inputs only, and the predictor binds each 20-step BASE trace and prediction vector to its raw/input hashes. BLOCK is absent from the three-arm imports and call list. The final observed Git handoff verifies both observed and truth seals and committed blobs before truth-dependent analysis.
+
+Two admission issues were fixed by the producer owner during this review: production source bindings now enumerate the nine production/qualification files explicitly, allowing the separate offline truth reader to finish without changing the frozen producer hash; and final attestation now verifies the complete truth-seal inventory before checking its Git blob. I inspected both fixes.
+
+Verification: synthetic three-arm full trace → evidence serializer → BASE JVP round trip passed locally with `/opt/anaconda3/bin/python experiments/tf_cgr_prospective_mechanism_20260923/test_campaign.py`. Producer-owner scoped Ruff E4/E7/E9/F/B passed. Static compilation passed locally. No real receiver, generator, decoder, or truth payload was invoked by this review. The later truth reader and independent result recount remain separate post-seal gates.

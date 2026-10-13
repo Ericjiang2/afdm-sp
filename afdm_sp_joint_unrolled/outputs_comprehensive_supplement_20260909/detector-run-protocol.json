@@ -1,0 +1,65 @@
+{
+  "schema": "supplement-detector-run-protocol-v1",
+  "status": "pre_execution_engineering_only",
+  "input": "Explicit original_root/local_root mapping; frame must be committed by successful BASE engineering summary, config and raw terminal SHA256 match. Never load truth arrays. Verify summary attempted/completed cardinality and unique committed record paths; selected row campaign/scenario/range and metadata identity must match the batch. Require finite complex observations, positive real terminal sigma and exact scaled QPSK order.",
+  "observed_boundary": "y_cancelled=y-H@pilot; H is cached terminal estimate for both cancellation and data, sigma_complex=sigma2_terminal unchanged, constellation unchanged; no second sqrt(rho).",
+  "quote": {
+    "cache": "engineering block0 B0-p3-s1",
+    "detectors": [
+      "stable-EP-40-d0.5",
+      "QPSK-MF-40-d1"
+    ],
+    "calls": {
+      "F": 0,
+      "T": 2,
+      "E": 0
+    },
+    "device": "Resolve cuda current_device() once into explicit cuda:index; use identical device for allocator cap, terminal, synchronization, memory counters, and contract log.",
+    "threads": 1,
+    "gpu_memory_fraction": 0.25
+  },
+  "qualification": {
+    "separate_admission_required": true,
+    "max_caches": 4,
+    "max_detectors": 8,
+    "iterations": "base and fixed doubled fresh state",
+    "max_T": 64,
+    "admission_fields": [
+      "stage=qualification",
+      "campaign_id",
+      "caches exact request",
+      "detectors exact request",
+      "completed_quote:{path,sha256}"
+    ],
+    "interpretation": "stability qualification_pair output, not exact-posterior correctness or proof of strongest detector",
+    "completed_quote_validation": "Completed quote summary must bind its sibling contract.json hash, campaign, exactly2T and both frozen quote detectors, exit0 and no failures.",
+    "result_rule": "qualified_by_detector[d]=all prescribed caches stable for d; qualification_passed=any qualified detector. Zero qualifying detectors yields completed_unqualified/exit1; retain every unqualified candidate and all failure evidence. No claim of no detector space or BP optimality."
+  },
+  "development": "1536T not admitted by this runner; requires frozen BASE reference and separate implementation/admission",
+  "budget": "Reuse supplement_profile.reserve_profile in shared parent engineering ledger T256; F0/E0; reserve exact requested T; no reclaim failed or unused calls",
+  "output": "Exclusive output, atomic terminal NPZ, call-start identity, diagnostics, moments/raw LLR/clipped LLR/decoded/info_hat/x_hard hashes and bytes, synchronized GPU elapsed/CPU/peak GPU memory, retained failures; no truth FER.",
+  "bounds": "Finite wall deadline includes cache/code preparation; explicit storage budget >=16MiB+2MiB per call. All source and cache hashes checked after calls; no automatic retry. Reserve128KiB for compact batch-failure evidence; restore previous SIGALRM handler and clear timer on every exit.",
+  "tests": "13 full local unittests passed after explicit CUDA index repair. New synthetic regression first failed on missing allocator index, then checks cap and both terminal calls use cuda:2 and contract records cuda:2. Real cache read-only compatibility retained; no actual local CUDA execution or timing.",
+  "test_evidence": {
+    "tests": 13,
+    "exitcode": 0,
+    "before_failure": "AssertionError: device(type=cuda) != device(type=cuda, index=2); 1 regression test failed before fix",
+    "before_log": "/private/tmp/detector-device-regression-before.log",
+    "after_log": "/private/tmp/detector-device-regression-after.log",
+    "after_log_sha256": "5dd355dae720158ea36e35d91d4045a1400399fae1af95eb3b89b3f3ac4d0d1b",
+    "environment": "isolated Python3.12.14 NumPy1.26.4 SciPy1.11.4 Torch2.5.1 Matplotlib3.9.4; thread env limits1",
+    "numeric_scope": "Mocked CUDA boundary only; no local CUDA hardware validation",
+    "syntax": "AST parse passed"
+  },
+  "source_sha256": {
+    "supplement_detector_run.py": "b685e3ba1180f724dda3b25fbb94a505e2eaebaafdc95ad8348766329b1cf455",
+    "test_supplement_detector_run.py": "43cf5acce15f90305f0bfce1922827a9559e00fb2bdec2eadbe7284b8cc06ce8"
+  },
+  "prior_test_evidence": {
+    "log": "detector-run-review-v2.log",
+    "sha256": "ac8ca3c4d491c4a92b95736142a3d9ca3812fab94d9953982d0dff592240ae51",
+    "exitcode": 0,
+    "tests": 12,
+    "environment": "isolated Python3.12.14 NumPy1.26.4 SciPy1.11.4 Torch2.5.1 Matplotlib3.9.4; thread env limits1"
+  }
+}

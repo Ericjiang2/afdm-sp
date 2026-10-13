@@ -1,0 +1,174 @@
+{
+  "scope": "exploratory cached terminal controls; not full receiver, CONF or COST",
+  "independent_blocks": 32,
+  "table": [
+    {
+      "snr": 7,
+      "arm": "LEGACY",
+      "n": 32,
+      "failures": 8,
+      "failed_blocks": [
+        0,
+        4,
+        6,
+        9,
+        15,
+        20,
+        22,
+        26
+      ],
+      "info_bit_errors": 572,
+      "raw_bit_errors": 7902,
+      "mean_bit_NLL": 0.2839475916360646,
+      "instrumented_terminal_mean_seconds": 0.10932684285580763
+    },
+    {
+      "snr": 7,
+      "arm": "ZERO",
+      "n": 32,
+      "failures": 8,
+      "failed_blocks": [
+        0,
+        4,
+        6,
+        9,
+        15,
+        20,
+        22,
+        26
+      ],
+      "info_bit_errors": 572,
+      "raw_bit_errors": 7902,
+      "mean_bit_NLL": 0.2839475916360646,
+      "instrumented_terminal_mean_seconds": 0.11453323010573513
+    },
+    {
+      "snr": 7,
+      "arm": "RETAIN",
+      "n": 32,
+      "failures": 4,
+      "failed_blocks": [
+        4,
+        6,
+        15,
+        20
+      ],
+      "info_bit_errors": 321,
+      "raw_bit_errors": 4888,
+      "mean_bit_NLL": 0.24840164268550413,
+      "instrumented_terminal_mean_seconds": 0.11160194504918763
+    },
+    {
+      "snr": 8,
+      "arm": "LEGACY",
+      "n": 32,
+      "failures": 0,
+      "failed_blocks": [],
+      "info_bit_errors": 0,
+      "raw_bit_errors": 6538,
+      "mean_bit_NLL": 0.23991625438522995,
+      "instrumented_terminal_mean_seconds": 0.10572267534371349
+    },
+    {
+      "snr": 8,
+      "arm": "ZERO",
+      "n": 32,
+      "failures": 0,
+      "failed_blocks": [],
+      "info_bit_errors": 0,
+      "raw_bit_errors": 6538,
+      "mean_bit_NLL": 0.23991625438522995,
+      "instrumented_terminal_mean_seconds": 0.11081541516250581
+    },
+    {
+      "snr": 8,
+      "arm": "RETAIN",
+      "n": 32,
+      "failures": 0,
+      "failed_blocks": [],
+      "info_bit_errors": 0,
+      "raw_bit_errors": 2931,
+      "mean_bit_NLL": 0.15073079675417245,
+      "instrumented_terminal_mean_seconds": 0.10961666327057173
+    }
+  ],
+  "comparisons": [
+    {
+      "snr": 7,
+      "candidate": "ZERO",
+      "reference": "LEGACY",
+      "rescued_blocks": [],
+      "new_error_blocks": [],
+      "exact_McNemar_two_sided": 1.0,
+      "delta_FER": 0.0,
+      "Holm_6_comparisons_p": 1.0
+    },
+    {
+      "snr": 7,
+      "candidate": "RETAIN",
+      "reference": "ZERO",
+      "rescued_blocks": [
+        0,
+        9,
+        22,
+        26
+      ],
+      "new_error_blocks": [],
+      "exact_McNemar_two_sided": 0.125,
+      "delta_FER": -0.125,
+      "Holm_6_comparisons_p": 0.75
+    },
+    {
+      "snr": 7,
+      "candidate": "RETAIN",
+      "reference": "LEGACY",
+      "rescued_blocks": [
+        0,
+        9,
+        22,
+        26
+      ],
+      "new_error_blocks": [],
+      "exact_McNemar_two_sided": 0.125,
+      "delta_FER": -0.125,
+      "Holm_6_comparisons_p": 0.75
+    },
+    {
+      "snr": 8,
+      "candidate": "ZERO",
+      "reference": "LEGACY",
+      "rescued_blocks": [],
+      "new_error_blocks": [],
+      "exact_McNemar_two_sided": 1.0,
+      "delta_FER": 0.0,
+      "Holm_6_comparisons_p": 1.0
+    },
+    {
+      "snr": 8,
+      "candidate": "RETAIN",
+      "reference": "ZERO",
+      "rescued_blocks": [],
+      "new_error_blocks": [],
+      "exact_McNemar_two_sided": 1.0,
+      "delta_FER": 0.0,
+      "Holm_6_comparisons_p": 1.0
+    },
+    {
+      "snr": 8,
+      "candidate": "RETAIN",
+      "reference": "LEGACY",
+      "rescued_blocks": [],
+      "new_error_blocks": [],
+      "exact_McNemar_two_sided": 1.0,
+      "delta_FER": 0.0,
+      "Holm_6_comparisons_p": 1.0
+    }
+  ],
+  "bindings": {
+    "summary": "dafa5661f3ad6e2d3b333bea887cab108a6073cd341a6a9814d7025391d5003a",
+    "audit": "7ab0327edcb9f78aa2696c1e1f484e487fccc47652eda363dd371fe1038a0ab1",
+    "contract": "7ccbb80f1c2e19f17896047ee9095520c298bd821b231d0fc381e1d0040bdf1f",
+    "source": "d1be978c09948a7bd18a69cc3ac2a6a2895f98475aefcbc9b64467faa3914ff4",
+    "analyzer": "a5d794baed018b29e1718577c32f6e358d3f58818067a552e55792c067764c6e"
+  }
+}

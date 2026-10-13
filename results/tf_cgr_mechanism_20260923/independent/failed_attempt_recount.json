@@ -1,0 +1,170 @@
+{
+  "attempts": 1,
+  "complete_wrappers": 0,
+  "completed_decode_path": {
+    "attempt_failed_elapsed_seconds": 0.5147568749962375,
+    "checkpoint_count": 3,
+    "checkpoints": [
+      {
+        "artifact_ready_seconds": 0.20402398507576436,
+        "decoded_dtype": "uint8",
+        "decoded_shape": [
+          2048
+        ],
+        "decoder_iterations": 50,
+        "detector_iterations": 20,
+        "event": {
+          "ce": 0.051667538937181234,
+          "ce_evaluations": 142,
+          "ce_fft_count": 3,
+          "decoder": 0.02441041893325746,
+          "decoder_iterations": 50,
+          "inference": 0.02065484900958836,
+          "inference_fft_count": 41,
+          "inference_iterations": 20,
+          "ready": 0.1806621829746291,
+          "round": 0
+        },
+        "identity": {
+          "arm": "BASE",
+          "observation_id": "s650_f0390",
+          "round": 0,
+          "schema": "tf-cgr-observed/1"
+        },
+        "path": "checkpoints/s650_f0390_BASE_r0.npz",
+        "ready_seconds": 0.18191027198918164,
+        "round": 0,
+        "sha256": "25421243b351b0efd8733e7a3ace905e714bd2e3ce16eb539f7c42c66152000f",
+        "syndrome_matches_ledger_and_receipt": true,
+        "syndrome_recount": 173
+      },
+      {
+        "artifact_ready_seconds": 0.30856032704468817,
+        "decoded_dtype": "uint8",
+        "decoded_shape": [
+          2048
+        ],
+        "decoder_iterations": 50,
+        "detector_iterations": 20,
+        "event": {
+          "ce": 0.04904934100341052,
+          "ce_evaluations": 135,
+          "ce_fft_count": 3,
+          "decoder": 0.023667162051424384,
+          "decoder_iterations": 50,
+          "inference": 0.01930203998927027,
+          "inference_fft_count": 41,
+          "inference_iterations": 20,
+          "ready": 0.2950501310406253,
+          "round": 1
+        },
+        "identity": {
+          "arm": "BASE",
+          "observation_id": "s650_f0390",
+          "round": 1,
+          "schema": "tf-cgr-observed/1"
+        },
+        "path": "checkpoints/s650_f0390_BASE_r1.npz",
+        "ready_seconds": 0.29628624801989645,
+        "round": 1,
+        "sha256": "c2ba967a3f49406c5d59c407a819aa96d920aeb8fbfc57b8c18562caba48ced4",
+        "syndrome_matches_ledger_and_receipt": true,
+        "syndrome_recount": 215
+      },
+      {
+        "artifact_ready_seconds": 0.5072993229841813,
+        "decoded_dtype": "uint8",
+        "decoded_shape": [
+          2048
+        ],
+        "decoder_iterations": 50,
+        "detector_iterations": 20,
+        "event": {
+          "ce": 0.13139320397749543,
+          "ce_evaluations": {
+            "compact_changed_row_refreshes": 1,
+            "compact_field_calls": 10,
+            "compact_score_batches": 2,
+            "fallback_calls": 0,
+            "global_accepted": 2,
+            "global_candidate_columns": 5150,
+            "global_duplicate_rejections": 7,
+            "global_rejected_steps": 0,
+            "global_slot_tests": 41200,
+            "joint_gain_solves": 125,
+            "local_accepted": 15,
+            "local_duplicate_rejections": 0,
+            "local_trials": 121,
+            "reduced_gain_solves": 0,
+            "schur_batch_solves": 0,
+            "top_k_extra_solves": 0
+          },
+          "decoder": 0.023748246021568775,
+          "decoder_iterations": 50,
+          "inference": 0.02139013900887221,
+          "inference_iterations": 20,
+          "ready": 0.4858758070040494,
+          "round": 2
+        },
+        "identity": {
+          "arm": "BASE",
+          "observation_id": "s650_f0390",
+          "round": 2,
+          "schema": "tf-cgr-observed/1"
+        },
+        "path": "checkpoints/s650_f0390_BASE_r2.npz",
+        "ready_seconds": 0.48587931599467993,
+        "round": 2,
+        "sha256": "e77a57b553dea0c4bd997535bc6db6444981081cf9e6cf411386199a7a9dfce2",
+        "syndrome_matches_ledger_and_receipt": true,
+        "syndrome_recount": 61
+      }
+    ],
+    "final_branch_count": 1,
+    "final_checkpoint_persisted_seconds": 0.5072993229841813,
+    "final_ready_seconds": 0.48587931599467993,
+    "inference_detector_calls": 3,
+    "inference_iterations_each": 20,
+    "ldpc_decoder_calls": 3,
+    "ldpc_iterations_each": 50,
+    "native_round_count": 2,
+    "timing_note": "ready and checkpoint persistence are distinct; no complete raw/decision serialization timing was saved"
+  },
+  "failed_wrapper": {
+    "arm": "BASE",
+    "call_index": 1,
+    "elapsed_seconds": 0.5147568749962375,
+    "exception": "TypeError('evidence metadata keys must be strings')",
+    "failure_stage": "raw serialization after final branch checkpoint",
+    "input_sha256": "c8708367e991fd3229c019889905c8c6ed30760a0c6321154c5b886d0ef6c16a",
+    "observation_id": "s650_f0390",
+    "observation_payload_identity": {
+      "kind": "observed",
+      "observation_id": "s650_f0390",
+      "registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96",
+      "schema": "tf-cstate-prospective/1"
+    },
+    "producer_observation_hash": "23dac435b78bb261bbca6611d256cc039ad3a253693e71d06c6636fa47dd3c61",
+    "producer_observation_hash_recomputed": "23dac435b78bb261bbca6611d256cc039ad3a253693e71d06c6636fa47dd3c61",
+    "receiver_started": true,
+    "role": "target_remaining_failure"
+  },
+  "recount_boundary": "Three checkpoint artifacts, 115 source hashes, and the observation input hash independently verified. Truth, information-bit correctness, and campaign-level metrics were not inspected or computed.",
+  "saved_artifacts": {
+    "blocked_record_sha256": "90ab6426b5ff34b4bf79d0c9e5419fc11b3d15282af84750bd55149ce9e5ef7d",
+    "decision_record_available": false,
+    "ledger_sha256": "ac259d5fdebf30831a1692cb86bc5ad93681ec3df09fb2184d3ad97355d01dd8",
+    "manifest_sha256": "d942f7c765acc55250b97b434b67858098ffc19ac3a38e710b673258db3177a2",
+    "observed_seal_available": false,
+    "raw_artifact_available": false
+  },
+  "schema": "tf-cgr-independent-failed-attempt-recount/1",
+  "source_commit": "814f9eefea6919d7f2ef9754d3942b7fd2ea2a19",
+  "source_integrity": {
+    "all_local_hashes_match": true,
+    "bound_files": 115,
+    "source_bindings_sha256": "a60515e937b470702c4f26e3968c8b088710bf3d9189244f69075013540a9389"
+  },
+  "status": "pass",
+  "truth_values_read": false
+}

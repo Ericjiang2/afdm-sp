@@ -1,0 +1,40 @@
+[
+  {
+    "argv": [
+      "ssh",
+      "-o",
+      "BatchMode=yes",
+      "deinlab",
+      "mkdir /data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_deep_principles_20261006"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "scp",
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_deep_principles_20261006/source_v1.tar.gz",
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_deep_principles_20261006/SOURCE_MANIFEST.json",
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_deep_principles_20261006/launch_v1.sh",
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/.mission/20261006_12-39-13-afdm-deep-principles/dispatch/bootstrap_remote.py",
+      "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/.mission/20261006_12-39-13-afdm-deep-principles/dispatch/harvest_remote.py",
+      "deinlab:/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_deep_principles_20261006/"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ssh",
+      "-o",
+      "BatchMode=yes",
+      "deinlab",
+      "cd /data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_deep_principles_20261006 && env PYTHONDONTWRITEBYTECODE=1 TMPDIR=/data/guoyikun/tmp /home/guoyikun/.conda/envs/AFDM/bin/python bootstrap_remote.py"
+    ],
+    "returncode": 0,
+    "stdout": "{\"local_commit\": \"e8c9457d4b61b3c9813a65aeda7c9733929d7376\", \"remote_snapshot_commit\": \"8368f99fe720a57a71067f2eb07448a59a7abef8\", \"snapshot\": \"/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_deep_principles_20261006/source_v1\", \"source_files_verified\": 45, \"tar_sha256\": \"38e85f30f8a3fcb2fe081f3c1b58f35aab304f97b73c70316fe59bee1e2bd1a4\", \"provenance\": \"Independent remote Git snapshot of manifest-verified local committed bytes; commits intentionally differ\", \"old_remote_project\": \"not a Git repository; no existing source directory overwritten\"}\n",
+    "stderr": ""
+  }
+]

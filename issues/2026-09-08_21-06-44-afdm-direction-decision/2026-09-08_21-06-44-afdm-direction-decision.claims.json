@@ -1,0 +1,1388 @@
+{
+  "source_doc": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md",
+  "csv": "2026-09-08_21-06-44-afdm-direction-decision.csv",
+  "execution_scope": "用户已授权执行全部CSV并使用既有服务器；CSV为唯一问题状态，保留科学与预算门。",
+  "claim_coverage": {
+    "covered": 87,
+    "total": 87,
+    "status": "mapped",
+    "meaning": "covered仅表示验收条目映射；实际执行状态以每条claim和CSV行状态为准"
+  },
+  "claims": [
+    {
+      "claim_id": "CLAIM-001",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:9",
+      "promise": "核对E1交接与原CSV/JSON/源码/允许快照的可得性和哈希；E2原件未取得须显式列缺口，不冒充已读；旧A2、E2的A、E1的B0分别建立身份映射",
+      "covered_by": [
+        "SRC-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "evidence": [
+        "evidence/source-manifest.json",
+        "evidence/source-closure-recheck.json"
+      ],
+      "verification_status": "verified",
+      "verification_scope": "static source provenance, disclosed E2 absence and receiver identities; no runtime claim"
+    },
+    {
+      "claim_id": "CLAIM-002",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:9",
+      "promise": "新计划与两张截图作为规划来源；保留v3 HOLD、POS/ACTION关闭和D_test封存；旧结果仅作来源及获准回放，不能用于新方法选择",
+      "covered_by": [
+        "SRC-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "evidence": [
+        "evidence/source-manifest.json",
+        "evidence/source-closure-recheck.json"
+      ],
+      "verification_status": "verified",
+      "verification_scope": "static source provenance, disclosed E2 absence and receiver identities; no runtime claim"
+    },
+    {
+      "claim_id": "CLAIM-003",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:59",
+      "promise": "落实本轮Phase 0的明确授权证据、累计10 CPU分钟/0接收机调用上限及计量方式；不得把附件中的“既有允许”当本轮授权",
+      "covered_by": [
+        "GATE-00"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/authorization.json"
+    },
+    {
+      "claim_id": "CLAIM-004",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:59",
+      "promise": "静态审查和纯代数小算例可在批准预算内运行；任何OMP/检测/译码调用（包括小尺寸）若被计为接收机调用，移至GATE-01后的数值验收，不能偷用零调用额度；超时先停并估新预算",
+      "covered_by": [
+        "GATE-00"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/authorization.json"
+    },
+    {
+      "claim_id": "CLAIM-005",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:63",
+      "promise": "列出B0入口/哈希、OMP归一化/停止、导频域、H生成/截断/归一化、BP图/阈值、sigma公式/提交时刻、DA-LS目标、LDPC预算及LLR约定",
+      "covered_by": [
+        "P0-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/receiver-contract.md"
+    },
+    {
+      "claim_id": "CLAIM-006",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:63",
+      "promise": "追踪H_cancel/H_data/H_cov版本与全部相关缓存失效、重建路径；判断译码外信息是否真实进入估计反馈，给出源码行引用",
+      "covered_by": [
+        "P0-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/receiver-contract.md"
+    },
+    {
+      "claim_id": "CLAIM-007",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:69",
+      "promise": "从真实生成代数导出vec(H)=G_dict*g与g=L(eta)*h；保留未合并path_id/delay/Doppler/复增益/泄漏系数/原子索引并输出单径及碰撞小例",
+      "covered_by": [
+        "P0-02"
+      ],
+      "evidence_required": "unit",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/physical-map.json"
+    },
+    {
+      "claim_id": "CLAIM-008",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:69",
+      "promise": "按复数叠加处理碰撞与L重叠行，记录矩阵秩和误差容差依据；增益依赖截断须标明L定义域；判定关系不存在、已使用或未充分使用，不能以P代替秩",
+      "covered_by": [
+        "P0-02"
+      ],
+      "evidence_required": "unit",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/physical-map.json"
+    },
+    {
+      "claim_id": "CLAIM-009",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:79",
+      "promise": "以phi_i=G_i*p计算共线/近共线、当前S的Gram谱和合法相邻模板距离，冻结警报阈值及数值容差；零范数响应单列",
+      "covered_by": [
+        "P0-03"
+      ],
+      "evidence_required": "unit",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/pilot-geometry.json"
+    },
+    {
+      "claim_id": "CLAIM-010",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:79",
+      "promise": "不把CAZAC一维自相关或差Gram推成完整coded SP不可辨识；输出是否具备H-T进入条件",
+      "covered_by": [
+        "P0-03"
+      ],
+      "evidence_required": "unit",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/pilot-geometry.json"
+    },
+    {
+      "claim_id": "CLAIM-011",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:46",
+      "promise": "用户运行前接受N1024、P_phys8、K_cap40、当前rho/调制/码/交织/CPP/泄漏/prior400及真实SNR定义；8dB为coded FER主点，7/9dB仅邻近检查；禁止免费信息、训练、天线或跨帧资源",
+      "covered_by": [
+        "GATE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/campaign-protocol.json"
+    },
+    {
+      "claim_id": "CLAIM-012",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:46",
+      "promise": "消解§4B最多8个配置/方法族与§11的8配置×5族冲突；建议总计≤8预列配置的保守方案须书面冻结，同时明确开发SNR与完整调用数，不默认批准7680次",
+      "covered_by": [
+        "GATE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/campaign-protocol.json"
+    },
+    {
+      "claim_id": "CLAIM-013",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:46",
+      "promise": "冻结主性能门delta=FER_ref-FER_new的单侧97.5%下界>0.02、设计备择0.05；7/9dB伤害容限0.01的区间方向/置信度/多重性规则与无功效判据；原A2成本门精确值从旧协议核实，不能用“约1.1”直接裁决",
+      "covered_by": [
+        "GATE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/campaign-protocol.json"
+    },
+    {
+      "claim_id": "CLAIM-014",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:46",
+      "promise": "新campaign、远端上传/运行、微型计时与数值验证均取得对应授权；8 GPU小时/8主机小时/128 CPU核时只是待接受建议；列阶段调用/工时预算、失败重跑和审计成本，不继承v3剩余额度；在读取D_mech结果前，明确冻结路线优先次序、oracle作用量/7与9dB方向规则、精度不足不追加规则、取消通路显著且冻结sigma不足的cancellation_gate_passed判据、检测器/取消强基线校正触发与额度、反证场景按物理证伪力选择规则；ROUTE-01只能应用，不能事后选择阈值",
+      "covered_by": [
+        "GATE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/campaign-protocol.json"
+    },
+    {
+      "claim_id": "CLAIM-015",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:259",
+      "promise": "D_design≤192、D_mech256、冻结后全新D_confirm分别使用独立channel/data/code/interleaver/noise/pilot-design命名随机流；跨方法及SNR按外生块配对，跨split不重叠",
+      "covered_by": [
+        "DATA-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/split-truth-contract.json"
+    },
+    {
+      "claim_id": "CLAIM-016",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:259",
+      "promise": "可部署臂truth_access_level=none且无法读取I/真分组/eta/增益/H_true；真值仅在专用oracle及离线审计容器，输出hash不暴露给算法；旧留出和D_test禁止进入选择/停止管线",
+      "covered_by": [
+        "DATA-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/split-truth-contract.json"
+    },
+    {
+      "claim_id": "CLAIM-017",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:321",
+      "promise": "日志完整覆盖源文§12全部字段：身份/六类随机流与码交织、SNR/rho/P/生成截断、源码配置先验与环境、raw_y/pilot/H_true审计hash和truth_access、H三来源与sigma、支撑K/组/图边、raw/coded错误与FER/输出/译码、NMSE分解伪增益遗漏及交叉项、后验或充分摘要/残差/置信分组、调用类型/时间/显存/失败重跑",
+      "covered_by": [
+        "LOG-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/log-schema-audit.json"
+    },
+    {
+      "claim_id": "CLAIM-018",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:321",
+      "promise": "缺字段或配对不一致显式报错；非none真值臂不能注册为候选；K/P或内部P估计不冒充物理召回；full/terminal/CE分账，失败、重跑、复用皆可追溯",
+      "covered_by": [
+        "LOG-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/log-schema-audit.json"
+    },
+    {
+      "claim_id": "CLAIM-019",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:90",
+      "promise": "获准预算内通过白噪声/纯导频/已知H、OMP-LS-单路径模板对应、sqrt(rho)及取消符号、sigma方差/标准差、LLR符号/映射测试；容差按dtype预定",
+      "covered_by": [
+        "NUM-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/numerical-chain-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-020",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:90",
+      "promise": "小尺寸精确枚举核验真实似然和检测输出；差异归因到实现或近似且留原始对照；不得外推N1024最优性或FER界",
+      "covered_by": [
+        "NUM-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/numerical-chain-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-021",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:94",
+      "promise": "独立审查者实际阅读并核验至少一条生成→估计→导频取消→检测源码与NUM-01证据，形成具体入口、检查命令及问题清单；仅审查解释文字不通过",
+      "covered_by": [
+        "AUDIT-00"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/independent-chain-review.md"
+    },
+    {
+      "claim_id": "CLAIM-022",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:94",
+      "promise": "记录实际模型/思考强度/独立性和修正后复核；无法取得独立实现审查时标validation_limited并保留阻塞，不能用主会话自审替代已完成",
+      "covered_by": [
+        "AUDIT-00"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/independent-chain-review.md"
+    },
+    {
+      "claim_id": "CLAIM-023",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:113",
+      "promise": "在同一新harness获准微测A2/B0及c_F/c_T/c_E；覆盖OMP/特征/拟合/图/BP/译码/重放/传输，warmup后随机交错、CUDA同步、同GPU不并发；平均/p95/显存/K/E/迭代与吞吐分开",
+      "covered_by": [
+        "COST-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/cost-feasibility.json"
+    },
+    {
+      "claim_id": "CLAIM-024",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:113",
+      "promise": "按N_F*c_F+N_T*c_T+N_E*c_E+开发/审计/传输估全部选中阶段，明确主机小时和CPU核时；A2不可回放则成本门未验证；装不下缩减共同开发/非承重场景或不进入确认，不能降低主要检验精度后声称无效",
+      "covered_by": [
+        "COST-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/cost-feasibility.json"
+    },
+    {
+      "claim_id": "CLAIM-025",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:98",
+      "promise": "注册B0、规范OMP停止/规模控制、ridge、当前SBL，使用同一冻结检测尺度集合与合法信息，全部预列尝试/失败/参数范围；需新prior的外部方法仅独立开发并登记成本",
+      "covered_by": [
+        "BASE-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/baseline-registry.json"
+    },
+    {
+      "claim_id": "CLAIM-026",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:98",
+      "promise": "遵守GATE-01冻结的总配置数、SNR、开发额度；若成本超限统一缩减，不能给新方法更多搜索",
+      "covered_by": [
+        "BASE-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/baseline-registry.json"
+    },
+    {
+      "claim_id": "CLAIM-027",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:123",
+      "promise": "真实campaign入口可从冻结split/arm配置调用接收机、落盘LOG-01、更新调用账本并在超预算/非法split/真值污染时停止；测得异常退出与重跑不会漏账",
+      "covered_by": [
+        "WIRE-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/runner-smoke.json"
+    },
+    {
+      "claim_id": "CLAIM-028",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:123",
+      "promise": "端到端小烟测保存未经取消raw_y、终端H_hat/sigma/图/解调译码状态；从磁盘重载后可重放，不依赖进程隐式缓存，烟测调用计入获准额度",
+      "covered_by": [
+        "WIRE-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/runner-smoke.json"
+    },
+    {
+      "claim_id": "CLAIM-029",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:105",
+      "promise": "仅在D_design按预列配置运行经典基线，FER与真实时延Pareto选B_star并冻结哈希/理由；差异低于开发分辨能力保留最强两个成本档，不用确认集选最佳",
+      "covered_by": [
+        "BASE-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/b-star-freeze.json"
+    },
+    {
+      "claim_id": "CLAIM-030",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:105",
+      "promise": "所有失败尝试与时延均落盘；两个成本档、最终最近经典基线与≤3确认臂之间若冲突，在FREEZE-01前裁决或重新批准第四臂预算，不能静默删强基线",
+      "covered_by": [
+        "BASE-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/b-star-freeze.json"
+    },
+    {
+      "claim_id": "CLAIM-031",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:138",
+      "promise": "预先固定一种适用EP/软线性迭代等参考检测器的算法/尺度/停止参数；与原检测器在同H、小尺寸精确模型下核验接口和似然约定",
+      "covered_by": [
+        "DET-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/detector-reference.md"
+    },
+    {
+      "claim_id": "CLAIM-032",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:138",
+      "promise": "D1只为诊断参考，不进入部署候选或被称理论最优；额外开发与计算纳入预算，参考无改善不能证明最优",
+      "covered_by": [
+        "DET-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/detector-reference.md"
+    },
+    {
+      "claim_id": "CLAIM-033",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:127",
+      "promise": "从同一B_star终端快照与raw_y构造H_cancel/H_data各true或hat的四条件，再交叉detector=original/reference共8单元；用独立字段避免把数据H的D0/D1与检测器D0/D1混淆",
+      "covered_by": [
+        "WIRE-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/factorial-wiring-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-034",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:127",
+      "promise": "每臂重新执行z_C=y-sqrt(rho)*H_C*p并重建H_D相关全部图/BP/协方差缓存；共同冻结sigma规则/值；B_star自身sigma正常输出单列，不默认为C0D0",
+      "covered_by": [
+        "WIRE-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/factorial-wiring-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-035",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:127",
+      "promise": "通过可追踪扰动验证改H_C仅进入取消、改H_D触发全部检测缓存重建；混合H仅诊断不可部署；准确残差恒等式逐样本验证并记录三项能量和所有交叉项",
+      "covered_by": [
+        "WIRE-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/factorial-wiring-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-036",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:121",
+      "promise": "D_mech256新块×7/8/9dB×8单元≤6144终端检测，B_star轨迹另计≤768完整接收；合法缓存复用不计新独立重复，全部失败重跑另计并遵守总预算",
+      "covered_by": [
+        "MECH-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/mechanism-run-audit.json"
+    },
+    {
+      "claim_id": "CLAIM-037",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:121",
+      "promise": "按block核验8臂外生数据及raw_y一致，保留正常输出和固定sigma基准差异；不移动8dB锚点或按表现筛帧",
+      "covered_by": [
+        "MECH-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/mechanism-run-audit.json"
+    },
+    {
+      "claim_id": "CLAIM-038",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:144",
+      "promise": "以FER明确符号，估取消C1D0-C0D0、数据C0D1-C0D0、交互C1D1-C1D0-C0D1+C0D0及各H下detector差，按外生块配对统计并保留CI与交叉能量，不相加为百分比归因",
+      "covered_by": [
+        "MECH-02"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/mechanism-decision.json"
+    },
+    {
+      "claim_id": "CLAIM-039",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:144",
+      "promise": "完整H参考无足够空间时本预算不给仅提高CSI路线追加；检测器或取消处理主导则先修正强基线再评价结构；无改善只限制被测参考，不宣称信息论界",
+      "covered_by": [
+        "MECH-02"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/mechanism-decision.json"
+    },
+    {
+      "claim_id": "CLAIM-040",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:168",
+      "promise": "仅当真实物理关系存在且未充分使用时，以I=S0交S_true统一M_free/M_group/M_link/M_sham四臂，同观测不补漏原子；M_link只泄露L_I(eta_true)而非真实复增益",
+      "covered_by": [
+        "M-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "physical_mapping_exists_and_underused AND mechanism_budget_approved",
+      "verification_status": "verified",
+      "evidence": "evidence/structure-oracle-contract.json"
+    },
+    {
+      "claim_id": "CLAIM-041",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:168",
+      "promise": "M_sham错误模板在开发时固定且匹配参数数/组大小；列秩/重叠显式记录，秩亏按共同可辨子空间求解；所有臂共同检测器/尺度，不能把删伪或参数不可辨性当关系收益",
+      "covered_by": [
+        "M-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "physical_mapping_exists_and_underused AND mechanism_budget_approved",
+      "verification_status": "verified",
+      "evidence": "evidence/structure-oracle-contract.json"
+    },
+    {
+      "claim_id": "CLAIM-042",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:179",
+      "promise": "在同D_mech合法快照进行最多256×3×4=3072组拟合/终端重放；拟合与检测分别记实际调用，额外CE开销不能隐含在“3072”内免费",
+      "covered_by": [
+        "M-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "M-01_executed",
+      "verification_status": "verified",
+      "evidence": "evidence/structure-oracle-results.json"
+    },
+    {
+      "claim_id": "CLAIM-043",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:179",
+      "promise": "比较M_link对M_free及group/sham的配对终端FER/CI与rank，不以系数损失改善替代FER；输出空间有/无/精度不足和oracle不可部署限定",
+      "covered_by": [
+        "M-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "M-01_executed",
+      "verification_status": "verified",
+      "evidence": "evidence/structure-oracle-results.json"
+    },
+    {
+      "claim_id": "CLAIM-044",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:315",
+      "promise": "按预登记成本/作用量/可实现性优先H-M，再检验H-I具体接口，H-T仅几何警报时候选；最多选择M、I-feedback、I-cancel、T之一或STOP，不拼三条；参考筛选线8dB oracle空间≥0.05且7/9方向不反转仅为探索分配线",
+      "covered_by": [
+        "ROUTE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/route-freeze.json"
+    },
+    {
+      "claim_id": "CLAIM-045",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:315",
+      "promise": "逐个解释未选路线、精度不足和经典基线主导；必要基线校正必须先完成并重冻结，追加工作/样本须纳入协议预算，不能事后挪用D_confirm；若无合格路线直接走DECIDE-01；正式route=STOP或后续合法原型不可实现/无足够证据导致资源停止时，记录proceed_confirmation=false与no_candidate证据，所有依赖确认的行据此条件排除；不得以未知授权冒充STOP",
+      "covered_by": [
+        "ROUTE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/route-freeze.json"
+    },
+    {
+      "claim_id": "CLAIM-046",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:98",
+      "promise": "对选中分支核验源文R1-R12中的相关一手文献原文、适用假设与代码；区别SP/保护导频、多天线/MMV与同信息条件，来源未核实不宣称已验证或新颖",
+      "covered_by": [
+        "LIT-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "route != STOP",
+      "verification_status": "verified",
+      "evidence": "evidence/classical-comparator-contract.md",
+      "verification_scope": "Static primary-source and comparator-interface contract only; deployed implementation, numerical values, convergence and dual-protocol experiment remain M-03/DEV-01 obligations."
+    },
+    {
+      "claim_id": "CLAIM-047",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:98",
+      "promise": "M路线落实一种块/组/层次稀疏与一种适用物理参数化经典方法，分别按文献合理设置和相同预算双协议报告；I/T路线保留相应经典JCED/不确定性/导频对照；不能截成不收敛后宣称全面击败",
+      "covered_by": [
+        "LIT-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "route != STOP",
+      "verification_status": "verified",
+      "evidence": "evidence/classical-comparator-contract.md",
+      "verification_scope": "Static primary-source and comparator-interface contract only; deployed implementation, numerical values, convergence and dual-protocol experiment remain M-03/DEV-01 obligations."
+    },
+    {
+      "claim_id": "CLAIM-048",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:181",
+      "promise": "仅用S0和同观测/既有软信息，以OMP粗中心及固定局部模板数或一次有界局部步进行小规模增益拟合；冻结候选/局部查询数、重叠软约束或经典收缩回退并逐帧记录触发",
+      "covered_by": [
+        "M-03"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "route == M",
+      "verification_status": "verified",
+      "evidence": "evidence/physical-prototype-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-049",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:181",
+      "promise": "K≤40、不增加物理径数、不扩池/多轮搜索，不读I/真分组/eta/增益；无法合法桥接登记不可实现；比较B_star/经典组稀疏/预算内参数化/原型，高计算参数化单列并记成本",
+      "covered_by": [
+        "M-03"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "route == M",
+      "verification_status": "verified",
+      "evidence": "evidence/physical-prototype-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-050",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:193",
+      "promise": "若采用理论解释，仅在固定候选/正确嵌套L/白化二阶矩I的线性模型证明预测方差为K与r；列出关系估计偏差、重叠可辨性与软回退边界",
+      "covered_by": [
+        "M-04"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == M AND theory_explanation_selected",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "M-03",
+      "reason": "theory_explanation_selected_false",
+      "evidence": "evidence/physical-theory-scope.md"
+    },
+    {
+      "claim_id": "CLAIM-051",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:193",
+      "promise": "不直接外推同数据选OMP、未知eta或FER；不开展与方向判别无关的完整论文理论；若未采用此可选解释，记录有理由的范围排除",
+      "covered_by": [
+        "M-04"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == M AND theory_explanation_selected",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "M-03",
+      "reason": "theory_explanation_selected_false",
+      "evidence": "evidence/physical-theory-scope.md"
+    },
+    {
+      "claim_id": "CLAIM-052",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:201",
+      "promise": "冻结支撑更新与估计器，定义I0末端译码、I1经典软反馈、I2单次预定时刻真实数据oracle；I2隔离不进入部署",
+      "covered_by": [
+        "I-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == I-feedback",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "ROUTE-01",
+      "reason": "True-data-channel diagnostic space is not a decoded-extrinsic-message prototype. M wins the registered allocation priority; terminal code feedback remains a separate untested interface, conditionally excluded for this one-route campaign.",
+      "evidence": "evidence/decoder-message-contract.md"
+    },
+    {
+      "claim_id": "CLAIM-053",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:201",
+      "promise": "依据真实因子图区分码到检测外信息与输入先验，解释BP/MF消息；不能无条件将CE的APP替换posterior-prior；依据D_design实测成本替换原BP/外环并保留最终译码预算",
+      "covered_by": [
+        "I-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == I-feedback",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "ROUTE-01",
+      "reason": "True-data-channel diagnostic space is not a decoded-extrinsic-message prototype. M wins the registered allocation priority; terminal code feedback remains a separate untested interface, conditionally excluded for this one-route campaign.",
+      "evidence": "evidence/decoder-message-contract.md"
+    },
+    {
+      "claim_id": "CLAIM-054",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:203",
+      "promise": "真实接收路径运行I0/I1/I2三臂并记录反馈时刻、消息输入输出与预算；I1无免费码字/校验/训练、匹配全时延而非仅迭代数，估计器和支撑更新保持冻结",
+      "covered_by": [
+        "I-02"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": true,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == I-feedback",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "ROUTE-01",
+      "reason": "True-data-channel diagnostic space is not a decoded-extrinsic-message prototype. M wins the registered allocation priority; terminal code feedback remains a separate untested interface, conditionally excluded for this one-route campaign.",
+      "evidence": "evidence/decoder-feedback-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-055",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:203",
+      "promise": "实际单帧消息干预可影响后续估计/检测并保留正确LLR约定；I1有效只说明经典coded JCED应作基线，新贡献需另有低复杂度差异证据",
+      "covered_by": [
+        "I-02"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": true,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == I-feedback",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "ROUTE-01",
+      "reason": "True-data-channel diagnostic space is not a decoded-extrinsic-message prototype. M wins the registered allocation priority; terminal code feedback remains a separate untested interface, conditionally excluded for this one-route campaign.",
+      "evidence": "evidence/decoder-feedback-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-056",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:214",
+      "promise": "只在取消通路显著且冻结sigma处理不足时启用；固定/合法外部后验下构造C_p=rho*B_p*Sigma_g*B_p^H，验证PSD与rank≤K，区分通常满秩H*H^H",
+      "covered_by": [
+        "I-03"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == I-cancel AND cancellation_gate_passed",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "ROUTE-01",
+      "reason": "Mandatory scalar/diagonal/lowrank classical correction completed; all31/192 vs31/192. Retain oracle space and working-model limitations, but do not launch a second new-prototype branch alongside M.",
+      "evidence": "evidence/cancellation-covariance-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-057",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:214",
+      "promise": "考虑同数据估计相关性、均值偏差及数据误差交叉项；按标量→对角→低秩逐级比较，保留ridge/SBL+冻结标量强对照，不预设低秩有效",
+      "covered_by": [
+        "I-03"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == I-cancel AND cancellation_gate_passed",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "ROUTE-01",
+      "reason": "Mandatory scalar/diagonal/lowrank classical correction completed; all31/192 vs31/192. Retain oracle space and working-model limitations, but do not launch a second new-prototype branch alongside M.",
+      "evidence": "evidence/cancellation-covariance-tests.json"
+    },
+    {
+      "claim_id": "CLAIM-058",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:226",
+      "promise": "仅几何明确警报时，从先验字典离线选一次p1，另固定随机相位常模p2和原p0；不按逐帧H_true选导频，记录设计搜索成本和新发射端设计批准",
+      "covered_by": [
+        "T-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == T",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "ROUTE-01",
+      "reason": "No registered collinearity/adjacent-template alarm in tested G0 geometry; no pilot-design branch triggered. This does not prove all observation designs unhelpful.",
+      "evidence": "evidence/pilot-design-authorization.json"
+    },
+    {
+      "claim_id": "CLAIM-059",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:226",
+      "promise": "保持H/数据/噪声、平均导频能量、帧长/码率/数据数相同；检查实际发射时域PAPR/峰值及SNR，不对各p+x逐帧分别重归一化掩盖功率变化",
+      "covered_by": [
+        "T-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == T",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "ROUTE-01",
+      "reason": "No registered collinearity/adjacent-template alarm in tested G0 geometry; no pilot-design branch triggered. This does not prove all observation designs unhelpful.",
+      "evidence": "evidence/pilot-design-authorization.json"
+    },
+    {
+      "claim_id": "CLAIM-060",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:238",
+      "promise": "使用y_b=sqrt(rho)*H*p_b+sqrt(1-rho)*H*x+w，真实runner同时更新合法字典、接收机已知pilot和取消入口；所有臂看到同一新p，hash和重放验证无旧pilot缓存",
+      "covered_by": [
+        "WIRE-03"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == T AND transmitter_design_approved",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "ROUTE-01",
+      "reason": "No registered collinearity/adjacent-template alarm in tested G0 geometry; no pilot-design branch triggered. This does not prove all observation designs unhelpful.",
+      "evidence": "evidence/pilot-wiring-smoke.json"
+    },
+    {
+      "claim_id": "CLAIM-061",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:238",
+      "promise": "若仅pilot变化有效，结果归入训练/接收联合设计，不宣称仅后端修复；导频几何改善不能冒充完整SP可辨识性证明",
+      "covered_by": [
+        "WIRE-03"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "route == T AND transmitter_design_approved",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "excluded_by": "ROUTE-01",
+      "reason": "No registered collinearity/adjacent-template alarm in tested G0 geometry; no pilot-design branch triggered. This does not prove all observation designs unhelpful.",
+      "evidence": "evidence/pilot-wiring-smoke.json"
+    },
+    {
+      "claim_id": "CLAIM-062",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:183",
+      "promise": "依据route只接选中候选及强对照到原campaign入口：初始化→拟合/消息更新→取消→图/检测→最终译码→逐帧日志→预算账本；真实烟测每个消费点可达",
+      "covered_by": [
+        "WIRE-04"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "route != STOP",
+      "verification_status": "verified",
+      "evidence": "evidence/candidate-e2e-smoke.json"
+    },
+    {
+      "claim_id": "CLAIM-063",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:183",
+      "promise": "可部署臂truth_access为none且H_cancel/H_data遵守自身合法模型，任何H更新触发缓存更新；oracle注册隔离；源码/协议/日志schema版本一致，烟测计费",
+      "covered_by": [
+        "WIRE-04"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "route != STOP",
+      "verification_status": "verified",
+      "evidence": "evidence/candidate-e2e-smoke.json"
+    },
+    {
+      "claim_id": "CLAIM-064",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:311",
+      "promise": "选中路线最多192×3SNR×4臂=2304完整接收，共同D_design、统一搜索/尺度/时间预算；超过4臂或阶段预算先修订授权，不静默增加",
+      "covered_by": [
+        "DEV-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "route != STOP",
+      "verification_status": "verified",
+      "evidence": "evidence/prototype-development.json"
+    },
+    {
+      "claim_id": "CLAIM-065",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:311",
+      "promise": "原型与最强经典对照按FER/时延Pareto比较；记录合法桥接收益、oracle差距、基线是否已解决与失败回退；未达预计可实现空间允许停止，不进入确认补显著；输出viable_legal_candidate真/假及证据；假时记录proceed_confirmation=false，确认排除仍执行最终裁决与REVIEW，不自动切换第二原型路线",
+      "covered_by": [
+        "DEV-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "route != STOP",
+      "verification_status": "verified",
+      "evidence": "evidence/prototype-development.json"
+    },
+    {
+      "claim_id": "CLAIM-066",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:244",
+      "promise": "预定义整数Doppler、邻近/重叠、P_phys4/12、rho0.25/0.75、同物理参数G1候选及适用性；不做完整笛卡尔积，不按算法失败筛帧，最终只预选两个最能证伪场景；每个最终场景在观察该场景新数据前冻结机制预测、最可能失败模式、指标/效应方向、允许伤害或失效阈值、区间方法/置信度/多重性、精度标准及通过/失败/证据不足判表；预定128块无法支撑精度时不承诺反证通过",
+      "covered_by": [
+        "SCENE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "route != STOP",
+      "verification_status": "verified",
+      "evidence": "evidence/counterexample-preregistration.json"
+    },
+    {
+      "claim_id": "CLAIM-067",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:244",
+      "promise": "开发筛查若启用按单因素128新块×3SNR预先列臂数与额外预算，不能混入最终2304额度；选择依据物理证伪力而非收益最大化；G1需新物理模型批准、G0/G1分别报告",
+      "covered_by": [
+        "SCENE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "route != STOP",
+      "verification_status": "verified",
+      "evidence": "evidence/counterexample-preregistration.json"
+    },
+    {
+      "claim_id": "CLAIM-068",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:268",
+      "promise": "方法/超参数/B_star/最近经典强基线与两个反证场景在新确认前锁定哈希；主比较固定1项、机制比较另设有限家族；备选等效降复杂度目标须在确认前另行批准且不能看数据切换；核对两个场景的完整三态验收标准已签入冻结manifest，缺失不得开始确认",
+      "covered_by": [
+        "FREEZE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "viable_legal_candidate",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/confirmation-freeze.json"
+    },
+    {
+      "claim_id": "CLAIM-069",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:268",
+      "promise": "按开发配对不一致率q及盲化方差计算Var(D)=q-delta²，alpha0.025/power0.9/delta0.02/delta1=0.05，校验约1139/1723/2890块例；8dB从1024/2048/4096选足够n，所需n超过预算则不进入该效应规模确认；本行先计算所需n与总成本，再输出proceed_confirmation=true/false及证据；预算不适配为false资源裁决，不阻塞样本量评估本身",
+      "covered_by": [
+        "FREEZE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "viable_legal_candidate",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/confirmation-freeze.json"
+    },
+    {
+      "claim_id": "CLAIM-070",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:268",
+      "promise": "冻结7/9dB各≤2048、8dB≤4096、≤3臂和最多24576完整接收；若第四强基线必要重新批准预算；锁定失败/重跑/停止/CI算法与邻点无伤害口径、成本门，资源上限内不得看显著性追加；proceed_confirmation=true表示科学/资源可行，仍须另有用户confirmation_approved；false则正式排除确认/最终计时/反证，不等于性能失败",
+      "covered_by": [
+        "FREEZE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "viable_legal_candidate",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/confirmation-freeze.json"
+    },
+    {
+      "claim_id": "CLAIM-071",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:292",
+      "promise": "仅冻结后生成D_confirm并按已批准n/SNR/≤3臂接收，保留共同外生块和全日志；不读取旧封存D_test、不用D_mech作最终确认",
+      "covered_by": [
+        "CONFIRM-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "proceed_confirmation == true AND confirmation_approved",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/confirmation-integrity.json"
+    },
+    {
+      "claim_id": "CLAIM-072",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:292",
+      "promise": "严格执行固定n与失败/停止规则、实时三类预算账本；达到上限停，不补到显著；运行不完整或功效不足如实标注，不能宣称等效/无效",
+      "covered_by": [
+        "CONFIRM-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "proceed_confirmation == true AND confirmation_approved",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/confirmation-integrity.json"
+    },
+    {
+      "claim_id": "CLAIM-073",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:246",
+      "promise": "每场景128新块×3SNR×≤3臂，合计≤2304完整接收且独立于开发筛查；只运行冻结两个场景，无结果导向替换",
+      "covered_by": [
+        "SCENE-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "proceed_confirmation == true AND confirmation_approved AND counterexample_budget_approved",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/counterexample-results.json"
+    },
+    {
+      "claim_id": "CLAIM-074",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:246",
+      "promise": "整数Doppler碰撞/能量、重叠误分组、P变化不泄露真P、rho变化数据SNR、G1截断表示误差及生成/接收成本按所选项分别报告；G1不能挽救G0无收益，128块精度不足不能声称反证通过；按SCENE-01冻结判表分别输出通过/失败/证据不足，禁止运行后改阈值或仅看图判通过",
+      "covered_by": [
+        "SCENE-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "proceed_confirmation == true AND confirmation_approved AND counterexample_budget_approved",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/counterexample-results.json"
+    },
+    {
+      "claim_id": "CLAIM-075",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:115",
+      "promise": "相同冻结设备/harness下对A2/B0/B_star/最终方法做获准随机交错单帧计时，所有必要步骤和传输计入，报告平均/p95/显存/K/E/迭代、method/A2与method/B_star",
+      "covered_by": [
+        "COST-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "proceed_confirmation == true AND confirmation_approved",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/final-cost-gate.json"
+    },
+    {
+      "claim_id": "CLAIM-076",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:115",
+      "promise": "仅当原精确成本门及完整计时证据齐全才判通过；A2不能回放则未验证，禁止以B_star替换分母；计时调用消耗预先登记，不能在确认最大调用外免费追加",
+      "covered_by": [
+        "COST-02"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "proceed_confirmation == true AND confirmation_approved",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/final-cost-gate.json"
+    },
+    {
+      "claim_id": "CLAIM-077",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:270",
+      "promise": "对实际帧级配对输出计算8dB delta单侧97.5%下界，只有下界>0.02才通过主性能门；按冻结邻点规则检验7/9dB伤害≤0.01并报告无功效/界限，不把未显著当等效",
+      "covered_by": [
+        "STATS-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "confirmation_started",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/acceptance-report.json"
+    },
+    {
+      "claim_id": "CLAIM-078",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:270",
+      "promise": "输出每臂FER、胜害计数、CI、共同外生块重采样与停止记录；bit及同块跨SNR不当独立样本；必要机制家族用冻结多重性方案，不改有利点态检验推翻v3",
+      "covered_by": [
+        "STATS-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "confirmation_started",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/acceptance-report.json"
+    },
+    {
+      "claim_id": "CLAIM-079",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:270",
+      "promise": "若报告FER0.1水平dB差，实测曲线必须包围目标且全插值过程按共同块重采样；零FER不替换任意小数，不从未包围三点外推；联合列科学门/成本门/反证门，缺一不得宣称主线成立；反证结论逐场景按预登记三态判表复算，两场景均通过才能联合标反证门通过；任何证据不足不得升级主线",
+      "covered_by": [
+        "STATS-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": false,
+      "status": "pending",
+      "coverage_status": "mapped",
+      "applicability": "confirmation_started",
+      "verification_status": "unverified",
+      "disposition": "conditional_excluded",
+      "reason": "Frozen unique m-soft prototype failed complete192-block preregistered development screen; no viable candidate.",
+      "evidence": "evidence/acceptance-report.json"
+    },
+    {
+      "claim_id": "CLAIM-080",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:335",
+      "promise": "按优先规则落一个主动作：①映射不存在/已用则不做H-M；②oracle有空间但合法桥接失败则记可实现性缺口；③经典结构法同成本已解则加强基线不主张新算法；④原型胜强经典且性能/成本/反证全过才选物理一致SP主线",
+      "covered_by": [
+        "DECIDE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/research-action.md"
+    },
+    {
+      "claim_id": "CLAIM-081",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:335",
+      "promise": "其余动作：⑤编码反馈/取消误差标准法主导则转具体接口并停旧评分线；⑥等资源pilot有效且后端空间不足则提请转导频设计；⑦预定机制皆无足够可实现证据或预算内无法建立证据则停止本harness新算法投入；未测/功效不足明确区别于已证无效，不以“还有很多可能”收尾",
+      "covered_by": [
+        "DECIDE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/research-action.md"
+    },
+    {
+      "claim_id": "CLAIM-082",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:335",
+      "promise": "多个条件成立时遵循ROUTE-01预登记顺序，输出一个主动作及各分支处置；范围外新动机/协议另行批准，项目主张/pivot/STATE/研究父任务验收需用户确认；保留负结果工具，执行REVIEW不等于研究父任务完成",
+      "covered_by": [
+        "DECIDE-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/research-action.md"
+    },
+    {
+      "claim_id": "CLAIM-083",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:375",
+      "promise": "所有前置行真实闭合或有证据的条件排除后，由最强可用独立审查检查源计划/两图优先级、逐条claim/evidence账本、CSV状态与实际生成→估计→取消→检测→译码→统计路径；静态/fixture不能替代N1024实验或源码独立审查",
+      "covered_by": [
+        "REVIEW-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/vision-review.md"
+    },
+    {
+      "claim_id": "CLAIM-084",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:375",
+      "promise": "专项核对物理关系oracle不借删伪/增益真值、三误差通路及缓存/sigma、编码或导频等资源、强经典双协议、A2分母、配对主门及7/9dB功效、至多一路线和最终唯一动作；真值污染、超预算或旧D_test访问均不得放行",
+      "covered_by": [
+        "REVIEW-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/vision-review.md"
+    },
+    {
+      "claim_id": "CLAIM-085",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:375",
+      "promise": "发现缺口追加修复行与REVIEW-02；受限审查记录limited_review并追加独立重审，不标vision_met；无缺口且非受限才关闭CSV，生成同stem的.handoff.md并用Mission handoff校验器验证；研究父任务与新主张仍需用户验收",
+      "covered_by": [
+        "REVIEW-01"
+      ],
+      "evidence_required": "static",
+      "production_path_required": false,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/vision-review.md"
+    },
+    {
+      "claim_id": "CLAIM-086",
+      "source_ref": "afdm_sp_joint_unrolled/direction_structure_run.py:54",
+      "promise": "修复运行器使记录device取实际dev；新增失败复现与回归；历史v6仅凭绑定原始record/contract/source哈希且命令明确--device cpu的更正清单获得有效设备标签，保留原始错误字段；禁止重跑、篡改原记录或无条件放宽统计校验；全部相关记录及M-01/M-02验收引用更正证据。",
+      "covered_by": [
+        "FIX-META-01"
+      ],
+      "evidence_required": "integration",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "always",
+      "verification_status": "verified",
+      "evidence": "evidence/structure-device-correction-review.json"
+    },
+    {
+      "claim_id": "CLAIM-087",
+      "source_ref": "issues/2026-09-08_21-06-44-afdm-direction-decision/source-plan.md:223",
+      "promise": "在新结果前冻结仅依赖观测/合法末态的工作系数协方差、正则和尺度，禁止真H/真支撑/真增益/真数据；比较共同标量、对角和低秩取消误差处理并保留已有ridge/SBL冻结标量参考；明确同数据相关性、偏差和交叉项使其仅为工作模型而非精确后验。仅D_design192块8dB选配置，最多3个新完整配置=576次prototype_full；原B_star缓存仅离线对照不称新重复。工程完整计时最多20次engineering_full，预先证明总预算及正式A2门兼容；不能截断不收敛后夸称击败。失败尝试计账，不访问D_confirm/D_test。结果无增益则保留原B_star并记录受测模型限制；有增益则按开发FER/实测成本重冻结强参考，保留全部Pareto与最终三臂冲突待FREEZE-01解决。产出evidence/cancellation-baseline-freeze.json，含实际命令、源码/配置哈希、调用与资源证据。",
+      "covered_by": [
+        "BASE-CANCEL-01"
+      ],
+      "evidence_required": "real_e2e",
+      "production_path_required": true,
+      "status": "covered",
+      "coverage_status": "mapped",
+      "applicability": "cancellation_gate_passed",
+      "verification_status": "verified",
+      "evidence": "evidence/cancellation-baseline-freeze.json"
+    }
+  ]
+}

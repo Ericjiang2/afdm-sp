@@ -1,0 +1,255 @@
+{
+  "case": {
+    "name": "regular_g0_equal",
+    "model": "g0",
+    "pdp": "equal",
+    "delta": 0.2,
+    "mu": 0.35
+  },
+  "classification": "unresolved_numerical_information",
+  "refined": true,
+  "refinement_checks": {
+    "node_rules": true,
+    "derivative_steps": true,
+    "direct_finite_difference": true,
+    "quadrature_mass": true,
+    "effective_information": true
+  },
+  "comparisons": [
+    {
+      "logpdf_max": 1.3119141328843398e-09,
+      "score_relative_rms": [
+        2.118676867373361e-08,
+        2.142097943944444e-08,
+        2.1875168368780565e-09,
+        2.828673345145237e-09
+      ]
+    },
+    {
+      "logpdf_max": 1.878572286528879e-05,
+      "score_relative_rms": [
+        3.242513403465304e-05,
+        1.600534134326693e-05,
+        3.486833452528467e-06,
+        7.14949061325181e-06
+      ]
+    }
+  ],
+  "derivative_steps": [
+    {
+      "step": 5e-05,
+      "comparison": {
+        "logpdf_max": 0.0,
+        "score_relative_rms": [
+          9.19504519323196e-08,
+          5.820065337704574e-08,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "step": 2e-05,
+      "comparison": {
+        "logpdf_max": 0.0,
+        "score_relative_rms": [
+          1.1769850344895741e-07,
+          7.45018421104637e-08,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  ],
+  "finite_difference_relative_rms": [
+    1.2200757596656686e-07,
+    7.569801906222766e-08,
+    1.7325861859413043e-10,
+    8.232026123677604e-11
+  ],
+  "effective_rule_relative_error": 2.2265586191673426e-05,
+  "quadrature_mass_errors": {
+    "coarse": 0.0,
+    "fine": 0.0,
+    "independent": 0.0
+  },
+  "information": {
+    "coarse": {
+      "train": {
+        "raw": 0.5794770920663959,
+        "effective": 0.28275144643210615,
+        "effective_batch_se": 0.06375639699366825,
+        "coefficient": [
+          -0.7204403380217328,
+          -0.026181586640496975,
+          0.07199852502670653
+        ],
+        "nuisance_rank": 3,
+        "nuisance_singular_values": [
+          16.05213393200555,
+          8.527133555243196,
+          4.8024299383893805
+        ],
+        "score_mean": [
+          0.005903663484716724,
+          0.0798250752075473,
+          -0.1065041859885239,
+          -0.004633287399935897
+        ]
+      },
+      "validation": {
+        "raw": 0.7033669747163478,
+        "effective": 0.27060682265545705,
+        "effective_batch_se": 0.07573387260416502,
+        "coefficient": [
+          -0.7204403380217328,
+          -0.026181586640496975,
+          0.07199852502670653
+        ],
+        "nuisance_rank": 3,
+        "nuisance_singular_values": [
+          16.05213393200555,
+          8.527133555243196,
+          4.8024299383893805
+        ],
+        "score_mean": [
+          -0.060703390132010024,
+          0.12203234005693789,
+          -0.1104105158037315,
+          -0.09141161065051881
+        ]
+      },
+      "q_information_factor": 6.249999999999999
+    },
+    "fine": {
+      "train": {
+        "raw": 0.5794770891077107,
+        "effective": 0.28275145104194654,
+        "effective_batch_se": 0.06375639895009709,
+        "coefficient": [
+          -0.7204403254319535,
+          -0.026181593159731103,
+          0.07199853069218085
+        ],
+        "nuisance_rank": 3,
+        "nuisance_singular_values": [
+          16.052133930773,
+          8.527133599727744,
+          4.802429938646462
+        ],
+        "score_mean": [
+          0.005903666413140923,
+          0.07982507664775637,
+          -0.1065041862415002,
+          -0.004633287175530295
+        ]
+      },
+      "validation": {
+        "raw": 0.7033669738280568,
+        "effective": 0.2706068226782435,
+        "effective_batch_se": 0.0757338735089236,
+        "coefficient": [
+          -0.7204403254319535,
+          -0.026181593159731103,
+          0.07199853069218085
+        ],
+        "nuisance_rank": 3,
+        "nuisance_singular_values": [
+          16.052133930773,
+          8.527133599727744,
+          4.802429938646462
+        ],
+        "score_mean": [
+          -0.06070339086772344,
+          0.12203234119550319,
+          -0.11041051609161488,
+          -0.0914116101730707
+        ]
+      },
+      "q_information_factor": 6.249999999999999
+    },
+    "independent": {
+      "train": {
+        "raw": 0.5794768100103824,
+        "effective": 0.2827489801193074,
+        "effective_batch_se": 0.06375602949203106,
+        "coefficient": [
+          -0.7204461708812311,
+          -0.026178002885665002,
+          0.07198859918557503
+        ],
+        "nuisance_rank": 3,
+        "nuisance_singular_values": [
+          16.052142116183827,
+          8.527104760299462,
+          4.802420786445413
+        ],
+        "score_mean": [
+          0.005902319293912944,
+          0.07982168144583016,
+          -0.10650439169411648,
+          -0.00463317232584967
+        ]
+      },
+      "validation": {
+        "raw": 0.7033794482482517,
+        "effective": 0.2706128480319359,
+        "effective_batch_se": 0.07573722447221545,
+        "coefficient": [
+          -0.7204461708812311,
+          -0.026178002885665002,
+          0.07198859918557503
+        ],
+        "nuisance_rank": 3,
+        "nuisance_singular_values": [
+          16.052142116183827,
+          8.527104760299462,
+          4.802420786445413
+        ],
+        "score_mean": [
+          -0.060702500663447165,
+          0.12203097358279714,
+          -0.11041110733372822,
+          -0.09141166351978505
+        ]
+      },
+      "q_information_factor": 6.249999999999999
+    }
+  },
+  "costs": {
+    "coarse": {
+      "response_evaluations": 18432,
+      "logpdf_observations": 256,
+      "component_observation_pairs": 4718592,
+      "tracked_branch_eigvalsh": 5
+    },
+    "fine": {
+      "response_evaluations": 73728,
+      "logpdf_observations": 256,
+      "component_observation_pairs": 18874368,
+      "tracked_branch_eigvalsh": 5
+    },
+    "independent": {
+      "response_evaluations": 524288,
+      "logpdf_observations": 256,
+      "component_observation_pairs": 134217728,
+      "tracked_branch_eigvalsh": 5
+    }
+  },
+  "final_teacher_cost": {
+    "response_evaluations": 811008,
+    "logpdf_observations": 336,
+    "component_observation_pairs": 24772608,
+    "tracked_branch_eigvalsh": 23
+  },
+  "sampler_cost": {
+    "response_evaluations": 0,
+    "logpdf_observations": 0,
+    "component_observation_pairs": 0,
+    "tracked_branch_eigvalsh": 2
+  },
+  "case_wall_seconds": 9.154981792002218,
+  "independent_train": 128,
+  "independent_validation": 128,
+  "target": "observed actual-prior delta information projected against mu,log_tau,log_sigma2"
+}

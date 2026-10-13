@@ -1,0 +1,114 @@
+{
+  "schema": "coherent-structure-study/1",
+  "seed": [
+    20261006,
+    103038
+  ],
+  "prefixes": [
+    64,
+    256,
+    1024,
+    4096
+  ],
+  "alpha": 0.05,
+  "confidence_alpha": 0.05,
+  "comparison_family_size": 12,
+  "calibration": {
+    "mode": "iid",
+    "groups": 256,
+    "conditions": [
+      {
+        "mu": 0.27,
+        "delta": 0.0,
+        "tau": 1.0,
+        "noise": 0.2
+      },
+      {
+        "mu": 0.27,
+        "delta": 0.0,
+        "tau": 1.0,
+        "noise": 1.0
+      },
+      {
+        "mu": 0.31,
+        "delta": 0.0,
+        "tau": 1.0,
+        "noise": 0.2
+      },
+      {
+        "mu": 0.31,
+        "delta": 0.0,
+        "tau": 1.0,
+        "noise": 1.0
+      },
+      {
+        "mu": 0.35,
+        "delta": 0.0,
+        "tau": 1.0,
+        "noise": 0.2
+      },
+      {
+        "mu": 0.35,
+        "delta": 0.0,
+        "tau": 1.0,
+        "noise": 1.0
+      }
+    ]
+  },
+  "evaluation": {
+    "groups": 512,
+    "modes": [
+      "coherent",
+      "iid"
+    ],
+    "conditions": [
+      {
+        "mu": 0.31,
+        "delta": 0.0,
+        "tau": 1.0,
+        "noise": 0.2
+      },
+      {
+        "mu": 0.31,
+        "delta": 0.005,
+        "tau": 1.0,
+        "noise": 0.2
+      },
+      {
+        "mu": 0.31,
+        "delta": 0.015,
+        "tau": 1.0,
+        "noise": 0.2
+      },
+      {
+        "mu": 0.31,
+        "delta": 0.025,
+        "tau": 1.0,
+        "noise": 0.2
+      }
+    ]
+  },
+  "geometry": {
+    "probes": 64
+  },
+  "calibration_stages": [
+    "calibration_00_v1",
+    "calibration_01_v1",
+    "calibration_02_v1",
+    "calibration_03_v1",
+    "calibration_04_v1",
+    "calibration_05_v1"
+  ],
+  "evaluation_stages": [
+    "evaluation_00_v1",
+    "evaluation_01_v1",
+    "evaluation_02_v1",
+    "evaluation_03_v1"
+  ],
+  "scope": "independent development comparison of different cross-symbol dependence with identical one-observation marginals; not same-model algorithm superiority",
+  "null_pool": "same null power-process law under coherent and iid modes, different nuisance grid points kept distinct",
+  "failure_policy": "retain groups, failed evaluation nonrejection, any relevant failure blocks superiority claims; calibration failure explicit",
+  "new_confirmation_stream": false,
+  "receiver_calls": 0,
+  "decoder_calls": 0
+}

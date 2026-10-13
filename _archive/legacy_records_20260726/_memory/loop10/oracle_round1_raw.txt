@@ -1,0 +1,53 @@
+🧿 oracle 0.9.0 — Hallucination hotline: we answer, not the pager.
+Launching browser mode (gpt-5.4-pro) with ~4,880 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+Q1. **P=8 is defensible as the headline waterfall figure, not as the sole main scientific config.** Use P=8 for the "clean, visibly separated" figure the user wants; keep **P=10** in the paper as the harder/mechanistic result, otherwise this reads like config-shopping away from the regime where the oracle replay showed the real ceiling.
+
+Q2. **One-cycle ranking (success probability adjusted for code/time risk):**
+**C > B > D > E > A.**
+Posterior of **≥30% relative BER reduction at SNR=20 + visibly below-classical for SNR≥20 on 500f paired**:
+C ≈ **0.28**, B ≈ **0.18**, D ≈ **0.12**, E ≈ **0.10** (higher ceiling, lower finish-probability), A ≈ **0.07**.
+
+Q3. **Yes: call it out.** My base case for simple **A/B/C at P=8 is still only ~10–20%** at SNR=20; **≥30% is a stretch**, not the median. Therefore **do not drop P=10** from the paper.
+
+Q4. **Pick: A + C.**
+Why: A satisfies the user's locked P=8 pivot; **C is the best low-code policy fix** because P=8 will be more **precision-limited** than recall-limited, and C directly attacks the known union→LS→prune failure mode.
+
+**CLI (trainer flags verified; cache/eval follow the briefing/current conventions; for C add the last 4 flags exactly):**
+
+```bash
+python afdm_sp_joint_unrolled/loop9_cache_features.py \
+  --n-total 1024 --v-mean 2.0 --p-paths 8 --tau-ms 10.0 \
+  --n-10 12000 --n-15 12000 --n-20 12000 \
+  --seed 13579 --out _outputs/loop10_p8_cache
+
+python afdm_sp_joint_unrolled/loop9_train_c2rel.py \
+  --cache-dir _outputs/loop10_p8_cache \
+  --out _outputs/loop10_p8_c2rel \
+  --lr 1e-3 --wd 1e-4 --batch 512 --epochs 4 \
+  --rank-weight 0.5 --patience 2 \
+  --k-add-max 6 --train-frac 0.9 \
+  --seed 13579 --device cuda
+
+python afdm_sp_joint_unrolled/paired_learned_eval.py \
+  --ckpt _outputs/loop10_p8_c2rel/ckpt_c2rel.pt \
+  --n-total 1024 --v-mean 2.0 --p-paths 8 --tau-ms 10.0 \
+  --snr-list 10 15 20 25 30 \
+  --use-hard \
+  --target-errors 800 --min-frames 100 --max-frames 1000 \
+  --seed 123456 --device cuda \
+  --seq-add-test --k-add-cap 6 --eps-r 1e-3 --gain-margin 0.05 \
+  --out _outputs/loop10_p8_eval
+```
+
+Also: print a **stdout-top config banner** before any work: `N=1024 v=2.0 P=8 tau=10.00ms device=cuda`.
+
+Q5. **`800 / 50 / 500` is okay for 20/25 dB, weak for 30 dB.**
+500 frames only hits 800 classical errors if BER is at least **7.8e-4**; P=8 at 30 dB may be below that.
+Recommended triple: **`--target-errors 800 --min-frames 100 --max-frames 1000`**.
+That preserves the user's hard 800-error rule, gives saner CIs, and keeps McNemar power acceptable at high SNR.
+
+
+18m10s · gpt-5.4-pro[browser] · ↑4.88k ↓641 ↻0 Δ5.52k
+files=2

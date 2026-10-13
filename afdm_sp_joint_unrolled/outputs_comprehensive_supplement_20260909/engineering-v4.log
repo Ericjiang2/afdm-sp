@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/engineering-v4.py", line 6, in <module>
+    raise SystemExit(main())
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-v4/afdm_sp_joint_unrolled/supplement_run.py", line 291, in main
+    return execute(parser().parse_args())
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-v4/afdm_sp_joint_unrolled/supplement_run.py", line 211, in execute
+    code = build_code(n=ldpc['n'], d_v=ldpc['dv'], d_c=ldpc['dc'], seed=ldpc['seed'], cache_dir=args.out/'code-cache')
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-v4/afdm_sp_joint_unrolled/e1_ldpc.py", line 148, in build_code
+    np.savez_compressed(tmp, H=H, G=G,
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/site-packages/numpy/lib/npyio.py", line 710, in savez_compressed
+    _savez(file, args, kwds, True)
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/site-packages/numpy/lib/npyio.py", line 736, in _savez
+    zipf = zipfile_factory(file, mode="w", compression=compression)
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/site-packages/numpy/lib/npyio.py", line 103, in zipfile_factory
+    return zipfile.ZipFile(file, *args, **kwargs)
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/zipfile.py", line 1270, in __init__
+    self.fp = io.open(file, filemode)
+FileNotFoundError: [Errno 2] No such file or directory: '/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/engineering-v4/code-cache/e1_ldpc_code_n2048_dv3_dc6_seed20260726.tmp191930.npz'

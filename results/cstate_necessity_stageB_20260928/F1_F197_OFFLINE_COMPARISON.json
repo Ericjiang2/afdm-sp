@@ -1,0 +1,126 @@
+{
+  "fixed_diagnostic": {
+    "all_four_compact_outputs_identical": true,
+    "attempt_modes": [
+      "reference",
+      "fast",
+      "reference",
+      "fast"
+    ],
+    "calls": 4,
+    "coordinate_scores": [
+      995,
+      995,
+      995,
+      995
+    ],
+    "coordinate_visits_per_call": 80,
+    "decoder_calls": 0,
+    "fast_exact_against_stopped_raw": [
+      false,
+      false
+    ],
+    "fast_vs_stopped_raw_max_abs": {
+      "dopplers": {
+        "max_abs": 6.56386056618885e-11,
+        "shape_equal": true,
+        "within_atol": true
+      },
+      "gains": {
+        "max_abs": 9.141135253025823e-11,
+        "shape_equal": true,
+        "within_atol": true
+      },
+      "last_coordinate_gain": {
+        "max_abs": 4.265225829801708e-13,
+        "shape_equal": true,
+        "within_atol": true
+      },
+      "objective_history": {
+        "max_abs": 1.879243427538313e-10,
+        "shape_equal": true,
+        "within_atol": true
+      }
+    },
+    "first_trace_difference": {
+      "fast_self": null,
+      "reference_self": null,
+      "reference_vs_fast_first": null,
+      "reference_vs_fast_second": null
+    },
+    "full_receiver_calls": 0,
+    "launch_exit_code": 0,
+    "reference_exact_against_sealed_stage_a": [
+      true,
+      true
+    ],
+    "truth_reads": 0,
+    "wall_seconds": 7
+  },
+  "interpretation": "The instrumented F1-only executions reproduce the sealed reference and each other but do not reproduce the stopped fast counter; instrumentation or prior execution history was not isolated. The original Stage-B attempt remains invalid_partial. No root cause, population equivalence, or qualified timing is claimed.",
+  "local_evidence_hashes": {
+    "f197_diagnostic_launch_v1/argv.txt": {
+      "md5": "dead7ed006c86db36a2890d0cf632074",
+      "sha256": "ddeee42ec5297b0c86d1fece7f9a648eb727b972fcdc2a48ad09cafc5a23b172"
+    },
+    "f197_diagnostic_launch_v1/launch_exit.json": {
+      "md5": "bd2de706ff98ae1d8a7d507451db45b0",
+      "sha256": "375be3b5961deb3c0891e676328e7e7e41a924d4455b03470d5365c3a6483d40"
+    },
+    "f197_diagnostic_launch_v1/launch_started.json": {
+      "md5": "747d6846f005c30291f80eb88893f4b5",
+      "sha256": "b3087993c2ea620de28f505fa1d808579303b164791d2ab724e1e9b46a04fa59"
+    },
+    "f197_diagnostic_launch_v1/runner.log": {
+      "md5": "7e7177a4096ee16c79ac0849e5c6025f",
+      "sha256": "5ae78f62486742ae1001daaf2b740c2fb9aaa3f4408c6a5289c064312d21bbd7"
+    },
+    "f197_diagnostic_v1/attempts.jsonl": {
+      "md5": "d4696fe3c04d06d37d6264725deac9ef",
+      "sha256": "13ec89259bfb041c9adef9ae5ac4bafae4cffafbc6952b5cb0dca1d0bf5f9cfd"
+    },
+    "f197_diagnostic_v1/receipt.json": {
+      "md5": "b8a86bd298369a6ed151bc0ba05d7247",
+      "sha256": "b5fbbe8ec077674782b5192ffc6e1712b30b0060fb9a4d2dd2b3bd52bbcf1b5f"
+    },
+    "f197_diagnostic_v1/traces.json": {
+      "md5": "b052ffc413a35c39f149bdfe358abc46",
+      "sha256": "73de1c9b598331392d7900f0ebe99926dac9dee2aa98397d30d93496825c3ccb"
+    }
+  },
+  "provenance": {
+    "diagnostic_script_sha256": "f1e8ecb5f3b7ae431b25cb0efba4dd76b8e3e4ec0cbfcaf81fee420163382155",
+    "observation_sha256": "f1594455bf48f7d59ac4671ad7d7ec571b164e51c347c3aa0f7140e17c71bfab",
+    "plan_sha256": "f9039561bf82b41a75ca3b0569a81ab39d52f23030dd8f61095a78fbcc0faa5c",
+    "source_commit": "d203207abde5a236ee2ee41948e1204fdaad550a",
+    "stage_a_raw_sha256": "959a8045cc70b7fb33b66b5ed81c9de1ee8b58b9e762d48bb82a7706e8b11cd1",
+    "stopped_stage_b_decision_sha256": "2d3fabb42df5f86365405ef73b3c83afde0fc7050eeac1e8e220f68d22bd75f8",
+    "stopped_stage_b_raw_sha256": "18e6c11d015416598020eac7a0828354a4e3b7cd8ed84dfc97eca04442b538b6"
+  },
+  "remote_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/cstate_necessity_stageB_20260928",
+  "schema": "stage-b-f197-offline-comparison/1",
+  "scope": "saved-artifact comparison and one fixed four-call F1-only instrumented diagnosis; no full receiver retry",
+  "status": "unresolved_stopped_stage_b",
+  "stopped_attempt": {
+    "arm": "Cfast",
+    "attempt": 409,
+    "complete_prior_wrappers": 408,
+    "frame_id": "s650_f0197",
+    "limit": "Producer stopped at counter gate; this does not establish all saved baseline array fields met their parity gate.",
+    "other_acquisition_counters_equal": true,
+    "recorded_bit_differences": {
+      "final": 0,
+      "r0": 0,
+      "r1": 0
+    },
+    "recorded_read_only_stage_a_vs_stopped_fast_max_abs": {
+      "dopplers": 6.56386056618885e-11,
+      "gains": 9.141135253025823e-11,
+      "objective_history": 1.879243427538313e-10,
+      "tf_entering_doppler": 6.81e-12,
+      "tf_entering_gain": 2.6e-12
+    },
+    "reference_coordinate_scores": 995,
+    "stopped_fast_coordinate_scores": 1002
+  }
+}

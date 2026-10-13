@@ -1,0 +1,55 @@
+{
+  "schema": "det01r-closure-audit-v3",
+  "status": "PASS",
+  "historical_16T_files_verified": 51,
+  "rerun_16T": false,
+  "original_16T_inventory_sha256": "a63a8b63158d559cb7d2cbad7edcbb40b6e9d9253a20387937dd2a3d6371b3e1",
+  "verification_only_AST_change": true,
+  "detector_kernel_dependencies_unchanged": true,
+  "allocation_adapter_changed": true,
+  "allocation_adapter_added_functions": [
+    "validate_det01r_allocation",
+    "verify_historical_qualification"
+  ],
+  "allocation_adapter_changed_functions": [
+    "prepare",
+    "validate_allocation"
+  ],
+  "allocation_adapter_sha256": "9c9fa9ea7b5f2996f67e919d1d4889912d14139eb387599655e7bca70dace9f1",
+  "historical_witness_correction": "The old split witness names only the verifier change; the A-star allocation adapter also changed, as bound in all 12 pre-run source contracts. No detector/decoder kernel changed.",
+  "T": 384,
+  "independent_blocks": 192,
+  "bp_development": {
+    "BP80": {
+      "errors": 18,
+      "mean_seconds": 0.13683064957755656,
+      "n": 192
+    },
+    "BP160": {
+      "errors": 18,
+      "mean_seconds": 0.17969912841423744,
+      "n": 192
+    }
+  },
+  "selected": "BP80",
+  "d1_sha256": "4cb7a61722dcb014d0d1ceb8d567f6a66ea0c597ece15840a18658b0b93632b3",
+  "selection_freeze_sha256": "8f4ef51764e792af1884cf6ac07e4ce4612d09f88448efa15cac7a5dec3ea868",
+  "first_h01_contract_sha256": "bc12b3ecc57938d35179e850b31721ba3a559662e3fd4fea9c3edcb636f24654",
+  "h01_bound_d1": true,
+  "historical_frozen_verifier_status": "FAIL",
+  "corrected_revalidation_status": "PASS",
+  "qualification_verifier_rerun": false,
+  "predecessor_DET_01": "not completed as written; superseded by approved A-star revision",
+  "review_mode": "main-session process audit; weak independence",
+  "started_unix": 1789056459.7482374,
+  "finished_unix": 1789056460.3429,
+  "new_calls": {
+    "F": 0,
+    "E": 0,
+    "T": 0
+  },
+  "limitations": [
+    "Reference selected on development data, not proof of optimality.",
+    "Mean terminal time is the frozen selection tie-break, not formal COST-02."
+  ]
+}

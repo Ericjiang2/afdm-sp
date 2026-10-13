@@ -1,0 +1,60 @@
+🧿 oracle 0.9.0 — Your code's confessional booth.
+Packed 24 files into 1 bundle (contents counted in token estimate).
+Launching browser mode (gpt-5.4-pro) with ~140,346 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+### A. Ground-Truth Provenance: WARN
+
+Evidence: afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py:95-103 — BER truth bits are derived from freshly drawn QPSK `data_qam`, and NMSE uses `H_true` from `generate_channel_matrix`; BER/NMSE calls compare predictions to `bits_true`/`H_true` at lines 116-177. afdm_sp_joint_unrolled/loop13_support_recall_probe.py:51-68 — support recall is computed from cached `y` labels and `p_real`, not recomputed from physical taps inside this bundle.
+Details: I found no evidence of BER or NMSE being computed against the model’s own output. The warning is only because support-recall provenance is indirect: the script documents “oracle” labels, but the cache-generation script that would prove those labels came from `afdm_env.py` physical/Dirichlet taps is not in the bundle.
+
+### B. Score Normalisation: PASS
+
+Evidence: afdm_sp_joint_unrolled/run_classical_baselines_python.py:102-108 — BER is `mean(bits_pred != bits_true)` and NMSE divides by `||H_true||_F^2`, not by prediction statistics. afdm_sp_joint_unrolled/outputs_loop13_4B_full_results.json:107-120 — headline-style BER rows include raw `frames`, `cum_bits`, error counts, BER, and relative delta.
+
+### C. Result-File Existence & Number Matching: FAIL
+
+Evidence: paper/sections/Section3.tex:70-77 — the thesis claims 3-seed pooled BERs and single-seed learned BERs such as `7.39e-5` at 20 dB and `5.58e-6` at 25 dB. afdm_sp_joint_unrolled/outputs_loop13_4B_full_results.json:107-120 and afdm_sp_joint_unrolled/outputs_loop13_4B_full_results.json:132-140 — the supplied 4B JSON instead gives learned BER `2.05078125e-4` at 20 dB and `2.3193359375e-5` at 25 dB, with no 30 dB key and only one seed in `_config`.
+Details: Bundle extraction note: `/mnt/data/attachments-bundle.txt` was a concatenated text bundle, not a zip/tar archive; I extracted 24 files. The extracted files were: `oracle_io/experiment_audit/AUDIT_PROMPT_V2.md`, `afdm_sp_joint_unrolled/afdm_env.py`, `afdm_sp_joint_unrolled/afdm_baselines.py`, `afdm_sp_joint_unrolled/classical_joint_unrolled.py`, `afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py`, `afdm_sp_joint_unrolled/run_classical_baselines_python.py`, `afdm_sp_joint_unrolled/loop13_iter_convergence_probe.py`, `afdm_sp_joint_unrolled/loop13_new_baselines_eval.py`, `afdm_sp_joint_unrolled/loop13_support_recall_probe.py`, `afdm_sp_joint_unrolled/headroom_decomposition_probe.py`, `afdm_sp_joint_unrolled/compute_heldout_metrics.py`, `afdm_sp_joint_unrolled/_merge_snr20_300f.py`, `afdm_sp_joint_unrolled/verify_classical_unrolled_matches_numpy.py`, `afdm_sp_joint_unrolled/outputs_loop13_4B_full_results.json`, `afdm_sp_joint_unrolled/outputs_loop13_iter_convergence_4B_merged/results.json`, `afdm_sp_joint_unrolled/outputs_loop13_support_recall/recall_by_snr.json`, `afdm_sp_joint_unrolled/outputs_loop13_headroom_4B_big/headroom_results.json`, `afdm_sp_joint_unrolled/outputs_loop13_new_baselines_500f_results.json`, `afdm_sp_joint_unrolled/outputs_loop13_2B_snr0_5_results.json`, `paper/sections/Abstract.tex`, `paper/sections/Section1.tex`, `paper/sections/Section3.tex`, `paper/sections/Section4.tex`, and `CLAIMS_FROM_RESULTS.md`. The three “renamed” JSONs are actually present under subdirectory paths rather than flattened renamed filenames. The iter-convergence numbers do match the supplied JSON, and `_merge_snr20_300f.py` does exactly what §3 says: it replaces SNR=20 in the old 80-frame result with the new 300-frame SNR=20 result, then writes the merged JSON. afdm_sp_joint_unrolled/_merge_snr20_300f.py:2-9, afdm_sp_joint_unrolled/_merge_snr20_300f.py:21-30. But `CLAIMS_FROM_RESULTS.md` is stale/incompatible with the thesis bundle: it describes a B1 CNN, N=1024, 10-path setup and cites `outputs_cju_n1024_v1_B1_fullsnr_adaptive/results.json`, which is not present in the extracted bundle. CLAIMS_FROM_RESULTS.md:1-13. Audit prompt source: 
+
+### D. Dead-Code Detection: WARN
+
+Evidence: afdm_sp_joint_unrolled/classical_joint_unrolled.py:1480-1483 — the learned support head is actually invoked after raw OMP and before cluster expansion, so the learned path is not automatically classical in disguise. afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py:192-207 — the eval loader selects heads by `variant` and loads checkpoint weights, but does not set the F2-P refinement flags that are configured in the iter-convergence probe at afdm_sp_joint_unrolled/loop13_iter_convergence_probe.py:76-88.
+Details: The learned BER is not simply the classical BER: the JSON has different classical vs learned errors, for example 311 vs 168 errors at 20 dB and 40 vs 19 at 25 dB. afdm_sp_joint_unrolled/outputs_loop13_4B_full_results.json:107-120, afdm_sp_joint_unrolled/outputs_loop13_4B_full_results.json:132-140. The warning is that deployment naming is inconsistent: §3 calls the main head “C2-rel F2-P,” while the main eval script’s ordinary checkpoint path does not activate `set_refine_config(refine_rounds=2, cand_topm=96, defer_prune=True, protect_added=2)`. That makes some headline-number provenance ambiguous even though it is not a classical-arm disguise.
+
+### E. Scope vs Language: WARN
+
+Evidence: paper/sections/Abstract.tex:5-9 — the abstract claims pooled three-seed high-SNR separation but also explicitly limits the result to a UWA-style simulator and not field deployment. paper/sections/Section4.tex:122-130 — the discussion concedes single-checkpoint training, no retraining-variance bars, no field/MSML model, and no reproduced external baseline.
+Details: The wording is mostly appropriately scoped, but the accessible JSONs do not substantiate the pooled 3-seed/30 dB claims in Abstract/§3/§4. The bundle supports a narrower statement: one available 400-frame seed block plus matching iter/support/headroom probes. The thesis does report CIs for tiny BER points, but the underlying 3-seed pooled files needed to verify those CIs are missing from the bundle. paper/sections/Section1.tex:117-125.
+
+### F. Evaluation-Type Classification: PASS
+
+Evidence: afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py:95-109 — each frame draws a simulated channel, simulated QPSK data, and synthetic AWGN before evaluating receivers. paper/sections/Section4.tex:128-129 — the paper explicitly says the simulator is block-fading sparse delay-Doppler and “UWA-style,” not field UWA.
+Details: simulation_only.
+
+## Overall Verdict: FAIL
+
+## Integrity Status: fail
+
+## Evaluation Type: simulation_only
+
+## Claim Impact
+
+* Abstract BER/NMSE: unsupported
+* §3 iter-convergence (mixed 80/300 frame): supported
+* §3 support-recall: needs_qualifier
+* §3 headroom-decomposition: supported
+* §4 "classical joint is the data-detection bottleneck": needs_qualifier
+
+## Action Items (ranked by severity)
+
+1. Replace or reconcile the Abstract/§1/§3/§4 main BER claims with result files included in the bundle, or include the missing pooled three-seed JSONs and exact key paths that support 20/25/30 dB claims.
+2. Remove or quarantine `CLAIMS_FROM_RESULTS.md` as stale unless the missing `outputs_cju_*` files and B1/CNN method are intentionally part of this thesis version.
+3. Make the main learned-eval deployment path unambiguous: either call `set_refine_config(...)` in the main eval that produced the headline JSONs or relabel those numbers as C2-rel single-pass rather than C2-rel F2-P.
+4. Include the cache-generation script or a compact provenance export proving support-recall labels come from physical/Dirichlet oracle taps, plus raw total hits/misses/denominator counts.
+5. Keep the current scope qualifiers, but adjust “consistent 2 dB / 3-seed pooled” language unless the missing pooled result files are supplied and match to 2 significant figures.
+
+
+4m56s · gpt-5.4-pro[browser] · ↑140.35k ↓1.93k ↻0 Δ142.27k
+files=24
+Saved assistant output to /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/oracle_io/experiment_audit/ORACLE_RESPONSE_V2.md

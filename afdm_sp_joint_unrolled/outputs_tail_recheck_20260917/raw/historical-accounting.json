@@ -1,0 +1,305 @@
+{
+  "versions": [
+    {
+      "version": 1,
+      "stages": [],
+      "exits": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_20260916/evidence/tail-terminal-engineering-run-v1-exit.json",
+          "sha256": "77dbe9b4984e32f95dcf8651168e82a5a49f11cd34123d8b89f409656bd0ca6b",
+          "name": "tail-terminal-engineering-run-v1",
+          "exit_code": 1,
+          "timed_out": false,
+          "started_at": 1789526303.7827005,
+          "finished_at": 1789526306.7546043,
+          "wall_seconds": 2.9719040393829346
+        }
+      ],
+      "failures": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_20260916/runs/engineering/producer/failure.json",
+          "sha256": "5a4d1369825ff194549810fc7f5f04a0339b122fca36d3529385c635c98c7950",
+          "active": null,
+          "calls": {
+            "T": 0
+          },
+          "error": "KeyError('terminal_executed')",
+          "finished_at": 1789526306.4989703,
+          "stage": "engineering/producer",
+          "started_at": 1789526305.8003082,
+          "status": "FAILED",
+          "traceback": "Traceback (most recent call last):\n  File \"/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_20260916/analysis-source-v1/tail_terminal_run_v1.py\", line 272, in main\n    point = bank.load(block, snr)\n  File \"/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_20260916/analysis-source-v1/tail_terminal_run_v1.py\", line 95, in load\n    or not old['terminal_executed'] or not old['terminal_check_prior_consumed']\nKeyError: 'terminal_executed'\n"
+        }
+      ]
+    },
+    {
+      "version": 2,
+      "stages": [],
+      "exits": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v2_20260916/evidence/tail-terminal-engineering-run-v1-exit.json",
+          "sha256": "f6bf7ba13b29cdf6167baf47674d780afa9700e778e2c290a4cde5b8d0644446",
+          "name": "tail-terminal-engineering-run-v1",
+          "exit_code": 1,
+          "timed_out": false,
+          "started_at": 1789526657.822525,
+          "finished_at": 1789526660.8947587,
+          "wall_seconds": 3.0722341537475586
+        }
+      ],
+      "failures": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v2_20260916/runs/engineering/producer/failure.json",
+          "sha256": "c658265cb0dbc7e1f4c0f464a5a5ca32549811ff5991168743a0729e5b312f84",
+          "active": null,
+          "calls": {
+            "T": 0
+          },
+          "error": "ValueError('saved ORIGINAL scores disagree: raw_bit_errors')",
+          "finished_at": 1789526660.606218,
+          "stage": "engineering/producer",
+          "started_at": 1789526659.8714914,
+          "status": "FAILED",
+          "traceback": "Traceback (most recent call last):\n  File \"/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v2_20260916/analysis-source-v1/tail_terminal_run_v2.py\", line 291, in main\n    point = bank.load(block, snr)\n  File \"/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v2_20260916/analysis-source-v1/tail_terminal_run_v2.py\", line 147, in load\n    raise ValueError('saved ORIGINAL scores disagree: '+key)\nValueError: saved ORIGINAL scores disagree: raw_bit_errors\n"
+        }
+      ]
+    },
+    {
+      "version": 3,
+      "stages": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v3_20260916/runs/engineering/audit",
+          "reserved": 1,
+          "completed": 0,
+          "kind": "D",
+          "unfinished": [
+            {
+              "arm": "ORIGINAL",
+              "block": 0,
+              "kind": "D",
+              "reserved_at": 1789527034.7060676,
+              "snr": 7,
+              "split": 2,
+              "token": "D-00001"
+            }
+          ]
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v3_20260916/runs/engineering/producer",
+          "reserved": 12,
+          "completed": 12,
+          "kind": "T",
+          "unfinished": []
+        }
+      ],
+      "exits": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v3_20260916/evidence/tail-terminal-engineering-audit-v1-exit.json",
+          "sha256": "e3e706027aac77004e80b2ee069c4102076b42ff4ffc8441d9353bc6341dc0e3",
+          "name": "tail-terminal-engineering-audit-v1",
+          "exit_code": 1,
+          "timed_out": false,
+          "started_at": 1789527031.844563,
+          "finished_at": 1789527035.0171127,
+          "wall_seconds": 3.172550678253174
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v3_20260916/evidence/tail-terminal-engineering-run-v1-exit.json",
+          "sha256": "f0f65ae53f13c4f42e62c4dc0c59862d086d7b01dc566b8b3cba2c0a7ffceed9",
+          "name": "tail-terminal-engineering-run-v1",
+          "exit_code": 0,
+          "timed_out": false,
+          "started_at": 1789526967.5988612,
+          "finished_at": 1789526982.2527702,
+          "wall_seconds": 14.653909683227539
+        }
+      ],
+      "failures": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v3_20260916/runs/engineering/audit/failure.json",
+          "sha256": "18710b8bfef90628ee786a9e459d96ef954ad92859f0b8dedd5877d40e066a70",
+          "active": {
+            "arm": "ORIGINAL",
+            "block": 0,
+            "kind": "D",
+            "snr": 7,
+            "split": 2,
+            "token": "D-00001"
+          },
+          "calls": {
+            "D": 1
+          },
+          "error": "KeyError('x_hard')",
+          "finished_at": 1789527034.7268176,
+          "stage": "engineering/audit",
+          "started_at": 1789527033.85787,
+          "status": "FAILED",
+          "traceback": "Traceback (most recent call last):\n  File \"/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v3_20260916/analysis-source-v1/tail_terminal_run_v3.py\", line 343, in main\n    decoded, record = run.call('D', identity, lambda: replay_decode(code, value, 1., 20., 50),\n  File \"/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/light_gap_replay.py\", line 122, in call\n    state=artifact, scores=score(value), **provenance)\n  File \"/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v3_20260916/analysis-source-v1/tail_terminal_run_v3.py\", line 344, in <lambda>\n    lambda v: score_errors(v, point['raw']),\n  File \"/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/supplement_profile.py\", line 223, in score_errors\n    ihat,decoded,hard=(np.asarray(value[k]) for k in ('info_hat','decoded','x_hard'))\n  File \"/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/supplement_profile.py\", line 223, in <genexpr>\n    ihat,decoded,hard=(np.asarray(value[k]) for k in ('info_hat','decoded','x_hard'))\nKeyError: 'x_hard'\n"
+        }
+      ]
+    },
+    {
+      "version": 4,
+      "stages": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v4_20260916/runs/development/audit",
+          "reserved": 120,
+          "completed": 120,
+          "kind": "D",
+          "unfinished": []
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v4_20260916/runs/development/producer",
+          "reserved": 120,
+          "completed": 120,
+          "kind": "T",
+          "unfinished": []
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v4_20260916/runs/engineering/audit",
+          "reserved": 12,
+          "completed": 12,
+          "kind": "D",
+          "unfinished": []
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v4_20260916/runs/engineering/producer",
+          "reserved": 12,
+          "completed": 12,
+          "kind": "T",
+          "unfinished": []
+        }
+      ],
+      "exits": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v4_20260916/evidence/tail-terminal-development-audit-v1-exit.json",
+          "sha256": "9fe7aa00d55de3323d634c3caee7bcde94693b61b9294df2966e0e90d03269f4",
+          "name": "tail-terminal-development-audit-v1",
+          "exit_code": 0,
+          "timed_out": false,
+          "started_at": 1789527673.9542382,
+          "finished_at": 1789527728.6640325,
+          "wall_seconds": 54.709794759750366
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v4_20260916/evidence/tail-terminal-development-run-v1-exit.json",
+          "sha256": "d44cc9b5173ae499df3ca780bad6d9746925deb7c01d51fe2199eb3bf513efa7",
+          "name": "tail-terminal-development-run-v1",
+          "exit_code": 0,
+          "timed_out": false,
+          "started_at": 1789527518.334086,
+          "finished_at": 1789527657.5847604,
+          "wall_seconds": 139.25067520141602
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v4_20260916/evidence/tail-terminal-engineering-audit-v1-exit.json",
+          "sha256": "6b43ec2bc79df6db2cc77931e7cfcf97345957557ca137e782b1860b1f8cbfcf",
+          "name": "tail-terminal-engineering-audit-v1",
+          "exit_code": 0,
+          "timed_out": false,
+          "started_at": 1789527276.7282948,
+          "finished_at": 1789527285.16486,
+          "wall_seconds": 8.436565637588501
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v4_20260916/evidence/tail-terminal-engineering-run-v1-exit.json",
+          "sha256": "69e5e670d77b008d8f40a8db3d9b635ab36f27bec16ca588ebf6349ee1d6e9ca",
+          "name": "tail-terminal-engineering-run-v1",
+          "exit_code": 0,
+          "timed_out": false,
+          "started_at": 1789527221.4632318,
+          "finished_at": 1789527235.966018,
+          "wall_seconds": 14.502786874771118
+        }
+      ],
+      "failures": []
+    },
+    {
+      "version": 5,
+      "stages": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v5_20260916/runs/development/audit",
+          "reserved": 120,
+          "completed": 120,
+          "kind": "D",
+          "unfinished": []
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v5_20260916/runs/development/producer",
+          "reserved": 120,
+          "completed": 120,
+          "kind": "T",
+          "unfinished": []
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v5_20260916/runs/engineering/audit",
+          "reserved": 12,
+          "completed": 12,
+          "kind": "D",
+          "unfinished": []
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v5_20260916/runs/engineering/producer",
+          "reserved": 12,
+          "completed": 12,
+          "kind": "T",
+          "unfinished": []
+        }
+      ],
+      "exits": [
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v5_20260916/evidence/tail-terminal-development-audit-v1-exit.json",
+          "sha256": "e1f2f48ed41b21c72bfa8e2e1bbb479efe83016def27445bce69b99b0dc13c22",
+          "name": "tail-terminal-development-audit-v1",
+          "exit_code": 0,
+          "timed_out": false,
+          "started_at": 1789529011.2730417,
+          "finished_at": 1789529066.1341088,
+          "wall_seconds": 54.86106753349304
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v5_20260916/evidence/tail-terminal-development-run-v1-exit.json",
+          "sha256": "5f1b924e6f93f5b0b8b13670b027f833412c1c15fe3093ad3a1cceda53c70bb4",
+          "name": "tail-terminal-development-run-v1",
+          "exit_code": 0,
+          "timed_out": false,
+          "started_at": 1789528871.207367,
+          "finished_at": 1789529010.8580964,
+          "wall_seconds": 139.65072989463806
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v5_20260916/evidence/tail-terminal-engineering-audit-v1-exit.json",
+          "sha256": "d2b8175353a5a2df8e656be4a3e6a29fe124a875f38c1aa51c451f08c43990f6",
+          "name": "tail-terminal-engineering-audit-v1",
+          "exit_code": 0,
+          "timed_out": false,
+          "started_at": 1789528846.3482165,
+          "finished_at": 1789528854.9849381,
+          "wall_seconds": 8.636722326278687
+        },
+        {
+          "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_tail_terminal_v5_20260916/evidence/tail-terminal-engineering-run-v1-exit.json",
+          "sha256": "bbb1e129967a79dd2a01ead6724efda634f2a0043571d683842acf96d6558396",
+          "name": "tail-terminal-engineering-run-v1",
+          "exit_code": 0,
+          "timed_out": false,
+          "started_at": 1789528831.3266737,
+          "finished_at": 1789528845.8804533,
+          "wall_seconds": 14.55377984046936
+        }
+      ],
+      "failures": []
+    }
+  ],
+  "completed": {
+    "T": 276,
+    "D": 264
+  },
+  "reserved": {
+    "T": 276,
+    "D": 265
+  },
+  "supervisor_seconds": 458.47272062301636,
+  "completed_LDPC": 540,
+  "note": "Unfinished reservations are attempts, not proof that numerical work or LDPC completed."
+}

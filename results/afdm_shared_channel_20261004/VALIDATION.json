@@ -1,0 +1,145 @@
+{
+  "final_checks.json": {
+    "pytest": {
+      "command": "OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 CUDA_VISIBLE_DEVICES= python -m pytest -q experiments/afdm_shared_channel_20261004",
+      "python": "/tmp/afdm-shared-channel-env/bin/python",
+      "exit_code": 0,
+      "passed": 57,
+      "wall_seconds_reported": 2.41,
+      "tool_session_id": 82845,
+      "raw_output": "57 passed in 2.41s"
+    },
+    "compileall": {
+      "command": "python3 -m compileall -q experiments/afdm_shared_channel_20261004",
+      "exit_code": 0
+    },
+    "diff_check": {
+      "scope": [
+        "experiments/afdm_shared_channel_20261004",
+        "results/afdm_shared_channel_20261004"
+      ],
+      "exit_code": 0
+    },
+    "limits": "No configured separate type checker, linter or package build; no new FER confirmation."
+  },
+  "final_integrity.json": {
+    "stages": [
+      {
+        "stage": "audit_v1",
+        "status": "complete",
+        "wall_seconds": 0.24381495799934783,
+        "artifact_hashes_checked": 338,
+        "source_snapshot_hashes_checked": 328,
+        "legacy_source_hashes_checked": 230,
+        "mismatches": [],
+        "failed_attempt_limit": null
+      },
+      {
+        "stage": "collision_estimation_v1",
+        "status": "complete",
+        "wall_seconds": 3.0918160830005945,
+        "artifact_hashes_checked": 295,
+        "source_snapshot_hashes_checked": 5,
+        "legacy_source_hashes_checked": 1,
+        "mismatches": [],
+        "failed_attempt_limit": null
+      },
+      {
+        "stage": "collision_information_v1",
+        "status": "complete",
+        "wall_seconds": 0.06623716700050863,
+        "artifact_hashes_checked": 88,
+        "source_snapshot_hashes_checked": 5,
+        "legacy_source_hashes_checked": 1,
+        "mismatches": [],
+        "failed_attempt_limit": null
+      },
+      {
+        "stage": "conditional_solver_v1",
+        "status": "complete",
+        "wall_seconds": 1.5909070420002536,
+        "artifact_hashes_checked": 24,
+        "source_snapshot_hashes_checked": 6,
+        "legacy_source_hashes_checked": 2,
+        "mismatches": [],
+        "failed_attempt_limit": null
+      },
+      {
+        "stage": "message_v1",
+        "status": "complete",
+        "wall_seconds": 0.07230537500072387,
+        "artifact_hashes_checked": 20,
+        "source_snapshot_hashes_checked": 12,
+        "legacy_source_hashes_checked": 8,
+        "mismatches": [],
+        "failed_attempt_limit": null
+      },
+      {
+        "stage": "normalization_v1",
+        "status": "complete",
+        "wall_seconds": 4.468480749999799,
+        "artifact_hashes_checked": 364,
+        "source_snapshot_hashes_checked": 331,
+        "legacy_source_hashes_checked": 230,
+        "mismatches": [],
+        "failed_attempt_limit": null
+      },
+      {
+        "stage": "probability_refined_v1",
+        "status": "complete",
+        "wall_seconds": 67.7164658340007,
+        "artifact_hashes_checked": 192,
+        "source_snapshot_hashes_checked": 125,
+        "legacy_source_hashes_checked": 7,
+        "mismatches": [],
+        "failed_attempt_limit": null
+      },
+      {
+        "stage": "probability_sensitivity_v1",
+        "status": "complete",
+        "wall_seconds": 0.40087525000126334,
+        "artifact_hashes_checked": 163,
+        "source_snapshot_hashes_checked": 160,
+        "legacy_source_hashes_checked": 7,
+        "mismatches": [],
+        "failed_attempt_limit": null
+      },
+      {
+        "stage": "probability_v1",
+        "status": "complete",
+        "wall_seconds": 22.947288583000045,
+        "artifact_hashes_checked": 140,
+        "source_snapshot_hashes_checked": 11,
+        "legacy_source_hashes_checked": 7,
+        "mismatches": [],
+        "failed_attempt_limit": null
+      },
+      {
+        "stage": "production_v1",
+        "status": "invalid_partial",
+        "wall_seconds": 13.172345332999612,
+        "artifact_hashes_checked": 0,
+        "source_snapshot_hashes_checked": 328,
+        "legacy_source_hashes_checked": 230,
+        "mismatches": [],
+        "failed_attempt_limit": "Failed attempt has no terminal artifact hash ledger; source snapshots verified against its original registration, terminal failure preserved."
+      },
+      {
+        "stage": "production_v2",
+        "status": "complete",
+        "wall_seconds": 14.069628207998903,
+        "artifact_hashes_checked": 373,
+        "source_snapshot_hashes_checked": 328,
+        "legacy_source_hashes_checked": 230,
+        "mismatches": [],
+        "failed_attempt_limit": null
+      }
+    ],
+    "stage_count": 11,
+    "artifact_hashes_checked": 1997,
+    "snapshot_hashes_checked": 1639,
+    "execution_output_bytes": 309345004,
+    "output_cap_bytes": 2000000000,
+    "mismatches": []
+  }
+}

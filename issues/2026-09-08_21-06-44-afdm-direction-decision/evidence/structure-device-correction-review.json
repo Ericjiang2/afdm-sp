@@ -1,0 +1,16 @@
+{
+  "status": "complete",
+  "root_cause": "terminal_record deepcopied normal CUDA device/outer dtype although actual structure driver command used CPU",
+  "fix": "run_arm emits actual device; terminal_record overwrites device and float/complex precision metadata.",
+  "reproduction": "structure-device-repro.log failed cuda != cpu",
+  "regression": "structure-device-fixed.log:4 tests pass; structure-stats-tests-v1.log:6 tests pass",
+  "historical_correction": "structure-device-correction.json",
+  "actual_audit": "structure-device-correction-audit.json",
+  "binding_count": 1024,
+  "raw_records_unchanged": true,
+  "receiver_reruns": 0,
+  "source_equivalence": "structure-source-equivalence-v6-v7.json",
+  "source_diff": "structure-source-equivalence-v6-v7.diff",
+  "scope": "Four engineering terminal records and1020 structure7 terminal records corrected in explicit analysis view only. Next8/9 runs use fixedv7. All computational modules unchanged.",
+  "statistical_guard": "without correction manifest wrongdevice fails; wrong record/source/contract/originalvalue/CPUcommand binding fails; unapproved numerical source drift fails"
+}

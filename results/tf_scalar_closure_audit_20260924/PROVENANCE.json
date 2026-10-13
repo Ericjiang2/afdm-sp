@@ -1,0 +1,123 @@
+{
+  "date": "2026-09-24",
+  "authoring_role": "Codex theory-to-code audit",
+  "source_git_commit": "49ba637bba592dcda6e612609ff3bdc27048cb8d",
+  "verification_script_sha256": "43480bb9f2da0475cdfa4d7437e55ee8e6fffaca929c232c10f35b264ea284bf",
+  "new_receiver_calls": 0,
+  "new_decoder_calls": 0,
+  "new_observations": 0,
+  "new_cstate_acquisition_optimization_jvp_or_monte_carlo_calls": 0,
+  "synthetic_operator_state_cases": 30,
+  "theory_verdict": "VERIFIED WITH RESTRICTIONS",
+  "cgr_status": {
+    "candidate_pass": false,
+    "prospective_mechanism_supported": false,
+    "bounded_continue": false
+  },
+  "historical_reports": {
+    "H0": {
+      "path": "results/tf_cstate_prospective_20260923/recovery_20260923/analysis/RESULTS.md",
+      "observed_commit": "929c679b4797de18271065b8e8bf35b67b6de13f",
+      "sha256": "18aec354cf69b4707b3a653b6b97acd7cca5f3bd8365feae92c7cc396a650474"
+    },
+    "H1": {
+      "path": "results/tf_cgr_mechanism_20260923_v2/RESULTS.md",
+      "report_commit": "da37715f6f0e9743ad7e6484b80f99ec9394b385",
+      "sha256": "e9d331adc89f90b158790365bc0356c4a570ae4d0eb2465a59d72ab5d44217cb"
+    },
+    "H2": {
+      "path": "results/tf_cgr_mechanism_20260923_v2/RESULTS.md",
+      "report_commit": "da37715f6f0e9743ad7e6484b80f99ec9394b385",
+      "sha256": "e9d331adc89f90b158790365bc0356c4a570ae4d0eb2465a59d72ab5d44217cb"
+    },
+    "H3": {
+      "path": "results/tf_cgr_offline_mechanism_20260923/RESULTS.md",
+      "report_commit": "cadf04f97113f9edb2c944106165715c0c96b666",
+      "sha256": "5a5a8b563a3bd4c59a974dc3c4388054e8d6b90c244c3ebf0d6e246be2a9f386"
+    },
+    "H4": {
+      "path": "results/tf_cgr_offline_mechanism_20260923/analysis/block_domain_reconciliation.json",
+      "report_commit": "cadf04f97113f9edb2c944106165715c0c96b666",
+      "sha256": "f5e9b30f4d6a3c369203c5bca3e853ff1357a64fd663c6bb6a06c3d433bd1100"
+    },
+    "H5": {
+      "path": "results/tf_cgr_prospective_mechanism_20260923/RESULTS.md",
+      "report_commit": "d8f1b79a1f1c69ddeeaeed5fab70308d68ff5d72",
+      "sha256": "ed7075f7e8e27b164b7375e437cbf9cd258ee34d35ef1f2c45e193a407f009dd"
+    },
+    "H6": {
+      "path": "results/tf_campaign_reconciliation_20260923/AUDIT.md",
+      "report_commit": "49ba637bba592dcda6e612609ff3bdc27048cb8d",
+      "sha256": "13c9b0f343480b0dc8af09113b65ea3861255281e6e670b644f1221e80b076b6"
+    }
+  },
+  "source_files_sha256": {
+    "experiments/sp_afdm_frozen_20260920/src/messages.py": "9b19937c90a6e2b15f30d4e326320a38cd2635f9c0c5b14814406991da25ec95",
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "experiments/sp_afdm_frozen_20260920/src/receiver.py": "44221f91a4ff510b7f21e36300d6c5657be2ec2171a866fd48efe38fa2d95562",
+    "experiments/sp_afdm_native_joint_20260921/src/native_twofft.py": "6146ccb48bb64b90c7d1fb8da93b2d0b59e84c6e8100eb2f259e9ee22114168d",
+    "experiments/sp_afdm_native_joint_20260921/src/twofft.py": "c54e832716d72530e38a9b1090ca24f8f8b3c8f4185db0914d30e5f7e2ab9ff0",
+    "experiments/tf_cgr_mechanism_20260923_v2/run_observed.py": "dbec307da176a328c36622f9e25ae512de0b4afb821f7f0de5175e2b7d9d9796",
+    "experiments/tf_cgr_mechanism_20260923_v2/tf_base.py": "0e3a94045b0b395c28efa02f181433bbc3aa2f569c05683ad83e1d1cf4f9699e",
+    "experiments/tf_cgr_mechanism_20260923_v2/tf_cgr.py": "bd501df2e6b20dd19fd89da59c82a11efad3d80824ebbfbbb471b953eb7e0f85",
+    "experiments/tf_cgr_prospective_mechanism_20260923/branch.py": "4f692c3fbfb959f4c0a778736bbc112f092d80086a85f74d11a57ed608770580",
+    "experiments/tf_cstate_validation_20260922/geometry_validation.py": "db75b16ce3b243e0e899198690f9e4c3d896a81638ef48b78ebf94a8c4323aab",
+    "experiments/tf_geometry_reopen_20260922/geometry_reopen.py": "ad888de73a906d4167938a3391c288db68dd7edb4ec42da0d2e4598079ecf633"
+  },
+  "narrowed_or_superseded_statements": {
+    "S1": "R=I is proved for retained geometry after time_refine at native TF entry, not raw acquisition candidates.",
+    "S2": "Same-delay identity requires AF-domain diagonal working covariance.",
+    "S3": "R=I does not eliminate cross-delay Gamma for nonuniform AF variance.",
+    "S4": "Common-state matrix/mean error identities do not imply trajectory/FER gains."
+  },
+  "original_request": {
+    "source": "/Users/guoyikun/.codex/attachments/043cec6d-afb7-425a-a268-b20b42180ebc/已粘贴的文本.txt",
+    "sha256": "14a50756f447c5fb11d8c187426f7eb4e84ae3c75cb93fb00ebbfde37f1b22d0"
+  },
+  "artifacts": {
+    "ANCESTRY_AND_HISTORY.md": {
+      "bytes": 8132,
+      "sha256": "00d0dd3d97c63a10e395c6ebb133d0e15688f77eb765e0ed9224637954c221b9"
+    },
+    "README.md": {
+      "bytes": 2302,
+      "sha256": "a276de6ff31807cfb639a04959191c67d46a964348803166078a4f22589503cf"
+    },
+    "REQUEST_20260924.txt": {
+      "bytes": 20903,
+      "sha256": "14a50756f447c5fb11d8c187426f7eb4e84ae3c75cb93fb00ebbfde37f1b22d0"
+    },
+    "SCALAR_CLOSURE_CLAIM_EVIDENCE_MATRIX_20260924.md": {
+      "bytes": 3651,
+      "sha256": "763b671f5a13b0b58ebe9b99a157cad71131521d54892143ea8c4e773f70bc36"
+    },
+    "SCALAR_CLOSURE_CODE_MAP_20260924.md": {
+      "bytes": 11301,
+      "sha256": "ec0c2498505c3e9fc86db3f5a01834a0d6eafc041e64da6e6cbc117be9ab5232"
+    },
+    "SCALAR_CLOSURE_DERIVATION_20260924.md": {
+      "bytes": 10398,
+      "sha256": "1bc833d81c908ea18731835d106063b2e33c627f9540fba72311744df8f0c556"
+    },
+    "SCALAR_CLOSURE_NUMERICAL_VERIFICATION_20260924.md": {
+      "bytes": 4975,
+      "sha256": "e83d210cf05d29a196c0833856976779cd223128e9dacf17146f556b7107e614"
+    },
+    "SCALAR_CLOSURE_REVIEWER_QA_20260924.md": {
+      "bytes": 6022,
+      "sha256": "4ed919533ddfcb19c14a36e1701af4eea8f124ca7bc88d8e15a6b790a5f89a86"
+    },
+    "SCALAR_CLOSURE_THEORY_VERDICT_20260924.md": {
+      "bytes": 7168,
+      "sha256": "1ed3317aba3bcdb7789aeda4a3938a7444edda67830c29be7247310f899ae0bc"
+    },
+    "scalar_closure_verification.json": {
+      "bytes": 4616,
+      "sha256": "a261ce74edc2937649247e26329191d1ec5be384c75b733bb00839eb5b0f0f01"
+    },
+    "verify_scalar_closure.py": {
+      "bytes": 10834,
+      "sha256": "43480bb9f2da0475cdfa4d7437e55ee8e6fffaca929c232c10f35b264ea284bf"
+    }
+  }
+}

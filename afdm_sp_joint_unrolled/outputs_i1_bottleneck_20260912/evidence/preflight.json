@@ -1,0 +1,38 @@
+{
+  "time": 1789185692.139551,
+  "hostname": "liunxgpu",
+  "commands": [
+    {
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=index,uuid,name,memory.used,memory.total,utilization.gpu",
+        "--format=csv,noheader"
+      ],
+      "output": "0, GPU-fe13c694-2050-c9f0-2904-b806f6f6b0c2, NVIDIA GeForce RTX 4090, 1 MiB, 24564 MiB, 0 %\n"
+    },
+    {
+      "command": [
+        "nvidia-smi",
+        "--query-compute-apps=pid,process_name,used_gpu_memory",
+        "--format=csv,noheader"
+      ],
+      "output": ""
+    },
+    {
+      "command": [
+        "df",
+        "-B1",
+        "/data"
+      ],
+      "output": "Filesystem         1B-blocks          Used     Available Use% Mounted on\n/dev/sda1      7937302376448 1858810691584 5678396817408  25% /data\n"
+    },
+    {
+      "command": [
+        "ps",
+        "-eo",
+        "pid,etimes,args"
+      ],
+      "output": ""
+    }
+  ]
+}

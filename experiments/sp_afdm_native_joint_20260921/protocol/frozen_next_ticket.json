@@ -1,0 +1,91 @@
+{
+  "schema": "spafdm-native-joint-handoff/1",
+  "status": "prospective next local ticket, not confirmation",
+  "primary": {
+    "id": "TF_J20_R2",
+    "source": "src/native_twofft.py::receive",
+    "rounds": 2,
+    "iterations": 20,
+    "damping": 0.3,
+    "ce_mode": "soft",
+    "gain_mode": "joint",
+    "gain_prior_variance": "1/P",
+    "N": 1024,
+    "rho": 0.5,
+    "max_paths": 8,
+    "ce_coordinate_passes": 2,
+    "ce_lambda": "sigma2",
+    "doppler_center_radius": 0.75,
+    "doppler_absolute_range": [
+      -3,
+      3
+    ],
+    "search_tolerance": 0.002,
+    "search_maxiter": 16,
+    "LLR_clip": 20,
+    "LDPC_maxiter": 50
+  },
+  "stage_A": {
+    "snr_db": 6.5,
+    "independent_frames": 12,
+    "namespace": [
+      20260921,
+      940317,
+      0
+    ],
+    "primary_and_EP_and_point_calls": 60,
+    "PBi_frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "fixed_gain_frames": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "total_calls": 70,
+    "deadline": "1.2 * Stage-A EP2_SOFT_R2 median complete seconds",
+    "EP_selection": [
+      "deadline FE",
+      "median complete seconds",
+      "id"
+    ],
+    "gate": "See signed human-readable CODEX_HANDOFF.md; allocation only"
+  },
+  "stage_B": {
+    "authorized_only_if_A_gate": true,
+    "cells": [
+      {
+        "snr_db": 6.5,
+        "independent_frames": 32
+      },
+      {
+        "snr_db": 8,
+        "independent_frames": 16
+      }
+    ],
+    "namespace": [
+      20260921,
+      940317,
+      1
+    ],
+    "seed_snr_encoding": "integer centi-dB:650 or800",
+    "primary_EP_calls": 96,
+    "extra_point_and_PBi_first_eight_6p5dB": 16,
+    "total_calls": 112,
+    "thresholds": "See CODEX_HANDOFF.md; no superiority/confirmation claim from small gate"
+  },
+  "prohibited": [
+    "resume old stopped campaign",
+    "59-arm grid",
+    "truth geometry",
+    "per-frame oracle selector",
+    "post-B method substitution",
+    "add rescue/list/learning to repair failed gate"
+  ]
+}

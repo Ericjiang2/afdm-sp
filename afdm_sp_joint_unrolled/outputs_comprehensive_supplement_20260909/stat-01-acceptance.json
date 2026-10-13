@@ -1,0 +1,60 @@
+{
+  "status": "accepted",
+  "scope": "STAT-01 simultaneous intervals and finite precision/power design; NOT receiver confirmation or scientific closure",
+  "source_sha256": {
+    "supplement_statistics.py": "e3c0961efeb3371287ae325c1074e43ab5822f7f1b59abde3bd4aa9542d15fdf",
+    "test_supplement_statistics.py": "6eb0c3aa5a54ad68d102f43028b3e36cfc1cbd8b33e170740d06dddf64699e6c"
+  },
+  "manifest_sha256": "6c8823d74eeebd1f6ba9afc5a7c7d444a0c9a7bd483f47aee7991a4e3268c751",
+  "manifest": "afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/stat-contrast-manifest-v3.json",
+  "actual_driver": "afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/statistics-power-design-v3.py",
+  "design": "afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/statistics-power-design-v3/design.json",
+  "alpha_total": 0.05,
+  "alpha_family": 0.0071428571428571435,
+  "family_m": {
+    "F_H": 63,
+    "F_M": 24,
+    "F_A": 441,
+    "F_I": 66,
+    "F_P": 24,
+    "F_R": 272,
+    "F_C": 102
+  },
+  "contrasts": 992,
+  "questions_mapped": 38,
+  "tests": {
+    "count": 9,
+    "exitcode": 0,
+    "log": "afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/statistics-test-v1.log"
+  },
+  "mc": {
+    "sensitivity_reports": 326,
+    "final_design_reports": 234,
+    "repetitions_each": 10000,
+    "exitcode": 0,
+    "minimum_target_power_mc95_lower": 0.9977779863787409,
+    "minimum_coverage_mc95_lower": 0.9992777199422763,
+    "scope": "individual nuisance-grid checks; union bound proves simultaneous validity, not empirical joint family success"
+  },
+  "n_design": {
+    "distinct": 48,
+    "minimum": 31298,
+    "maximum": 2849449,
+    "method": "distribution-free sufficient Hoeffding bound plus CP interval; not minimal n",
+    "resource_admitted": false
+  },
+  "review": {
+    "agent": "supplement_data_check",
+    "model": "gpt-6-astra",
+    "effort": "low",
+    "formula": "CP tails/zero endpoints/signs and strict sufficient-n proof checked",
+    "correction": "legal soft-hard contrast reoriented to FER_soft-FER_hard; per-question acceptance added; original v2 retained"
+  },
+  "open": [
+    "F_C timing n requires actual engineering variance and p95-tail design; binary bound cannot substitute",
+    "actual arm hashes/n/resource quotation require per-family freeze",
+    "no confirmation blocks generated; q/joint sensitivity are simulated binary draws, not AFDM receiver observations",
+    "unknown nuisance covered conservatively; practical resource feasibility remains COST/FREEZE admission"
+  ],
+  "continue_now": "COST-01/FREEZE-01"
+}

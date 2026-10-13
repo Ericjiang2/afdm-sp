@@ -1,0 +1,132 @@
+{
+  "audit_skill": "proof-checker",
+  "verdict": "FAIL",
+  "reason_code": "critical_gap",
+  "summary": "Theorem 1 (computational initialization-faithfulness) overclaims relative to what verify_classical_unrolled_matches_numpy.py actually checks. Paper asserts max_i|x_torch - x_numpy| = 0 under complex64 across 64 seeded frames per N in {512,1024}; verifier asserts relative-L2 < 1e-5 (NOT max-diff zero) under complex128 with 30-frame default. Verifier file exists and is reproducible, but the theorem statement and proof outline must be either (i) weakened to a tolerance-based regression-test claim, or (ii) the verifier strengthened to assert literal bit-exact hard-decision equality at the dtype/frame-count quantifiers in the theorem.",
+  "audited_input_hashes": {
+    "main.tex": "sha256:89d4d7838f4f1b50cbcb16b07f37a944de0fb1ba176e96968933c008432cd3d3",
+    "sections/Section3.tex": "sha256:fcb9538ce29cabebd9d459f2e8921e0eaccaddb75dff0ebfac800e060b2fe32e",
+    "Appendix.tex": "sha256:1fbba42fd4025a6c6ebab9a11d1a9796fd391ac3181f0a2aae4289166b76b750"
+  },
+  "trace_path": ".aris/traces/proof-checker/2026-05-16_run01/",
+  "thread_id": "019e2faa-2342-7e91-b13d-0639bbcfe4e2",
+  "reviewer_model": "gpt-5.5",
+  "reviewer_reasoning": "xhigh",
+  "generated_at": "2026-05-16T07:29:00Z",
+  "details": {
+    "theorems_audited": 1,
+    "lemmas_audited": 0,
+    "propositions_audited": 0,
+    "corollaries_audited": 0,
+    "verifier_file_exists": true,
+    "verifier_file_path": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/verify_classical_unrolled_matches_numpy.py",
+    "issues": [
+      {
+        "id": "T1-01",
+        "severity": "CRITICAL",
+        "status": "INVALID",
+        "impact": "GLOBAL",
+        "category": "SCOPE_OVERCLAIM",
+        "location": "sections/Section3.tex:194 + verify_classical_unrolled_matches_numpy.py:216-218",
+        "statement": "Theorem 1 claims bit-exact equality max_i |x_torch - x_numpy| = 0; verifier asserts worst_x < 1e-5, worst_H < 1e-5, worst_ber < 1e-4 (relative norms, not max-diff zero).",
+        "note": "Tolerance bounds do not prove exact equality. Counterexample: x_torch = x_np + 1e-8 * x_np passes verifier but max_i|·| != 0. The verifier's PASS condition is strictly weaker than the theorem's claim."
+      },
+      {
+        "id": "T1-02",
+        "severity": "CRITICAL",
+        "status": "INVALID",
+        "impact": "GLOBAL",
+        "category": "SCOPE_OVERCLAIM",
+        "location": "sections/Section3.tex:183-194 + verify_classical_unrolled_matches_numpy.py:124",
+        "statement": "Theorem concerns per-outer-iteration hard-decision QPSK outputs hat{x}_d^{(t)} for every t in {1,...,T_out}; verifier compares only the final out['x_soft'] (continuous) and uses BER difference (aggregate scalar), not per-iteration hard-decision vectors.",
+        "note": "Two receivers can have identical BER but different decided symbol positions. The 'for every t' quantifier is not verified — no trajectory loop in the verifier."
+      },
+      {
+        "id": "T1-03",
+        "severity": "CRITICAL",
+        "status": "OVERSTATED",
+        "impact": "GLOBAL",
+        "category": "QUANTIFIER_ERROR",
+        "location": "sections/Section3.tex:194 + Appendix.tex:61 + verify_classical_unrolled_matches_numpy.py:144-148",
+        "statement": "Paper claims 'fixed verification set of 64 seeded test frames per N in {512, 1024}'. Verifier default is --n-total 512 --frames 30 --snr-list 15 20 25; N=1024 and frames=64 require non-default invocation that the paper does not record.",
+        "note": "Static configuration mismatch. To recover the theorem's quantifier, the verifier must be re-run with --n-total 1024 and --frames 64 (and the actual run logs committed)."
+      },
+      {
+        "id": "T1-04",
+        "severity": "CRITICAL",
+        "status": "INVALID",
+        "impact": "GLOBAL",
+        "category": "NORMALIZATION_MISMATCH",
+        "location": "sections/Section3.tex:200 + verify_classical_unrolled_matches_numpy.py:114-117,171-172",
+        "statement": "Section 3 surrounding text asserts equivalence under complex64; verifier constructs torch tensors as complex128 / float64 (lines 114-117: torch.complex128, torch.float64; line 171-172: dtype=torch.complex128, rdtype=torch.float64).",
+        "note": "A double-precision tolerance test does not establish single-precision bit-exactness. Near QPSK decision boundaries, complex64 round-off can flip hard decisions while complex128 does not."
+      },
+      {
+        "id": "T1-05",
+        "severity": "CRITICAL",
+        "status": "INVALID",
+        "impact": "GLOBAL",
+        "category": "HIDDEN_ASSUMPTION",
+        "location": "Appendix.tex:37-44",
+        "statement": "Appendix A claims both NumPy/SciPy and Torch LS solves call the same LAPACK potrs kernel via scipy.linalg.cho_factor and torch.linalg.cholesky_solve; reviewer noted the actual code paths (afdm_baselines.py and classical_joint_unrolled.py) use np.linalg.lstsq/solve and torch.linalg.lstsq/solve, not the asserted Cholesky path.",
+        "note": "Backend identity (numpy/MKL vs torch CPU/CUDA) is not verified. Different solvers can return different LS solutions under round-off while still passing tolerance."
+      },
+      {
+        "id": "T1-06",
+        "severity": "MAJOR",
+        "status": "UNJUSTIFIED",
+        "impact": "GLOBAL",
+        "category": "UNJUSTIFIED_ASSERTION",
+        "location": "Appendix.tex:45-51 + verify_classical_unrolled_matches_numpy.py:146",
+        "statement": "Appendix asserts same MP-BP Gauss-Seidel sequential update; verifier default is mp_mode='pic' (parallel interference cancellation), not BP. The BP schedule equivalence is asserted, not certified by any verifier run.",
+        "note": "Vectorized Jacobi-style update vs sequential Gauss-Seidel can diverge while final BER remains similar. Need --mp-mode bp run with per-message comparison to discharge."
+      },
+      {
+        "id": "T1-07",
+        "severity": "MAJOR",
+        "status": "UNJUSTIFIED",
+        "impact": "GLOBAL",
+        "category": "HIDDEN_ASSUMPTION",
+        "location": "sections/Section3.tex:180-182 + verify_classical_unrolled_matches_numpy.py:176-178",
+        "statement": "Theorem invokes R_torch^{theta=0} with learned-head bias appending zero atoms; verifier default constructs ClassicalJointUnrolled with learnable_heads=() (no heads attached). Optional --with-heads enables heads but it is unclear whether the specific C2-rel support-refinement head described in Section 3.2 is exercised.",
+        "note": "The default theorem-verification command does not instantiate the learned head that the theorem is about. To support the claim literally, the verifier must instantiate the C2-rel head at zero/no-op bias and re-check equivalence."
+      },
+      {
+        "id": "T1-08",
+        "severity": "MAJOR",
+        "status": "OVERSTATED",
+        "impact": "GLOBAL",
+        "category": "STOCHASTIC_MODE_CONFUSION",
+        "location": "Appendix.tex:69-74",
+        "statement": "Appendix asserts 'The result transfers to any input draw within the same support of the verification distribution ... because the pinning relations are independent of the specific frame realisation.'",
+        "note": "A finite seeded verifier plus asserted (not formally verified) pinning relations does not imply all simulator draws, especially near argmax ties, prune-threshold flips, or QPSK decision boundaries. The transfer claim is a statistical extrapolation, not a verified consequence."
+      },
+      {
+        "id": "T1-09",
+        "severity": "MAJOR",
+        "status": "UNJUSTIFIED",
+        "impact": "LOCAL",
+        "category": "CASE_INCOMPLETE",
+        "location": "Appendix.tex:27-36",
+        "statement": "Appendix asserts deterministic tie-break for OMP argmax and Gray-coded QPSK demap; verifier does not record argmax margins, demap margins, or prune-threshold margins.",
+        "note": "Equal correlations with tiny backend round-off can select different atoms; equal distances to QPSK symbols can demap differently. To certify the tie-break claim, verifier should log min argmax margin, min demap margin, and min prune margin per frame."
+      },
+      {
+        "id": "T1-10",
+        "severity": "MINOR",
+        "status": "UNCLEAR",
+        "impact": "LOCAL",
+        "category": "SCOPE_OVERCLAIM",
+        "location": "verify_classical_unrolled_matches_numpy.py:145",
+        "statement": "User's invocation describes 'UWA-style 8-path test channel'; verifier defaults to --p-paths 10. Paper Theorem 1 does not explicitly fix P_paths, so this is a configuration-context mismatch rather than a logic gap.",
+        "note": "Not fatal to Theorem 1 unless the theorem is intended to certify a canonical 8-path setting. Recommend explicit P_paths in either the theorem statement or the committed verifier command."
+      }
+    ],
+    "counterexamples_found": 5,
+    "counterexample_candidates": 3,
+    "acceptance_gate": "FAIL",
+    "rounds_completed": 1,
+    "phase_2_fixes_applied": 0,
+    "phase_2_skipped_reason": "Caller requested verification-only audit; emitting findings without fix-and-recompile loop. User must decide between fix strategies (weaken theorem text vs strengthen verifier) before Phase 2 is appropriate."
+  }
+}

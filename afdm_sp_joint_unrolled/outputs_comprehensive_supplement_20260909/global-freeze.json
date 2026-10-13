@@ -1,0 +1,129 @@
+{
+  "schema": "afdm-supplement-global-freeze-v1",
+  "status": "GLOBAL_FROZEN_NOT_FAMILY_ADMISSION",
+  "campaign_id": "afdm-supplement-20260909-090115",
+  "frozen_at": "2026-09-09T03:23:17.293688+00:00",
+  "authority": "Direct user confirmation to execute complete CSV; global preregistration, not unlimited compute authorization",
+  "global_manifest": {
+    "path": "global-contrast-manifest.json",
+    "sha256": "2ce4a8db4b130bd99e1a6cc9cf505158d64be336194d29699f6e618e2e52f613"
+  },
+  "statistics_evidence": {
+    "path": "stat-01.json",
+    "sha256": "a09f3ff521bd9c641db6ccaf308ca50a3beca5991f11fde9a30853f8a94fb49f"
+  },
+  "data_protocol": {
+    "path": "data-protocol.json",
+    "sha256": "3b24ce24142a10b162ba577f71071795777ed6a93cf102ccefd268b34b439960"
+  },
+  "alpha_total": 0.05,
+  "family_alpha": 0.0071428571428571435,
+  "family_m": {
+    "F_H": 63,
+    "F_M": 24,
+    "F_A": 441,
+    "F_I": 66,
+    "F_P": 24,
+    "F_R": 272,
+    "F_C": 102
+  },
+  "n_policy": {
+    "binary": "fixed independent exogenous n per family/scenario/SNR from STAT sufficient bound or separately preregistered conservative pilot-nuisance bound; all required propositions reach target power >=.90",
+    "interaction": "full 4/8-arm joint nuisance model; universal sufficient bound if credible nuisance restriction unavailable",
+    "timing": "at least1024 independent timing blocks per retained arm, engineering variance and tail stability design; simultaneous mean/p95 ratios <=1.1 versus original A2; F_C endpoints alpha allocated",
+    "no_posthoc_extension": true,
+    "cross_snr_does_not_multiply_n": true,
+    "samples_not_generated": true
+  },
+  "resource_policy": {
+    "units": [
+      "F",
+      "T",
+      "E",
+      "MC",
+      "generation",
+      "timing",
+      "compile",
+      "storage",
+      "transfer"
+    ],
+    "formula": "sum n_cell * each_unique_arm_call_cost; no free full replay or LDPC; different call types priced separately",
+    "per_batch_required": [
+      "finite wall deadline",
+      "F/T/E reservations",
+      "host CPU/GPU limits",
+      "disk and output estimate",
+      "input/source/config hashes",
+      "PID/tmux/log/exit locations"
+    ],
+    "server": "deinlab alias; ServerAliveInterval30/CountMax6; writes only /data/guoyikun; no system changes; shared GPU check; timing exclusive",
+    "large_n": "no million-block launch without explicit per-family measured feasible resource admission; preserve UNRESOLVED if infeasible"
+  },
+  "family_admission_required": [
+    "global_freeze_sha256",
+    "actual arm IDs and source/config/checkpoint/prior hashes",
+    "m >= globally reserved m; no alpha recycling",
+    "development and detector qualification evidence for own family",
+    "fixed n_by_snr and per-scenario sample namespaces",
+    "measured per-arm F/T/E/resource quotation",
+    "authorization evidence bound by content hash",
+    "before-any-confirmation-output timestamp and source freeze"
+  ],
+  "family_dependencies": {
+    "F_H": [
+      "BASE-01",
+      "DET-01",
+      "H-01"
+    ],
+    "F_M": [
+      "BASE-01",
+      "DET-01",
+      "M-01"
+    ],
+    "F_A": [
+      "BASE-01",
+      "DET-01",
+      "A-01",
+      "A-02"
+    ],
+    "F_I": [
+      "MSG-01",
+      "I-01",
+      "I-02"
+    ],
+    "F_P": [
+      "P-01",
+      "P-02"
+    ],
+    "F_R": [
+      "S-01",
+      "own candidate performance freeze"
+    ],
+    "F_C": [
+      "COST-01",
+      "retained arm freeze",
+      "exclusive device and timing-n design"
+    ]
+  },
+  "independence": {
+    "family_ids": {
+      "F_A": 1,
+      "F_C": 2,
+      "F_H": 3,
+      "F_I": 4,
+      "F_M": 5,
+      "F_P": 6,
+      "F_R": 7
+    },
+    "namespace": [
+      20260909,
+      90115,
+      419173
+    ],
+    "G1_or_pilot_gate_does_not_block_unrelated_ready_family": true,
+    "old_holdouts_and_D_test": "sealed; no new selection or unsealing"
+  },
+  "proceed_confirmation": false,
+  "current_family_admissions": {},
+  "scientific_status": "UNRESOLVED pending actual experiments"
+}

@@ -1,0 +1,180 @@
+{
+  "scope": "fixed paired development comparison; not independent CONF or formal COST",
+  "independent_block_count": 32,
+  "bindings": {
+    "refs-v1": {
+      "summary_sha256": "90cbc1f7a94e482deec27e091945d79615302d79bd480947e51697655a05554b",
+      "audit_sha256": "d63c23673318aab9fcc0add2f62913038c974e7b1e7f96e32d0b815566e3effe"
+    },
+    "siso-development-v1": {
+      "summary_sha256": "1f88d1bb5df7478882fcece579ba05e857bc2c92532ffb21401ed948dc7736c9",
+      "audit_sha256": "fda54d1fa3f175f063ed36f99174eb9c1ef4582ddd05fd1aa3e251c8615a6eb0"
+    }
+  },
+  "analysis_sha256": "e89d4302b6db5e65f8f36a77ce2c103baac6e4146e3ce10a2d9743abcdebc4b4",
+  "zero_of_32_one_sided_95_binomial_upper": 0.0893681989862648,
+  "table": [
+    {
+      "snr": 7,
+      "arm": "MEAN",
+      "failures": 15,
+      "blocks": 32,
+      "FER": 0.46875,
+      "coded_bit_errors": 1325,
+      "mean_channel_NMSE": 0.045087832014832824,
+      "instrumented_mean_seconds": 1.6363900670330622
+    },
+    {
+      "snr": 7,
+      "arm": "REFRESH47",
+      "failures": 8,
+      "blocks": 32,
+      "FER": 0.25,
+      "coded_bit_errors": 572,
+      "mean_channel_NMSE": 0.02192474058883581,
+      "instrumented_mean_seconds": 1.6560614575901127
+    },
+    {
+      "snr": 7,
+      "arm": "SISO_MEAN",
+      "failures": 24,
+      "blocks": 32,
+      "FER": 0.75,
+      "coded_bit_errors": 2584,
+      "mean_channel_NMSE": 0.03705760269485835,
+      "instrumented_mean_seconds": 5.272285731723969
+    },
+    {
+      "snr": 7,
+      "arm": "SISO_REF47",
+      "failures": 5,
+      "blocks": 32,
+      "FER": 0.15625,
+      "coded_bit_errors": 577,
+      "mean_channel_NMSE": 0.02193816348563246,
+      "instrumented_mean_seconds": 5.312543036252464
+    },
+    {
+      "snr": 8,
+      "arm": "MEAN",
+      "failures": 0,
+      "blocks": 32,
+      "FER": 0.0,
+      "coded_bit_errors": 0,
+      "mean_channel_NMSE": 0.02291737605236093,
+      "instrumented_mean_seconds": 1.569209694454912
+    },
+    {
+      "snr": 8,
+      "arm": "REFRESH47",
+      "failures": 0,
+      "blocks": 32,
+      "FER": 0.0,
+      "coded_bit_errors": 0,
+      "mean_channel_NMSE": 0.018263754664964976,
+      "instrumented_mean_seconds": 1.6087053357805416
+    },
+    {
+      "snr": 8,
+      "arm": "SISO_MEAN",
+      "failures": 2,
+      "blocks": 32,
+      "FER": 0.0625,
+      "coded_bit_errors": 135,
+      "mean_channel_NMSE": 0.02281558203624735,
+      "instrumented_mean_seconds": 5.264319333462481
+    },
+    {
+      "snr": 8,
+      "arm": "SISO_REF47",
+      "failures": 0,
+      "blocks": 32,
+      "FER": 0.0,
+      "coded_bit_errors": 0,
+      "mean_channel_NMSE": 0.018323588972399333,
+      "instrumented_mean_seconds": 5.291423972488701
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "snr": 7,
+      "candidate": "SISO_MEAN",
+      "reference": "MEAN",
+      "wins": 0,
+      "losses": 9,
+      "delta_FER": 0.28125,
+      "exact_McNemar_two_sided": 0.00390625,
+      "Holm_8_comparisons_p": 0.0234375
+    },
+    {
+      "snr": 7,
+      "candidate": "SISO_MEAN",
+      "reference": "REFRESH47",
+      "wins": 0,
+      "losses": 16,
+      "delta_FER": 0.5,
+      "exact_McNemar_two_sided": 3.0517578125e-05,
+      "Holm_8_comparisons_p": 0.000244140625
+    },
+    {
+      "snr": 7,
+      "candidate": "SISO_REF47",
+      "reference": "MEAN",
+      "wins": 10,
+      "losses": 0,
+      "delta_FER": -0.3125,
+      "exact_McNemar_two_sided": 0.001953125,
+      "Holm_8_comparisons_p": 0.013671875
+    },
+    {
+      "snr": 7,
+      "candidate": "SISO_REF47",
+      "reference": "REFRESH47",
+      "wins": 4,
+      "losses": 1,
+      "delta_FER": -0.09375,
+      "exact_McNemar_two_sided": 0.375,
+      "Holm_8_comparisons_p": 1.0
+    },
+    {
+      "snr": 8,
+      "candidate": "SISO_MEAN",
+      "reference": "MEAN",
+      "wins": 0,
+      "losses": 2,
+      "delta_FER": 0.0625,
+      "exact_McNemar_two_sided": 0.5,
+      "Holm_8_comparisons_p": 1.0
+    },
+    {
+      "snr": 8,
+      "candidate": "SISO_MEAN",
+      "reference": "REFRESH47",
+      "wins": 0,
+      "losses": 2,
+      "delta_FER": 0.0625,
+      "exact_McNemar_two_sided": 0.5,
+      "Holm_8_comparisons_p": 1.0
+    },
+    {
+      "snr": 8,
+      "candidate": "SISO_REF47",
+      "reference": "MEAN",
+      "wins": 0,
+      "losses": 0,
+      "delta_FER": 0.0,
+      "exact_McNemar_two_sided": 1.0,
+      "Holm_8_comparisons_p": 1.0
+    },
+    {
+      "snr": 8,
+      "candidate": "SISO_REF47",
+      "reference": "REFRESH47",
+      "wins": 0,
+      "losses": 0,
+      "delta_FER": 0.0,
+      "exact_McNemar_two_sided": 1.0,
+      "Holm_8_comparisons_p": 1.0
+    }
+  ]
+}

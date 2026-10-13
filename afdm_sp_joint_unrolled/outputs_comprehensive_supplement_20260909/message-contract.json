@@ -1,0 +1,98 @@
+{
+  "schema": "supplement-message-contract-v1",
+  "scope": "MSG interface and deterministic code tests only; not full I1 receiver, no real experiment or cost reallocation",
+  "sources": {
+    "e1_ldpc.py": "dc58c3b28e1899fad05af72e72d7edc9e6a44c004bd7d176a93d1ba595672ba6",
+    "supplement_messages.py": "0db447e8b95d1ca42c765524054e8d9189ed483cd263bf4953fb41da5739215a",
+    "test_supplement_messages.py": "2b810f80e27a6d609d8f8bca73957d7232757f124d4b883646cbf49be5015dfa"
+  },
+  "frozen_old_decode_source_sha256": "be7b21ddd389144331c83c70b1f86b8b131b4b205784d516c121be3ad6361b62",
+  "decoder": {
+    "shared_core": "_decode_llr_core",
+    "legacy_API": "decode_llr retains (hard,ok), identical operations and syndrome early stop; capture disabled",
+    "new_API": "decode_soft_messages / decoder_messages: incoming_llr, raw_app, raw_check_extrinsic, iterations, syndrome_trace",
+    "equation": "raw_check_extrinsic=sum incoming check-to-variable messages; raw_app=incoming_llr+raw_check_extrinsic. Never subtract separately clipped arrays.",
+    "ordering": "all I bits then all Q bits; log P(bit0)/P(bit1)",
+    "clip": "raw outputs preserved; clipping/damping occurs only in consumer",
+    "limitation": "loopy sum-product and syndrome early stop are approximate posterior inference"
+  },
+  "consumers": {
+    "detector_code_prior": "check-sum extrinsic only, legal code-factor message",
+    "CE_posterior_moments": "APP allowed: mu=a*tanh(LI/2)+j*a*tanh(LQ/2), var=2a^2-|mu|^2; marginal product, same-observation approximate EM; not independent extrinsic likelihood",
+    "zero": "detector extrinsic exactly zero including previous-state damping; uniform code prior",
+    "fixed_sham": "explicit fixed seeded permutation of raw check extrinsic only; no CE APP shuffle",
+    "disabled": "consumer returns enabled=false and no replacement state; old decoder exact compatibility tested, entire receiver disabled-feedback integration remains I-01 work",
+    "oracle": "separate oracle_symbols requires I2/I2realloc tag, true_symbols_oracle and legal_receiver_input=false; no Htruth interface"
+  },
+  "bounds": {
+    "new_decoder_iterations": "1..200",
+    "clip": "finite (0,100]",
+    "damping": "finite [0,1]",
+    "message": "finite real even-length I/Q",
+    "hashes": "incoming, raw APP, raw check extrinsic, delivered, consumer kind",
+    "entropy": "mean marginal binary entropy in bits",
+    "cost": "decoder and consumer elapsed measured; no full receiver timing claim"
+  },
+  "validation": {
+    "new_tests": 7,
+    "legacy_reference_cases": 80,
+    "additional_existing_regressions": [
+      "real_small_terminal_decode",
+      "frozen_n2048_code_and_noiseless_llr_sign"
+    ],
+    "total_tests_passed": 9,
+    "numerical": {
+      "tree": {
+        "APP_l2_error": 2.5438405243138006e-16,
+        "iterations": 1,
+        "syndrome_trace": [
+          {
+            "iteration": 1,
+            "unsatisfied_checks": 1,
+            "checks": 1,
+            "check_success_rate": 0.0
+          }
+        ]
+      },
+      "loopy": {
+        "APP_l2_error": 0.6573640689640999,
+        "iterations": 5,
+        "syndrome_trace": [
+          {
+            "iteration": 1,
+            "unsatisfied_checks": 2,
+            "checks": 2,
+            "check_success_rate": 0.0
+          },
+          {
+            "iteration": 2,
+            "unsatisfied_checks": 2,
+            "checks": 2,
+            "check_success_rate": 0.0
+          },
+          {
+            "iteration": 3,
+            "unsatisfied_checks": 2,
+            "checks": 2,
+            "check_success_rate": 0.0
+          },
+          {
+            "iteration": 4,
+            "unsatisfied_checks": 2,
+            "checks": 2,
+            "check_success_rate": 0.0
+          },
+          {
+            "iteration": 5,
+            "unsatisfied_checks": 2,
+            "checks": 2,
+            "check_success_rate": 0.0
+          }
+        ]
+      }
+    },
+    "command": "python -m unittest afdm_sp_joint_unrolled.test_supplement_messages plus two named NumericalContracts regressions",
+    "real_receiver_simulation": false
+  },
+  "independent_review": "message-contract-review-v1.json"
+}

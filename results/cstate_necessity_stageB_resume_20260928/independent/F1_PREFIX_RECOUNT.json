@@ -1,0 +1,65 @@
+{
+  "schema": "cstate-necessity-stage-b-f1-prefix-independent-recount/1",
+  "status": "pass_metadata_recount_only",
+  "scope": "Read only the named JSON/JSONL/text metadata; no NPZ payload was opened and no receiver was run.",
+  "git": {
+    "requested_short_commit": "b37bb58c",
+    "resolved_commit": "b37bb58c3e066d42aaf911d66686af906bb94490"
+  },
+  "diagnostic_manifest": {
+    "path": "results/cstate_necessity_stageB_resume_20260928/F1_PREFIX_DIAGNOSTIC_MANIFEST.json",
+    "sha256": "03061b2dcf97573c1de002fc21299705016ed18a69e75731cb71880aa33bce2d",
+    "matches_run_manifest_and_diagnostic_prefix": true
+  },
+  "recount": {
+    "attempt_rows": 409,
+    "ledger_rows": 409,
+    "attempt_indices_contiguous_1_to_409": true,
+    "attempt_and_ledger_order_match": true,
+    "arms": {
+      "B": 198,
+      "Cfast": 198,
+      "Cref": 13
+    },
+    "frame_range_inclusive": [
+      0,
+      197
+    ],
+    "unique_frames": 198,
+    "all_ledger_status_ok": true,
+    "all_receivers_started": true,
+    "f197_rows": {
+      "B": {
+        "attempt_index": 408,
+        "reference_max_difference": 0.0
+      },
+      "Cfast": {
+        "attempt_index": 409,
+        "reference_max_difference": 0.0
+      }
+    },
+    "all_recorded_reference_max_differences": [
+      0.0
+    ],
+    "launch_exit_code": 0,
+    "diagnostic_prefix_present": true
+  },
+  "seal_boundary": {
+    "observed_seal_present": false,
+    "run_manifest_status_field": "running",
+    "diagnostic_prefix_status": "diagnostic-prefix",
+    "qualification": "This is a 198-frame local diagnostic prefix, not a sealed 1024-frame qualification or population result."
+  },
+  "metadata_sha256": {
+    "prefix_history_v1/manifest.json": "8f3f7c709c0ea4f0d951c3b7cd3f3f0736c9bd0171bb8a173a35227a0ed34522",
+    "prefix_history_v1/attempts.jsonl": "ae660d72a6ec94747614c08b21cf49fbb90e545d2c2d76557507156598b277bd",
+    "prefix_history_v1/ledger.jsonl": "a38d137c441934751c77d0d2c387b774a982176a1208331678f9fb77919e3156",
+    "prefix_history_v1/diagnostic_prefix.json": "b8009364ff01e7c7d175b289a07157d8c5a6b8016db154cad476b0773d052c2c",
+    "prefix_history_launch_v1/launch_exit.json": "cfd843b651da1bccb936a500bcbeeed0547d7fbd94d63a53b560d715026cb552",
+    "prefix_history_launch_v1/launch_started.json": "7cd895aa0d9fd489b0cb5fd8681d212afc8805c36758513c889d9905b86e6802"
+  },
+  "limitations": [
+    "This recount checks recorded metadata and arm/frame accounting only; it does not independently hash NPZ payloads.",
+    "No 1024-frame qualification, population-level performance, or truth-based result is claimed."
+  ]
+}

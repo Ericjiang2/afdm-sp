@@ -1,0 +1,262 @@
+{
+  "status": "complete",
+  "frozen_utc": "2026-09-08T16:22:27.925947+00:00",
+  "operational_reference": "sbl-s0.5",
+  "reference_changed": false,
+  "reference_recipe": {
+    "id": "sbl-s0.5",
+    "family": "sbl",
+    "parameter": 0.001,
+    "terminal_scale": 0.5
+  },
+  "original_reference": {
+    "path": "evidence/b-star-freeze.json",
+    "sha256": "33b8831d079d30d1466e7e866b9fc4bbaf760bee45df0245ca1ec55b2f892b9a"
+  },
+  "reason": "All three new registered classical cancellation working models have31/192 design frame errors, equal to original B_star. No strict observed FER improvement; retain frozen original reference.",
+  "new_arms": {
+    "cancel-scalar": {
+      "n": 192,
+      "frame_errors": 31,
+      "FER": 0.16145833333333334,
+      "decoded_info_BER": 0.012593587239583334,
+      "raw_coded_BER": 0.10841623942057292
+    },
+    "cancel-diagonal": {
+      "n": 192,
+      "frame_errors": 31,
+      "FER": 0.16145833333333334,
+      "decoded_info_BER": 0.012654622395833334,
+      "raw_coded_BER": 0.1084136962890625
+    },
+    "cancel-lowrank": {
+      "n": 192,
+      "frame_errors": 31,
+      "FER": 0.16145833333333334,
+      "decoded_info_BER": 0.01214599609375,
+      "raw_coded_BER": 0.10869598388671875
+    }
+  },
+  "paired_exploratory_CIs": {
+    "cancel-diagonal": {
+      "comparisons": 3,
+      "confidence_family": 0.95,
+      "definition": "FER_first - FER_second",
+      "delta": 0.0,
+      "interval": [
+        -0.02814143502327568,
+        0.02814143502327568
+      ],
+      "losses": 0,
+      "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+      "n": 192,
+      "tail_alpha": 0.004166666666666667,
+      "wins": 0
+    },
+    "cancel-lowrank": {
+      "comparisons": 3,
+      "confidence_family": 0.95,
+      "definition": "FER_first - FER_second",
+      "delta": 0.0,
+      "interval": [
+        -0.04802679812907928,
+        0.04802679812907928
+      ],
+      "losses": 2,
+      "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+      "n": 192,
+      "tail_alpha": 0.004166666666666667,
+      "wins": 2
+    },
+    "cancel-scalar": {
+      "comparisons": 3,
+      "confidence_family": 0.95,
+      "definition": "FER_first - FER_second",
+      "delta": 0.0,
+      "interval": [
+        -0.02814143502327568,
+        0.02814143502327568
+      ],
+      "losses": 0,
+      "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+      "n": 192,
+      "tail_alpha": 0.004166666666666667,
+      "wins": 0
+    }
+  },
+  "engineering_cost": {
+    "b0-s0.5": {
+      "mean": 0.6606458711903542,
+      "n": 6,
+      "scope": "engineering v4"
+    },
+    "b0-s1": {
+      "mean": 0.6584973476807742,
+      "n": 6,
+      "scope": "engineering v4"
+    },
+    "ridge-s0.5": {
+      "mean": 0.659454562672181,
+      "n": 6,
+      "scope": "engineering v4"
+    },
+    "ridge-s1": {
+      "mean": 0.6606060496512024,
+      "n": 6,
+      "scope": "engineering v4"
+    },
+    "sbl-s0.5": {
+      "mean": 0.6629098829968522,
+      "n": 6,
+      "scope": "engineering v4"
+    },
+    "sbl-s1": {
+      "mean": 0.6594496801747786,
+      "n": 6,
+      "scope": "engineering v4"
+    },
+    "size-s0.5": {
+      "mean": 0.5495713920002648,
+      "n": 6,
+      "scope": "engineering v4"
+    },
+    "size-s1": {
+      "mean": 0.5466118641585732,
+      "n": 6,
+      "scope": "engineering v4"
+    },
+    "cancel-diagonal": {
+      "mean": 0.7522963057563175,
+      "n": 4,
+      "scope": "engineering v8"
+    },
+    "cancel-lowrank": {
+      "mean": 0.8012875309941592,
+      "n": 4,
+      "scope": "engineering v8"
+    },
+    "cancel-scalar": {
+      "mean": 0.7544877244799864,
+      "n": 4,
+      "scope": "engineering v8"
+    }
+  },
+  "engineering_point_Pareto": [
+    "ridge-s0.5",
+    "sbl-s0.5",
+    "sbl-s1",
+    "size-s0.5",
+    "size-s1"
+  ],
+  "original_Pareto_not_eliminated": [
+    "ridge-s0.5",
+    "sbl-s0.5",
+    "sbl-s1",
+    "size-s0.5",
+    "size-s1"
+  ],
+  "all_arms_retained": [
+    "b0-s0.5",
+    "b0-s1",
+    "cancel-diagonal",
+    "cancel-lowrank",
+    "cancel-scalar",
+    "ridge-s0.5",
+    "ridge-s1",
+    "sbl-s0.5",
+    "sbl-s1",
+    "size-s0.5",
+    "size-s1"
+  ],
+  "statistically_eliminated": [],
+  "cost_rule": "Do not use cancellation-design-results-v8 point_estimate_FER_cost_Pareto for selection: old design used parallel jobs, new design used one worker. This freeze uses existing engineering timings and preserves uncertainty; n4/6 across runs still not formal COST02.",
+  "engineering_new_over_same_run_Bstar": {
+    "cancel-diagonal": {
+      "mean": 1.1286197634663868,
+      "p95": 1.128456715901594
+    },
+    "cancel-lowrank": {
+      "mean": 1.202118017567573,
+      "p95": 1.1940419047945359
+    },
+    "cancel-scalar": {
+      "mean": 1.1319074022101083,
+      "p95": 1.1272394670679415
+    }
+  },
+  "evidence": [
+    {
+      "path": "evidence/cancellation-algorithm-preregister.json",
+      "sha256": "dbb3b9dd675359772a3b45b50e21927c628175f64ab23a8d380d83ed14e01b3a"
+    },
+    {
+      "path": "evidence/cancellation-code-review-v8.json",
+      "sha256": "fd8b1b55a1a7d5787ca418f083b1efa9fe73a63d9f33db34de296f0992b53106"
+    },
+    {
+      "path": "evidence/cancellation-engineering-audit-v8.json",
+      "sha256": "025ba10384a42bfc725a06fc0b70462aaabdf7e6b0c429eadf4cf2c4600ec934"
+    },
+    {
+      "path": "evidence/cancellation-design-admission-v8.json",
+      "sha256": "da58a1bf41cef1a1bf9a57da1d5ac1eb04ddfd2984e3623fadbb6362062f50a0"
+    },
+    {
+      "path": "evidence/cancellation-design-results-v8.json",
+      "sha256": "4074b6c5c72f539f31948d379aa8383e90d2d8332776275c8d8a45091c622da0"
+    },
+    {
+      "path": "evidence/resource-ledger.json",
+      "sha256": "973ffd90d1c8238c118af2414deac7891e4e2aaf86241875702229f64dee2dd9"
+    }
+  ],
+  "real_execution": {
+    "engineering_full": 20,
+    "design_full": 576,
+    "failed_full_calls": 0,
+    "audited_old_and_new_frames": 2112,
+    "engineering_command": {
+      "path": "evidence/active-cancel-engineering-v8.json",
+      "sha256": "61997300aa9b6d6ce4721d05c16cd5b17317c993e86d5383532a20587a95aa44"
+    },
+    "design_command": {
+      "path": "evidence/active-cancel-design-v8.json",
+      "sha256": "95ae7f975dacf28a7d9a07cf71ce8dd0643c2fe57d65ef0e0a2e849c64ff2e5b"
+    },
+    "exit_codes": [
+      0,
+      0,
+      0
+    ],
+    "analysis_seconds": {
+      "cpu_core_seconds": 298.232639768,
+      "gpu_seconds": 0,
+      "host_seconds": 298.3369969279738
+    },
+    "unit_tests": {
+      "count": 14,
+      "status": "passed",
+      "log": "evidence/cancellation-contract-tests-v8.log",
+      "scope": "numerical/fixture routing/temporary real ledger/admission tests; distinct from real full calls"
+    }
+  },
+  "remaining_calls": {
+    "engineering_full": 18,
+    "engineering_terminal": 237,
+    "baseline_full": 0,
+    "mechanism_full": 0,
+    "mechanism_terminal": 0,
+    "structure_CE": 2,
+    "structure_terminal": 12,
+    "prototype_full": 1728,
+    "confirmation_full": 24576,
+    "counterexample_full": 2304,
+    "timing_full": 1200
+  },
+  "limits": [
+    "No equivalence or universal negative claim from192 design blocks.",
+    "Working covariance ignores estimator bias, support-selection/data correlation and cross terms; adding uncertainty can double count residual sigma.",
+    "True-cancellation oracle remains evidence of available diagnostic space; tested covariance models do not close all realizable cancellation interfaces.",
+    "No change to frozen confirmation precision, original A2 cost denominator, final three-arm constraint or sealed D_test."
+  ]
+}

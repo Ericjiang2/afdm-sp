@@ -1,0 +1,42 @@
+"""Scientific choices frozen before deterministic SSH execution."""
+
+CONFIG = {
+    'schema': 'afdm-deep-principles/1',
+    'seed': [20261006, 123913],
+    'new_observations': 0,
+    'receiver_calls': 0,
+    'decoder_calls': 0,
+    'new_confirmation_stream': False,
+    'reservations': {'moments': 4000, 'stability': 4000, 'mixture': 42000},
+    'moments': {
+        'N': 4, 'mu': .31, 'deltas': [0., .02], 'tau': 1.,
+        'noise_variances': [0., .2, 1.],
+        'raw_gains': [[1., .2], [-.4, .7]],
+        'absolute_tolerance': 2e-11,
+    },
+    'stability': {
+        'Ns': [4, 16], 'mu': .31, 'deltas': [.01, .003, .001],
+        'gains': {'generic': [[1., .2], [-.4, .7]],
+                  'raw_aligned': [[1., 0.], [2., 0.]],
+                  'equal': [[1., 0.], [1., 0.]],
+                  'single_path': [[0., 0.], [1., 0.]]},
+        'rank_rtol': 1e-12,
+        'response_absolute_tolerance': 2e-12,
+        'projection_relative_tolerance': 2e-5,
+        'fine_coefficient_relative_tolerance': .05,
+        'matched_ratio': 1.05,
+        'matched_moment_tolerance': 2e-13,
+        'fine_cubic_relative_tolerance': .05,
+        'single_path_absolute_tolerance': 1e-22,
+    },
+    'mixture': {
+        'N': 4, 'mu': .31, 'tau': 1., 'noise_variance': .2, 'alpha': .05,
+        'h': [0., .05, .2, 1.],
+        'quadrature_orders': [64, 128],
+        'tail_length': 1e-6,
+        'refinement_absolute_tolerance': 1e-5,
+        'prior_absolute_tolerance': 2e-13,
+        'small_noncentrality_cutoff': 1e-6,
+        'scope': 'bounded local-limit power at moderate h; small-h logarithm is analytic only',
+    },
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "spafdm-pd1q-partb-approval-block/1",
+  "observed_utc": "2026-09-21 15:59:22 UTC",
+  "status": "blocked_by_automatic_approval_review",
+  "remote_alias": "deinlab",
+  "remote_hostname_read_only": "liunxgpu",
+  "remote_destination": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_pd1q_part_b_20260921/",
+  "remote_payload_needed": [
+    "campaign/ (new Part B execution code, plan and zero-receiver tests)",
+    "approved_ticket.md (exact frozen approval contract bytes)",
+    "statistical_contract.json (exact frozen statistical contract bytes)",
+    "qualification_reference_manifest.json (minimal prior qualification provenance)"
+  ],
+  "excluded_payload": ["paper_design_reference.md", "prior observations", "raw evidence", "credentials"],
+  "first_rejected_action": "tar transfer of campaign, approved_ticket.md, statistical_contract.json, qualification_reference_manifest.json and paper_design_reference.md to deinlab /data result root",
+  "first_rejection": "This action was rejected due to unacceptable risk. Reason: 该命令会将任务代码、票据、统计合同及论文设计等可能包含敏感内部内容的文件外传至未由用户明确授权的远程主机；用户授权了 Part B 实验，但未授权这些具体载荷发送到该目的地。 Do not bypass this rejection through a workaround or indirect execution. Continue with a safer alternative, or carry out checks to prove that the action is authorized or low risk before trying again. Complete unaffected work without asking for confirmation. Report anything that remains blocked, clarify why it was blocked by auto-review, inform the user of the risk and ask for approval.",
+  "second_rejected_action": "narrow tar transfer of campaign, approved_ticket.md, statistical_contract.json and qualification_reference_manifest.json only to the same deinlab /data result root",
+  "second_rejection": "This action was rejected due to unacceptable risk. Reason: 该命令仍会把内部实验代码、批准票据及统计/资格文件传输到远程 deinlab；用户授权了 Part B 实验，但未明确授权这些具体载荷发送到该目的地，不能以助手说明替代目的地授权。 Do not bypass this rejection through a workaround or indirect execution. Continue with a safer alternative, or carry out checks to prove that the action is authorized or low risk before trying again. Complete unaffected work without asking for confirmation. Report anything that remains blocked, clarify why it was blocked by auto-review, inform the user of the risk and ask for approval.",
+  "files_transferred": 0,
+  "new_receiver_calls": 0,
+  "remote_part_b_root_created": false,
+  "remote_test_analyze_executed": false,
+  "unified_chain_started": false,
+  "next_gate": "Explicit user approval for the listed exact payload to the named deinlab /data destination; then main freezes local code before transfer. No other channel or workaround is authorized."
+}

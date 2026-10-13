@@ -1,0 +1,175 @@
+"""Reference full-fractional frozen-diagonal-q variable projection.
+Classical variable projection; the fast projected moment identity is tested separately.
+No truth is accepted by the estimator. Integer delays are supplied by observed support.
+"""
+import numpy as np
+from scipy.optimize import minimize_scalar
+
+def dkernel(t, n):
+    t=(np.asarray(t,dtype=float)+n/2)%n-n/2
+    return np.exp(1j*np.pi*(n-1)*t/n)*np.sinc(t)/np.sinc(t/n)
+
+def projected_variance(v, delays, dopplers, c1):
+    """Exact tr(U_i^H U_j diag(v)); positive chirps/positive Doppler."""
+    v=np.asarray(v,float);l=np.asarray(delays,int);nu=np.asarray(dopplers,float);n=len(v)
+    delta=l[None,:]-l[:,None]
+    z=nu[None,:]-nu[:,None]+2*n*c1*delta
+    gamma=np.exp(2j*np.pi*c1*(l[:,None]**2-l[None,:]**2))*dkernel(z,n)*np.fft.fft(v)[delta%n]
+    return (gamma+gamma.conj().T)*.5
+
+def regressors(x,delays,dopplers,c1,c2):
+    n=len(x);idx=np.arange(n);l=np.asarray(delays,int);nu=np.asarray(dopplers,float)
+    l1=np.exp(2j*np.pi*c1*idx**2);l2=np.exp(2j*np.pi*c2*idx**2)
+    time=l1.conj()*np.fft.ifft(l2.conj()*x)*np.sqrt(n)
+    xx=time[(idx[:,None]-l[None,:])%n]
+    cp=np.where(idx[:,None]<l[None,:],np.exp(2j*np.pi*c1*(n*n+2*n*(idx[:,None]-l[None,:]))),1.)
+    tt=xx*cp*np.exp(2j*np.pi*idx[:,None]*nu[None,:]/n)
+    return l2[:,None]*np.fft.fft(l1[:,None]*tt,axis=0)/np.sqrt(n)
+
+def fit(y,pilot,mu,v,integer_delays,integer_dopplers,integer_gains,c1,c2,noise,*,use_variance=True,max_paths=8,rounds=2):
+    """Observed-only initialization, two bounded coordinate passes; not global optimizer."""
+    y,pilot,mu=np.asarray(y,complex),np.asarray(pilot,complex),np.asarray(mu,complex)
+    lq,kq,gq=np.asarray(integer_delays,int),np.asarray(integer_dopplers,float),np.asarray(integer_gains,complex)
+    unique=np.unique(lq);energy=np.array([np.sum(abs(gq[lq==d])**2) for d in unique]);ls=unique[np.argsort(-energy)[:max_paths]]
+    centers=np.array([kq[np.flatnonzero(lq==d)[np.argmax(abs(gq[lq==d]))]] for d in ls]);nus=centers.copy()
+    x=pilot+mu;vv=np.asarray(v,float) if use_variance else np.zeros(len(y));history=[];calls=0
+    def evaluate(nu):
+        nonlocal calls
+        calls+=1;A=regressors(x,ls,nu,c1,c2);Gamma=projected_variance(vv,ls,nu,c1)
+        Q=A.conj().T@A+Gamma+noise*np.eye(len(ls));b=A.conj().T@y;h=np.linalg.solve(Q,b)
+        value=float((np.vdot(y,y)-np.vdot(b,h)).real)
+        return value,h,A,Gamma
+    val,h,A,Gamma=evaluate(nus);history.append(val)
+    bounds=[(max(-3.,c-.75),min(3.,c+.75)) for c in centers]
+    for _ in range(rounds):
+      for j,(lo,hi) in enumerate(bounds):
+        def scalar(t):
+            q=nus.copy();q[j]=t;return evaluate(q)[0]
+        opt=minimize_scalar(scalar,bounds=(lo,hi),method='bounded',options={'xatol':.002,'maxiter':16})
+        if opt.fun<val:
+            nus[j]=opt.x;val,h,A,Gamma=evaluate(nus);history.append(val)
+    val,h,A,Gamma=evaluate(nus)
+    return dict(delays=ls,dopplers=nus,gains=h,objective=val,history=history,evaluations=calls,gamma=Gamma,
+       projected_variance_ratio=float(np.linalg.norm(Gamma-np.trace(Gamma)/len(ls)*np.eye(len(ls)))/max(1.,np.linalg.norm(Gamma))))
+
+def diagonal_energies(delays,dopplers,gains,v,c1):
+    """All N cyclic-diagonal innovation energies, O(N P^2), without H."""
+    l=np.asarray(delays,int);nu=np.asarray(dopplers,float);h=np.asarray(gains,complex);v=np.asarray(v,float);n=len(v)
+    delta=l[:,None]-l[None,:]
+    W=(h[:,None]*h[None,:].conj()*np.exp(2j*np.pi*c1*(l[None,:]**2-l[:,None]**2))*np.fft.fft(v)[delta%n])
+    D=dkernel(nu[None,:]+2*n*c1*l[None,:]-np.arange(n)[:,None],n)
+    energies=np.einsum('si,ij,sj->s',D,W,D.conj(),optimize=True).real
+    if energies.min() < -1e-8*max(1.,energies.max()):raise FloatingPointError('negative diagonal energy')
+    return np.maximum(energies,0)
+
+def selected_diagonals(delays,dopplers,gains,shifts,n,c1,c2):
+    """Values H[(k+s)%N,k] for specified cyclic shifts, O(N P M)."""
+    l=np.asarray(delays,int);nu=np.asarray(dopplers,float);h=np.asarray(gains,complex);s=np.asarray(shifts,int);k=np.arange(n)
+    C=h[:,None]*np.exp(-2j*np.pi*(c1*l[:,None]**2+l[:,None]*k[None,:]/n))
+    D=dkernel(nu[None,:]+2*n*c1*l[None,:]-s[:,None],n)
+    return (D@C)*np.exp(2j*np.pi*c2*((k[None,:]+s[:,None])%n)**2-2j*np.pi*c2*k[None,:]**2)
+
+# Design-freeze extensions: matrix-free action and exact rowwise weak moments.
+from dataclasses import dataclass
+
+def daft(x,c1,c2,inverse=False):
+    x=np.asarray(x,complex);n=x.shape[0];k=np.arange(n);shape=(n,)+(1,)*(x.ndim-1)
+    a=np.exp(2j*np.pi*c1*k*k).reshape(shape);b=np.exp(2j*np.pi*c2*k*k).reshape(shape)
+    return a.conj()*np.fft.ifft(b.conj()*x,axis=0)*np.sqrt(n) if inverse else b*np.fft.fft(a*x,axis=0)/np.sqrt(n)
+
+@dataclass(frozen=True)
+class Channel:
+    n:int;c1:float;c2:float;delays:np.ndarray;dopplers:np.ndarray;gains:np.ndarray
+    def __post_init__(self):
+        for key,dt in [('delays',int),('dopplers',float),('gains',complex)]:
+            object.__setattr__(self,key,np.asarray(getattr(self,key),dtype=dt).copy())
+        if self.n<2 or not(len(self.delays)==len(self.dopplers)==len(self.gains)>0):raise ValueError('Invalid path dimensions')
+        if np.any(self.delays<0) or np.any(self.delays>=self.n):raise ValueError('Invalid delay')
+        if not np.isfinite(self.gains).all() or not np.isfinite(self.dopplers).all():raise ValueError('Nonfinite path')
+    @property
+    def p(self):return len(self.delays)
+    def regressors(self,x,derivative=False):
+        if not derivative:return regressors(x,self.delays,self.dopplers,self.c1,self.c2)
+        n=self.n;k=np.arange(n);t=daft(x,self.c1,self.c2,True);idx=k[:,None]-self.delays
+        cp=np.where(idx<0,np.exp(2j*np.pi*self.c1*(n*n+2*n*idx)),1)
+        tt=t[idx%n]*cp*np.exp(2j*np.pi*k[:,None]*self.dopplers/n)*(2j*np.pi*k[:,None]/n)
+        return daft(tt,self.c1,self.c2)
+    def apply(self,x):
+        n=self.n;k=np.arange(n);t=daft(x,self.c1,self.c2,True);z=np.zeros(n,complex)
+        for l,nu,h in zip(self.delays,self.dopplers,self.gains):
+            cp=np.where(k<l,np.exp(2j*np.pi*self.c1*(n*n+2*n*(k-l))),1)
+            z+=h*cp*np.exp(2j*np.pi*k*nu/n)*t[(k-l)%n]
+        return daft(z,self.c1,self.c2)
+    def adjoint(self,y):
+        n=self.n;k=np.arange(n);t=daft(y,self.c1,self.c2,True);z=np.zeros(n,complex)
+        for l,nu,h in zip(self.delays,self.dopplers,self.gains):
+            cp=np.where(k<l,np.exp(2j*np.pi*self.c1*(n*n+2*n*(k-l))),1)
+            z[(k-l)%n]+=h.conjugate()*cp.conjugate()*np.exp(-2j*np.pi*k*nu/n)*t
+        return daft(z,self.c1,self.c2)
+    def gamma(self,v):return projected_variance(v,self.delays,self.dopplers,self.c1)
+    def energies(self,v):return diagonal_energies(self.delays,self.dopplers,self.gains,v,self.c1)
+    def diagonals(self,shifts):return selected_diagonals(self.delays,self.dopplers,self.gains,shifts,self.n,self.c1,self.c2)
+    def row_variance(self,v,keep=()):
+        """diag(R diag(v) R^H), R contains cyclic diagonals NOT in keep.
+        P(P+1)/2 FFT convolutions. Does not assert independence of R(d-mu).
+        """
+        v=np.asarray(v,float);n=self.n;k=np.arange(n)
+        if v.shape!=(n,) or np.any(v<0) or not np.isfinite(v).all():raise ValueError('Invalid variance')
+        D=dkernel(self.dopplers[None,:]+2*n*self.c1*self.delays[None,:]-k[:,None],n)
+        mask=np.ones(n);mask[np.asarray(keep,int)%n]=0;out=np.zeros(n,complex)
+        for i in range(self.p):
+            for j in range(i,self.p):
+                a=mask*D[:,i]*D[:,j].conj();r=int(self.delays[i]-self.delays[j])
+                b=v*np.exp(-2j*np.pi*r*k/n)
+                z=self.gains[i]*self.gains[j].conjugate()*np.exp(2j*np.pi*self.c1*(self.delays[j]**2-self.delays[i]**2))*np.fft.ifft(np.fft.fft(a)*np.fft.fft(b))
+                out+=z if i==j else 2*z.real
+        if out.real.min() < -2e-10*max(1.,np.max(abs(out))):raise FloatingPointError('Negative row variance')
+        return np.maximum(out.real,0)
+    def row_pseudovariance(self,pseudo,keep=()):
+        """diag(R diag(pseudo) R^T), exact for diagonal symbol pseudo-covariance."""
+        t=np.asarray(pseudo,complex);n=self.n;k=np.arange(n)
+        if t.shape!=(n,) or not np.isfinite(t).all():raise ValueError('Invalid pseudo-variance')
+        D=dkernel(self.dopplers[None,:]+2*n*self.c1*self.delays[None,:]-k[:,None],n)
+        mask=np.ones(n);mask[np.asarray(keep,int)%n]=0;out=np.zeros(n,complex)
+        for i in range(self.p):
+            for j in range(i,self.p):
+                a=mask*D[:,i]*D[:,j]
+                b=t*np.exp(-4j*np.pi*self.c2*k*k-2j*np.pi*(self.delays[i]+self.delays[j])*k/n)
+                coeff=self.gains[i]*self.gains[j]*np.exp(-2j*np.pi*self.c1*(self.delays[i]**2+self.delays[j]**2))
+                z=coeff*np.fft.ifft(np.fft.fft(a)*np.fft.fft(b))
+                out+=z if i==j else 2*z
+        return np.exp(4j*np.pi*self.c2*k*k)*out
+    def select(self,v,maximum=24,tolerance=None,minimum=1):
+        e=self.energies(v);order=np.lexsort((np.arange(self.n),-e));maximum=min(maximum,self.n);m=maximum
+        if tolerance is not None:
+            tail=np.maximum(e.sum()-np.cumsum(e[order]),0);ok=np.flatnonzero(tail[:maximum]<=tolerance)
+            if len(ok):m=max(minimum,int(ok[0]+1))
+        keep=np.sort(order[:m]);tail=max(float(e.sum()-e[keep].sum()),0.)
+        return keep,e,tail,bool(tolerance is None or tail<=tolerance*(1+1e-12)+1e-12)
+
+def sparse_apply(diags,shifts,x):
+    n=len(x);out=np.zeros(n,complex);k=np.arange(n)
+    for s,d in zip(shifts,diags):out[(k+s)%n]+=d*x
+    return out
+
+def refine(y,pilot,mu,v,ls,ks,gs,c1,c2,noise,mode='mean',max_paths=8,rounds=2):
+    if mode not in ('mean','scalar','soft'):raise ValueError('Unknown moment mode')
+    # Scalar mode retains the exact diagonal sum(v), but omits cross-path moments.
+    # Implement it using a uniform variance vector only for distinct-delay models.
+    vv=np.full(len(v),np.mean(v)) if mode=='scalar' else np.asarray(v,float)
+    f=fit(y,pilot,mu,vv,ls,ks,gs,c1,c2,noise,use_variance=mode!='mean',max_paths=max_paths,rounds=rounds)
+    return Channel(len(y),c1,c2,f['delays'],f['dopplers'],f['gains']),f
+
+def project_integer_matrix(H,c1,c2,delays,dopplers):
+    """Recover coefficients of the ACTUAL damped/masked integer channel.
+    Distinct effective diagonals required. Never equate the last LS gains with
+    the matrix after damping and pointwise masks. Residual is reported.
+    """
+    H=np.asarray(H,complex);n=H.shape[0];l=np.asarray(delays,int);nu=np.asarray(dopplers,float);stride=2*n*c1
+    shifts=np.rint(nu+stride*l).astype(int)%n
+    if not np.allclose(nu+stride*l,np.rint(nu+stride*l),atol=1e-7) or len(np.unique(shifts))!=len(shifts):raise ValueError('Projection needs noncolliding integer diagonals')
+    k=np.arange(n);g=[];err=0.;selected_energy=0.
+    for li,ki,s in zip(l,nu,shifts):
+        phase=Channel(n,c1,c2,[li],[ki],[1.]).diagonals([s])[0];d=H[(k+s)%n,k];h=np.vdot(phase,d)/n;g.append(h);err+=float(np.linalg.norm(d-h*phase)**2);selected_energy+=float(np.vdot(d,d).real)
+    err+=max(float(np.linalg.norm(H)**2)-selected_energy,0.)
+    return Channel(n,c1,c2,l,nu,np.array(g)),np.sqrt(err/max(float(np.linalg.norm(H)**2),1e-30))

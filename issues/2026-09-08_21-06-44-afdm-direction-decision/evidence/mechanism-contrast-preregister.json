@@ -1,0 +1,32 @@
+{
+  "status": "preregistered_before_D_mech",
+  "protocol_sha256": "4f307ad9f6c1f4667704eaa64f1594249c748f8ecf9c7707a32a1545e09c2941",
+  "anchor_SNR": 8,
+  "blocks": 256,
+  "alpha_family": 0.05,
+  "family_size": 10,
+  "FER_contrast": "FER_intervention-FER_control; negative is improvement",
+  "benefit_delta": "FER_control-FER_intervention; positive is improvement",
+  "pair_interval": "two-sided simultaneous conservative CP union bound; each of4marginal tails alpha_family/(4*10); report equivalent negated bounds for benefit",
+  "contrasts": [
+    "cancel effect within BP and EP10 (2)",
+    "dataH effect within BP and EP10 (2)",
+    "interaction within BP and EP10 (2)",
+    "EP10-BP within each cancel/data pair (4)"
+  ],
+  "interaction": "blockwise FER_TT-FER_TH-FER_HT+FER_HH; pairedblock bootstrap20000 with tails .05/(2*10); exploratory only; no formal coverage guarantee",
+  "bootstrap_seed_words": [
+    20260908,
+    210644,
+    731901,
+    992,
+    8
+  ],
+  "neighbor_SNR": [
+    7,
+    9
+  ],
+  "neighbor_scope": "same fixed descriptors/contrasts reported; routing uses preregistered point-direction screen, not independent-confirmation no-harm claim",
+  "zero_handling": "CP exact zero-event bounds remain nonzero; degenerate bootstrap flagged, no equivalence claim",
+  "route_rules_source": "campaign-protocol.json route_rules; this registry fixes reporting signs/interval conventions only and adds no post-data thresholds"
+}

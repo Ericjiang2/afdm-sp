@@ -1,0 +1,49 @@
+AFDM System initialized: N_total=1024 subcarriers (from 32x32)
+  Chirp parameters: c1=0.002441, c2=0.000000
+  Caps: l_max=15, k_max=2, delta_max=77 < N=1024: OK
+  UWA params: fc=12.0 kHz, B=4.0 kHz, fs=8.0 kHz, Ts=125.0 us
+  UWA channel: P=10, tau_spread=10.0 ms, v_mean=2.00 m/s, v_std=0.50 m/s
+  Supported AFDM delay window: 1.0 ms
+  Backward-compat speed cap: 12.6 km/h
+  Channel matrix size: 1024x1024
+[_make_system_variable_N] N_total=1024  l_max=102  k_max=4  δ_max=922  < N: True  c1=0.004395  c2=1.98e-07
+[eval] loaded afdm_sp_joint_unrolled/outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt variant=C2-rel
+[tau-lookup] set {10: 0.0, 15: 0.0, 20: 0.0, 25: 0.0, 30: 999.0}
+[LOOP5_CONFIG] variant=C2-rel mp_mode=bp pic_damp=0.5 N=1024 v=2.0 P=8 tau=10.00ms SNRs=[20, 25, 30] frames=120 cdtype=complex64 ckpt=afdm_sp_joint_unrolled/outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt
+  [snr=20 fi=  0]  classical=0.000e+00 (0)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  [5s]
+  [snr=20 fi= 10]  classical=1.110e-03 (25)  torch-ref=1.199e-03 (27)  learned=1.420e-03 (32)  [44s]
+  [snr=20 fi= 20]  classical=1.581e-03 (68)  torch-ref=1.628e-03 (70)  learned=1.721e-03 (74)  [81s]
+  [snr=20 fi= 30]  classical=2.882e-03 (183)  torch-ref=2.914e-03 (185)  learned=2.930e-03 (186)  [116s]
+  [snr=20 fi= 40]  classical=3.728e-03 (313)  torch-ref=3.751e-03 (315)  learned=3.442e-03 (289)  [158s]
+  [snr=20 fi= 50]  classical=3.906e-03 (408)  torch-ref=3.925e-03 (410)  learned=3.724e-03 (389)  [200s]
+  [snr=20 fi= 60]  classical=4.154e-03 (519)  torch-ref=4.170e-03 (521)  learned=4.058e-03 (507)  [229s]
+  [snr=20 fi= 70]  classical=3.583e-03 (521)  torch-ref=3.597e-03 (523)  learned=3.500e-03 (509)  [260s]
+  [snr=20 fi= 80]  classical=3.406e-03 (565)  torch-ref=3.418e-03 (567)  learned=3.334e-03 (553)  [288s]
+  [snr=20 fi= 90]  classical=3.676e-03 (685)  torch-ref=3.686e-03 (687)  learned=3.627e-03 (676)  [312s]
+  [snr=20 fi=100]  classical=3.481e-03 (720)  torch-ref=3.481e-03 (720)  learned=3.379e-03 (699)  [339s]
+  [snr=20 early-stop] classical cum errs 805 >= target 800 at fi=108
+  [snr=25 fi=  0]  classical=0.000e+00 (0)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  [362s]
+  [snr=25 fi= 10]  classical=8.878e-05 (2)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  [388s]
+  [snr=25 fi= 20]  classical=1.116e-03 (48)  torch-ref=1.418e-03 (61)  learned=1.418e-03 (61)  [415s]
+  [snr=25 fi= 30]  classical=1.134e-03 (72)  torch-ref=1.339e-03 (85)  learned=1.197e-03 (76)  [439s]
+  [snr=25 fi= 40]  classical=1.119e-03 (94)  torch-ref=1.191e-03 (100)  learned=9.289e-04 (78)  [464s]
+  [snr=25 fi= 50]  classical=9.000e-04 (94)  torch-ref=9.574e-04 (100)  learned=7.468e-04 (78)  [490s]
+  [snr=25 fi= 60]  classical=1.833e-03 (229)  torch-ref=1.777e-03 (222)  learned=1.529e-03 (191)  [514s]
+  [snr=25 fi= 70]  classical=1.575e-03 (229)  torch-ref=1.527e-03 (222)  learned=1.314e-03 (191)  [537s]
+  [snr=25 fi= 80]  classical=1.399e-03 (232)  torch-ref=1.362e-03 (226)  learned=1.151e-03 (191)  [562s]
+  [snr=25 fi= 90]  classical=1.245e-03 (232)  torch-ref=1.213e-03 (226)  learned=1.025e-03 (191)  [587s]
+  [snr=25 fi=100]  classical=1.122e-03 (232)  torch-ref=1.093e-03 (226)  learned=9.234e-04 (191)  [612s]
+  [snr=25 fi=110]  classical=1.065e-03 (242)  torch-ref=1.003e-03 (228)  learned=8.446e-04 (192)  [638s]
+  [snr=30 fi=  0]  classical=0.000e+00 (0)  torch-ref=0.000e+00 (0)  learned=0.000e+00 (0)  [666s]
+  [snr=30 fi= 10]  classical=8.878e-04 (20)  torch-ref=7.546e-04 (17)  learned=7.990e-04 (18)  [693s]
+  [snr=30 fi= 20]  classical=4.650e-04 (20)  torch-ref=3.953e-04 (17)  learned=4.185e-04 (18)  [715s]
+  [snr=30 fi= 30]  classical=4.725e-04 (30)  torch-ref=3.308e-04 (21)  learned=5.198e-04 (33)  [740s]
+  [snr=30 fi= 40]  classical=3.811e-04 (32)  torch-ref=2.858e-04 (24)  learned=4.049e-04 (34)  [767s]
+  [snr=30 fi= 50]  classical=3.638e-04 (38)  torch-ref=2.298e-04 (24)  learned=3.638e-04 (38)  [794s]
+  [snr=30 fi= 60]  classical=3.042e-04 (38)  torch-ref=1.921e-04 (24)  learned=3.122e-04 (39)  [820s]
+  [snr=30 fi= 70]  classical=3.989e-04 (58)  torch-ref=2.132e-04 (31)  learned=3.989e-04 (58)  [846s]
+  [snr=30 fi= 80]  classical=5.787e-04 (96)  torch-ref=3.255e-04 (54)  learned=5.486e-04 (91)  [872s]
+  [snr=30 fi= 90]  classical=5.151e-04 (96)  torch-ref=2.897e-04 (54)  learned=4.883e-04 (91)  [898s]
+  [snr=30 fi=100]  classical=4.641e-04 (96)  torch-ref=2.659e-04 (55)  learned=4.399e-04 (91)  [924s]
+  [snr=30 fi=110]  classical=4.795e-04 (109)  torch-ref=2.727e-04 (62)  learned=4.707e-04 (107)  [948s]
+[done] wrote afdm_sp_joint_unrolled/outputs_loop10_tau30cutoff_smoke

@@ -1,0 +1,150 @@
+[
+  {
+    "candidate": "moment_score",
+    "baseline": "moment_j",
+    "repeats": 256,
+    "condition": 1,
+    "hypothesis": "power_gain",
+    "paired": {
+      "groups": 768,
+      "discordant_plus": 70,
+      "discordant_minus": 1,
+      "concordant": 697,
+      "difference": 0.08984375,
+      "lower": 0.057715224318035274,
+      "upper": 0.12019141723981085,
+      "plus_probability": {
+        "lower": 0.06702204852415411,
+        "upper": 0.12019958076510054
+      },
+      "minus_probability": {
+        "lower": 8.16352528969842e-06,
+        "upper": 0.009306824206118836
+      },
+      "tail_probability": 0.0062500000000000056,
+      "family_size": 2,
+      "simultaneous_confidence": 0.95,
+      "construction": "four Clopper-Pearson tails per paired comparison; Bonferroni over the registered family"
+    },
+    "failure_difference_bounds": {
+      "lower": 0.08854166666666667,
+      "upper": 0.09114583333333333,
+      "scope": "deterministic bounds if every failed method could return either decision; not a confidence interval"
+    },
+    "failures": {
+      "candidate_alternative": 1,
+      "baseline_alternative": 1,
+      "candidate_calibration": 0,
+      "baseline_calibration": 0,
+      "fresh_null": 0
+    },
+    "no_failures": false,
+    "finite_thresholds": true,
+    "null_gate_passed": true,
+    "null_checks": [
+      {
+        "method": "moment_score",
+        "wilson_upper": 0.027111102719883855,
+        "failures": 0
+      },
+      {
+        "method": "moment_j",
+        "wilson_upper": 0.046077522111181116,
+        "failures": 0
+      }
+    ],
+    "useful_power_passed": true,
+    "useful_power_cp": {
+      "lower": 0.9538577955591842,
+      "upper": 0.9798770127084526,
+      "confidence": 0.95,
+      "tail_probability": 0.025000000000000022,
+      "interval": "two-sided exact pointwise"
+    },
+    "power_numeric_criterion": false,
+    "noninferiority_passed": true,
+    "cost_ratio_passed": false,
+    "candidate_amortized_seconds": 0.039550966601931734,
+    "baseline_amortized_seconds": 0.03819785439847578,
+    "cost_ratio": 0.9657881381996398,
+    "power_advantage": false,
+    "useful_cost_advantage": false,
+    "interval_scope": "paired bounds simultaneous over the two selected hypotheses; rate CP/Wilson intervals are pointwise conditional on the old calibration library",
+    "selection": "selected after primary analysis: primary186/192 vs full192/192; this new independent development cohort tests a selected hypothesis, not unselected replication or production confirmation",
+    "cost_scope": "fixed local algorithm workload including own fit, setup and old full calibration; not deployment latency"
+  },
+  {
+    "candidate": "moment_score",
+    "baseline": "full_score",
+    "repeats": 256,
+    "condition": 1,
+    "hypothesis": "useful_cost_noninferiority",
+    "paired": {
+      "groups": 768,
+      "discordant_plus": 0,
+      "discordant_minus": 24,
+      "concordant": 744,
+      "difference": -0.03125,
+      "lower": -0.05055833934412853,
+      "upper": -0.01111777545149562,
+      "plus_probability": {
+        "lower": 0.0,
+        "upper": 0.006586512446802263
+      },
+      "minus_probability": {
+        "lower": 0.017704287898297883,
+        "upper": 0.05055833934412853
+      },
+      "tail_probability": 0.0062500000000000056,
+      "family_size": 2,
+      "simultaneous_confidence": 0.95,
+      "construction": "four Clopper-Pearson tails per paired comparison; Bonferroni over the registered family"
+    },
+    "failure_difference_bounds": {
+      "lower": -0.03125,
+      "upper": -0.029947916666666668,
+      "scope": "deterministic bounds if every failed method could return either decision; not a confidence interval"
+    },
+    "failures": {
+      "candidate_alternative": 1,
+      "baseline_alternative": 0,
+      "candidate_calibration": 0,
+      "baseline_calibration": 0,
+      "fresh_null": 0
+    },
+    "no_failures": false,
+    "finite_thresholds": true,
+    "null_gate_passed": true,
+    "null_checks": [
+      {
+        "method": "moment_score",
+        "wilson_upper": 0.027111102719883855,
+        "failures": 0
+      },
+      {
+        "method": "full_score",
+        "wilson_upper": 0.046077522111181116,
+        "failures": 0
+      }
+    ],
+    "useful_power_passed": true,
+    "useful_power_cp": {
+      "lower": 0.9538577955591842,
+      "upper": 0.9798770127084526,
+      "confidence": 0.95,
+      "tail_probability": 0.025000000000000022,
+      "interval": "two-sided exact pointwise"
+    },
+    "power_numeric_criterion": false,
+    "noninferiority_passed": true,
+    "cost_ratio_passed": true,
+    "candidate_amortized_seconds": 0.039550966601931734,
+    "baseline_amortized_seconds": 0.09780378427025957,
+    "cost_ratio": 2.472854462815649,
+    "power_advantage": false,
+    "useful_cost_advantage": false,
+    "interval_scope": "paired bounds simultaneous over the two selected hypotheses; rate CP/Wilson intervals are pointwise conditional on the old calibration library",
+    "selection": "selected after primary analysis: primary186/192 vs full192/192; this new independent development cohort tests a selected hypothesis, not unselected replication or production confirmation",
+    "cost_scope": "fixed local algorithm workload including own fit, setup and old full calibration; not deployment latency"
+  }
+]

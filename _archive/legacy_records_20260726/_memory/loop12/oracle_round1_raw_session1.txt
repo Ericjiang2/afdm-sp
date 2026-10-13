@@ -1,0 +1,152 @@
+Loop 12 Round 1 — Oracle GPT-5.4-pro (browser)
+Slug: loop12-r1-plan (session 1; attached round1_briefing.md + AUTO_REVIEW.md + REVIEW_STATE.json, ~80k tokens)
+Returned: 2026-04-23 ~02:21 CST (via user manual paste)
+
+================================================================================
+
+Here is the blunt reviewer take.
+
+## 1) GO / NO-GO on each Loop-12 step
+
+| Step                       | Call                 | What I would change / require                                                                                                                                                                                                                                                                                                  |
+| -------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **R3 official long**       | **GO**               | This is the most important step. I would **raise 20 dB to 250 min-frames if you can**, because 20 dB is the hinge point of the story. I would **not** spend extra budget on 10/15.                                                                                                                                             |
+| **Seed-2 on {20,25} only** | **GO (minimum bar)** | Good enough for the paper-level stability claim. **Full sweep is not required.** If you can afford one more point, add **30 dB**, not 10/15.                                                                                                                                                                                   |
+| **Classical-ablation**     | **GO**               | Your proposed ablation is the right one: keep `refine-rounds 2` and `defer-prune-until-final` **on**, set learned commits to impossible, and `protect-added 0`. **Do not disable refine-rounds**; that would answer a different question. But you must log **learned-add count = 0** per frame/SNR or the ablation is invalid. |
+| **Frame bootstrap**        | **GO**               | Necessary. This is the piece that makes the stats reviewer-safe rather than "bit-count significant." Bootstrap at the **frame** level, paired, 10k resamples is fine.                                                                                                                                                          |
+
+### What would make me say NO-GO?
+
+Not the plan itself; the risk is in the outcomes.
+
+* If **R3 at 30 dB softens to near-zero** or shows a reversal, that hurts.
+* If **classical-ablation recovers a large fraction of the 25/30 dB gain**, your "learned detector" story weakens badly.
+* If **frame-bootstrap CI crosses 0 at 20 dB**, you lose the clean mid-SNR anchor.
+
+## 2) Forecast for R3: what I expect it to show
+
+I would separate **"success floors"** from **my best guess**.
+
+|    SNR | Success floor          | My best guess                     | Significance forecast                             |
+| -----: | ---------------------- | --------------------------------- | ------------------------------------------------- |
+| **10** | non-negative; no cliff | **0.05–0.15 dB** (~1–3% BER gain) | McNemar still tiny; **bootstrap may touch 0**     |
+| **15** | **≥0.15 dB** (~3%+)    | **0.25–0.45 dB** (~5–10%)         | McNemar very small; bootstrap probably excludes 0 |
+| **20** | **≥0.8 dB** (~17%+)    | **1.0–1.4 dB** (~20–28%)          | very strong; bootstrap should clearly exclude 0   |
+| **25** | **≥3.0 dB** (~50%+)    | **3.8–5.0 dB** (~58–68%)          | overwhelming                                      |
+| **30** | **≥1.8 dB** (~34%+)    | **2.3–3.3 dB** (~41–53%)          | strong if seed is stable                          |
+
+### p-values
+
+I care much less about McNemar now than about the frame bootstrap, but if R3 behaves normally I would expect roughly:
+
+* **10 dB:** still tiny McNemar, maybe `p < 1e-6`; bootstrap may be inconclusive.
+* **15 dB:** `p < 1e-12`.
+* **20 dB:** `p < 1e-20`.
+* **25 dB:** `p < 1e-40`.
+* **30 dB:** `p < 1e-12`, probably much smaller.
+
+The key message should be:
+
+* **10/15 dB:** "no harm, small gain."
+* **20/25/30 dB:** "clear, material gain."
+
+Do **not** lead the story with 10 dB p-values. That is exactly where reviewers will smell statistical inflation from bit-level counting.
+
+## 3) My answer to the P10-vs-P8 mystery
+
+### Is your diagnosis correct?
+
+**Partly yes, but your wording is too vague.**
+
+The strongest version of the diagnosis is **not** just "train-harder regularization."
+It is:
+
+> **Harder training at P=10 appears to produce a more conservative / better-calibrated selector, and your proxy (`recall@6`, BCE) is blind to the failure mode that matters at high SNR: confidently adding the wrong atom when classical already nearly solved the frame.**
+
+That is consistent with the same-protocol evidence:
+
+* under the tau-cutoff protocol, **P10 is clearly more robust at 25/30 dB**,
+* and those are exactly the SNRs where false additions are most damaging.
+
+### What I think is definitely true
+
+1. **There is a protocol confound in the current narrative.**
+   P10 headline numbers were under **F2-P**; P8 was not. So part of the "P10 beats P8" story is contaminated.
+
+2. **Even after controlling for protocol, a real high-SNR robustness gap may remain.**
+   Your tau-cutoff apples-to-apples numbers already suggest that.
+
+3. The likely mechanism is **calibration/selectivity**, not abstract "generalization" in the usual sense.
+
+### What I would not claim yet
+
+I would **not** claim you have proven "train-harder regularization" from the evidence shown so far. You have a good hypothesis, not a proof.
+
+### Is planned F2-P cross-eval enough?
+
+**No. Necessary, not sufficient.**
+
+It is enough to answer the **operational** question: which checkpoint should you use?
+It is **not enough** to validate the **mechanism**.
+
+To validate the mechanism, you need one direct diagnostic on a shared P=8 test set at 25/30 dB:
+
+* **learned-add count per frame**
+* **false-add rate**
+* **commit rate conditional on classical already containing the true support**
+* ideally also **top-K vs K+1 margin / logit spread**
+
+If P8-retrain shows:
+
+* similar recall,
+* **more adds**, or
+* **higher false-discovery rate**,
+
+then your diagnosis is basically closed.
+
+So my bottom line is:
+
+* **Operationally:** keep P10 as headline unless P8-under-F2-P clearly beats it.
+* **Mechanistically:** F2-P cross-eval alone is **not enough** for a paper claim.
+
+## 4) Blind spots that could blow up at submission time
+
+1. **Attribution may collapse if classical-ablation is too good.**
+   This is the biggest one. If the mechanics-only arm recovers, say, **half** of the 25/30 dB gain, reviewers will say the gain comes from search/refinement, not the learned scorer.
+   My rough comfort zone: mechanics-only should explain **<30%** of the full gain at 25/30.
+
+2. **Low-SNR significance may not survive frame-level inference.**
+   I fully expect 10 dB to look weak under frame-bootstrap. That is okay, but only if you do **not** oversell it.
+
+3. **Your P10-vs-P8 story is currently one diagnostic short.**
+   Without direct false-add/selectivity evidence, the explanation remains speculative.
+
+4. **You are iterating heavily on the same 5-SNR grid.**
+   A sharp reviewer can call this mild benchmark over-tuning. Freeze the config now; do not keep tuning after R3 unless something is clearly broken.
+
+5. **30 dB remains the fragility point.**
+   That is where false-add asymmetry is worst, and where a bad seed/calibration surprise hurts the narrative most. If you can afford one extra reproducibility point beyond {20,25}, make it **30**.
+
+## 5) Final score estimate if R3 + seed-2 + classical-ablation all land
+
+My estimate:
+
+* **Single-number score:** **8.7/10**
+* **Range:** **8.6–8.8**
+
+That is **above an 8.5 "ready" bar**.
+
+I would **not** call it a 9.0 yet unless one of these also happens:
+
+* seed-2 also confirms **30 dB**, or
+* you add the **direct P10-vs-P8 selectivity / false-add diagnostic**, and it cleanly supports your diagnosis.
+
+### Final blunt verdict
+
+You should **run exactly the Loop-12 plan** with two small discipline changes:
+
+1. **250 min-frames at 20 dB if feasible**, and
+2. **log zero learned commits in the classical-ablation**.
+
+If R3 looks like a smoothed version of Loop-11 R1, and classical-ablation stays clearly below learned F2-P, this is a **submission-grade empirical package**.
+If classical-ablation comes back too strong, your headline stops being "learning works" and becomes "the refined search schedule works," which is a much weaker paper.

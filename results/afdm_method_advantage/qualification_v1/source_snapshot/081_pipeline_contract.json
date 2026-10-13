@@ -1,0 +1,76 @@
+{
+  "authorization": "User explicitly requested completing this research mission and executing all intermediate work. New bounded local production-sized CPU quote/screen authorized here; no paid/remote/GPU work.",
+  "threads": 1,
+  "candidate": "uniform Gaussian pair one-pass + original LDPC once; observed pilot/geometry front reused",
+  "arms": {
+    "native_two": {
+      "rounds": 2,
+      "iterations": 20
+    },
+    "native_one": {
+      "rounds": 1,
+      "iterations": 20
+    },
+    "pair": {
+      "rounds": 1,
+      "block_size": 2
+    },
+    "single": {
+      "rounds": 1,
+      "block_size": 1
+    }
+  },
+  "quote": {
+    "seed": [
+      20261003,
+      104129,
+      80,
+      81
+    ],
+    "clusters": 1,
+    "snr_db": [
+      20
+    ],
+    "max_receiver_calls": 5,
+    "calls": "native_one direct + disabled replay, native_two, pair, single",
+    "cpu_cap_seconds": 60,
+    "wall_cap_seconds": 90
+  },
+  "development": {
+    "seed": [
+      20261003,
+      104129,
+      80,
+      82
+    ],
+    "clusters": 3,
+    "snr_db": [
+      10,
+      20
+    ],
+    "max_receiver_calls": 24,
+    "cpu_cap_seconds": 300,
+    "wall_cap_seconds": 420,
+    "pairing": "same code/channel/noise draw across SNR within cluster, all arms identical observed arrays"
+  },
+  "production": "N1024 rho0.5 actual CPP/continuous Doppler and frozen LDPC n2048 dv3 dc6 seed20260726; old generator+physical_observation; cache must exist, no rebuild",
+  "decoder": "original decoder_messages clip20 maxiter50; decoder failures retained",
+  "truth_boundary": "only make_frame and external scoring receive truth; receiver observation keys exactly y,pilot,sigma2",
+  "metrics": [
+    "bit_log_score_on_saved_input_llr",
+    "bit_Brier",
+    "coded_FER",
+    "undetected_frame_error",
+    "information_BER",
+    "paired_rescues_harms",
+    "full_mean_tail_wall_cpu",
+    "operation_calls",
+    "process_peak_RSS"
+  ],
+  "transfer_gate": "all numerical/source/CPP/code/interface contracts pass; all failed cases retained. Full quality transfer not inferred from N2. Development signal for further mechanism testing requires pair aggregate log score <=0.98*native_two and no net extra frame errors, OR net rescued frames vs native_two with no greater aggregate log score. Merely beating singleton is local mechanism evidence, not native utility.",
+  "screen_precision": "3 independent clusters is a fixed feasibility screen, not a power-based efficacy test. Failure to meet continuation gate is no qualified candidate, not proof of no effect.",
+  "cost_guard": "quote all arms first; projected 24 calls plus generation/setup/output with x3 safety and reserve must fit300CPU420wall before development; otherwise optimize code without observing development or register concrete revised resources. No silent incomplete cohort.",
+  "default_off": "one production-sized direct native_one versus disabled adapter replay; exact array equality excluding times, no source mutations",
+  "no_confirmation": "stream90 unopened pending prospective power/effect/budget freeze",
+  "no_budget_claim": "different fixed schedules are costed controls, not equal-budget evidence; MECH matched-budget stage is conditional on transfer signal"
+}

@@ -1,0 +1,22 @@
+{
+  "status": "static_review_completed",
+  "review_agent_mode": "direct_spawn_agent",
+  "review_independence": "strong",
+  "model": "gpt-6-astra",
+  "reasoning": "low",
+  "scope": "admission and analysis; no outcomes or receiver calls",
+  "findings": [
+    {
+      "issue": "analysis prereg/audit input hash binding",
+      "disposition": "fixed in separately versioned v2 before outcome inspection; v1 retained"
+    },
+    {
+      "issue": "group convergence assertion",
+      "disposition": "retained as integrity invariant; direction_structure.py106 raises on nonconvergence, so completed record cannot legitimately report false; actual failed run must be reported incomplete separately"
+    }
+  ],
+  "original_sha256": "fab033804dbcd12e889fc2ce6e243484a2d56fc2f103ceddf4762a020cc9c4f5",
+  "revised_sha256": "7beb859706143584feb40e84be247bb5f4ef52ed981173de484c9e543d4f38fd",
+  "created_utc": "2026-09-08T17:25:46.938187+00:00",
+  "runtime_validation": "pending actual full offline audit; AST only so far"
+}

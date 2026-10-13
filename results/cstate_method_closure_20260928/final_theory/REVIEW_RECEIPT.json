@@ -1,0 +1,40 @@
+{
+  "schema": "final-closure-theory-independent-review/1",
+  "status": "pass_with_explicit_family_and_coordinate_scope",
+  "review_type": "independent static derivation and frozen-source convention check",
+  "reviewer": "Codex GPT-6 Sol/high",
+  "theorem_sha256": "4f722027327d71895c6a6cbc84980cb85eb9579fd103b809765b205c7a38319a",
+  "reviewed_sha256": {
+    "results/cstate_method_closure_20260928/CLOSURE_COMPATIBILITY_THEORY.md": "aea50d09a09cf25cc16126050797988933982d6a0fc0fa725b2294e12c896c50",
+    "results/cstate_method_closure_20260928/CLOSURE_COMPATIBILITY_PROOF.md": "b1b10cb126efb14fa2e3b5d0e1b5bfc60baab8cdb10e8060bb98aaa2ad705122",
+    "results/cstate_method_closure_20260928/MANUSCRIPT_THEOREM_TEXT.md": "4bc3d1b94687ee93de814dc4206e418af72526a849a25d20bfa9df51ef98f492",
+    "results/cstate_method_closure_20260928/CLOSURE_COMPATIBILITY_TESTS.json": "0092e48d119ae0e8ba7a8e63cc2d5f907436e640b1cf9da555e344996de778b8",
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "experiments/sp_afdm_native_joint_20260921/src/twofft.py": "c54e832716d72530e38a9b1090ca24f8f8b3c8f4185db0914d30e5f7e2ab9ff0"
+  },
+  "obligations": {
+    "family_iff_and_span": "passed; quantifier is every V in the named family, including empty/zero edge cases",
+    "isotropic_and_fixed_basis_diagonal": "passed; full cone and fixed coordinate basis required for converse statements",
+    "all_complex_psd": "passed; complex rank-one polarization forces U_i^H U_j=0 without assuming Hermiticity",
+    "frozen_cpp_afdm_operator": "passed; integer representative delays, sufficient CPP, flat unitary DAFT, positive Doppler and row-i/column-j Gram orientation checked",
+    "cross_delay_limit": "passed; distinct delays set R_ij=0 but need not zero Gamma_ij for nonuniform AF-diagonal V",
+    "doublet_minimax": "passed; normalized R has unique scalar midpoint 1 and error |D_N|, while Gamma=sR has error s|D_N| only on the stated AF-diagonal block",
+    "dirichlet_finite_and_limit": "passed; positive phase, N-periodicity, removable multiples of N, fixed noninteger-bin limit and growing-bin regime distinguished"
+  },
+  "counterexample_checks": [
+    "zero-only covariance family cannot force path orthogonality",
+    "trace-zero or distinct-delay R does not imply full AF-diagonal Gamma closure",
+    "real rank-one tests cannot replace complex PSD tests",
+    "fixed noninteger Doppler-bin separation must not be confused with delta=N alpha"
+  ],
+  "issues_open": [],
+  "validation": {
+    "new_receiver_calls": 0,
+    "new_decoder_calls": 0,
+    "new_observations": 0,
+    "new_finite_tests_run_by_this_review": 0,
+    "existing_source_bound_finite_receipt": "CLOSURE_COMPATIBILITY_TESTS.json: status pass, 525 comparisons; read for corroboration, not rerun",
+    "proof_basis": "finite-dimensional algebra and scalar geometric series, independent of numerical receipt"
+  },
+  "claim_boundary": "No FER, inference convergence, posterior-reachability, global optimality, or universal CSTATE necessity follows."
+}

@@ -1,0 +1,1009 @@
+{
+  "source_doc": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md",
+  "source_sha256": "4b18115841b3cb946bbe6bff3b4d7da223f4f1ba7fbe4d31118000679029f139",
+  "csv": "2026-09-06_13-47-38-afdm-plan-v2.csv",
+  "execution_scope": "用户2026-09-06当前目标已授权执行完整CSV；S1追加预算与正式数据门保持原约束。",
+  "claim_coverage": {
+    "covered": 69,
+    "total": 69,
+    "status": "pending",
+    "semantics": "covered仅指任务映射完整；不表示证据已支持承诺或运行验收通过"
+  },
+  "claims": [
+    {
+      "claim_id": "CLAIM-001",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:3",
+      "promise": "WHEN 建立执行清单 THEN 保存v2及父设计hash、图片输入manifest与历史证据索引，v2覆盖v1；WHEN 列科研主张 THEN 最多2项主张和3族可实现基线，旧壳结果不得作为新direct40确认；WHEN 处理新增计划 THEN 当前用户已明确授权执行CSV；按真实证据更新状态，不修改论文或升级科研结论，额外S1预算仍需明确接受; ref: .trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:3",
+      "production_path_required": false,
+      "covered_by": [
+        "GOV-01"
+      ],
+      "evidence_required": "static",
+      "status": "supported",
+      "authority_amendment": "用户当前目标：按照这个csv中的任务开始，然后完成，记得灵活利用并行。",
+      "evidence": [
+        "evidence/GOV-01.md",
+        "evidence/GOV-01-source-snapshot.json"
+      ],
+      "evidence_level": "static"
+    },
+    {
+      "claim_id": "CLAIM-002",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:186",
+      "promise": "核对分阶段预算并建立逐批发车门：WHEN 启动任一远程批次 THEN 按实测t_arm、求解次数和至少20%余量给出费用表，余额不足不发车；WHEN 分配首包 THEN 同时不超过2 GPUh与2单机忙碌小时，S2扣原4h、S3/S4扣原8h，各自核实已耗余额且不跨借；WHEN 核对账本 THEN 保留旧S1至少71.36分钟及忙碌窗口缺账，S5—S7合计24h不变；WHEN 涉及新增S1 1h或新记账口径 THEN 必须读取后续明确接受记录，CSV生成不构成接受",
+      "production_path_required": false,
+      "covered_by": [
+        "GOV-02"
+      ],
+      "evidence_required": "static",
+      "status": "supported",
+      "evidence": [
+        "evidence/GOV-02.md",
+        "evidence/stage-budget.json"
+      ],
+      "evidence_scope": "Static budget contract; every actual launch still requires OPS budget enforcement; S1 acceptance pending."
+    },
+    {
+      "claim_id": "CLAIM-003",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:171",
+      "promise": "冻结随机流、输入配对与真值访问契约：WHEN 登记新数据 THEN 保留root20260905映射，prior为split2 rep40 stream9派生400帧；fit为split2 rep30/31/32 frame0..63共192帧，validation为相同rep frame64..191共384帧；Ddev24/48为split1 rep0/1/2 frame0..7或0..15；WHEN 运行前检查 THEN 检测既有命名冲突并证明hash/帧ID不重叠、固定LDPC、信道/数据/噪声流隔离，跨SNR共用样本按簇配对；WHEN 使用oracle THEN 只读Ddev或已使用fit，validation不得选干预，Dtest只在正式门后访问",
+      "production_path_required": false,
+      "covered_by": [
+        "GOV-03"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/GOV-03.md",
+        "evidence/GOV-03-prior-manifest.json"
+      ],
+      "scope": "identity/RNG contract; future real input hashes remain run acceptance"
+    },
+    {
+      "claim_id": "CLAIM-004",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:203",
+      "promise": "建立可恢复SSH队列和资源隔离：WHEN 接入deinlab THEN 先检查现存进程与本任务产物，SSH ServerAliveInterval=30、ServerAliveCountMax=3并复用ControlMaster；WHEN 发车 THEN 使用脱离连接的launcher及不可变样本manifest、PID、日志、退出码和截止时间；WHEN 断连恢复 THEN 先检查进程与完整输出，只补缺失帧且不重复发车，只清理本任务进程；WHEN 并行开发 THEN GPU从2槽起按实测吞吐/总显存增至3—4槽且峰值≤22GiB，CPU先2作业×4线程且核集合不重叠；WHEN 正式G2 THEN GPU与约定CPU资源独占，保留本地只读研究",
+      "production_path_required": false,
+      "covered_by": [
+        "OPS-01"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/OPS-01.md",
+        "evidence/receiver-recovery-runtime.json",
+        "evidence/deadline-cleanup-regression.json"
+      ],
+      "evidence_scope": "Development queue and recovery integration; formal G2 not activated and explicitly unavailable from this queue."
+    },
+    {
+      "claim_id": "CLAIM-005",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:40",
+      "promise": "实现direct40共同容量和历史关闭模式：WHEN 生成帧 THEN 保持fractional truncated P_phys=8及k_leak=2不变；WHEN 使用新壳 THEN receiver direct原子容量40、extension=0，两处OMP与所有outer/final活跃支撑均按唯一原子ID检查K≤40并记录临时预算；WHEN 功能关闭 THEN 默认legacy回放保持历史行为；WHEN 单位、容量或求解非法 THEN 显式失败不静默回退，良态复数求解残差complex128≤1e-10、complex64≤1e-4",
+      "production_path_required": true,
+      "covered_by": [
+        "CORE-01"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/CORE-01.md",
+        "evidence/CORE-01-checks.json"
+      ],
+      "evidence_level": "integration",
+      "scope": "receiver component CPU contracts; CLI/GPU evidence belongs to wiring/run claims"
+    },
+    {
+      "claim_id": "CLAIM-006",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:40",
+      "promise": "实现真正绕过F2P的A0路径：WHEN 选择A0 THEN 不调用F2P、scorer及其专属无用H_hat0计算，不用keep覆盖伪装绕过；WHEN 与共同壳比较 THEN 输入、容量、检测器和译码参数一致；WHEN 插桩核验 THEN 调用计数证明绕过且输出与对应无F2P参考一致",
+      "production_path_required": true,
+      "covered_by": [
+        "CORE-02"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/CORE-02.md",
+        "evidence/CORE-02-checks.json"
+      ],
+      "scope": "CPU bypass component and runner contract; formal GPU path remains pending"
+    },
+    {
+      "claim_id": "CLAIM-007",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:40",
+      "promise": "对齐A2先验域并补齐harvest标签：WHEN 构造A2 THEN 初次与后续OMP均cap40，prior nomination域40与接收域一致；WHEN harvest新prior THEN 400个独立IID QPSK帧保存完整真值标签、合并规则、split和配置hash；WHEN 可部署推理 THEN 只读取固定prior统计，不读取当前帧真值，旧nomination8 prior保持只供旧补格",
+      "production_path_required": true,
+      "covered_by": [
+        "CORE-03"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/CORE-03.md",
+        "evidence/WIRE-01.md",
+        "evidence/a0-a2-wire-runtime.json"
+      ],
+      "evidence_scope": "Actual400 prior and N1024 A0/A2 CLI/CUDA/BP/LDPC wiring; not scientific efficacy or legacy vector replay."
+    },
+    {
+      "claim_id": "CLAIM-008",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:42",
+      "promise": "接通共同容量、A0与prior的真实入口：WHEN 通过runner/CLI创建receiver并进入forward THEN direct40、extension0、A0 bypass、两处OMP/prior域及配置hash传到实际消费者；WHEN 配置缺失或互相冲突 THEN 明确拒绝，不以默认值掩盖；WHEN 查验接线 THEN 保存CLI→构造→forward→最终BP/LDPC的调用链和参数断言",
+      "production_path_required": true,
+      "covered_by": [
+        "WIRE-01"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/CORE-03.md",
+        "evidence/WIRE-01.md",
+        "evidence/a0-a2-wire-runtime.json"
+      ],
+      "evidence_scope": "Actual400 prior and N1024 A0/A2 CLI/CUDA/BP/LDPC wiring; not scientific efficacy or legacy vector replay."
+    },
+    {
+      "claim_id": "CLAIM-009",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:40",
+      "promise": "生成并冻结400帧新域prior：WHEN 契约测试通过且批次预算可用 THEN 在登记的split2 rep40 stream9运行400帧IID QPSK harvest；WHEN 完成 THEN 400个ID/标签无缺失重复、prior域40及输入配置hash可追溯，prior冻结后不得用机制/验证结果重训",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "supported",
+      "evidence": [
+        "evidence/RUN-01.md",
+        "evidence/prior400-runtime-validation.json"
+      ],
+      "evidence_scope": "400 real IID QPSK prior frames and actual direct40 loader; receiver performance untested here."
+    },
+    {
+      "claim_id": "CLAIM-010",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:42",
+      "promise": "验收共同壳真实GPU smoke与历史回放：WHEN 进入新壳真实GPU smoke THEN A0与A2都经过真实检测/LDPC，核验每轮及最终cap、prior消费、复数求解残差、输出与失败日志；WHEN 关闭新增路径 THEN 重放历史固定样本并对比完整错误向量；WHEN geom设备差异仍存在 THEN 保留独立复现边界，不标已复现、不阻塞无关契约；WHEN 完成工程门 THEN 提供针对性测试→静态/编译→GPU smoke新证据",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-02"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "supported",
+      "evidence": [
+        "evidence/RUN-02.md",
+        "evidence/a0-a2-wire-runtime.json",
+        "evidence/legacy-vector-replay-runtime.json",
+        "evidence/cuda-complex-solve-runtime.json"
+      ],
+      "evidence_scope": "GPU engineering smoke and 2-frame frozen historical source replay; geom differences remain outside claim"
+    },
+    {
+      "claim_id": "CLAIM-011",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:155",
+      "promise": "运行A0和A2配对fit并锁定暂定参考：WHEN 共同壳工程门通过 THEN 在同192个fit帧运行A0/A2共384次接收，保存逐帧错误/容量/成本与hash；WHEN 选择开发参考 THEN FER优先、并列选较简单A0，保留8dB锚点；WHEN 基线FER不在[0.05,0.20] THEN 转入基线专属SNR校准，不能按新方法收益选点",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-03"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "supported",
+      "evidence": [
+        "evidence/RUN-03.md",
+        "evidence/fit192-runtime-validation.json"
+      ]
+    },
+    {
+      "claim_id": "CLAIM-012",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:155",
+      "promise": "按触发条件完成基线专属SNR校准：WHEN 8dB基线FER越界 THEN 先验证半dB CLI和种子映射，在7—9dB以0.5dB细化，最多一次扩至6—10dB；按FER最接近0.1且在[0.05,0.20]选点、并列较低SNR，冻结SNR*及±1；WHEN 无合格点或额外费用不可行 THEN HOLD并记录范围，不换新方法有利点；WHEN 未触发 THEN 保留8dB参考并记录not_applicable和execution_performed:false",
+      "production_path_required": true,
+      "covered_by": [
+        "BASE-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "supported",
+      "evidence": [
+        "evidence/BASE-01.md",
+        "evidence/fit192-runtime-validation.json"
+      ],
+      "evidence_scope": "Conditional review: selected baseline in target range; no SNR calibration executed",
+      "execution_performed": false
+    },
+    {
+      "claim_id": "CLAIM-013",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:50",
+      "promise": "实现五类支撑账本与物理匹配口径：WHEN 记录支撑 THEN 分列P_phys、合并前K_emit、按复系数合并并阈值化的K_true、K_prop/raw/pool/selected/protected/pruned/final及临时容量；WHEN 记录每outer和末次BP THEN 从实际阈值图测E、行列度、阈值舍弃误差，不从K推断；WHEN 报召回 THEN 数据前冻结一对一路径匹配容差、碰撞和不可辨识处置，不把非正交系数能量称物理能量，不混用P/P_eff",
+      "production_path_required": true,
+      "covered_by": [
+        "REP-01"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/REP-01.md",
+        "evidence/repwire-runtime-validation.json"
+      ],
+      "evidence_scope": "Actual Dcal engineering integration; ordinary primary exact, soft exact only isolated deterministic reference; no population FER claim"
+    },
+    {
+      "claim_id": "CLAIM-014",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:58",
+      "promise": "实现表示误差与阶段损失分析器：WHEN 给定固定最终支撑S THEN 用生成器真实唯一原子重建H_true并求E_repr=min_g||H_true-ΣgG||F²/||H_true||F²，独立密集LS核对；WHEN 分类错误 THEN 区分未入池、入池未选、被剪、增益错和实际图阈值损失，并核验复系数抵消；WHEN 解释归因 THEN 无干预只称关联，保留不可辨识和秩亏案例",
+      "production_path_required": false,
+      "covered_by": [
+        "REP-02"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/REP-02.md",
+        "evidence/repwire-runtime-validation.json"
+      ],
+      "evidence_scope": "Actual Dcal engineering integration; ordinary primary exact, soft exact only isolated deterministic reference; no population FER claim"
+    },
+    {
+      "claim_id": "CLAIM-015",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:54",
+      "promise": "接通支撑账本和最终BP图观察器：WHEN 真实runner进入所有outer和最终BP THEN 写出REP账本、实际图阈值、误差与frame/hash；WHEN 开关观察器 THEN 接收输出逐元素一致；WHEN 执行真实新壳小批smoke THEN 无漏轮、末次BP有记录且所有final K≤40，观察器费用单列",
+      "production_path_required": true,
+      "covered_by": [
+        "WIRE-02"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "supported",
+      "evidence": [
+        "evidence/WIRE-02.md",
+        "evidence/repwire-runtime-validation.json"
+      ],
+      "evidence_scope": "Actual Dcal engineering integration; ordinary primary exact, soft exact only isolated deterministic reference; no population FER claim"
+    },
+    {
+      "claim_id": "CLAIM-016",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:64",
+      "promise": "运行固定新参考支撑的192帧增益桥接：WHEN 新参考及工作点已冻结 THEN 在已使用192个fit帧固定原最终S、观测和decoder，只用H_true投影替换增益/H输入，运行192次并与原输出配对；WHEN 记录结果 THEN 保存E_repr、实际增益误差、三流FER与win/harm区间及成本，禁止oracle改变支撑或解码信息",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-04"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-017",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:66",
+      "promise": "裁决表示与增益瓶颈：WHEN 固定支撑oracle改善FER THEN 只支持该支撑下存在增益空间；WHEN E_repr高 THEN 报表示缺口，E_repr低但FER差则保留检测器可能性；WHEN 效应不足 THEN 给配对区间及INCONCLUSIVE，不把oracle称FER最优界；WHEN 汇总J5/D1 THEN 给hash、有效/失败分母、成本及未覆盖边界",
+      "production_path_required": false,
+      "covered_by": [
+        "REP-03"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-018",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:68",
+      "promise": "实现有界观测驱动位置参考：WHEN 构造三臂 THEN 共同已知量为量化delay、P8和rounded中心，标记部分oracle；用相同截断基、SVD和pilot LS比较rounded、观测驱动局部、true位置；WHEN 局部搜索 THEN 仅观测目标，两轮步长0.25和0.125、每坐标±step及当前点，限制中心±0.5与物理域，每帧最多1+2×8×2=33次目标拟合且每次重拟合gain；WHEN 优化失败或秩亏 THEN 保留clipping/rank/failure，非收敛不报成功，优化不可读真fractional Doppler",
+      "production_path_required": true,
+      "covered_by": [
+        "POS-01"
+      ],
+      "evidence_required": "integration",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-019",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:70",
+      "promise": "接通位置三臂与隔离真值接口：WHEN 真实runner选择位置臂 THEN 三臂只更换登记的位置来源并共用接收链路，观测优化函数不持有真实偏移；WHEN 测试 THEN 干净可辨识toy恢复、边界/秩亏/拟合预算失败可追踪；WHEN 真GPU smoke THEN 三臂进入最终BP/LDPC并保存位置、拟合次数、hash及成本",
+      "production_path_required": true,
+      "covered_by": [
+        "WIRE-03"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-020",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:68",
+      "promise": "运行24帧位置三臂并裁决离网误差：WHEN 位置接线验收且预算可用 THEN Ddev24×3=72次接收，另计局部臂最多33次目标拟合/帧；WHEN 解释结果 THEN 区分局部可实现改善、只有真位置改善、残差改善而FER无益、样本不足，保留全部秩亏/失败分母；WHEN 汇总D5 THEN 明确部分oracle初始化，不声称完整非oracle离网或完整连续信道成立",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-05"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-021",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:78",
+      "promise": "冻结共同候选快照和完整单增动作族：WHEN 创建Ddev24诊断快照 THEN 固定initial S、direct40、M96有序池、scorer/prior和状态hash；WHEN 执行动作 THEN 只允许一次单增，完整经过实际保护/剪枝/去重/cap/refit/BP/LDPC，并含合法keep；WHEN 定义regret THEN 对照同一单动作族，不与原两轮多增A2混算",
+      "production_path_required": true,
+      "covered_by": [
+        "POOL-01"
+      ],
+      "evidence_required": "integration",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-022",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:80",
+      "promise": "接通单动作回放、同M注入和隔离输出：WHEN 注入池外j* THEN 取合并真系数绝对值最大列、同分按ID，替换原scorer最低列且保留96个唯一列；仅计算j*分数，既有列分数/顺序保持；WHEN 无遗漏真列 THEN 标不适用并复用共同keep，保留全批及eligible子集分母；WHEN 回放 THEN keep/original argmax/new-pool argmax/force j*走完整真实接收路径，冻结快照不可修改且逐动作输出隔离；WHEN smoke THEN 核验保护/删除轨迹、最终支撑、ID及cap",
+      "production_path_required": true,
+      "covered_by": [
+        "WIRE-04"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-023",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:84",
+      "promise": "先运行候选诊断共同keep与argmax：WHEN 快照冻结且预算可用 THEN 24帧各运行keep与原argmax，共48次完整接收；WHEN 输出齐全 THEN 可立即解锁覆盖注入和分析，不等剩余枚举；WHEN 复用 THEN 只允许状态/hash/动作完全相同的原始记录",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-06"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-024",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:80",
+      "promise": "运行同M替换与强制真列两个干预：WHEN 已有共同keep/argmax THEN Ddev24分别运行new-pool argmax和force j*至多48次，M仍96；WHEN 无遗漏列 THEN 复用keep并明确未执行干预，记录有效次数及全24帧分母；WHEN 完成 THEN 保存现有列分数恒定断言、候选替换ID、终态错误与成本",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-07"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-025",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:82",
+      "promise": "独立裁决候选覆盖与可利用性：WHEN 新池argmax改善 THEN 支持该同M干预的覆盖瓶颈；WHEN 仅force j*改善 THEN 指向排序或利用缺口；WHEN 两者均无益 THEN 不排除其他候选/组合/后续轮次；WHEN 报J1/D2 THEN 区分当前池截断与后续可再生成信息，给全批/eligible配对区间、hash和成本，结论不等待全池枚举",
+      "production_path_required": false,
+      "covered_by": [
+        "POOL-02"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-026",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:84",
+      "promise": "按帧分片完成剩余95列反事实枚举：WHEN 剩余S2预算足够 THEN 对每帧除已跑argmax外95列运行完整单增，共24×95=2280次；WHEN 合并 THEN 加RUN-06形成24×(96+keep)=2328矩阵，连同注入上界为2376且不重复计数；WHEN 预算或失败导致缺项 THEN 列出缺失帧/候选，保留待验或不足，禁止称全池最优；WHEN 某分片慢 THEN 只阻塞其排序结论，不阻塞增益/位置/门控/反馈",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-08"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-027",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:86",
+      "promise": "裁决有限池排序空间及进一步投入：WHEN 24×97矩阵完整 THEN 按FER、信息比特错误数、候选ID的固定次序给经验最佳动作及原argmax regret，保留保护/删除轨迹和最终状态；WHEN 矩阵不完整 THEN 仅报已观察集合与INCONCLUSIVE；WHEN 决策复杂scorer THEN 需可利用空间和可实现线索，不直接启动NN/全字典搜索，单动作阴性不能阻断完整动作门控",
+      "production_path_required": false,
+      "covered_by": [
+        "POOL-03"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-028",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:92",
+      "promise": "核验白化投影与独立GLS下降恒等式：WHEN 冻结y/Phi/SPD C/S THEN C=LL^H、W=L^-1、A=W Phi、z=Wy，r_w=(I-P_S)z、v_i=(I-P_S)W phi_i，D_i=|v_i^H r_w|²/(v_i^H v_i)；WHEN 对比独立SVD逐列重拟合J(S)-J(S+i) THEN 良态complex128相对≤1e-8/归一化近零绝对≤1e-10，complex64≤1e-3/1e-5，能量max(1,||Wy||²)；WHEN 建立测试 THEN 覆盖空S、白C、复缩放、重复/近共线、非法C和白C未投影仍排反反例，不用被测公式自证",
+      "production_path_required": false,
+      "covered_by": [
+        "MATH-01"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/MATH-01.md"
+      ],
+      "evidence_scope": "Frozen-model CPU projection identity and independent SVD tests; not full action or receiver results."
+    },
+    {
+      "claim_id": "CLAIM-029",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:101",
+      "promise": "实现冻结prior的投影统计对照：WHEN 比较旧/新scorer THEN pi、sh2与装配函数固定，仅由原T/q换为D/q_perp；WHEN 记录分数 THEN 普通LS残差、原列白化分母和完整含prior logLambda分别记录，不把logLambda等同D；WHEN 增加无prior控制 THEN 直接按经典OLS D排序且单独标识，不归因为仅投影变化，不重训prior",
+      "production_path_required": true,
+      "covered_by": [
+        "SCORE-01"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/SCORE-01.md"
+      ],
+      "evidence_scope": "Real scoring-component integration; full receiver WIRE05 remains separate"
+    },
+    {
+      "claim_id": "CLAIM-030",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:103",
+      "promise": "实现完整事务门控和一致GLS提交：WHEN 提案经过保护、剪枝、扩展/去重、容量检查和最终GLS THEN 比较F=J+lambda|S|且实际提交同一GLS最优gain；WHEN 首版决策 THEN lambda=tau=0，delta>tau+eta*max(1,|F前|,|F后|,||Wy||²)才提交，eta为complex128 1e-10/complex64 1e-5；WHEN 拒绝/keep THEN 完整恢复事务前共同拟合状态，不残留临时gain/支撑；WHEN 单提案预算耗尽 THEN 仅报预算耗尽，不断言其余候选无效",
+      "production_path_required": true,
+      "covered_by": [
+        "GATE-01"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/GATE-01.md"
+      ],
+      "evidence_scope": "Complete transaction component integration; receiver wiring remains WIRE05"
+    },
+    {
+      "claim_id": "CLAIM-031",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:107",
+      "promise": "验收秩策略、保护反例与拒绝语义：WHEN 检验秩 THEN 对白化单位范数列使用eta_rank=10*max(N,K+1)*eps(dtype)，提案/最终系统不可靠则拒绝并报告，当前模型无效则ENGINEERING HOLD，不静默删列或jitter；WHEN K=1且y=e1+epsilon e2、0<epsilon<1，保护e2剪掉e1 THEN 必须拒绝变坏动作；WHEN 遇到keep、drop/replace、空池、同分、重复、裁剪、数值临界或失败 THEN 不同日志原因可核验，门控不冒称CFAR/防假新增/全局收敛或lambda已识别",
+      "production_path_required": false,
+      "covered_by": [
+        "GATE-02"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/GATE-02.md"
+      ],
+      "evidence_scope": "Complete transaction component integration; receiver wiring remains WIRE05"
+    },
+    {
+      "claim_id": "CLAIM-032",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:111",
+      "promise": "接通2×2机制臂及最终GLS消费者：WHEN 运行R00/R01/R10/R11 THEN 分别为旧统计topk、旧统计Fgate、投影统计topk、投影统计Fgate，全部共享最终GLS及保护且R00明确不是历史A2；WHEN 消费候选表 THEN 同帧共同参考表、每帧一个完整事务提案且F2P≤2轮，过滤active ID但不补池并记录有效大小；WHEN 增加控制 THEN R11 protect0、至多1臂无prior OLS并合并完全等价臂，加真正A0/A2至多8臂；WHEN 真GPU smoke THEN 最终BP/LDPC使用验收GLS gain，keep状态恢复可核验",
+      "production_path_required": true,
+      "covered_by": [
+        "WIRE-05"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "supported",
+      "evidence": [
+        "evidence/WIRE-05.md",
+        "evidence/wiremechanism-runtime-validation.json"
+      ],
+      "evidence_scope": "Actual one-frame eight-arm GPU BP/LDPC integration; no FER benefit or soft posterior bitwise identity claim"
+    },
+    {
+      "claim_id": "CLAIM-033",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:111",
+      "promise": "运行48帧评分门控因子机制包：WHEN 机制接线与工作点就绪 THEN Ddev48×至多8臂加48共同keep，上界432次接收；WHEN 运行 THEN 保存共同候选表、最终GLS目标/gain、拒绝原因、逐帧FER及成本，真实A0/A2独立标识；WHEN V路线阴性或枚举未完 THEN 不阻塞本批自身依赖已满足的执行",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-09"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "supported",
+      "evidence": [
+        "evidence/RUN-09.md",
+        "evidence/mechanism48-runtime-validation.json"
+      ],
+      "evidence_scope": "48 preregistered development frames x9 actual complete receivers, no confirmatory claim"
+    },
+    {
+      "claim_id": "CLAIM-034",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:124",
+      "promise": "分别裁决统计一致性、动作安全和FER空间：WHEN 工程契约通过 THEN 只判数值/提交一致性通过；WHEN F改善但FER无益 THEN 只支持局部一致性，不宣称无害或可部署收益；WHEN 评分/门控/protection对照显示净FER空间且完整成本可行 THEN 登记自身候选资格；WHEN 阴性/样本不足 THEN 各自给J2/J3/D4范围与区间，不借V结果代签; WHEN 定义有害动作 THEN 同帧/同下游随机流完整动作对keep出现更多bit错误或正确帧变错误帧，报告有益/有害/无差异及净收益，不以NMSE代替FER动作标签",
+      "production_path_required": false,
+      "covered_by": [
+        "MECH-01"
+      ],
+      "evidence_required": "static",
+      "status": "supported",
+      "additional_source_refs": [
+        ".trellis/tasks/09-05-budgeted-support-repair/design.md:150"
+      ],
+      "evidence": [
+        "evidence/MECH-01.md"
+      ],
+      "evidence_scope": "Separate bounded adjudication; engineering passed, incremental benefit inconclusive, current cost infeasible; no candidate activation"
+    },
+    {
+      "claim_id": "CLAIM-035",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:130",
+      "promise": "建立反馈入口图与逐轮冻结契约：WHEN 追踪receiver THEN 分清BP Gaussian var、工作方差、有限星座v、scorer初始H0与DA-LS C；WHEN 接入V THEN 直接入口仅DA-LS，每次内层C冻结、每outer重算，BP变化经H/sigma间接发生；WHEN 审核LDPC THEN 记录当前terminal-only，无decoder外信息回注，温度与噪声反馈分开",
+      "production_path_required": false,
+      "covered_by": [
+        "FB-01"
+      ],
+      "evidence_required": "static",
+      "status": "supported",
+      "evidence": [
+        "evidence/FB-01.md"
+      ],
+      "evidence_scope": "Static consumer and feedback contract only; runtime and scientific tests remain pending."
+    },
+    {
+      "claim_id": "CLAIM-036",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:132",
+      "promise": "实现冻结mean轨迹的同状态诊断：WHEN 记录mean轨迹 THEN 冻结H、mu、sigma与旧gain，离线比较unweighted、uniform v0、estimated v目标，必要H0结构参考单列；WHEN 开关观察器 THEN 接收输出一致；WHEN 分析 THEN 只报告共同状态目标/权重差异，不虚构完整闭环FER，离线矩费用另计",
+      "production_path_required": true,
+      "covered_by": [
+        "FB-02"
+      ],
+      "evidence_required": "integration",
+      "status": "supported",
+      "evidence": [
+        "evidence/FB-02.md",
+        "evidence/feedbackaudit-runtime-validation.json"
+      ],
+      "evidence_scope": "Actual calibration GPU integration; ordinary primary outputs exact, soft exact only isolated deterministic reference; production variability explicit; no FER claim"
+    },
+    {
+      "claim_id": "CLAIM-037",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:134",
+      "promise": "实现uniform/dynamic单差异反馈与可靠性指标：WHEN 构造四臂 THEN meanT1、F_uniform当前H diag(v0)H^H+sigma²I、F_dynamic仅v策略不同、O_data只在DA-LS mean使用真实数据；WHEN 比较 THEN 不同时冻结H0或改温度，不让oracle进入decoder，不加入score×V全矩阵或重启J_soft；WHEN 记录可靠性 THEN 预固定v/(1-rho)分箱、NLL/Brier、max p≥0.9错误率及实际误差/FER，每组至多3帧案例；WHEN 核验单位 THEN C不重复乘(1-rho)，v/p一致且噪声反馈与温度分开",
+      "production_path_required": true,
+      "covered_by": [
+        "FB-03"
+      ],
+      "evidence_required": "integration",
+      "status": "pending",
+      "evidence_scope": "Actual calibration GPU integration; ordinary primary outputs exact, soft exact only isolated deterministic reference; production variability explicit; no FER claim",
+      "partial_evidence": [
+        "evidence/FB-03.md",
+        "evidence/feedbackaudit-runtime-validation.json"
+      ],
+      "status_correction": "Reopened after independent review: high-confidence wrong subgroup variance and actual error sums were not recorded; full-bin sums do not establish them. Extra replay awaits user decision."
+    },
+    {
+      "claim_id": "CLAIM-038",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:130",
+      "promise": "接通反馈四臂、观察器与隔离oracle入口：WHEN CLI/runner进入forward THEN 四臂配置确实改变DA-LS消费者，固定每内层C、逐outer刷新且LDPC仍末端；WHEN 观察器开关 THEN 输出相同并能保存共同轨迹；WHEN 真实GPU smoke THEN 验证uniform/dynamic只差v策略、当前H消费与oracle隔离，记录闭环H/sigma变化，不冒称纯v单因素闭环因果",
+      "production_path_required": true,
+      "covered_by": [
+        "WIRE-06"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "supported",
+      "evidence": [
+        "evidence/WIRE-06.md",
+        "evidence/feedbackaudit-runtime-validation.json"
+      ],
+      "evidence_scope": "Actual calibration GPU integration; ordinary primary outputs exact, soft exact only isolated deterministic reference; production variability explicit; no FER claim"
+    },
+    {
+      "claim_id": "CLAIM-039",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:128",
+      "promise": "核对旧固定壳补格的复用资格：WHEN 准备旧V(T1) THEN 固定K_prop8、cap40、旧nomination8 prior、原192帧与原温度定义；WHEN 核对已有meanT1/meanT2/VT2 THEN 逐项比较输入/config/hash、容量与输出范围，缺证据先补明确缺口；WHEN 接通T1 THEN 真实小批smoke证明只补缺格，不等待新direct40 prior，也不把旧证据并入新壳",
+      "production_path_required": true,
+      "covered_by": [
+        "FB-04"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "supported",
+      "evidence": [
+        "evidence/FB-04.md"
+      ],
+      "evidence_scope": "Real VT1 receiver smoke"
+    },
+    {
+      "claim_id": "CLAIM-040",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:128",
+      "promise": "运行旧固定壳V(T1)的192帧缺格：WHEN 旧源兼容与预算成立 THEN 运行原192帧V(T1)，与既有三格构成温度×V完整2×2；WHEN 分析 THEN 配对三流、失败分母、温度主效应/交互和成本可追溯，结论只限旧固定壳；WHEN 不能兼容 THEN ENGINEERING_BLOCKED并列差异，不冒充新壳证据",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-10"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "supported",
+      "evidence": [
+        "evidence/RUN-10.md",
+        "evidence/vt1192-runtime-validation.json"
+      ],
+      "evidence_scope": "Completed old-shell attribution with negative within-scope outcome; no new-shell claim"
+    },
+    {
+      "claim_id": "CLAIM-041",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:134",
+      "promise": "运行新壳反馈四臂和同状态诊断：WHEN 新壳反馈接线与工作点就绪 THEN Ddev48×4=192次真实接收，导出共同mean轨迹完成unweighted/uniform/dynamic离线诊断；WHEN 完成 THEN 保存可靠性分箱、NLL/Brier、高置信错误及后续FER配对、C单位和成本，冻结分箱不得事后择优",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-11"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-042",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:147",
+      "promise": "裁决动态方差必要性与可实现性缺口：WHEN dynamic约等于uniform THEN 不声称动态V必要；WHEN 只有O_data有效 THEN 判可实现反馈缺口，不宣称可部署改进；WHEN 校准改善但FER无益 THEN 只支持校准，closed-loop差异结合共同状态证据解释；WHEN 评估候选 THEN 依据新壳自身证据/成本，旧温度补格独立结案且不能成为B3全局门，给J4/D6限定结论与区间",
+      "production_path_required": false,
+      "covered_by": [
+        "FB-05"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-043",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:74",
+      "promise": "结清非oracle离网和译码外信息范围：WHEN 汇总位置和反馈证据 THEN 明确当前未实现完整非oracle分组/P/delay初始化及SISO译码外信息，连续Doppler/分数delay模型不属默认生成器；WHEN 科研结论确需增强且有独立证据和预算 THEN 最多选择离网接口或译码反馈其中一条，先单独冻结契约/预算/新验证流再扩CSV；WHEN 选择译码增强 THEN 契约必须覆盖SISO extrinsic、去重先验/自反馈、固定译码预算及单入口对照；WHEN 不触发或资源不足 THEN 明确不适用/范围不足，不自动实现、不用O_data代签",
+      "production_path_required": false,
+      "covered_by": [
+        "SCOPE-01"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-044",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:153",
+      "promise": "按路线自身证据登记至多两个候选：WHEN 任一可实现路线自身工程/开发证据与费用可行 THEN 最多登记两个候选进入fit，只等待该候选必需证据；WHEN 另一研究线或全池枚举未完 THEN 不构成全局门，记录本次候选截止点和未完成问题；WHEN 选定候选 THEN 冻结ID、必要证据清单、复杂度破同分规则和预算，不使用validation选干预；WHEN 暂无合格路线 THEN 等待其他未决独立路线，全部裁决后仍无候选则记录no_candidate及execution_performed:false",
+      "production_path_required": false,
+      "covered_by": [
+        "SEL-01"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-045",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:156",
+      "promise": "运行至多两个候选fit并冻结唯一验证臂：WHEN 候选登记有效 THEN 每候选192个fit帧，上界384次；仅状态/hash/动作完全一致才复用；WHEN 排序 THEN FER优先、按预登记复杂度/ID破同分，唯一候选和配置在validation生成前冻结；WHEN 无候选 THEN 根据已完成路线裁决记录不适用且execution_performed:false，不伪造fit结果",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-12"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-046",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:158",
+      "promise": "运行冻结候选与两基线的独立validation：WHEN 唯一候选/参考/配置已冻结且预算可行 THEN 两基线加候选各384新帧，共1152次，验证输入与fit无重叠；WHEN 未获候选资格 THEN 记录不适用且不生成validation；WHEN 执行 THEN 不调参、不追加样本直到翻正，不让未选路线利用本validation开发",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-13"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-047",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:159",
+      "promise": "裁决开发GO、NO-GO或HOLD并冻结后续分支：WHEN 另一基线合并FER更好且至少两流更好 THEN 参考选择不稳为HOLD，不换搭档复用验证；WHEN 合并RR≤0.90、至少两流净改善、余流不退化且工程/参考资格成立 THEN 开发GO；WHEN 总体变差且至少两流变差 THEN NO-GO，其余或低错误/工作点失效为HOLD；WHEN 未GO THEN 不在同数据调参或追加，后续候选必须登记新的独立验证流和费用；WHEN 无候选未运行 THEN 仅给分支不适用，不能给虚构GO，开发门不等同G1/G3",
+      "production_path_required": false,
+      "covered_by": [
+        "SEL-02"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-048",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:161",
+      "promise": "核实三族强基线与近邻复现范围：WHEN 准备正式比较 THEN 以父设计A/B/C最多三族登记可实现配置、资格、复现证据与同预算能力；C近邻Luo2026仅以真实可复现范围呈现，不把弱/未复现方法列为强基线；WHEN geom设备差异存在 THEN 独立回放定位并保留复现范围，不阻塞无关开发；WHEN 缺近邻资格 THEN 显式列缺口并限制结论，不能静默省略; WHEN 登记具体家族 THEN A含classical/geom/achievable，B含顺序保守加入及经典OLS/共同目标门控，C含Luo近邻；WHEN C原方法为多天线/MMV THEN 原复现与单天线适配分开命名，只在原机制及统一观测/功率/检测器成立后进入正式比较，否则只允许内部范围结论且不声称SOTA",
+      "production_path_required": false,
+      "covered_by": [
+        "BASE-02"
+      ],
+      "evidence_required": "static",
+      "status": "pending",
+      "additional_source_refs": [
+        ".trellis/tasks/09-05-budgeted-support-repair/design.md:100"
+      ]
+    },
+    {
+      "claim_id": "CLAIM-049",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:190",
+      "promise": "处理S1追加计时与账本口径的明确接受门：WHEN 正式计时需要新增S1最多1小时或改记账口径 THEN 查验用户明确接受记录，未接受保持该行待办并标blocked，不因本CSV生成自动通过；WHEN 获接受 THEN 登记范围/时间/来源且同时记GPU占用区间并集、单机忙碌区间并集、连续历时、CPU核小时，保留旧缺账；WHEN 尚未走到正式计时或路线不继续 THEN 记录门未动用，不能称预算已追加",
+      "production_path_required": false,
+      "covered_by": [
+        "TIME-01"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-050",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:163",
+      "promise": "接通完整CPU/GPU链路计时与旧A2锚点：WHEN 计时边界配置 THEN batch1、固定CPU资源、GPU独占，y device-ready到decoded，显式同步并计入OMP、所有求解/候选/refit/BP/额外末次BP/LLR/LDPC/内部传输；WHEN 建立共同预算 THEN 均值与P95上限均为原A2锚点×1.10，不换较慢新参考抬预算，保留锚点来源/硬件/范围；WHEN 短smoke THEN 计时事件完整、异步等待入账、峰值测量覆盖全程; WHEN 记录边界 THEN 排除信道模拟和落盘，部署传输及首次初始化另报，超时帧保留且不得静默转CPU",
+      "production_path_required": true,
+      "covered_by": [
+        "TIME-02"
+      ],
+      "evidence_required": "integration",
+      "status": "pending",
+      "additional_source_refs": [
+        ".trellis/tasks/09-05-budgeted-support-repair/design.md:143"
+      ]
+    },
+    {
+      "claim_id": "CLAIM-051",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:163",
+      "promise": "运行正式资源计时并核验G2：WHEN 计时预算明确接受且方法和基线冻结 THEN 每臂≥1000计时帧、另≥10预热、≥10交错块，GPU和约定CPU独占；WHEN 计算G2 THEN 均值/P95区间上端均≤原A2锚点×1.10、峰值≤22GiB才通过；WHEN 锚点/费用不可行或超限 THEN 明确HOLD/失败，不用迭代数相同替代时间相同，费用单独计入已授权阶段; WHEN 判断计时区间 THEN 用交错块重采样，上端≤预算通过、下端>预算失败、跨界不足，各臂调参资源相同并报告原始耗时",
+      "production_path_required": true,
+      "covered_by": [
+        "TIME-03"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "additional_source_refs": [
+        ".trellis/tasks/09-05-budgeted-support-repair/design.md:141"
+      ]
+    },
+    {
+      "claim_id": "CLAIM-052",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:163",
+      "promise": "核验实际分析器覆盖与护栏功效：WHEN 验证统计分析器 THEN 使用将用于正式结果的同一实现，独立信道帧/共用信道块为重采样单位、三随机流分层、跨SNR共用簇联合抽样，不能把比特或3种子当样本量；WHEN 选择样本量 THEN 每n≥5000次MC，报告MC区间，R=0.80场景功效95%下界≥90%，同时满足9护栏同时覆盖需求；WHEN 成本不足 THEN 报可达到MDE和INCONCLUSIVE，不下调G1/G3门槛; WHEN 构造主RR区间 THEN 使用配对四格multinomial约束优化反演的profile-likelihood，检验零效应/门槛附近/小计数覆盖；WHEN 覆盖不足 THEN 在预登记前改保守有覆盖保证的方法并重算功效，不能看Dtest后换分析器；WHEN 存在相关信道块 THEN 主区间适配聚类并重验实际覆盖，bootstrap零错[0,0]不作零风险证据",
+      "production_path_required": false,
+      "covered_by": [
+        "STAT-01"
+      ],
+      "evidence_required": "integration",
+      "status": "pending",
+      "additional_source_refs": [
+        ".trellis/tasks/09-05-budgeted-support-repair/design.md:135"
+      ]
+    },
+    {
+      "claim_id": "CLAIM-053",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:161",
+      "promise": "冻结正式参考、样本量与分析预登记：WHEN 开发GO、基线资格、G2及功效均成立且24h内费用可行 THEN 冻结最多3族基线、同预算最强ref按FER/P95选择、唯一方法、SNR*及±1、固定Dtest样本量/随机流/分析器/hash/多重比较；WHEN 正式参考不同于开发参考 THEN 先登记独立校准/验证及追加成本，不复用旧validation改搭档；WHEN 任一前提不足 THEN 不生成/访问Dtest，明确INCONCLUSIVE或ENGINEERING_BLOCKED；WHEN 正式阶段不激活 THEN 留证据化不适用而非伪通过",
+      "production_path_required": false,
+      "covered_by": [
+        "FORM-01"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-054",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:163",
+      "promise": "运行固定样本正式主比较：WHEN 正式预登记全部成立 THEN 按固定manifest运行唯一方法及冻结基线的完整接收链路，保留输入/config/hash、逐帧错误和成本；WHEN 运行中出现断连 THEN 仅按清单补缺，不窥视效果提前停止或追加；WHEN 正式门未开或预算不足 THEN 不启动Dtest并记录原因，不能用开发集冒称正式比较",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-14"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-055",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:165",
+      "promise": "运行九项固定容量稳健性护栏：WHEN 正式门打开 THEN 运行单路径整数、P8整数、正确支撑起点、rho0.25/0.75、SNR*±1、P_phys6/10共9项，所有receiver cap固定且按预登记同时区间样本量；WHEN 部分条件失败 THEN 保留条件和分母、不删失败项；WHEN 预算无法覆盖 THEN 报未运行条件/MDE/INCONCLUSIVE，不用192帧零harm代签无害",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-15"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-056",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:163",
+      "promise": "独立裁决G1/G2/G3及允许科研结论：WHEN 正式结果齐全 THEN G1为FER比双侧95%区间上端<0.90；G2须TIME-03通过；G3为所有必需护栏绝对FER损害同时95%上界<0.01；WHEN 样本或费用不足 THEN 报实际MDE及INCONCLUSIVE，192帧零harm单项约1.55%/9项约2.67%上界不能称无害；WHEN 主张边界 THEN 不由开发GO、低NLL、oracle或少量零错误替代正式证据，不自动修改论文；WHEN 未激活正式分支 THEN 记录未执行及原因，不产生虚假G门通过; WHEN 报主结果 THEN 同时给FER绝对差、配对四格表、三流与合并结果；WHEN U(R)<1但未到0.90 THEN 仅称可检出改善而未达到价值门槛，区间跨0.90为不足、L(R)≥0.90排除最小有价值收益，L(R)>1另记退化，次指标不能替代C1",
+      "production_path_required": false,
+      "covered_by": [
+        "FORM-02"
+      ],
+      "evidence_required": "static",
+      "status": "pending",
+      "additional_source_refs": [
+        ".trellis/tasks/09-05-budgeted-support-repair/design.md:127"
+      ]
+    },
+    {
+      "claim_id": "CLAIM-057",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:209",
+      "promise": "逐项结清五接口和六诊断的证据：WHEN 整合J1—J5和D1—D6 THEN 每项提供当前结论、证据scope、配置/输入hash、结果及区间、成本、停止原因、未覆盖边界；WHEN 给科学终态 THEN 仅SUPPORTED_WITHIN_SCOPE、NEGATIVE_WITHIN_SCOPE、INCONCLUSIVE、ENGINEERING_BLOCKED；WHEN 某路线提前停止 THEN 其他问题仍逐项给裁决或明确不足，计划存在不算科学验收；WHEN 比較资源 THEN 机制表固定输入/检测器/容量并单列oracle/枚举额外成本，可部署主表另验共同真实时间预算",
+      "production_path_required": false,
+      "covered_by": [
+        "REPORT-01"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-058",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:211",
+      "promise": "核对科研承诺账本与结论外推边界：WHEN 回填claims ledger THEN 每条承诺链接真实证据和状态，缺失保留pending/gap并列后续阻塞；WHEN 检查结论 THEN 逐对禁止旧壳→新壳、单动作→全组合、GLS目标→OLS提交、低NLL→低FER、oracle→部署、同迭代→同预算、真位置→观测优化、检测反馈→译码外信息、截断→完整连续模型的无证外推；WHEN 生成交接 THEN 方法/证据/成本/范围可追溯，学术结论变更及论文修改仍独立由用户裁决",
+      "production_path_required": false,
+      "covered_by": [
+        "REPORT-02"
+      ],
+      "evidence_required": "static",
+      "status": "pending"
+    },
+    {
+      "claim_id": "CLAIM-059",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:15",
+      "promise": "J1：候选池是否截断可恢复信息，并区分未入池与池内排错；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "POOL-02",
+        "POOL-03",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "J1"
+    },
+    {
+      "claim_id": "CLAIM-060",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:16",
+      "promise": "J2：残差、原子、协方差与实际提交gain处于一致局部统计模型；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "MATH-01",
+        "SCORE-01",
+        "GATE-01",
+        "WIRE-05",
+        "MECH-01",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "J2",
+      "evidence_scope": "Frozen-model CPU projection identity and independent SVD tests; not full action or receiver results.",
+      "partial_evidence": [
+        "evidence/MATH-01.md"
+      ],
+      "status_correction": "Partial component evidence cannot support the full cross-cutting real_e2e promise; outstanding covered_by rows must close first."
+    },
+    {
+      "claim_id": "CLAIM-061",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:17",
+      "promise": "J3：完整保护剪枝动作允许keep并能拒绝修坏状态；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "GATE-01",
+        "GATE-02",
+        "WIRE-05",
+        "MECH-01",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "J3"
+    },
+    {
+      "claim_id": "CLAIM-062",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:18",
+      "promise": "J4：剩余数据误差随可靠性改变并明确实际消费者和译码边界；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "FB-01",
+        "WIRE-06",
+        "FB-05",
+        "SCOPE-01",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "J4",
+      "evidence_scope": "Static consumer and feedback contract only; runtime and scientific tests remain pending.",
+      "partial_evidence": [
+        "evidence/FB-01.md"
+      ],
+      "status_correction": "Partial component evidence cannot support the full cross-cutting real_e2e promise; outstanding covered_by rows must close first."
+    },
+    {
+      "claim_id": "CLAIM-063",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:19",
+      "promise": "J5：物理路径、网格原子、泄漏分量及图复杂度使用不同预算；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "REP-01",
+        "REP-02",
+        "WIRE-02",
+        "REP-03",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "J5"
+    },
+    {
+      "claim_id": "CLAIM-064",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:25",
+      "promise": "D1：固定当前支撑的增益参考隔离增益瓶颈；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-04",
+        "REP-03",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "D1"
+    },
+    {
+      "claim_id": "CLAIM-065",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:26",
+      "promise": "D2：同M和冻结原评分的覆盖干预隔离初筛缺口；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "WIRE-04",
+        "RUN-07",
+        "POOL-02",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "D2"
+    },
+    {
+      "claim_id": "CLAIM-066",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:27",
+      "promise": "D3：固定池完整单动作经验排序评估有限局部提升空间；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "RUN-08",
+        "POOL-03",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "D3"
+    },
+    {
+      "claim_id": "CLAIM-067",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:28",
+      "promise": "D4：关闭强制加入与保护并允许不交换的完整动作对照；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "WIRE-05",
+        "RUN-09",
+        "MECH-01",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "D4"
+    },
+    {
+      "claim_id": "CLAIM-068",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:29",
+      "promise": "D5：观测驱动连续位置精修与真位置参考区分网格失配和oracle空间；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "POS-01",
+        "WIRE-03",
+        "RUN-05",
+        "SCOPE-01",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "D5"
+    },
+    {
+      "claim_id": "CLAIM-069",
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:30",
+      "promise": "D6：用均匀/动态/真数据及共同状态参考判断反馈自信与误差传播；按REPORT-01逐项证据格式给限定结论。",
+      "production_path_required": true,
+      "covered_by": [
+        "FB-02",
+        "FB-03",
+        "WIRE-06",
+        "RUN-11",
+        "FB-05",
+        "SCOPE-01",
+        "REPORT-01"
+      ],
+      "evidence_required": "real_e2e",
+      "status": "pending",
+      "interface": "D6"
+    }
+  ],
+  "out_of_scope": [
+    {
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:74",
+      "scope": "完整非oracle离网分组/P/delay初始化及完整连续Doppler/分数delay生成器默认实现",
+      "disposition": "SCOPE-01仅作条件决策；最多一条增强需另行明确契约/预算并扩CSV"
+    },
+    {
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:149",
+      "scope": "LDPC SISO extrinsic反馈默认实现",
+      "disposition": "SCOPE-01明确terminal-only边界；与离网竞争最多一条增强，不默认启动"
+    },
+    {
+      "source_ref": ".trellis/tasks/09-05-budgeted-support-repair/research/next-execution-plan-20260906-v2.md:88",
+      "scope": "NN scorer、全字典穷举或完整Kelly/联合最优检测主线扩张",
+      "disposition": "有限空间与可实现性未证实前不投入；不属于本CSV默认执行"
+    }
+  ]
+}

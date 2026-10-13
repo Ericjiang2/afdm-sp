@@ -1,0 +1,31 @@
+🧿 oracle 0.9.0 — Detached runs, tethered results.
+Launching browser mode (gpt-5.4-pro) with ~5,844 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+**Q1.** The recall failure is **not** a weak-classifier problem; it is a **structural observability problem after greedy support commits**. Dominant cause is **(i)+(ii)**: coherent/local aliasing. Once OMP picks a wrong-but-coherent atom, the LS fit explains away the nearby true atom, so the post-OMP residual MF is almost blind to the miss. **(iii)** may contribute, but it is **not primary**, because **oracle-dictionary support inside the current dictionary already closes the 20 dB gap completely**.
+**Decision:** you do **not** need miss-locality to decide that **D1-A is dead**. Run it only as a cheap write-up figure. If you run it, use **1 delay-bin × 1 Doppler-bin** nearest-selected histograms, then collapse to buckets
+`|Δl| ∈ {0,1,2,>2}`, `|Δk| ∈ {0,1,2,3–4,>4}`; the key mass to report is **Δl=0 with |Δk|≤2**.
+
+**Q2.** For **Loop 8**, the right answer is **STOP**.
+Reason:
+
+* D1 is falsified.
+* D2 is too small: you miss **~17 atoms/frame**, so “add/drop a few” is underpowered.
+* D5 is **not** first, because the present dictionary is evidently sufficient at 20 dB when given oracle support.
+* D6 is too big/risky for this loop.
+* **If you force a future pivot, pick D3**: BP-informed second-pass re-scoring is the smallest interface that adds **joint data-side information** instead of relying on near-blind pilot residuals.
+  But under the user’s rubric, I would **not** open that within Loop 8. Also, at **10 dB** oracle replay closes only **14%** of the gap, so even a perfect support fix is unlikely to win **all 3 gates**.
+
+**Q3.**
+
+* **Loop 8 score:** **8/10**. Excellent science, failed product goal.
+* **Paper position score:** **7/10**. Strong negative-result/mechanism story; not a main learned-gain headline.
+
+**Q4.** **(a) Close Loop 8 here and write up.**
+Do **not** blind-jump to D2/D3/D5/D6 inside this loop. If you want one last cheap artifact, compute the miss-locality histogram for the paper, but **do not keep the loop open for more training**.
+
+**Bottom line:** support is the bottleneck at high SNR, but the missed atoms are **not recoverable by residual single-atom scoring**. So **D1-A fails on mechanism**, and **Loop 8 should end as a strong diagnostic null**.
+
+
+9m05s · gpt-5.4-pro[browser] · ↑5.84k ↓551 ↻0 Δ6.39k
+files=4

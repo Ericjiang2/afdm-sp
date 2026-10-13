@@ -1,0 +1,33 @@
+🧿 oracle 0.9.0 — We refactor the model's hubris before it hits prod.
+Launching browser mode (gpt-5.4-pro) with ~3,645 tokens.
+This run can take up to an hour (usually ~10 minutes).
+Answer:
+Q6. Not a ceiling of learned augmentation overall; likely near-ceiling of the current one-shot union+prune variant. Oracle replay says the headroom is real, but the pipeline is leaving most of it on the table. Loop 11 can plausibly chase ~1 dB at 20/25 if you add refinement; 2 dB at P=8 this loop looks unlikely. Also: judge shift at 20/25, not 30 — 25→30 is already floor-ish.
+
+Q7. One-loop EV rank: #1 F2, #2 F1, #3 F3, #4 F4.
+Ceiling rank: #1 F3, #2 F2, #3 F1, #4 F4.
+Cost rank: #1 F1 (1–2h), #2 F2 (4–8h), #3 F3 (12–20h), #4 F4 (20h+ / unstable).
+Loop 11 R1 pick: run F1+F2 together; F1 is cheap insurance against F2 adds being re-evicted. If that misses, open F3. Skip F4 for now.
+
+Q8. Higher classical BER by itself does not help a log-waterfall; same BER ratio ⇒ same vertical separation. P=10 is still worth a parallel run because oracle replay shows more recoverable channel gap and less floor pressure. So: yes, run F1+F2 at P=10 as backup, not as the sole pivot.
+
+Q9. Yes, Plan-C is reasonable if framed as a harder-regime stress test, not as proof that P=8 visibly shifted. Harder baseline alone is not enough; the relative BER reduction must also grow. Backup order: P=10 first, then tau=15 ms, then v_mean=3.
+
+Q10. Loop 11 plan:
+R1 fast screen: P=8 and P=10, SNR 20/25 only, baseline vs F1 vs F2(2 rounds) vs F1+F2.
+Gate: promote anything with learned/classical <=0.75 at 20 or <=0.70 at 25, monotone, no low-SNR harm.
+R2 medium sweep: full 10/15/20/25/30 on survivors; add tau=15 only if P=8 misses.
+Gate: need >=0.2 decades gap at 20 or 25 (~1 dB-ish visually), McNemar pass, no high-SNR regression vs torch-ref.
+R3 official: long run on best survivor.
+Stop rule: if best P=8 config is still <40% BER reduction at both 20 and 25 after R2, stop selling "1–2 dB at P=8", pivot to harder-regime story or start F3.
+
+CLI sketch (assuming current eval entrypoint; new flag = --refine-rounds):
+
+Bash
+python eval_joint.py --P 8 --tau-ms 10 --variant c2rel --ckpt outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt --snrs 20 25 --frames 100 --no-prune --tag loop11_r1_f1
+python eval_joint.py --P 8 --tau-ms 10 --variant c2rel --ckpt outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt --snrs 20 25 --frames 100 --refine-rounds 2 --tag loop11_r1_f2
+python eval_joint.py --P 8 --tau-ms 10 --variant c2rel --ckpt outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt --snrs 20 25 --frames 100 --no-prune --refine-rounds 2 --tag loop11_r1_f12
+python eval_joint.py --P 10 --tau-ms 10 --variant c2rel --ckpt outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt --snrs 20 25 --frames 100 --no-prune --refine-rounds 2 --tag loop11_r1_p10
+
+20m25s · gpt-5.4-pro[browser] · ↑3.65k ↓658 ↻0 Δ4.3k
+files=4

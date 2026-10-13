@@ -1,0 +1,89 @@
+{
+  "status": "PASS",
+  "scope": "deterministic operator/Gram algebra only; no BER, F, decoder, channel samples, or changed production files",
+  "source_sha256": {
+    "afdm_sp_joint_unrolled/afdm_baselines.py": "ec0f83a2a79da3dc5bf4120d5a65f68493f749652a1af2b0791d01c3c2db1e93",
+    "afdm_sp_joint_unrolled/qing_baseline/qing_sp_afdm.py": "0bf6af5f41c59a2faa780d5b6666f1d3bc9b71e843433a57593fe13ce3f14914",
+    "afdm_sp_joint_unrolled/supplement_pilots.py": "c86755198ccf65c77526aa38b5729add21d352debd03da409becbe712b588964"
+  },
+  "N": 1024,
+  "D": 515,
+  "Q": 514,
+  "maximum_equally_spaced_pilots": 1,
+  "two_pilots_rejected": true,
+  "metrics": {
+    "p0": {
+      "pilot_energy": 512.0,
+      "max_coherence": 0.3757320778775962,
+      "min_eigenvalue": 0.35974761092338325,
+      "max_eigenvalue": 1.9382969678494055,
+      "gram_condition": 5.38793562207203,
+      "normalized_trace_inverse": 1.1818018968604804,
+      "pilot_only_time_papr_db": 4.16792154716898
+    },
+    "p1": {
+      "pilot_energy": 512.0,
+      "max_coherence": 0.08026227445492529,
+      "min_eigenvalue": 0.11260546785962952,
+      "max_eigenvalue": 4.608746203443658,
+      "gram_condition": 40.92826299686244,
+      "normalized_trace_inverse": 1.7225794713241294,
+      "pilot_only_time_papr_db": 8.306868398752336
+    },
+    "p2": {
+      "pilot_energy": 512.0000000000002,
+      "max_coherence": 0.08255495720712658,
+      "min_eigenvalue": 0.11264694090225463,
+      "max_eigenvalue": 4.151244906124592,
+      "gram_condition": 36.851821033708205,
+      "normalized_trace_inverse": 1.7211076768428113,
+      "pilot_only_time_papr_db": 8.963999125049053
+    },
+    "zheng_single": {
+      "pilot_energy": 512.0000000000001,
+      "max_coherence": 0.0,
+      "min_eigenvalue": 0.9999999999999998,
+      "max_eigenvalue": 1.0000000000000004,
+      "gram_condition": 1.0000000000000007,
+      "normalized_trace_inverse": 1.0,
+      "pilot_only_time_papr_db": 2.8929823996598604e-15
+    }
+  },
+  "diagonal_prior_trace_inverse": {
+    "actual": 0.7711844839528978,
+    "lower_bound": 0.7499999999999999,
+    "orthogonal_attains_bound": true
+  },
+  "conditional_covariance_counterexample": {
+    "H": [
+      [
+        2.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "actual": [
+      [
+        4.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "incorrect_scalar": [
+      [
+        2.0,
+        0.0
+      ],
+      [
+        0.0,
+        2.0
+      ]
+    ]
+  }
+}

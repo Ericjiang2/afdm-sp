@@ -1,0 +1,9 @@
+{
+  "scope": "Local bounded mechanism development authorized by user; not full receiver, LDPC, publication confirmation, or CSV execution",
+  "freeze_date": "2026-09-13",
+  "project_functions": ["supplement_pilots.transform", "supplement_pilots.cpp", "supplement_pilots.propagate_cpp", "supplement_g1.physical_channel_matrix"],
+  "implementation": "Extract listed original function ASTs with numpy-only dependencies; record source SHA256; no project source edits",
+  "E0": {"N": 1024, "c1": "5/(2N), fixed for all widths", "c2": "(sqrt(2)-1)/(2N^2)", "single_path_fractional_offsets": [0,0.1,0.25,0.49], "doppler_centers": [0,2], "integer_domain_half_widths": [2,4,8,16,32], "delay": 1, "pilot_root": 1, "rho": 0.5, "no_gain_renormalization": true},
+  "E1": {"N": 128, "c1": "5/(2N)", "c2": "(sqrt(2)-1)/(2N^2)", "scenarios": [{"name":"single","delays":[1],"dopplers":[0.49],"gains":"[1]"},{"name":"three_paths","delays":[1,3,3],"dopplers":[0.37,-1.48,1.35],"gains":"[0.7,0.45 exp(0.4j),0.35 exp(-0.3j)] normalized once in path coefficient l2"}], "rho": [0.2,0.5], "snr_db": [8,14], "q_half_width": [2,8], "frames_per_scenario_rho_snr": 16, "seed_namespace": [20260913,177], "modulation":"QPSK, no FEC", "arms":["projected_H_for_cancel_and_LMMSE","true_Hp_cancel_projected_H_LMMSE","true_H_for_cancel_and_LMMSE"], "truth_access":"all H supplied by oracle to isolate representation/cancellation; no deployability claim", "measurements":["paired symbol errors per frame","operator NMSE","pilot error","mean data-response error","matrix-direct CPP agreement"], "no_adaptive_sample_expansion":true},
+  "limits": {"local_cpu_only":true,"max_wall_seconds":120,"no_remote_jobs":true,"no_current_CSV_edits":true}
+}

@@ -1,0 +1,160 @@
+We now need the final fresh prospective confirmation for the frozen TF+CSTATE receiver.
+
+This is **not** another development experiment and not another CSTATE/GLOBAL equivalence test. CSTATE20 has already been shown to reproduce the frozen GLOBAL20 structural decisions and final decoded bits on the development observations while passing the registered branch-cost gate.
+
+The remaining question is:
+
+**Does the now-frozen TF+CSTATE receiver provide a prospective receiver-level reliability benefit at controlled complete cost on genuinely fresh observations?**
+
+Please treat the current CSTATE configuration as frozen. Do not optimize, retune, sweep, or modify it using the new data.
+
+Before generating or inspecting any new outcomes, create and archive a prospective protocol containing the exact source/configuration identities, random-stream construction, arms, endpoints, statistical procedures, timing scopes, integrity checks, and truth-sealing procedure. Bind the protocol and executable source/configuration with hashes.
+
+Use only fresh independent observations that have not been used in TF, GLOBAL, CSTATE, mechanism, qualification, or development work.
+
+## Frozen receiver arms
+
+Run paired:
+
+1. **TF** — the frozen native TF_J20_R2 receiver.
+2. **TF+CSTATE** — run exactly the same frozen TF receiver first. If its final decoder syndrome is zero, terminate and retain the TF decision. If the frozen trigger fires, execute the already validated frozen CSTATE20 rescue branch, including its frozen structural bank, maximum number of replacements, local refinement, TF20 continuation, LDPC settings, message interfaces, guards, tie rules, and fallback behavior.
+
+Do not use truth in triggering, candidate generation, scoring, stopping, fallback, or any receiver decision.
+
+## Fresh allocation
+
+Use the same principal SNR grid as the final TF study:
+
+* 6 dB
+* 6.5 dB
+* 7 dB
+
+Use **1024 fresh independent observations per SNR**, paired across the two receiver arms.
+
+Treat **6.5 dB as the prespecified primary confirmatory point for the incremental CSTATE reliability claim**. The 6 and 7 dB results characterize operating scope and computation behavior and must not be substituted post hoc as the primary point.
+
+Do not stop early based on observed results.
+
+## Primary reliability analysis
+
+For every frame preserve the paired final outcomes.
+
+At 6.5 dB, form the paired table:
+
+* TF correct / TF+CSTATE correct
+* TF correct / TF+CSTATE wrong
+* TF wrong / TF+CSTATE correct
+* TF wrong / TF+CSTATE wrong
+
+The primary effect is
+
+$$
+\Delta_{\mathrm{FER}}
+=
+\mathrm{FER}_{\mathrm{TF+CSTATE}}
+-
+\mathrm{FER}_{\mathrm{TF}}.
+$$
+
+Use a prospectively specified paired exact inference procedure / exact one-sided confidence construction appropriate to the discordant paired outcomes.
+
+The primary reliability confirmation passes only if the registered one-sided confidence statement supports a strictly lower FER for TF+CSTATE at 6.5 dB.
+
+Report the raw paired rescue and harm counts as well as FERs and the confidence result. Do not replace the population FER analysis with conditional rescue rate.
+
+## Required secondary receiver quantities
+
+For each SNR report prospectively, without post-hoc filtering:
+
+* TF FER;
+* TF+CSTATE FER;
+* trigger count and trigger fraction;
+* rescue count among triggered frames;
+* remaining triggered failures;
+* any TF-correct → TF+CSTATE-wrong outcomes;
+* syndrome-zero but wrong / valid-but-wrong outcomes;
+* numerical failures;
+* missing decisions;
+* fallback counts.
+
+The trigger fraction must be measured from the fresh population; do not reuse the historical 43/1024 trigger rate to infer prospective average cost.
+
+## Complete timing
+
+Measure complete per-frame receiver latency from the same declared receiver-entry point for both arms on the fresh population.
+
+For TF+CSTATE, the latency distribution must naturally include both non-triggered and triggered frames.
+
+Preserve at least:
+
+* mean;
+* median;
+* p90;
+* p95;
+* complete paired latency difference/ratio;
+* triggered and non-triggered timing separately;
+* CSTATE branch timing decomposition using the already established stage definitions.
+
+Do not infer total latency from branch time × historical trigger rate.
+
+Retain the already meaningful **0.5 s receiver deadline** as a prespecified system-level diagnostic. At that deadline, use the frozen fallback/readiness rule and report paired deadline errors for TF and TF+CSTATE.
+
+Also report the final no-deadline FER separately.
+
+The branch-level 0.6 s development gate is already closed and is not the primary prospective system-level endpoint.
+
+## Integrity and evidence discipline
+
+Before truth is opened, save and seal:
+
+* observation identities;
+* channel/message/noise stream identities;
+* receiver decisions;
+* syndrome/trigger state;
+* selected structural moves;
+* readiness checkpoints;
+* complete timings;
+* numerical/integrity status;
+* source/config/protocol hashes.
+
+Only after this observed-only seal is committed may truth-dependent analyses be performed.
+
+Truth-dependent post-hoc analysis may explain rescued and remaining failures, but it must not change the receiver, statistical protocol, candidate bank, trigger, or claims.
+
+Recount all main results independently from the sealed per-frame artifacts.
+
+## No development during confirmation
+
+Do not:
+
+* tune CSTATE;
+* change candidate-bank size;
+* change the number of replacements;
+* change local refinement;
+* change the trigger;
+* change TF/LDPC iterations;
+* add top-K approximations;
+* add GLOBAL20;
+* add oracle geometry/H arms;
+* choose new SNRs after seeing outcomes;
+* rerun failed-looking cohorts with altered settings.
+
+If an implementation or infrastructure error invalidates the registered run, document it explicitly and treat the affected run as invalid rather than silently repairing the method.
+
+## Final deliverable
+
+Produce one auditable results report containing:
+
+1. frozen protocol and source identities;
+2. the fresh population allocation;
+3. primary 6.5 dB paired FER result and its registered confidence statement;
+4. 6/6.5/7 dB FER and paired rescue/harm tables;
+5. fresh trigger rates;
+6. valid-but-wrong / undetected-error accounting;
+7. complete population latency and 0.5 s deadline results;
+8. branch timing decomposition;
+9. integrity/failure accounting;
+10. observed-seal and independent recount receipts;
+11. a strict statement of what the experiment supports and what it does not support.
+
+Stop after this prospective campaign. Do not perform follow-up optimization or exploratory reruns automatically.

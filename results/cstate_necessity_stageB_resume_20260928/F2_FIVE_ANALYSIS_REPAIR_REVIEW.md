@@ -1,0 +1,9 @@
+# Five-policy offline reader repair: focused independent review
+
+Verdict: **source-delta PASS**, conditional on the main session freezing the analysis erratum in Git and the remote pre-truth gate accepting its actual transferred hash. No receiver was rerun and no F2 outcome was scored for this review.
+
+The original `analyze_method_closure_five.py` (SHA-256 `d8ab381babe37aae4bf1d2c9f6cdb8dd3105db67e0ff36ac2ee68bbf2929acef`) and its first failed analysis remain unchanged. The new `analyze_method_closure_five_v2.py` (SHA-256 `14eafa054587191a448440ba0c70bce32f4e0416153c4db6fa5b919b1b9a990e`) changes one paid-ledger identity assumption: prefixes must omit `stream_ids`, whereas continuations must match the saved input IDs. Every raw artifact still must match the input IDs. The original 1,024-frame/2,168-call allocation, logical rows, checkpoint and cost checks, truth scoring, denominators, and deadlines are otherwise unchanged. The only report addition is explicit recovery provenance.
+
+`verify_pretruth` calls `verify_erratum` before opening even the truth seal. The erratum binds its own transferred SHA, both reader SHA values, the focused test SHA (`00426faa6fdc8cc530378e0148468ea49e293033cc4780e92ec09ef9bb672f7e`), the retained failure log/exit, registration, observed seal and Git attestation, commits and new output path. The existing observed Git attestation check remains in place before truth access. These remote bindings were reviewed in code and the local erratum draft; the remote-only failure log and attestation were not opened by this reviewer, so execution of the full gate remains a launch condition.
+
+Verification: three new synthetic tests pass, including rejection of an altered raw stream ID and a bad erratum hash before truth access; Ruff passes on reader and test. This is static/fixture validation, not a successful saved-output analysis or independent raw-to-truth recount.

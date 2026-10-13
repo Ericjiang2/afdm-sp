@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>AFDM-SP 整数扩展与连续参数：路线重评</title><style>
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0 auto;max-width:1100px;padding:48px 36px 80px;color:#222;background:#fff;font:16px/1.85 -apple-system,BlinkMacSystemFont,"Noto Sans CJK SC","Microsoft YaHei",sans-serif}h1{font-size:30px;line-height:1.4;margin:0 0 28px}h2{font-size:23px;line-height:1.5;margin:48px 0 18px;padding-bottom:9px;border-bottom:1px solid #ccc}h3{font-size:19px;line-height:1.5;margin:30px 0 12px}p{margin:12px 0}a{color:#333;text-underline-offset:3px;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px;line-height:1.7}th,td{border:1px solid #ccc;padding:10px 12px;vertical-align:top}th{text-align:left;background:#f1f1f1}code{font:0.9em/1.6 ui-monospace,Consolas,monospace;background:#f5f5f5;overflow-wrap:anywhere}pre{padding:14px;overflow:auto;background:#f5f5f5}.math.display{display:block;overflow-x:auto;margin:22px 0;padding:10px 0}math[display="block"]{margin:0 auto;min-width:max-content}nav{font-size:14px;margin:0 0 34px}nav>ul{columns:2;column-gap:34px}nav ul ul{display:none}li{margin:4px 0}strong{font-weight:700}@media(max-width:700px){body{padding:25px 16px 60px;font-size:15px}h1{font-size:25px}h2{font-size:21px}nav>ul{columns:1}table{display:block;overflow-x:auto;min-width:0}.math.display{font-size:14px}}@media print{body{max-width:none;padding:0;font-size:10.5pt}nav{display:none}h2,h3{break-after:avoid}tr{break-inside:avoid}.math.display{font-size:10pt}}
+</style></head><body>
+
+<h1 id="afdm-sp-分数多普勒整数扩展连续参数与论文路线重评">AFDM-SP
+分数多普勒：整数扩展、连续参数与论文路线重评</h1><nav aria-label="目录"><ul>
+<li><a href="#afdm-sp-分数多普勒整数扩展连续参数与论文路线重评" id="toc-afdm-sp-分数多普勒整数扩展连续参数与论文路线重评">AFDM-SP
+分数多普勒：整数扩展、连续参数与论文路线重评</a>
+<ul>
+<li><a href="#结论" id="toc-结论">结论</a></li>
+<li><a href="#来源与证据边界" id="toc-来源与证据边界">1.
+来源与证据边界</a></li>
+<li><a href="#整数模型有三种不同含义" id="toc-整数模型有三种不同含义">2.
+“整数模型”有三种不同含义</a></li>
+<li><a href="#完整整数扩展为什么能精确表示分数-doppler" id="toc-完整整数扩展为什么能精确表示分数-doppler">3.
+完整整数扩展为什么能精确表示分数 Doppler</a></li>
+<li><a href="#整数扩展相对连续参数化的真实优缺点" id="toc-整数扩展相对连续参数化的真实优缺点">4.
+整数扩展相对连续参数化的真实优缺点</a></li>
+<li><a href="#omp-是否天然适配整数扩展" id="toc-omp-是否天然适配整数扩展">5. OMP 是否天然适配整数扩展</a></li>
+<li><a href="#当前项目已经知道什么尚不知道什么" id="toc-当前项目已经知道什么尚不知道什么">6.
+当前项目已经知道什么，尚不知道什么</a></li>
+<li><a href="#文献重评两条路线都成立也都已有强先例" id="toc-文献重评两条路线都成立也都已有强先例">7.
+文献重评：两条路线都成立，也都已有强先例</a></li>
+<li><a href="#最少需要哪些材料" id="toc-最少需要哪些材料">8.
+最少需要哪些材料</a></li>
+<li><a href="#三组有决策意义的实验" id="toc-三组有决策意义的实验">9.
+三组有决策意义的实验</a></li>
+<li><a href="#如何根据结果决定论文主线" id="toc-如何根据结果决定论文主线">10. 如何根据结果决定论文主线</a></li>
+<li><a href="#一篇普通-transactions-应该怎样组织" id="toc-一篇普通-transactions-应该怎样组织">11. 一篇普通 Transactions
+应该怎样组织</a></li>
+<li><a href="#最终建议" id="toc-最终建议">12. 最终建议</a></li>
+<li><a href="#参考文献" id="toc-参考文献">参考文献</a></li>
+</ul></li>
+</ul></nav>
+<h2 id="结论">结论</h2>
+<p>整数 Doppler 扩展是一条成立的信道表示与估计路线，不能因为真实 Doppler
+连续就判它失效。在标准有限块窄带模型下，完整的整数 Doppler
+基可以精确表示任意分数
+Doppler；实际限制来自保留了多少基、怎样选支撑、怎样估计系数，以及接收机怎样使用这个近似信道。连续参数化的主要优势是利用更强的物理约束减少未知自由度，而不是获得整数基“原则上不存在”的表示能力。</p>
+<p>当前最有决定性的项目证据也不支持放弃整数路线：在最新诊断记录中，活动支撑容量均为
+24，当前接收结果为 35 个错块；当前支撑的 Frobenius 最佳投影为 22
+个错块；同容量真值 top-K 整数支撑为 3 个错块；真 H 为 2
+个错块。这些是同一诊断条件下的干预结果，不是可部署性能承诺，但已经反对“必须连续估计才能突破当前性能”的判断。[P1]</p>
+<p>因此，研究顺序应改为：保留整数扩展和已确认的 I1
+为起点，先判明当前限制属于字典范围、活动支撑、系数统计还是完整计算成本，再决定是否需要连续
+Doppler
+精修。无需证明所有旧方法都不可能才能写论文，但提出换路线的建议，必须先给出当前方案的具体限制与替代方案的实际优势。</p>
+<h2 id="来源与证据边界">1. 来源与证据边界</h2>
+<p>外部文献核查截至 2026 年 9 月 13
+日。文献用于确定已知方法、理论血统与创新边界；项目报告用于说明其记录的配置、结果和未完成事项；下文的有限
+Fourier
+展开、三层投影分解和判读规则是独立推导或研究建议，不声称是新的文献贡献。</p>
+<p>项目依据优先采用 9 月 12 日的
+<code>l16-reassessment-v1.md</code>、<code>final-report-template-v1.md</code>
+与 <code>completed-results.html</code>，而不是用 7
+月的投稿评价覆盖更新后的强经典参考。<code>final-report-template-v1.md</code>
+有部分表格占位符，只有明确写出的正文数字被采用。此次没有重新运行项目接收机，没有重新计算其
+NPZ
+原始统计，也没有确认最新全部运行时源码。报告中的数值来源必须与“本轮独立重算”区分。[P1–P3]</p>
+<p>另核查了先前上传的 Python
+代码中的整数字典与邻居扩展片段，但它不是已经证明与最新 I1
+完全相同的源码版本。因此它揭示的是待核对接口，不能直接判为当前系统存在某个
+bug。[P4]</p>
+<h2 id="整数模型有三种不同含义">2. “整数模型”有三种不同含义</h2>
+<p>第一种是把真实 Doppler 直接四舍五入，例如将 2.37 当作
+2，只保留一个原子。它会忽略分数频偏造成的响应。</p>
+<p>第二种是在整数中心附近保留多个基函数，例如
+0、1、2、3、4，再估计它们的复系数。这里整数的是基函数索引，不是复系数，更不是“信道物理上只能有整数
+Doppler”。这种方法属于局部复指数基展开或等效离散信道估计。</p>
+<p>第三种是保留一个完整的 N 点整数 Fourier 基。对同一个 N
+样本块，它能精确表示任意时间变化序列；对于单频分数
+Doppler，展开系数有已知的 Dirichlet
+结构。完整表示不意味着低维或容易估计，因此它首先证明的是可表示性，而不是提出应当估计
+N 个系数的工程方案。</p>
+<p>当前项目采用的是第二类的截断簇表示。最新记录明确指出，G0 仍然包含分数
+Doppler 产生的截断整数簇；排除连续 Doppler
+估计并不等于把信道生成器改成整数 Doppler。[P1]</p>
+<h2 id="完整整数扩展为什么能精确表示分数-doppler">3.
+完整整数扩展为什么能精确表示分数 Doppler</h2>
+<h3 id="固定一个物理模型">3.1 固定一个物理模型</h3>
+<p>考虑一个长度 N 的块、整数采样时延
+ℓ，以及正确计入前缀边界相位的窄带路径模型。定义</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>=</mo><mo>diag</mo><mo form="prefix" stretchy="false">{</mo><msup><mi>e</mi><mrow><mi>j</mi><mn>2</mn><mi>π</mi><mi>ν</mi><mi>n</mi><mi>/</mi><mi>N</mi></mrow></msup><msubsup><mo form="postfix" stretchy="false">}</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msubsup><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>U</mi><mo>ℓ</mo></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>=</mo><mi>A</mi><msub><mi>Γ</mi><mo>ℓ</mo></msub><mi>D</mi><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><msup><mi>Π</mi><mo>ℓ</mo></msup><msup><mi>A</mi><mi>H</mi></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">
+D(\nu)=\operatorname{diag}\{e^{j2\pi\nu n/N}\}_{n=0}^{N-1},\qquad
+U_\ell(\nu)=A\Gamma_\ell D(\nu)\Pi^\ell A^H.
+</annotation></semantics></math></p>
+<p>其中 A 为酉 DAFT 矩阵，Π 为循环时移，Γℓ
+为固定时延对应的单位模前缀相位矩阵。这里选择正 Doppler
+符号约定；采用负号约定时，相关系数的符号必须一起调整。这个模型类别与已有
+AFDM 输入输出模型一致。[R1,R2]</p>
+<p>定义 Fourier 系数</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>q</mi></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></munderover><msup><mi>e</mi><mrow><mi>j</mi><mn>2</mn><mi>π</mi><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo>−</mo><mi>q</mi><mo form="postfix" stretchy="true">)</mo></mrow><mi>n</mi><mi>/</mi><mi>N</mi></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>q</mi><mo>=</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+c_q(\nu)=\frac1N\sum_{n=0}^{N-1}e^{j2\pi(\nu-q)n/N},\qquad q=0,\ldots,N-1.
+</annotation></semantics></math></p>
+<p>有限 Fourier 反变换立即给出</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>=</mo><munderover><mo>∑</mo><mrow><mi>q</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>c</mi><mi>q</mi></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><mi>D</mi><mrow><mo form="prefix" stretchy="true">(</mo><mi>q</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
+D(\nu)=\sum_{q=0}^{N-1}c_q(\nu)D(q),
+</annotation></semantics></math></p>
+<p>从而</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><menclose notation="box"><mrow><msub><mi>U</mi><mo>ℓ</mo></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>=</mo><munderover><mo>∑</mo><mrow><mi>q</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>c</mi><mi>q</mi></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><msub><mi>U</mi><mo>ℓ</mo></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>q</mi><mo form="postfix" stretchy="true">)</mo></mrow><mi>.</mi></mrow></menclose><annotation encoding="application/x-tex">
+\boxed{U_\ell(\nu)=\sum_{q=0}^{N-1}c_q(\nu)U_\ell(q).}
+</annotation></semantics></math></p>
+<p>这是同一有限块内的精确恒等式，不是渐近结果。AFDM
+的酉变换不会破坏它。完整的多径信道也可以按路径逐项展开，再把相同整数坐标的复系数相加。</p>
+<p>结论不是“分数 Doppler 不重要”，而是“分数 Doppler
+可以通过整数基上的多个相关复系数来表示”。直接取整与展开拟合不能混为一谈。</p>
+<h3 id="有限邻域的截断误差">3.2 有限邻域的截断误差</h3>
+<p>令 ν=k+ε。保留 q=k−w,…,k+w，得到</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mrow><mo>ℓ</mo><mo>,</mo><mi>w</mi></mrow></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>=</mo><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mi>−</mi><mi>w</mi></mrow><mi>w</mi></munderover><msub><mi>c</mi><mrow><mi>k</mi><mo>+</mo><mi>m</mi></mrow></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><msub><mi>U</mi><mo>ℓ</mo></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>k</mi><mo>+</mo><mi>m</mi><mo form="postfix" stretchy="true">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+U_{\ell,w}(\nu)=\sum_{m=-w}^{w}c_{k+m}(\nu)U_\ell(k+m).
+</annotation></semantics></math></p>
+<p>对固定时延，完整整数算子满足</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo form="prefix" stretchy="false">⟨</mo><msub><mi>U</mi><mo>ℓ</mo></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>q</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>,</mo><msub><mi>U</mi><mo>ℓ</mo></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>r</mi><mo form="postfix" stretchy="true">)</mo></mrow><msub><mo form="postfix" stretchy="false">⟩</mo><mi>F</mi></msub><mo>=</mo><mi>N</mi><msub><mi>δ</mi><mrow><mi>q</mi><mi>r</mi></mrow></msub><mo>,</mo><mspace width="2.0em"></mspace><munder><mo>∑</mo><mi>q</mi></munder><msup><mrow><mo form="prefix" stretchy="true">|</mo><msub><mi>c</mi><mi>q</mi></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo form="postfix" stretchy="true">|</mo></mrow><mn>2</mn></msup><mo>=</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\langle U_\ell(q),U_\ell(r)\rangle_F=N\delta_{qr},\qquad
+\sum_q|c_q(\nu)|^2=1.
+</annotation></semantics></math></p>
+<p>因此单路径相对截断能量精确为</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><menclose notation="box"><mrow><msub><mi>η</mi><mi>w</mi></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ϵ</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>=</mo><mfrac><mrow><mo form="postfix" stretchy="false">∥</mo><msub><mi>U</mi><mo>ℓ</mo></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>−</mo><msub><mi>U</mi><mrow><mo>ℓ</mo><mo>,</mo><mi>w</mi></mrow></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><msubsup><mo form="postfix" stretchy="false">∥</mo><mi>F</mi><mn>2</mn></msubsup></mrow><mi>N</mi></mfrac><mo>=</mo><mn>1</mn><mo>−</mo><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mi>−</mi><mi>w</mi></mrow><mi>w</mi></munderover><msup><mrow><mo form="prefix" stretchy="true">|</mo><msub><mi>c</mi><mrow><mi>k</mi><mo>+</mo><mi>m</mi></mrow></msub><mrow><mo form="prefix" stretchy="true">(</mo><mi>ν</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo form="postfix" stretchy="true">|</mo></mrow><mn>2</mn></msup><mi>.</mi></mrow></menclose><annotation encoding="application/x-tex">
+\boxed{\eta_w(\epsilon)=\frac{\|U_\ell(\nu)-U_{\ell,w}(\nu)\|_F^2}{N}
+=1-\sum_{m=-w}^{w}|c_{k+m}(\nu)|^2.}
+</annotation></semantics></math></p>
+<p>这里整数索引按模 N 理解，且不重复取相同余数。N 较大、w 远小于 N
+时，系数能量近似按 1/(m−ε)² 衰减，因此尾能量一般按 1/w
+量级下降，而不是指数消失。</p>
+<p>下表是 N=1024 的有限 Fourier
+系数直接计算，不是项目性能数据；保留区间固定为 k±w，半格点 ε=0.5
+时也使用同样约定。</p>
+<table>
+<thead>
+<tr class="header">
+<th>分数偏移 ε</th>
+<th style="text-align: right;">w=1：3 个基</th>
+<th style="text-align: right;">w=2：5 个基</th>
+<th style="text-align: right;">w=4：9 个基</th>
+<th style="text-align: right;">w=8：17 个基</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="even">
+<td>0.10</td>
+<td style="text-align: right;">1.2528%</td>
+<td style="text-align: right;">0.7654%</td>
+<td style="text-align: right;">0.4284%</td>
+<td style="text-align: right;">0.2274%</td>
+</tr>
+<tr class="odd">
+<td>0.25</td>
+<td style="text-align: right;">6.6944%</td>
+<td style="text-align: right;">4.0394%</td>
+<td style="text-align: right;">2.2491%</td>
+<td style="text-align: right;">1.1914%</td>
+</tr>
+<tr class="even">
+<td>0.50</td>
+<td style="text-align: right;">14.4398%</td>
+<td style="text-align: right;">8.3154%</td>
+<td style="text-align: right;">4.5396%</td>
+<td style="text-align: right;">2.3890%</td>
+</tr>
+</tbody>
+</table>
+<p>这些数值说明有限扩展有可计算的代价，但不能直接转换成
+FER，更不能拿来解释 G0 中根本没有生成的 G1
+尾项。多路径总信道、特定导频和检测器的误差还需要另外计算。</p>
+<p>随附小程序只验证此处的 Fourier 恒等式与表格，32
+点算子核查的相对残差约
+1.75×10⁻¹⁵。它不是用户项目的重放或完整物理传播验证。</p>
+<h2 id="整数扩展相对连续参数化的真实优缺点">4.
+整数扩展相对连续参数化的真实优缺点</h2>
+<h3 id="估计对象不同而不是简单的精确与近似之争">4.1
+估计对象不同，而不是简单的精确与近似之争</h3>
+<p>自由整数模型写成</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>H</mi><mo accent="true">̂</mo></mover><mo>=</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><mi>𝒮</mi></mrow></munder><msub><mover><mi>g</mi><mo accent="true">̂</mo></mover><mi>j</mi></msub><msub><mi>U</mi><mi>j</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\widehat H=\sum_{j\in\mathcal S}\widehat g_jU_j.
+</annotation></semantics></math></p>
+<p>连续路径模型写成</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>H</mi><mo accent="true">̂</mo></mover><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mover><mi>P</mi><mo accent="true">̂</mo></mover></munderover><msub><mover><mi>h</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><msub><mi>U</mi><msub><mover><mo>ℓ</mo><mo accent="true">̂</mo></mover><mi>i</mi></msub></msub><mrow><mo form="prefix" stretchy="true">(</mo><msub><mover><mi>ν</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><mo form="postfix" stretchy="true">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\widehat H=\sum_{i=1}^{\widehat P}\widehat h_iU_{\widehat\ell_i}(\widehat\nu_i).
+</annotation></semantics></math></p>
+<p>对单路径，整数展开系数并非任意，而是
+gq=h·cq(ν)。连续参数化强制使用这种结构。固定整数时延和路径数后，自由 K
+个复系数有 2K 个实自由度；P 条路径的复增益与连续 Doppler 则有约 3P
+个实自由度。两者还分别承担支撑或路径数选择的成本。</p>
+<p>因此连续路径方法可能以更少参数估计一整簇响应；但它付出的代价是更强的模型假设和更难的优化。等效信道估计并不要求把每条物理路径唯一辨认出来。</p>
+<table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>问题</th>
+<th>整数扩展</th>
+<th>连续路径参数化</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>同一有限块的表示能力</td>
+<td>完整基可精确；有限邻域有截断</td>
+<td>正确有限路径模型下可紧凑表达完整响应</td>
+</tr>
+<tr class="even">
+<td>有噪声的统计效率</td>
+<td>自由系数多，可能拟合干扰；可用正则化控制</td>
+<td>结构正确时可能更省样本；近邻路径与弱信号可使参数病态</td>
+</tr>
+<tr class="odd">
+<td>优化</td>
+<td>固定支撑后的 LS/岭回归较直接；支撑选择仍困难</td>
+<td>多维非凸优化，依赖初始化、阻尼与路径模型选择</td>
+</tr>
+<tr class="even">
+<td>模型失配</td>
+<td>可吸收路径内展宽、多个近邻频率等偏差</td>
+<td>单路径单频、路径数错误时可产生结构性偏差</td>
+</tr>
+<tr class="odd">
+<td>下游计算</td>
+<td>整数算子可以保留移位—相位结构和稀疏图</td>
+<td>参数少不等于有效矩阵稀疏，检测仍需设计</td>
+</tr>
+<tr class="even">
+<td>任务适配</td>
+<td>适合只要求当前块 H 足够好</td>
+<td>路径追踪、跨块预测或感知参数任务可能更需要物理参数</td>
+</tr>
+</tbody>
+</table>
+<p>这张表是模型层面的比较，不是任何方法在项目中已经赢的证据。</p>
+<h3 id="加宽为什么有时更差">4.2 加宽为什么有时更差</h3>
+<p>在一个固定支撑、正确线性模型、已知噪声协方差的条件分析中，GLS
+的系数误差协方差为</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Cov</mo><mrow><mo form="prefix" stretchy="true">(</mo><mover><mi>g</mi><mo accent="true">̂</mo></mover><mo>−</mo><mi>g</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>=</mo><msup><mrow><mo form="prefix" stretchy="true">(</mo><msup><mi>Φ</mi><mi>H</mi></msup><msup><mi>C</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>Φ</mi><mo form="postfix" stretchy="true">)</mo></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\operatorname{Cov}(\widehat g-g)=(\Phi^HC^{-1}\Phi)^{-1}.
+</annotation></semantics></math></p>
+<p>增加基函数能减少表示偏差，却可能增加待估自由度、恶化最小特征值并增加计算量。实际
+SP 下 nuisance 还依赖未知 H
+和数据，因此此式是受控条件下的解释，不是当前整机精确误差公式。</p>
+<p>最终需要权衡的是表示偏差、估计方差、选择错误和计算代价。它们与终端
+FER
+之间还有检测、软输出和译码这一层，不能用“多拟合了多少能量”代替通信效果。</p>
+<h3 id="连续方法也可能更差">4.3 连续方法也可能更差</h3>
+<p>少量镜面路径模型正确、初始化良好、连续参数可辨识时，路径约束常有统计价值。但低
+SNR、同延迟近邻
+Doppler、路径数错误、簇状散射或路径随块内非匀速变化，会削弱它。连续优化找到局部极小值也可能不如一个稳定的自由系数解。</p>
+<p>即使精确 H
+可由少量参数生成，要求精确恢复每条路径也可能比当前块通信本身更困难。已有
+EPA-DR 工作正是直接重构有效矩阵，而不逐条估计增益、时延和
+Doppler。[R1]</p>
+<h2 id="omp-是否天然适配整数扩展">5. OMP 是否天然适配整数扩展</h2>
+<p>是，在线性字典接口上适配。对 SP 观测 y=H(pρ+d)+w，导频字典列为 Ui
+pρ；给定数据工作均值 μ 后，数据辅助字典列为 Ui(pρ+μ)。这些都能接到
+OMP、支撑交换或其他稀疏系数求解器上。[P1,P4]</p>
+<p>但“可以接 OMP”不等于“当前 OMP
+一定是最合适的统计求解器”。需要区分四件事。</p>
+<p>首先，物理路径数 P 与有效整数原子数 K 不同。最新记录中
+P=8，展开原子为 13–31、合并后的唯一原子为 9–31，而活动容量为
+24；不能把只选 P 个整数原子视为无损恢复 P 条分数 Doppler 路径。[P2]</p>
+<p>其次，一条物理路径的多个整数系数是关联簇。逐原子选择、以增益剪枝、强制保护新原子可能破坏簇结构。分组
+OMP 或簇正则可以作为经典对照，但 block-sparse recovery 和 AFDM
+的层次稀疏压缩感知已有先例，不能把改名为 group-OMP
+当独立贡献。[R7,R8]</p>
+<p>第三，算子在 Frobenius
+度量下正交，不意味着导频字典也正交。实际列相关性为 pρᴴUiᴴUj
+pρ；白化后还要看
+ΦᴴC⁻¹Φ。整数相邻索引不天然意味着字典高度相关，也不天然保证可区分，应计算真实字典
+Gram。</p>
+<p>第四，OMP
+本身是一个确定性的贪婪算法，并非只有严格白高斯噪声才能运行。白噪声
+ML/匹配滤波解释可以说明它为什么可能失配，但不能当作“有色干扰下 OMP
+不合法”的定理。</p>
+<p>连续估计与 OMP 也不是互斥选项。NOMP 的思想本身就是网格粗搜索配合连续
+Newton 精修。因此“为了保留 OMP 必须拒绝连续方法”与“为了处理分数 Doppler
+必须抛弃 OMP”都不成立。[R6]</p>
+<h2 id="当前项目已经知道什么尚不知道什么">6.
+当前项目已经知道什么，尚不知道什么</h2>
+<h3 id="最关键的错误分解应有三层">6.1 最关键的错误分解应有三层</h3>
+<p>设 D 为接收机允许使用的整个整数字典域，S
+为实际活动支撑，二者张成空间满足 VS⊆VD。定义 Frobenius 正交投影 ΠD 和
+ΠS。若 Hhat∈VS，则</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><menclose notation="box"><mrow><mo form="postfix" stretchy="false">∥</mo><mi>H</mi><mo>−</mo><mover><mi>H</mi><mo accent="true">̂</mo></mover><msubsup><mo form="postfix" stretchy="false">∥</mo><mi>F</mi><mn>2</mn></msubsup><mo>=</mo><munder><munder><mrow><mo form="postfix" stretchy="false">∥</mo><mi>H</mi><mo>−</mo><msub><mi>Π</mi><mi>D</mi></msub><mi>H</mi><msubsup><mo form="postfix" stretchy="false">∥</mo><mi>F</mi><mn>2</mn></msubsup></mrow><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">字典域不足</mtext></munder><mo>+</mo><munder><munder><mrow><mo form="postfix" stretchy="false">∥</mo><msub><mi>Π</mi><mi>D</mi></msub><mi>H</mi><mo>−</mo><msub><mi>Π</mi><mi>S</mi></msub><mi>H</mi><msubsup><mo form="postfix" stretchy="false">∥</mo><mi>F</mi><mn>2</mn></msubsup></mrow><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">活动支撑/容量不足</mtext></munder><mo>+</mo><munder><munder><mrow><mo form="postfix" stretchy="false">∥</mo><msub><mi>Π</mi><mi>S</mi></msub><mi>H</mi><mo>−</mo><mover><mi>H</mi><mo accent="true">̂</mo></mover><msubsup><mo form="postfix" stretchy="false">∥</mo><mi>F</mi><mn>2</mn></msubsup></mrow><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">系数估计误差</mtext></munder><mi>.</mi></mrow></menclose><annotation encoding="application/x-tex">
+\boxed{
+\|H-\widehat H\|_F^2=
+\underbrace{\|H-\Pi_DH\|_F^2}_{\text{字典域不足}}
++\underbrace{\|\Pi_DH-\Pi_SH\|_F^2}_{\text{活动支撑/容量不足}}
++\underbrace{\|\Pi_SH-\widehat H\|_F^2}_{\text{系数估计误差}}.
+}
+</annotation></semantics></math></p>
+<p>这是嵌套线性空间的正交分解，与用了什么估计器无关。若存在旧支撑的阻尼残留，使
+Hhat 不在宣称的 VS 内，应先使用实际空间，不能硬套分解。</p>
+<p>最新 G0 记录称所有真值原子均在 515
+列字典域内。因此按照该记录，第一项为零或数值零。此前 0.018189
+的“表示误差”指相对于当前 S
+的投影残差，不是已经证明整个整数字典无法表示分数 Doppler。[P1,P2]</p>
+<h3 id="现有诊断的含义">6.2 现有诊断的含义</h3>
+<table>
+<colgroup>
+<col style="width: 30%"/>
+<col style="width: 40%"/>
+<col style="width: 30%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>同一诊断条件下的输入</th>
+<th style="text-align: right;">7 dB 错块数</th>
+<th>能回答的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>当前支撑、当前估计</td>
+<td style="text-align: right;">35</td>
+<td>原接收状态</td>
+</tr>
+<tr class="even">
+<td>当前支撑、Frobenius 最佳系数</td>
+<td style="text-align: right;">22</td>
+<td>固定支撑仍有系数改进空间</td>
+</tr>
+<tr class="odd">
+<td>当前支撑、真数据 LS</td>
+<td style="text-align: right;">18</td>
+<td>观测任务与矩阵误差目标不相同</td>
+</tr>
+<tr class="even">
+<td>同容量真值 top-K 整数支撑</td>
+<td style="text-align: right;">3</td>
+<td>本样本内整数容量并非显著的不可逾越限制</td>
+</tr>
+<tr class="odd">
+<td>真 H</td>
+<td style="text-align: right;">2</td>
+<td>同检测链下的诊断参考</td>
+</tr>
+</tbody>
+</table>
+<p>表中 truth 操作都不可部署；top-K 与投影不一定是最优 FER 操作，真 H
+接入某个近似检测器也不构成一般算法的严格 FER
+下界。可以说“当前整数空间存在很好的解”，不能说“已经知道如何合法找到它”。[P1]</p>
+<h3 id="已有负结果排除了什么">6.3 已有负结果排除了什么</h3>
+<p>当前二轮/五轮离散交换没有净收益，说明当前提名池、评分目标、接收时机和动作成本组合不值得继续原样扩大；不是所有离散支撑搜索都不行。全局表示容量、可实现选择策略和某个局部交换算法是三件不同的事。[P1,P2]</p>
+<p><code>link</code> 在真支撑条件下优于
+<code>free</code>，说明该受控条件下结构约束有帮助；没有证明未知连续参数在实际
+SP
+中能够可靠获得，也没有证明连续估计普遍优于正则化自由整数估计。必须确认模板参数
+η 的来源：真值、外部固定知识、离线总体统计还是本帧观测估计。[P5]</p>
+<p>I1 已有固定 G0 下的 2048 块/SNR 独立确认，不应再只拿早期 2/192
+的开发结果代表它。它是当前应当保留的强参考；新的 START3、ridge、REFRESH4
+等轻量比较尚未取代它。[P1,P3]</p>
+<h3 id="综合报告中需要收窄的解释">6.4 综合报告中需要收窄的解释</h3>
+<table>
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>报告表述</th>
+<th>更准确的结论</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BP80 与 BP 相近，所以检测器绝对不是瓶颈</td>
+<td>增加该 BP
+实现的迭代数没有带来明显收益；未穷尽检测器与失配鲁棒处理</td>
+</tr>
+<tr class="even">
+<td>两种优化导频没赢，所以导频设计已完全排除</td>
+<td>只排除了被测试的设计与固定接收配置</td>
+</tr>
+<tr class="odd">
+<td>几种被动白化没赢，所以协方差处理全部无效</td>
+<td>只约束相应协方差模型、信息来源和插入位置；不显著也不等于已证明等效</td>
+</tr>
+<tr class="even">
+<td>I1 胜过真数据 I2，因为避免了硬判决错误</td>
+<td>真数据本身没有判决错误；应检查反馈路径、调度、冻结状态和优化目标差异</td>
+</tr>
+<tr class="odd">
+<td>四 H 对照证明误差消除具有正向超加成收益</td>
+<td>必须先定义交互项符号；表中错块减少量实际存在重叠</td>
+</tr>
+</tbody>
+</table>
+<p>最后一项可以直接检查：8 dB 基线 37 错，真导频取消 7 错，真数据信道 3
+错，两者同时真为 0 错。单独减少量为 30 和 34，联合减少为 37，小于
+64。FER 的二阶交互 (0−7−3+37)/256
+为正，但按“减少错块”衡量是次可加，而非超加成。这不影响信道侧干预很重要的事实，却影响机制叙述。[P5]</p>
+<h2 id="文献重评两条路线都成立也都已有强先例">7.
+文献重评：两条路线都成立，也都已有强先例</h2>
+<table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>方向/原文</th>
+<th>已有内容</th>
+<th>对当前论文的约束</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Yin 等，EPA-DR，MIMO-AFDM [R1]</td>
+<td>分数 Doppler 下利用对角重构性质直接估有效
+H，而不逐条恢复三类路径参数</td>
+<td>不输出连续参数完全可以是一篇高水平 AFDM
+论文的合理选择；其嵌入导频条件不能直接搬到 SP</td>
+</tr>
+<tr class="even">
+<td>Liu 等，AFDM GCE-BEM [R2]</td>
+<td>用固定复指数基及系数处理分数 Doppler，并分析模型误差与估计误差</td>
+<td>固定基路线不是过时方法；GCE
+的过采样固定基不等于当前整数邻域，不能声称算法完全相同</td>
+</tr>
+<tr class="odd">
+<td>Huang 等，SP-OTFS 联合消息传递，TVT 2024 [R3]</td>
+<td>SP、GCE-BEM 和低复杂度联合接收；初轮较低 BEM 阶数，随后提高</td>
+<td>“先少基、反馈后加基”已有先例，不能单独作为新颖性</td>
+</tr>
+<tr class="even">
+<td>Liu 等，OTFS 结构稀疏消息传递，TWC 2021 [R4]</td>
+<td>将一条路径产生的泄漏系数联系起来，估计路径增益与分数 Doppler</td>
+<td>连续结构的统计价值已有先例，但不是所有场景的统一胜利</td>
+</tr>
+<tr class="odd">
+<td>Li 等，AFDM GR/GE-SBL [R5]；AFDM-SP 数据辅助 SBL [R9]</td>
+<td>离栅修正、网格演化、数据辅助字典与低复杂度实现</td>
+<td>连续精修、SP、数据辅助的组合本身不足以作为新贡献</td>
+</tr>
+<tr class="even">
+<td>NOMP [R6]；block-sparse recovery [R7]；AFDM hierarchical CS
+[R8]</td>
+<td>连续精修与贪婪搜索可共存，块/层次支撑也已有理论与算法</td>
+<td>OMP 是可选择的求解工具，不应成为论文身份</td>
+</tr>
+</tbody>
+</table>
+<p>其中 [R1] 已发表于 TWC 2024；本次读取的是作者的 arXiv 全文版本。[R2]
+采用 2025 年 9 月的 v2；[R5,R9]
+以本次核实的预印本内容作为新颖性参照，不用未经核实的期刊接收状态增强其权威性。</p>
+<p>尤其值得学习的是 [R1]
+的论文组织：先说明“逐路径参数估计”并非最有利的任务，再证明有效矩阵可直接恢复的结构，随后给方法、资源条件和实验。不是一定要恢复物理参数，而是应选择足以完成通信目标、且能稳定低成本估计的对象。</p>
+<p>另一方面，[R3]
+已经把低阶到高阶、消息反馈和复杂度联系起来。因此若保留整数路线，新的论文不能只改为“自适应扩展
+OMP”；需要明确哪个尚未解决的限制被识别、哪项结构被新增利用，以及它在强经典参考上的独立价值。</p>
+<h2 id="最少需要哪些材料">8. 最少需要哪些材料</h2>
+<p>不需要重新提交全部 7
+月审计，也不需要先跑一个大规模连续算法。最优先的是一份小型、版本绑定的接口与原始诊断包。</p>
+<table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>材料</th>
+<th>具体字段/片段</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>最新实际运行源码与绑定标识</td>
+<td>G0/G1 生成器、L(η)、整数算子构造、expand/prune、CE
+更新、检测器稀疏化</td>
+<td>分清真实传播、候选字典、活动集合和检测近似</td>
+</tr>
+<tr class="even">
+<td>四类预算分开记录</td>
+<td>物理 Doppler 上界、字典整数范围、邻域宽度 w、活动容量 K，以及
+c1/c2</td>
+<td>防止把扩字典误实现成改变波形</td>
+</tr>
+<tr class="odd">
+<td>M-01 与参数化参考的信息来源</td>
+<td>支撑与 η 分别是否读取真值；如何初始化/估计/截断</td>
+<td>分离 oracle 结构价值与可部署价值</td>
+</tr>
+<tr class="even">
+<td>已有诊断原始件或可重建状态</td>
+<td>block_id、Htruth/物理路径、S、g、投影/topK 结果、每块错数及输入
+hash</td>
+<td>重算三层误差、复用已有干预，不盲目重跑</td>
+</tr>
+<tr class="odd">
+<td>I1 与候选的资源账</td>
+<td>完整配置、反馈调用、检测/译码迭代、计时边界、设备</td>
+<td>确认比较合法、判断性能与成本上的空间</td>
+</tr>
+</tbody>
+</table>
+<p>已知的 N=1024、P=8、ρ=0.5、当前容量 24
+不必反复询问；真正缺的是这些数分别作用在哪个接口，以及它们是否与最新运行版本一致。</p>
+<p>历史代码显示 <code>expand_cluster_support</code> 会跳过
+|k_new|&gt;k_max 的邻居，故名义 ±w 不保证实际保留 2w+1 个基。另外，历史
+<code>construct_sensing</code> 以 K=2k_max+1 构造 δ=ℓK+k；若 K 同时承担
+chirp 引起的时延位移步长，不能只加大 k_max
+就宣称做了固定波形下的加宽实验。应在当前代码核对后，把索引步长、物理 c1
+和候选 q 范围解耦。[P4]</p>
+<h2 id="三组有决策意义的实验">9. 三组有决策意义的实验</h2>
+<h3 id="e0无估计器的表示资格核查">E0：无估计器的表示资格核查</h3>
+<p>先固定物理路径、A、c1、c2、前缀规则与归一化。对于现有
+G0，利用已保存信道重算 ΠD H 与 ΠS H。对于完整分数传播
+G1，先用少量单路径、多路径确定性用例，与独立时域传播实现核对，再计算有限整数域的最佳表示。</p>
+<p>输出应包含字典域误差、当前支撑误差、系数误差、实际保留原子数，以及随
+w 或候选域变化的曲线。完整整数 Fourier
+恒等式作为单元测试；单位模相位、模 N、移位方向和前缀单独测试。</p>
+<p>还需避免反向不公平：完整连续路径模型不必精确包含人为截断后的 G0。若在
+G0 比较结构约束模型，应使用与 G0
+一致的截断/合并映射；若讨论真实完整分数传播，则应让整数和连续接收机共同面对同一个
+G1。不能一边给整数接收机匹配的截断真值，一边给连续接收机不匹配的完整路径模型。</p>
+<p>判读：G0 字典域误差为零时，不再用“整数基装不下”解释当前失败。G1
+在合理整数域内误差很小，则完整物理模型验证通过并不要求增加连续估计。只有
+G1
+在可接受成本下存在明显表示限制时，才优先研究不同基或连续参数化。这里不预设一个全场景通用的
+NMSE 阈值，要看它对接收效果和预算的实际影响。</p>
+<h3 id="e1同信息同输入下分离自由度与求解误差">E1：同信息、同输入下分离自由度与求解误差</h3>
+<p>选有限个缓存 CE 输入，固定支撑提名、均值
+μ、噪声模型与功率。先比较自由整数
+LS、一个合理的岭/分组收缩经典参考，以及物理约束模型。最后一类必须将“真
+η”与“本帧估计 η”分成两行；真 η 只作诊断。</p>
+<p>对每种模型同时给优化后的训练残差、H
+的矩阵误差、独立探测向量上的预测误差、导频响应误差，以及被送入同一终端接收链后的错块变化。不要把几千个中间
+CE 输入当成几千个独立物理块。</p>
+<p>判读：真 η 有优势而估计 η
+无优势，只证明先验价值，不证明连续方法实际更好。普通正则化已追回收益，则应先保留简单整数方案。未知
+η
+的经典连续估计在多初始化与匹配成本下仍稳定更好，才支持把连续方法晋级。</p>
+<p>对近邻多路径而言，若估计不到独立路径参数但能估准
+H，这不是通信估计失败；感知参数任务应另外评价。</p>
+<h3 id="e2保留强-i1-的完整接收机比较">E2：保留强 I1
+的完整接收机比较</h3>
+<p>先只保留三类必要对象：当前 I1；经 E0/E1
+支持的一个整数系数方案；仅在前两组有理由时加入一个标准连续精修参考。所有对象都享有相同合法信息，数据反馈来自同等质量的接口，初始化、字典、检测、译码、提前终止、全部搜索和重试都计入成本。</p>
+<p>控制实验可以冻结后端以隔离估计器影响；最终整机比较则允许每种表示使用合理的后端实现，报告完整性能—成本前沿，避免用不适配的统一阈值故意削弱其中一方。</p>
+<p>先做开发，再冻结方案、主终点和实质差值/非劣界，再开独立确认。样本量依据目标
+FER 和配对不一致概率估算；不把 16 块或零错强行写成显著优势，也不预设必须
+800/2048 块。已完成的 I1
+确认与当前开发复现不能跨实现直接合并。[P1–P3]</p>
+<p>优先报告每块的配对救回、新增错误、置信区间、完整耗时和内存；NMSE
+用来解释而不是取代 FER。若一条方案只降低 NMSE 或固定 q
+目标而没有通信/成本价值，不再扩展模块。</p>
+<h2 id="如何根据结果决定论文主线">10. 如何根据结果决定论文主线</h2>
+<table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>证据结果</th>
+<th>优先路线</th>
+<th>不应作出的判断</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>有限整数域已足够，好的同容量整数支撑表现好</td>
+<td>保留整数表示，研究可靠支撑/系数估计或成本</td>
+<td>必须恢复连续 Doppler</td>
+</tr>
+<tr class="even">
+<td>主要损失来自自由系数的估计噪声，普通收缩有效</td>
+<td>先使用经典正则化并寻找其未解决限制</td>
+<td>物理约束模板有用，所以一定要新连续算法</td>
+</tr>
+<tr class="odd">
+<td>完整 G1 的有限域表示损失明显，且加宽过于昂贵</td>
+<td>比较更合适固定基、结构约束或连续精修</td>
+<td>所有离散方法都不可能</td>
+</tr>
+<tr class="even">
+<td>强 I1 已足够可靠，但完整成本高</td>
+<td>保持可靠性的结构化计算降本</td>
+<td>仅删迭代即可声称无损</td>
+</tr>
+<tr class="odd">
+<td>简单强参考已获得全部收益</td>
+<td>暂不冻结新方法主张，重定贡献或收窄稿件</td>
+<td>换场景、加学习名称就能补足新颖性</td>
+</tr>
+</tbody>
+</table>
+<p>默认推荐：整数等效信道 + 已确认 I1
+继续作为研究主平台；连续估计降为有条件的挑战性对照，而不是先行确定的论文身份。</p>
+<h2 id="一篇普通-transactions-应该怎样组织">11. 一篇普通 Transactions
+应该怎样组织</h2>
+<p>论文问题可以中性地表述为：“在分数 Doppler
+与叠加导频共存时，如何在有限计算预算内，估计并使用足够准确的等效信道以完成可靠通信？”</p>
+<p>不能提前写成“整数模型导致不可克服误差，因此提出连续估计”，因为当前证据尚不支持。也不能写成“整数扩展已完美，唯一问题是
+OMP”，因为完整 G1 与可实现选择策略尚未全部解决。</p>
+<p>合理的整篇组织是：真实物理模型与等效表示；受控实验定位主要限制；由结构分析导出的一个紧凑方法；误差/适用条件和完整复杂度分析；强经典参考上的独立性能—成本比较；必要的多路径、导频功率或编码配置变化。</p>
+<p>基础 Fourier 展开、bias–variance 概念、group-OMP 和 turbo
+反馈都不能单独计作新贡献。新工作必须进一步带来可用的计算结构、可证明的设计准则，或在有意义工作范围内能够复现的通信—成本改进。</p>
+<p>这里不必追求所有
+SNR、所有路径分布下性能最优。若准确说明适用条件，可靠性相当而完整成本显著降低，也可以构成合理研究目标。反之，一连串阴性实验、审计规程或尚未超过经典参考的
+oracle 余量，并不自动合成一篇已经达到 Transactions 要求的算法论文。</p>
+<p>就现有记录而言，研究已排除若干局部假说、建立强 I1
+和不少有效诊断；尚未证成一个新的可部署方法在公平完整成本下的实质优势。应承认这个边界，同时优先利用既有证据缩小下一步，而不是再扩展全部方向。</p>
+<h2 id="最终建议">12. 最终建议</h2>
+<p>当前最优先的不是实现一个新连续估计器，而是拿到最新版本的五个接口及已有支撑诊断原始件，完成三层误差分账。随后只做同信息的少量自由系数/结构约束比较，只有连续参数化实际显示统计效率或成本优势时才晋级。</p>
+<p>旧路线的合理性与旧算法是否值得投稿是两个不同问题。整数扩展可以成立，但当前新增模块仍可能不够有贡献；连续模型更紧凑，也仍可能不是最实用的接收选择。论文应由最终任务、已定位限制和可验证收益确定，而不是由“连续”“离栅”“学习”这些标签确定。</p>
+<h2 id="参考文献">参考文献</h2>
+<p>[R1] H. Yin, X. Wei, Y. Tang, K. Yang. <em>Diagonally Reconstructed
+Channel Estimation for MIMO-AFDM With Inter-Doppler Interference in
+Doubly Selective Channels</em>. IEEE TWC, 23(10), 14066–14079, 2024.
+DOI: 10.1109/TWC.2024.3408458. 本次读取作者全文：<a class="uri" href="https://arxiv.org/html/2206.12822v6">https://arxiv.org/html/2206.12822v6</a>
+。用于直接有效矩阵路线及其嵌入导频边界。</p>
+<p>[R2] L. Liu, Z. Li, Q. Peng, Q. Luo, P. Xiao, H. Wu. <em>BEM-Assisted
+Low-Complexity Channel Estimation for AFDM Systems over Doubly Selective
+Channels</em>. arXiv:2504.18901v2, 2025-09-14. <a class="uri" href="https://arxiv.org/html/2504.18901v2">https://arxiv.org/html/2504.18901v2</a> 。用于 GCE-BEM
+固定基、模型误差与估计误差；不把 GCE
+固定过采样网格等同于当前整数邻域。</p>
+<p>[R3] F. Huang et al. <em>Message Passing-Based Joint Channel
+Estimation and Signal Detection for OTFS with Superimposed Pilots</em>.
+IEEE TVT, 73(8), 11531–11542, 2024. DOI: 10.1109/TVT.2024.3378833. <a class="uri" href="https://arxiv.org/html/2309.08177v2">https://arxiv.org/html/2309.08177v2</a> 。用于
+SP、GCE-BEM、联合消息传递及初轮低阶、后续高阶的既有设计。</p>
+<p>[R4] F. Liu, Z. Yuan, Q. Guo, Z. Wang, P. Sun. <em>Message
+Passing-Based Structured Sparse Signal Recovery for Estimation of OTFS
+Channels With Fractional Doppler Shifts</em>. IEEE TWC, 20(12),
+7773–7785, 2021. <a class="uri" href="https://arxiv.org/html/2011.14757v2">https://arxiv.org/html/2011.14757v2</a>
+。用于路径泄漏系数结构与连续参数估计先例。</p>
+<p>[R5] X. Li, H. Wang, Y. Ge, X. Shen, M. Wen, S. Zhang, Y. L. Guan.
+<em>Low-Complexity Channel Estimation for Internet of Vehicles AFDM
+Communications With Sparse Bayesian Learning</em>. arXiv:2512.14776. <a class="uri" href="https://arxiv.org/abs/2512.14776">https://arxiv.org/abs/2512.14776</a> 。用于 GR-SBL/GE-SBL
+的已有方法边界。</p>
+<p>[R6] B. Mamandipoor, D. Ramasamy, U. Madhow. <em>Newtonized
+Orthogonal Matching Pursuit: Frequency Estimation over the
+Continuum</em>. arXiv:1509.01942. <a class="uri" href="https://arxiv.org/abs/1509.01942">https://arxiv.org/abs/1509.01942</a>
+。用于粗搜索与连续精修的兼容性。</p>
+<p>[R7] Y. C. Eldar, P. Kuppinger, H. Bölcskei. <em>Block-Sparse
+Signals: Uncertainty Relations and Efficient Recovery</em>. IEEE TSP,
+58(6), 3042–3054, 2010. 作者稿：<a class="uri" href="https://arxiv.org/html/0906.3173v2">https://arxiv.org/html/0906.3173v2</a> 。用于 block-OMP
+等方法血统；不把其保证直接外推到未知有色 SP 干扰。</p>
+<p>[R8] W. Benzine, A. Bemani, N. Ksairi, D. Slock. <em>Affine Frequency
+Division Multiplexing for Compressed Sensing of Time-Varying
+Channels</em>. arXiv:2407.02953. <a class="uri" href="https://arxiv.org/abs/2407.02953">https://arxiv.org/abs/2407.02953</a> 。用于 AFDM
+层次稀疏恢复的已有研究。</p>
+<p>[R9] <em>Data-aided Channel Estimation and Sensing With Sparse
+Bayesian Learning for AFDM-ISAC System</em>. arXiv:2607.18881v1,
+2026-07. <a class="uri" href="https://arxiv.org/html/2607.18881v1">https://arxiv.org/html/2607.18881v1</a> 。用于
+SP、数据辅助、离栅网格演化的直接邻近工作；其多接收天线 MMV 与本文 SISO
+工作条件需要对齐。</p>
+<p>[P1] <code>l16-reassessment-v1.md</code>，2026-09-12，项目 File
+Library 可检索文本。引用范围：G0 假设、支撑/系数投影、35/22/18/3/2
+干预结果、离散交换负结果及范围、工作后验与未完成事项。不是本轮重跑。</p>
+<p>[P2] <code>final-report-template-v1.md</code>，2026-09-12，项目 File
+Library 可检索文本。引用范围：容量 24、物理路径 8、515
+列、真值原子范围、Gamma
+条件性简化、新鲜开发和范围；含表格占位符，不把未渲染占位当数据。</p>
+<p>[P3] <code>completed-results.html</code>，2026-09-12，项目 File
+Library 可检索文本。引用范围：I1 固定 G0 的 2048 块/SNR
+确认、COST512、相邻 A/B 预检与受限独立审查。不是本轮独立统计复核。</p>
+<p>[P4] <code>e4990dad-f8fe-42a7-b55c-0387a8bb3e22.py</code>，此前上传的
+Python
+文件。引用范围：<code>expand_cluster_support</code>、<code>construct_sensing</code>、固定整数支撑的
+DA-LS 片段。尚未与最新运行源码建立版本同一性。</p>
+<p>[P5]
+<code>afdm_comprehensive_supplement_latest_findings(1).md</code>，2026-09-11，当前附件。引用范围：四
+H、M-01、I-01、P-01、I-02
+的报告表与解释；对其中超出实验范围的定论明确收窄，不将报告措辞视为独立证明。</p>
+</body></html>

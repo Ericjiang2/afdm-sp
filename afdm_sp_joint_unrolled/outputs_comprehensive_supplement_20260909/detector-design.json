@@ -1,0 +1,202 @@
+{
+  "schema": "supplement-detector-design-v1",
+  "status": "implementation_preparation_no_development_results",
+  "recipes": [
+    {
+      "id": "stable-EP-20-d0.25",
+      "family": "stable-EP",
+      "iterations": 20,
+      "damping": 0.25,
+      "llr_clip": 20.0,
+      "fixed_point_tolerance": 1e-05,
+      "doubled_iterations": 40
+    },
+    {
+      "id": "stable-EP-20-d0.5",
+      "family": "stable-EP",
+      "iterations": 20,
+      "damping": 0.5,
+      "llr_clip": 20.0,
+      "fixed_point_tolerance": 1e-05,
+      "doubled_iterations": 40
+    },
+    {
+      "id": "stable-EP-40-d0.25",
+      "family": "stable-EP",
+      "iterations": 40,
+      "damping": 0.25,
+      "llr_clip": 20.0,
+      "fixed_point_tolerance": 1e-05,
+      "doubled_iterations": 80
+    },
+    {
+      "id": "stable-EP-40-d0.5",
+      "family": "stable-EP",
+      "iterations": 40,
+      "damping": 0.5,
+      "llr_clip": 20.0,
+      "fixed_point_tolerance": 1e-05,
+      "doubled_iterations": 80
+    },
+    {
+      "id": "QPSK-MF-20-d0.5",
+      "family": "QPSK-MF",
+      "iterations": 20,
+      "damping": 0.5,
+      "llr_clip": 20.0,
+      "fixed_point_tolerance": 1e-05,
+      "doubled_iterations": 40
+    },
+    {
+      "id": "QPSK-MF-20-d1",
+      "family": "QPSK-MF",
+      "iterations": 20,
+      "damping": 1.0,
+      "llr_clip": 20.0,
+      "fixed_point_tolerance": 1e-05,
+      "doubled_iterations": 40
+    },
+    {
+      "id": "QPSK-MF-40-d0.5",
+      "family": "QPSK-MF",
+      "iterations": 40,
+      "damping": 0.5,
+      "llr_clip": 20.0,
+      "fixed_point_tolerance": 1e-05,
+      "doubled_iterations": 80
+    },
+    {
+      "id": "QPSK-MF-40-d1",
+      "family": "QPSK-MF",
+      "iterations": 40,
+      "damping": 1.0,
+      "llr_clip": 20.0,
+      "fixed_point_tolerance": 1e-05,
+      "doubled_iterations": 80
+    }
+  ],
+  "sources": {
+    "supplement_detectors.py": "c941c06967ed440a5f4d0d826d9b88ee16abe2cf6a6cd745bb34f5b8c7b41e4e",
+    "direction_detector.py": "34dc5e5669e534571ea07a2669ac1e4326bdcf8408feac137fa3445bad3afefb",
+    "mp_detect_bp_torch.py": "4fd9d0a62a548ae48e032c1e95a6f701bcec33fe115d2c5d5a6cd4dc36034ef1",
+    "e1_ldpc.py": "daec23e59268b141141f50eb87f61a15d3a75b3820777a419651450dec7f8657",
+    "test_supplement_detectors.py": "f59f83a3c8210deb210ef6adfea505f794dfe24ba5b08bbdd84fc4e77d6b1ebd"
+  },
+  "original_implementations_unchanged": [
+    "direction_receiver.terminal_decode (BP20)",
+    "direction_detector.detect/terminal (real EP10 damp0.5)"
+  ],
+  "algorithms": {
+    "stable-EP": {
+      "lineage": "direction_detector real Gaussian EP cavity moment matching; new standalone stabilized implementation",
+      "equations": "Hreal=[[ReH,-ImH],[ImH,ReH]], sigma_real=sigma_complex/2; lambda_cav=1/diag(V)-lambda_site; eta_cav=m/diag(V)-gamma_site; rawLLR=2*a*eta_cav; tiltedmean=a*tanh(rawLLR/2)",
+      "precision_guard": "retain both old site parameters when proposed precision<=0 or>1e12; record rejected sites; no jitter or alternate detector",
+      "site_variance_floor": 2.5e-11,
+      "returned_variance": "actual discrete tilted variance; site floor not returned as posterior uncertainty",
+      "linear_solve": "real2N float64 Cholesky/solve and covariance diagonal via inverse; requested torch CPU/CUDA device actually used",
+      "failure": "nonfinite/invalid Cholesky/cavity precision below-1e-8/linear residual>1e-8 raises",
+      "cost": "N1024 uses2048-dimensional dense factorization per iteration; quote one case before qualification batch"
+    },
+    "QPSK-MF": {
+      "lineage": "independent finite-discrete mean-field variational coordinate descent, not Gaussian EP or EP site reparameterization",
+      "objective": "E_q||y-Hx||^2/sigma + sum_j,sum_bit q_j(bit) log q_j(bit); factorized real/imag BPSK marginals",
+      "update": "ascending coordinate: residual excludes current symbol; raw conditional LLR real/imag=4*a*Re/Im(h_j^H residual_excluding_j)/sigma; damp discrete marginal means",
+      "initialization": "matched single-user discrete marginals; exact on orthogonal columns",
+      "probability_bounds": [
+        1e-12,
+        0.999999999999
+      ],
+      "failure": "nonfinite or free-energy increase>1e-8*max(1,abs(previous)) raises",
+      "output": "LLR from final variational marginal probabilities; NEVER Gaussian-demap discrete variance",
+      "cost": "fixed20/40 sweeps; one update per symbol per sweep; torch CPU/CUDA device matches request",
+      "limitation": "factorization omits posterior correlations; fixed point need not be global optimum"
+    }
+  },
+  "interface": {
+    "inputs": [
+      "cancelled_y",
+      "H",
+      "sigma_complex",
+      "scaled_constellation",
+      "code",
+      "recipe_id"
+    ],
+    "max_N": 1024,
+    "truth_access": "none; caller supplied frozen H must be lineage-tagged estimated/oracle outside this API",
+    "sigma": "total complex variance; each real component sigma/2",
+    "QPSK_amplitudes": [
+      0.5,
+      0.5
+    ],
+    "symbol_power": 0.5,
+    "bit_order": "all real bits then all imaginary bits",
+    "LLR": "log P0/P1; clip20 only after marginal moments",
+    "LDPC": "existing decode_llr maxiter50 and extract_info",
+    "outputs": [
+      "mu",
+      "var",
+      "raw_llr",
+      "llr",
+      "x_hard",
+      "decoded",
+      "info_hat",
+      "decode_ok",
+      "diagnostics",
+      "terminal_seconds"
+    ],
+    "state": "fresh each call; no posterior/site caches; CUDA device recorded with resolved index",
+    "calls": "each terminal invocation incl LDPC charged1T; doubling is a second T"
+  },
+  "qualification": {
+    "status": "pending_execution",
+    "exact_toys": "all8 recipes: diagonal complex/orthogonal and zero/unobserved-column QPSK exact LLR+mu+var rtol/atol1e-8; coupledN2/N4 exact enumeration differences retained, not falsely required to be zero",
+    "invariants": "finite outputs, real variance>=0, unit conventions, MF free-energy monotonicity, EP solve residual, short real LDPC bit recovery",
+    "fixed_doubling": {
+      "base_iterations": [
+        20,
+        40
+      ],
+      "doubled_iterations": [
+        40,
+        80
+      ],
+      "max_passes_per_recipe_per_cache": 1,
+      "max_engineering_caches": 4,
+      "max_terminal_calls": 64,
+      "cache_rule": "first4 preregistered engineering cached terminal states, same frozen y/H/sigma per pair; no adaptive replacement",
+      "llr_norm_difference": "||LLRbase-LLRdouble||/max(1,||LLRdouble||)<=1e-3",
+      "mean_norm_difference": "||mubase-mudouble||/max(1,||mudouble||)<=1e-4",
+      "final_fixed_point_residual_max": 1e-05,
+      "linear_relative_residual_max": 1e-08,
+      "decoded": "identical every bit; stronger than merely equal FER",
+      "both_converged": true,
+      "EP_extra": "final rejected sites must be zero",
+      "failure": "retain original outputs and unqualified status; no tolerance widening/repeated rescue",
+      "identity": "Same resolved device, recipe, frozen y/H/sigma/constellation and actual LDPC G/H/free_cols/check-node edges/row pointers and maxiter. Nonfinite residuals rejected."
+    },
+    "sequence": "small toys first; one N1024 engineering case for resource quote; authorize/freeze finite64T resources before remaining qualification",
+    "sufficiency": "numerical correctness and iteration stability establish limited qualification, not superiority; development performance gate still required"
+  },
+  "development": {
+    "split": "design",
+    "frozen_channel_sigma": true,
+    "blocks": 192,
+    "max_new_recipes": 8,
+    "max_terminal_calls": 1536,
+    "rule": "only qualified references can support stronger-detector claims; report every attempted family and failure; do not infer BP optimality if none wins",
+    "legacy_comparators": "retain old BP and EP10 results separately; additional calls require their own explicit budget, not hidden in1536"
+  },
+  "pending": [
+    "run unittest numerical fixtures",
+    "N1024 engineering quote",
+    "fixed finite qualification64T",
+    "192-block frozen-state development",
+    "strong-reference selection"
+  ],
+  "review": {
+    "mathematics": "Real EP sigma_complex/2 and finite-BPSK LLR checked algebraically; MF finite-QPSK coordinate objective and LLR use complex variance consistently.",
+    "fixed": "Doubling qualification now binds decoder contents and resolved device, and rejects nonfinite residuals.",
+    "tests_added": "Complex unitary exact LLR/no input mutation; unavailable CUDA rejection; N4 coupled finite approximation differences; mismatched decoder/device and NaN qualification rejection.",
+    "validation_scope": "Local syntax/static checks only; numerical runtime remains pending. Stability is not evidence of superiority."
+  }
+}

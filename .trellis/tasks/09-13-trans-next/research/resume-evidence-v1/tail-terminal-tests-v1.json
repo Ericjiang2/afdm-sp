@@ -1,0 +1,17 @@
+{
+  "stage": "implementation_contract_tests",
+  "command": [
+    "/private/tmp/afdm-resume-validation-20260915/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    ".trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py"
+  ],
+  "exit_code": 2,
+  "wall_seconds": 10.157682165969163,
+  "stdout": "\n==================================== ERRORS ====================================\n_ ERROR collecting .trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py _\nImportError while importing test module '/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/.trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/Users/guoyikun/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n.trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py:15: in <module>\n    import tail_terminal_v1 as terminal\n.trellis/tasks/09-13-trans-next/research/tail_terminal_v1.py:14: in <module>\n    from afdm_sp_joint_unrolled.supplement_profile import OperatorProfile\nafdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/supplement_profile.py:30: in <module>\n    from . import decision_gateA as gate\nafdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/decision_gateA.py:39: in <module>\n    from afdm_sp_joint_unrolled.decision_harvest import (\nafdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/decision_harvest.py:41: in <module>\n    from afdm_sp_joint_unrolled.loop9_cache_features import (\nafdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/loop9_cache_features.py:52: in <module>\n    from afdm_sp_joint_unrolled.eval_classical_joint_unrolled import (\nafdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py:71: in <module>\n    from afdm_sp_joint_unrolled.run_classical_baselines_python import (\nafdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/run_classical_baselines_python.py:38: in <module>\n    from afdm_sp_joint_unrolled.system_config import AFDMSystem, _make_system, _sync_l_max_cap\nafdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/system_config.py:16: in <module>\n    from .afdm_trainer import AFDMTrainerMixin\nafdm_sp_joint_unrolled/outputs_ce_state_20260915/source-v4/afdm_sp_joint_unrolled/afdm_trainer.py:17: in <module>\n    import matplotlib\nE   ModuleNotFoundError: No module named 'matplotlib'\n=========================== short test summary info ============================\nERROR .trellis/tasks/09-13-trans-next/research/test_tail_terminal_v1.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 9.42s\n",
+  "stderr": ""
+}

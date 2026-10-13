@@ -1,0 +1,116 @@
+{
+  "schema": "f2-v2-probe-independent-metadata-recount/1",
+  "status": "pass_metadata_recount",
+  "scope": "Recount of the named local JSON/JSONL/text metadata only. No raw/checkpoint NPZ payload was opened, and no receiver, solver, estimator, generator, decoder, or truth was run/read.",
+  "outcome": {
+    "path": "results/cstate_necessity_stageB_resume_20260928/F2_PROBE_V2_OUTCOME.json",
+    "sha256": "a566323d017d848ac7a3ab233e6f035f9f24758a712778a73d2b2ac6f30388b8",
+    "status": "one_complete_wrapper_ok",
+    "launcher_exit_code": 0,
+    "launcher_wall_seconds": 20,
+    "observation_id": "s650_f0000",
+    "new_observations": 0,
+    "population_inference": false,
+    "truth_values_read": false
+  },
+  "attempt_and_checkpoints": {
+    "attempt_rows": 1,
+    "attempt_numbers": [1],
+    "observation_id": "s650_f0000",
+    "attempt_input_sha256": "5fc0bcec3152b7053b6724a752bfca4a79af80a7a8846ea3565815df4ddc5c54",
+    "receipt_status": "ok",
+    "complete_calls": 1,
+    "checkpoints": [
+      {
+        "round": 0,
+        "path": "checkpoints/s650_f0000_F2E_r0.npz",
+        "sha256_recorded": "980656902f9032f94def44ff2d8ce2c9f0a1ed1ffb8cfec5b2183d9c83e1cc34"
+      },
+      {
+        "round": 1,
+        "path": "checkpoints/s650_f0000_F2E_r1.npz",
+        "sha256_recorded": "bfbdc52db909729e17f1051eb95a091c6498ef4c4ae735e1d66da8b7515740af"
+      }
+    ],
+    "checkpoint_count": 2
+  },
+  "manifest_and_source_binding": {
+    "run_manifest_path": "results/cstate_necessity_stageB_resume_20260928/F2_PROBE_V2_MANIFEST.json",
+    "run_manifest_sha256": "5f7f917abf43a79666bcee2ccf93f474ee0a21cc4731d704a1a457dba27e8fa0",
+    "outcome_run_manifest_sha256_matches": true,
+    "output_manifest_path": "results/cstate_necessity_stageB_resume_20260928/probe_f0000_v2/manifest.json",
+    "output_manifest_sha256": "410d534893b5f308dfb90ed7b18f6b91cf731315d68783a590bdb76ed48e95d3",
+    "output_probe_manifest_sha256": "5f7f917abf43a79666bcee2ccf93f474ee0a21cc4731d704a1a457dba27e8fa0",
+    "output_probe_manifest_sha256_matches_run_manifest": true,
+    "git_frozen_manifest_binding": {
+      "commit": "2c62b238",
+      "blob_path": "00_Inbox/AFDM-channel-estimation/results/cstate_necessity_stageB_resume_20260928/F2_PROBE_V2_MANIFEST.json",
+      "blob_sha256": "5f7f917abf43a79666bcee2ccf93f474ee0a21cc4731d704a1a457dba27e8fa0",
+      "blob_sha256_matches_manifest_and_output_reference": true
+    },
+    "input_sha256": "5fc0bcec3152b7053b6724a752bfca4a79af80a7a8846ea3565815df4ddc5c54",
+    "source_hashes_match_between_manifests": true,
+    "source_hashes": {
+      "f2_estimator.py": "05f7c2415dd4c72da1f41a50f167f7b01c470877adb1b2f9a0891d0cd7569779",
+      "f2_probe.py": "5dfff25c1a1df2069d6cfa9bd784a017d7fbff6bcb25d5ec5d229c00567547f5",
+      "f2_receiver.py": "4e0a2e902e784860aa542bf1e1a4ce5def6acfe4737f5a2a30832ae1ebe00841"
+    }
+  },
+  "timing_seconds": {
+    "complete_including_preflight": 20.27455670607742,
+    "receiver_including_raw_save": 15.97639877605252,
+    "front_estimator_components": 15.671761182951741,
+    "preflight_setup_approx": 4.2981579300248995,
+    "complete_minus_receiver": 4.2981579300249,
+    "checkpoint_ready_from_receiver_origin": [
+      15.79545390396379,
+      15.937281721970066
+    ],
+    "checkpoint_durable_from_probe_origin": [
+      20.113941840012558,
+      20.253191553987563
+    ],
+    "durable_minus_ready_origin_offsets": [
+      4.318487936048768,
+      4.315909832017497
+    ],
+    "clock_origin_note": "Checkpoint ready times use receiver origin; durable times use probe origin, so they are not same-origin timestamps. The approximately 4.3 s offset is consistent with preflight/setup plus clock boundary/serialization differences."
+  },
+  "front_component_calls": {
+    "matrix": 83,
+    "posterior": 83,
+    "grid": 79,
+    "dense_h": 3,
+    "lmmse": 3
+  },
+  "recorded_numerical_and_syndrome_summary": {
+    "data_cap_hit": true,
+    "em_cap_hits": 3,
+    "gamp_cap_hits": 0,
+    "grid_calls": 79,
+    "grid_solver_iterations_total": 1455,
+    "grid_solver_iterations_max": 23,
+    "grid_solver_termination": "all 79 by relative objective reduction; no grid QP failure",
+    "selected_paths": 155,
+    "syndrome_weights_cp0_cp1_final": [
+      310,
+      323,
+      323
+    ],
+    "cp0_cp1_match_raw_round_bits": true,
+    "final_matches_cp1": true,
+    "summary_source_boundary": "Cap/syndrome values are present only as outcome metadata summarized from remote raw/checkpoint evidence; they were not independently recomputed from NPZ payloads."
+  },
+  "remote_artifacts_boundary": {
+    "outcome_lists_remote_only_artifacts": [
+      "probe_f0000_v2/checkpoints/s650_f0000_F2E_r0.npz",
+      "probe_f0000_v2/checkpoints/s650_f0000_F2E_r1.npz",
+      "probe_f0000_v2/raw.npz"
+    ],
+    "npz_payloads_opened": false,
+    "npz_sha256_values_recomputed": false,
+    "small_file_sha256_values_recomputed_and_matched_outcome": true,
+    "small_files_matched": 7
+  },
+  "scope_limit": "This is a one-frame operational probe only; it does not establish converged EM/data iteration, population FER, CSTATE/LOCAL handoff, or an F2 ranking."
+}

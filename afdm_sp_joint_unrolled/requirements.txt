@@ -1,0 +1,40 @@
+# AFDM SP N=512 UWA System — Python Dependencies
+# Conda env: CE
+# Tested on macOS (Apple Silicon / x86-64) with Python 3.x
+#
+# Install:
+#   conda create -n CE python=3.11
+#   conda activate CE
+#   pip install -r requirements.txt
+#
+# GPU (optional): replace tensorflow with tensorflow[and-cuda] for NVIDIA,
+#   or tensorflow-metal for Apple Silicon.
+
+# ── Core numerics ─────────────────────────────────────────────────────────
+numpy>=1.24,<3.0          # array ops, FFT, linalg
+scipy>=1.10               # dft (scipy.linalg), signal
+
+# ── Deep learning ─────────────────────────────────────────────────────────
+# Install PyTorch for your hardware from https://pytorch.org/get-started/locally/
+#
+#   CPU only (macOS / any):
+torch>=2.0
+#
+#   NVIDIA GPU (Linux/Windows, CUDA 12.x):
+#   pip install torch>=2.0 --index-url https://download.pytorch.org/whl/cu121
+#
+#   Apple Silicon GPU (macOS M-series):
+#   torch>=2.0  (MPS backend is auto-detected; no extra package needed)
+#
+# PyTorch automatically detects and uses MPS/CUDA — no code changes needed.
+# Tested with torch>=2.0.0
+
+# ── Machine learning utilities ────────────────────────────────────────────
+# scikit-learn removed: train_test_split replaced with pure-numpy impl in
+# afdm_trainer.py to avoid scipy.spatial slow-init hang on Windows.
+
+# ── Visualisation ─────────────────────────────────────────────────────────
+matplotlib>=3.7           # BER / NMSE curves; uses Agg backend (no display needed)
+
+# ── Standard library (no install needed) ─────────────────────────────────
+# pickle, pathlib, warnings, time, math, sys, os, argparse

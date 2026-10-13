@@ -1,0 +1,76 @@
+\section{Training Objective and Protocol}
+\label{sec:training}
+
+\subsection{Loss and supervision}
+\label{ssec:loss}
+
+Per-frame feature sets are harvested by running the classical joint
+receiver to completion. Each frame carries a binary supervision
+label $y_i\in\{0,1\}$ equal to 1 iff $(l_i,k_i)$ coincides with an
+active Dirichlet-weighted ground-truth virtual tap (positive-class
+rate $\approx 3\%$). The loss is a weighted sum of per-candidate
+binary cross-entropy (BCE) and a pairwise ranking hinge:
+\begin{equation}
+\mathcal{L}(\theta) = \mathcal{L}_\text{BCE}(\theta)
+ + \lambda_\text{rank}\max\!\bigl(0,
+ 1{-}\!\!\min_{y_i=1}\!s_i + \!\!\max_{y_j=0}\!s_j\bigr),
+\label{eq:loss}
+\end{equation}
+$\lambda_\text{rank}=0.5$. AdamW at lr $10^{-3}$,
+weight decay $10^{-4}$, batch size 512, 8 epochs with early stopping on
+validation BCE (patience 2); the train/validation split is 90/10 at
+seed $13\,579$. The deployed model is trained on a 27\,k-frame
+four-SNR data set at
+$\snr\in\{10,15,20,25\}$~dB with per-SNR frame weights
+$\{0.2,0.3,0.3,0.2\}$.
+
+\subsection{Width-MLP architectural choice}
+\label{ssec:width_mlp}
+Three architectural axes were tested under matched training budgets at
+$\fs=4B$, $\Nsub=1024$, $K=10$ unrolled iterations (5000 iter, pretrain
+1000, lr $10^{-3}$ cosine): hidden width, attention modules over the
+candidate pool, and softsort top-$K$ heads. Raising hidden width from
+64 (46k params) to 128 (174k), 256 (676k), and 512 (2.66M) produced
+best-eval BERs $0.0498, 0.0555, 0.0381, 0.0355$ --- 64$\to$256 gives
+$-23.5\%$ BER, 256$\to$512 saturates at $-6.8\%$. Attention modules
+(4-head additive over the 32-D pair descriptor) and softsort-relaxed
+top-$K$ with classical-correlation masking and STE backward
+($\tau$ annealed $1.0\!\to\!0.05$) do not add over width: at I\_256,
+attention converges to $0.0418$ ($+9.7\%$), softsort to $0.0401$
+($+5.2\%$). The implicit inductive bias provided by 10 unrolled
+residual iterations renders both explicit-attention and
+explicit-sparsity-constraint axes redundant.
+
+The 1\,041-parameter support-refinement head deployed throughout is the
+small-capacity variant of the 256-width family with a frozen candidate
+dictionary: scaling capacity further changes BER only at the third
+significant digit while the support-refinement function class is
+already representable at 1\,041 parameters.
+
+\subsection{Multi-seed protocol and paired-frame statistics}
+\label{ssec:multiseed}
+Three independent retrainings (seeds $20\,260\,507/508/509$, identical
+architecture and fixed-budget top-$K$ deployment rule) evaluated on three
+independent paired-eval seed blocks ($20\,260\,423/424/425$) at
+$\snr=20$~dB with 600 paired frames per cell yield a $3{\times}3$
+cross-seed grid. Cross-train-seed mean$\pm$std of pooled relative
+paired BER reduction is $-5.17\%\pm 0.57$~pp under
+the $\fs=4B$ hard-decision deployment protocol; two of three training seeds produce
+bit-identical paired counts on every cell. This is the architectural
+confirmation that the fixed-budget selector's per-candidate logit rank order is
+invariant to training trajectory, and transfers via the rank-invariance
+bridge (\S\ref{ssec:disc_lossform}) to the headline $-37.7\%$ of
+Table~\ref{tab:ber4b}.
+
+The $3{\times}3$ grid is reported at $\snr=20$~dB only; $\snr\in\{25,30\}$~dB
+cells require $\sim\!10{\times}$ more frames to achieve meaningful error counts
+(classical BER $\sim\!10^{-3}$) and are deferred to future work.
+
+All four receivers consume the same $(\text{channel},\text{data},\text{noise})$
+realisation per SNR cell. Default bit budget $8.19\!\times\!10^{5}$ per
+SNR point. Two-sided Clopper--Pearson 95\% CIs from the exact
+binomial; significance via continuity-corrected paired McNemar
+$\chi^2$ on bit-level $(n_{10},n_{01})$ (Appendix~\ref{app:mcnemar}).
+Train/val/test separation is enforced at the seed level: the $\fs=4B$
+training frames are drawn from blocks $20\,260\,420/421$; all evaluation frames
+are drawn from a disjoint set $\{20\,260\,423,424,425\}$.

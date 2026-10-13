@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "exit_code": 0,
+  "full_runner_evidence": [
+    "engineering-recipes-v4/complete.json",
+    "engineering-recipes-v4/run-contract.json"
+  ],
+  "replay_evidence": "recipe-and-disk-replay-v4.json",
+  "failure_evidence": "negative-runner-accounting-v4.json",
+  "budget_test_evidence": "log-budget-v4-tests.log",
+  "source_manifest": "source-snapshot-runtime-v4.json",
+  "protocol_sha256": "4f307ad9f6c1f4667704eaa64f1594249c748f8ecf9c7707a32a1545e09c2941",
+  "scope": "8 actual full calls + 1 separate process disk-only terminal replay; exact decoded bits and mu/variance tolerances. Immutable raw y/Hhat/sigma/graph/LLR/LDPC snapshots retained.",
+  "failure_scope": "Real CLI bad checkpoint attempts first/retry nonzero exit, zero receiver calls both, resource debit preserved. Nonzero failed call accounting verified with shared ledger unit test, not claimed as post-receiver end-to-end injected failure.",
+  "budget_guard": "atomic shared resource/stage call reservation, packet hard deadlines, illegal observed keys/split fail before receiver; immutable distinct run IDs forbid silent resume.",
+  "limits": "Engineering only; not FER evidence. Task-level raw binary snapshots remain server and locally downloaded engineering evidence, hashes in frame metadata."
+}

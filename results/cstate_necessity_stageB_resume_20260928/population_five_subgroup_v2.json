@@ -1,0 +1,235 @@
+{
+  "F2E_trigger_comparison": {
+    "F2E_CSTATE": "unavailable_not_admitted_frozen_interface",
+    "F2E_LOCAL": "unavailable_not_admitted_frozen_interface"
+  },
+  "groups": {
+    "original_F0_trigger_40": {
+      "n": 40,
+      "observation_ids": [
+        "s650_f0044",
+        "s650_f0064",
+        "s650_f0089",
+        "s650_f0113",
+        "s650_f0127",
+        "s650_f0160",
+        "s650_f0197",
+        "s650_f0240",
+        "s650_f0275",
+        "s650_f0285",
+        "s650_f0390",
+        "s650_f0391",
+        "s650_f0413",
+        "s650_f0415",
+        "s650_f0456",
+        "s650_f0462",
+        "s650_f0464",
+        "s650_f0519",
+        "s650_f0579",
+        "s650_f0593",
+        "s650_f0644",
+        "s650_f0647",
+        "s650_f0678",
+        "s650_f0718",
+        "s650_f0720",
+        "s650_f0740",
+        "s650_f0761",
+        "s650_f0770",
+        "s650_f0797",
+        "s650_f0810",
+        "s650_f0815",
+        "s650_f0824",
+        "s650_f0827",
+        "s650_f0871",
+        "s650_f0882",
+        "s650_f0938",
+        "s650_f0955",
+        "s650_f0965",
+        "s650_f0996",
+        "s650_f1008"
+      ],
+      "paired": {
+        "B_vs_F0_LOCAL": {
+          "direction": "second_only_correct rescues second versus first; first_only_correct harms second versus first",
+          "first": "B",
+          "second": "F0_LOCAL",
+          "table": {
+            "both_correct": 11,
+            "both_wrong": 6,
+            "fer_first_minus_second": -0.575,
+            "fer_second_minus_first": 0.575,
+            "first_only_correct": 23,
+            "mcnemar_exact_two_sided_p": 2.384185791015625e-07,
+            "n": 40,
+            "second_only_correct": 0,
+            "upper_95_fer_first_minus_second": -0.32080327754816096,
+            "upper_95_fer_second_minus_first": 0.7295709687311371
+          }
+        },
+        "B_vs_F2T": {
+          "direction": "second_only_correct rescues second versus first; first_only_correct harms second versus first",
+          "first": "B",
+          "second": "F2T",
+          "table": {
+            "both_correct": 1,
+            "both_wrong": 6,
+            "fer_first_minus_second": -0.825,
+            "fer_second_minus_first": 0.825,
+            "first_only_correct": 33,
+            "mcnemar_exact_two_sided_p": 2.3283064365386963e-10,
+            "n": 40,
+            "second_only_correct": 0,
+            "upper_95_fer_first_minus_second": -0.5841125637596118,
+            "upper_95_fer_second_minus_first": 0.9266172706479148
+          }
+        },
+        "F0_LOCAL_vs_F2T": {
+          "direction": "second_only_correct rescues second versus first; first_only_correct harms second versus first",
+          "first": "F0_LOCAL",
+          "second": "F2T",
+          "table": {
+            "both_correct": 0,
+            "both_wrong": 28,
+            "fer_first_minus_second": -0.25,
+            "fer_second_minus_first": 0.25,
+            "first_only_correct": 11,
+            "mcnemar_exact_two_sided_p": 0.00634765625,
+            "n": 40,
+            "second_only_correct": 1,
+            "upper_95_fer_first_minus_second": -0.01442313348109997,
+            "upper_95_fer_second_minus_first": 0.43825016224699875
+          }
+        }
+      },
+      "policies": {
+        "B": {
+          "branch_complete_seconds": {
+            "max": 0.3555617139209062,
+            "mean": 0.2729586127738003,
+            "median": 0.27438432804774493,
+            "n": 40,
+            "p95": 0.3077608067425899,
+            "p99": 0.3442797319870442
+          },
+          "coded_BER": 0.0166259765625,
+          "coded_bit_errors": 1362,
+          "complete_seconds": {
+            "max": 0.7332913668360561,
+            "mean": 0.6398135010444094,
+            "median": 0.6439968525664881,
+            "n": 40,
+            "p95": 0.7009661760530435,
+            "p99": 0.7233903788798488
+          },
+          "deadlines": {
+            "0.5": {
+              "correct": 2,
+              "missing": 0,
+              "n": 40,
+              "wrong_ready": 38
+            },
+            "1.0": {
+              "correct": 34,
+              "missing": 0,
+              "n": 40,
+              "wrong_ready": 6
+            }
+          },
+          "information_FER": 0.15,
+          "information_failures": 6,
+          "n": 40,
+          "syndrome_nonzero": 6,
+          "valid_but_wrong": 0
+        },
+        "F0_LOCAL": {
+          "branch_complete_seconds": {
+            "max": 0.3948049182072282,
+            "mean": 0.21874919256661088,
+            "median": 0.21670651843305677,
+            "n": 40,
+            "p95": 0.2521658083191141,
+            "p99": 0.3450500628887675
+          },
+          "coded_BER": 0.09375,
+          "coded_bit_errors": 7680,
+          "complete_seconds": {
+            "max": 0.7373383853118867,
+            "mean": 0.5856040808372199,
+            "median": 0.5887070499593392,
+            "n": 40,
+            "p95": 0.6520865665283053,
+            "p99": 0.7119265865255147
+          },
+          "deadlines": {
+            "0.5": {
+              "correct": 3,
+              "missing": 0,
+              "n": 40,
+              "wrong_ready": 37
+            },
+            "1.0": {
+              "correct": 11,
+              "missing": 0,
+              "n": 40,
+              "wrong_ready": 29
+            }
+          },
+          "information_FER": 0.725,
+          "information_failures": 29,
+          "n": 40,
+          "syndrome_nonzero": 29,
+          "valid_but_wrong": 0
+        },
+        "F2T": {
+          "branch_complete_seconds": {
+            "max": 21.06518493499607,
+            "mean": 16.192237672861665,
+            "median": 16.492259039892815,
+            "n": 40,
+            "p95": 19.342460315208882,
+            "p99": 20.476251209406183
+          },
+          "coded_BER": 0.13785400390625,
+          "coded_bit_errors": 11293,
+          "complete_seconds": {
+            "max": 21.509435566840693,
+            "mean": 16.559092561132275,
+            "median": 16.82064021844417,
+            "n": 40,
+            "p95": 19.74836227943888,
+            "p99": 20.87521513999207
+          },
+          "deadlines": {
+            "0.5": {
+              "correct": 0,
+              "missing": 0,
+              "n": 40,
+              "wrong_ready": 40
+            },
+            "1.0": {
+              "correct": 0,
+              "missing": 0,
+              "n": 40,
+              "wrong_ready": 40
+            }
+          },
+          "information_FER": 0.975,
+          "information_failures": 39,
+          "n": 40,
+          "syndrome_nonzero": 39,
+          "valid_but_wrong": 0
+        }
+      }
+    }
+  },
+  "input_sha256": {
+    "component_timing.csv": "81e3aad6921dd7bf547ac5e8ff45d1a156b93ce76e277255179c58e837371799",
+    "deadline_decisions.csv": "a5e5a45cba54360cd62316933cf3957684089a16b67132fb3ccfbbf04cb6b992",
+    "frame_outcomes.csv": "fe3fd3382d3490641ae3f829eeae87ddd1b6b748acebcaec73067433b1b690e8",
+    "report.json": "dbc93d3df5b40e8ee16b7323da413df5c7e659801defda3b6fdf1ac76f729c16"
+  },
+  "schema": "method-closure-f2-five-trigger-subgroups/1",
+  "script_sha256": "acd1b8f5b368818858dd8247095896e3a54f3002746610ed047bfddbd4bf097d",
+  "source": "saved primary F2 analysis CSV/report only; zero raw/truth/receiver reads",
+  "status": "pass"
+}

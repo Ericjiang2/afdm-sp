@@ -1,0 +1,1348 @@
+{
+  "audit": {
+    "status": "PASS",
+    "records": 16,
+    "new_F": 16,
+    "recovered_F": 0,
+    "arrays_audited": 1980,
+    "CE_states": 114,
+    "SISO_states": 0,
+    "cavity_symbol_checks": 0,
+    "nested_LDPC_replays": 42,
+    "terminal_LDPC_replays": 10,
+    "actual_stops": 6,
+    "valid_but_wrong_stops": 0,
+    "resources": {
+      "LDPC_calls": 52,
+      "CE_solves": 114,
+      "outer_BP_calls": 130,
+      "outer_BP_iterations": 1560,
+      "terminal_BP_calls": 10,
+      "terminal_BP_iterations": 200
+    },
+    "rows": [
+      {
+        "block": 0,
+        "snr": 7,
+        "arm": "BP_REF47",
+        "scores": {
+          "FER": 1,
+          "bit_Brier": 0.09725542791011152,
+          "bit_NLL": 0.30918018210427267,
+          "channel_NMSE": 0.04889742718702932,
+          "coded_bit_errors": 78,
+          "coded_bits_denominator": 1024,
+          "decode_ok": false,
+          "decoded_codeword_bit_errors": 143,
+          "high_confidence_bits": 278,
+          "high_confidence_wrong": 3,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 285,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 4,
+          "CE_solves": 9,
+          "outer_BP_calls": 10,
+          "outer_BP_iterations": 120,
+          "terminal_BP_calls": 1,
+          "terminal_BP_iterations": 20
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 10,
+          "outer_BP": 10,
+          "CE_design": 9,
+          "DA_LS_feedback_gain": 9,
+          "feedback_LDPC": 3,
+          "terminal_BP": 1,
+          "LLR": 1,
+          "LDPC": 1
+        }
+      },
+      {
+        "block": 0,
+        "snr": 7,
+        "arm": "BP_RETAIN",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.08480086064009851,
+          "bit_NLL": 0.33362675193670877,
+          "channel_NMSE": 0.04889742718702932,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1288,
+          "high_confidence_wrong": 30,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 124,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 4,
+          "CE_solves": 9,
+          "outer_BP_calls": 10,
+          "outer_BP_iterations": 120,
+          "terminal_BP_calls": 1,
+          "terminal_BP_iterations": 20
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 10,
+          "outer_BP": 10,
+          "CE_design": 9,
+          "DA_LS_feedback_gain": 9,
+          "feedback_LDPC": 3,
+          "terminal_BP": 1,
+          "LDPC": 1
+        },
+        "outer_reference_exact": true,
+        "terminal_counterfactual_exact": true
+      },
+      {
+        "block": 0,
+        "snr": 7,
+        "arm": "BP_RETAIN_STOP",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.08480086064009851,
+          "bit_NLL": 0.33362675193670877,
+          "channel_NMSE": 0.04889742718702932,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1288,
+          "high_confidence_wrong": 30,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 124,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 4,
+          "CE_solves": 9,
+          "outer_BP_calls": 10,
+          "outer_BP_iterations": 120,
+          "terminal_BP_calls": 1,
+          "terminal_BP_iterations": 20
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 10,
+          "outer_BP": 10,
+          "CE_design": 9,
+          "DA_LS_feedback_gain": 9,
+          "feedback_LDPC": 3,
+          "terminal_BP": 1,
+          "LDPC": 1
+        },
+        "outer_detections": 10,
+        "terminal_executed": true,
+        "checkpoint": null,
+        "prefix_exact": true
+      },
+      {
+        "block": 0,
+        "snr": 7,
+        "arm": "BP_RETAIN_STOP_REPEAT",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.08480086064009851,
+          "bit_NLL": 0.33362675193670877,
+          "channel_NMSE": 0.04889742718702932,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1288,
+          "high_confidence_wrong": 30,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 124,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 4,
+          "CE_solves": 9,
+          "outer_BP_calls": 10,
+          "outer_BP_iterations": 120,
+          "terminal_BP_calls": 1,
+          "terminal_BP_iterations": 20
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 10,
+          "outer_BP": 10,
+          "CE_design": 9,
+          "DA_LS_feedback_gain": 9,
+          "feedback_LDPC": 3,
+          "terminal_BP": 1,
+          "LDPC": 1
+        },
+        "outer_detections": 10,
+        "terminal_executed": true,
+        "checkpoint": null,
+        "prefix_exact": true
+      },
+      {
+        "block": 0,
+        "snr": 8,
+        "arm": "BP_REF47",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.08461351321978314,
+          "bit_NLL": 0.272322665217993,
+          "channel_NMSE": 0.041561562783708934,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 315,
+          "high_confidence_wrong": 2,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 244,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 4,
+          "CE_solves": 9,
+          "outer_BP_calls": 10,
+          "outer_BP_iterations": 120,
+          "terminal_BP_calls": 1,
+          "terminal_BP_iterations": 20
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 10,
+          "outer_BP": 10,
+          "CE_design": 9,
+          "DA_LS_feedback_gain": 9,
+          "feedback_LDPC": 3,
+          "terminal_BP": 1,
+          "LLR": 1,
+          "LDPC": 1
+        }
+      },
+      {
+        "block": 0,
+        "snr": 8,
+        "arm": "BP_RETAIN",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.040395614140409535,
+          "bit_NLL": 0.1772304154118927,
+          "channel_NMSE": 0.041561562783708934,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1664,
+          "high_confidence_wrong": 21,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 1,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 4,
+          "CE_solves": 9,
+          "outer_BP_calls": 10,
+          "outer_BP_iterations": 120,
+          "terminal_BP_calls": 1,
+          "terminal_BP_iterations": 20
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 10,
+          "outer_BP": 10,
+          "CE_design": 9,
+          "DA_LS_feedback_gain": 9,
+          "feedback_LDPC": 3,
+          "terminal_BP": 1,
+          "LDPC": 1
+        },
+        "outer_reference_exact": true,
+        "terminal_counterfactual_exact": true
+      },
+      {
+        "block": 0,
+        "snr": 8,
+        "arm": "BP_RETAIN_STOP",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.07547685944864807,
+          "bit_NLL": 0.2580925177723503,
+          "channel_NMSE": 0.04842111480920073,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 833,
+          "high_confidence_wrong": 9,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 204,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 2,
+          "CE_solves": 4,
+          "outer_BP_calls": 5,
+          "outer_BP_iterations": 60,
+          "terminal_BP_calls": 0,
+          "terminal_BP_iterations": 0
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 5,
+          "outer_BP": 5,
+          "CE_design": 4,
+          "DA_LS_feedback_gain": 4,
+          "feedback_LDPC": 2
+        },
+        "outer_detections": 5,
+        "terminal_executed": false,
+        "checkpoint": 4,
+        "prefix_exact": true
+      },
+      {
+        "block": 0,
+        "snr": 8,
+        "arm": "BP_RETAIN_STOP_REPEAT",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.07547685944864807,
+          "bit_NLL": 0.2580925177723503,
+          "channel_NMSE": 0.04842111480920073,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 833,
+          "high_confidence_wrong": 9,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 204,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 2,
+          "CE_solves": 4,
+          "outer_BP_calls": 5,
+          "outer_BP_iterations": 60,
+          "terminal_BP_calls": 0,
+          "terminal_BP_iterations": 0
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 5,
+          "outer_BP": 5,
+          "CE_design": 4,
+          "DA_LS_feedback_gain": 4,
+          "feedback_LDPC": 2
+        },
+        "outer_detections": 5,
+        "terminal_executed": false,
+        "checkpoint": 4,
+        "prefix_exact": true
+      },
+      {
+        "block": 1,
+        "snr": 7,
+        "arm": "BP_REF47",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.0804283337048164,
+          "bit_NLL": 0.2796861090388187,
+          "channel_NMSE": 0.013572693433835867,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 778,
+          "high_confidence_wrong": 10,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 217,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 4,
+          "CE_solves": 9,
+          "outer_BP_calls": 10,
+          "outer_BP_iterations": 120,
+          "terminal_BP_calls": 1,
+          "terminal_BP_iterations": 20
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 10,
+          "outer_BP": 10,
+          "CE_design": 9,
+          "DA_LS_feedback_gain": 9,
+          "feedback_LDPC": 3,
+          "terminal_BP": 1,
+          "LLR": 1,
+          "LDPC": 1
+        }
+      },
+      {
+        "block": 1,
+        "snr": 7,
+        "arm": "BP_RETAIN",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.044214917793469824,
+          "bit_NLL": 0.19586533816446808,
+          "channel_NMSE": 0.013572693433835867,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1646,
+          "high_confidence_wrong": 23,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 0,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 4,
+          "CE_solves": 9,
+          "outer_BP_calls": 10,
+          "outer_BP_iterations": 120,
+          "terminal_BP_calls": 1,
+          "terminal_BP_iterations": 20
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 10,
+          "outer_BP": 10,
+          "CE_design": 9,
+          "DA_LS_feedback_gain": 9,
+          "feedback_LDPC": 3,
+          "terminal_BP": 1,
+          "LDPC": 1
+        },
+        "outer_reference_exact": true,
+        "terminal_counterfactual_exact": true
+      },
+      {
+        "block": 1,
+        "snr": 7,
+        "arm": "BP_RETAIN_STOP",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.07374523876367264,
+          "bit_NLL": 0.2554857489106557,
+          "channel_NMSE": 0.017219034006996377,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 902,
+          "high_confidence_wrong": 11,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 209,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 2,
+          "CE_solves": 4,
+          "outer_BP_calls": 5,
+          "outer_BP_iterations": 60,
+          "terminal_BP_calls": 0,
+          "terminal_BP_iterations": 0
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 5,
+          "outer_BP": 5,
+          "CE_design": 4,
+          "DA_LS_feedback_gain": 4,
+          "feedback_LDPC": 2
+        },
+        "outer_detections": 5,
+        "terminal_executed": false,
+        "checkpoint": 4,
+        "prefix_exact": true
+      },
+      {
+        "block": 1,
+        "snr": 7,
+        "arm": "BP_RETAIN_STOP_REPEAT",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.07374523876367264,
+          "bit_NLL": 0.2554857489106557,
+          "channel_NMSE": 0.017219034006996377,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 902,
+          "high_confidence_wrong": 11,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 209,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 2,
+          "CE_solves": 4,
+          "outer_BP_calls": 5,
+          "outer_BP_iterations": 60,
+          "terminal_BP_calls": 0,
+          "terminal_BP_iterations": 0
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 5,
+          "outer_BP": 5,
+          "CE_design": 4,
+          "DA_LS_feedback_gain": 4,
+          "feedback_LDPC": 2
+        },
+        "outer_detections": 5,
+        "terminal_executed": false,
+        "checkpoint": 4,
+        "prefix_exact": true
+      },
+      {
+        "block": 1,
+        "snr": 8,
+        "arm": "BP_REF47",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.06472726034260812,
+          "bit_NLL": 0.2276853777831884,
+          "channel_NMSE": 0.00839799748454214,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 908,
+          "high_confidence_wrong": 8,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 173,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 4,
+          "CE_solves": 9,
+          "outer_BP_calls": 10,
+          "outer_BP_iterations": 120,
+          "terminal_BP_calls": 1,
+          "terminal_BP_iterations": 20
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 10,
+          "outer_BP": 10,
+          "CE_design": 9,
+          "DA_LS_feedback_gain": 9,
+          "feedback_LDPC": 3,
+          "terminal_BP": 1,
+          "LLR": 1,
+          "LDPC": 1
+        }
+      },
+      {
+        "block": 1,
+        "snr": 8,
+        "arm": "BP_RETAIN",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.029315304986943545,
+          "bit_NLL": 0.13534583252801788,
+          "channel_NMSE": 0.00839799748454214,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1777,
+          "high_confidence_wrong": 17,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 0,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 4,
+          "CE_solves": 9,
+          "outer_BP_calls": 10,
+          "outer_BP_iterations": 120,
+          "terminal_BP_calls": 1,
+          "terminal_BP_iterations": 20
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 10,
+          "outer_BP": 10,
+          "CE_design": 9,
+          "DA_LS_feedback_gain": 9,
+          "feedback_LDPC": 3,
+          "terminal_BP": 1,
+          "LDPC": 1
+        },
+        "outer_reference_exact": true,
+        "terminal_counterfactual_exact": true
+      },
+      {
+        "block": 1,
+        "snr": 8,
+        "arm": "BP_RETAIN_STOP",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.042928866043172934,
+          "bit_NLL": 0.15767597820527882,
+          "channel_NMSE": 0.008852278331946396,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1178,
+          "high_confidence_wrong": 5,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 112,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 2,
+          "CE_solves": 4,
+          "outer_BP_calls": 5,
+          "outer_BP_iterations": 60,
+          "terminal_BP_calls": 0,
+          "terminal_BP_iterations": 0
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 5,
+          "outer_BP": 5,
+          "CE_design": 4,
+          "DA_LS_feedback_gain": 4,
+          "feedback_LDPC": 2
+        },
+        "outer_detections": 5,
+        "terminal_executed": false,
+        "checkpoint": 4,
+        "prefix_exact": true
+      },
+      {
+        "block": 1,
+        "snr": 8,
+        "arm": "BP_RETAIN_STOP_REPEAT",
+        "scores": {
+          "FER": 0,
+          "bit_Brier": 0.042928866043172934,
+          "bit_NLL": 0.15767597820527882,
+          "channel_NMSE": 0.008852278331946396,
+          "coded_bit_errors": 0,
+          "coded_bits_denominator": 1024,
+          "decode_ok": true,
+          "decoded_codeword_bit_errors": 0,
+          "high_confidence_bits": 1178,
+          "high_confidence_wrong": 5,
+          "offline_truth_access": "error scoring only",
+          "raw_bit_errors": 112,
+          "raw_bits_denominator": 2048
+        },
+        "resources": {
+          "LDPC_calls": 2,
+          "CE_solves": 4,
+          "outer_BP_calls": 5,
+          "outer_BP_iterations": 60,
+          "terminal_BP_calls": 0,
+          "terminal_BP_iterations": 0
+        },
+        "operators": {
+          "dictionary_torch": 1,
+          "dense_H_reconstruction": 5,
+          "outer_BP": 5,
+          "CE_design": 4,
+          "DA_LS_feedback_gain": 4,
+          "feedback_LDPC": 2
+        },
+        "outer_detections": 5,
+        "terminal_executed": false,
+        "checkpoint": 4,
+        "prefix_exact": true
+      }
+    ],
+    "summary_sha256": "a8383565e15f88aa707cc2cc77cbd9f7237d3f843fe6df26343642848c05793e",
+    "contract_sha256": "197488e5d37609f36aac5dc56ff60a03d86def585fd9eafb5d9d0ca83464001f",
+    "source_sha256": "6f7383ce0c1d46ded2a1c8418c2a476d6e9b6192493710bf252dac879ea6ba34",
+    "auditor_sha256": "4c626c080fb127bf2908c4e7328c97ed9404ebf3215fe32c2d62ef9ce5392438",
+    "wall_seconds": 13.17546272277832,
+    "scope": "engineering raw prefix/decoder/CE/SISO qualification; not CONF, COST or proof of no undetected errors"
+  },
+  "exit": {
+    "name": "retained-chain-engineering-v1",
+    "exit_code": 0,
+    "timed_out": false,
+    "started_at": 1789279242.7413225,
+    "finished_at": 1789279291.7355502,
+    "wall_seconds": 48.99422812461853
+  },
+  "checks": [
+    {
+      "arm": "BP_REF47",
+      "block": 0,
+      "old_reference_exact": true,
+      "operators": {
+        "CE_design": 9,
+        "DA_LS_feedback_gain": 9,
+        "LDPC": 1,
+        "LLR": 1,
+        "dense_H_reconstruction": 10,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 3,
+        "outer_BP": 10,
+        "terminal_BP": 1
+      },
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "scores": {
+        "FER": 1,
+        "bit_Brier": 0.09725542791011152,
+        "bit_NLL": 0.30918018210427267,
+        "channel_NMSE": 0.04889742718702932,
+        "coded_bit_errors": 78,
+        "coded_bits_denominator": 1024,
+        "decode_ok": false,
+        "decoded_codeword_bit_errors": 143,
+        "high_confidence_bits": 278,
+        "high_confidence_wrong": 3,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 285,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "BP_RETAIN",
+      "block": 0,
+      "operators": {
+        "CE_design": 9,
+        "DA_LS_feedback_gain": 9,
+        "LDPC": 1,
+        "dense_H_reconstruction": 10,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 3,
+        "outer_BP": 10,
+        "terminal_BP": 1
+      },
+      "outer_reference_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.08480086064009851,
+        "bit_NLL": 0.33362675193670877,
+        "channel_NMSE": 0.04889742718702932,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 1288,
+        "high_confidence_wrong": 30,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 124,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 7,
+      "split": 1,
+      "terminal_counterfactual_exact": true
+    },
+    {
+      "arm": "BP_RETAIN_STOP",
+      "block": 0,
+      "checkpoint": null,
+      "operators": {
+        "CE_design": 9,
+        "DA_LS_feedback_gain": 9,
+        "LDPC": 1,
+        "dense_H_reconstruction": 10,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 3,
+        "outer_BP": 10,
+        "terminal_BP": 1
+      },
+      "outer_detections": 10,
+      "prefix_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.08480086064009851,
+        "bit_NLL": 0.33362675193670877,
+        "channel_NMSE": 0.04889742718702932,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 1288,
+        "high_confidence_wrong": 30,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 124,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 7,
+      "split": 1,
+      "terminal_executed": true
+    },
+    {
+      "arm": "BP_RETAIN_STOP_REPEAT",
+      "block": 0,
+      "checkpoint": null,
+      "operators": {
+        "CE_design": 9,
+        "DA_LS_feedback_gain": 9,
+        "LDPC": 1,
+        "dense_H_reconstruction": 10,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 3,
+        "outer_BP": 10,
+        "terminal_BP": 1
+      },
+      "outer_detections": 10,
+      "prefix_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.08480086064009851,
+        "bit_NLL": 0.33362675193670877,
+        "channel_NMSE": 0.04889742718702932,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 1288,
+        "high_confidence_wrong": 30,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 124,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 7,
+      "split": 1,
+      "terminal_executed": true
+    },
+    {
+      "arm": "BP_REF47",
+      "block": 0,
+      "old_reference_exact": true,
+      "operators": {
+        "CE_design": 9,
+        "DA_LS_feedback_gain": 9,
+        "LDPC": 1,
+        "LLR": 1,
+        "dense_H_reconstruction": 10,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 3,
+        "outer_BP": 10,
+        "terminal_BP": 1
+      },
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.08461351321978314,
+        "bit_NLL": 0.272322665217993,
+        "channel_NMSE": 0.041561562783708934,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 315,
+        "high_confidence_wrong": 2,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 244,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "BP_RETAIN",
+      "block": 0,
+      "operators": {
+        "CE_design": 9,
+        "DA_LS_feedback_gain": 9,
+        "LDPC": 1,
+        "dense_H_reconstruction": 10,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 3,
+        "outer_BP": 10,
+        "terminal_BP": 1
+      },
+      "outer_reference_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.040395614140409535,
+        "bit_NLL": 0.1772304154118927,
+        "channel_NMSE": 0.041561562783708934,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 1664,
+        "high_confidence_wrong": 21,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 1,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 8,
+      "split": 1,
+      "terminal_counterfactual_exact": true
+    },
+    {
+      "arm": "BP_RETAIN_STOP",
+      "block": 0,
+      "checkpoint": 4,
+      "operators": {
+        "CE_design": 4,
+        "DA_LS_feedback_gain": 4,
+        "dense_H_reconstruction": 5,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 2,
+        "outer_BP": 5
+      },
+      "outer_detections": 5,
+      "prefix_exact": true,
+      "resources": {
+        "CE_solves": 4,
+        "LDPC_calls": 2,
+        "outer_BP_calls": 5,
+        "outer_BP_iterations": 60,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.07547685944864807,
+        "bit_NLL": 0.2580925177723503,
+        "channel_NMSE": 0.04842111480920073,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 833,
+        "high_confidence_wrong": 9,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 204,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 8,
+      "split": 1,
+      "terminal_executed": false
+    },
+    {
+      "arm": "BP_RETAIN_STOP_REPEAT",
+      "block": 0,
+      "checkpoint": 4,
+      "operators": {
+        "CE_design": 4,
+        "DA_LS_feedback_gain": 4,
+        "dense_H_reconstruction": 5,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 2,
+        "outer_BP": 5
+      },
+      "outer_detections": 5,
+      "prefix_exact": true,
+      "resources": {
+        "CE_solves": 4,
+        "LDPC_calls": 2,
+        "outer_BP_calls": 5,
+        "outer_BP_iterations": 60,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.07547685944864807,
+        "bit_NLL": 0.2580925177723503,
+        "channel_NMSE": 0.04842111480920073,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 833,
+        "high_confidence_wrong": 9,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 204,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 8,
+      "split": 1,
+      "terminal_executed": false
+    },
+    {
+      "arm": "BP_REF47",
+      "block": 1,
+      "old_reference_exact": true,
+      "operators": {
+        "CE_design": 9,
+        "DA_LS_feedback_gain": 9,
+        "LDPC": 1,
+        "LLR": 1,
+        "dense_H_reconstruction": 10,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 3,
+        "outer_BP": 10,
+        "terminal_BP": 1
+      },
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.0804283337048164,
+        "bit_NLL": 0.2796861090388187,
+        "channel_NMSE": 0.013572693433835867,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 778,
+        "high_confidence_wrong": 10,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 217,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 7,
+      "split": 1
+    },
+    {
+      "arm": "BP_RETAIN",
+      "block": 1,
+      "operators": {
+        "CE_design": 9,
+        "DA_LS_feedback_gain": 9,
+        "LDPC": 1,
+        "dense_H_reconstruction": 10,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 3,
+        "outer_BP": 10,
+        "terminal_BP": 1
+      },
+      "outer_reference_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.044214917793469824,
+        "bit_NLL": 0.19586533816446808,
+        "channel_NMSE": 0.013572693433835867,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 1646,
+        "high_confidence_wrong": 23,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 0,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 7,
+      "split": 1,
+      "terminal_counterfactual_exact": true
+    },
+    {
+      "arm": "BP_RETAIN_STOP",
+      "block": 1,
+      "checkpoint": 4,
+      "operators": {
+        "CE_design": 4,
+        "DA_LS_feedback_gain": 4,
+        "dense_H_reconstruction": 5,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 2,
+        "outer_BP": 5
+      },
+      "outer_detections": 5,
+      "prefix_exact": true,
+      "resources": {
+        "CE_solves": 4,
+        "LDPC_calls": 2,
+        "outer_BP_calls": 5,
+        "outer_BP_iterations": 60,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.07374523876367264,
+        "bit_NLL": 0.2554857489106557,
+        "channel_NMSE": 0.017219034006996377,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 902,
+        "high_confidence_wrong": 11,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 209,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 7,
+      "split": 1,
+      "terminal_executed": false
+    },
+    {
+      "arm": "BP_RETAIN_STOP_REPEAT",
+      "block": 1,
+      "checkpoint": 4,
+      "operators": {
+        "CE_design": 4,
+        "DA_LS_feedback_gain": 4,
+        "dense_H_reconstruction": 5,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 2,
+        "outer_BP": 5
+      },
+      "outer_detections": 5,
+      "prefix_exact": true,
+      "resources": {
+        "CE_solves": 4,
+        "LDPC_calls": 2,
+        "outer_BP_calls": 5,
+        "outer_BP_iterations": 60,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.07374523876367264,
+        "bit_NLL": 0.2554857489106557,
+        "channel_NMSE": 0.017219034006996377,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 902,
+        "high_confidence_wrong": 11,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 209,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 7,
+      "split": 1,
+      "terminal_executed": false
+    },
+    {
+      "arm": "BP_REF47",
+      "block": 1,
+      "old_reference_exact": true,
+      "operators": {
+        "CE_design": 9,
+        "DA_LS_feedback_gain": 9,
+        "LDPC": 1,
+        "LLR": 1,
+        "dense_H_reconstruction": 10,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 3,
+        "outer_BP": 10,
+        "terminal_BP": 1
+      },
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.06472726034260812,
+        "bit_NLL": 0.2276853777831884,
+        "channel_NMSE": 0.00839799748454214,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 908,
+        "high_confidence_wrong": 8,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 173,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 8,
+      "split": 1
+    },
+    {
+      "arm": "BP_RETAIN",
+      "block": 1,
+      "operators": {
+        "CE_design": 9,
+        "DA_LS_feedback_gain": 9,
+        "LDPC": 1,
+        "dense_H_reconstruction": 10,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 3,
+        "outer_BP": 10,
+        "terminal_BP": 1
+      },
+      "outer_reference_exact": true,
+      "resources": {
+        "CE_solves": 9,
+        "LDPC_calls": 4,
+        "outer_BP_calls": 10,
+        "outer_BP_iterations": 120,
+        "terminal_BP_calls": 1,
+        "terminal_BP_iterations": 20
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.029315304986943545,
+        "bit_NLL": 0.13534583252801788,
+        "channel_NMSE": 0.00839799748454214,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 1777,
+        "high_confidence_wrong": 17,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 0,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 8,
+      "split": 1,
+      "terminal_counterfactual_exact": true
+    },
+    {
+      "arm": "BP_RETAIN_STOP",
+      "block": 1,
+      "checkpoint": 4,
+      "operators": {
+        "CE_design": 4,
+        "DA_LS_feedback_gain": 4,
+        "dense_H_reconstruction": 5,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 2,
+        "outer_BP": 5
+      },
+      "outer_detections": 5,
+      "prefix_exact": true,
+      "resources": {
+        "CE_solves": 4,
+        "LDPC_calls": 2,
+        "outer_BP_calls": 5,
+        "outer_BP_iterations": 60,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.042928866043172934,
+        "bit_NLL": 0.15767597820527882,
+        "channel_NMSE": 0.008852278331946396,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 1178,
+        "high_confidence_wrong": 5,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 112,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 8,
+      "split": 1,
+      "terminal_executed": false
+    },
+    {
+      "arm": "BP_RETAIN_STOP_REPEAT",
+      "block": 1,
+      "checkpoint": 4,
+      "operators": {
+        "CE_design": 4,
+        "DA_LS_feedback_gain": 4,
+        "dense_H_reconstruction": 5,
+        "dictionary_torch": 1,
+        "feedback_LDPC": 2,
+        "outer_BP": 5
+      },
+      "outer_detections": 5,
+      "prefix_exact": true,
+      "resources": {
+        "CE_solves": 4,
+        "LDPC_calls": 2,
+        "outer_BP_calls": 5,
+        "outer_BP_iterations": 60,
+        "terminal_BP_calls": 0,
+        "terminal_BP_iterations": 0
+      },
+      "scores": {
+        "FER": 0,
+        "bit_Brier": 0.042928866043172934,
+        "bit_NLL": 0.15767597820527882,
+        "channel_NMSE": 0.008852278331946396,
+        "coded_bit_errors": 0,
+        "coded_bits_denominator": 1024,
+        "decode_ok": true,
+        "decoded_codeword_bit_errors": 0,
+        "high_confidence_bits": 1178,
+        "high_confidence_wrong": 5,
+        "offline_truth_access": "error scoring only",
+        "raw_bit_errors": 112,
+        "raw_bits_denominator": 2048
+      },
+      "snr": 8,
+      "split": 1,
+      "terminal_executed": false
+    }
+  ],
+  "unit_tests": {
+    "count": 21,
+    "status": "PASS",
+    "seconds": 0.574
+  },
+  "source_commit": "6272f7fd"
+}

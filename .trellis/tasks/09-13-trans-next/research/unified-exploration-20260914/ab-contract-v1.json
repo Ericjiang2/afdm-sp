@@ -1,0 +1,122 @@
+{
+  "schema": "unified-ab-v1",
+  "authority_csv": ".mission/20260914_12-58-51-afdm-unified-exploration/20260914_12-58-51-afdm-unified-exploration.csv",
+  "contract_md_sha256": "ef90852c75ba233d70d6ffdfec7dbc8443dfcb0b79c85f42fd01e62bb599aa98",
+  "physics": {
+    "N": 256,
+    "Fb_hz": 4000,
+    "fc_hz": 12000,
+    "tau_max_s": 0.006,
+    "max_doppler_hz": 16,
+    "delay_cap": 24,
+    "doppler_cap": 2,
+    "CPP": 32,
+    "rho": 0.5,
+    "coded": false
+  },
+  "pilots": [
+    "p0",
+    "pZ"
+  ],
+  "snrs_db": [
+    10,
+    20
+  ],
+  "bases": [
+    "fourier",
+    "gce",
+    "dpss"
+  ],
+  "q": [
+    3,
+    5,
+    7
+  ],
+  "coefficient_cap": 60,
+  "group_selection": "rank-aware group OMP; stable delay ties; explicit rejected group accounting",
+  "ridge_strength": 0.1,
+  "references": [
+    "OMP_BASE",
+    "F2P_RESID",
+    "OMP_SMALL",
+    "OMP_SMALL_RIDGE"
+  ],
+  "reference_nomination": {
+    "OMP_BASE": 40,
+    "F2P_RESID": 40,
+    "OMP_SMALL": 12,
+    "OMP_SMALL_RIDGE": 12
+  },
+  "outer_iterations": 10,
+  "bp_iterations": 20,
+  "seed_prefix": [
+    20260914,
+    125851
+  ],
+  "splits": {
+    "engineering": {
+      "id": 0,
+      "channels": 2
+    },
+    "development": {
+      "id": 1,
+      "channels": 64
+    },
+    "calibration": {
+      "id": 2,
+      "channels": 32
+    },
+    "holdout": {
+      "id": 3,
+      "channels": 64
+    }
+  },
+  "statistics": {
+    "unit": "independent channel, all SNR/pilot/arms clustered",
+    "primary": {
+      "pilot": "pZ",
+      "snr_db": 20
+    },
+    "bootstrap": 20000,
+    "seed": [
+      20260914,
+      125851,
+      91
+    ],
+    "simultaneous": "max_abs_studentized_cluster_bootstrap",
+    "alpha": 0.05,
+    "meaningful_ber_improvement": 0.01,
+    "other_endpoint_noninferiority": 0.01,
+    "equivalence_margin": 0.005,
+    "max_cost_ratio_when_better": 1.25,
+    "required_cost_reduction_when_equivalent": 0.25,
+    "minimum_errors_each_arm": 100,
+    "optional_stopping": false
+  },
+  "budget": {
+    "device": "cpu",
+    "threads_per_worker": 1,
+    "initial_workers": 2,
+    "max_workers": 4,
+    "min_spare_cores": 16,
+    "engineering_seconds": 1800,
+    "engineering_bytes": 2147483648,
+    "stage_wall_seconds": 7200,
+    "stage_cpu_seconds": 28800,
+    "stage_bytes": 21474836480,
+    "total_peak_bytes": 85899345920
+  },
+  "authority": {
+    "AB_stage": true,
+    "formal_confirmation": false,
+    "formal_cost": false,
+    "coded_extension": false,
+    "direction_C": false,
+    "gpu_repair": false
+  },
+  "review": {
+    "mode": "main-session-self-review",
+    "independence": "weak",
+    "basis": "prior user division retained by current CSV"
+  }
+}

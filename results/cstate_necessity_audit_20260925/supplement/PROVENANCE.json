@@ -1,0 +1,281 @@
+{
+  "schema": "cstate-necessity-supplement/1",
+  "date": "2026-09-25",
+  "previous_phase_commit": "7f62deea",
+  "source_algorithm_anchor": "cd0be005484e1c21fd148f686e08acfc30d567b7",
+  "authority": "AUTHORIZATION.md",
+  "population": "final prospective 6.5dB 40triggers + predetermined32controls; no historical43-frame observations mixed",
+  "selection_sha256": "22d5bd19b13718e6c06bcc3e47e6f2a3911a6d1f35b4e193025dc9727f24d69c",
+  "population_observed_seal_sha256": "7e4dedf025ebab1f2589e1bf76948081815dcc411cf8b2f09422fc5b4291f324",
+  "status": "source-matched initial-acquisition reconstruction; archived original geometry separately recovered",
+  "call_accounting": {
+    "initial_acquisition_started": 72,
+    "initial_acquisition_completed": 72,
+    "unique_observations": 72,
+    "repeated_observations": 0,
+    "TF_scalar_joint": 0,
+    "decoder": 0,
+    "generator": 0,
+    "new_observations": 0,
+    "F1_or_Stage_A_wrappers": 0,
+    "precall_startup_failure": 1,
+    "OMP_seconds": 2.5113243414089084,
+    "timing_scope": "OMP calls only; excludes preparation/input/hash/serialization/review. Original phase7f62deea remains zero-call."
+  },
+  "fixed_F1_files": "Original frozen F1 specification unchanged; no parameters selected using supplemental results",
+  "consistency": {
+    "a3_delay_to_original_a5_exact": 72,
+    "a5_within_original_center_bounds": 72,
+    "stage_rows": 72,
+    "accepted_CSTATE_edits": 76,
+    "rescued_frame_edits": 64,
+    "selected_then_discarded_edits_in_rescues": 13,
+    "rescued_frames_with_selected_then_discarded_delay": 11,
+    "frame_categories_overlap": true
+  },
+  "availability": {
+    "local": "72 new reconstructed NPZ + ledger/manifest, 72 original-geometry extracts, cohort source manifests/ledgers/seals, reviewed scripts and recount",
+    "remote_originals": "Original observation/receiver NPZ remain at deinlab:/data/guoyikun/00inbox/AFDM-channel-estimation/results/tf_cstate_prospective_20260923; not claimed as full local backup",
+    "A1_A3": "reconstructed from sealed observations, not original archived intermediate bytes",
+    "A5_A7": "extracted from original sealed raw with matched input and artifact hashes"
+  },
+  "verdict": "A4/not yet identified for the strong early-identifiability/necessity claim; confirmed mechanical grouping loss in a subset",
+  "limitations": [
+    "Delay-level presence does not prove adequate physical fractional-Doppler evidence.",
+    "OMP nonselection is not unobservability.",
+    "Same-delay fitted pairs are not automatically true physical doublets.",
+    "No causal FER fraction or F1 replacement benefit inferred.",
+    "Original intermediates not retained, so final-geometry consistency is not proof of identical original OMP bytes."
+  ],
+  "reviews": [
+    "REPLAY_REVIEW.md",
+    "INDEPENDENT_RECOUNT.json"
+  ],
+  "artifact_sha256": {
+    "AUTHORIZATION.md": "62deb7b98d2319a87d800769f24338b7ec87b455d9d5ec46aad797b8760bd082",
+    "INDEPENDENT_RECOUNT.json": "1e70adebef604420228d42987c56678be4d775b54ed54f1c19ad70341251e57c",
+    "README.md": "bd78b90086d0a3eb71f09cc15041087b43f75f066803bd98078e4d3624e1ba70",
+    "REPLAY_REVIEW.md": "b41dd86cf830554aca47f74f4711d635f8b46cfd111372f213198ecd98447588",
+    "RESULTS.md": "7afdd45e34e413d02de08f0dc6b9346238fcaa757c4d8a11f0df4a0456446913",
+    "archived_geometry72.json": "5f218bb3916284d5f8ab7d90106c97f72912c85f99d50e3d1754e66eaf26c85c",
+    "extract_archived_geometry.py": "401449b7fa931ec78407519a6a3e4b1b935804c129e2c164d8a8d09757076429",
+    "input_binding/ledger.jsonl": "ac143ab18206e8cafec50e49e42ecbb5066a7d631e2d4c3ad703d70f582b11e6",
+    "input_binding/manifest.json": "2ebacbc6309a1ee2b5b4bca142a698e81802259f3cb8f9733fdbd162b79c3dd1",
+    "input_binding/observed/ledger.jsonl": "9bc848247b1bacaa7f3fc8bf7f3ee705af488328f718d9f1a7fd2cb45882a84f",
+    "input_binding/observed/manifest.json": "c33c46ee2668ff1a02eed45a858fa57b03960f64d299414328cc7333f3891414",
+    "input_binding/observed/observed_seal.json": "45d11386e3518389cd6e0d107cd8bee1a44b74115e8b9894a1e90abf0c466253",
+    "input_binding/observed_seal.json": "7e4dedf025ebab1f2589e1bf76948081815dcc411cf8b2f09422fc5b4291f324",
+    "input_binding/selection72.json": "22d5bd19b13718e6c06bcc3e47e6f2a3911a6d1f35b4e193025dc9727f24d69c",
+    "precall_failure_receipt.json": "88351132bf0a4e8988daa6c003b39d6c45ecdd4042862354afe791e4167605c9",
+    "replacement_mechanics.csv": "e06c6d4a028d23f4e6d041f70b1ec27371ba2dfd643a6f78fc7426a1017fdb94",
+    "replay_v1/ledger.jsonl": "2fd18fae51eadb3b7ed31e4bd8e2e027326b7036018afffb564c743ceebf8e17",
+    "replay_v1/manifest.json": "25e6ceaecf123003dbafc0d4c8b1d4ef2b5f7906b1720cac5b576357e36bcacd",
+    "replay_v1/raw/s650_f0000.npz": "e66a64c8bf281d4d06e20bf6459a9792ddbb3aea0cdaf69d31f5ca8c1732895a",
+    "replay_v1/raw/s650_f0001.npz": "b3b4f2c17602df73b770c12b6bb42ed9cd76c650bb9d27445696cbb8cff1ca97",
+    "replay_v1/raw/s650_f0002.npz": "9b931809b27744f3fd6a30ddfd7174171582f49750c435a095077b38a5b07adf",
+    "replay_v1/raw/s650_f0003.npz": "549aab53782e014a662787efe90a8f97ad45debcb03d814aeec6121474c08f8d",
+    "replay_v1/raw/s650_f0004.npz": "dcb1df9beee6e214411bce76df493c1f6673dd7f7e2ff82b64eeeec7aa5260ea",
+    "replay_v1/raw/s650_f0005.npz": "1e4ccdc73cbd38c98ea43464a23b266a875ffd1ad800fbc1cd331a1900d55245",
+    "replay_v1/raw/s650_f0006.npz": "a2eb398c8d97461b977d659482cf1360ab3ea2c1c7e7480521c8d2f3dbde07e2",
+    "replay_v1/raw/s650_f0007.npz": "e7171a50b167e00151cc737cfdecfaa60e6c3eea5bc3ee77f2d54763c80a8193",
+    "replay_v1/raw/s650_f0008.npz": "f72cdb4f418e4902b3b3a3026cdd16c458c26b6323f571cbc2be003e08306e66",
+    "replay_v1/raw/s650_f0009.npz": "f4d41b08a33e58b0c24854c8d4c586a5dd0a85769e70504f3d3e9cf476a5e0da",
+    "replay_v1/raw/s650_f0010.npz": "cf2c2cb1545fadb9c2f39176e7fc17d91898f9b5fad6b8e2ec0c983b602cacfe",
+    "replay_v1/raw/s650_f0011.npz": "3fc5eb023c2fe5dd0f414f1d46f7e6670dddd584ded7e51d381ae5696185092f",
+    "replay_v1/raw/s650_f0012.npz": "825c9eb9c6b063f8845c02e03579e9b0e57afa2f933def8aa1076dd43aa89024",
+    "replay_v1/raw/s650_f0013.npz": "fb19d9a05aae279a542db747cb5c01620f29783e5c5803a4d776a811d2f4e0fe",
+    "replay_v1/raw/s650_f0014.npz": "60ebeba231830232fbd41ca7901fd4e5befec034ffe87a97954803eef734819d",
+    "replay_v1/raw/s650_f0015.npz": "711072942ec86d0ca8dc779345d1d7e699b116b95b0adb40f73ddf5467a91c61",
+    "replay_v1/raw/s650_f0016.npz": "4c0a22f46732a503214cf464324599b0235e38f76c4199d3009985cd07a5ac06",
+    "replay_v1/raw/s650_f0017.npz": "ff8c2924308791ad559a79b06535e8004d1faa3d64cba6def24d65897445170e",
+    "replay_v1/raw/s650_f0018.npz": "e3260a0a086cf539dfd255dd7cd9a5407f79a25b8d477c0906d51a2a811d40a7",
+    "replay_v1/raw/s650_f0019.npz": "f882ed5782e16ac4cbd3b6a9c45370e11e1934a93057660f9b8fb550343b8549",
+    "replay_v1/raw/s650_f0020.npz": "d83f4a4650345ba74b6d961cc70817f08b71717ff53bb74d7344eb3d9d4cfc8d",
+    "replay_v1/raw/s650_f0021.npz": "9411fbe9ffbcbfa35754b7e007e7736d2fed1b87906bb6773f7b6916eb29371c",
+    "replay_v1/raw/s650_f0022.npz": "8a15193d9872ea5a649d7df77c8f28352cd282b561ae51446681d2159ceb7f95",
+    "replay_v1/raw/s650_f0023.npz": "19260965d7dda01f92352dc1d67545bc03dd465ca143c3f97a9b890f5982233c",
+    "replay_v1/raw/s650_f0024.npz": "f0edc982c42ceefc5d84343684644cf0d6a3770e27052e3fca8086e628edd2aa",
+    "replay_v1/raw/s650_f0025.npz": "f7b560b26fa8395acf2e938e6c9f562fa6bece5d626333833069c852c6c77f89",
+    "replay_v1/raw/s650_f0026.npz": "0529bd99b9d5276dc19ec23447aca8ef995fda44ef623fccafe0f76304b53b6e",
+    "replay_v1/raw/s650_f0027.npz": "2887951e631d5430fe5bba5d073ef259f3564e2bc946077b420a98b07eaffa01",
+    "replay_v1/raw/s650_f0028.npz": "ea8fd81ea2b1cb53fde49f14a26fae9ee740af628d6268223e4700648b5cbf10",
+    "replay_v1/raw/s650_f0029.npz": "f4ec27697631a34a559942f3c38cf6514828623937fcc75fd73262e949398a62",
+    "replay_v1/raw/s650_f0030.npz": "87db787463ecb6e45ebd8b63bf6300aaf8c14336c2ab9ed0df637bd10d127f56",
+    "replay_v1/raw/s650_f0031.npz": "0e048378dee3a9a9ce9e2a455d1d1b0ff0938273d5ea3a0973f5424d23e08bd2",
+    "replay_v1/raw/s650_f0044.npz": "17dd0b2e6719fced6d264008fedb8d37b85e144c860749fb1241999cc0e1ae31",
+    "replay_v1/raw/s650_f0064.npz": "6bc26da4cd61e3aaccbdcafa778c5acad9c56d7b764589016389464e8a744c2f",
+    "replay_v1/raw/s650_f0089.npz": "60ea3e56f31c2e92db48a31b018e4b25864a55b8f1b72ae0b8d0904caee51cdf",
+    "replay_v1/raw/s650_f0113.npz": "59bc5670749d11b77b5da874ca71829b258b5358388ff491782b4b0b73692092",
+    "replay_v1/raw/s650_f0127.npz": "f007735214405b0204ff55b70b3719d01b4913eba023d29dbd9af9bb63eceff2",
+    "replay_v1/raw/s650_f0160.npz": "7c0c16b7d596e4a6e6638a62b00555a1a8b218ec7c0225bce31c0d522dc71e3c",
+    "replay_v1/raw/s650_f0197.npz": "2252033f19151ef4236fe4bb6f0b9596fa073c10b7370b4ec4b58dbc9dfe75f0",
+    "replay_v1/raw/s650_f0240.npz": "ae1403b83d870f287d922b7af1968b9a39149aa06c577ac1ff7f637115efea1d",
+    "replay_v1/raw/s650_f0275.npz": "1f07ad6c44bcbb0aba84a60676df80b34cf3f4019e5d907ba44e1e0c0c9429fe",
+    "replay_v1/raw/s650_f0285.npz": "a62e51d6950bf0e02c818b33c83affbd32d5375ab2469d3c90e9941764851f5c",
+    "replay_v1/raw/s650_f0390.npz": "0d9385bf32930508e7805f833bd25ce0efdda5882f83b6793dd0a1361b2df9f0",
+    "replay_v1/raw/s650_f0391.npz": "bfc53d467c4dabf718c6d8ae3b14531e064555af738d783701997a5a3556f4ff",
+    "replay_v1/raw/s650_f0413.npz": "1bb33af15f43b01325dfc2f8a34a1273ef99071a4929a846e30e5d491f06ec16",
+    "replay_v1/raw/s650_f0415.npz": "5ac3f9e1b7ba7cbe58c01b50c74123d3343297c06561347a4c9d5c3933be95cc",
+    "replay_v1/raw/s650_f0456.npz": "2b0e5c6089e1732dc5a2b16b4d3b78eec0a46037a950cdbbd7b44f3e40561b0e",
+    "replay_v1/raw/s650_f0462.npz": "e9e0b0efa89cba1765665938af7782048101f21970ce2a5ac4c6370d522eab75",
+    "replay_v1/raw/s650_f0464.npz": "b776cbb520c87691211cc9c0d31a15e469e90f10171b492e54b98991abe8643d",
+    "replay_v1/raw/s650_f0519.npz": "6955ff03c790bb2115edb373ef76d3367eaeebb04f1fd736cb538ac6a27b72d1",
+    "replay_v1/raw/s650_f0579.npz": "2e8e6b274e7992e8b57d5dbb5e89f821c789dea864c57b6ccdf0ac953bb003e0",
+    "replay_v1/raw/s650_f0593.npz": "52a31959a424c12c34aeb897c17554c71b9b9d39cb2a9fd3b4461195891f7b41",
+    "replay_v1/raw/s650_f0644.npz": "e2d2af044d178dcc1d3593399018687946b7ad4d7b154b6f654655e9ddfc8f80",
+    "replay_v1/raw/s650_f0647.npz": "2dc78071dea6c7477f6d60974b68f9e83f2d13a28a38eec7689792bae42fdd71",
+    "replay_v1/raw/s650_f0678.npz": "38f15466b6d2143c45f08d1e1fff31e29ee4e9431468abe338ac574a0d3d715d",
+    "replay_v1/raw/s650_f0718.npz": "98e8c211367c4f9f8bfcb75b3bd5c1096aa962beb0182e97def86996cbb69c6d",
+    "replay_v1/raw/s650_f0720.npz": "9ceaeade49dc7976071a1d625033abdc2812a1ac5decb1d62a4cb934a1b56061",
+    "replay_v1/raw/s650_f0740.npz": "5d4747ca6fd69b8abdfd0b2c2d55615a2177713e3144ec63c8ca1b1f63c9f24a",
+    "replay_v1/raw/s650_f0761.npz": "a17bb25730da8f49d3428b79f197a63165d2499f3f39945daa43325fbffeebaa",
+    "replay_v1/raw/s650_f0770.npz": "db1a49f26b88110681e1e3943d602d91225d9b733e3211b3f3d3f6cad9859966",
+    "replay_v1/raw/s650_f0797.npz": "dd22243db30c2d52a13a0b538a5c1adfb9c48a4be33f19b4f5c85e8c3692ec60",
+    "replay_v1/raw/s650_f0810.npz": "3c1ea352a02fd963c8f97d7d68e00d8020015dae825a654d5656d625a59590eb",
+    "replay_v1/raw/s650_f0815.npz": "2a3a8f38aa820abfea825c9eba68e014fe697f85e6a6a76b111374054b069901",
+    "replay_v1/raw/s650_f0824.npz": "f01b99ef53de30bbe3f39d23022cbe503de47de3b28ad0117812533743574620",
+    "replay_v1/raw/s650_f0827.npz": "a987be4193d01787d61bd2e111887df8250647fb3e5b999b40eb9648c6c7f9aa",
+    "replay_v1/raw/s650_f0871.npz": "9078f7bcadfa5ab409d6b49477c57882c6705023eda5ffb22179dbaede51b27f",
+    "replay_v1/raw/s650_f0882.npz": "f331d8ebf8f5ac5956d5d83db59f2a2025ccf7ba0a6313747c06e6797a1c8a72",
+    "replay_v1/raw/s650_f0938.npz": "0d4750900fbe4cb1af122a00076c44760c39e7522c916c2e30d04804f0f80a58",
+    "replay_v1/raw/s650_f0955.npz": "4721b511c18cbada54b3b6c4efe106606660f37e238ebb483f691f8601056ed7",
+    "replay_v1/raw/s650_f0965.npz": "fc5df3e27c3b8bc7dedb5086c821620c26ca29057ff068edf232cf4e2ed8db11",
+    "replay_v1/raw/s650_f0996.npz": "c6c7f1b771428d58c15a28f2ef82851252c5c59c9e07ad5d25352618666cf563",
+    "replay_v1/raw/s650_f1008.npz": "84a0beb5082b01cacd2d961905107ced5a8b427faa759df2030dd4ab76161974",
+    "stage_mechanics.csv": "0de53287b2677cc6e621ddb70733bf86aa51d11935ffb0ff848140af3bb4a5cc",
+    "summarize_replay.py": "12467310cb44cad4594f6bec023974af40444a577be5a7fd2e97c132c720f5b2",
+    "supplement_acquisition_replay.py": "19ef22fad97cd356724e03df9e913bf8ce3cf5b86f9665ce545825fc3f895cf5"
+  },
+  "local_navigation_check": {
+    "result": "PASS",
+    "links_checked": 31,
+    "links": [
+      {
+        "from": "README.md",
+        "href": "../README.md"
+      },
+      {
+        "from": "README.md",
+        "href": "AUTHORIZATION.md"
+      },
+      {
+        "from": "README.md",
+        "href": "precall_failure_receipt.json"
+      },
+      {
+        "from": "README.md",
+        "href": "RESULTS.md"
+      },
+      {
+        "from": "README.md",
+        "href": "stage_mechanics.csv"
+      },
+      {
+        "from": "README.md",
+        "href": "replacement_mechanics.csv"
+      },
+      {
+        "from": "README.md",
+        "href": "input_binding/selection72.json"
+      },
+      {
+        "from": "README.md",
+        "href": "input_binding/manifest.json"
+      },
+      {
+        "from": "README.md",
+        "href": "input_binding/observed_seal.json"
+      },
+      {
+        "from": "README.md",
+        "href": "replay_v1/manifest.json"
+      },
+      {
+        "from": "README.md",
+        "href": "replay_v1/ledger.jsonl"
+      },
+      {
+        "from": "README.md",
+        "href": "archived_geometry72.json"
+      },
+      {
+        "from": "README.md",
+        "href": "REPLAY_REVIEW.md"
+      },
+      {
+        "from": "README.md",
+        "href": "INDEPENDENT_RECOUNT.json"
+      },
+      {
+        "from": "README.md",
+        "href": "PROVENANCE.json"
+      },
+      {
+        "from": "README.md",
+        "href": "../F1_NOMP_AFDM_SPEC.md"
+      },
+      {
+        "from": "README.md",
+        "href": "../F1_EQUATION_TO_SOURCE_MAP.md"
+      },
+      {
+        "from": "README.md",
+        "href": "../F1_COMPLEXITY_LEDGER.md"
+      },
+      {
+        "from": "README.md",
+        "href": "../STAGE_A_PREREGISTRATION.md"
+      },
+      {
+        "from": "README.md",
+        "href": "../F2_GAMP_GESBL_ADAPTATION_NOTES.md"
+      },
+      {
+        "from": "README.md",
+        "href": "../../../STATE.md"
+      },
+      {
+        "from": "README.md",
+        "href": "../../../_archive/20260924_project_retrieval_audit/README.md#route-necessity"
+      },
+      {
+        "from": "RESULTS.md",
+        "href": "precall_failure_receipt.json"
+      },
+      {
+        "from": "RESULTS.md",
+        "href": "input_binding/selection72.json"
+      },
+      {
+        "from": "RESULTS.md",
+        "href": "INDEPENDENT_RECOUNT.json"
+      },
+      {
+        "from": "RESULTS.md",
+        "href": "supplement_acquisition_replay.py"
+      },
+      {
+        "from": "RESULTS.md",
+        "href": "replay_v1/manifest.json"
+      },
+      {
+        "from": "RESULTS.md",
+        "href": "archived_geometry72.json"
+      },
+      {
+        "from": "RESULTS.md",
+        "href": "stage_mechanics.csv"
+      },
+      {
+        "from": "RESULTS.md",
+        "href": "replacement_mechanics.csv"
+      },
+      {
+        "from": "RESULTS.md",
+        "href": "../CSTATE_ACQUISITION_LINEAGE_AUDIT.md"
+      }
+    ],
+    "scope": "New supplement Markdown only; current Q10 links target this record"
+  },
+  "original_phase_artifacts_preserved": 19
+}

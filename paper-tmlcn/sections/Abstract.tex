@@ -1,0 +1,29 @@
+Doubly dispersive doubly selective channels --- representative of
+underwater acoustic (UWA) communication --- defeat conventional
+orthogonal frequency-division multiplexing (OFDM); affine
+frequency-division multiplexing (AFDM) addresses this regime by folding
+every physical path into a sparse chirp-domain effective channel.
+Combined with a superimposed-pilot (SP) frame, AFDM preserves spectral
+efficiency but its one-shot orthogonal matching pursuit (OMP) plus
+message-passing receiver is estimation-limited at mid-to-high SNR. This
+work proposes a complexity-preserving differentiable receiver for
+SP-AFDM in which OMP is run only once, the support is locked, and the
+iterative loop refines only a damped data-aided least-squares path-gain
+solve and sparse message-passing belief-propagation detection,
+augmented with a 1\,041-parameter learned support-refinement head. The
+unrolling is computationally \emph{initialization-faithful}: at random
+head initialisation, the end-to-end forward pass reproduces the
+classical reference to within relative tolerance $\varepsilon_\text{rel}=10^{-5}$
+on a deterministic verification suite (30 frames, $\Nsub=512$). Three orthogonal evaluations
+ground the design: a 4-arm BER waterfall with continuity-corrected
+paired McNemar significance (pooled 3-seed reductions $-37.7\%/-40.2\%/-37.6\%$
+at $\snr\in\{20,25,30\}$~dB, $p<10^{-6}$); a same-budget classical
+heuristic OMP-$(\Ppath{+}K)$ that regresses BER monotonically and
+confirms the learned gain is non-linear support refinement rather than
+a budget effect ($K{=}16$ closes $-927\%$ of the physical-support
+oracle gap at $\snr=20$~dB versus the head's $+81\%$); and a
+DA-LS-inclusive complexity audit showing $\approx 8\%$ analytical
+MAC overhead at $\Nsub=1024$, measured GPU wall-clock parity, and
+$>99\%$ of head additions attributed to Dirichlet side-lobe / virtual
+taps of active physical paths via population-level per-candidate
+classification.

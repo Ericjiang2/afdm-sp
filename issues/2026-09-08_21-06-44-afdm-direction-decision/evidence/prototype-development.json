@@ -1,0 +1,286 @@
+{
+  "status": "complete",
+  "disposition": "executed_and_reviewed",
+  "created_utc": "2026-09-08T17:49:00.634092+00:00",
+  "route": "M",
+  "viable_legal_candidate": false,
+  "proceed_confirmation": false,
+  "no_candidate": true,
+  "scientific_claim_passed": false,
+  "decision_basis": "Frozen full192-block anchor screen failed; no adaptive rescue, neighbor expansion, second prototype or confirmation. This is a completed negative development evaluation, not a formal statistical rejection of all physical receivers.",
+  "scope": {
+    "split": "design",
+    "SNR": 8,
+    "blocks": 192,
+    "new_full_calls": 768,
+    "new_arms": [
+      "m-group",
+      "m-param-budget",
+      "m-param-reference",
+      "m-soft"
+    ],
+    "cached_reference": "sbl-s0.5; same192input blocks verified, zero new baseline calls",
+    "roles": "Bstar + group + budget-param + soft are four deployable comparison roles; separately costed high-param reference required by M03. All four NEW arms together768calls, no hidden full calls."
+  },
+  "metrics": {
+    "sbl-s0.5": {
+      "FER": 0.16145833333333334,
+      "convergence_failures": 0,
+      "delta_vs_Bstar": 0.0,
+      "development_mean_instrumented_seconds": 0.7670134311744429,
+      "engineering_mean": 0.6629098829968522,
+      "engineering_n": 6,
+      "engineering_p95": 0.6671495165064698,
+      "fallbacks": [],
+      "frame_errors": 31,
+      "info_BER": 0.0124053955078125,
+      "n": 192,
+      "peak_gpu_bytes": 112885248,
+      "relative_FER_reduction_vs_Bstar": 0.0
+    },
+    "m-group": {
+      "FER": 0.1875,
+      "convergence_failures": 0,
+      "delta_vs_Bstar": -0.026041666666666657,
+      "development_mean_instrumented_seconds": 0.772177184020317,
+      "engineering_mean": 0.7659226050018333,
+      "engineering_n": 3,
+      "engineering_p95": 0.7678904450905975,
+      "fallbacks": [],
+      "frame_errors": 36,
+      "info_BER": 0.015268961588541666,
+      "n": 192,
+      "peak_gpu_bytes": 113490432,
+      "relative_FER_reduction_vs_Bstar": -0.1612903225806451
+    },
+    "m-param-budget": {
+      "FER": 0.125,
+      "convergence_failures": 192,
+      "delta_vs_Bstar": 0.03645833333333334,
+      "development_mean_instrumented_seconds": 0.8007972169128456,
+      "engineering_mean": 0.7913773649876626,
+      "engineering_n": 3,
+      "engineering_p95": 0.7982649635756388,
+      "fallbacks": [],
+      "frame_errors": 24,
+      "info_BER": 0.010645548502604166,
+      "n": 192,
+      "peak_gpu_bytes": 112885248,
+      "relative_FER_reduction_vs_Bstar": 0.22580645161290328
+    },
+    "m-param-reference": {
+      "FER": 0.11979166666666667,
+      "convergence_failures": 0,
+      "delta_vs_Bstar": 0.04166666666666667,
+      "development_mean_instrumented_seconds": 1.1750065728626093,
+      "engineering_mean": 1.0817749573422286,
+      "engineering_n": 3,
+      "engineering_p95": 1.1237463837256656,
+      "fallbacks": [],
+      "frame_errors": 23,
+      "info_BER": 0.0103607177734375,
+      "n": 192,
+      "peak_gpu_bytes": 112885248,
+      "relative_FER_reduction_vs_Bstar": 0.25806451612903225
+    },
+    "m-soft": {
+      "FER": 0.22395833333333334,
+      "convergence_failures": 192,
+      "delta_vs_Bstar": -0.0625,
+      "development_mean_instrumented_seconds": 0.8031948054704117,
+      "engineering_mean": 0.8335555429997233,
+      "engineering_n": 3,
+      "engineering_p95": 0.8836264579964336,
+      "fallbacks": [],
+      "frame_errors": 43,
+      "info_BER": 0.016184488932291668,
+      "n": 192,
+      "peak_gpu_bytes": 112885248,
+      "relative_FER_reduction_vs_Bstar": -0.3870967741935484
+    }
+  },
+  "paired_contrasts": {
+    "m-group__minus__m-soft": {
+      "comparisons": 6,
+      "confidence_family": 0.95,
+      "definition": "FER_first - FER_second",
+      "delta": -0.036458333333333336,
+      "interval": [
+        -0.1009503225028575,
+        0.03129432722165265
+      ],
+      "losses": 8,
+      "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+      "n": 192,
+      "tail_alpha": 0.0020833333333333333,
+      "wins": 1
+    },
+    "m-param-budget__minus__m-soft": {
+      "comparisons": 6,
+      "confidence_family": 0.95,
+      "definition": "FER_first - FER_second",
+      "delta": -0.09895833333333333,
+      "interval": [
+        -0.19835321366762879,
+        0.007809880602407802
+      ],
+      "losses": 23,
+      "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+      "n": 192,
+      "tail_alpha": 0.0020833333333333333,
+      "wins": 4
+    },
+    "m-param-reference__minus__m-soft": {
+      "comparisons": 6,
+      "confidence_family": 0.95,
+      "definition": "FER_first - FER_second",
+      "delta": -0.10416666666666667,
+      "interval": [
+        -0.2045920204020794,
+        0.003975228884531001
+      ],
+      "losses": 24,
+      "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+      "n": 192,
+      "tail_alpha": 0.0020833333333333333,
+      "wins": 4
+    },
+    "sbl-s0.5__minus__m-group": {
+      "comparisons": 6,
+      "confidence_family": 0.95,
+      "definition": "FER_first - FER_second",
+      "delta": -0.026041666666666668,
+      "interval": [
+        -0.09967011327977839,
+        0.04995701467445132
+      ],
+      "losses": 8,
+      "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+      "n": 192,
+      "tail_alpha": 0.0020833333333333333,
+      "wins": 3
+    },
+    "sbl-s0.5__minus__m-param-budget": {
+      "comparisons": 6,
+      "confidence_family": 0.95,
+      "definition": "FER_first - FER_second",
+      "delta": 0.036458333333333336,
+      "interval": [
+        -0.0786306265691239,
+        0.14896719931006625
+      ],
+      "losses": 11,
+      "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+      "n": 192,
+      "tail_alpha": 0.0020833333333333333,
+      "wins": 18
+    },
+    "sbl-s0.5__minus__m-soft": {
+      "comparisons": 6,
+      "confidence_family": 0.95,
+      "definition": "FER_first - FER_second",
+      "delta": -0.0625,
+      "interval": [
+        -0.13613950562826993,
+        0.016369870302567424
+      ],
+      "losses": 13,
+      "method": "Bonferroni over all pairs and four CP marginal tails; no independent-arm assumption",
+      "n": 192,
+      "tail_alpha": 0.0020833333333333333,
+      "wins": 1
+    }
+  },
+  "screen": {
+    "threshold_vs_Bstar": 0.05,
+    "threshold_vs_each_deployable_classical": 0.02,
+    "observed_delta_vs_Bstar": -0.0625,
+    "observed_delta_vs_group": -0.036458333333333336,
+    "observed_delta_vs_budget_param": -0.09895833333333333,
+    "passed": false
+  },
+  "interpretation": {
+    "legitimate_bridge": "Observed-only terminal refit was implemented and fully executed; this fixed soft consistency prototype does not realize the anticipated FER improvement.",
+    "classical": "Budget parameterization24/192 and high-reference23/192 beat soft43/192 in point estimates. Budget-param versus Bstar improvement7/192 has simultaneous CI spanning zero. Same-cost solved is NOT established.",
+    "reference_adequacy": "All192 high-reference fits reached registered finite-grid coordinate stationarity, not proof of global or continuous optimum.",
+    "bounded_search": "Raw convergence_failures=192 for budget-param/soft means bounded one-sweep nonstationarity; not failed receiver calls. There are zero failed full calls.",
+    "oracle_gap": "Oracle relation benefit on common truth-derived I in separate D_mech remains diagnostic; no cross-dataset causal FER-gap subtraction.",
+    "cost": "Microtiming n3 cross-run and instrumented design costs only; COST02 unverified; no equivalence or same-cost superiority claim.",
+    "Pareto": "Point-only engineering-cost Pareto retained; no statistical elimination.",
+    "fallback": "Retain original Bstar as operational reference; no second new-prototype route in this campaign."
+  },
+  "verification": {
+    "command": [
+      "/home/guoyikun/.conda/envs/AFDM/bin/python",
+      "/data/guoyikun/00inbox/AFDM-channel-estimation/outputs_direction_decision_20260908/evidence/analyze-physical-development-v10-v2.py"
+    ],
+    "exit_code": 0,
+    "snapshot_count": 960,
+    "raw_records_validated": 2304,
+    "new_full_calls_attempted": 768,
+    "new_full_calls_completed": 768,
+    "input_pairing": "source-bound cached baseline and all four new arms share identical raw input hashes",
+    "config_sha256": "0da2b9a73c5c63dd0d08e2e488bacc142c5caab521bd70870c769406621168da",
+    "protocol_sha256": "4f307ad9f6c1f4667704eaa64f1594249c748f8ecf9c7707a32a1545e09c2941",
+    "source_files": 198,
+    "analysis_sha256": "7beb859706143584feb40e84be247bb5f4ef52ed981173de484c9e543d4f38fd"
+  },
+  "resources": {
+    "new_full_host_seconds": 1217.6531389269512,
+    "new_full_CPU_seconds": 1193.93643974,
+    "calls_total": {
+      "engineering_full": 128,
+      "engineering_terminal": 19,
+      "baseline_full": 1536,
+      "mechanism_full": 768,
+      "mechanism_terminal": 6144,
+      "structure_CE": 3070,
+      "structure_terminal": 3060,
+      "prototype_full": 1344,
+      "confirmation_full": 0,
+      "counterexample_full": 0,
+      "timing_full": 0
+    },
+    "remaining": {
+      "host_seconds": 16647.806033421817,
+      "gpu_seconds": 20631.66478178487,
+      "cpu_core_seconds": 449404.669027391
+    },
+    "reservations": []
+  },
+  "evidence": [
+    {
+      "path": "evidence/physical-development-preregister.json",
+      "sha256": "3a4816a591e4951285b6f994757815d1ef482a1f5810637760c18bf54f8ab393"
+    },
+    {
+      "path": "evidence/physical-development-admission-v10.json",
+      "sha256": "8f5f2490683bd5b9f33fe65957b2d50d5fe29d1bc6c1a1609180cb9904e49a48"
+    },
+    {
+      "path": "evidence/physical-development-complete-v10.json",
+      "sha256": "6492edb9a83c5f7ed5f5446e5f4f8004932829e6a77b863f579df14f15d36b5a"
+    },
+    {
+      "path": "evidence/physical-development-anchor-v10-v2.json",
+      "sha256": "0e1e2164beaf6f7332e23e209870aee6579c8f5f29d5f917877133a5f4abc005"
+    },
+    {
+      "path": "evidence/physical-development-analysis-review.json",
+      "sha256": "4ed86707aafb94356ae6614406c248d95857f310f23d1a2221338e054960296d"
+    },
+    {
+      "path": "evidence/physical-stage-partial-review.json",
+      "sha256": "33a1894f969b16ec014392beb3cf8381bfe3b7f97c34c3bdacec1a756937693b"
+    },
+    {
+      "path": "evidence/resource-ledger.json",
+      "sha256": "1cf8e88207f3d178f0604a2cb38d42db0e63c63a0a12802dca04f12959ca2309"
+    }
+  ],
+  "limits": [
+    "D_confirm, D_test and counterexample experiments not accessed.",
+    "Original soft-bit-exact engineering exception remains disclosed; no new exactness claim.",
+    "Final research action and independent mission REVIEW remain separate pending steps."
+  ]
+}

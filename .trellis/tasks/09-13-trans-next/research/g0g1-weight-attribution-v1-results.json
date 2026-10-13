@@ -1,0 +1,287 @@
+{
+  "status": "PASS_TWO_SAVED_BLOCK_ATTRIBUTION_ONLY",
+  "summary_sha256": "8571ca67f47e7d89c6bdc95572377d5a32def5397411a9fff863b43e28a39fa5",
+  "raw_audit_sha256": "d12ce79cf224bb5e8f1da29b0bb0c109197f4233a9e3125df8f8f94f93814e5d",
+  "script_sha256": "42c9efa943cac0ffb055ed8b97d75abb657153e0426a1566bd164ed1c5cabe22",
+  "contract_sha256": "138195d9e3a3186c143e035d6457be0c9bb8275a259b1f91275cefdc6e1924d5",
+  "source_sha256": "5c0fac1eab2b9d8d55c54110c988b0906661bc85be4de8d8d5e3502f1c0602b0",
+  "rows": [
+    {
+      "block": 0,
+      "component_order": [
+        "FULL_DOMAIN minus EXACT_WINDOW",
+        "EXACT_WINDOW minus LEGACY_WEIGHT",
+        "LEGACY_WEIGHT minus CLUSTER_NORMALIZED",
+        "CLUSTER_NORMALIZED minus PRUNED",
+        "PRUNED minus SAVED_G0"
+      ],
+      "fro_scale": 1.0066257205163858,
+      "full_difference": {
+        "closure": 9.71445146547012e-17,
+        "cross_terms": {
+          "0:1": 2.774917102018092e-17,
+          "0:2": 2.555197433855888e-15,
+          "0:3": 7.39955602695028e-17,
+          "0:4": 3.403528278279571e-17,
+          "0:5": 7.2299415361217775e-22,
+          "1:2": 1.0667986974674792e-17,
+          "1:3": 1.3879274429128327e-19,
+          "1:4": 6.654992140354991e-20,
+          "1:5": -7.75611356854863e-34,
+          "2:3": 0.007691056892886945,
+          "2:4": -0.025924608371220275,
+          "2:5": -1.918661295308619e-17,
+          "3:4": -6.06784942701601e-05,
+          "3:5": -2.196877175284994e-18,
+          "4:5": 0.0
+        },
+        "terms": [
+          0.03301714230741529,
+          0.0031673532407332683,
+          0.3356693061156534,
+          0.00027661041131513586,
+          0.006086118001046263,
+          1.6036504453147334e-32
+        ],
+        "total": 0.35992230010356263
+      },
+      "g0_reconstruction_max_abs": 2.237726045655905e-16,
+      "interpretation": "Ordered telescoping attribution with all cross terms, not independent variance shares; SIGN_CONSISTENT is a truth-side counterfactual, not a legal estimate or new generator.",
+      "legacy_virtual_taps": 18,
+      "normalizers": [
+        0.9756623347307565,
+        0.9969233311855308,
+        0.9958049339821117,
+        0.9990228224450626,
+        0.9999993687436807,
+        0.9953119845181887,
+        0.9887019256749545,
+        0.9604031398155171
+      ],
+      "physical_record_sha256": "c2b235003f52a88629ffe5f204e680895e977bea2549b9e17f3da90020df2530",
+      "prior_accounting_record_sha256": "86cc842204400c5bd011d8b15514826ae157eb8fdee47db60f09ad08c6de6780",
+      "projection_reconstruction_max_abs": 9.495652571800626e-15,
+      "signed_formula_max_abs": 2.482534153247273e-16,
+      "stages": {
+        "CLUSTER_NORMALIZED": {
+          "to_domain_g1_nmse": 0.34680432666059113,
+          "to_full_g1_nmse": 0.3798214689680059
+        },
+        "EXACT_WINDOW": {
+          "to_domain_g1_nmse": 0.003167353240733295,
+          "to_full_g1_nmse": 0.03618449554814852
+        },
+        "FULL_DOMAIN": {
+          "to_domain_g1_nmse": 3.1936627492209065e-28,
+          "to_full_g1_nmse": 0.03301714230741529
+        },
+        "LEGACY_WEIGHT": {
+          "to_domain_g1_nmse": 0.33883665935638924,
+          "to_full_g1_nmse": 0.3718538016638046
+        },
+        "PRUNED": {
+          "to_domain_g1_nmse": 0.3269051577961471,
+          "to_full_g1_nmse": 0.35992230010356263
+        },
+        "SAVED_G0": {
+          "to_domain_g1_nmse": 0.3269051577961471,
+          "to_full_g1_nmse": 0.35992230010356263
+        },
+        "SIGN_CONSISTENT": {
+          "to_domain_g1_nmse": 0.009669019083943376,
+          "to_full_g1_nmse": 0.042686161391358675
+        }
+      },
+      "unscaled_relative_nmse": 0.35992230010356285,
+      "within_domain": {
+        "closure": -2.1163626406917047e-16,
+        "cross_terms": {
+          "0:1": 1.0667986974674792e-17,
+          "0:2": 1.3879274429128327e-19,
+          "0:3": 6.654992140354991e-20,
+          "0:4": -7.75611356854863e-34,
+          "1:2": 0.007691056892886945,
+          "1:3": -0.025924608371220275,
+          "1:4": -1.918661295308619e-17,
+          "2:3": -6.06784942701601e-05,
+          "2:4": -2.196877175284994e-18,
+          "3:4": 0.0
+        },
+        "terms": [
+          0.0031673532407332683,
+          0.3356693061156534,
+          0.00027661041131513586,
+          0.006086118001046263,
+          1.6036504453147334e-32
+        ],
+        "total": 0.3269051577961443
+      },
+      "within_domain_pilot": {
+        "closure": -7.632783294297951e-17,
+        "cross_terms": {
+          "0:1": 0.00010341323308848227,
+          "0:2": 1.0466632680269818e-06,
+          "0:3": -3.407131542895163e-06,
+          "0:4": -1.0266251643768125e-19,
+          "1:2": 0.007723288654075634,
+          "1:3": -0.02595557287516691,
+          "1:4": -1.8080606265254568e-17,
+          "2:3": -5.5578258042203235e-05,
+          "2:4": -2.236466037725279e-18,
+          "3:4": -3.9294554864939374e-21
+        },
+        "terms": [
+          0.0031745699726260807,
+          0.33642344102228106,
+          0.00027723904365946724,
+          0.006081671103489331,
+          1.6014917824748528e-32
+        ],
+        "total": 0.327770111427736
+      }
+    },
+    {
+      "block": 20,
+      "component_order": [
+        "FULL_DOMAIN minus EXACT_WINDOW",
+        "EXACT_WINDOW minus LEGACY_WEIGHT",
+        "LEGACY_WEIGHT minus CLUSTER_NORMALIZED",
+        "CLUSTER_NORMALIZED minus PRUNED",
+        "PRUNED minus SAVED_G0"
+      ],
+      "fro_scale": 1.0048163998063004,
+      "full_difference": {
+        "closure": 2.0469737016526324e-16,
+        "cross_terms": {
+          "0:1": 1.125930932444155e-17,
+          "0:2": -3.0495186196516677e-16,
+          "0:3": -3.238194475926678e-17,
+          "0:4": -1.5366385900608457e-16,
+          "0:5": -2.2590400818970786e-20,
+          "1:2": -4.198903758730277e-18,
+          "1:3": 1.6257326871850856e-19,
+          "1:4": 1.3904446487361842e-19,
+          "1:5": -3.538537980473049e-33,
+          "2:3": 0.0029725736616043183,
+          "2:4": -0.0185476464154394,
+          "2:5": -2.097041054583392e-18,
+          "3:4": -6.128808770737794e-05,
+          "3:5": 2.0250295971371093e-19,
+          "4:5": 0.0
+        },
+        "terms": [
+          0.01966309050359454,
+          0.0021575363801436807,
+          0.19814511378869457,
+          0.00011603319792153003,
+          0.004637570007062312,
+          1.2131529699532934e-32
+        ],
+        "total": 0.2090829830358739
+      },
+      "g0_reconstruction_max_abs": 1.2412670766236366e-16,
+      "interpretation": "Ordered telescoping attribution with all cross terms, not independent variance shares; SIGN_CONSISTENT is a truth-side counterfactual, not a legal estimate or new generator.",
+      "legacy_virtual_taps": 20,
+      "normalizers": [
+        0.9889306402676062,
+        0.9937765627118731,
+        0.9988243721016675,
+        0.9780770294927851,
+        0.9797503154302697,
+        0.9997905035386067,
+        0.9996282353160678,
+        0.9851041169340675
+      ],
+      "physical_record_sha256": "2f54e5dedbca478347611464949a1bc714878b966dc0d8ceb99de9d885c4838c",
+      "prior_accounting_record_sha256": "7683240a3fa343af092a338e53ef2327d5f344418cdae938aa0ae46a444dcce7",
+      "projection_reconstruction_max_abs": 1.1260223573435898e-14,
+      "signed_formula_max_abs": 2.2887833992611187e-16,
+      "stages": {
+        "CLUSTER_NORMALIZED": {
+          "to_domain_g1_nmse": 0.20339125702836366,
+          "to_full_g1_nmse": 0.2230543475319581
+        },
+        "EXACT_WINDOW": {
+          "to_domain_g1_nmse": 0.0021575363801436915,
+          "to_full_g1_nmse": 0.021820626883738255
+        },
+        "FULL_DOMAIN": {
+          "to_domain_g1_nmse": 5.317263286269808e-28,
+          "to_full_g1_nmse": 0.01966309050359454
+        },
+        "LEGACY_WEIGHT": {
+          "to_domain_g1_nmse": 0.20030265016883786,
+          "to_full_g1_nmse": 0.21996574067243244
+        },
+        "PRUNED": {
+          "to_domain_g1_nmse": 0.18941989253227898,
+          "to_full_g1_nmse": 0.2090829830358739
+        },
+        "SAVED_G0": {
+          "to_domain_g1_nmse": 0.189419892532279,
+          "to_full_g1_nmse": 0.2090829830358739
+        },
+        "SIGN_CONSISTENT": {
+          "to_domain_g1_nmse": 0.006177782790402444,
+          "to_full_g1_nmse": 0.025840873293996904
+        }
+      },
+      "unscaled_relative_nmse": 0.2090829830358731,
+      "within_domain": {
+        "closure": -7.979727989493313e-17,
+        "cross_terms": {
+          "0:1": -4.198903758730277e-18,
+          "0:2": 1.6257326871850856e-19,
+          "0:3": 1.3904446487361842e-19,
+          "0:4": -3.538537980473049e-33,
+          "1:2": 0.0029725736616043183,
+          "1:3": -0.0185476464154394,
+          "1:4": -2.097041054583392e-18,
+          "2:3": -6.128808770737794e-05,
+          "2:4": 2.0250295971371093e-19,
+          "3:4": 0.0
+        },
+        "terms": [
+          0.0021575363801436807,
+          0.19814511378869457,
+          0.00011603319792153003,
+          0.004637570007062312,
+          1.2131529699532934e-32
+        ],
+        "total": 0.18941989253227953
+      },
+      "within_domain_pilot": {
+        "closure": -3.469446951953614e-18,
+        "cross_terms": {
+          "0:1": -0.00024213504514695316,
+          "0:2": -5.5062164673601106e-06,
+          "0:3": 7.982779153838552e-05,
+          "0:4": 5.46042671684996e-22,
+          "1:2": 0.0028806527940912446,
+          "1:3": -0.017894955648005015,
+          "1:4": -3.3292832514161715e-18,
+          "2:3": -5.4165659239228196e-05,
+          "2:4": 1.6947540242001825e-19,
+          "3:4": 4.1372074507915726e-19
+        },
+        "terms": [
+          0.002167531586071887,
+          0.19740296857592327,
+          0.00011529307388127422,
+          0.004656930924592264,
+          1.1457782750164987e-32
+        ],
+        "total": 0.18910644217723976
+      }
+    }
+  ],
+  "scope": "Two saved engineering blocks0/20 only. Replay frozen G0 virtual coefficients, compare physical DFT convention, window, normalization and pruning with explicit cross terms. Truth-only analytical reconstructions; no new random channel, receiver, terminal or decoder, no production change. Large batches remain paused.",
+  "review_independence": "weak",
+  "production_changes": false,
+  "new_random_channels": 0,
+  "new_receiver_terminal_decoder_calls": 0,
+  "registered_analyses": 2,
+  "producer_audit_recalculations": 2,
+  "separate_audit_recalculations": 2,
+  "larger_batches": "paused_by_user"
+}

@@ -1,0 +1,75 @@
+{
+  "status": "completed",
+  "rounds": 4,
+  "max_rounds_per_skill_constant": 3,
+  "extra_rounds_used": 1,
+  "thread_id": "019dc351-3a54-7c52-bb27-0906e9557682",
+  "reviewer_model": "gpt-5.5",
+  "reviewer_reasoning": "xhigh",
+  "verdict": "PASS",
+  "open_fatal": 0,
+  "open_critical": 0,
+  "fatal_fixed": 0,
+  "critical_fixed": 3,
+  "major_fixed": 9,
+  "minor_fixed": 6,
+  "new_issues_found_in_followups": 4,
+  "new_issues_resolved": 4,
+  "counterexamples_found": 0,
+  "counterexample_candidates": 0,
+  "numerical_verifications": [
+    {
+      "what": "Dirichlet two-sided truncation tail at N=1024, residual=0.5, k_leak=2",
+      "computed": 0.0832,
+      "originally_claimed": "<4%",
+      "corrected_to": "approx 8.3%",
+      "method": "direct kernel evaluation summed over [-N/2, N/2)"
+    },
+    {
+      "what": "Clopper-Pearson 95% CI for k=4, n=7.17e5",
+      "computed": "[1.520e-6, 1.429e-5]",
+      "originally_claimed": "[1.81e-6, 1.30e-5]",
+      "corrected_to": "[1.52e-6, 1.43e-5]",
+      "method": "chi-squared identity: [chi2_2k(0.025)/(2n), chi2_2(k+1)(0.975)/(2n)]"
+    }
+  ],
+  "per_derivation_status": {
+    "D1": "PASS",
+    "D2": "PASS",
+    "D3": "PARTIAL_DOCUMENTED",
+    "D4": "PARTIAL_DOCUMENTED",
+    "D5": "PASS",
+    "D6": "PASS",
+    "D7": "PASS",
+    "D8": "PASS",
+    "D9": "PASS",
+    "D10": "PASS",
+    "D11": "PASS",
+    "D12": "PASS",
+    "D13": "PARTIAL_DOCUMENTED"
+  },
+  "files_modified": [
+    "sections/Abstract.tex",
+    "sections/Section1.tex",
+    "sections/Section2.tex",
+    "sections/Section3.tex",
+    "sections/Section4.tex",
+    "sections/Section5.tex",
+    "Appendices/Appendix.tex"
+  ],
+  "files_produced": [
+    "PROOF_SKELETON.md",
+    "PROOF_AUDIT.md",
+    "PROOF_CHECK_STATE.json",
+    ".aris/traces/proof-checker/2026-04-25_run01/round1_review.md",
+    ".aris/traces/proof-checker/2026-04-25_run01/round2_review.md"
+  ],
+  "compile_status": {
+    "command": "latexmk -pdf main.tex",
+    "result": "OK",
+    "pages_pre_audit": 54,
+    "pages_post_audit": 57
+  },
+  "acceptance_gate": "PASS",
+  "timestamp": "2026-04-25T05:55:00Z"
+}

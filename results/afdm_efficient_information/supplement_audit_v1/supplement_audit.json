@@ -1,0 +1,85 @@
+{
+  "checks": 126429,
+  "maximum_absolute_error": 1.4210854715202004e-14,
+  "failures": [],
+  "passed": true,
+  "input_stage": "oracle_identifiability_v1",
+  "families": [
+    {
+      "family": "control",
+      "rows": {
+        "oracle_pairs": 96,
+        "paired_decisions": 1152,
+        "known_eta_mle": 120,
+        "paired_estimation": 720,
+        "ambiguity": 720,
+        "moment_equivalence": 4
+      },
+      "pair_count": 48,
+      "source_objective_maximum_error": 0.0,
+      "source_calibration_maximum_error": 0.0
+    },
+    {
+      "family": "actual",
+      "rows": {
+        "oracle_pairs": 16,
+        "paired_decisions": 256,
+        "known_eta_mle": 32,
+        "paired_estimation": 256,
+        "ambiguity": 256,
+        "moment_equivalence": 5
+      },
+      "pair_count": 8,
+      "source_objective_maximum_error": 0.0,
+      "source_calibration_maximum_error": 0.0
+    }
+  ],
+  "input_hashes": {
+    "counts": {
+      "protected": 4307,
+      "sources": 380,
+      "snapshots": 380,
+      "artifacts": 2449,
+      "committed_blobs": 24
+    },
+    "stages": [
+      {
+        "stage": "oracle_identifiability_v1",
+        "status": "complete",
+        "observations": 0,
+        "reserved_wall": 300,
+        "wall": 3.154829292005161,
+        "cpu": 3.052006,
+        "rss": 148602880
+      },
+      {
+        "stage": "inference_control_v1",
+        "status": "complete",
+        "observations": 49152,
+        "reserved_wall": 900,
+        "wall": 7.210564624998369,
+        "cpu": 7.080101,
+        "rss": 382091264
+      },
+      {
+        "stage": "inference_actual_v1",
+        "status": "complete",
+        "observations": 12288,
+        "reserved_wall": 1800,
+        "wall": 198.92028666600527,
+        "cpu": 198.692934,
+        "rss": 1154220032
+      }
+    ],
+    "total_reserved_observations": 61440,
+    "total_reserved_wall": 3000,
+    "actual_wall": 209.2856805830088,
+    "actual_cpu": 208.825041
+  },
+  "new_observations": 0,
+  "new_scientific_nodes": 0,
+  "new_scientific_rules": 0,
+  "own_attempt_cost_separate": true,
+  "full_statistical_replay": true,
+  "new_integration": false
+}

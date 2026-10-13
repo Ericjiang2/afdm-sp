@@ -1,0 +1,44 @@
+{
+  "status": "engineering_admitted",
+  "created_utc": "2026-09-08T16:52:40.817788+00:00",
+  "evidence_kind": "static_review_and_server_math_and_mock_contracts",
+  "algorithm_sha256": "a935882dca5bf6d7face0df68a8010481f698b82ef0ae39c2f784608f16bf084",
+  "source_manifest_sha256": "4467f66b3231c52261b36db480467cb686b5acecc4873c121461fcd2447d6134",
+  "tests": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m unittest afdm_sp_joint_unrolled.test_direction_physical afdm_sp_joint_unrolled.test_direction_physical_receiver afdm_sp_joint_unrolled.test_direction_refit_receiver afdm_sp_joint_unrolled.test_direction_cancel_receiver",
+    "cwd": "source-runtime-v9",
+    "host": "deinlab",
+    "exit_code": 0,
+    "tests": 14,
+    "unit_seconds": 0.215,
+    "scope": "6 pure numerical fits;4 physical operator/admission/failure tests;4 mock callback-routing tests. No real full receiver yet.",
+    "prior_failure": "same refit routing test under v8:2 errors, exit1, unexpected channel_refit keyword"
+  },
+  "independent_review": {
+    "agent": "/root/m_review",
+    "model": "gpt-6-astra",
+    "effort": "low",
+    "result": "no launch-blocking defect; failed-query attempt audit corrected and regression passed",
+    "scope": "observed inputs, cap40/slots8, query caps, one terminal, actual H logging, engineering-only allocation"
+  },
+  "engineering_full_calls": {
+    "four_arms_four_blocks": 16,
+    "baseline_regression_v8_v9_same_block": 2,
+    "total": 18,
+    "cumulative_before": 110,
+    "cumulative_after_max": 128
+  },
+  "baseline_regression": "2 spare calls used for unchanged B_star block22 once on v8 and once on v9; compare complete hashes and refit pre-state. No population inference.",
+  "runtime_cap_seconds": 600,
+  "resource_gate": "Server validates current ledger plus overhead and reservation before launch; no batch development admitted",
+  "development_admitted": false,
+  "confirmation_admitted": false,
+  "source_inventory": "v8 immutable runtime plus M changes; local-only offline mechanism/structure statistics and historical outputs launch.py are excluded from this runtime inventory. First launch attempt correctly rejected broader local inventory before any overhead debit or receiver call.",
+  "excluded_local_only_files": [
+    "direction_mechanism_stats.py",
+    "test_direction_mechanism_stats.py",
+    "direction_structure_stats.py",
+    "test_direction_structure_stats.py",
+    "outputs_omp_initial_probe_20260907/launch.py"
+  ]
+}

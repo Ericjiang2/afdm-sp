@@ -1,0 +1,612 @@
+{
+  "schema": "usable-inference-attempt/1",
+  "stage": "algebra_v1",
+  "config": {
+    "study": {
+      "schema": "afdm-usable-inference/1",
+      "seed": [
+        20261006,
+        152404
+      ],
+      "new_observations": 0,
+      "receiver_calls": 0,
+      "decoder_calls": 0,
+      "new_confirmation_stream": false,
+      "reservations": {
+        "algebra": 2000,
+        "sensitivity": 6000,
+        "contrast": 20000,
+        "symmetry": 8000
+      },
+      "branch": [
+        0.26,
+        0.36
+      ],
+      "algebra": {
+        "Ns": [
+          9,
+          16,
+          64,
+          1024
+        ],
+        "mu": 0.31,
+        "deltas": [
+          0.01,
+          0.04
+        ],
+        "raw_gains": {
+          "generic": [
+            [
+              1.0,
+              0.2
+            ],
+            [
+              -0.4,
+              0.7
+            ]
+          ],
+          "raw_aligned": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              0.7,
+              0.0
+            ]
+          ]
+        },
+        "noise_variances": [
+          0.0,
+          0.2,
+          1.0
+        ],
+        "tau_values": [
+          0.5,
+          1.0,
+          2.0
+        ],
+        "counterexample": {
+          "N": 5,
+          "S": 7.0,
+          "P": 12.0,
+          "rho": 1.001,
+          "branch": [
+            0.22,
+            0.42
+          ]
+        },
+        "identity_atol": 2e-11,
+        "node_atol": 2e-07,
+        "rank_rtol": 1e-12
+      },
+      "sensitivity": {
+        "Ns": [
+          9,
+          16,
+          64,
+          1024
+        ],
+        "mu": 0.31,
+        "deltas": [
+          0.01,
+          0.04
+        ],
+        "effective_phases": [
+          0.0,
+          0.001,
+          0.1,
+          1.5707963267948966
+        ],
+        "effective_amplitude_ratio": 0.7,
+        "noise_variances": [
+          0.0,
+          0.2,
+          1.0
+        ],
+        "moment_perturbation_scales": [
+          1e-08,
+          1e-06,
+          0.0001
+        ],
+        "directions": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "jacobian_relative_steps": [
+          1e-05,
+          5e-06
+        ],
+        "jacobian_rtol": 0.003,
+        "target_node_rmse": 0.01,
+        "rank_rtol": 1e-12
+      },
+      "contrast": {
+        "N": 5,
+        "rho": 1.001,
+        "S": 7.0,
+        "P": 12.0,
+        "common_amplitudes": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.7,
+            1.0,
+            1.2,
+            0.9,
+            1.1
+          ]
+        ],
+        "candidate_phases": [
+          "true",
+          "paired_ambiguous",
+          "true_character_1",
+          "true_plus_fixed_offset"
+        ],
+        "fixed_phase_offset": [
+          0.0,
+          0.13,
+          -0.17,
+          0.21,
+          -0.11
+        ],
+        "noise_variances": [
+          0.0,
+          0.2,
+          1.0
+        ],
+        "identity_atol": 3e-10,
+        "gradient_atol": 3e-07,
+        "gradient_steps": [
+          1e-05,
+          5e-06
+        ],
+        "qpsk_state_count": 1024,
+        "branch": [
+          0.22,
+          0.42
+        ]
+      },
+      "numerics": {
+        "weak_I4_relative": 1e-12,
+        "root_xtol": 1e-12,
+        "reconstruction_rtol": 1e-09
+      },
+      "evidence": "deterministic population/perturbation/local-delta-method only; no random observations or finite-sample performance claim",
+      "branch_scope": "five_atom_inverse_only",
+      "symmetry": {
+        "Ns": [
+          9,
+          16,
+          64,
+          1024
+        ],
+        "mu": 0.31,
+        "delta": 0.02,
+        "common_shift": 0.015,
+        "raw_gains": [
+          [
+            1.0,
+            0.2
+          ],
+          [
+            -0.4,
+            0.7
+          ]
+        ],
+        "noise_variance": 0.2,
+        "tau": 1.0,
+        "identity_atol": 3e-11,
+        "g0_min_power_difference": 1e-09,
+        "minimum_quartic_gap": 1e-10,
+        "rank_rtol": 1e-11,
+        "scope": "actual frozen G0 vs direct G1 and complete Dirichlet synthesis; deterministic model-symmetry audit, no inference benefit claim"
+      }
+    },
+    "phase": "algebra",
+    "seed": [
+      20261006,
+      152404
+    ],
+    "new_geometry_probes": 2000,
+    "new_observations": 0,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "new_confirmation_stream": false,
+    "channel_scope": "actual frozen truncated G0, not untruncated physical channel"
+  },
+  "_config": {
+    "study": {
+      "schema": "afdm-usable-inference/1",
+      "seed": [
+        20261006,
+        152404
+      ],
+      "new_observations": 0,
+      "receiver_calls": 0,
+      "decoder_calls": 0,
+      "new_confirmation_stream": false,
+      "reservations": {
+        "algebra": 2000,
+        "sensitivity": 6000,
+        "contrast": 20000,
+        "symmetry": 8000
+      },
+      "branch": [
+        0.26,
+        0.36
+      ],
+      "algebra": {
+        "Ns": [
+          9,
+          16,
+          64,
+          1024
+        ],
+        "mu": 0.31,
+        "deltas": [
+          0.01,
+          0.04
+        ],
+        "raw_gains": {
+          "generic": [
+            [
+              1.0,
+              0.2
+            ],
+            [
+              -0.4,
+              0.7
+            ]
+          ],
+          "raw_aligned": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              0.7,
+              0.0
+            ]
+          ]
+        },
+        "noise_variances": [
+          0.0,
+          0.2,
+          1.0
+        ],
+        "tau_values": [
+          0.5,
+          1.0,
+          2.0
+        ],
+        "counterexample": {
+          "N": 5,
+          "S": 7.0,
+          "P": 12.0,
+          "rho": 1.001,
+          "branch": [
+            0.22,
+            0.42
+          ]
+        },
+        "identity_atol": 2e-11,
+        "node_atol": 2e-07,
+        "rank_rtol": 1e-12
+      },
+      "sensitivity": {
+        "Ns": [
+          9,
+          16,
+          64,
+          1024
+        ],
+        "mu": 0.31,
+        "deltas": [
+          0.01,
+          0.04
+        ],
+        "effective_phases": [
+          0.0,
+          0.001,
+          0.1,
+          1.5707963267948966
+        ],
+        "effective_amplitude_ratio": 0.7,
+        "noise_variances": [
+          0.0,
+          0.2,
+          1.0
+        ],
+        "moment_perturbation_scales": [
+          1e-08,
+          1e-06,
+          0.0001
+        ],
+        "directions": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "jacobian_relative_steps": [
+          1e-05,
+          5e-06
+        ],
+        "jacobian_rtol": 0.003,
+        "target_node_rmse": 0.01,
+        "rank_rtol": 1e-12
+      },
+      "contrast": {
+        "N": 5,
+        "rho": 1.001,
+        "S": 7.0,
+        "P": 12.0,
+        "common_amplitudes": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.7,
+            1.0,
+            1.2,
+            0.9,
+            1.1
+          ]
+        ],
+        "candidate_phases": [
+          "true",
+          "paired_ambiguous",
+          "true_character_1",
+          "true_plus_fixed_offset"
+        ],
+        "fixed_phase_offset": [
+          0.0,
+          0.13,
+          -0.17,
+          0.21,
+          -0.11
+        ],
+        "noise_variances": [
+          0.0,
+          0.2,
+          1.0
+        ],
+        "identity_atol": 3e-10,
+        "gradient_atol": 3e-07,
+        "gradient_steps": [
+          1e-05,
+          5e-06
+        ],
+        "qpsk_state_count": 1024,
+        "branch": [
+          0.22,
+          0.42
+        ]
+      },
+      "numerics": {
+        "weak_I4_relative": 1e-12,
+        "root_xtol": 1e-12,
+        "reconstruction_rtol": 1e-09
+      },
+      "evidence": "deterministic population/perturbation/local-delta-method only; no random observations or finite-sample performance claim",
+      "branch_scope": "five_atom_inverse_only",
+      "symmetry": {
+        "Ns": [
+          9,
+          16,
+          64,
+          1024
+        ],
+        "mu": 0.31,
+        "delta": 0.02,
+        "common_shift": 0.015,
+        "raw_gains": [
+          [
+            1.0,
+            0.2
+          ],
+          [
+            -0.4,
+            0.7
+          ]
+        ],
+        "noise_variance": 0.2,
+        "tau": 1.0,
+        "identity_atol": 3e-11,
+        "g0_min_power_difference": 1e-09,
+        "minimum_quartic_gap": 1e-10,
+        "rank_rtol": 1e-11,
+        "scope": "actual frozen G0 vs direct G1 and complete Dirichlet synthesis; deterministic model-symmetry audit, no inference benefit claim"
+      }
+    },
+    "phase": "algebra",
+    "seed": [
+      20261006,
+      152404
+    ],
+    "new_geometry_probes": 2000,
+    "new_observations": 0,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "new_confirmation_stream": false,
+    "channel_scope": "actual frozen truncated G0, not untruncated physical channel"
+  },
+  "argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_usable_inference_20261006/source_v1/experiments/afdm_usable_inference_20261006/study.py",
+    "--artifact-root",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_usable_inference_20261006",
+    "--config",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_usable_inference_20261006/control/STUDY_CONFIG.json",
+    "--phase",
+    "algebra",
+    "--stage",
+    "algebra_v1",
+    "--wall-seconds",
+    "600"
+  ],
+  "_argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_usable_inference_20261006/source_v1/experiments/afdm_usable_inference_20261006/study.py",
+    "--artifact-root",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_usable_inference_20261006",
+    "--config",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_usable_inference_20261006/control/STUDY_CONFIG.json",
+    "--phase",
+    "algebra",
+    "--stage",
+    "algebra_v1",
+    "--wall-seconds",
+    "600"
+  ],
+  "seed": [
+    20261006,
+    152404
+  ],
+  "source_sha256": {
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_usable_inference_20261006/control/STUDY_CONFIG.json": "c4f416af16ace8b98897d452a1e884a1002f0f7de835e7e2d8b9cee159f9c850",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_usable_inference_20261006/control/run_contract.json": "b3f4299ab249a7bd26f46feeae1eae939b6f7087838dc77e6f5aeca55982cdb0",
+    "experiments/afdm_coherent_structure_20261006/__init__.py": "f83a9ab2491d9b00c37336f7fd607d8a6515072f4162461a9ea6b12f159254a7",
+    "experiments/afdm_coherent_structure_20261006/core.py": "453d0c8db6fc82e55f13095f9ad7415e030dc3e69a41aea00e1a9ea8a914ebf5",
+    "experiments/afdm_coherent_structure_20261006/geometry.py": "fd84760adc3159adfca1691e364fd4d9ac767000c01fe02edfe405ff6052abd9",
+    "experiments/afdm_coherent_structure_20261006/protocol.py": "0ef2f526b1ad225861bb0d33c0a55562fee8dc51c57e9aae690b1ee51e945963",
+    "experiments/afdm_coherent_structure_20261006/thread_binding.py": "eedb5af57ce5cd6a752da90cbcbb4f3bc0084d083d6ff852f606b3b2431f4710",
+    "experiments/afdm_deep_principles_20261006/__init__.py": "a694119be43f4647963ae0d1e3b8764ecbdca5690a93ad290da0ec4b55a20896",
+    "experiments/afdm_deep_principles_20261006/kernels.py": "3c22ed7ce90782d161ef2a075afe221b588c65dc0fe3c5fb5ade997023e94b25",
+    "experiments/afdm_efficient_information/__init__.py": "86b4e0eb26b4a781a374db0addad1e9fbc485c7c653a3bc54868ad3d7c0cbedd",
+    "experiments/afdm_efficient_information/prior_likelihood.py": "c8251b53da6fb715f850d906c2251aa664bd32eb8500607c8250e8625f5342ee",
+    "experiments/afdm_efficient_information/protocol.py": "ecfb800796f418924640ce8e98c7b1797c92fa27e9f480715c30115b56a67498",
+    "experiments/afdm_higher_order_information/__init__.py": "00ec0fce13d3db63195bf81e021bbf9b3abad69b9ba7781be9327c3b86b52b75",
+    "experiments/afdm_higher_order_information/prior.py": "497595b55de826af2046a352be4a5915316bbd5bb8c8d59d5162dc2d853c8ce6",
+    "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+    "experiments/afdm_inference_causal_20261002/exact_oracle.py": "d6fae6c9d0e708db9fb2ab6c3809729f12146bb307802f2cb892be6f795b5b77",
+    "experiments/afdm_inference_causal_20261002/oracle_comparison.py": "571b6d080379299f0e8a342e5b1d2c964c4a99d689f735fc0d4b6b83d1ef2df6",
+    "experiments/afdm_shared_channel_20261004/common.py": "705cb6103442cdb122fbce0e58f091c6d42d64cce2e0f39cd24e8dfe095e758d",
+    "experiments/afdm_shared_channel_20261004/production_diagnostic.py": "4842465dc41faf45a78876374ab46d37b1ae8da9ae79ab121b2d2fc8a9d6d054",
+    "experiments/afdm_shared_channel_20261004/production_prior.py": "d8dcecdadbbc7483449f3a1e99f61a757b0065e9b0df509c29423b32b5694c69",
+    "experiments/afdm_shared_channel_20261004/quadrature.py": "32844f8ee051f8a4c2eb614443c2e3814a69183e7a6bd08195d8d6ac5610d257",
+    "experiments/afdm_structured_inference_20261003/common.py": "ae611fc20333affb939692a25da0c025476ad8cd16cbc74f917afce120d17ef9",
+    "experiments/afdm_structured_inference_20261003/potential.py": "63bb6d4da304d3f2753a915a177762156532b24fa7f29de97d09ce7ec7585e68",
+    "experiments/afdm_usable_inference_20261006/__init__.py": "b11eac5dd7977f17b34a31ce23666ad9389efa4dd44acea7344ceae6e9654d2d",
+    "experiments/afdm_usable_inference_20261006/config.py": "9d5331d402645c0ab33c35720260dd57e0570f1742eff1c3ba725e32e4941647",
+    "experiments/afdm_usable_inference_20261006/kernels.py": "8906716d1d0bb6bdb01cf2dae851ad9fedd62e6f8349b36e4d41d2c59576568f",
+    "experiments/afdm_usable_inference_20261006/model_symmetry.py": "a76828132da3e35861a8867f9869199c04de685aec0ef0690ba2be20eb94879e",
+    "experiments/afdm_usable_inference_20261006/protocol.py": "8c7f63dcc32893e80a95c886487596632506bb8f7d3f551bbfc48e2640abe8c7",
+    "experiments/afdm_usable_inference_20261006/study.py": "c459209b72022395728fb11664c3e6e86078f46a983187d68f135fa564faffd6",
+    "experiments/afdm_usable_inference_20261006/test_contracts.py": "fcf608188d5416c48e57b127e1853f77e03ecbd505a501db21479c8263bafb6c",
+    "experiments/afdm_usable_inference_20261006/test_model_symmetry.py": "7cc584d53dbe5e969318fab92ee9fc4459e14ff011d0648ad48c43b4a74db943",
+    "experiments/afdm_usable_inference_20261006/thread_binding.py": "01c6d8b55dc269d56f229b4a482856741a401a1225e8cbadba72d412f0902302",
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_baselines.py": "bc2457e5f21259df65fb1537021c50ea929991672ef1d9fb851213cb88f2d36a",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_env.py": "933ea6d8ac168f5af054754a6f58c41e378992a29a79fab91106b48209285487",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_layers.py": "2f242722450e4ad71820ab737e872f0bcbed1980f6ad0a545c81f659415a60c6",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_models.py": "af2186ebfceb744dab7a86efb76271724d7e4f9194a1adba52101487bead00c2",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_trainer.py": "41149471f5158566494a5a36e4143d1d06ed64f19a3b02b255153ecf2b3b7475",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_diagnostics.py": "c11c43d1353024a9ea873239b843743c9999a6cdf5f88644611282315c3999b9",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/classical_joint_unrolled.py": "412004661b718da8d6842ce37b48a090d528319211df2931c1940fafffafdec5",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py": "3fd7031da28dec0ef917b4a1ac1a3e47552d981c8f0d0a3027b1d6aa693c76ef",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/loop9_cache_features.py": "56b0e444db72c1f7bd18dad6b4a403b0667d3d5fa41cec7e0e99602e0e03410b",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/mp_detect_bp_torch.py": "5c3ef90babb745c887f90863f434960c2feeed90d802720de767b1fd8b684ec0",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/physical_stride.py": "abcb9950f53afa9eafa74cbb25ab9e708f551b92568078406c450aef63a69cdf",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/run_classical_baselines_python.py": "0a7eb3fef1252c7c776682a87dd2606a80249bd2f2152597838e287e1caefc98",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/system_config.py": "3b8d1db067a0682b3c6620268ed5219e15025290c94d48350324dd61bd133656"
+  },
+  "git": {
+    "head": "5a6d6285b20f2174bde1ecee43e120e9c18f598f",
+    "committed_task_source_sha256": {
+      "experiments/afdm_usable_inference_20261006/__init__.py": "b11eac5dd7977f17b34a31ce23666ad9389efa4dd44acea7344ceae6e9654d2d",
+      "experiments/afdm_usable_inference_20261006/config.py": "9d5331d402645c0ab33c35720260dd57e0570f1742eff1c3ba725e32e4941647",
+      "experiments/afdm_usable_inference_20261006/kernels.py": "8906716d1d0bb6bdb01cf2dae851ad9fedd62e6f8349b36e4d41d2c59576568f",
+      "experiments/afdm_usable_inference_20261006/model_symmetry.py": "a76828132da3e35861a8867f9869199c04de685aec0ef0690ba2be20eb94879e",
+      "experiments/afdm_usable_inference_20261006/protocol.py": "8c7f63dcc32893e80a95c886487596632506bb8f7d3f551bbfc48e2640abe8c7",
+      "experiments/afdm_usable_inference_20261006/study.py": "c459209b72022395728fb11664c3e6e86078f46a983187d68f135fa564faffd6",
+      "experiments/afdm_usable_inference_20261006/test_contracts.py": "fcf608188d5416c48e57b127e1853f77e03ecbd505a501db21479c8263bafb6c",
+      "experiments/afdm_usable_inference_20261006/test_model_symmetry.py": "7cc584d53dbe5e969318fab92ee9fc4459e14ff011d0648ad48c43b4a74db943",
+      "experiments/afdm_usable_inference_20261006/thread_binding.py": "01c6d8b55dc269d56f229b4a482856741a401a1225e8cbadba72d412f0902302"
+    },
+    "other_sources": "frozen helpers and artifacts independently SHA-256 bound"
+  },
+  "git_head": "5a6d6285b20f2174bde1ecee43e120e9c18f598f",
+  "pid": 1137521,
+  "wall_cap_seconds": 600,
+  "started_utc": "2026-10-06T08:36:36.085391+00:00",
+  "deadline_utc": "2026-10-06T08:46:36.085391+00:00",
+  "cumulative_reserved_new_observations": 0,
+  "evidence_level": "deterministic population/perturbation/local-delta-method; zero random observations",
+  "cumulative_reserved_wall_seconds": 600.0,
+  "deterministic_geometry_reservation": 2000,
+  "excluded_virtual_modules": [
+    {
+      "module": "torch.ops",
+      "filename": "_ops.py",
+      "reason": "relative or virtual module label; not an absolute source path"
+    },
+    {
+      "module": "torch.classes",
+      "filename": "_classes.py",
+      "reason": "relative or virtual module label; not an absolute source path"
+    }
+  ]
+}

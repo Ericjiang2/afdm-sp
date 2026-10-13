@@ -1,0 +1,26 @@
+{
+  "schema": "spafdm-pd1q-parta-plan/1",
+  "handoff_sha256": "9c764698e7b3e9271d313d2ad21233d81eb00f1fe59d07ef0815a5616c3beed7",
+  "source_commit": "2d130b4d",
+  "baseline_commit": "31d5ec0d",
+  "source_root_name": "sp_afdm_native_joint_reviewed_20260921",
+  "source_scope": {"N": 1024, "code_n": 2048, "code_k": 1024, "rho": 0.5, "paths": 8},
+  "generator_sha256": "bfd4247263adedc9a095b87603c2a7a4c2f2e8cb83f7e78bad721c5b06eaa6af",
+  "e1_stage": "D",
+  "e1_manifest_sha256": "80290ac246a06ca680461f043684aee6353a4915d3b63f881da43711dd214d5e",
+  "cells": [600, 650, 700],
+  "arms": {
+    "TF_REPLAY": {"family": "tf", "rounds": 2, "iterations": 20, "ce_mode": "soft", "gain_mode": "joint", "role": "predeclared frame0 parity"},
+    "TF_POINT20_R2": {"family": "tf", "rounds": 2, "iterations": 20, "ce_mode": "soft", "gain_mode": "point"},
+    "TF_FIXED20_R2": {"family": "tf", "rounds": 2, "iterations": 20, "ce_mode": "soft", "gain_mode": "fixed"},
+    "TF_NO_FEEDBACK20_R2": {"family": "intervention", "rounds": 2, "iterations": 20, "ce_mode": "soft", "gain_mode": "joint", "intervention": "no_decoder_feedback"},
+    "TF_NO_GEOMETRY20_R2": {"family": "intervention", "rounds": 2, "iterations": 20, "ce_mode": "soft", "gain_mode": "joint", "intervention": "fixed_acquired_geometry_refit_gains"}
+  },
+  "attribution_receiver_calls": 91,
+  "memory_receiver_calls": 8,
+  "total_receiver_call_cap": 99,
+  "audit_frames": [0],
+  "storage_cap_bytes": 536870912,
+  "observation_policy": "reuse existing E1 direction D input/truth; no generated radio frame",
+  "confirmation_allowed": false
+}

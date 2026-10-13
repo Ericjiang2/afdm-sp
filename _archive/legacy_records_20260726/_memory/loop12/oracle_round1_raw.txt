@@ -1,0 +1,85 @@
+🧿 oracle 0.9.0 — Less mystique, more mergeability.
+Launching browser mode (gpt-5.4-pro) with ~4,756 tokens.
+This run can take up to an hour (usually ~10 minutes).
+AnswerAnswer:
+Net: **run R3 now**. The evidence base is already strong enough that the main risk is no longer “maybe there is no signal,” it is “will this survive longer sampling, a second seed, and a fairness attribution check?” Loop-11 already closed at **8.2/10, almost**, with monotone/high-SNR wins and explicit carry-over asks for exactly these four items.   
+
+**1) GO / NO-GO**
+
+**R3 official long:** **GO**, but I would not leave 20 dB at a flat 200-floor. Set **20 dB to 250 minimum**; 300 is even cleaner if wall time stays sane. Your own prior reviewer state already identified 20 dB as the least-settled headline point, while 25/30 dB were emphatic. 10/15 can stay at 200; 25 should naturally drift toward ~350+ if target-errors is active; 30 should just hit the 500 cap.  
+
+**Seed-2 on {20,25} only vs full sweep:** **GO on {20,25} as the minimum acceptable reproducibility package.** **NO-GO on delaying R3 for a full second-seed sweep.** Full sweep is better, but not blocking. If you can afford one extra second-seed point, make it **30 dB**, not 10/15, because that is where the “wrong add hurts” mechanism and the P10-vs-P8 mystery are most exposed. The existing reviewer guidance already says 20/25 is the minimum acceptable second-seed set.  
+
+**Classical-ablation:** **GO on the question; conditional NO-GO on the current framing.** As written, `tau>=100` plus `protect-added 0` is a valid **head-off control**, but it is **not really the same thing as “classical-only scoring”** unless the code still selects additions via a non-learned rule. If disabling the head means “no adds,” then refine/defer/prune mechanics are mostly inert and the ablation will under-answer the reviewer’s fairness objection. Keep `refine_rounds=2` and `defer_prune` on, and keep `protect-added=0`, but label this honestly as a **no-learned-add control** unless you truly implement classical ranking over the refreshed pool. That distinction matters at submission time.  
+
+**Frame bootstrap:** **GO, mandatory.** Bit-level McNemar is already strong, but the known weakness is frame clustering. The planned paired frame bootstrap is exactly the right complement and should be in the final table, not the appendix.  
+
+**2) My forecast for R3**
+
+I would expect the **shape to survive**. The current Loop-11 F2-P signal is too structured to look like pure noise: monotone waterfall, all high-SNR wins, and very large 25/30 dB margins. The place most likely to shrink is **20 dB**, not 25/30.  
+
+My median forecast:
+
+* **10 dB:** basically non-headline. Visible separation **0 to 0.15 dB**. p may still be tiny because of bit count, but nobody should care.
+* **15 dB:** small but real. **0.2 to 0.4 dB**. McNemar roughly **10^-12 to 10^-25**.
+* **20 dB:** survives, but this is the knife-edge point. I expect **0.8 to 1.3 dB** visible separation, with learned BER still around the low-`2e-3` band and McNemar around **10^-8 to 10^-16**.
+* **25 dB:** still emphatic. **3 to 5 dB** visible separation. McNemar likely **far below 10^-20**.
+* **30 dB:** still clearly positive, though cap-limited. **2 to 3.5 dB** visible separation. McNemar roughly **10^-8 to 10^-18**.  
+
+The failure mode I would actually worry about is not “25/30 disappear.” It is “20 dB compresses to something like 0.4–0.6 dB and stops looking like a headline point.”
+
+**3) P10-vs-P8 checkpoint mystery**
+
+My answer is: **the proposed diagnosis is directionally right, but incomplete.**
+
+The “train on harder P=10 acts as regularization” story is plausible. The evidence you already have is consistent with it: the **P=8 retrained checkpoint has better `recall@6`**, yet is **strictly worse at BER** at 25/30 dB under the same non-F2-P protocol, including an outright **30 dB regression**, exactly where false additions are most expensive because the classical detector is already near-correct. 
+
+But the sharper mechanism is not just “harder training regularizes.” It is:
+
+**the deployed action is precision-critical and asymmetric, while the training proxy is recall-like and under-penalizes harmful adds.**
+Under F2-P, especially with defer-prune and protected additions, a wrong high-confidence add can survive deeper into the pipeline and do real damage. So what the P=10 checkpoint may actually be learning is **better top-of-list calibration / abstention**, not necessarily a better representation in the abstract. The P=8 checkpoint may simply be **over-eager** in exactly the regime where extra recall is no longer useful.
+
+So yes: **“harder regularization + proxy saturation” is broadly correct.** But I would rewrite it as **“precision/calibration mismatch under an asymmetric action cost, with P=10 shift acting as conservative regularization.”**
+
+Is the planned **F2-P cross-eval** enough to validate that? **No. Necessary, not sufficient.**
+It will tell you whether the bad P=8 checkpoint stays bad under the final protocol. It will **not** tell you why. To actually validate the diagnosis, add one tiny action-level audit at 25/30 dB:
+
+* additions per frame,
+* harmful-add rate,
+* precision of protected additions after final prune,
+* score/logit histogram for added atoms,
+* precision@1 / precision@2 on the candidate pool.
+
+If you can afford one more cross-check, run the reverse direction too: **P=8 ckpt on P=10**. If it under-adds and loses there, the “conservative calibration” story gets much stronger. 
+
+**4) Blind spots that could blow up at submission time**
+
+Biggest one: **fairness attribution.** If the classical ablation is really just a no-op control and you present it as “classical-only scoring,” a strong reviewer will call that out immediately.
+
+Second: **20 dB remains fragile.** Even the prior reviewer language basically says it “hits the gate” rather than crushing it.
+
+Third: **the transferred-checkpoint story is weird.** “Our matched P=8 retrain is worse than the transferred P=10 model” is not fatal, but without the action-level audit above, it reads like selection weirdness or proxy mismatch you do not fully understand.
+
+Fourth: **bit-level significance alone is not enough.** You already know this; frame bootstrap fixes it.
+
+Fifth: **do not lead with PCSI-gap closure language.** Your own prior review warns against that when PCSI is effectively zero at high SNR. Lead with relative BER reduction and visible dB separation instead. 
+
+**5) Final score estimate if R3 + seed-2 + classical-ablation all land**
+
+If R3 holds roughly in the ranges above, seed-2 at 20/25 agrees in sign and magnitude, and the ablation shows that the learned scorer is doing most of the work, I would put this at about **8.6 to 8.8 / 10**.
+
+That means: **yes, over the 8.5 “ready” line.**
+It does **not** honestly sound like a **9.0** yet.
+
+Why not 9.0? Because even in the good case, you still have:
+
+* a narrow config story,
+* a transferred-checkpoint headline,
+* a mechanism mystery that is not fully closed unless you add the action-level audit,
+* and likely only partial second-seed coverage.   
+
+Bluntly: **this is very close, but the difference between 8.7 and 9.0 is whether you can convincingly say “the gain is learned, reproducible, and mechanistically understood,” not just “the curve looks good.”**
+
+
+10m46s · gpt-5.4-pro[browser] · ↑80.24k ↓1.8k ↻0 Δ82.04k
+files=3

@@ -1,0 +1,945 @@
+{
+  "schema": "spafdm-pd1q-saved-mechanism-extension/1",
+  "status": "pass",
+  "scope": "offline E1 D saved evidence only; vector audit frame0 TF/POINT, 3 cells, 2 rounds; first8 paired scalar traces; no receiver calls",
+  "source_commit": "2d130b4d",
+  "run_identity_sha256": "2075f2397d4d859bfcf8e2f7eea7459396cb71184c682402ad1f4f6f350b864d",
+  "counts": {
+    "vector_rows": 240,
+    "scalar_rows": 1920,
+    "audited_batches": 12,
+    "summary_rows": 36
+  },
+  "round_reset_checks": [
+    {
+      "snr_centi_db": 600,
+      "arm": "TF_J20_R2",
+      "round": 0,
+      "initial_vh": 0.125,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "zero"
+    },
+    {
+      "snr_centi_db": 600,
+      "arm": "TF_J20_R2",
+      "round": 1,
+      "initial_vh": 0.125,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "previous_round_check_clipped"
+    },
+    {
+      "snr_centi_db": 600,
+      "arm": "TF_POINT20_R2",
+      "round": 0,
+      "initial_vh": 0.0,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "zero"
+    },
+    {
+      "snr_centi_db": 600,
+      "arm": "TF_POINT20_R2",
+      "round": 1,
+      "initial_vh": 0.0,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "previous_round_check_clipped"
+    },
+    {
+      "snr_centi_db": 650,
+      "arm": "TF_J20_R2",
+      "round": 0,
+      "initial_vh": 0.125,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "zero"
+    },
+    {
+      "snr_centi_db": 650,
+      "arm": "TF_J20_R2",
+      "round": 1,
+      "initial_vh": 0.125,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "previous_round_check_clipped"
+    },
+    {
+      "snr_centi_db": 650,
+      "arm": "TF_POINT20_R2",
+      "round": 0,
+      "initial_vh": 0.0,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "zero"
+    },
+    {
+      "snr_centi_db": 650,
+      "arm": "TF_POINT20_R2",
+      "round": 1,
+      "initial_vh": 0.0,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "previous_round_check_clipped"
+    },
+    {
+      "snr_centi_db": 700,
+      "arm": "TF_J20_R2",
+      "round": 0,
+      "initial_vh": 0.125,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "zero"
+    },
+    {
+      "snr_centi_db": 700,
+      "arm": "TF_J20_R2",
+      "round": 1,
+      "initial_vh": 0.125,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "previous_round_check_clipped"
+    },
+    {
+      "snr_centi_db": 700,
+      "arm": "TF_POINT20_R2",
+      "round": 0,
+      "initial_vh": 0.0,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "zero"
+    },
+    {
+      "snr_centi_db": 700,
+      "arm": "TF_POINT20_R2",
+      "round": 1,
+      "initial_vh": 0.0,
+      "initial_sv": 0.0,
+      "initial_bar_history": null,
+      "initial_vp_history": null,
+      "prior_source": "previous_round_check_clipped"
+    }
+  ],
+  "max_saved_state_parity_abs": {
+    "bar": 0.0,
+    "vp": 0.0,
+    "vr": 0.0,
+    "vq": 0.0,
+    "channelpower": 0.0,
+    "post_vx": 0.0,
+    "post_vh": 0.0,
+    "sv": 0.0,
+    "gain_posterior": 0.0,
+    "sv_update": 0.0
+  },
+  "meaning": {
+    "pre_post": "pre values enter each iteration; post values are saved posterior state",
+    "output": "raw bar/vp precede output damping; damped bar/vp enter residual update",
+    "alpha": "alpha_x=sv*power(hb), alpha_h=sv*||xb||^2; vr/vq use 1e-12 floors",
+    "reaction": "data: sv*P*vh_pre*xb versus DAFT(adjoint_time(hb,s)); gain: sv*N*vx_pre*hb versus damped B(xb)^H s",
+    "reset": "each coded round initializes sv=0, bar/vp history empty, xb/hb from fresh prior/CE; r1 code prior is clipped prior round check"
+  },
+  "sources": {
+    "e1_run_manifest": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/manifest.json",
+    "e1_run_ledger": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/ledger.jsonl",
+    "e1_input_frame0": {
+      "600": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/frames/s600_f000_input.npz",
+      "650": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/frames/s650_f000_input.npz",
+      "700": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/frames/s700_f000_input.npz"
+    },
+    "audited_and_scalar_checkpoints": [
+      {
+        "snr_centi_db": 600,
+        "frame": 0,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f000_TF_J20_R2_r0.npz",
+        "sha256": "c0c1148e8590f9a972d3259d75e3d5d7b14a95ac4bae5e8b315ff40c76f33f83"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 0,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f000_TF_J20_R2_r1.npz",
+        "sha256": "c4d4593f029b395451ec4f3697473a70f6072429423e2908c96994ab6f56af2f"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 1,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f001_TF_J20_R2_r0.npz",
+        "sha256": "30f68ac0fdfe4cb3c3a70c26762ff59d772ca1715b8a5e07df352173b30899dc"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 1,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f001_TF_J20_R2_r1.npz",
+        "sha256": "bb695741ae8a228d303f67657aab8388da4e7adcac47d832b4b8aa0c288b3c70"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 2,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f002_TF_J20_R2_r0.npz",
+        "sha256": "3396107b45d4c1e68561624c526ae72cc6932c6c53bd1c6109b7caec729ed5ab"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 2,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f002_TF_J20_R2_r1.npz",
+        "sha256": "8f184145e1b642737b39901368c35e28489dfd18ac8ddde5233fc31432345fe7"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 3,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f003_TF_J20_R2_r0.npz",
+        "sha256": "8ecef161bd85977745a0e29fb80a1f98308e12951b9b080699db4ac9be4680e0"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 3,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f003_TF_J20_R2_r1.npz",
+        "sha256": "a3ab10bd78590ce5f36f7df28b00860a174f4b0dbbbc4a6c2bddbfe66bab9c59"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 4,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f004_TF_J20_R2_r0.npz",
+        "sha256": "01de3bf7594c5a456b2236960df6ac639997e3ece431afb30977bd6eb656f8c8"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 4,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f004_TF_J20_R2_r1.npz",
+        "sha256": "de74679d34039fc59acf278c94297244f98abe7148e2e0d447a095b93837ac7f"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 5,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f005_TF_J20_R2_r0.npz",
+        "sha256": "ebc4200c5255c7d91a1a97d77fff6082d6694cd3880ffe0f8ff195d54a5a7b5a"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 5,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f005_TF_J20_R2_r1.npz",
+        "sha256": "7134eca632a96364ec301ec862a6b3fe62dcf3a3e624ef96e4d020d7121529fd"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 6,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f006_TF_J20_R2_r0.npz",
+        "sha256": "2c3276ebb6683c9af1fb372f931154d64acf9a55fc51d3cfedae02fcbcc9f817"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 6,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f006_TF_J20_R2_r1.npz",
+        "sha256": "05c31de051815ea4d317df2df23dff42a46a73f3789791325faed4bb3720b5ec"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 7,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f007_TF_J20_R2_r0.npz",
+        "sha256": "08dc441f084cafe26de1bf2d35fc3b4b461abf32b44575a8aafcf12e3522711b"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 7,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f007_TF_J20_R2_r1.npz",
+        "sha256": "a60bfceec2f78bc6d3b8e3265e1520d21b5d525fc68b8759f10d51ada149342d"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 0,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f000_TF_POINT20_R2_r0.npz",
+        "sha256": "69d2a234c97b8addaef03898072c4aa84d1d0ea90c26130a19c3ec387656780a"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 0,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f000_TF_POINT20_R2_r1.npz",
+        "sha256": "3f0dcab3963dee35f68cce812e34fe0846c6c9f80356878ebea2db841b5c99df"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 1,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f001_TF_POINT20_R2_r0.npz",
+        "sha256": "124f08ab9d8fe4acd35305a4665cf8f520225938ada3edaa142d00cd5725e92a"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 1,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f001_TF_POINT20_R2_r1.npz",
+        "sha256": "07e3cabc84c28d1eac3869dbe115c5a24bef051e66b5e5d17bf1d1e8d4a8675c"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 2,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f002_TF_POINT20_R2_r0.npz",
+        "sha256": "a01670a720c672d8836bd5f449d7753a109f3e26446bc2b82317d1b961960845"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 2,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f002_TF_POINT20_R2_r1.npz",
+        "sha256": "687b8b3fe7d4ce21a6790db8093bd6e78fc0c38d111c7f5942d37cbb75abddc1"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 3,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f003_TF_POINT20_R2_r0.npz",
+        "sha256": "65e4a3c181ee4f8c89b57ec2ab73f8d0b2dd7bd24b7259c9119a2136891b3589"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 3,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f003_TF_POINT20_R2_r1.npz",
+        "sha256": "7580473a059b4f12e233872d14fc95d0623ee20ca54b2c0ec97aec5e118fdc5c"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 4,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f004_TF_POINT20_R2_r0.npz",
+        "sha256": "0ab9b4a4aad6967257354d97f4608c9e1639b1223a57cb1cbb985c0f7df9588f"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 4,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f004_TF_POINT20_R2_r1.npz",
+        "sha256": "1ad86aa7f032f7fe30395a5d7865ed4fe55a90a143d5c62fa48367039ae9d889"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 5,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f005_TF_POINT20_R2_r0.npz",
+        "sha256": "70cd9415b4a9e4e72fff7848593a578d1cdcfaa512b090d29a76ebf33c4ec33c"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 5,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f005_TF_POINT20_R2_r1.npz",
+        "sha256": "cf141c8235396be668cee9270aeb5753ba147e739724191cd552536f281b5ddc"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 6,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f006_TF_POINT20_R2_r0.npz",
+        "sha256": "a67fbe6188438a65b1b286ff0f9c0a563921925d3a24f7bc5badb214a9311219"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 6,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f006_TF_POINT20_R2_r1.npz",
+        "sha256": "d848bcf3d8654035d7cff20dd1fe53fa563ba908656de6096f6a40f08f76be7e"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 7,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f007_TF_POINT20_R2_r0.npz",
+        "sha256": "2c0c2a500f866939e843da2ebe441326b854a430a77d4612d04a8c2267a48062"
+      },
+      {
+        "snr_centi_db": 600,
+        "frame": 7,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s600_f007_TF_POINT20_R2_r1.npz",
+        "sha256": "e48034846499e6bff5b2e823e9152897baf8237be3eec25a6a1daac33776a148"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 0,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f000_TF_J20_R2_r0.npz",
+        "sha256": "c1e642d9beb594462fc128c59a877a1e9e6da66b46e257a2e773cc9665e5f750"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 0,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f000_TF_J20_R2_r1.npz",
+        "sha256": "4d3e56f2ee8dfce95d6c3648beda6e2de5fa9d8d5e30b298cad153ece971386c"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 1,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f001_TF_J20_R2_r0.npz",
+        "sha256": "007263a930954ccd50cd74b9e47f97ec713766537d9940a16ff3602bd18c486f"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 1,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f001_TF_J20_R2_r1.npz",
+        "sha256": "f265817de0bacadd7398fe0522a6e96f7da292ceb48db70d7e0b7775d544b8bf"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 2,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f002_TF_J20_R2_r0.npz",
+        "sha256": "b6f6b2c1e247a0357f39cfc2670d688fcb286460d128fe2088792858e337038a"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 2,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f002_TF_J20_R2_r1.npz",
+        "sha256": "475648084c94066222ada499aed9af6921c25d6f5c358c9ccfb87d69796396bb"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 3,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f003_TF_J20_R2_r0.npz",
+        "sha256": "a2feb5cc9b0bc9f4b1d0fec8e13a07e1e105535134d34a7688b486930e704148"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 3,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f003_TF_J20_R2_r1.npz",
+        "sha256": "4424eb0eb70201bd83af54db563033545445c8b35a7514b46c5377c6762f1f2d"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 4,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f004_TF_J20_R2_r0.npz",
+        "sha256": "05356d8c57fc3847e7de38a38e3969add1573bdf1ad72d65c8b38087f366659a"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 4,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f004_TF_J20_R2_r1.npz",
+        "sha256": "da39c30a1f11a7cc4108b27b2f218340444909bb374f55507e9e6de9331355a7"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 5,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f005_TF_J20_R2_r0.npz",
+        "sha256": "1219b0fa890abd251a4f83217b35688a13903c29a07de235dcd3581fdd4f828d"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 5,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f005_TF_J20_R2_r1.npz",
+        "sha256": "98ef704e6be59feee26aa8c2352fdfc7c183b9319c9c631167212deb8a77a215"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 6,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f006_TF_J20_R2_r0.npz",
+        "sha256": "1199308d60a99c2e3cbf84a7034f683a1a046c8eba4c2fe0f2e7b6e5e337e2c2"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 6,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f006_TF_J20_R2_r1.npz",
+        "sha256": "84e5dda762cd62a3395737829c3a1453c941323e207f1d0dfc8c5bf3ad91cd2f"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 7,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f007_TF_J20_R2_r0.npz",
+        "sha256": "0f19e20a49cb2e201861e724b823174ea869eef108a816a3889d8502a59ba3ae"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 7,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f007_TF_J20_R2_r1.npz",
+        "sha256": "510b7cce0b750f5bcd101285661dfb6cc4f7f68ee103eda6fabce9e98b25d02b"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 0,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f000_TF_POINT20_R2_r0.npz",
+        "sha256": "66105255debd59e37affad65158b8f4a1a1008ac27f618482e1cb661385a7081"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 0,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f000_TF_POINT20_R2_r1.npz",
+        "sha256": "625c1e8ddbddac5990ea46602f3f3d513d5d027d0614616ef7dca8c067a5c690"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 1,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f001_TF_POINT20_R2_r0.npz",
+        "sha256": "73357fda9c7138a08935da86078d2f532ae86d3c012446bb8f40ba2ccdfe2510"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 1,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f001_TF_POINT20_R2_r1.npz",
+        "sha256": "5327cebcc9451cf6fa3d928489456b713480bc7ed4b2d7e9a27ce16b671f3873"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 2,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f002_TF_POINT20_R2_r0.npz",
+        "sha256": "5f627d79ed9d73abe580355d46c174a531a649200440d9bab6a8b794d20eae5d"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 2,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f002_TF_POINT20_R2_r1.npz",
+        "sha256": "a5a407e875fa18328662b9434375b071b0426a57b0a932d9ef166eac9c9cdb61"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 3,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f003_TF_POINT20_R2_r0.npz",
+        "sha256": "9031f91b96f4cc3f8626fe296aaad4bcc643a99dcbafc68b6bb51a0e6a1a8a24"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 3,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f003_TF_POINT20_R2_r1.npz",
+        "sha256": "c0ae463ff6a7fbaf6091d3a94a50f321b53d43baa74083bde873412fadd29607"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 4,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f004_TF_POINT20_R2_r0.npz",
+        "sha256": "8ffd5b969f3fd5a396b7197f3e5a2f7b20952b7ca4c0e5a022e887015e1ee842"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 4,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f004_TF_POINT20_R2_r1.npz",
+        "sha256": "3e148bbe3108c393c4c78a1fa0e2d5b6a3d3a00119bcd45e1a79facc2752ff11"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 5,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f005_TF_POINT20_R2_r0.npz",
+        "sha256": "d1bd2b57eecc9ee5601b3505ecf76412a917bdc85c108a3f31ac358a93d0cd53"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 5,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f005_TF_POINT20_R2_r1.npz",
+        "sha256": "1d694853b15ff3eeb01feb6a6c54aadf26e6fb3c3200968823eb0c9c2ed71bd6"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 6,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f006_TF_POINT20_R2_r0.npz",
+        "sha256": "15437fcd51eaef2e1b29c3c85900f480abf846edb2d6447a3b9de9c887e1158a"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 6,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f006_TF_POINT20_R2_r1.npz",
+        "sha256": "e39f6ecc4b6ebfc093d691de0f8f5e46bbcdbff57d8f146b91b0e9540a46751a"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 7,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f007_TF_POINT20_R2_r0.npz",
+        "sha256": "093d08398c69bafd8f36d83429fc1327ada0cc5c8b398d82c533b473da95418d"
+      },
+      {
+        "snr_centi_db": 650,
+        "frame": 7,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s650_f007_TF_POINT20_R2_r1.npz",
+        "sha256": "162a283144102bc0c8919901c68ed2ad00d095f5834b64d927eb426e8b0bc762"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 0,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f000_TF_J20_R2_r0.npz",
+        "sha256": "a0bcb3a93d108b87935b33ef5f43a28406861359195c554d29e5de301ebe405e"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 0,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f000_TF_J20_R2_r1.npz",
+        "sha256": "8ff8127ddaa0e8b598c6fa9283d231cb98a4d2f119a5d0751277cfdc0ab67493"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 1,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f001_TF_J20_R2_r0.npz",
+        "sha256": "47bf06b1d6ba0c6adb480bf97f0a153f4a9d0adb7951e61931f3c6d9072025fa"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 1,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f001_TF_J20_R2_r1.npz",
+        "sha256": "7f49f0b5a5ed7d51189f467662718af6632bd940d1cfc3426d52aab30a6793ea"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 2,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f002_TF_J20_R2_r0.npz",
+        "sha256": "92297b97e0c84f055afad947432001ba124a77afd4ee0f712d215c25dc972d84"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 2,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f002_TF_J20_R2_r1.npz",
+        "sha256": "e688fe88a8c7a6eae147d1bdc939cdf695b8d0115cc9587fbda224858a57d749"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 3,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f003_TF_J20_R2_r0.npz",
+        "sha256": "2451334520fe80c9c0b16023a3a9c30a3c7fd6d86fd9d32b408d480f82a8df18"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 3,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f003_TF_J20_R2_r1.npz",
+        "sha256": "0da6cbc4750630f457c554317c9f0fddc658036ec9cf6cb36a5d5fe774fc0594"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 4,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f004_TF_J20_R2_r0.npz",
+        "sha256": "e53f16811d7992c0b764d1c38f4b8dc09817a12c3daa8192d2f83b45fdf726ae"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 4,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f004_TF_J20_R2_r1.npz",
+        "sha256": "d5500286449d357e75960a535a14263a2de11e70880a4f9efae741766d5aee19"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 5,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f005_TF_J20_R2_r0.npz",
+        "sha256": "9d831eafd1e3ac43d9e49a9e883f5e5154e6919eaaa65706f6dfd5f669349d78"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 5,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f005_TF_J20_R2_r1.npz",
+        "sha256": "5274591b2dd20e82a7e12d1e8ea24086165ded2efa1ef1ebab88bfe162ba70c5"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 6,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f006_TF_J20_R2_r0.npz",
+        "sha256": "4f8d0c46ccef38ba72a2de1b14941e23f838d1e897eb9512f1d382e5b586ea48"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 6,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f006_TF_J20_R2_r1.npz",
+        "sha256": "85da187fb7d49c63d54414e4084ae8ba368eb8d27ef111643b3a4ee2f97e3d26"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 7,
+        "arm": "TF_J20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f007_TF_J20_R2_r0.npz",
+        "sha256": "b496743f2af3f61cfd99eaa2add3fc2cf18522528b6ab4973f78dacfc69e5677"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 7,
+        "arm": "TF_J20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f007_TF_J20_R2_r1.npz",
+        "sha256": "3b2257056993297ab32355769ee7c6d72b4f3c5c3fbbcb78803be3f1f6416cad"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 0,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f000_TF_POINT20_R2_r0.npz",
+        "sha256": "c4400568a773ef3c92ab010e818b55033aab9bd27c024e658d16238b6106c9b8"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 0,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f000_TF_POINT20_R2_r1.npz",
+        "sha256": "f86338c58f4a509db16deb16bb91b8186269daab0535cc8b24339945d9805df7"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 1,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f001_TF_POINT20_R2_r0.npz",
+        "sha256": "78cdc5dd103c306adff25325a2cb4a71a9f67e7dc9291e9a34bb7554b05c1e80"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 1,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f001_TF_POINT20_R2_r1.npz",
+        "sha256": "ed0d864b368cb80ecf9d546e43c6a1c4f1e3fcc57defbfe9083dbefee4ca3dfc"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 2,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f002_TF_POINT20_R2_r0.npz",
+        "sha256": "e2e48ef24220224d90eca24f993aade8a5d9ebd53b6d0f0720adb9bf387777e0"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 2,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f002_TF_POINT20_R2_r1.npz",
+        "sha256": "7254024c1901a8d245cca09a863512ea679c0e48beba430dc784e12a8b161cc2"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 3,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f003_TF_POINT20_R2_r0.npz",
+        "sha256": "bba853e5229ad39cb0a28fd775c9bbbc6fc5511099ef85562d6d9575b967f7c2"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 3,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f003_TF_POINT20_R2_r1.npz",
+        "sha256": "85fbccdaf849bf0bbc7f16f77201b1f5d67a789aab34e317f12235defa269d6c"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 4,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f004_TF_POINT20_R2_r0.npz",
+        "sha256": "b274625954806337540f33acef515775fee4fa7b1b1b2fcbd55a4c4b94971129"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 4,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f004_TF_POINT20_R2_r1.npz",
+        "sha256": "6d926a28e3b81bc3a7f8d14389e069ded39142367d03c76a572bd622504c17af"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 5,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f005_TF_POINT20_R2_r0.npz",
+        "sha256": "511b5d3621133530bfed459157cdae590fdc5edd7cf4c5024f0232257d2f2316"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 5,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f005_TF_POINT20_R2_r1.npz",
+        "sha256": "589a388f03c74450ad05567d02feb543432521adbd631ca10806b01cc8fdf97c"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 6,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f006_TF_POINT20_R2_r0.npz",
+        "sha256": "e0e99a9c9f36dbc7367fbbb82c4564cc7abb3c9e083cfc3856d03191639779ba"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 6,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f006_TF_POINT20_R2_r1.npz",
+        "sha256": "c94def41606e37ccb5711ca4c8cd84954580ca82ec8e390ea8d932e01938aa74"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 7,
+        "arm": "TF_POINT20_R2",
+        "round": 0,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f007_TF_POINT20_R2_r0.npz",
+        "sha256": "59ddec19ae2fc0a189e39ae49368bc0bb3b0538c3d144e2b14e7602c494511e2"
+      },
+      {
+        "snr_centi_db": 700,
+        "frame": 7,
+        "arm": "TF_POINT20_R2",
+        "round": 1,
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/stage_D/checkpoints/s700_f007_TF_POINT20_R2_r1.npz",
+        "sha256": "6ebac66c0e98e22e6f138d0252375ac2fe1ec8f82f589bdd6c7b17352a89b830"
+      }
+    ],
+    "prior_extraction_receipt": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_native_direction_20260921/mechanism/extracted/receipt.json"
+  },
+  "sha256": {
+    "script": "23093038260f2f226dfc98662e776c028bcff38f51e379bee4441eb02ff16e69",
+    "e1_manifest": "80290ac246a06ca680461f043684aee6353a4915d3b63f881da43711dd214d5e",
+    "e1_ledger": "253c04220047278ebd8e5c3b2f59d9e058938e6d8a14f72d47fe6621932f2209",
+    "prior_receipt": "10c2eed4e27e58cbfb2b83fc497b49eccfe19289c0190179be517387754851ea",
+    "prior_audit_csv": "7aaf950e730e700f23724b415cf1ef466dad18d6c597a44573e1c59ac9f7b14c",
+    "prior_scalar_csv": "f564d2f62e3c2765d748263e4b24dbee1540932833fd2aadfabd779ea5162575",
+    "extended_metrics_csv": "f25e40d643c36675a105e607369040139dab3f6f64a32fed52f8fbb020f26a72",
+    "summary_csv": "4f5672d18150e28c4b0888d33f3552b74e42af132853dff79a8149962a63acee",
+    "vectors_npz": "b5f9003308afd792053e82277515b9d440430ffca782ce82322e9585eac29131"
+  }
+}

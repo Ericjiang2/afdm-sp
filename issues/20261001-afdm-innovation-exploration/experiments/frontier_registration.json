@@ -1,0 +1,49 @@
+{
+  "schema": "innovation-frontier/1",
+  "status": "registered-before-generation",
+  "cells": [
+    {
+      "snr_centi_db": 600,
+      "frames": 1024
+    },
+    {
+      "snr_centi_db": 650,
+      "frames": 1024
+    }
+  ],
+  "policies": [
+    "scalar3",
+    "guard_coherent",
+    "guard_f1",
+    "f1_alone"
+  ],
+  "entropy_hex": "7087748a42f4a10b099832d789cbb0393154afb164f7601a328d55bff0c186fc",
+  "domain": 1229868624,
+  "seconds_limit": 2700,
+  "primary_endpoint": "coded frame error; information frame error secondary",
+  "primary_comparisons": [
+    "guard_coherent vs scalar3",
+    "guard_f1 vs scalar3"
+  ],
+  "multiple_testing": "two-sided exact McNemar, Holm two pooled contrasts; SNR and strong F1 comparisons descriptive",
+  "selection": "2048 fixed independent observations, four serial 512-frame blocks, no interim efficacy stopping",
+  "power_limit": "At rescue probability .004 expected8 discordances; power still limited; no equivalence inference. F1 signal may be larger. Whole codeword protection does not protect all-correct information subset.",
+  "task_sources": {
+    "experiments/run_frontier.py": "e80f97381b6ffac78459922a31130900c3866f52f3e0d46b2678163f888be1e4",
+    "experiments/run_development.py": "8ecf53ca020f265a6d30269f61dbc47c7c9056df5bb2d895170c41110233f2f3",
+    "theory/tf_reaction_adapter.py": "586ffb8b59738e39e31b981930c7023928643c936198877e2e59a420097ad89f"
+  },
+  "f1_hashes": {
+    "experiments/cstate_necessity_stageA_20260928/test_stage_a.py": "e287929da872eb8d4be583ffb62d17893a7fa9c0c1144a43eed588e2efbd17ff",
+    "experiments/cstate_necessity_stageA_20260928/native_f1.py": "2f728cc6a1c2a4a1f890d1227a1bf314876439ca837ded9b111bdc9a6ad8809b",
+    "experiments/cstate_necessity_stageA_20260928/qualify_f1.py": "b8e65224bb655dd1c9eb36d266f10a61f611d3bd3dcd5342da77a395e6a84021",
+    "experiments/cstate_necessity_stageA_20260928/f1.py": "c47c361d040436d1eb003543cbbdb66f6dc2b9813e1a5982ec48dfc2c2d5737c",
+    "experiments/cstate_necessity_stageA_20260928/analyze_stage_a.py": "76d5d9f673d0997802cbfd73c84611ddfe9170b38868060838b4a5c34735cb98",
+    "experiments/cstate_necessity_stageA_20260928/run_stage_a.py": "6f6ae9eb7490a352fb5ac63b9844733e1873b1a7f969c6f08a060e8bb1faff17",
+    "experiments/cstate_necessity_stageA_20260928/test_f1.py": "d423ef86130e4a8890075bbeb59429303c5b1e53a6cc421e14536af21e9d4c85",
+    "experiments/cstate_necessity_stageA_20260928/keep_slots.py": "a090e6298ffe0be5449fb196918a4620db6f968d9034b2f029d931da56aec143",
+    "experiments/cstate_necessity_stageA_20260928/verify_stage_a.py": "043b4aa85eba743b7656b8a4c24fd06148b5c1c00dd30c5b6fb69579061876d8"
+  },
+  "qualification": "3 old frames x4 policies; same-geometry detector and decoder exact parity checked separately from campaign timing",
+  "cost": "each policy independently runs full chain, all acquisition and fallback included; no wall-clock budget equality claim"
+}

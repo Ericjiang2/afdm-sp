@@ -1,0 +1,63 @@
+{
+  "schema": "f2-corrected-siso-synthetic-qualification/1",
+  "status": "frozen_before_execution",
+  "source": "F2_METHOD_CONTRACT.md",
+  "real_observations_read": false,
+  "receiver_calls": 0,
+  "cases": {
+    "Q1": {
+      "N": 32,
+      "seed": 2026092801,
+      "c1": "5/(2*N)",
+      "c2": "(sqrt(2)-1)/(2*N*N)",
+      "pilot": "iid hard QPSK ±0.5±0.5j",
+      "delays": [1, 1, 3],
+      "dopplers": [0.25, 1.25, -1.5],
+      "gains": [[0.75, 0.2], [0.3, -0.1], [0.5, 0.4]],
+      "criteria": "sensing, derivative finite difference h=1e-5, dense action and adjoint rtol=atol=1e-10"
+    },
+    "Q2": {
+      "N": 12,
+      "M": 4,
+      "seed": 2026092802,
+      "matrix": "QR-orthogonalized complex Gaussian columns",
+      "delta": [0.4, 0.8, 1.2, 0.6],
+      "beta": 5.0,
+      "gamp_iterations": 100,
+      "criteria": "finite positive variance; report mean, residual, covariance diagonal and support differences"
+    },
+    "Q3": {
+      "N": 64,
+      "seed": 2026092803,
+      "c1": "5/(2*N)",
+      "c2": "(sqrt(2)-1)/(2*N*N)",
+      "pilot": "iid hard QPSK ±0.5±0.5j",
+      "true_delays": [1, 3],
+      "true_dopplers": [-1.0, 2.0],
+      "true_gains": [[0.75, 0.2], [0.5, 0.4]],
+      "sigma2": 0.1,
+      "noise": "complex normal CN(0,sigma2) from same seed",
+      "grid": {"delay_min": 0, "delay_max": 4, "doppler_min": -2, "doppler_max": 2, "step": 1},
+      "feedback_passes": 2,
+      "reference": "same EM/grid/feedback schedule with full GESBL posterior and covariance",
+      "criteria": {"terminal_heff_relative_error_max": 0.1, "predictive_residual_relative_error_max": 0.1, "median_diagonal_variance_relative_error_max": 0.2, "support": "report differences only"}
+    },
+    "Q4": {
+      "N": 8,
+      "sigma2": 0.2,
+      "pd": 0.5,
+      "channel": "identity",
+      "pilot": "zero",
+      "observation": "deterministic nonzero complex vector",
+      "criteria": "unquantized LMMSE equals y/(1+2*sigma2) within 1e-12; hard sign-zero tie maps positive"
+    },
+    "Q5": {
+      "N": 32,
+      "seed": 2026092805,
+      "path_count": 9,
+      "delays": "[0,1,2,3,4,5,6,7,8]",
+      "dopplers": "all zero",
+      "criteria": "unchanged scalar_joint accepts Channel.p=9 and returns 32-symbol posterior, without truncation or decoder"
+    }
+  }
+}

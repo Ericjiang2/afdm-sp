@@ -1,0 +1,530 @@
+{
+  "schema": "oracle-one-shot-O3-analysis-v1",
+  "status": "AUDITED_EXPLORATORY_DEVELOPMENT",
+  "scope": "true-data CE-local mean once at t1; t0 and g_previous retained; t1 legal BP/checkpoint and t2+ ordinary feedback",
+  "independence": "32 exposed development physical blocks, 7/8dB; same-session source/raw review weak; no independent CONF",
+  "exploratory_interval": {
+    "unit": "32 paired physical channel clusters retaining both SNRs",
+    "draws": 20000,
+    "seed": 202609150601,
+    "method": "paired percentile descriptive 95%, no O3 registered confirmation/promotional test"
+  },
+  "reference": {
+    "summary_sha256": "c9bbc984198a8c0e69cb0bb37316150c506f0e11b84fbec741fa54ef91e16955",
+    "raw_audit_sha256": "0521801a156966195b337e9db6a7e39766eaf748c7f64ce42f1086d3ee4b7415",
+    "score_scope": "FER, information-bit BER and coded-bit LLR NLL from original FULL"
+  },
+  "stage_bindings": {
+    "engineering": {
+      "contract_sha256": "e08b803429cd617d1a0c3290710f0aff1bcfaa7ad516c2e1cae2f7893405935c",
+      "summary_sha256": "b83b2cf3ec494b506c09f5a0bc893cc7e32ca8a5949ef6d3523e9f119e1f87c9",
+      "audit_sha256": "10319cf9bb13bbce2260a1100da97dad50f8de9dd02616aede87c82951531f37",
+      "source_sha256": "176cfd680641ca9fe37e4f49edd97e5d581e06b2c89e3e04d7f4ca9d420fbb32",
+      "runner_sha256": "cec2b1c882cec2848c98bb64c655bf53768917d46adf1d9b76314b7bd77b0a9d",
+      "points": 4,
+      "blocks": [
+        0,
+        20
+      ]
+    },
+    "development": {
+      "contract_sha256": "bf52955226fce0e387b6e6ef43c2588c17ff2fc44c883e16ef7bbfa8c920cfbd",
+      "summary_sha256": "3d89f0023571d3ee5eb5a0a50febb9f468931d6e7e69eb3243da5d63a6b9b301",
+      "audit_sha256": "ff8da021986e5a9fdb1f080e1ad28a68dbb2b88e70998a0caa10e5e424ad4cc0",
+      "source_sha256": "176cfd680641ca9fe37e4f49edd97e5d581e06b2c89e3e04d7f4ca9d420fbb32",
+      "runner_sha256": "cec2b1c882cec2848c98bb64c655bf53768917d46adf1d9b76314b7bd77b0a9d",
+      "points": 60,
+      "blocks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    }
+  },
+  "release": {
+    "points": 64,
+    "t1_true_data_CE": 64,
+    "normal_feedback_t2_through_t9": 512,
+    "t0_preservation": "runner raw audit compares original initial estimator, first graph and support trace",
+    "true_variance_used_by_CE": false,
+    "legal_receiver_input": false,
+    "CE_solves": 576,
+    "outer_BP_calls": 640,
+    "terminal_BP_calls": 64,
+    "LDPC_calls": 256
+  },
+  "aggregate": {
+    "7": {
+      "FULL": {
+        "FER": {
+          "mean": 0.78125,
+          "total": 25.0,
+          "channels": 32
+        },
+        "info_BER": {
+          "mean": 0.100311279296875,
+          "total": 3.2099609375,
+          "channels": 32
+        },
+        "bit_NLL": {
+          "mean": 0.3583450465505022,
+          "total": 11.46704148961607,
+          "channels": 32
+        }
+      },
+      "O3": {
+        "FER": {
+          "mean": 0.34375,
+          "total": 11.0,
+          "channels": 32
+        },
+        "info_BER": {
+          "mean": 0.04608154296875,
+          "total": 1.474609375,
+          "channels": 32
+        },
+        "bit_NLL": {
+          "mean": 0.26447243720874913,
+          "total": 8.463117990679972,
+          "channels": 32
+        }
+      }
+    },
+    "8": {
+      "FULL": {
+        "FER": {
+          "mean": 0.1875,
+          "total": 6.0,
+          "channels": 32
+        },
+        "info_BER": {
+          "mean": 0.0185546875,
+          "total": 0.59375,
+          "channels": 32
+        },
+        "bit_NLL": {
+          "mean": 0.21612489782799593,
+          "total": 6.91599673049587,
+          "channels": 32
+        }
+      },
+      "O3": {
+        "FER": {
+          "mean": 0.03125,
+          "total": 1.0,
+          "channels": 32
+        },
+        "info_BER": {
+          "mean": 0.00543212890625,
+          "total": 0.173828125,
+          "channels": 32
+        },
+        "bit_NLL": {
+          "mean": 0.16987844960650467,
+          "total": 5.436110387408149,
+          "channels": 32
+        }
+      }
+    }
+  },
+  "paired": {
+    "7": {
+      "FER": {
+        "mean_after_minus_before": -0.4375,
+        "percentile_95_CI": [
+          -0.625,
+          -0.28125
+        ],
+        "channel_differences": [
+          -1.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          0.0,
+          0.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "info_BER": {
+        "mean_after_minus_before": -0.054229736328125,
+        "percentile_95_CI": [
+          -0.0732421875,
+          -0.03555145263671888
+        ],
+        "channel_differences": [
+          -0.099609375,
+          0.0,
+          -0.16015625,
+          0.0,
+          -0.06640625,
+          -0.107421875,
+          -0.12890625,
+          -0.0751953125,
+          0.0,
+          0.0166015625,
+          -0.1015625,
+          -0.1064453125,
+          -0.068359375,
+          -0.125,
+          -0.025390625,
+          0.005859375,
+          0.0,
+          -0.0205078125,
+          0.01953125,
+          -0.1123046875,
+          -0.080078125,
+          -0.0849609375,
+          0.02734375,
+          -0.08984375,
+          0.0,
+          -0.0751953125,
+          -0.03125,
+          -0.0390625,
+          -0.1572265625,
+          0.0,
+          0.0,
+          -0.0498046875
+        ]
+      },
+      "bit_NLL": {
+        "mean_after_minus_before": -0.09387260934175305,
+        "percentile_95_CI": [
+          -0.1191191544662376,
+          -0.06860084701826832
+        ],
+        "channel_differences": [
+          -0.21300965213149642,
+          0.00021931207452324797,
+          -0.24219115600074975,
+          0.0004862795472132808,
+          -0.10092449200186493,
+          -0.1746230464343526,
+          -0.14684435997706263,
+          -0.13119283400465848,
+          -0.0823490683366801,
+          -0.01269566208223949,
+          -0.15004522975718265,
+          -0.14918985860037826,
+          -0.1326722507111348,
+          -0.192417325338028,
+          -0.046854105318998474,
+          -0.011082776130494021,
+          0.0004941365791634733,
+          -0.0579893273975427,
+          -0.006656351100024771,
+          -0.15051388872262272,
+          -0.13973782930307152,
+          -0.1651278201439635,
+          -0.002833668593193839,
+          -0.14045219150484714,
+          -0.0003261990555066263,
+          -0.11099106664557312,
+          -0.03561786623667451,
+          -0.05373844105507686,
+          -0.1847233696485877,
+          -0.10725909974715339,
+          -0.002258951409262022,
+          -0.06080533974857649
+        ]
+      }
+    },
+    "8": {
+      "FER": {
+        "mean_after_minus_before": -0.15625,
+        "percentile_95_CI": [
+          -0.28125,
+          -0.03125
+        ],
+        "channel_differences": [
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "info_BER": {
+        "mean_after_minus_before": -0.01312255859375,
+        "percentile_95_CI": [
+          -0.02484130859375,
+          -0.00360107421875
+        ],
+        "channel_differences": [
+          0.0,
+          0.0,
+          -0.07421875,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.09765625,
+          -0.03515625,
+          0.0,
+          -0.080078125,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.0234375,
+          0.0,
+          -0.109375,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "bit_NLL": {
+        "mean_after_minus_before": -0.04624644822149125,
+        "percentile_95_CI": [
+          -0.07317949940831038,
+          -0.021870135021319074
+        ],
+        "channel_differences": [
+          -5.220813428796767e-06,
+          -0.0007355769550639324,
+          -0.18276978278779998,
+          -4.512326881117579e-06,
+          -0.1282109777647169,
+          0.00010164426449751907,
+          -0.003927612003569725,
+          -5.6265544509187526e-05,
+          0.0006278883848154226,
+          -0.16113042343738923,
+          0.001884009264116665,
+          -3.9257046044210986e-05,
+          -1.0363384069789205e-05,
+          -9.31968501149405e-05,
+          -0.17957288716963743,
+          -0.01136951342027026,
+          -1.7196597268398506e-07,
+          -0.20944242970328664,
+          -0.13289714940956454,
+          -0.0004964550874586027,
+          -1.2730336721777924e-05,
+          6.826608752369401e-06,
+          -0.0004519144496529792,
+          -2.272056747498752e-05,
+          0.0001569632207553684,
+          -0.17704922241986243,
+          -0.10973675427506124,
+          -0.18278465250255266,
+          -0.0007952041581274494,
+          -0.001455111560952821,
+          5.9484014350547065e-05,
+          0.0003469470951762976
+        ]
+      }
+    }
+  },
+  "engineering": {
+    "7": {
+      "FULL": {
+        "FER": {
+          "mean": 1.0,
+          "total": 2.0,
+          "channels": 2
+        },
+        "info_BER": {
+          "mean": 0.08984375,
+          "total": 0.1796875,
+          "channels": 2
+        },
+        "bit_NLL": {
+          "mean": 0.3632208835218417,
+          "total": 0.7264417670436834,
+          "channels": 2
+        }
+      },
+      "O3": {
+        "FER": {
+          "mean": 0.0,
+          "total": 0.0,
+          "channels": 2
+        },
+        "info_BER": {
+          "mean": 0.0,
+          "total": 0.0,
+          "channels": 2
+        },
+        "bit_NLL": {
+          "mean": 0.18684714280455772,
+          "total": 0.37369428560911544,
+          "channels": 2
+        }
+      },
+      "paired": {
+        "FER": {
+          "mean_after_minus_before": -1.0,
+          "channel_differences": [
+            -1.0,
+            -1.0
+          ]
+        },
+        "info_BER": {
+          "mean_after_minus_before": -0.08984375,
+          "channel_differences": [
+            -0.099609375,
+            -0.080078125
+          ]
+        },
+        "bit_NLL": {
+          "mean_after_minus_before": -0.17637374071728396,
+          "channel_differences": [
+            -0.21300965213149642,
+            -0.13973782930307152
+          ]
+        }
+      }
+    },
+    "8": {
+      "FULL": {
+        "FER": {
+          "mean": 0.0,
+          "total": 0.0,
+          "channels": 2
+        },
+        "info_BER": {
+          "mean": 0.0,
+          "total": 0.0,
+          "channels": 2
+        },
+        "bit_NLL": {
+          "mean": 0.14462523297141394,
+          "total": 0.2892504659428279,
+          "channels": 2
+        }
+      },
+      "O3": {
+        "FER": {
+          "mean": 0.0,
+          "total": 0.0,
+          "channels": 2
+        },
+        "info_BER": {
+          "mean": 0.0,
+          "total": 0.0,
+          "channels": 2
+        },
+        "bit_NLL": {
+          "mean": 0.14461625739633865,
+          "total": 0.2892325147926773,
+          "channels": 2
+        }
+      },
+      "paired": {
+        "FER": {
+          "mean_after_minus_before": 0.0,
+          "channel_differences": [
+            0.0,
+            0.0
+          ]
+        },
+        "info_BER": {
+          "mean_after_minus_before": 0.0,
+          "channel_differences": [
+            0.0,
+            0.0
+          ]
+        },
+        "bit_NLL": {
+          "mean_after_minus_before": -8.975575075287345e-06,
+          "channel_differences": [
+            -5.220813428796767e-06,
+            -1.2730336721777924e-05
+          ]
+        }
+      }
+    }
+  },
+  "interpretation": "truth-bearing offline intervention, not deployment input, global bound or pure CE causal estimate"
+}

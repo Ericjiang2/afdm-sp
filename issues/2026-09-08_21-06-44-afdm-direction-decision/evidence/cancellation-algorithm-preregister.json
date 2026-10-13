@@ -1,0 +1,60 @@
+{
+  "status": "preregistered_before_new_cancellation_results",
+  "created_utc": "2026-09-08T15:44:30.611449+00:00",
+  "arms": [
+    "cancel-scalar",
+    "cancel-diagonal",
+    "cancel-lowrank"
+  ],
+  "reference": "frozen sbl-s0.5; cached design results plus new paired engineering timing control",
+  "input_boundary": [
+    "raw observed y",
+    "known scaled pilot",
+    "constellation",
+    "estimated final H",
+    "estimated final support",
+    "estimated final x_soft",
+    "estimated final sigma2"
+  ],
+  "working_model": {
+    "A": "sensing(pilot+x_soft) restricted to final legal support",
+    "P": "sensing(pilot) restricted to same support",
+    "sigma_base": "0.5*sigma2_final",
+    "lambda": "0.01*trace(A^H A)/K",
+    "Sigma": "sigma_base*(A^H A+lambda I)^-1",
+    "B": "sqrt(sigma_base)*P*chol(A^H A+lambda I)^-H",
+    "C": "sigma_base I + B B^H",
+    "zero_support": "zero factor; identity detector input; zero covariance trace"
+  },
+  "transform": {
+    "scalar": "unchanged z=y-Hpilot,H; variance=sigma_base+trace(BBh)/N",
+    "diagonal": "W=diag(sqrt(sigma_base/(sigma_base+diag(BBh)))); BP(Wz,WH,sigma_base)",
+    "lowrank": "thin SVD B=U diag(s) Vh; W=I+U diag((1+s^2/sigma_base)^(-1/2)-1) Uh; BP(Wz,WH,sigma_base)"
+  },
+  "fixed_terminal": "same 20 BP iterations, damping0.5, edge threshold1e-4, Gaussian LLR clip20, LDPC50; one terminal decode per full arm",
+  "limitations": [
+    "working covariance is not calibrated posterior: same-data support/soft-data/gain selection and bias/cross terms are omitted",
+    "sigma_final already includes residual uncertainty; added pilot covariance can double count",
+    "whitening changes the actual thresholded graph; record transformed inputs and graph; lowrank can densify H and fail cost",
+    "negative result excludes only these fixed classical working models, not all cancellation correction"
+  ],
+  "numeric": "complex128 NumPy preprocessing; unchanged model complex64 and BP complex128; no silent jitter/pseudoinverse/truncation",
+  "selection_data": {
+    "split": "design",
+    "snr": 8,
+    "blocks": 192,
+    "new_full_calls_cap": 576,
+    "baseline_cache": "offline paired reference only"
+  },
+  "engineering": {
+    "full_calls_cap": 20,
+    "schedule": "4 arms x (1 warmup + 4 measured) paired engineering blocks 17..21 at8dB; warmup17",
+    "purpose": "integration and cost screening, not final A2 cost gate; count failed attempts",
+    "screen": "compare each arm mean and p95 to same-run frozen Bstar, original A2 micro reference explicitly provisional; do not claim final 1.1 gate",
+    "allocation": "do not dispatch design until measured cost and remaining campaign budget demonstrate feasible staged continuation; record any expensive control as ineligible without silently changing formula"
+  },
+  "formal_gate": "original A2 same harness mean AND p95<=1.1, <=22GiB, >=1000 timing samples and frozen protocol; not replaced by engineering screening",
+  "truth_policy": "truth only offline logger; transform does not receive frame, truth, codeword, path geometry, snapshot path or gain truth",
+  "budget_reference": "prototype-budget-allocation.json",
+  "fallback": "explicit failure or resource exclusion with evidence; no dense truncation, no diagonal collapse to scalar"
+}

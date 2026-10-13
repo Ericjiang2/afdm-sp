@@ -1,0 +1,125 @@
+{
+  "schema": "afdm-deep-principles/1",
+  "seed": [
+    20261006,
+    123913
+  ],
+  "new_observations": 0,
+  "receiver_calls": 0,
+  "decoder_calls": 0,
+  "new_confirmation_stream": false,
+  "reservations": {
+    "moments": 4000,
+    "stability": 4000,
+    "mixture": 42000
+  },
+  "moments": {
+    "N": 4,
+    "mu": 0.31,
+    "deltas": [
+      0.0,
+      0.02
+    ],
+    "tau": 1.0,
+    "noise_variances": [
+      0.0,
+      0.2,
+      1.0
+    ],
+    "raw_gains": [
+      [
+        1.0,
+        0.2
+      ],
+      [
+        -0.4,
+        0.7
+      ]
+    ],
+    "absolute_tolerance": 2e-11
+  },
+  "stability": {
+    "Ns": [
+      4,
+      16
+    ],
+    "mu": 0.31,
+    "deltas": [
+      0.01,
+      0.003,
+      0.001
+    ],
+    "gains": {
+      "generic": [
+        [
+          1.0,
+          0.2
+        ],
+        [
+          -0.4,
+          0.7
+        ]
+      ],
+      "raw_aligned": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          2.0,
+          0.0
+        ]
+      ],
+      "equal": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "single_path": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "rank_rtol": 1e-12,
+    "response_absolute_tolerance": 2e-12,
+    "projection_relative_tolerance": 2e-05,
+    "fine_coefficient_relative_tolerance": 0.05,
+    "matched_ratio": 1.05,
+    "matched_moment_tolerance": 2e-13,
+    "fine_cubic_relative_tolerance": 0.05,
+    "single_path_absolute_tolerance": 1e-22
+  },
+  "mixture": {
+    "N": 4,
+    "mu": 0.31,
+    "tau": 1.0,
+    "noise_variance": 0.2,
+    "alpha": 0.05,
+    "h": [
+      0.0,
+      0.05,
+      0.2,
+      1.0
+    ],
+    "quadrature_orders": [
+      64,
+      128
+    ],
+    "tail_length": 1e-06,
+    "refinement_absolute_tolerance": 1e-05,
+    "prior_absolute_tolerance": 2e-13,
+    "small_noncentrality_cutoff": 1e-06,
+    "scope": "bounded local-limit power at moderate h; small-h logarithm is analytic only"
+  }
+}

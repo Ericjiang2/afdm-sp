@@ -1,0 +1,72 @@
+{
+  "evidence_level": "deterministic_single_delay_subspace_calculation",
+  "scope": "Planning evidence; not noisy estimation, adaptive OMP, receiver BER, or cost evidence.",
+  "config": {
+    "N": 256,
+    "Fs_hz": 4000.0,
+    "max_doppler_hz": 16.0,
+    "frequency_model": "nu = 16*cos(theta); theta uniform on [0,2*pi)",
+    "angle_quadrature_points": 4096,
+    "frequency_grid_points": 2001,
+    "DPSS_design": "leading eigenvectors of sinc(2*max_doppler/Fs*(m-n))",
+    "fourier_bins": "centered consecutive integer bins, same rank"
+  },
+  "rows": [
+    {
+      "rank": 3,
+      "dpss": {
+        "mean_relative_error_angle_spectrum": 0.02850696244879558,
+        "max_relative_error_on_frequency_grid": 0.0968575579698967,
+        "mean_relative_error_uniform_spectrum": 0.014699728818793
+      },
+      "fixed_fourier": {
+        "mean_relative_error_angle_spectrum": 0.05602764037807284,
+        "max_relative_error_on_frequency_grid": 0.14505009202751795,
+        "mean_relative_error_uniform_spectrum": 0.07189513069592779
+      }
+    },
+    {
+      "rank": 5,
+      "dpss": {
+        "mean_relative_error_angle_spectrum": 3.740316374734043e-05,
+        "max_relative_error_on_frequency_grid": 0.00019372582344823197,
+        "mean_relative_error_uniform_spectrum": 1.7660255523965773e-05
+      },
+      "fixed_fourier": {
+        "mean_relative_error_angle_spectrum": 0.03154073249200162,
+        "max_relative_error_on_frequency_grid": 0.08318256487292053,
+        "mean_relative_error_uniform_spectrum": 0.04083661822211393
+      }
+    },
+    {
+      "rank": 7,
+      "dpss": {
+        "mean_relative_error_angle_spectrum": 9.551981539068777e-09,
+        "max_relative_error_on_frequency_grid": 6.459896195742942e-08,
+        "mean_relative_error_uniform_spectrum": 4.307453282947904e-09
+      },
+      "fixed_fourier": {
+        "mean_relative_error_angle_spectrum": 0.02212650762371826,
+        "max_relative_error_on_frequency_grid": 0.058647429936938944,
+        "mean_relative_error_uniform_spectrum": 0.028716403254021028
+      }
+    }
+  ],
+  "checks": {
+    "quadrature_2048_vs_4096_max_abs": 2.220446049250313e-16,
+    "min_uniform_cov_eigenvalue": -2.3243101281842922e-14,
+    "orthogonality_max_abs": 2.4424906541753444e-15
+  },
+  "limitations": [
+    "Known public Doppler bound; no path-specific Doppler given to basis design.",
+    "DPSS optimality is for the flat-band design covariance, not arbitrary spectra or FER.",
+    "The angle-spectrum mean is a deterministic quadrature, not Monte Carlo evidence.",
+    "The 2001-point maximum is not a certified continuous worst-case bound.",
+    "No pilot observability, noisy coefficient fit, multi-delay inference, or detector evaluated."
+  ],
+  "provenance": {
+    "script_sha256": "121c80f931272babe95a3d280e025fdb579cf3e1ded69eeef799bd750ad0821e",
+    "python": "3.12.14",
+    "numpy": "2.3.5"
+  }
+}

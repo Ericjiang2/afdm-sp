@@ -1,0 +1,109 @@
+{
+  "schema": "tail-completion-contract-v2",
+  "status": "FROZEN_AFTER_INDEPENDENT_REVIEW",
+  "method_md_sha256": "5a561a148d8dc4f8ae0c0a1a639217fccccaacbb3daea5face2cf65328c87eb7",
+  "source_binding": {
+    "ridge_engineering_summary_sha256": "8c9ee40cd4dd43468cc1d9eda51f5f501f36377d8c766d263c86e9035489544c",
+    "ridge_engineering_raw_audit_sha256": "7bb7f1dee9b538d061c3f1f58dff5b65f719fe8aff3c8cf72dc19c9e1b64d450",
+    "ridge_development_summary_sha256": "04cfa02b7600bd9a53ac4d0a5c97ae5caafdef94816ce0697917af81aa75cda7",
+    "ridge_development_raw_audit_sha256": "2a90f278172bf4f0397ce2f75bca2f66eea98bc86641a0803df78dbf7f92589d",
+    "ideal_predictability_script_sha256": "bae924bdbd7a2e3bdfbffa90d0f4771a9486af45d132a2047e9c235b646765c8",
+    "ideal_predictability_json_sha256": "19560c77d3b0b74a11a868d4a2bc2f7e9ba72c1cfabcaa8ed0931a1315b570de",
+    "original_ridge_production_manifest_sha256": "50fb12ce9f4846a30a7d5644782ad6bd71afaadac70ca84629560804a31628df",
+    "analysis_ce_source_v4_manifest_sha256": "176cfd680641ca9fe37e4f49edd97e5d581e06b2c89e3e04d7f4ca9d420fbb32",
+    "g1_development_physical_summary_sha256": "c9bbc984198a8c0e69cb0bb37316150c506f0e11b84fbec741fa54ef91e16955",
+    "g1_development_physical_raw_audit_sha256": "0521801a156966195b337e9db6a7e39766eaf748c7f64ce42f1086d3ee4b7415",
+    "g1_engineering_physical_summary_sha256": "286222123b234e9f5853ee38fefb3632b726648ff43a00ed20beb77eb84d2ea6",
+    "g1_engineering_physical_raw_audit_sha256": "2bc7268340fb2cb9dacfd94b23a67f1dc485d2347f2b3dfe3940608eda9f702c"
+  },
+  "data": {
+    "physical_channels": 32,
+    "snrs": [
+      7,
+      8
+    ],
+    "states": [
+      1,
+      9
+    ],
+    "ridge_online_strength": 0.1,
+    "fixed_original_support_count": 24,
+    "actual_core": "saved ridge F state.dals[t-1].g_solution unchanged",
+    "true_core": "Frobenius projection of same original S24 only",
+    "tail": "same selected delays, integer Doppler -5..5 minus entire original S",
+    "centres": "actual selected per-delay max abs(z), tie lowest integer k; mixed oracle round(k_real) only unique true-path delays, fallback actual otherwise",
+    "F": "128-point Gauss-Legendre uniform fractional offset, coefficient direct positive modulation FFT at r=bin-centre; R_TS(R_SS+0.01 I)^-1",
+    "q_nominal": 0.01,
+    "physical_stride": 5
+  },
+  "arms": [
+    "oracle_true_core_mixed_true_centre",
+    "oracle_actual_core_mixed_true_centre",
+    "deploy_actual_core_actual_centre"
+  ],
+  "pair_count": 384,
+  "score": "each arm completed vs F=0 using identical core; complete physical H-NMSE and noiseless true(p+d) response-NMSE",
+  "legal_main_endpoints": [
+    "t1_H",
+    "t1_response",
+    "t9_H",
+    "t9_response"
+  ],
+  "legal_cluster_bootstrap": {
+    "channels": 32,
+    "draws": 20000,
+    "seed": 202609150701,
+    "shared_resample": true,
+    "Bonferroni_simultaneous_95_percentiles": [
+      0.00625,
+      0.99375
+    ]
+  },
+  "receiver_budget": {
+    "new_F": 0,
+    "new_CE": 0,
+    "new_BP": 0,
+    "new_LDPC": 0,
+    "new_FER": 0,
+    "wall_cap_seconds": 7200,
+    "memory_and_disk_cap_GiB": 20,
+    "threads": 1
+  },
+  "scope": "exposed G1 development feasibility of finite discrete tail; oracle arms diagnostic; no FER or prospective method confirmation",
+  "lineage_note": "analysis runtime uses CE source-v4 176cfd..., old ridge production uses DIR source-v4 50fb12...; shared CPP/supplement_g1/light_gap bytes bind, classical_joint_unrolled differs, saved A verified per state against analysis physical U(p+mu); v2 engineering G1 A from g1-strong-engineering summary, development A from recovery summary, exact F physical SHA guard; saved F truth_access exact offline scoring only",
+  "engineering_gate": {
+    "blocks": [
+      0,
+      20
+    ],
+    "snrs": [
+      7,
+      8
+    ],
+    "states": [
+      1,
+      9
+    ],
+    "arms": 3,
+    "pair_comparisons": 24,
+    "before_other_blocks": true,
+    "artifacts": [
+      "engineering-rows.json",
+      "engineering-admission.json"
+    ],
+    "no_repeat_engineering_scores": true
+  },
+  "v1_failed_engineering_attempt": {
+    "supervisor_exit_sha256": "aa546144aa65a861aeff921f68540980ce9d677b0465f2e681ab9ac1a7f06733",
+    "exit_code": 1,
+    "wall_seconds": 2.7710254192352295,
+    "completed_pair_comparisons": 0,
+    "physical_A_reads_before_guard": 1,
+    "ridge_F_reads_before_guard": 1,
+    "true_response_matvec_before_guard": 1,
+    "alias_gram_checks_before_guard": 1,
+    "reason": "block0/20 physical A incorrectly chosen from development-recovery; truth_access enum incorrectly required error scoring only",
+    "v1_script_frozen_sha256": "ab8881eb68a85d7e14339e64b9cb61bbd9a95c0e6d88ec108f38cf01a36d764a"
+  },
+  "coverage_diagnostics": "original S core count by selected delay, unique/missing/multi true-path selected-delay counts, actual centre hit count on unique true-path delays, mixed-oracle replacements; descriptive only"
+}

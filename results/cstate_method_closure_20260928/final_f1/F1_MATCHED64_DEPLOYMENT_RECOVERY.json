@@ -1,0 +1,65 @@
+{
+  "schema": "f1-matched64-deployment-recovery/1",
+  "status": "prepared_not_launched",
+  "reason": "The first launch stopped in preflight because a frozen historical equivalence receipt was omitted from the remote deployment. No observed output directory or receiver call was created.",
+  "first_launch": {
+    "root": "results/cstate_method_closure_20260928/final_f1/launch_matched64_v1",
+    "failure_receipt": "results/cstate_method_closure_20260928/final_f1/failed_launch_v1/failure_receipt.json",
+    "failure_receipt_sha256": "90104f2c105daac6575769469df94d3239abf8ccda571c7d488fbceb4c0826de",
+    "launch_started_sha256": "f9e53b45fffe1717e4f94b4992496cf8b4edcc71e9cddbb109fe474642a17ef7",
+    "launch_exit_sha256": "f30f8067571ef53f07b6b33fe30501af0dc78de98816a9c7e8d1df2ffa50e62a",
+    "runner_log_sha256": "123849d7a33c618c04a130860d5ff76c60febef1a8bf3fb23b325aa7bc30b779",
+    "exit_code": 1,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "new_observations": 0,
+    "observed_root_present": false
+  },
+  "deployment_correction": {
+    "sole_missing_artifact": "results/cstate_necessity_stageB_resume_20260928/F1_FAST_EQUIVALENCE_RECEIPT.json",
+    "artifact_sha256": "2c1aad24ee8ef6e6b7e19d31f77f0b1ff78f0a9c0ee33c7aba21342b25081768",
+    "remote_artifact_now_present_with_matching_sha256": true,
+    "registered_cli_dependencies_present_and_hash_checked": true,
+    "scientific_source_registration_and_protocol_unchanged": true,
+    "producer_calls_consumed": 0,
+    "producer_calls_remaining": 192
+  },
+  "frozen_science": {
+    "registration_commit": "64dbd9904d060c17e5faff6bd9f64b8b323f5ca4",
+    "registration_path": "results/cstate_method_closure_20260928/final_f1/F1_MATCHED64_TIMING_REGISTRATION.json",
+    "registration_sha256": "22c5bb944ea26106fa2860fcba3a23a185e420eab4000257b9915d9bda8b50af",
+    "protocol_sha256": "20fa9b395ea510bd8351a0d6e3eb349ea2bbdac8d97de541a46f3f191470da56",
+    "producer_path": "experiments/cstate_method_closure_20260928/final_f1/f1_matched_timing.py",
+    "producer_sha256": "8eb157560a272bf6a7642a53c63487ff7134421ecec7a17e984ab24b8138b38a",
+    "independent_1024_raw_equivalence_receipt_sha256": "97cdb09ff25244a9f7e20e32614db698847b7c976c7e8c15212e978bec1247de",
+    "fixed_population": "64 previously sealed observation IDs, each in F0, Cref and Ccompat; 192 timed wrappers",
+    "same_observed_output": "results/cstate_method_closure_20260928/final_f1/observed_matched64_v1"
+  },
+  "deployment2": {
+    "launcher_path": "experiments/cstate_method_closure_20260928/final_f1/f1_matched_timing_launch_deployment2.sh",
+    "launcher_sha256": "4212c885447f0b81dcbb1f687168960a8a7ca72b635ebe8fdc91750493dcda53",
+    "original_launcher_sha256": "bbfb3c091113abe61f212aa6ce09ac921e1ed00670e0bb691dc2b367d875a486",
+    "launcher_only_change": "launch_root points to launch_matched64_deployment2, isolating logs and scratch; all producer arguments and output path remain identical",
+    "launch_root": "results/cstate_method_closure_20260928/final_f1/launch_matched64_deployment2",
+    "exact_command_argv": [
+      "bash",
+      "experiments/cstate_method_closure_20260928/final_f1/f1_matched_timing_launch_deployment2.sh",
+      "64dbd9904d060c17e5faff6bd9f64b8b323f5ca4",
+      "22c5bb944ea26106fa2860fcba3a23a185e420eab4000257b9915d9bda8b50af",
+      "64"
+    ],
+    "cpu_id": 64,
+    "python": "/home/guoyikun/.conda/envs/AFDM/bin/python",
+    "cuda_visible_devices": "",
+    "thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    },
+    "internal_campaign_cap_seconds": 900,
+    "outer_timeout_seconds": 895,
+    "outer_kill_after_seconds": 5,
+    "requires_new_git_freeze_and_go_before_launch": true
+  }
+}

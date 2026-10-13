@@ -1,0 +1,29 @@
+{
+  "scope": "FB02_FB03_WIRE06_RUN11",
+  "normalized_variance_edges": [
+    0,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    0.7,
+    1
+  ],
+  "bins": "left closed/right open, final bin includes 1; out of range separate",
+  "confidence_threshold": 0.9,
+  "case_limit_per_group": 3,
+  "case_selection": "first lexicographic frame/symbol IDs, no outcome selection",
+  "temperature": 1,
+  "variance_unit": "already scaled constellation; v/(1-rho)",
+  "mean_snapshot_stage": "before DA-LS solve, outer 1..9",
+  "oracle_scope": "DA-LS mean only, unweighted; LDPC remains terminal",
+  "arms": [
+    "f_mean",
+    "f_uniform",
+    "f_dynamic",
+    "o_data"
+  ],
+  "data_scope": "Ddev rep0/1/2 each frame0..15",
+  "candidate_activation": "own route evidence and cost; mechanism HOLD is not a global gate"
+}

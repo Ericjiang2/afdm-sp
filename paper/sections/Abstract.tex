@@ -1,0 +1,45 @@
+Underwater acoustic (UWA) communication channels exhibit long delay spreads and 
+severe fractional Doppler shifts that conventional orthogonal frequency division 
+multiplexing (OFDM) cannot accommodate without prohibitive cyclic-prefix overhead. 
+Affine Frequency Division Multiplexing (AFDM) folds these doubly-dispersive paths 
+into a single sparse chirp-domain effective channel, enabling 
+compressive-sensing-based channel estimation. To further preserve spectral 
+efficiency in bandwidth-constrained UWA links, this work adopts a 
+superimposed-pilot (SP) frame in which every chirp sub-carrier conveys both data 
+and pilot energy. The resulting unknown-data interference does not decay with the 
+noise variance, leaving a one-shot orthogonal matching pursuit (OMP) plus 
+message-passing (MP) receiver estimation-limited at mid-to-high SNR.
+
+This work proposes a complexity-preserving joint channel estimation and data detection
+receiver for AFDM-SP on UWA-style sparse doubly-dispersive channels, in which OMP
+is executed only once to lock the channel support and only a data-aided 
+least-squares (LS) gain refit and sparse MP belief propagation iterate. An 
+empirical support-recall probe motivates this design directly: the first OMP pass 
+already recovers $\approx 95\%$ of the effective Dirichlet-expanded virtual-tap 
+support, with the residual $\approx 5\%$ structurally determined by 
+fractional-Doppler leakage geometry rather than by additive noise; re-running OMP 
+across outer iterations is therefore a wasted constant-factor overhead. The 
+proposed receiver thus avoids both this overhead and the cubic per-frame cost of a 
+dense LMMSE estimator, while recovering two to three orders of magnitude in BER 
+over the one-shot baseline at $\snr = 25$~dB. To recover the structural 
+support-residual that OMP-once leaves behind, the receiver is further augmented 
+with a 1\,041-parameter deep-unfolding support-refinement head that scores 
+off-support candidates after the single OMP pass and appends a fixed number of 
+top-ranked atoms. The learned augmentation stays in the same
+$\mathcal{O}(\Ppath \Nsub^2)$ arithmetic class as the classical baseline and
+incurs $\approx 8\%$ additional analytical complex-MAC overhead at
+$\Nsub = 1024$, with measured GPU wall-clock parity at $\Nsub = 1024$
+($402$~ms vs.\ $416$~ms for a classical-Torch reference) and a $+3.9\%$
+wall-clock overhead at $\Nsub = 2048$.
+
+A paired-frame Monte-Carlo evaluation on a UWA-style fractional-Doppler simulator 
+confirms two consistent gains. The proposed classical joint receiver outperforms a 
+serial OMP+MP baseline by two to three orders of magnitude in BER at $\snr = 
+25$~dB. On top of that, the learned-augmented variant delivers a further $\approx 
+2$~dB paired separation from the classical joint at $\snr \in \{20, 25, 30\}$~dB. 
+A physical-support-oracle headroom analysis shows that the learned head closes 
+$61\%/81\%/98\%$ of the achievable top-$\Ppath$ support-refinement gap at 
+$\snr = 15/20/25$~dB, capturing the bulk of the BER reduction available from any 
+support-refinement strategy operating on the same dictionary. Extension to 
+multi-scale multi-lag UWA propagation and embedded-deployment latency, memory, 
+and energy benchmarks are identified as natural follow-up work.

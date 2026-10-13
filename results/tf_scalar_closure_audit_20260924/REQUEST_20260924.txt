@@ -1,0 +1,846 @@
+You are acting as the theory-to-code verification scientist and archival evidence custodian for the coded SP-AFDM project.
+
+This task is NOT a new method-search task.
+
+Do not invent CGR-v2, do not tune the receiver, do not run a new Monte Carlo campaign, and do not reopen stopped branches.
+
+The immediate objective is to take the latest Pro-level theoretical finding about the TF+CSTATE scalar-closure limitation, verify it rigorously against the frozen mathematics and source implementation, determine its exact valid scope, and write the resulting theory/evidence chain back into the project repository in a form that is permanently traceable and reviewer-auditable.
+
+The final repository state must allow a future researcher—or an IEEE Transactions reviewer response—to reconstruct:
+
+```
+observation
+    -> hypothesis
+    -> exact mathematical derivation
+    -> source-code identity
+    -> numerical identity checks
+    -> experimental evidence boundary
+    -> allowed manuscript claim
+    -> forbidden overclaim
+```
+
+without relying on this chat history.
+
+---
+
+# 0. Frozen scientific status
+
+The established paper receiver is:
+
+```
+TF + CSTATE
+```
+
+TF is the frozen low-state / tensor-free AFDM/CPP-specific realization of the declared scalar bilinear joint data/gain inference map.
+
+CSTATE is the syndrome-triggered exact compact realization of global physical model-space reopening under a frozen structural objective.
+
+TF+CSTATE already has prospective receiver-level evidence and remains the paper headline.
+
+CGR is NOT a frozen production contribution.
+
+Historical CGR evidence showed:
+
+* aligned CGR rescued 4/8 designated BASE failures;
+* 0 harms in that bounded historical cohort;
+* wrong-phase SHAM rescued none and harmed several BASE-correct cases;
+* distinct-delay controls were exactly identical to BASE.
+
+However, the original mechanism gate remained:
+
+```
+candidate_pass = false
+```
+
+A later zero-receiver-call tangent audit found substantial retrospective support for phase-sensitive terminal-message transport, but did not change that original gate.
+
+A later fixed prospective CGR test at 6.5 dB used 256 fresh post-CSTATE BASE observations:
+
+* BASE/CGR/SHAM all ended with 256/256 correct final information words;
+* only 3 frames met the preregistered mechanism eligibility set E;
+* prospective mechanism support was therefore insufficient;
+* `prospective_mechanism_supported = false`;
+* `bounded_continue = false`.
+
+Subsequent forensic reconciliation established that the comparison must be:
+
+```
+old TF+CSTATE: 6/1024 failures
+new post-CSTATE BASE: 0/256 failures
+```
+
+not old pre-CSTATE TF 40/1024 versus 0/256.
+
+Using 6/1024 as a point estimate gives approximately 22.2% probability of observing zero failures in 256 draws, so the 0/256 result is not anomalous.
+
+Do not reinterpret the stopped CGR campaign as a success.
+
+Do not authorize another CGR run.
+
+---
+
+# 1. Latest Pro theoretical finding to audit
+
+Pro derived the following hierarchy.
+
+Let the working physical channel be
+
+$$
+H_\theta(h)=\sum_{i=1}^{P}h_iU_i,
+\qquad
+B_\theta(x)=[U_1x,\ldots,U_Px].
+$$
+
+Let the working data distribution have mean \(\mu\) and covariance \(V\), with
+
+$$
+e=d-\mu,\qquad x=p+\mu.
+$$
+
+Then
+
+$$
+\mathbb E_q
+\|y-H_\theta(h)(p+d)\|^2
+=
+\|y-B_\theta(x)h\|^2
++
+h^H\Gamma_\theta(V)h,
+$$
+
+where
+
+$$
+\boxed{
+[\Gamma_\theta(V)]_{ij}
+=
+\operatorname{tr}(U_i^HU_jV)
+}.
+\tag{1}
+$$
+
+Under isotropic covariance
+
+$$
+V=v_xI,
+$$
+
+this becomes
+
+$$
+\boxed{
+\Gamma_\theta(v_xI)=Nv_xR_\theta,
+}
+\tag{2}
+$$
+
+with
+
+$$
+[R_\theta]_{ij}
+=
+\frac1N
+\operatorname{tr}(U_i^HU_j).
+$$
+
+For the current integer-delay / real-Doppler / sufficient-CPP AFDM path operators, Pro states
+
+$$
+R_{ij}
+=
+\mathbf1_{\{l_i=l_j\}}
+D_N(\nu_j-\nu_i).
+$$
+
+Thus replacing the exact gain-side uncertainty contraction by
+
+$$
+Nv_xI
+$$
+
+contains a separate cross-path diagonalization / operator-Gram orthogonality closure beyond the isotropic covariance approximation.
+
+Pro further claims a stronger identity for the project’s diagonal AF-domain working covariance:
+
+$$
+\boxed{
+\mathcal P_l\big(\Gamma_\theta(V)\big)
+=
+Nv_xR_\theta,
+}
+\tag{3}
+$$
+
+where \(\mathcal P_l\) retains only same-delay path-pair entries.
+
+Define
+
+$$
+\Gamma_{\rm cross}
+=
+\Gamma(V)-Nv_xR.
+$$
+
+Then Pro claims
+
+$$
+\boxed{
+\|\Gamma(V)-Nv_xI\|_F^2
+=
+N^2v_x^2\|R-I\|_F^2
++
+\|\Gamma_{\rm cross}\|_F^2.
+}
+\tag{4}
+$$
+
+The declared BASE versus coherence-completed gain-mean update discrepancy at a common entering state is
+
+$$
+\boxed{
+b_t
+=
+-k_t(R-I)\bar h_t,
+\qquad
+k_t=
+\frac{\alpha_tNv_{x,t}}
+{P+v_{q,t}^{-1}}.
+}
+\tag{5}
+$$
+
+Pro proposes truth-free discrepancy measures including
+
+$$
+\eta_{\rm reaction,t}
+=
+\frac{\|(R-I)\bar h_t\|}
+{\|\bar h_t\|},
+$$
+
+and the physically visible channel displacement
+
+$$
+\boxed{
+\varepsilon_{H,t}^2
+=
+b_t^HRb_t
+=
+k_t^2
+\bar h_t^H(R-I)R(R-I)\bar h_t.
+}
+\tag{6}
+$$
+
+The broader interpretation is:
+
+> Structural model-space reopening may enlarge the reachable working-model family into geometries for which an approximation used by the downstream inference kernel is no longer exact.
+
+For this receiver specifically:
+
+```
+CSTATE expands reachable physical hypotheses
+    -> same-delay / close-Doppler working geometries may occur
+    -> R may depart materially from I
+    -> the TF identity-reaction closure no longer equals the corresponding geometry-aware uncertainty contraction.
+```
+
+This is intended as a receiver limitation/consistency result, NOT as a claim that CGR improves FER.
+
+---
+
+# 2. Your first task: independently re-derive every core identity
+
+Do not trust the Pro derivation merely because it is plausible.
+
+Start from the authoritative frozen AFDM/CPP path operator definitions used by the current project.
+
+Independently derive and verify:
+
+1. Equation (1):
+
+$$
+[\Gamma(V)]_{ij}
+=
+\operatorname{tr}(U_i^HU_jV).
+$$
+
+2. Equation (2):
+
+$$
+V=v_xI
+\Rightarrow
+\Gamma=Nv_xR.
+$$
+
+3. The exact AFDM/CPP operator Gram:
+
+$$
+R_{ij}
+=
+\frac1N\operatorname{tr}(U_i^HU_j),
+$$
+
+including the precise sign convention, normalization, CPP phase, delay convention, Doppler convention, and Dirichlet-kernel expression.
+
+4. Equation (3):
+
+$$
+\mathcal P_l(\Gamma(V))
+=
+Nv_xR
+$$
+
+under the ACTUAL covariance representation used in the frozen TF implementation.
+
+Do not assume "diagonal covariance" abstractly.
+
+Verify:
+
+* in which domain \(V\) is diagonal;
+* whether the production code stores a vector of marginal variances or another transformed quantity;
+* whether the claimed proof survives the exact DAFT sign convention;
+* whether CPP terms really cancel for equal-delay pairs;
+* whether the diagonal entries of \(U_i^HU_j\) are constant across the relevant coordinate index.
+
+5. Equation (4), including the claimed Frobenius orthogonality.
+
+Explicitly prove that the two components have disjoint matrix support or otherwise orthogonal Frobenius inner product.
+
+6. Equation (5) from the actual gain pseudo-observation and Gaussian gain-denoiser implementation.
+
+Confirm:
+
+* exact numerator;
+* denominator;
+* whether `h_pre`, `hbar`, or another state appears;
+* whether any damping factor belongs directly on this finite mean difference;
+* the definition of \(v_q\);
+* all numerical floors;
+* whether \(P\) denotes path count, prior precision, or another symbol at that source location.
+
+7. Equation (6), using the exact physical identity
+
+$$
+\frac1N\|H(b)\|_F^2=b^HRb.
+$$
+
+Every derivation must explicitly state its assumptions.
+
+---
+
+# 3. Critical architecture question: was the pre-CSTATE geometry family really R = I?
+
+This is an important potential overstatement in the Pro memo.
+
+Do not assume the historical pre-CSTATE working model strictly prohibited same-delay multiple paths.
+
+Trace the actual frozen acquisition/refinement code and historical protocol.
+
+Determine whether, before CSTATE:
+
+A. the working path set was mathematically constrained so that all retained physical paths had distinct delays;
+
+B. same-delay multiple paths were technically admissible but rare under the acquisition/refinement procedure;
+
+C. same-delay paths could occur routinely;
+
+D. archive evidence is insufficient.
+
+This distinction directly affects manuscript wording.
+
+If A is proven, wording such as
+
+```
+"the original reachable family satisfies R=I"
+```
+
+may be justified under the stated assumptions.
+
+If B or C is correct, the paper must instead say something like:
+
+```
+"CSTATE enlarges the reachable model family and can introduce or increase strongly coherent same-delay configurations for which the identity closure is inaccurate."
+```
+
+Do not allow the stronger story unless source evidence proves it.
+
+Document exact functions, conditions, grouping rules, replacement rules, and source lines supporting the verdict.
+
+---
+
+# 4. Theory-to-source reconciliation
+
+Build a formal mapping:
+
+| Mathematical quantity | Frozen source object | Function/module | State timing | Exact / approximation |
+| --------------------- | -------------------- | --------------- | ------------ | --------------------- |
+
+At minimum include:
+
+* \(U_i\);
+* \(R\);
+* \(V\);
+* \(v_x\);
+* \(\Gamma(V)\), if explicitly constructed anywhere;
+* scalar \(Nv_xI\) reaction;
+* \(\alpha\);
+* \(v_q\);
+* \(\bar h\);
+* gain pseudo-observation;
+* Gaussian gain denoiser;
+* CSTATE structural objective;
+* CSTATE admitted geometry;
+* any code path that permits same-delay close-Doppler hypotheses.
+
+The goal is to make every manuscript equation traceable to code.
+
+If the production TF code never explicitly forms \(\Gamma(V)\), say so.
+
+Distinguish:
+
+* theoretical exact object;
+* implemented approximation;
+* diagnostic object;
+* CGR exploratory intervention.
+
+---
+
+# 5. Numerical identity verification — NO receiver calls
+
+Construct a small independent deterministic verification script.
+
+This is NOT a receiver experiment.
+
+Use synthetic operator/state inputs only.
+
+Test, across multiple random seeds and edge cases:
+
+1. direct matrix evaluation of \(\Gamma(V)\);
+2. trace formula;
+3. \(V=v_xI\Rightarrow Nv_xR\);
+4. same-delay block identity;
+5. unequal-delay behavior;
+6. Frobenius decomposition in equation (4);
+7. physical metric identity
+
+   $$
+   \|H(b)\|_F^2/N=b^HRb;
+   $$
+8. exact BASE/CGR common-state mean-update difference in equation (5).
+
+Include edge cases:
+
+* one path;
+* two distinct-delay paths;
+* same-delay integer-Doppler paths;
+* same-delay close fractional-Doppler paths;
+* nearly duplicate paths;
+* duplicate physical operators if the representation allows them;
+* nonuniform diagonal variance vectors;
+* zero or near-zero \(\bar h\);
+* numerical CPP boundary cases.
+
+Use high precision / complex128 where practical.
+
+Report maximum absolute and relative residual for every identity.
+
+If any identity fails, stop and diagnose rather than silently adapting the theorem.
+
+---
+
+# 6. Closest-art and claim-boundary check
+
+Do not conduct a broad literature survey.
+
+Verify only the minimum ancestry needed to prevent overclaiming.
+
+The repository should record that:
+
+* P-BiG-AMP and related bilinear AMP already contain cross-reaction ancestry and large-system cross-term simplifications;
+* correlated/non-i.i.d. operator AMP/GAMP/VAMP literature already studies approximation sensitivity to transform/operator geometry;
+* EP/vector-message approaches already retain richer correlation structure;
+* adaptive continuous geometry and coded joint inference already have precedents.
+
+Therefore the project must NOT claim:
+
+* first recognition that correlated atoms matter;
+* first matrix-valued uncertainty reaction;
+* first adaptive geometry inside iterative inference;
+* first correction of AMP for nonorthogonal operators;
+* new general AMP robustness theory.
+
+The narrow defensible result is only the project-specific one:
+
+> For the geometry family reachable by the frozen AFDM/CPP TF+CSTATE receiver, one component of the gain-side uncertainty-contraction approximation error can be identified exactly from the physical operator Gram; structural reopening can move the working representation into regimes where the identity reaction is no longer exact.
+
+If the literature check forces even this wording to be narrowed, narrow it.
+
+Do not inflate novelty.
+
+---
+
+# 7. Decide the formal theorem/proposition package for the manuscript
+
+After verification, recommend the exact minimum theorem package.
+
+Prefer something like:
+
+### Proposition 1
+
+Exact working-distribution uncertainty contraction:
+
+$$
+[\Gamma(V)]_{ij}=\operatorname{tr}(U_i^HU_jV).
+$$
+
+### Corollary 1
+
+For isotropic uncertainty:
+
+$$
+\Gamma(v_xI)=Nv_xR.
+$$
+
+### Proposition 2
+
+For the current diagonal AF-domain working covariance, characterize the same-delay block exactly.
+
+### Corollary 2
+
+Quantify the identity-closure approximation error and its physically visible common-state update defect.
+
+But do not preserve this structure if a more precise organization follows from the audit.
+
+For every theorem/proposition provide:
+
+* assumptions;
+* statement;
+* proof;
+* code correspondence;
+* numerical verification test ID;
+* claim boundary.
+
+---
+
+# 8. Repository archival requirement — mandatory
+
+This task is incomplete unless all verified findings are written back into the project repository.
+
+Do not leave the result only in terminal output or chat.
+
+Create a durable archival package.
+
+Use the existing project documentation conventions where possible. If no equivalent structure exists, create a dedicated directory such as:
+
+```
+research_records/2026-09-24_scalar_closure_audit/
+```
+
+or the closest project-native location.
+
+At minimum create/update the following logical records.
+
+## A. Main decision record
+
+Suggested filename:
+
+```
+SCALAR_CLOSURE_THEORY_VERDICT_20260924.md
+```
+
+It must contain:
+
+* executive verdict;
+* why this investigation was opened;
+* original CGR observation;
+* failed original finite-direction gate;
+* retrospective JVP evidence;
+* prospective CGR nonconfirmation;
+* BASE-stage reconciliation (6/1024 versus 0/256);
+* Pro theoretical hypothesis;
+* Codex independent derivation;
+* code reconciliation;
+* numerical verification;
+* final allowed claim;
+* forbidden claims;
+* final STOP status for CGR.
+
+This should read chronologically and causally.
+
+A future reader must understand how the project arrived here.
+
+## B. Formal derivation record
+
+Suggested filename:
+
+```
+SCALAR_CLOSURE_DERIVATION_20260924.md
+```
+
+Include complete mathematics and proofs for all surviving identities.
+
+Do not mix evidence interpretation into the algebra unnecessarily.
+
+## C. Equation-to-code map
+
+Suggested filename:
+
+```
+SCALAR_CLOSURE_CODE_MAP_20260924.md
+```
+
+For every important equation record:
+
+* equation ID;
+* symbol;
+* source file;
+* function;
+* line or stable code locator;
+* source commit/hash;
+* state timing;
+* implementation meaning;
+* whether exact or approximate.
+
+## D. Numerical verification record
+
+Suggested filename:
+
+```
+SCALAR_CLOSURE_NUMERICAL_VERIFICATION_20260924.md
+```
+
+and retain the script plus machine-readable output, for example:
+
+```
+verify_scalar_closure.py
+scalar_closure_verification.json
+```
+
+Record:
+
+* seeds;
+* dimensions;
+* cases;
+* tolerances;
+* maximum residuals;
+* source commit;
+* script hash.
+
+## E. Evidence/claim matrix
+
+Suggested filename:
+
+```
+SCALAR_CLOSURE_CLAIM_EVIDENCE_MATRIX_20260924.md
+```
+
+For each claim label, record:
+
+| Claim ID | Claim | Status | Evidence | Allowed wording | Forbidden wording |
+|---|---|---|---|---|
+
+Use stable IDs such as:
+
+```
+SC-01
+SC-02
+...
+SC-CGR-01
+SC-LIM-01
+```
+
+These IDs should be reusable in manuscript notes and reviewer responses.
+
+## F. Reviewer-response ledger
+
+Suggested filename:
+
+```
+SCALAR_CLOSURE_REVIEWER_QA_20260924.md
+```
+
+Pre-answer likely reviewer questions, including:
+
+1. Why is \(Nv_xI\) used instead of \(Nv_xR\)?
+2. Is this simply a known AMP approximation?
+3. Does CSTATE invalidate TF?
+4. Does the analysis prove CGR improves FER?
+5. Why is CGR not included as a contribution?
+6. Did the prospective CGR test fail?
+7. Why was 0/256 not considered contradictory to 6/1024?
+8. Could BLOCK have shown that matrix inference is worse?
+9. Is the limitation unique to AFDM?
+10. Why not simply orthogonalize the path basis?
+11. Why not retain full \(\Gamma(V)\)?
+12. Does same-delay coherence vanish as \(N\to\infty\)?
+13. Which part is exact algebra and which part is inference approximation?
+14. Does reducing contraction-matrix error imply better FER?
+15. What assumptions are required for equation (3)?
+
+Each answer must point to:
+
+* theorem/proposition ID;
+* evidence record;
+* source code map entry;
+* experiment/audit record where applicable.
+
+Do not write persuasive marketing language. Write technically defensive answers.
+
+## G. Index/backlink entry
+
+Update the project's main research index / README / handoff ledger so that searching terms such as:
+
+```
+CGR
+scalar closure
+operator Gram
+R matrix
+Gamma
+CSTATE coherence
+same-delay Doppler
+approximation defect
+reviewer response
+```
+
+leads to this record.
+
+If the project has a master evidence ledger, negative-results ledger, research-decision log, or paper-design index, add backlinks there too.
+
+Do not duplicate full content across files; use stable cross-references.
+
+---
+
+# 9. Provenance requirements
+
+Every archival document must record:
+
+* date;
+* source Git commit(s);
+* relevant historical report IDs;
+* verification script hash;
+* whether any receiver calls occurred;
+* whether any new observations were generated;
+* whether any decoder calls occurred;
+* authoring role: Codex theory-to-code audit;
+* superseded statements, if any.
+
+For this audit the intended counts are:
+
+```
+new receiver calls = 0
+new decoder calls = 0
+new observations = 0
+```
+
+unless you discover that a requested static verification genuinely cannot be done without violating this boundary. In that case stop and report the missing artifact; do not run the receiver.
+
+---
+
+# 10. Preserve the epistemic timeline
+
+The repository must not flatten history.
+
+Retain all of these distinct stages:
+
+### Stage 1
+
+Historical behavioral CGR signal:
+4/8 designated BASE failures rescued, 0 harms.
+
+### Stage 2
+
+Original physical-direction mechanism gate:
+failed; `candidate_pass=false`.
+
+### Stage 3
+
+Offline zero-receiver-call reinterpretation:
+finite effect separated into first-order direction and quadratic overshoot;
+BASE-only JVP predicted substantial phase-sensitive CGR/SHAM message motion.
+
+### Stage 4
+
+BLOCK confound discovery:
+archived BLOCK arm had a time-domain / AF-domain interface mismatch;
+BLOCK harm cannot support a causal claim about richer block inference.
+
+### Stage 5
+
+Fresh fixed prospective CGR test:
+insufficient mechanism/recovery events;
+no prospective CGR support;
+`bounded_continue=false`.
+
+### Stage 6
+
+Receiver-stage reconciliation:
+new BASE is post-CSTATE;
+correct comparison is 6/1024 versus 0/256;
+0/256 is statistically unsurprising.
+
+### Stage 7
+
+Current theoretical abstraction:
+CGR exposed a quantifiable gain-side scalar-closure approximation defect;
+this may be retained as a limitation/consistency theorem in the TF+CSTATE paper;
+CGR itself remains frozen.
+
+Do not rewrite earlier failed stages as if later theory had made them successful.
+
+---
+
+# 11. Final scientific decision required from you
+
+At the end of the audit, issue one of:
+
+### VERIFIED
+
+The core theory is correct under clearly stated assumptions and is suitable for manuscript inclusion as a limitation/consistency result.
+
+### VERIFIED WITH RESTRICTIONS
+
+The central insight survives, but one or more Pro statements require narrower assumptions or wording.
+
+### NOT VERIFIED
+
+A central algebraic/source claim fails; do not include the proposed theorem package.
+
+This verdict concerns the THEORY ONLY.
+
+It does not change:
+
+```
+CGR candidate_pass=false
+prospective_mechanism_supported=false
+bounded_continue=false
+```
+
+unless an archival transcription error is discovered.
+
+---
+
+# 12. Final deliverable
+
+Return a concise top-level report containing:
+
+1. Verification verdict.
+2. Surviving equations/propositions.
+3. Any corrected or narrowed Pro claims.
+4. Pre-CSTATE versus post-CSTATE geometry verdict.
+5. Equation-to-source reconciliation summary.
+6. Numerical verification summary.
+7. Manuscript insertion recommendation.
+8. Repository files created/updated.
+9. Stable claim IDs and cross-reference entry points.
+10. Explicit confirmation that CGR remains frozen and no receiver campaign was reopened.
+
+Most importantly:
+
+**Do not only tell me the result. Commit the complete logical and evidentiary chain to the project repository so that it can be retrieved later by topic, theorem, claim ID, source function, or reviewer question.**
+
+The repository record should be strong enough that if a reviewer asks six months later:
+
+> “Why is the gain reaction scalar, when is that approximation exact, what changes after CSTATE, and what evidence shows your interpretation is not post-hoc?”
+
+the answer can be reconstructed directly from the archived project records without relying on memory or this conversation.

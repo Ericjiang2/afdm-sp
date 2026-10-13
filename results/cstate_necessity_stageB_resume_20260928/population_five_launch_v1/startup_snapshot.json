@@ -1,0 +1,140 @@
+{
+  "affinity": [
+    64
+  ],
+  "attempts.jsonl": {
+    "last": {
+      "arm": "F0",
+      "attempt": 4,
+      "input_sha256": "d481996f2e0e709d4f5a4952373ea804d5aad6fc1ef39d148a4d6fd038184db1",
+      "kind": "prefix",
+      "observation_id": "s650_f0001",
+      "started_epoch": 1790685596.534889
+    },
+    "rows": 4
+  },
+  "epoch": 1790685596.9783478,
+  "failed_calls.jsonl": {
+    "last": null,
+    "rows": 0
+  },
+  "launch_started.json": {
+    "cpu": 64,
+    "locked_outer_hard_wall_seconds": 259500,
+    "maximum_continuation_calls": 120,
+    "maximum_prefix_calls": 2048,
+    "start_epoch": 1790685556
+  },
+  "ledger.jsonl": {
+    "last": {
+      "arm": "F0",
+      "attempt": 4,
+      "checkpoint_serialization_seconds": 0.024592245928943157,
+      "checkpoints": [
+        {
+          "decision_ready_seconds": 0.180882380111143,
+          "durable_seconds": 0.19305321807041764,
+          "path": "checkpoints/s650_f0001_F0_r0.npz",
+          "round": 0,
+          "sha256": "237a1f7503bd7d8898532f34baf6e42546322c91e5d39729f19c517e7c3e8bab",
+          "syndrome_weight": 0
+        },
+        {
+          "decision_ready_seconds": 0.2880681320093572,
+          "durable_seconds": 0.30051093408837914,
+          "path": "checkpoints/s650_f0001_F0_r1.npz",
+          "round": 1,
+          "sha256": "326f38385c934d658a2ad068536e32a4ce5c12ed1cdb4de986d3b9a4441501a2",
+          "syndrome_weight": 0
+        }
+      ],
+      "complete_latency_seconds": 0.35104336799122393,
+      "decision_path": "decisions/s650_f0001_F0.json",
+      "decision_sha256": "14e86d54fc0327404977de746f74d9ccc24291c5f0817ef9d3c0d080028ddccf",
+      "final_syndrome_weight": 0,
+      "historical_parity_outside_clock": true,
+      "input_seconds": 0.01213959394954145,
+      "input_sha256": "d481996f2e0e709d4f5a4952373ea804d5aad6fc1ef39d148a4d6fd038184db1",
+      "kind": "prefix",
+      "observation_hash": "1d27295c451396ad424bc4ede054d92f7fafa0c441f61ecf1c13d50a498a4ed2",
+      "observation_id": "s650_f0001",
+      "post_receiver_serialization_and_validation_seconds": 0.0492958000395447,
+      "raw_path": "raw/s650_f0001_F0.npz",
+      "raw_sha256": "f69c33dcf2808acf40d6c212a0619ba8e8e4ed4d8cd1e35a33eb0774b28a4d4f",
+      "receiver_seconds_including_checkpoint": 0.2896079740021378,
+      "rss_peak_kib_cumulative": 716700,
+      "status": "ok"
+    },
+    "rows": 4
+  },
+  "log_tail": "",
+  "manifest.json": {
+    "cost_rule": "logical prefix plus own branch; other branches excluded",
+    "created_epoch": 1790685562.7230628,
+    "excluded_policies": {
+      "F2E_CSTATE": "not_admitted_frozen_interface",
+      "F2E_LOCAL": "not_admitted_frozen_interface"
+    },
+    "failure_rule": "any failure stops invalid_partial; no subset FER or retry",
+    "memory_rule": "Linux RUSAGE_SELF cumulative whole-process peak after each paid call; campaign high-water at sealing; isolated policy peaks unavailable",
+    "pid": 606865,
+    "policy_names": [
+      "F0",
+      "B",
+      "F0_LOCAL",
+      "F2T",
+      "F2E"
+    ],
+    "population_observed_seal_sha256": "7e4dedf025ebab1f2589e1bf76948081815dcc411cf8b2f09422fc5b4291f324",
+    "run_manifest_sha256": "88efa4b503cb4cddeae78039f5d7d8805988425110e4c14511a57e66b699fe96",
+    "schedule": "F0/F2E alternating; original F0 trigger rotates B/F0_LOCAL/F2T",
+    "schema": "f2-stage-b-five-policy/1",
+    "stage_a_observed_seal_sha256": "eb261e6183b8266220eb2abb7faec5bdf65ba253959374bed121f34523d65afa",
+    "status": "running",
+    "timing_boundary": "per-call origin before durable attempt journal; through durable raw and decision; analysis/parity overhead excluded"
+  },
+  "observed_exists": true,
+  "pid_alive": true,
+  "policy_ledger.jsonl": {
+    "last": {
+      "branch_arm": null,
+      "branch_complete_seconds": 0.0,
+      "branch_raw_sha256": null,
+      "checkpoints": [
+        {
+          "decision_ready_seconds": 0.180882380111143,
+          "durable_seconds": 0.19305321807041764,
+          "path": "checkpoints/s650_f0001_F0_r0.npz",
+          "round": 0,
+          "sha256": "237a1f7503bd7d8898532f34baf6e42546322c91e5d39729f19c517e7c3e8bab",
+          "syndrome_weight": 0
+        },
+        {
+          "decision_ready_seconds": 0.2880681320093572,
+          "durable_seconds": 0.30051093408837914,
+          "path": "checkpoints/s650_f0001_F0_r1.npz",
+          "round": 1,
+          "sha256": "326f38385c934d658a2ad068536e32a4ce5c12ed1cdb4de986d3b9a4441501a2",
+          "syndrome_weight": 0
+        }
+      ],
+      "clock_rule": "prefix full durable cost + own branch full durable cost; other branches excluded",
+      "complete_latency_seconds": 0.35104336799122393,
+      "final_decoded_sha256": "7c0f4d63c68cbc98cb7d1f57d52b48fe1371e09fcfea80365ca6ab3bb70a6b8b",
+      "final_info_sha256": "5f2d70378ac64063722a827d6115211281b39aae860942d1c70dc191433e98cc",
+      "final_syndrome_weight": 0,
+      "frame": 1,
+      "input_sha256": "d481996f2e0e709d4f5a4952373ea804d5aad6fc1ef39d148a4d6fd038184db1",
+      "observation_id": "s650_f0001",
+      "policy": "F2T",
+      "prefix_arm": "F0",
+      "prefix_complete_seconds": 0.35104336799122393,
+      "prefix_raw_sha256": "f69c33dcf2808acf40d6c212a0619ba8e8e4ed4d8cd1e35a33eb0774b28a4d4f",
+      "schema": "f2-stage-b-five-policy/1",
+      "source_of_final_bits": "raw/s650_f0001_F0.npz",
+      "status": "ok",
+      "triggered": false
+    },
+    "rows": 9
+  }
+}

@@ -1,0 +1,990 @@
+{
+  "decoder_calls": 0,
+  "finite_panel_recount": {
+    "D_equals_A_minus_Q_max_abs_residual": 7.105427357601002e-15,
+    "frames": 8,
+    "identity_tolerance": 1e-12,
+    "iterations_per_frame": 20,
+    "per_frame": [
+      {
+        "iterations": 20,
+        "observation_id": "s600_f0600",
+        "positive_A_rows": 18,
+        "positive_D_rows": 15,
+        "sum_finite_D": -114.13733807150903,
+        "sum_first_order_A": 285.85483468479754,
+        "sum_quadratic_Q": 399.99217275630656
+      },
+      {
+        "iterations": 20,
+        "observation_id": "s650_f0390",
+        "positive_A_rows": 17,
+        "positive_D_rows": 13,
+        "sum_finite_D": -816.0174402087098,
+        "sum_first_order_A": 507.30722429661165,
+        "sum_quadratic_Q": 1323.3246645053214
+      },
+      {
+        "iterations": 20,
+        "observation_id": "s650_f0415",
+        "positive_A_rows": 20,
+        "positive_D_rows": 20,
+        "sum_finite_D": 8.444930518213674,
+        "sum_first_order_A": 9.578800353750374,
+        "sum_quadratic_Q": 1.1338698355367012
+      },
+      {
+        "iterations": 20,
+        "observation_id": "s650_f0718",
+        "positive_A_rows": 19,
+        "positive_D_rows": 17,
+        "sum_finite_D": 23.601418436730352,
+        "sum_first_order_A": 51.63307661355297,
+        "sum_quadratic_Q": 28.031658176822617
+      },
+      {
+        "iterations": 20,
+        "observation_id": "s650_f0720",
+        "positive_A_rows": 16,
+        "positive_D_rows": 14,
+        "sum_finite_D": -286.4384583997497,
+        "sum_first_order_A": 284.36716360717554,
+        "sum_quadratic_Q": 570.8056220069252
+      },
+      {
+        "iterations": 20,
+        "observation_id": "s650_f0770",
+        "positive_A_rows": 16,
+        "positive_D_rows": 15,
+        "sum_finite_D": -187.4306758654891,
+        "sum_first_order_A": 260.1813813420935,
+        "sum_quadratic_Q": 447.61205720758267
+      },
+      {
+        "iterations": 20,
+        "observation_id": "s650_f0996",
+        "positive_A_rows": 19,
+        "positive_D_rows": 18,
+        "sum_finite_D": 173.6060326543469,
+        "sum_first_order_A": 228.59125436541115,
+        "sum_quadratic_Q": 54.98522171106424
+      },
+      {
+        "iterations": 20,
+        "observation_id": "s700_f0732",
+        "positive_A_rows": 15,
+        "positive_D_rows": 12,
+        "sum_finite_D": -602.8952066803688,
+        "sum_first_order_A": 104.73065952004971,
+        "sum_quadratic_Q": 707.6258662004185
+      }
+    ],
+    "rows": 160
+  },
+  "inputs": {
+    "finite_panel_bytes": 28765,
+    "finite_panel_path": "results/tf_cgr_offline_mechanism_20260923/analysis/finite_panel.json",
+    "finite_panel_sha256": "c7729949ecc2e25de0d9149598060a7b30f3fe93628f8868e76a910d2b66bd2c",
+    "offline_source_path": "experiments/tf_cgr_offline_mechanism_20260923/run_offline.py",
+    "offline_source_sha256": "a385e18aa576057ff5f7e6e56b4d2e69e5187d6c3b72eadc1cc5ca3f57365ea8",
+    "transport_bytes": 2051259,
+    "transport_path": "results/tf_cgr_offline_mechanism_20260923/analysis/transport.json",
+    "transport_sha256": "df5ac0698832ac8e08a449de24b658c95a2beae509472e5cdea1b5300e73f451"
+  },
+  "observed_seal": {
+    "commit": "dc228d7254274f3be3403514fc75f0758aacc15c",
+    "raw_target_files": {
+      "raw/s600_f0600_BASE.npz": "0dc7ff225b6530973b10f1a34b23c259c3cc57ce2b8da424b924fe8866cfc411",
+      "raw/s600_f0600_BLOCK.npz": "6f4efd3ca08ea0bf7e9152238917e4d02475b6ee0055d5d7337c84de7c4fe465",
+      "raw/s600_f0600_CGR.npz": "2a707f666cf214ec344fc81c72ed625a0313681909a1f64963f516e1f4d0702c",
+      "raw/s600_f0600_SHAM.npz": "8ef88923e2dc9dc9ac2d5c52c71a073a00e66c9f1f7da1fb4ba458d8042bb86c",
+      "raw/s650_f0390_BASE.npz": "8ecb876cb562a732a6e2cb90e598c15ca920d2e650aa8c80a924aec4c05d5cb0",
+      "raw/s650_f0390_BLOCK.npz": "f08c75eb6a6c2db95dd2dca6d52168c071a82cc8454b50e586314f3ee82e1138",
+      "raw/s650_f0390_CGR.npz": "b9c8d259d5c7eb720da08fc52648c3419a2c8174ae0fdaee07b9096562ca7e68",
+      "raw/s650_f0390_SHAM.npz": "d98bcce6321d981916cfebad857cc4bc890c757791d8ba151c33f7c410e5f3dd",
+      "raw/s650_f0415_BASE.npz": "97fbef46481715cd43cb47d8b0780b006083988fdc6999c92106468984ba275c",
+      "raw/s650_f0415_BLOCK.npz": "a281b4bcd723484d10066381a4c60bee6b594ff8a2c6ee9574a8f4a9f6adf8b9",
+      "raw/s650_f0415_CGR.npz": "798b08a40f2f185aae5cd1d47ab23bc9813dfeb20edb48d76a3b0470bb9f1ffd",
+      "raw/s650_f0415_SHAM.npz": "d5700998b153930304dfe848d2b6e7d4e0e04589235d19c59af1fc54f6d6c717",
+      "raw/s650_f0718_BASE.npz": "72c7b925a00ff64908b6d97cad0cebbc506fcea928db5b0b408929779b3de767",
+      "raw/s650_f0718_BLOCK.npz": "d9c0a79cf4bd4623cf9869f5edd02a55ac1ad11ea2a12c6e6d6e9d02d6207f71",
+      "raw/s650_f0718_CGR.npz": "b326a51ccbaf0a4f54d24551758c00919c53145a520d10e126a8d52ceb27bb12",
+      "raw/s650_f0718_SHAM.npz": "253875685943cc152c5924188bcd4fa26466ebb036912b977d1c78d5143d8207",
+      "raw/s650_f0720_BASE.npz": "159e8b0826f75c0b5696c3e599121bda92639224b8a202758be93019f4788f00",
+      "raw/s650_f0720_BLOCK.npz": "542603b5820c00cf5bcd0313d9677c4c8ba884eecac9c863b3ccb937592f25b2",
+      "raw/s650_f0720_CGR.npz": "8c9766cbbb1144e9cc20ffeba2929183d3c1c9bc296e3063795627511fa0b58f",
+      "raw/s650_f0720_SHAM.npz": "b12e05674af819fe330ce4c8c408bebed7673f31346890942c9fa3eba3acc3c9",
+      "raw/s650_f0770_BASE.npz": "baf5a7099cfb23057c0aaa74848db03018d30801932f37cd7c6999876342a377",
+      "raw/s650_f0770_BLOCK.npz": "1925071533f4a6ed9d57c673f0bb77c4bdbf2fe35603005fca0fbbf46f13c6da",
+      "raw/s650_f0770_CGR.npz": "f6c3264639fab438621632c830135b32b45a4e3114e81ce2980514618d88f38f",
+      "raw/s650_f0770_SHAM.npz": "ed80e54b2ee70b514dc57eaae51f0afc0e9ea1efca6a8d75326438e10e33ad49",
+      "raw/s650_f0996_BASE.npz": "b106c7a51e1b2bb9673182ba3c640dbe7fb6e5bda969f9d9fe21e7f43e55b15c",
+      "raw/s650_f0996_BLOCK.npz": "1dda0eba7777af04c4e7260ab55bd9794a9ebdabc0e7d1def3ccdbcb09180c72",
+      "raw/s650_f0996_CGR.npz": "2fba2130d47ddc28b480381ff720265e3f25d37ad19606c4cc638e5879f232b2",
+      "raw/s650_f0996_SHAM.npz": "bdabf7820547e2266e98a0514d80e6c307a5d5dd3073e5af51e7b6cfb11fc3ed",
+      "raw/s700_f0732_BASE.npz": "3178461940e3e2cbdc83c1ffff34359f892af0145622a800215c34b5d3234c77",
+      "raw/s700_f0732_BLOCK.npz": "41547816adce929a13cf02a066b6f140c1f6f712003a2ff16bc6480a8861b962",
+      "raw/s700_f0732_CGR.npz": "7958d2f229ca4ee16226e97b7b63305e42abe589ef0828fd5d0d918f4a1c9430",
+      "raw/s700_f0732_SHAM.npz": "26384db0d16c2ec1c417c1c148ff1f9450c346b423a280784852ec9eb65b1be4"
+    },
+    "raw_target_files_rehashed": 32,
+    "sha256": "42228ad286f13a8f518fd4d2278375ca0592cc67c424f79a3536fe1150175c43"
+  },
+  "receiver_calls": 0,
+  "schema": "tf-cgr-analysis-independent-recount/1",
+  "transport_recount": {
+    "actual_shift_vs_sealed_raw_max_abs_delta": 0.0,
+    "arm_comparisons": 16,
+    "comparison_summary_max_abs_metric_delta": 1.4210854715202004e-14,
+    "decoder_input_vs_clipped_raw_extrinsic_max_abs_delta": 0.0,
+    "frames": 8,
+    "logscore_summary_descriptive": {
+      "BASE": {
+        "frames": 8,
+        "independence_note": "bit totals are descriptive; bits are not independent experimental units",
+        "mean_bit_log_loss_equal_frame_weight": 0.3755547749734568,
+        "wrong_confidence_sum_descriptive": 3781.3102843785387,
+        "wrong_sign_bits_total_descriptive": 2593
+      },
+      "BLOCK": {
+        "frames": 8,
+        "independence_note": "bit totals are descriptive; bits are not independent experimental units",
+        "mean_bit_log_loss_equal_frame_weight": 1.8777168963771314,
+        "wrong_confidence_sum_descriptive": 28361.61283050161,
+        "wrong_sign_bits_total_descriptive": 8165
+      },
+      "CGR": {
+        "frames": 8,
+        "independence_note": "bit totals are descriptive; bits are not independent experimental units",
+        "mean_bit_log_loss_equal_frame_weight": 0.34154444200205336,
+        "wrong_confidence_sum_descriptive": 3331.161925323593,
+        "wrong_sign_bits_total_descriptive": 2324
+      },
+      "SHAM": {
+        "frames": 8,
+        "independence_note": "bit totals are descriptive; bits are not independent experimental units",
+        "mean_bit_log_loss_equal_frame_weight": 0.4496059260972097,
+        "wrong_confidence_sum_descriptive": 5012.980432969538,
+        "wrong_sign_bits_total_descriptive": 2992
+      }
+    },
+    "per_frame": [
+      {
+        "arms": {
+          "CGR": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 43.352590374224455,
+              "beats_zero_predictor": true,
+              "cosine": 0.9089112154486033,
+              "error_to_zero_predictor": 0.42471074509634327,
+              "improvement_over_zero_fraction": 0.5752892549036568,
+              "normalized_error": 0.42471074509634327,
+              "predicted_norm": 42.89853445518027,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 43.352590374224455,
+              "beats_zero_predictor": true,
+              "cosine": 0.9089112154486033,
+              "error_to_zero_predictor": 0.42471074509634327,
+              "improvement_over_zero_fraction": 0.5752892549036568,
+              "normalized_error": 0.42471074509634327,
+              "predicted_norm": 42.89853445518027,
+              "zero_predictor_normalized_error": 1.0
+            }
+          },
+          "SHAM": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 49.294802336244,
+              "beats_zero_predictor": true,
+              "cosine": 0.8997626365060063,
+              "error_to_zero_predictor": 0.4373768555005426,
+              "improvement_over_zero_fraction": 0.5626231444994574,
+              "normalized_error": 0.4373768555005426,
+              "predicted_norm": 42.89853445518027,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 49.294802336244,
+              "beats_zero_predictor": true,
+              "cosine": 0.8997626365060063,
+              "error_to_zero_predictor": 0.4373768555005426,
+              "improvement_over_zero_fraction": 0.5626231444994574,
+              "normalized_error": 0.4373768555005426,
+              "predicted_norm": 42.89853445518027,
+              "zero_predictor_normalized_error": 1.0
+            }
+          }
+        },
+        "logscore": {
+          "BASE": {
+            "mean_bit_log_loss": 0.3265544394136589,
+            "wrong_confidence_mean": 1.124808647552376,
+            "wrong_confidence_sum": 341.94182885592227,
+            "wrong_sign_bits": 304
+          },
+          "BLOCK": {
+            "mean_bit_log_loss": 1.742891794257503,
+            "wrong_confidence_mean": 3.3034392892331224,
+            "wrong_confidence_sum": 3260.4945784730917,
+            "wrong_sign_bits": 987
+          },
+          "CGR": {
+            "mean_bit_log_loss": 0.2624459770530951,
+            "wrong_confidence_mean": 1.0570917463752267,
+            "wrong_confidence_sum": 241.0169181735517,
+            "wrong_sign_bits": 228
+          },
+          "SHAM": {
+            "mean_bit_log_loss": 0.4607864964911679,
+            "wrong_confidence_mean": 1.3868480114703914,
+            "wrong_confidence_sum": 594.9577969207979,
+            "wrong_sign_bits": 429
+          }
+        },
+        "observation_id": "s650_f0390"
+      },
+      {
+        "arms": {
+          "CGR": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 1.2849787427554924,
+              "beats_zero_predictor": true,
+              "cosine": 0.9998916986002061,
+              "error_to_zero_predictor": 0.016297680257199645,
+              "improvement_over_zero_fraction": 0.9837023197428003,
+              "normalized_error": 0.016297680257199645,
+              "predicted_norm": 1.275842587198634,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 1.2849787427554924,
+              "beats_zero_predictor": true,
+              "cosine": 0.9998916986002061,
+              "error_to_zero_predictor": 0.016297680257199645,
+              "improvement_over_zero_fraction": 0.9837023197428003,
+              "normalized_error": 0.016297680257199645,
+              "predicted_norm": 1.275842587198634,
+              "zero_predictor_normalized_error": 1.0
+            }
+          },
+          "SHAM": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 1.267354581709726,
+              "beats_zero_predictor": true,
+              "cosine": 0.9998926727840997,
+              "error_to_zero_predictor": 0.01615386927903945,
+              "improvement_over_zero_fraction": 0.9838461307209605,
+              "normalized_error": 0.01615386927903945,
+              "predicted_norm": 1.275842587198634,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 1.267354581709726,
+              "beats_zero_predictor": true,
+              "cosine": 0.9998926727840997,
+              "error_to_zero_predictor": 0.01615386927903945,
+              "improvement_over_zero_fraction": 0.9838461307209605,
+              "normalized_error": 0.01615386927903945,
+              "predicted_norm": 1.275842587198634,
+              "zero_predictor_normalized_error": 1.0
+            }
+          }
+        },
+        "logscore": {
+          "BASE": {
+            "mean_bit_log_loss": 0.3225391114840303,
+            "wrong_confidence_mean": 1.089439520420554,
+            "wrong_confidence_sum": 326.8318561261662,
+            "wrong_sign_bits": 300
+          },
+          "BLOCK": {
+            "mean_bit_log_loss": 1.3771846737514646,
+            "wrong_confidence_mean": 2.401708271392591,
+            "wrong_confidence_sum": 2428.127062377909,
+            "wrong_sign_bits": 1011
+          },
+          "CGR": {
+            "mean_bit_log_loss": 0.3228439910365148,
+            "wrong_confidence_mean": 1.0919804449471109,
+            "wrong_confidence_sum": 327.5941334841333,
+            "wrong_sign_bits": 300
+          },
+          "SHAM": {
+            "mean_bit_log_loss": 0.3223183908398394,
+            "wrong_confidence_mean": 1.0911614655681372,
+            "wrong_confidence_sum": 326.25727820487305,
+            "wrong_sign_bits": 299
+          }
+        },
+        "observation_id": "s650_f0415"
+      },
+      {
+        "arms": {
+          "CGR": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 8.247358457438498,
+              "beats_zero_predictor": true,
+              "cosine": 0.9956588447585153,
+              "error_to_zero_predictor": 0.09321762564365098,
+              "improvement_over_zero_fraction": 0.906782374356349,
+              "normalized_error": 0.09321762564365098,
+              "predicted_norm": 8.169452749070782,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 8.247358457438498,
+              "beats_zero_predictor": true,
+              "cosine": 0.9956588447585153,
+              "error_to_zero_predictor": 0.09321762564365098,
+              "improvement_over_zero_fraction": 0.906782374356349,
+              "normalized_error": 0.09321762564365098,
+              "predicted_norm": 8.169452749070782,
+              "zero_predictor_normalized_error": 1.0
+            }
+          },
+          "SHAM": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 8.2136847221672,
+              "beats_zero_predictor": true,
+              "cosine": 0.995680335797962,
+              "error_to_zero_predictor": 0.0928536707831591,
+              "improvement_over_zero_fraction": 0.9071463292168409,
+              "normalized_error": 0.0928536707831591,
+              "predicted_norm": 8.169452749070782,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 8.2136847221672,
+              "beats_zero_predictor": true,
+              "cosine": 0.995680335797962,
+              "error_to_zero_predictor": 0.0928536707831591,
+              "improvement_over_zero_fraction": 0.9071463292168409,
+              "normalized_error": 0.0928536707831591,
+              "predicted_norm": 8.169452749070782,
+              "zero_predictor_normalized_error": 1.0
+            }
+          }
+        },
+        "logscore": {
+          "BASE": {
+            "mean_bit_log_loss": 0.3081340544029353,
+            "wrong_confidence_mean": 1.0797165382389275,
+            "wrong_confidence_sum": 309.8786464745722,
+            "wrong_sign_bits": 287
+          },
+          "BLOCK": {
+            "mean_bit_log_loss": 1.7572245298475022,
+            "wrong_confidence_mean": 3.1285898344880474,
+            "wrong_confidence_sum": 3294.405095715914,
+            "wrong_sign_bits": 1053
+          },
+          "CGR": {
+            "mean_bit_log_loss": 0.3063497567547815,
+            "wrong_confidence_mean": 1.0930233176661475,
+            "wrong_confidence_sum": 307.13955226418744,
+            "wrong_sign_bits": 281
+          },
+          "SHAM": {
+            "mean_bit_log_loss": 0.3130781439069806,
+            "wrong_confidence_mean": 1.1208737672656008,
+            "wrong_confidence_sum": 318.32814990343064,
+            "wrong_sign_bits": 284
+          }
+        },
+        "observation_id": "s650_f0718"
+      },
+      {
+        "arms": {
+          "CGR": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 72.19410558603754,
+              "beats_zero_predictor": true,
+              "cosine": 0.845747986251078,
+              "error_to_zero_predictor": 0.5335981647629863,
+              "improvement_over_zero_fraction": 0.46640183523701373,
+              "normalized_error": 0.5335981647629863,
+              "predicted_norm": 61.35267120488259,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 72.19410558603754,
+              "beats_zero_predictor": true,
+              "cosine": 0.845747986251078,
+              "error_to_zero_predictor": 0.5335981647629863,
+              "improvement_over_zero_fraction": 0.46640183523701373,
+              "normalized_error": 0.5335981647629863,
+              "predicted_norm": 61.35267120488259,
+              "zero_predictor_normalized_error": 1.0
+            }
+          },
+          "SHAM": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 67.55127132698163,
+              "beats_zero_predictor": true,
+              "cosine": 0.8765311684265996,
+              "error_to_zero_predictor": 0.4823882991481346,
+              "improvement_over_zero_fraction": 0.5176117008518655,
+              "normalized_error": 0.4823882991481346,
+              "predicted_norm": 61.35267120488259,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 67.55127132698163,
+              "beats_zero_predictor": true,
+              "cosine": 0.8765311684265996,
+              "error_to_zero_predictor": 0.4823882991481346,
+              "improvement_over_zero_fraction": 0.5176117008518655,
+              "normalized_error": 0.4823882991481346,
+              "predicted_norm": 61.35267120488259,
+              "zero_predictor_normalized_error": 1.0
+            }
+          }
+        },
+        "logscore": {
+          "BASE": {
+            "mean_bit_log_loss": 0.34963912409939746,
+            "wrong_confidence_mean": 1.5499221265528713,
+            "wrong_confidence_sum": 452.57726095343844,
+            "wrong_sign_bits": 292
+          },
+          "BLOCK": {
+            "mean_bit_log_loss": 2.8159117527352486,
+            "wrong_confidence_mean": 5.249386183639088,
+            "wrong_confidence_sum": 5574.848127024712,
+            "wrong_sign_bits": 1062
+          },
+          "CGR": {
+            "mean_bit_log_loss": 0.302035284275121,
+            "wrong_confidence_mean": 1.445225599766188,
+            "wrong_confidence_sum": 385.8752351375722,
+            "wrong_sign_bits": 267
+          },
+          "SHAM": {
+            "mean_bit_log_loss": 0.5372253865523438,
+            "wrong_confidence_mean": 2.0338484885811483,
+            "wrong_confidence_sum": 833.8778803182707,
+            "wrong_sign_bits": 410
+          }
+        },
+        "observation_id": "s650_f0720"
+      },
+      {
+        "arms": {
+          "CGR": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 38.283817574765465,
+              "beats_zero_predictor": true,
+              "cosine": 0.9075290530039598,
+              "error_to_zero_predictor": 0.43236217835896806,
+              "improvement_over_zero_fraction": 0.5676378216410319,
+              "normalized_error": 0.43236217835896806,
+              "predicted_norm": 38.67519091167029,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 38.283817574765465,
+              "beats_zero_predictor": true,
+              "cosine": 0.9075290530039598,
+              "error_to_zero_predictor": 0.43236217835896806,
+              "improvement_over_zero_fraction": 0.5676378216410319,
+              "normalized_error": 0.43236217835896806,
+              "predicted_norm": 38.67519091167029,
+              "zero_predictor_normalized_error": 1.0
+            }
+          },
+          "SHAM": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 39.32085392521601,
+              "beats_zero_predictor": true,
+              "cosine": 0.9229041856443523,
+              "error_to_zero_predictor": 0.3910182736850053,
+              "improvement_over_zero_fraction": 0.6089817263149947,
+              "normalized_error": 0.3910182736850053,
+              "predicted_norm": 38.96996326593882,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 39.32085392521601,
+              "beats_zero_predictor": true,
+              "cosine": 0.9229041856443523,
+              "error_to_zero_predictor": 0.3910182736850053,
+              "improvement_over_zero_fraction": 0.6089817263149947,
+              "normalized_error": 0.3910182736850053,
+              "predicted_norm": 38.96996326593882,
+              "zero_predictor_normalized_error": 1.0
+            }
+          }
+        },
+        "logscore": {
+          "BASE": {
+            "mean_bit_log_loss": 0.3778397117911012,
+            "wrong_confidence_mean": 1.3586906283783022,
+            "wrong_confidence_sum": 468.74826679051426,
+            "wrong_sign_bits": 345
+          },
+          "BLOCK": {
+            "mean_bit_log_loss": 2.2802055521361404,
+            "wrong_confidence_mean": 4.234815149455008,
+            "wrong_confidence_sum": 4438.086276628848,
+            "wrong_sign_bits": 1048
+          },
+          "CGR": {
+            "mean_bit_log_loss": 0.39097385963157344,
+            "wrong_confidence_mean": 1.511239079425734,
+            "wrong_confidence_sum": 516.843765163601,
+            "wrong_sign_bits": 342
+          },
+          "SHAM": {
+            "mean_bit_log_loss": 0.40569902469213903,
+            "wrong_confidence_mean": 1.623571687242749,
+            "wrong_confidence_sum": 552.0143736625347,
+            "wrong_sign_bits": 340
+          }
+        },
+        "observation_id": "s650_f0770"
+      },
+      {
+        "arms": {
+          "CGR": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 33.41909607626694,
+              "beats_zero_predictor": true,
+              "cosine": 0.8617497449990181,
+              "error_to_zero_predictor": 0.5079630323860582,
+              "improvement_over_zero_fraction": 0.4920369676139418,
+              "normalized_error": 0.5079630323860582,
+              "predicted_norm": 29.64372359636735,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 33.41909607626694,
+              "beats_zero_predictor": true,
+              "cosine": 0.8617497449990181,
+              "error_to_zero_predictor": 0.5079630323860582,
+              "improvement_over_zero_fraction": 0.4920369676139418,
+              "normalized_error": 0.5079630323860582,
+              "predicted_norm": 29.64372359636735,
+              "zero_predictor_normalized_error": 1.0
+            }
+          },
+          "SHAM": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 23.559903970137487,
+              "beats_zero_predictor": true,
+              "cosine": 0.9045878485376084,
+              "error_to_zero_predictor": 0.46804055162453156,
+              "improvement_over_zero_fraction": 0.5319594483754684,
+              "normalized_error": 0.46804055162453156,
+              "predicted_norm": 25.864684310894674,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 23.559903970137487,
+              "beats_zero_predictor": true,
+              "cosine": 0.9045878485376084,
+              "error_to_zero_predictor": 0.46804055162453156,
+              "improvement_over_zero_fraction": 0.5319594483754684,
+              "normalized_error": 0.46804055162453156,
+              "predicted_norm": 25.864684310894674,
+              "zero_predictor_normalized_error": 1.0
+            }
+          }
+        },
+        "logscore": {
+          "BASE": {
+            "mean_bit_log_loss": 0.6237187660787278,
+            "wrong_confidence_mean": 2.352913810133403,
+            "wrong_confidence_sum": 1051.7524731296312,
+            "wrong_sign_bits": 447
+          },
+          "BLOCK": {
+            "mean_bit_log_loss": 1.4866904223680648,
+            "wrong_confidence_mean": 2.5782695065004164,
+            "wrong_confidence_sum": 2645.3045136694273,
+            "wrong_sign_bits": 1026
+          },
+          "CGR": {
+            "mean_bit_log_loss": 0.5939953985373081,
+            "wrong_confidence_mean": 2.377420051468226,
+            "wrong_confidence_sum": 998.516421616655,
+            "wrong_sign_bits": 420
+          },
+          "SHAM": {
+            "mean_bit_log_loss": 0.6663941203582763,
+            "wrong_confidence_mean": 2.5576803774891346,
+            "wrong_confidence_sum": 1153.5138502475997,
+            "wrong_sign_bits": 451
+          }
+        },
+        "observation_id": "s650_f0996"
+      },
+      {
+        "arms": {
+          "CGR": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 34.252646896799966,
+              "beats_zero_predictor": true,
+              "cosine": 0.9339538868261114,
+              "error_to_zero_predictor": 0.4335404413905935,
+              "improvement_over_zero_fraction": 0.5664595586094066,
+              "normalized_error": 0.4335404413905935,
+              "predicted_norm": 23.584373239723543,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 34.252646896799966,
+              "beats_zero_predictor": true,
+              "cosine": 0.9339538868261114,
+              "error_to_zero_predictor": 0.4335404413905935,
+              "improvement_over_zero_fraction": 0.5664595586094066,
+              "normalized_error": 0.4335404413905935,
+              "predicted_norm": 23.584373239723543,
+              "zero_predictor_normalized_error": 1.0
+            }
+          },
+          "SHAM": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 22.761992822488466,
+              "beats_zero_predictor": true,
+              "cosine": 0.9520245324885517,
+              "error_to_zero_predictor": 0.3173687799263466,
+              "improvement_over_zero_fraction": 0.6826312200736534,
+              "normalized_error": 0.3173687799263466,
+              "predicted_norm": 23.584373239723543,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 22.761992822488466,
+              "beats_zero_predictor": true,
+              "cosine": 0.9520245324885517,
+              "error_to_zero_predictor": 0.3173687799263466,
+              "improvement_over_zero_fraction": 0.6826312200736534,
+              "normalized_error": 0.3173687799263466,
+              "predicted_norm": 23.584373239723543,
+              "zero_predictor_normalized_error": 1.0
+            }
+          }
+        },
+        "logscore": {
+          "BASE": {
+            "mean_bit_log_loss": 0.3145799305052516,
+            "wrong_confidence_mean": 1.180558522774882,
+            "wrong_confidence_sum": 334.09806194529165,
+            "wrong_sign_bits": 283
+          },
+          "BLOCK": {
+            "mean_bit_log_loss": 1.5634818911454476,
+            "wrong_confidence_mean": 2.914159898749798,
+            "wrong_confidence_sum": 2876.2758200660505,
+            "wrong_sign_bits": 987
+          },
+          "CGR": {
+            "mean_bit_log_loss": 0.2836020427123715,
+            "wrong_confidence_mean": 1.0739973233551308,
+            "wrong_confidence_sum": 269.57332816213784,
+            "wrong_sign_bits": 251
+          },
+          "SHAM": {
+            "mean_bit_log_loss": 0.35553482642232914,
+            "wrong_confidence_mean": 1.2556234879293262,
+            "wrong_confidence_sum": 414.35575101667763,
+            "wrong_sign_bits": 330
+          }
+        },
+        "observation_id": "s600_f0600"
+      },
+      {
+        "arms": {
+          "CGR": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 66.85283138025618,
+              "beats_zero_predictor": true,
+              "cosine": 0.8241033574019109,
+              "error_to_zero_predictor": 0.5866515895611512,
+              "improvement_over_zero_fraction": 0.41334841043884885,
+              "normalized_error": 0.5866515895611512,
+              "predicted_norm": 44.88759273263881,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 66.85283138025618,
+              "beats_zero_predictor": true,
+              "cosine": 0.8241033574019109,
+              "error_to_zero_predictor": 0.5866515895611512,
+              "improvement_over_zero_fraction": 0.41334841043884885,
+              "normalized_error": 0.5866515895611512,
+              "predicted_norm": 44.88759273263881,
+              "zero_predictor_normalized_error": 1.0
+            }
+          },
+          "SHAM": {
+            "branch_decoder_equals_clipped_extrinsic_max_abs": 0.0,
+            "clip_boundary_count": 0,
+            "clipped": {
+              "actual_norm": 51.87545643286497,
+              "beats_zero_predictor": true,
+              "cosine": 0.9048108465732958,
+              "error_to_zero_predictor": 0.42764331411148887,
+              "improvement_over_zero_fraction": 0.5723566858885112,
+              "normalized_error": 0.42764331411148887,
+              "predicted_norm": 44.88759273263881,
+              "zero_predictor_normalized_error": 1.0
+            },
+            "raw_actual_shift_max_abs_delta": 0.0,
+            "unclipped": {
+              "actual_norm": 51.87545643286497,
+              "beats_zero_predictor": true,
+              "cosine": 0.9048108465732958,
+              "error_to_zero_predictor": 0.42764331411148887,
+              "improvement_over_zero_fraction": 0.5723566858885112,
+              "normalized_error": 0.42764331411148887,
+              "predicted_norm": 44.88759273263881,
+              "zero_predictor_normalized_error": 1.0
+            }
+          }
+        },
+        "logscore": {
+          "BASE": {
+            "mean_bit_log_loss": 0.38143306201255145,
+            "wrong_confidence_mean": 1.479050418217918,
+            "wrong_confidence_sum": 495.48189010300257,
+            "wrong_sign_bits": 335
+          },
+          "BLOCK": {
+            "mean_bit_log_loss": 1.9981445547756795,
+            "wrong_confidence_mean": 3.8789821963124687,
+            "wrong_confidence_sum": 3844.0713565456563,
+            "wrong_sign_bits": 991
+          },
+          "CGR": {
+            "mean_bit_log_loss": 0.2701092260156611,
+            "wrong_confidence_mean": 1.2110747715819339,
+            "wrong_confidence_sum": 284.60257132175445,
+            "wrong_sign_bits": 235
+          },
+          "SHAM": {
+            "mean_bit_log_loss": 0.5358110195146015,
+            "wrong_confidence_mean": 1.8255575783860873,
+            "wrong_confidence_sum": 819.6753526953532,
+            "wrong_sign_bits": 449
+          }
+        },
+        "observation_id": "s700_f0732"
+      }
+    ],
+    "pooled": {
+      "clipped": {
+        "CGR": {
+          "coordinates": 16384,
+          "frames": 8,
+          "frames_better_than_zero": 8,
+          "metrics": {
+            "actual_norm": 124.04087076066726,
+            "beats_zero_predictor": true,
+            "cosine": 0.8551216599235828,
+            "error_to_zero_predictor": 0.5190003553151813,
+            "improvement_over_zero_fraction": 0.4809996446848187,
+            "normalized_error": 0.5190003553151813,
+            "predicted_norm": 103.04582300150324,
+            "zero_predictor_normalized_error": 1.0
+          },
+          "per_frame_normalized_error_max": 0.5866515895611512,
+          "per_frame_normalized_error_min": 0.016297680257199645
+        },
+        "SHAM": {
+          "coordinates": 16384,
+          "frames": 8,
+          "frames_better_than_zero": 8,
+          "metrics": {
+            "actual_norm": 111.23215598679711,
+            "beats_zero_predictor": true,
+            "cosine": 0.8967126349593362,
+            "error_to_zero_predictor": 0.44313518676294733,
+            "improvement_over_zero_fraction": 0.5568648132370526,
+            "normalized_error": 0.44313518676294733,
+            "predicted_norm": 102.1350127468344,
+            "zero_predictor_normalized_error": 1.0
+          },
+          "per_frame_normalized_error_max": 0.4823882991481346,
+          "per_frame_normalized_error_min": 0.01615386927903945
+        }
+      },
+      "unclipped": {
+        "CGR": {
+          "coordinates": 16384,
+          "frames": 8,
+          "frames_better_than_zero": 8,
+          "metrics": {
+            "actual_norm": 124.04087076066726,
+            "beats_zero_predictor": true,
+            "cosine": 0.8551216599235828,
+            "error_to_zero_predictor": 0.5190003553151813,
+            "improvement_over_zero_fraction": 0.4809996446848187,
+            "normalized_error": 0.5190003553151813,
+            "predicted_norm": 103.04582300150324,
+            "zero_predictor_normalized_error": 1.0
+          },
+          "per_frame_normalized_error_max": 0.5866515895611512,
+          "per_frame_normalized_error_min": 0.016297680257199645
+        },
+        "SHAM": {
+          "coordinates": 16384,
+          "frames": 8,
+          "frames_better_than_zero": 8,
+          "metrics": {
+            "actual_norm": 111.23215598679711,
+            "beats_zero_predictor": true,
+            "cosine": 0.8967126349593362,
+            "error_to_zero_predictor": 0.44313518676294733,
+            "improvement_over_zero_fraction": 0.5568648132370526,
+            "normalized_error": 0.44313518676294733,
+            "predicted_norm": 102.1350127468344,
+            "zero_predictor_normalized_error": 1.0
+          },
+          "per_frame_normalized_error_max": 0.4823882991481346,
+          "per_frame_normalized_error_min": 0.01615386927903945
+        }
+      }
+    },
+    "target_ids": [
+      "s600_f0600",
+      "s650_f0390",
+      "s650_f0415",
+      "s650_f0718",
+      "s650_f0720",
+      "s650_f0770",
+      "s650_f0996",
+      "s700_f0732"
+    ],
+    "vector_length_each": 2048
+  },
+  "truth_artifacts": {
+    "coded_payloads_hashed_and_read": 8,
+    "files": {
+      "s600_f0600": {
+        "coded_dtype": "uint8",
+        "coded_shape": [
+          2048
+        ],
+        "identity_registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96",
+        "relative_path": "truth_payloads/s600_f0600.npz",
+        "sha256": "79229a5f23d18c19ec7d12d7bcaca245e76a8352b07dcc97bb8b203f2d5fd5f4"
+      },
+      "s650_f0390": {
+        "coded_dtype": "uint8",
+        "coded_shape": [
+          2048
+        ],
+        "identity_registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96",
+        "relative_path": "truth_payloads/s650_f0390.npz",
+        "sha256": "069be4aeabf0783eb9deb92d122c86d0930f66610c58ac5afc566ca23c3cf228"
+      },
+      "s650_f0415": {
+        "coded_dtype": "uint8",
+        "coded_shape": [
+          2048
+        ],
+        "identity_registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96",
+        "relative_path": "truth_payloads/s650_f0415.npz",
+        "sha256": "240de844cd94fd681d490f26af57f4f9842677787916e88ac180082fc8af7deb"
+      },
+      "s650_f0718": {
+        "coded_dtype": "uint8",
+        "coded_shape": [
+          2048
+        ],
+        "identity_registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96",
+        "relative_path": "truth_payloads/s650_f0718.npz",
+        "sha256": "c68b8ae7e13b6eb7f9e97680ab6bc784f8d0f39f2672b106d148cc459706e618"
+      },
+      "s650_f0720": {
+        "coded_dtype": "uint8",
+        "coded_shape": [
+          2048
+        ],
+        "identity_registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96",
+        "relative_path": "truth_payloads/s650_f0720.npz",
+        "sha256": "3a438e571c78ed9974b44ed09389fee65f22c243ca28b265d9d5d4d07be47cef"
+      },
+      "s650_f0770": {
+        "coded_dtype": "uint8",
+        "coded_shape": [
+          2048
+        ],
+        "identity_registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96",
+        "relative_path": "truth_payloads/s650_f0770.npz",
+        "sha256": "6191cbe78c0eddaa34031a31b025a788caf7faef7abad6e45b50181a72ffa643"
+      },
+      "s650_f0996": {
+        "coded_dtype": "uint8",
+        "coded_shape": [
+          2048
+        ],
+        "identity_registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96",
+        "relative_path": "truth_payloads/s650_f0996.npz",
+        "sha256": "e881c8045e6311319ce593a44715feaabaf3dfc13e5c836d0ed6bdbaa2fb598a"
+      },
+      "s700_f0732": {
+        "coded_dtype": "uint8",
+        "coded_shape": [
+          2048
+        ],
+        "identity_registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96",
+        "relative_path": "truth_payloads/s700_f0732.npz",
+        "sha256": "c49c40658cb623dca4e4c613f45e91e9a82aee43ac8533cf642745bd12e59892"
+      }
+    },
+    "registration_sha256": [
+      "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96"
+    ],
+    "witness_manifest_sha256": "e71475bed16578db1e3811efe56e32fb3ef27d1961e5cb691fd126936af30cf2"
+  },
+  "truth_payloads_opened": true,
+  "truth_scope": "coded-bit labels for the eight target frames only; no truth channel/gain/observation arrays were opened"
+}

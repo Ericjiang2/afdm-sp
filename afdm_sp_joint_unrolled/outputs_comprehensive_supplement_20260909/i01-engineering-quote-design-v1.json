@@ -1,0 +1,46 @@
+{
+  "schema": "i01-engineering-quote-design-v1",
+  "status": "prelisted_before_quote_no_development_admission",
+  "checkpoints": [
+    1,
+    4
+  ],
+  "checkpoint_semantics": "zero-based completed outer detection; following CE receives feedback",
+  "engineering_blocks": [
+    1,
+    2
+  ],
+  "snr": 8,
+  "baseline_recipe": "B0-p2-s0.5",
+  "outer_iterations": 10,
+  "terminal_bp_iterations": 20,
+  "early_ldpc_maxiter": 50,
+  "terminal_ldpc_maxiter": 50,
+  "sham_seed": 18,
+  "arms": [
+    "I0",
+    "Irealloc",
+    "Isham",
+    "I1",
+    "I2",
+    "I2realloc"
+  ],
+  "initial_outer_bp_iterations": 20,
+  "reallocation_candidates": [
+    18,
+    16,
+    12
+  ],
+  "reallocated_arms": [
+    "Irealloc",
+    "Isham",
+    "I1",
+    "I2realloc"
+  ],
+  "max_full_calls": 72,
+  "accounting": "24 initial F plus at most 48 candidate F; failures charged; no automatic retry or reclaim",
+  "selection_rule": "For each checkpoint choose largest prelisted outer BP count in [20,18,16,12] (20 is the initial quote) whose paired two-block mean complete F cost for each of Irealloc/Isham/I1 is <= original I0 mean at that checkpoint. No extra tolerance. All four reallocated arms share chosen count. If none passes record allocation failure, do not claim equal cost. Never use FER to choose count.",
+  "scope": "Engineering admission screen only, not latency confidence/equivalence or COST-02; reserve ledger before running. I2 and I0 retain BP20. Full synchronized F including schedule graph observations and message hash instrumentation is authoritative; separate diagnostic operator profiling is not added to full cost.",
+  "execution": "GPU exclusive after existing pilot receiver jobs finish; threads1, original resource guards, fixed source snapshot; generation and snapshot IO outside receiver timer and separately recorded; cold first-call costs retained",
+  "remaining": "72-call reservation and bounded runtime/output preflight not yet made; source interface and quote runner pending; development protocol later binds exact selected schedules"
+}

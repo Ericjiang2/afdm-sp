@@ -1,0 +1,173 @@
+{
+  "status": "preregistered_not_run",
+  "issue": "SCENE-01",
+  "created_utc": "2026-09-08T16:40:50.118845+00:00",
+  "campaign_id": "afdm-direction-20260908-v1",
+  "route": "M",
+  "selection_basis": "Mechanism falsification before any new counterexample data; no development screening and no selection by performance.",
+  "candidates": [
+    {
+      "id": "integer-doppler",
+      "selected": true,
+      "factor": "Round generated continuous Doppler using numpy round; keep 8 path draws, delays and raw gains; same G0 normalization after expansion.",
+      "reason": "Removes fractional leakage; tests whether benefit specifically depends on linking sidelobes."
+    },
+    {
+      "id": "overlap-pair",
+      "selected": true,
+      "factor": "Modify only labelled physical slots0/1 geometry before G0 expansion. First cache c=clip(original k0,-1.75,1.75); then simultaneously set l1=l0, k0=c-0.125, k1=c+0.125. Keep all 8 raw gains and other six geometries.",
+      "reason": "Same-delay paths separated by0.25 Doppler bins challenge observable center selection and hard grouping. Labels chosen before draws; no error/rank/energy rejection sampling."
+    },
+    {
+      "id": "P4",
+      "selected": false,
+      "factor": "P_phys=4, keep receiver slot cap and prior unchanged",
+      "reason": "Less direct test of relation mismatch; not chosen under two-scene budget."
+    },
+    {
+      "id": "P12",
+      "selected": false,
+      "factor": "P_phys=12 without giving receiver true P",
+      "reason": "Would confound slot-cap insufficiency with relation use; not chosen."
+    },
+    {
+      "id": "rho025",
+      "selected": false,
+      "factor": "rho=.25 at fixed expected total transmit power",
+      "reason": "Changes data SNR and pilot quality together; report both if future authorized."
+    },
+    {
+      "id": "rho075",
+      "selected": false,
+      "factor": "rho=.75 at fixed expected total transmit power",
+      "reason": "Same confounding; no additional factor sweep."
+    },
+    {
+      "id": "G1",
+      "selected": false,
+      "factor": "Untruncated fractional propagation on same physical parameters",
+      "reason": "Different propagation model requires separate explicit approval and separate G0/G1 report; not admitted here."
+    }
+  ],
+  "shared_contract": {
+    "N": 1024,
+    "physical_slots": 8,
+    "receiver_cap": 40,
+    "rho": 0.5,
+    "SNR": [
+      7,
+      8,
+      9
+    ],
+    "G0": "unchanged Dirichlet normalization/prune/clipping convention; overlapping coefficients sum complex; common Frobenius normalization of each scenario channel before arms",
+    "transmit": "pilot/data already scaled; y=H@(pilot+data)+sqrt(sigma2)*noise; no per-arm/per-frame transmit normalization",
+    "receiver_information": "observed y/pilot/sigma2/constellation and frozen receiver parameters only; scenario true geometry and true P not receiver inputs",
+    "failures": "Keep every scheduled block, including cancellation/zero-channel/rank deficiency; explicit generation invalidity stops run rather than redraw; no frame filtering."
+  },
+  "scenes": [
+    {
+      "id": "integer-doppler",
+      "block_ids": [
+        0,
+        127
+      ],
+      "mechanism_prediction": "Linking benefit over classical parameterization should attenuate when leakage vanishes; this direction is descriptive, not an equivalence claim.",
+      "likely_failure": "Wrong fractional templates or unnecessary shrinkage bias; integer collisions and normalized channel energy changes reported separately."
+    },
+    {
+      "id": "overlap-pair",
+      "block_ids": [
+        128,
+        255
+      ],
+      "mechanism_prediction": "Soft relation should tolerate overlap better than hard local parameterization; failure to select two centers can erase advantage.",
+      "likely_failure": "Merged centers or ill-conditioned overlapping templates cause bias; record rank, selected center count, fallback frequency and raw/normalized energy."
+    }
+  ],
+  "sampling": {
+    "split": "counterexample",
+    "split_id": 94,
+    "namespace": [
+      20260908,
+      210644,
+      731901
+    ],
+    "n_per_scene": 128,
+    "pairing": "Disjoint global block IDs define independent scene streams. All arms and SNR reuse each block channel/codeword/normalized noise. No optional stopping.",
+    "arms_roles": [
+      "frozen deployable M candidate",
+      "B_star",
+      "strongest applicable classical structural deployment comparator"
+    ],
+    "arm_binding": "Exact IDs/config/source hashes bound from FREEZE-01 before generator access; no scene-specific tuning. If strong references exceed3, resolve fairly in FREEZE-01, not by deleting an unresolved comparator.",
+    "locked": true
+  },
+  "statistics": {
+    "delta": "FER_reference-FER_candidate",
+    "primary_SNR": 8,
+    "primary_comparisons": 4,
+    "family": "2 scenes x 2 fixed references; simultaneous two-sided95% via four CP tails per comparison and Bonferroni",
+    "CP_tail_alpha": 0.003125,
+    "interval": "[CP_lower(wins,n,tail)-CP_upper(losses,n,tail), CP_upper(wins,n,tail)-CP_lower(losses,n,tail)]",
+    "harm_margin": 0.01,
+    "precision_max_interval_width": 0.04,
+    "decision_table": {
+      "pass": "All four lower bounds > -0.01 and all widths <=0.04; no implementation/information violations. A robustness pass does not establish positive gain or mechanism attribution.",
+      "fail": "Any upper bound < -0.01 establishes material harm for that comparison; other comparisons remain separately labelled.",
+      "insufficient": "All other cases, including wide intervals, zero errors without adequate bounds, failed/incomplete jobs. Never relabel as pass.",
+      "per_scene": "Apply the pass/fail/insufficient rules to each scene two fixed-reference comparisons separately; overall pass requires both scenes pass; report both labels and all intervals.",
+      "invalid": "Information/implementation violations are invalid evidence, not evidence of scientific performance failure."
+    },
+    "neighbors": "7/9dB retain paired counts and intervals as descriptive stress evidence; no additional simultaneous no-harm claim. Adverse effects must be disclosed.",
+    "mechanism_diagnostics": "NMSE, cancellation/data-H residuals, template ranks and fallback counts are secondary; no selection or substitution for FER.",
+    "zero_discordance_check": {
+      "n": 128,
+      "absolute_endpoint": 0.04406466342055004,
+      "interval_width": 0.08812932684110009,
+      "minimum_n_for_zero_lower_above_minus_001": 574,
+      "interpretation": "128 blocks give interval ±4.406% even at zero discordance, so strict1% no-harm/4% width certification cannot be promised. This budget supports failure evidence or insufficient evidence rather than a complete robustness pass. FREEZE-01 must disclose scientific gate feasibility; do not silently relax margins or increase samples."
+    },
+    "threshold_origin": "SCENE-01 prospective conservative engineering standard, not an inherited campaign rule: campaign 1% neighbor margin applies to main G0 7/9dB; applying1% to these counterexamples and width4% is explicitly new here. No scenario outcomes observed."
+  },
+  "budget": {
+    "development_screening_enabled": false,
+    "development_screening_calls": 0,
+    "final_full_calls_max": 2304,
+    "stage_cap": 2304,
+    "reservation_created": false,
+    "resource_admission": "Use actual M full cost and remaining shared ledger in FREEZE-01; this static preregistration does not authorize launch or override resource limits.",
+    "no_additional_CE_or_terminal": "Any standalone diagnostic calls require separately admitted existing budgets; full-run diagnostics cannot hide extra receiver calls."
+  },
+  "verification": {
+    "scope": "Static preregistration and analytic binomial zero-discordance bound only; no simulated or real scenario data generated.",
+    "exit_code": 0,
+    "source_files": {
+      "evidence/route-freeze.json": "b44c7f0831e8df781f794ad9129f026507c4c0d861b19ecb9b233069baa9ec65",
+      "evidence/campaign-protocol.json": "4f307ad9f6c1f4667704eaa64f1594249c748f8ecf9c7707a32a1545e09c2941",
+      "source-plan.md": "890561df5fb805006f34b8ecb4d06958bfabdf70713c669165d59e9962cfdcd8",
+      "afdm_sp_joint_unrolled/direction_data.py": "8978be87c176ff7fd9a33310865a41c10ee2a4cca4382f1937f258053e3ac6ba",
+      "afdm_sp_joint_unrolled/afdm_env.py": "098fa9ddfc7d3a9d86741a273e63624854d191831126b5741f0616f07a7348b9",
+      "afdm_sp_joint_unrolled/budgeted_support_eval.py": "86a03e3225640c44d88f8abc36c557729a4fb6c33b46721552d8ff94a8ea993c"
+    },
+    "pending_runtime_requirements": [
+      "implement scenario generator boundary with exact manifest hash",
+      "prove observed-only receiver inputs and common paired draws",
+      "validate G0 reconstruction before population",
+      "freeze exact arm IDs and resource admission",
+      "record raw job commands, exit codes, configuration/source hashes and full call ledger in SCENE-02"
+    ],
+    "independent_review": {
+      "agent": "/root/lit_contract",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "low",
+      "scope": "Read-only SCENE-01 source/protocol/statistical-contract review; no generation/run validation",
+      "result": "passed_with_documentation_fixes",
+      "fixed": [
+        "threshold origin stated",
+        "precision limitation explicit",
+        "per-scene labels and invalid separate",
+        "cached overlap center prevents sequential mutation"
+      ]
+    }
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "schema": "coherent-structure-attempt/1",
+  "stage": "evaluation_00_v1",
+  "config": {
+    "study": {
+      "schema": "coherent-structure-study/1",
+      "seed": [
+        20261006,
+        103038
+      ],
+      "prefixes": [
+        64,
+        256,
+        1024,
+        4096
+      ],
+      "alpha": 0.05,
+      "confidence_alpha": 0.05,
+      "comparison_family_size": 12,
+      "calibration": {
+        "mode": "iid",
+        "groups": 256,
+        "conditions": [
+          {
+            "mu": 0.27,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.27,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          },
+          {
+            "mu": 0.35,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.35,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          }
+        ]
+      },
+      "evaluation": {
+        "groups": 512,
+        "modes": [
+          "coherent",
+          "iid"
+        ],
+        "conditions": [
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.005,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.015,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.025,
+            "tau": 1.0,
+            "noise": 0.2
+          }
+        ]
+      },
+      "geometry": {
+        "probes": 64
+      },
+      "calibration_stages": [
+        "calibration_00_v1",
+        "calibration_01_v1",
+        "calibration_02_v1",
+        "calibration_03_v1",
+        "calibration_04_v1",
+        "calibration_05_v1"
+      ],
+      "evaluation_stages": [
+        "evaluation_00_v1",
+        "evaluation_01_v1",
+        "evaluation_02_v1",
+        "evaluation_03_v1"
+      ],
+      "scope": "independent development comparison of different cross-symbol dependence with identical one-observation marginals; not same-model algorithm superiority",
+      "null_pool": "same null power-process law under coherent and iid modes, different nuisance grid points kept distinct",
+      "failure_policy": "retain groups, failed evaluation nonrejection, any relevant failure blocks superiority claims; calibration failure explicit",
+      "new_confirmation_stream": false,
+      "receiver_calls": 0,
+      "decoder_calls": 0
+    },
+    "phase": "evaluation",
+    "condition": 0,
+    "seed": [
+      20261006,
+      103038
+    ],
+    "new_observations": 4194304,
+    "new_geometry_probes": 0,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "new_confirmation_stream": false
+  },
+  "_config": {
+    "study": {
+      "schema": "coherent-structure-study/1",
+      "seed": [
+        20261006,
+        103038
+      ],
+      "prefixes": [
+        64,
+        256,
+        1024,
+        4096
+      ],
+      "alpha": 0.05,
+      "confidence_alpha": 0.05,
+      "comparison_family_size": 12,
+      "calibration": {
+        "mode": "iid",
+        "groups": 256,
+        "conditions": [
+          {
+            "mu": 0.27,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.27,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          },
+          {
+            "mu": 0.35,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.35,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 1.0
+          }
+        ]
+      },
+      "evaluation": {
+        "groups": 512,
+        "modes": [
+          "coherent",
+          "iid"
+        ],
+        "conditions": [
+          {
+            "mu": 0.31,
+            "delta": 0.0,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.005,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.015,
+            "tau": 1.0,
+            "noise": 0.2
+          },
+          {
+            "mu": 0.31,
+            "delta": 0.025,
+            "tau": 1.0,
+            "noise": 0.2
+          }
+        ]
+      },
+      "geometry": {
+        "probes": 64
+      },
+      "calibration_stages": [
+        "calibration_00_v1",
+        "calibration_01_v1",
+        "calibration_02_v1",
+        "calibration_03_v1",
+        "calibration_04_v1",
+        "calibration_05_v1"
+      ],
+      "evaluation_stages": [
+        "evaluation_00_v1",
+        "evaluation_01_v1",
+        "evaluation_02_v1",
+        "evaluation_03_v1"
+      ],
+      "scope": "independent development comparison of different cross-symbol dependence with identical one-observation marginals; not same-model algorithm superiority",
+      "null_pool": "same null power-process law under coherent and iid modes, different nuisance grid points kept distinct",
+      "failure_policy": "retain groups, failed evaluation nonrejection, any relevant failure blocks superiority claims; calibration failure explicit",
+      "new_confirmation_stream": false,
+      "receiver_calls": 0,
+      "decoder_calls": 0
+    },
+    "phase": "evaluation",
+    "condition": 0,
+    "seed": [
+      20261006,
+      103038
+    ],
+    "new_observations": 4194304,
+    "new_geometry_probes": 0,
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "new_confirmation_stream": false
+  },
+  "argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/source_v1/experiments/afdm_coherent_structure_20261006/study.py",
+    "--artifact-root",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006",
+    "--config",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/control/STUDY_CONFIG.json",
+    "--phase",
+    "evaluation",
+    "--stage",
+    "evaluation_00_v1",
+    "--condition",
+    "0",
+    "--wall-seconds",
+    "600"
+  ],
+  "_argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/source_v1/experiments/afdm_coherent_structure_20261006/study.py",
+    "--artifact-root",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006",
+    "--config",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/control/STUDY_CONFIG.json",
+    "--phase",
+    "evaluation",
+    "--stage",
+    "evaluation_00_v1",
+    "--condition",
+    "0",
+    "--wall-seconds",
+    "600"
+  ],
+  "seed": [
+    20261006,
+    103038
+  ],
+  "source_sha256": {
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/control/STUDY_CONFIG.json": "6bf5814c22315e3fe2a23116c7ec75dcd77fc3750b68d0de742fbf97040cc801",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/control/run_contract.json": "7c41647f131e6709615e347d7821ed8972fefddc0614046145c0983caab5b044",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_00_v1/attempt.json": "a042feb99c94bd12358ecfa696645420c1da29adbaad3a35116802fc9d5cd759",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_00_v1/records.json": "6bfdb06b172227df3641fa2da68a66fbedf619b6f7a63bf0f48f8d3074339883",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_00_v1/registration.json": "55d2361ee40e26ce6e9c733b553689aa01370275420bfe78a89822a7ed7a8d44",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_01_v1/attempt.json": "7873f922ba383708dfd54c2cf1c056fd62788acfe51bfc8c5b881022afb17c95",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_01_v1/records.json": "412f8523c4e7d3fa75bd46b17b2e5b5b047de939f3fe823946bece552c4e9b95",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_01_v1/registration.json": "0650e7b739b8134edc10e7f508c60bb67b02ba0fdab66104028eb27b863b8aa1",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_02_v1/attempt.json": "278d20b9916eb97ba0267bdb74af226ba0438b5c064cfbe45d39c9ab7cc5b136",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_02_v1/records.json": "ddcb7248e42cdae04f7baf67e4eedc572eb1623a82fa37c79a2a2804614296bd",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_02_v1/registration.json": "7b2aef517398b4deb62bbecc1916743b1f032494ee6cf80e342fe91a04334f39",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_03_v1/attempt.json": "4e7445ee163859f98c45e895067425c4c0e54a38bb66c01a58a3620a32fc3f67",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_03_v1/records.json": "36184278d2ec9ff72e2d37e1594f60f514f188a05f5ea21a3631344336d0f690",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_03_v1/registration.json": "e1c9d09ba36c2cda5b516eade2f575933797fc021e1bb789749c9e45a8d65e21",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_04_v1/attempt.json": "30d57c2f1eb1f9c964a662ca14547e94d964355fa70c10f5e960920f3c28d692",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_04_v1/records.json": "dc339882323865e577893d853b3e25fac87307dc13ce7c95f0cbe50a60c26871",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_04_v1/registration.json": "639c706b840c1cc7cf153dae6168347033304f94fe19522e557f4ef14aa0f5ba",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_05_v1/attempt.json": "4765b83961f1a725d5d62f187912983efa2a66d643114e9d56490f022c02ec10",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_05_v1/records.json": "9cd140909889c20a4f1a8367c3ba6995bf6ac850c0d36d12f91f578d2d9e158f",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_coherent_structure_20261006/execution/calibration_05_v1/registration.json": "009833bf834c4277fd99dfa86cd46643b95f8334297025f467f8681574b4c31a",
+    "experiments/afdm_coherent_structure_20261006/__init__.py": "f83a9ab2491d9b00c37336f7fd607d8a6515072f4162461a9ea6b12f159254a7",
+    "experiments/afdm_coherent_structure_20261006/core.py": "453d0c8db6fc82e55f13095f9ad7415e030dc3e69a41aea00e1a9ea8a914ebf5",
+    "experiments/afdm_coherent_structure_20261006/geometry.py": "fd84760adc3159adfca1691e364fd4d9ac767000c01fe02edfe405ff6052abd9",
+    "experiments/afdm_coherent_structure_20261006/protocol.py": "0ef2f526b1ad225861bb0d33c0a55562fee8dc51c57e9aae690b1ee51e945963",
+    "experiments/afdm_coherent_structure_20261006/study.py": "439bf9d8e5ec67a691031e2ade0909d53f917c3d583320fa5c580013a6036186",
+    "experiments/afdm_coherent_structure_20261006/thread_binding.py": "eedb5af57ce5cd6a752da90cbcbb4f3bc0084d083d6ff852f606b3b2431f4710",
+    "experiments/afdm_efficient_information/__init__.py": "86b4e0eb26b4a781a374db0addad1e9fbc485c7c653a3bc54868ad3d7c0cbedd",
+    "experiments/afdm_efficient_information/prior_likelihood.py": "c8251b53da6fb715f850d906c2251aa664bd32eb8500607c8250e8625f5342ee",
+    "experiments/afdm_efficient_information/protocol.py": "ecfb800796f418924640ce8e98c7b1797c92fa27e9f480715c30115b56a67498",
+    "experiments/afdm_higher_order_information/__init__.py": "00ec0fce13d3db63195bf81e021bbf9b3abad69b9ba7781be9327c3b86b52b75",
+    "experiments/afdm_higher_order_information/prior.py": "497595b55de826af2046a352be4a5915316bbd5bb8c8d59d5162dc2d853c8ce6",
+    "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+    "experiments/afdm_inference_causal_20261002/exact_oracle.py": "d6fae6c9d0e708db9fb2ab6c3809729f12146bb307802f2cb892be6f795b5b77",
+    "experiments/afdm_inference_causal_20261002/oracle_comparison.py": "571b6d080379299f0e8a342e5b1d2c964c4a99d689f735fc0d4b6b83d1ef2df6",
+    "experiments/afdm_shared_channel_20261004/common.py": "705cb6103442cdb122fbce0e58f091c6d42d64cce2e0f39cd24e8dfe095e758d",
+    "experiments/afdm_shared_channel_20261004/production_diagnostic.py": "4842465dc41faf45a78876374ab46d37b1ae8da9ae79ab121b2d2fc8a9d6d054",
+    "experiments/afdm_shared_channel_20261004/production_prior.py": "d8dcecdadbbc7483449f3a1e99f61a757b0065e9b0df509c29423b32b5694c69",
+    "experiments/afdm_shared_channel_20261004/quadrature.py": "32844f8ee051f8a4c2eb614443c2e3814a69183e7a6bd08195d8d6ac5610d257",
+    "experiments/afdm_structured_inference_20261003/common.py": "ae611fc20333affb939692a25da0c025476ad8cd16cbc74f917afce120d17ef9",
+    "experiments/afdm_structured_inference_20261003/potential.py": "63bb6d4da304d3f2753a915a177762156532b24fa7f29de97d09ce7ec7585e68",
+    "experiments/sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_baselines.py": "bc2457e5f21259df65fb1537021c50ea929991672ef1d9fb851213cb88f2d36a",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_env.py": "933ea6d8ac168f5af054754a6f58c41e378992a29a79fab91106b48209285487",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_layers.py": "2f242722450e4ad71820ab737e872f0bcbed1980f6ad0a545c81f659415a60c6",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_models.py": "af2186ebfceb744dab7a86efb76271724d7e4f9194a1adba52101487bead00c2",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_trainer.py": "41149471f5158566494a5a36e4143d1d06ed64f19a3b02b255153ecf2b3b7475",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_diagnostics.py": "c11c43d1353024a9ea873239b843743c9999a6cdf5f88644611282315c3999b9",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/classical_joint_unrolled.py": "412004661b718da8d6842ce37b48a090d528319211df2931c1940fafffafdec5",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py": "3fd7031da28dec0ef917b4a1ac1a3e47552d981c8f0d0a3027b1d6aa693c76ef",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/loop9_cache_features.py": "56b0e444db72c1f7bd18dad6b4a403b0667d3d5fa41cec7e0e99602e0e03410b",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/mp_detect_bp_torch.py": "5c3ef90babb745c887f90863f434960c2feeed90d802720de767b1fd8b684ec0",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/physical_stride.py": "abcb9950f53afa9eafa74cbb25ab9e708f551b92568078406c450aef63a69cdf",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/run_classical_baselines_python.py": "0a7eb3fef1252c7c776682a87dd2606a80249bd2f2152597838e287e1caefc98",
+    "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/system_config.py": "3b8d1db067a0682b3c6620268ed5219e15025290c94d48350324dd61bd133656"
+  },
+  "git": {
+    "head": "6ace60dc0bd8912ae9cbe8b89b2ff50d9ee5aaec",
+    "committed_task_source_sha256": {
+      "experiments/afdm_coherent_structure_20261006/__init__.py": "f83a9ab2491d9b00c37336f7fd607d8a6515072f4162461a9ea6b12f159254a7",
+      "experiments/afdm_coherent_structure_20261006/core.py": "453d0c8db6fc82e55f13095f9ad7415e030dc3e69a41aea00e1a9ea8a914ebf5",
+      "experiments/afdm_coherent_structure_20261006/geometry.py": "fd84760adc3159adfca1691e364fd4d9ac767000c01fe02edfe405ff6052abd9",
+      "experiments/afdm_coherent_structure_20261006/protocol.py": "0ef2f526b1ad225861bb0d33c0a55562fee8dc51c57e9aae690b1ee51e945963",
+      "experiments/afdm_coherent_structure_20261006/study.py": "439bf9d8e5ec67a691031e2ade0909d53f917c3d583320fa5c580013a6036186",
+      "experiments/afdm_coherent_structure_20261006/thread_binding.py": "eedb5af57ce5cd6a752da90cbcbb4f3bc0084d083d6ff852f606b3b2431f4710"
+    },
+    "other_sources": "frozen helpers and artifacts independently SHA-256 bound"
+  },
+  "git_head": "6ace60dc0bd8912ae9cbe8b89b2ff50d9ee5aaec",
+  "pid": 1109004,
+  "wall_cap_seconds": 600,
+  "started_utc": "2026-10-06T03:18:02.481516+00:00",
+  "deadline_utc": "2026-10-06T03:28:02.481516+00:00",
+  "cumulative_reserved_new_observations": 10485760,
+  "evidence_level": "registered mathematical/development study; no receiver or decoder",
+  "cumulative_reserved_wall_seconds": 4500.0,
+  "deterministic_geometry_reservation": 0,
+  "excluded_virtual_modules": [
+    {
+      "module": "torch.ops",
+      "filename": "_ops.py",
+      "reason": "relative or virtual module label; not an absolute source path"
+    },
+    {
+      "module": "torch.classes",
+      "filename": "_classes.py",
+      "reason": "relative or virtual module label; not an absolute source path"
+    }
+  ]
+}

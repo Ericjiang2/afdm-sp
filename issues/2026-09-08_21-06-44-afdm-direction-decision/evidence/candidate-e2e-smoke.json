@@ -1,0 +1,32 @@
+{
+  "status": "real_e2e_verified_with_same_documented_soft_precision_limit",
+  "issue": "WIRE-04",
+  "selected_route": "M",
+  "excluded_branches": [
+    "I-01",
+    "I-02",
+    "I-03",
+    "T-01",
+    "WIRE-03"
+  ],
+  "evidence": {
+    "path": "evidence/physical-engineering-audit-v9-v3.json",
+    "sha256": "95c7091cccd2b8f6277d94d5f5f262d76e0ae3d0427825ca3e1c911e10318a06"
+  },
+  "source": {
+    "path": "evidence/source-snapshot-runtime-v9.json",
+    "sha256": "4467f66b3231c52261b36db480467cb686b5acecc4873c121461fcd2447d6134"
+  },
+  "calls": 18,
+  "runner": "afdm_sp_joint_unrolled.direction_run",
+  "actual_consumers": "registered four M arms -> ObservedReceiver.channel_refit -> revised H used for pilot cancellation and single terminal BP/LLR/LDPC; NPZ and graph hash audited",
+  "exit_code": 0,
+  "counterexample_or_confirmation_unlocked": false,
+  "limits": [
+    "Original all-array-bit-exact audit failed and remains recorded, not retrospectively passed.",
+    "Soft output numerical criterion1e-12 is a disclosed engineering exception after diagnosis; not a scientific threshold or FER evidence.",
+    "Group reference converged on4 engineering blocks; population convergence still unverified.",
+    "Budget parameterization and soft geometry intentionally bounded; not finite-grid converged on measured3blocks. High-compute reference converged, reported separately.",
+    "Engineering timing n3 cannot satisfy final COST-02; M-soft p95 point estimate exceeds1.1 times old A2 micro p95, so formal deployability remains uncertain."
+  ]
+}

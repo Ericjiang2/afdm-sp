@@ -1,0 +1,272 @@
+{
+  "checks": [
+    {
+      "check": "derivative_0.27_generic",
+      "passed": true,
+      "mu": 0.27,
+      "gain_case": "generic",
+      "max_absolute_error": 6.3600449351497446e-09,
+      "tolerance": 2e-07,
+      "steps": [
+        1e-05,
+        5e-06
+      ]
+    },
+    {
+      "check": "derivative_0.27_real_ratio",
+      "passed": true,
+      "mu": 0.27,
+      "gain_case": "real_ratio",
+      "max_absolute_error": 1.1102230246251564e-10,
+      "tolerance": 2e-07,
+      "steps": [
+        1e-05,
+        5e-06
+      ]
+    },
+    {
+      "check": "derivative_0.31_generic",
+      "passed": true,
+      "mu": 0.31,
+      "gain_case": "generic",
+      "max_absolute_error": 5.920371748402431e-09,
+      "tolerance": 2e-07,
+      "steps": [
+        1e-05,
+        5e-06
+      ]
+    },
+    {
+      "check": "derivative_0.31_real_ratio",
+      "passed": true,
+      "mu": 0.31,
+      "gain_case": "real_ratio",
+      "max_absolute_error": 1.27675647831893e-10,
+      "tolerance": 2e-07,
+      "steps": [
+        1e-05,
+        5e-06
+      ]
+    },
+    {
+      "check": "derivative_0.35_generic",
+      "passed": true,
+      "mu": 0.35,
+      "gain_case": "generic",
+      "max_absolute_error": 5.530173652346093e-09,
+      "tolerance": 2e-07,
+      "steps": [
+        1e-05,
+        5e-06
+      ]
+    },
+    {
+      "check": "derivative_0.35_real_ratio",
+      "passed": true,
+      "mu": 0.35,
+      "gain_case": "real_ratio",
+      "max_absolute_error": 7.771561172376096e-11,
+      "tolerance": 2e-07,
+      "steps": [
+        1e-05,
+        5e-06
+      ]
+    },
+    {
+      "check": "prony_N4",
+      "passed": true,
+      "N": 4,
+      "atom_ids": [
+        0,
+        1,
+        2
+      ],
+      "doppler_error": 8.881784197001252e-16,
+      "prony_qualification": {
+        "determinant": -0.0013086180855160987,
+        "determinant_scale": 0.012758417486067604,
+        "relative_determinant": 0.10256899705195653,
+        "rtol": 1e-12,
+        "K": [
+          [
+            0.04645028140788347,
+            -0.017004574721390286
+          ],
+          [
+            -0.22284349098871958,
+            0.05340636553723911
+          ]
+        ],
+        "K_condition": 41.97333721921498,
+        "nodes": [
+          3.7715184605617984,
+          4.314295488583648
+        ],
+        "reconstruction_residual": 1.1188630228279524e-16,
+        "relative_reconstruction_residual": 1.1926904818531163e-16,
+        "branch": [
+          0.22,
+          0.42
+        ],
+        "branch_endpoints": "open"
+      },
+      "tolerance": 1e-10
+    },
+    {
+      "check": "prony_N5",
+      "passed": true,
+      "N": 5,
+      "atom_ids": [
+        1,
+        2,
+        3
+      ],
+      "doppler_error": 3.0531133177191805e-15,
+      "prony_qualification": {
+        "determinant": -0.0017626714917901186,
+        "determinant_scale": 0.01730837092160468,
+        "relative_determinant": 0.10183924875274739,
+        "rtol": 1e-12,
+        "K": [
+          [
+            0.06445307144649012,
+            -0.023988175165988834
+          ],
+          [
+            -0.2452091015469264,
+            0.06391390349538766
+          ]
+        ],
+        "K_condition": 39.08670752644152,
+        "nodes": [
+          3.4536657644378095,
+          3.943112796689507
+        ],
+        "reconstruction_residual": 3.510833468576701e-16,
+        "relative_reconstruction_residual": 3.6753903512820447e-16,
+        "branch": [
+          0.22,
+          0.42
+        ],
+        "branch_endpoints": "open"
+      },
+      "tolerance": 1e-10
+    },
+    {
+      "check": "actual_same_H_counterexample",
+      "passed": true,
+      "exact_moments": [
+        "2",
+        "17/2",
+        "145/4"
+      ],
+      "exact_equal": true,
+      "cases": [
+        {
+          "dopplers": [
+            0.2784179490922558,
+            0.3119165215094773
+          ],
+          "mu": 0.2951672353008665,
+          "delta": 0.016749286208610742,
+          "pdp_limits": [
+            70,
+            70
+          ],
+          "pdp_support_mass": 0.07234234513988462
+        },
+        {
+          "dopplers": [
+            0.28276345967605265,
+            0.3195865464686801
+          ],
+          "mu": 0.3011750030723664,
+          "delta": 0.018411543396313734,
+          "pdp_limits": [
+            70,
+            70
+          ],
+          "pdp_support_mass": 0.07234234513988462
+        }
+      ],
+      "max_H_difference": 1.7772239894833365e-16,
+      "tolerance": 3e-13,
+      "H_norms": [
+        1.9999999999999998,
+        1.9999999999999998
+      ]
+    },
+    {
+      "check": "four_atom_N16",
+      "passed": true,
+      "N": 16,
+      "nodes": [
+        0.27,
+        0.31,
+        0.35,
+        0.39
+      ],
+      "atoms": [
+        -2,
+        -1,
+        0,
+        1
+      ],
+      "identity_error": 3.885780586188048e-16,
+      "finite_sum_error": 2.220446049250313e-16,
+      "rank": 4,
+      "determinant_modulus": 6.386115653677187e-08,
+      "tolerance": 2e-12
+    },
+    {
+      "check": "four_atom_N64",
+      "passed": true,
+      "N": 64,
+      "nodes": [
+        0.27,
+        0.31,
+        0.35,
+        0.39
+      ],
+      "atoms": [
+        -2,
+        -1,
+        0,
+        1
+      ],
+      "identity_error": 1.5100665727558131e-15,
+      "finite_sum_error": 1.7388818282700985e-16,
+      "rank": 4,
+      "determinant_modulus": 6.434002927931856e-08,
+      "tolerance": 2e-12
+    },
+    {
+      "check": "four_atom_N1024",
+      "passed": true,
+      "N": 1024,
+      "nodes": [
+        0.27,
+        0.31,
+        0.35,
+        0.39
+      ],
+      "atoms": [
+        -2,
+        -1,
+        0,
+        1
+      ],
+      "identity_error": 1.855102611454866e-14,
+      "finite_sum_error": 1.8670653977139894e-16,
+      "rank": 4,
+      "determinant_modulus": 6.43689613101174e-08,
+      "tolerance": 2e-12
+    }
+  ],
+  "all_passed": true,
+  "geometry_probes": 28,
+  "new_observations": 0,
+  "receiver_calls": 0,
+  "decoder_calls": 0,
+  "scope": "deterministic actual-physical identities; no power or receiver claim"
+}

@@ -1,0 +1,197 @@
+{
+  "schema": "efficient-information-attempt/1",
+  "stage": "oracle_identifiability_v1",
+  "config": {
+    "seed": [
+      20261005,
+      104835,
+      70
+    ],
+    "new_observations": 0,
+    "new_scientific_nodes": 0,
+    "new_scientific_rules": 0,
+    "wall_seconds": 300,
+    "inputs": {
+      "control": {
+        "stage": "inference_control_v1",
+        "observations": "inference_observations.npz",
+        "likelihood_key": "exact_logpdf",
+        "reference_method": "exact",
+        "interest": "q",
+        "moment_methods": [
+          "old_T",
+          "powers",
+          "phase",
+          "score4"
+        ],
+        "records": {
+          "registration.json": "da58076cca4801284ef58f0751de3762cb238aa8b593b2719064571fae7d51be",
+          "attempt.json": "9e16a7aa2ae3bef2ee493fa789e20700359f0bd6341fbbb2ff10a0a5215c03b6",
+          "git_head": "15d1b051ea027d1c7b800ffdb43a5223bb4f3507"
+        }
+      },
+      "actual": {
+        "stage": "inference_actual_v1",
+        "observations": "observations.npz",
+        "likelihood_key": "refined",
+        "reference_method": "actual_reference_refined",
+        "interest": "delta",
+        "moment_methods": [
+          "old_T",
+          "powers",
+          "phase",
+          "actual_score4",
+          "Gaussian_transfer_score4"
+        ],
+        "records": {
+          "registration.json": "c6c599ec46cf70ac080e5e99581184f1fdd3e75e8be1d90e174ca3b4ef14a892",
+          "attempt.json": "dfd3de57dab7b1fb64e7ac18722b7d9b76de62b30ae2dede57c090ed13d977ea",
+          "git_head": "15d1b051ea027d1c7b800ffdb43a5223bb4f3507"
+        }
+      }
+    },
+    "machine_epsilon_multiplier": 64,
+    "saved_objective_absolute_tolerance": 1e-10,
+    "expected_rows": {
+      "oracle_pairs": 112,
+      "paired_decisions": 1408,
+      "known_eta_mle": 152,
+      "paired_estimation": 976,
+      "ambiguity": 976,
+      "moment_equivalence": 9
+    },
+    "numerical_tolerance": "near-argmin gap <= 64*float64_epsilon*max(1,max(abs(objective_row))); exact uses gap==0",
+    "coefficient_tolerance": "componentwise abs(ci-cj)<=64*float64_epsilon*max(1,abs(ci),abs(cj)); symmetric neighbors only, never a transitive partition",
+    "known_nuisance": "same original physical target grid; known eta and specified alternative enter only explicitly labeled oracle",
+    "calibration": "independent original null calibration groups, same original alpha, strict > order-statistic cutoff; marginal over calibration and future group",
+    "inherited_reference": "actual refined order24 with original full12/24 and subset24/48 qualification; control independently qualified finite mixture",
+    "upper_bound": "ideal known-distribution NP at exact size is a theoretical power upper bound; finite-calibration observed oracle power is NOT a certified upper bound",
+    "structural_status": "only inherited control old_T/powers center invariance and working second-Gaussian q/mu invariance; other physical identifiability unresolved",
+    "raw_policy": "bind registration and attempt records, verify consumed original raw and source-model hashes in place; no large raw duplication",
+    "receiver_calls": 0,
+    "decoder_calls": 0
+  },
+  "_config": {
+    "seed": [
+      20261005,
+      104835,
+      70
+    ],
+    "new_observations": 0,
+    "new_scientific_nodes": 0,
+    "new_scientific_rules": 0,
+    "wall_seconds": 300,
+    "inputs": {
+      "control": {
+        "stage": "inference_control_v1",
+        "observations": "inference_observations.npz",
+        "likelihood_key": "exact_logpdf",
+        "reference_method": "exact",
+        "interest": "q",
+        "moment_methods": [
+          "old_T",
+          "powers",
+          "phase",
+          "score4"
+        ],
+        "records": {
+          "registration.json": "da58076cca4801284ef58f0751de3762cb238aa8b593b2719064571fae7d51be",
+          "attempt.json": "9e16a7aa2ae3bef2ee493fa789e20700359f0bd6341fbbb2ff10a0a5215c03b6",
+          "git_head": "15d1b051ea027d1c7b800ffdb43a5223bb4f3507"
+        }
+      },
+      "actual": {
+        "stage": "inference_actual_v1",
+        "observations": "observations.npz",
+        "likelihood_key": "refined",
+        "reference_method": "actual_reference_refined",
+        "interest": "delta",
+        "moment_methods": [
+          "old_T",
+          "powers",
+          "phase",
+          "actual_score4",
+          "Gaussian_transfer_score4"
+        ],
+        "records": {
+          "registration.json": "c6c599ec46cf70ac080e5e99581184f1fdd3e75e8be1d90e174ca3b4ef14a892",
+          "attempt.json": "dfd3de57dab7b1fb64e7ac18722b7d9b76de62b30ae2dede57c090ed13d977ea",
+          "git_head": "15d1b051ea027d1c7b800ffdb43a5223bb4f3507"
+        }
+      }
+    },
+    "machine_epsilon_multiplier": 64,
+    "saved_objective_absolute_tolerance": 1e-10,
+    "expected_rows": {
+      "oracle_pairs": 112,
+      "paired_decisions": 1408,
+      "known_eta_mle": 152,
+      "paired_estimation": 976,
+      "ambiguity": 976,
+      "moment_equivalence": 9
+    },
+    "numerical_tolerance": "near-argmin gap <= 64*float64_epsilon*max(1,max(abs(objective_row))); exact uses gap==0",
+    "coefficient_tolerance": "componentwise abs(ci-cj)<=64*float64_epsilon*max(1,abs(ci),abs(cj)); symmetric neighbors only, never a transitive partition",
+    "known_nuisance": "same original physical target grid; known eta and specified alternative enter only explicitly labeled oracle",
+    "calibration": "independent original null calibration groups, same original alpha, strict > order-statistic cutoff; marginal over calibration and future group",
+    "inherited_reference": "actual refined order24 with original full12/24 and subset24/48 qualification; control independently qualified finite mixture",
+    "upper_bound": "ideal known-distribution NP at exact size is a theoretical power upper bound; finite-calibration observed oracle power is NOT a certified upper bound",
+    "structural_status": "only inherited control old_T/powers center invariance and working second-Gaussian q/mu invariance; other physical identifiability unresolved",
+    "raw_policy": "bind registration and attempt records, verify consumed original raw and source-model hashes in place; no large raw duplication",
+    "receiver_calls": 0,
+    "decoder_calls": 0
+  },
+  "argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_efficient_information/oracle_identifiability.py",
+    "--stage",
+    "oracle_identifiability_v1"
+  ],
+  "_argv": [
+    "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/afdm_efficient_information/oracle_identifiability.py",
+    "--stage",
+    "oracle_identifiability_v1"
+  ],
+  "seed": [
+    20261005,
+    104835,
+    70
+  ],
+  "source_sha256": {
+    ".mission/20261001_23-33-35-afdm-innovation-space/controls/thread_binding.py": "d54170644d336fe6b0eb383ff533e5863857f1bbdc8dd0a873a1c233f50846ac",
+    ".mission/20261005_10-48-35-afdm-efficient-information/run_contract.json": "43435a499f2ae16a016c308ee5c0153d9ac13de7f7dc6cdd40ae62c37ea5fd20",
+    "experiments/afdm_efficient_information/ORACLE_IDENTIFIABILITY.md": "194e42a2c80314becda174750e253a38895161cea6810bafbf9ca9c0067d2641",
+    "experiments/afdm_efficient_information/__init__.py": "86b4e0eb26b4a781a374db0addad1e9fbc485c7c653a3bc54868ad3d7c0cbedd",
+    "experiments/afdm_efficient_information/inference.py": "e278edb45edd71eb8005d6bca33a43ba82f36e93aebc7c6a457e9119ce25a6a8",
+    "experiments/afdm_efficient_information/oracle_identifiability.py": "0aaa151dcd85482f3490b6349fde9e7899dd0c70fc5db736f1dc94c571e00fe4",
+    "experiments/afdm_efficient_information/protocol.py": "ecfb800796f418924640ce8e98c7b1797c92fa27e9f480715c30115b56a67498",
+    "experiments/afdm_efficient_information/score.py": "ed13aaea5607e3a2fd230f5446931f4bd0a6ee460218e64eb54e4accd56897b2",
+    "experiments/afdm_efficient_information/test_oracle_identifiability.py": "1d4868b0ccd73ba26e740c40a6642cdaee6ef632d8102965029ce787fddf6966",
+    "experiments/afdm_higher_order_information/protocol.py": "0dd2e7d0c0621adab5bb8f67dc5ed595ef1448033fe08b9faf7d3f2b1d8e4070",
+    "experiments/afdm_shared_channel_20261004/common.py": "705cb6103442cdb122fbce0e58f091c6d42d64cce2e0f39cd24e8dfe095e758d",
+    "results/afdm_efficient_information/ORACLE_IDENTIFIABILITY_CONFIG.json": "1399c88df4a82319769ee41f0388167f5bd76691203e2e73bcb417d4f9311006",
+    "results/afdm_efficient_information/inference_actual_v1/attempt.json": "dfd3de57dab7b1fb64e7ac18722b7d9b76de62b30ae2dede57c090ed13d977ea",
+    "results/afdm_efficient_information/inference_actual_v1/registration.json": "c6c599ec46cf70ac080e5e99581184f1fdd3e75e8be1d90e174ca3b4ef14a892",
+    "results/afdm_efficient_information/inference_control_v1/attempt.json": "9e16a7aa2ae3bef2ee493fa789e20700359f0bd6341fbbb2ff10a0a5215c03b6",
+    "results/afdm_efficient_information/inference_control_v1/registration.json": "da58076cca4801284ef58f0751de3762cb238aa8b593b2719064571fae7d51be"
+  },
+  "git": {
+    "head": "70e4fc629565ccc1ed50235884d24a25b9def746",
+    "committed_task_source_sha256": {
+      "experiments/afdm_efficient_information/__init__.py": "86b4e0eb26b4a781a374db0addad1e9fbc485c7c653a3bc54868ad3d7c0cbedd",
+      "experiments/afdm_efficient_information/inference.py": "e278edb45edd71eb8005d6bca33a43ba82f36e93aebc7c6a457e9119ce25a6a8",
+      "experiments/afdm_efficient_information/oracle_identifiability.py": "0aaa151dcd85482f3490b6349fde9e7899dd0c70fc5db736f1dc94c571e00fe4",
+      "experiments/afdm_efficient_information/protocol.py": "ecfb800796f418924640ce8e98c7b1797c92fa27e9f480715c30115b56a67498",
+      "experiments/afdm_efficient_information/score.py": "ed13aaea5607e3a2fd230f5446931f4bd0a6ee460218e64eb54e4accd56897b2",
+      "experiments/afdm_efficient_information/test_oracle_identifiability.py": "1d4868b0ccd73ba26e740c40a6642cdaee6ef632d8102965029ce787fddf6966"
+    },
+    "other_sources": "frozen helpers and artifacts independently SHA-256 bound"
+  },
+  "git_head": "70e4fc629565ccc1ed50235884d24a25b9def746",
+  "pid": 54848,
+  "wall_cap_seconds": 300,
+  "started_utc": "2026-10-05T06:30:41.400260+00:00",
+  "deadline_utc": "2026-10-05T06:35:41.400260+00:00",
+  "cumulative_reserved_new_observations": 82176,
+  "evidence_level": "local mathematical/development; no receiver/decoder/confirmation",
+  "cumulative_reserved_wall_seconds": 7380.0
+}

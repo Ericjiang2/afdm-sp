@@ -1,0 +1,51 @@
+{
+  "date": "2026-04-24",
+  "auditor": "gpt-5.4-pro-browser (Oracle session afdm-audit-v2) + local-executor-verification",
+  "overall_verdict": "pass",
+  "integrity_status": "pass",
+  "last_updated": "2026-04-24 (post action-items 1-4)",
+  "evaluation_type": "simulation_only",
+  "checks": {
+    "gt_provenance": {
+      "status": "warn",
+      "details": "BER/NMSE ground truth is clean simulator-drawn reference (eval_classical_joint_unrolled.py:95-103, 116-177). Warning: support-recall label provenance not re-derived inside loop13_support_recall_probe.py (reads cached labels without re-proving they came from afdm_env.py physical taps)."
+    },
+    "score_normalization": {
+      "status": "pass",
+      "details": "run_classical_baselines_python.py:102-108 — raw-count BER and H_true-normalised NMSE. No self-normalisation. All ratios accompanied by raw counts in JSONs."
+    },
+    "result_existence": {
+      "status": "pass",
+      "details": "Post-fix: pulled outputs_loop13_4B_retrain27k_snr25_eval_f2p/ from remote (seed 20260425, fs_factor=4.0, F2-P active). Verified: 53/716800 = 7.394e-5 @ 20 dB (paper 7.39e-5), 4/716800 = 5.580e-6 @ 25 dB (paper 5.58e-6). 3-seed pooled delta/McNemar also verified via _loop12_pooled_plot.py over outputs_loop12_{r3_official, matched_f2p_s20_30, seed2_s20_s25_s30}: frame counts 600/773/1300 match exactly; deltas -37.74%/-40.15%/-37.59% match paper -37.7%/-40.2%/-37.6%. See REPRODUCTION.md for full command → JSON mapping."
+    },
+    "dead_code": {
+      "status": "warn_narrowed",
+      "details": "Deployment path ambiguity was documented rather than removed. eval_classical_joint_unrolled.py docstring now explicitly labels it a smoke test; its output renamed to outputs_loop13_4B_SMOKE_plain_c2rel_results.json. Future readers will not mistake it for a headline. No code/script behavior changed."
+    },
+    "scope": {
+      "status": "pass",
+      "details": "REPRODUCTION.md in afdm_sp_joint_unrolled/ now maps every §3/§4 headline claim to the exact script, CLI flags, seed, and source JSON. No in-paper file-path footnotes (per author preference). One open question — the 4B-scale 3-seed pooled absolute BERs need a corresponding 4B pool JSON; the pooled deltas and p-values are verifiable from the 2B pool files."
+    },
+    "eval_type": "simulation_only"
+  },
+  "claims": [
+    {"id": "abstract_ber_nmse_headline", "impact": "supported"},
+    {"id": "sec3_iter_convergence_mixed_frames", "impact": "supported"},
+    {"id": "sec3_support_recall", "impact": "supported"},
+    {"id": "sec3_headroom_decomposition", "impact": "supported"},
+    {"id": "sec4_classical_joint_data_detection_bottleneck", "impact": "supported"}
+  ],
+  "action_items_ranked": [
+    "DONE: Pulled F2-P output JSONs from remote: outputs_loop13_4B_retrain27k_snr25_eval_f2p/, outputs_loop12_{r3_official, matched_f2p_s20_30, seed2_s20_s25_s30}/, outputs_loop11_r1_f2p/",
+    "DONE: Quarantined CLAIMS_FROM_RESULTS.md to _tmp_rescue_20260424_stale_artifacts/",
+    "DONE: Added NOTE to eval_classical_joint_unrolled.py docstring + renamed output to outputs_loop13_4B_SMOKE_plain_c2rel_results.json",
+    "DONE: Wrote afdm_sp_joint_unrolled/REPRODUCTION.md with full script → CLI → JSON mapping (no in-paper footnotes per author preference)",
+    "OPEN (minor): Include loop9_cache_features.py in a future audit cycle to close support-recall A-check"
+  ],
+  "artifacts": {
+    "oracle_response": "oracle_io/experiment_audit/ORACLE_RESPONSE_V2.md",
+    "oracle_session_slug": "afdm-audit-v2",
+    "oracle_log": "oracle_io/experiment_audit/oracle_run_v2.log",
+    "prompt": "oracle_io/experiment_audit/AUDIT_PROMPT_V2.md"
+  }
+}

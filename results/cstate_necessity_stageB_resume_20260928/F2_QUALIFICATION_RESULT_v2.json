@@ -1,0 +1,59 @@
+{
+  "schema": "f2-synthetic-qualification-result/2",
+  "status": "pass_synthetic_only",
+  "qualification_sha256": "a8230a61024b9fb6ac36ad40f82aeae0c78edf156445eb8dd922376bebb4ba74",
+  "estimator_sha256": "f86321834db43dc860e39f63143cdecd66c17c2af37f8bee1413daf40124a432",
+  "receiver_handoff_sha256": "6abdec524e4e6ad3460956351c9ebdecbb694a22bd01a9273c1da44f05d16b44",
+  "test_sha256": "f1dc150c1e4c175befe768e71892fac9ea26564e437845a5a7642401dadf52b7",
+  "coded_handoff_test_sha256": "9dfa363538b586c464cfd013e32987c1d1b8443ba25c1c6bb6832cf4d61ba113",
+  "command": "/opt/anaconda3/bin/python experiments/cstate_necessity_stageB_resume_20260928/test_f2_estimator.py",
+  "elapsed_seconds_approximate": 0.84,
+  "real_observations_read": false,
+  "receiver_calls": 0,
+  "cases": {
+    "Q1": {
+      "status": "pass",
+      "action_error": 9.3980614766545e-14,
+      "adjoint_error": 1.714331643512557e-15,
+      "derivative_relative_error": 2.4368093040785122e-11
+    },
+    "Q2": {
+      "status": "pass",
+      "mean_relative_error": 0.002481551409409929,
+      "full_residual": 3.5773764784557867,
+      "gamp_residual": 3.576823958035168,
+      "variance_relative_error_report_only": 0.2638750438061449,
+      "full_support": [1, 0, 2, 3],
+      "gamp_support": [1, 0, 2, 3],
+      "gamp_iterations": 20
+    },
+    "Q3": {
+      "status": "pass",
+      "heff_relative_error": 0.013494002562596578,
+      "predictive_residual_relative_error": 0.003497315788045776,
+      "median_diagonal_variance_relative_error": 0.15750107789141274,
+      "support_symmetric_difference_report_only": [10, 12, 18, 23],
+      "full_passes": 2,
+      "gamp_passes": 2,
+      "full_cap_hits": {"gamp": 0, "em": 0, "data": true},
+      "gamp_cap_hits": {"gamp": 0, "em": 0, "data": true},
+      "synthetic_local_component_clock_snapshot_seconds": {
+        "full_total": 0.053964750026352704,
+        "gamp_total": 0.08826370898168534,
+        "gamp_matrix": 0.005462958128191531,
+        "gamp_posterior": 0.029325624695047736,
+        "gamp_grid": 0.04922466503921896,
+        "gamp_dense_h": 0.001401458983309567,
+        "gamp_lmmse": 0.0006735420320183039,
+        "gamp_other": 0.0021754601038992405
+      },
+      "synthetic_local_component_calls": {
+        "matrix": 29, "posterior": 29, "grid": 27,
+        "dense_h": 1, "lmmse": 1
+      }
+    },
+    "Q4": {"status": "pass", "analytic_shrink_error": 0.0, "ridge": 0.4},
+    "Q5": {"status": "pass", "path_count_in": 9, "path_count_out": 9,
+           "posterior_symbols": 32}
+  }
+}

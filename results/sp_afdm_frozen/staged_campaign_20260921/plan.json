@@ -1,0 +1,42 @@
+{
+  "schema": "sp-afdm-staged-plan-v1",
+  "frozen_markdown_sha256": "3517f4a6106a6f2b0d09836a7ddd5df9cedbbbb01c36c2c702d83bc4f58fff72",
+  "receiver_commit": "31d5ec0d",
+  "receiver_root_name": "sp_afdm_frozen_reviewed_20260921",
+  "phase": "development",
+  "phase_code": 1,
+  "source_scope": {"N": 1024, "rho": 0.5, "code_n": 2048, "code_k": 1024, "physical_paths": 8},
+  "stage1": {
+    "cells": [{"id": 1, "snr_db": 6}, {"id": 3, "snr_db": 8}],
+    "first_absolute_frame": 100000,
+    "frames_per_cell": 10,
+    "audit_absolute_frame": 100000,
+    "arms": [
+      "I1_BP12_r0", "I1_BP8_r1", "ABL_mean", "ABL_scalar", "P_M24_I20", "P_M16_I8",
+      "N_ep_2_r2", "N_ep_8_r2", "N_gamp_g1_i30_r2", "N_gamp_g4_i40_r3",
+      "S_SBL1", "N_bilinear_8_r1", "N_bilinear_8_r2"
+    ],
+    "max_receiver_calls": 260,
+    "timeout_seconds": 2400
+  },
+  "stage2": {
+    "first_absolute_frame": 200000,
+    "frames_per_cell": 32,
+    "audit_absolute_frame": 200000,
+    "max_cells": 2,
+    "max_arms": 5,
+    "max_receiver_calls": 320,
+    "timeout_seconds": 3600
+  },
+  "anchor": "I1_BP12_r0",
+  "stage1_deadline_reference": "I1_BP12_r0",
+  "stage2_anchor_candidates": ["I1_BP12_r0", "I1_BP8_r1"],
+  "proposed_candidates": ["ABL_mean", "ABL_scalar", "P_M24_I20", "P_M16_I8"],
+  "external_families": ["native_ep", "native_gamp", "shared_SBL", "native_bilinear"],
+  "deadline_multipliers": [1.0, 1.25, 1.5, 2.0],
+  "primary_deadline_multiplier": 1.5,
+  "heavy_cap_bytes": 536870912,
+  "ordinary_output_target_bytes": 104857600,
+  "stages_are_exploratory": true,
+  "confirmation_allowed": false
+}

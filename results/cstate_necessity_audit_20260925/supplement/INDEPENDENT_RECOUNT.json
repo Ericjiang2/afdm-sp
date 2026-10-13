@@ -1,0 +1,176 @@
+{
+  "schema": "cstate-input-binding-independent-recount/1",
+  "date": "2026-09-25",
+  "scope": "Two-stage independent audit. Stage 1 cross-checked the frozen 72-frame selection and original-input NPZ SHA references against the population seal/ledger; original input NPZ payloads were not copied. Stage 2 independently read and hash-checked the 72 saved pilot-only reconstruction NPZs; details are under saved_replay_recount.",
+  "result": "PASS: frozen input binding reconciles; the subsequent saved-replay recount independently verifies all 72 output NPZ hashes and the reported A2/A3 mechanics, with the recorded small A2 scalar delta.",
+  "cohort": {
+    "population": "final prospective 6.5 dB cell; exact prior Part A 40-trigger + first-32-success-control cohort",
+    "counts": {
+      "selection_rows": 72,
+      "unique_ids": 72,
+      "triggered": 40,
+      "rescues": 34,
+      "remaining_triggered_failures": 6,
+      "nontrigger_controls": 32
+    },
+    "IDs_sha256_sorted_newline_delimited": "5eea1bba26d306e3ebe62e7f944faed71fd01fb7d1bfcef151c179b00beb84a8",
+    "IDs_equal_prior_acquisition_lineage": true,
+    "outcome_rows_available_locally": 72,
+    "per_frame_observation_SHA_available": 72,
+    "per_frame_observation_hash_available": 72,
+    "ledger_rows_matched": 72,
+    "ledger_selection_mismatches": [],
+    "seal_entry_matches": 72,
+    "seal_entry_mismatches": []
+  },
+  "population_binding": {
+    "registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96",
+    "registration_commit": "1d7254f5e6627b8726f9c4806147c994077cf01f",
+    "manifest_sha256": "2ebacbc6309a1ee2b5b4bca142a698e81802259f3cb8f9733fdbd162b79c3dd1",
+    "ledger_sha256": "ac143ab18206e8cafec50e49e42ecbb5066a7d631e2d4c3ad703d70f582b11e6",
+    "observed_seal_sha256": "7e4dedf025ebab1f2589e1bf76948081815dcc411cf8b2f09422fc5b4291f324",
+    "seal_status": "pass",
+    "seal_observations": 3072,
+    "seal_file_entries": 3075,
+    "selection_manifest_ref_matches": true,
+    "selection_ledger_ref_matches": true,
+    "selection_seal_ref_matches": true,
+    "selection_outcome_csv_ref_matches": true,
+    "remote_population_root": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/tf_cstate_prospective_20260923/population_observed",
+    "remote_payload_relative_path_pattern": "observed/<observation_id>.npz",
+    "remote_payload_root_confirmed_by_manifest_argv": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/tf_cstate_prospective_20260923/population_observed",
+    "remote_payload_local_copy_count": 0,
+    "payload_sha_authority": "population_observed/observed_seal.json files[observation_path], cross-checked against selection72.json and ledger.jsonl",
+    "payload_bytes": "not locally available or independently measured in this metadata-only recount"
+  },
+  "local_binding_file_sha256": {
+    "manifest.json": {
+      "bytes": 4353,
+      "sha256": "2ebacbc6309a1ee2b5b4bca142a698e81802259f3cb8f9733fdbd162b79c3dd1"
+    },
+    "ledger.jsonl": {
+      "bytes": 1670910,
+      "sha256": "ac143ab18206e8cafec50e49e42ecbb5066a7d631e2d4c3ad703d70f582b11e6"
+    },
+    "observed_seal.json": {
+      "bytes": 304600,
+      "sha256": "7e4dedf025ebab1f2589e1bf76948081815dcc411cf8b2f09422fc5b4291f324"
+    },
+    "selection72.json": {
+      "bytes": 45696,
+      "sha256": "22d5bd19b13718e6c06bcc3e47e6f2a3911a6d1f35b4e193025dc9727f24d69c"
+    }
+  },
+  "interpretation_limits": [
+    "The seal binds the 72 source NPZ paths and byte hashes, but the NPZ files themselves are not in the local input_binding directory.",
+    "No acquisition replay, receiver/decoder call, or data regeneration was performed.",
+    "The historical 75-frame cohort remains a separate dataset; this binding applies only to the 72-frame final prospective cohort."
+  ],
+  "execution_boundary": {
+    "receiver_calls": 0,
+    "decoder_calls": 0,
+    "acquisition_replays": 0,
+    "new_observations": 0,
+    "independent_verifier_saved_replay_npz_reads": 72,
+    "independent_verifier_pilot_omp_calls": 0
+  },
+  "saved_replay_recount": {
+    "schema": "cstate-pilot-replay-independent-recount/1",
+    "scope": "Read-only validation of the already saved source-matched pilot-only OMP reconstruction. This verifier made no OMP/receiver/TF/decoder/generator/observation calls. The separate pre-call setup failure receipt is preserved unchanged.",
+    "result": "PASS. Recomputed A2 group-energy scalars show maximum relative delta 5.86e-8; exact group membership/ranks, top-eight delays, centers, and prior A5 delay parity all match.",
+    "events": {
+      "started": 72,
+      "complete": 72,
+      "unique_selection_ids": 72,
+      "started_and_complete_ids_equal_selection": true,
+      "input_sha256_selection_started_complete_match": true
+    },
+    "cohort_counts_from_stage_mechanics_csv": {
+      "trigger_rescue": 34,
+      "trigger_remaining": 6,
+      "success_control": 32
+    },
+    "bindings": {
+      "replay_manifest_sha256": "25e6ceaecf123003dbafc0d4c8b1d4ef2b5f7906b1720cac5b576357e36bcacd",
+      "replay_ledger_sha256": "2fd18fae51eadb3b7ed31e4bd8e2e027326b7036018afffb564c743ceebf8e17",
+      "selection72_sha256": "22d5bd19b13718e6c06bcc3e47e6f2a3911a6d1f35b4e193025dc9727f24d69c",
+      "source_script_path": "supplement/supplement_acquisition_replay.py",
+      "source_script_sha256": "19ef22fad97cd356724e03df9e913bf8ce3cf5b86f9665ce545825fc3f895cf5",
+      "registered_population_sha256": "7e4dedf025ebab1f2589e1bf76948081815dcc411cf8b2f09422fc5b4291f324",
+      "raw_npz_count": 72,
+      "raw_npz_all_match_complete_ledger_sha256": true,
+      "raw_npz_inventory_sha256_sorted_filename_nul_sha_newline": "9649707e714f6fd6e47bb5a8253d8077db13f5a32ce3cfa0f7e01b3666e02055",
+      "registration_sha256": "246b1a2f03fb1f8030f662123416384a9792720f369fff16d00aabe70622ea96"
+    },
+    "raw_npz_schema": "Loaded each file with numpy.load(allow_pickle=False): residuals complex64[(selected_count+1),1024]; coefficients_j complex64[j] for j=0..selected_count. All 72 NPZs match listed raw_sha256; each terminal coefficient vector equals final_gains_real/imag; residual norms agree with ledger.",
+    "recomputed_from_final_exported_gains": {
+      "selected_coarse_atoms": {
+        "count": 72,
+        "selected_count_each": 24
+      },
+      "A2_group_atom_members_and_energy_ranks_match_ledger": 72,
+      "A2_top_eight_ordered_delays_match_ledger": 72,
+      "A2_energy_scalar_max_absolute_delta": 3.265253734063833e-08,
+      "A2_energy_scalar_max_relative_delta": 5.8586477635993076e-08,
+      "A2_energy_scalar_bitwise_equal": false,
+      "A3_strongest_center_atoms_and_integer_dopplers_match_ledger": 72,
+      "replay_top_eight_delay_set_equals_sealed_prior_TF_A5_delay_set": 72,
+      "A2_energy_scalar_comparison_note": "Verifier used NumPy 2.1.3; replay manifest records NumPy 1.26.4. The cause of the observed small scalar delta was not isolated, so no causal attribution is made."
+    },
+    "author_csv_crosscheck": {
+      "stage_mechanics_rows": 72,
+      "stage_mechanics_sha256": "0de53287b2677cc6e621ddb70733bf86aa51d11935ffb0ff848140af3bb4a5cc",
+      "input_observation_hash_and_sha_join_matches_replay_and_prior_sealed_geometry": 72,
+      "stage_rows_selected_atoms_and_group_counts_match": 72,
+      "replacement_mechanics_rows": 76,
+      "replacement_mechanics_sha256": "e06c6d4a028d23f4e6d041f70b1ec27371ba2dfd643a6f78fc7426a1017fdb94",
+      "accepted_edit_categories": [
+        {
+          "category": "OMP-selected, discarded by top-eight grouping",
+          "all_edits": 13,
+          "edits_in_34_rescued_frames": 13,
+          "rescued_frames_with_category": 11
+        },
+        {
+          "category": "not selected by OMP",
+          "all_edits": 11,
+          "edits_in_34_rescued_frames": 9,
+          "rescued_frames_with_category": 9
+        },
+        {
+          "category": "OMP-selected and retained",
+          "all_edits": 52,
+          "edits_in_34_rescued_frames": 42,
+          "rescued_frames_with_category": 28
+        }
+      ],
+      "accepted_edits_that_insert_new_delay": 24,
+      "accepted_edits_that_introduce_same_delay_pair": 41,
+      "prior_sealed_geometry_sha256": "5f218bb3916284d5f8ab7d90106c97f72912c85f99d50e3d1754e66eaf26c85c",
+      "prior_geometry_input_hashes_match": 72
+    },
+    "separate_pre_call_failure_receipt": {
+      "path": "supplement/precall_failure_receipt.json",
+      "sha256": "88351132bf0a4e8988daa6c003b39d6c45ecdd4042862354afe791e4167605c9",
+      "acquisition_calls": 0,
+      "receiver_calls": 0,
+      "decoder_calls": 0,
+      "new_observations": 0,
+      "unchanged": true
+    },
+    "independent_verifier_calls": {
+      "pilot_OMP": 0,
+      "full_receiver": 0,
+      "TF": 0,
+      "decoder": 0,
+      "generator": 0,
+      "new_observations": 0,
+      "saved_replay_NPZs_read": 72
+    },
+    "limits": [
+      "The 72 calls recorded in replay_v1 are a source-matched pilot-only OMP reconstruction by the authorized run, not archived original intermediate OMP traces.",
+      "The historical 75-frame cohort is separate and was not included in this recount.",
+      "A2 energy values were recomputed from exported final gains; bitwise equality is not claimed, and the cause of the observed small scalar delta was not isolated."
+    ]
+  }
+}

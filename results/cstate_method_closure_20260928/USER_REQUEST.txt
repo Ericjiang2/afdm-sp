@@ -1,0 +1,522 @@
+We are now closing the scientific-method stage of the coded SP-AFDM project.
+
+A senior research reassessment has just concluded that we should NOT add another receiver module or invent a broader general theory.
+
+The current paper should be centered on:
+
+1. an AFDM/CPP-specific structured coded receiver;
+2. the acquisition–continuation reliability/computation tradeoff;
+3. an exact analysis of when the scalar contraction used by the inference kernel is compatible with the geometry/covariance family actually reached by the receiver.
+
+Two things remain unfinished:
+
+A. verify and formalize the new closure-compatibility theory proposed in the research reassessment;
+B. finish the already-identified strong-front-end / published-estimator comparison that Stage B previously stopped before completing.
+
+Do not search for a new method.
+Do not modify TF or CSTATE.
+Do not reopen CGR.
+Do not create another contribution merely to enlarge the paper.
+
+The desired endpoint is:
+
+    theory closed
+    +
+    strongest practical baseline comparison closed
+    +
+    one final manuscript-scope decision.
+
+======================================================================
+PART I — VERIFY THE NEW CLOSURE-COMPATIBILITY THEORY
+======================================================================
+
+The research reassessment proposes the following extension of the already audited identity
+
+    Gamma_ij(V) = tr(U_i^H U_j V).
+
+For unitary path operators U_1,...,U_P, consider the scalar identity closure
+
+    Gamma_theta(V) = tr(V) I.
+
+The proposed claim is:
+
+For a covariance family V_family, this closure is exact for every
+V in V_family iff
+
+    tr(U_i^H U_j V) = 0
+
+for every i != j and every V in V_family.
+
+Three proposed specializations are:
+
+1. For all isotropic V = v I:
+
+       tr(U_i^H U_j) = 0.
+
+2. For all diagonal V = diag(v) in a specified coordinate system:
+
+       diag(U_i^H U_j) = 0.
+
+3. For all positive-semidefinite V:
+
+       U_i^H U_j = 0.
+
+Because U_i^H U_j is unitary for two distinct unitary path operators,
+the third condition cannot hold for two or more paths.
+
+The reassessment also proposes that for a same-delay doublet,
+
+    R = [[1, rho],
+         [rho*, 1]]
+
+with
+
+    r = |rho| = |D_N(nu_2 - nu_1)|,
+
+the eigenvalues are
+
+    1-r, 1+r,
+
+hence
+
+    ||R-I||_2 = r
+
+and
+
+    min_c ||R-cI||_2 = r.
+
+Therefore no scalar retuning cI can uniformly reproduce both eigendirections.
+
+Finally, for fixed noninteger Doppler-bin separation delta, verify the claimed asymptotic form of D_N(delta), including the exact phase/sign convention of the frozen AFDM operator.
+
+Your job:
+
+1. independently derive every statement;
+2. identify any missing assumptions;
+3. correct any false iff statement, coordinate dependence, Hermitian/complex subtlety, or asymptotic phase/sign issue;
+4. connect it exactly to the already verified project identities;
+5. state the strongest safe proposition that should appear in the manuscript.
+
+Important:
+
+- distinguish “all diagonal covariance matrices in this AF coordinate system” from arbitrary covariance representations;
+- distinguish arbitrary Hermitian/PSD V from arbitrary complex matrices;
+- do not infer FER consequences;
+- do not call this a new AMP theorem;
+- do not claim that the pre-CSTATE receiver is fully exact under its actual nonuniform covariance;
+- retain the earlier result that unique-delay geometry removes the equal-delay Gram-coherence component but cross-delay Gamma terms may remain under actual AF-diagonal V.
+
+Numerically verify the proposition with finite-dimensional tests using the frozen AFDM/CPP operators.
+
+No production receiver calls are needed for Part I.
+
+Produce:
+
+    CLOSURE_COMPATIBILITY_THEORY.md
+    CLOSURE_COMPATIBILITY_PROOF.md
+    CLOSURE_COMPATIBILITY_TESTS.json
+    MANUSCRIPT_THEOREM_TEXT.md
+
+The final theorem text should be compact enough for a Transactions paper and should explicitly separate:
+
+    operator geometry,
+    covariance family,
+    scalar closure.
+
+======================================================================
+PART II — RESOLVE THE F1-FAST EQUIVALENCE STOP
+======================================================================
+
+The previous Stage-B attempt stopped correctly because the optimized F1 implementation had not proved full equivalence to the frozen F1 algorithm.
+
+The reported first real-population defect was:
+
+    frame 197:
+    coordinate_scores 995 -> 1002
+
+while path choices, final bits and continuous values still matched within tolerance.
+
+Do not loosen tolerances merely to pass.
+
+Determine exactly why the search-count trajectory differs.
+
+Classify the source as one of:
+
+- evaluation-order difference;
+- floating-point tie/tolerance behavior;
+- cache/vectorization ordering;
+- duplicate-rule timing;
+- stopping-condition implementation;
+- hidden algorithmic change;
+- other.
+
+Then restore the optimized implementation so that it respects the original frozen search/numerical contract.
+
+If the frozen contract itself unnecessarily specifies implementation-order artifacts rather than algorithm semantics, do NOT silently redefine it.
+
+Instead produce a short adjudication:
+
+    what is algorithmically invariant?
+    what was accidentally frozen as implementation detail?
+    can an optimized implementation be fairly called the same algorithm?
+
+If a principled semantics-equivalent contract can be justified without outcome tuning, write it explicitly and freeze it before rerunning population timing.
+
+Do not use FER results to decide the contract.
+
+Once equivalence is properly resolved, measure:
+
+    F0 acquisition
+    F1-reference acquisition
+    F1-fast acquisition
+
+under one common timing environment.
+
+Also measure complete:
+
+    F0+TF+CSTATE
+    F1-fast+TF
+
+if F1-fast is admitted.
+
+The purpose is to answer:
+
+> Was the previous 4.54x acquisition-time penalty mostly Python/reference overhead or mostly intrinsic to the stronger physical search/refinement?
+
+Produce:
+
+    F1_EQUIVALENCE_ADJUDICATION.md
+    F1_FAST_EQUIVALENCE_RECEIPT.json
+    F1_FAST_PROFILE.md
+    F1_FAST_TIMING.csv
+
+======================================================================
+PART III — CORRECTED F2 SPECIFICATION
+======================================================================
+
+The previous attempt found literal Gaussian/complex-algebra inconsistencies or apparent printing errors in the published D-GESBL / D-GAMP-GESBL equations.
+
+You are now explicitly authorized to construct a mathematically corrected project adaptation, but only under the following rule:
+
+> Every correction must be derived, documented, and frozen before any receiver-performance run.
+
+Use the original paper and any official supplementary/code material available.
+
+For every corrected equation, record:
+
+- printed equation;
+- inconsistency;
+- mathematical derivation;
+- corrected equation;
+- whether the correction is uniquely determined or one of several plausible interpretations;
+- consequence for implementation.
+
+If a correction is not uniquely determined, STOP that branch rather than choosing the version that performs best.
+
+Then specify the project adaptation for:
+
+- coded SISO SP-AFDM;
+- integer sample delays;
+- fractional Doppler;
+- same pilot/data observation;
+- same CPP;
+- same downstream code/decoder.
+
+Do not import multi-antenna advantages.
+
+Do not silently round a fractional-delay estimator into an integer-delay model.
+
+Do not force F2 through F0's unique-delay grouping.
+
+Freeze:
+
+- measurement model;
+- grid initialization;
+- grid evolution;
+- support/model-order policy;
+- hyperparameter initialization/update;
+- GAMP schedule;
+- stopping rules;
+- hard/soft data-feedback policy;
+- decoder-information access;
+- numerical floors/damping;
+- maximum iterations.
+
+Call this a corrected project adaptation, not an exact reproduction, unless exact reproduction is genuinely established.
+
+Produce:
+
+    F2_CORRECTION_LEDGER.md
+    F2_CORRECTED_EQUATIONS.md
+    F2_PROJECT_SPECIALIZATION.md
+    F2_EQUATION_TO_SOURCE_MAP.md
+
+======================================================================
+PART IV — SMALL-REFERENCE QUALIFICATION
+======================================================================
+
+Before full receiver use, verify the corrected F2 implementation.
+
+Use small deterministic fixtures where full posterior / dense GESBL computation is feasible.
+
+Check:
+
+- single path;
+- multiple paths;
+- integer Doppler;
+- fractional Doppler;
+- same-delay multiple Dopplers where legal;
+- pilot-only stage;
+- one data-aided update;
+- support activation/deactivation;
+- grid evolution;
+- hyperparameter updates;
+- GAMP means;
+- GAMP variances;
+- stopping behavior.
+
+The previous result
+
+    mean relative mean error ~8.49e-16
+    diagonal variance error ~0.0363
+
+was NOT sufficient evidence of complete D-GESBL vs D-GAMP-GESBL equivalence.
+
+Determine whether the variance difference is:
+
+- expected GAMP approximation;
+- an implementation defect;
+- an equation-correction issue;
+- or unresolved.
+
+Do not require GAMP to be numerically identical to the dense posterior if the published algorithm itself is approximate.
+
+Instead verify that the implementation matches the corrected declared algorithm.
+
+Produce:
+
+    F2_UNIT_TESTS.md
+    F2_UNIT_TESTS.json
+    F2_SMALL_REFERENCE_QUALIFICATION.md
+
+Only proceed to Part V if the implementation is scientifically admissible.
+
+======================================================================
+PART V — FINISH THE DEVELOPMENTAL PRACTICAL COMPARISON
+======================================================================
+
+Use the existing paired 6.5-dB 1,024-frame DEVELOPMENT population.
+
+No new Monte Carlo observations.
+
+Do not call the result fresh confirmation.
+
+The main comparator is the current established operating point:
+
+    B = F0 + TF + CSTATE.
+
+Evaluate the strongest admitted practical challengers.
+
+At minimum:
+
+1. F1-fast + TF
+   if F1-fast passed the equivalence/adjudication gate.
+
+2. F2-EARLY + TF
+
+   Use the corrected data-aided/grid-evolution policy before the final receiver decision.
+
+   All work required to obtain data estimates or decoder feedback must be charged.
+
+3. F2-EARLY + TF + LOCAL
+
+   when F2-EARLY still triggers failure.
+
+4. F2-EARLY + TF + CSTATE
+
+   only if the geometry/interface is meaningful and CSTATE can be applied without destroying F2's representation.
+
+5. TRIGGERED-F2
+
+       F0 + TF
+           -> nonzero syndrome
+           -> corrected F2 geometry update
+           -> same bounded continuation budget used for the CSTATE comparison.
+
+This triggered arm is crucial.
+
+It tests:
+
+> Is CSTATE specifically valuable, or is syndrome-triggered geometry correction generally valuable?
+
+For the original F0-triggered frames, compare:
+
+    LOCAL
+    CSTATE
+    triggered-F2
+
+under equal legal information access and clearly accounted continuation work.
+
+======================================================================
+PART VI — METRICS
+======================================================================
+
+For every full-population arm report:
+
+- information-word FER;
+- coded BER;
+- paired rescues/harms;
+- syndrome counts;
+- valid-but-wrong outputs;
+- numerical failures.
+
+Report complete latency:
+
+- mean;
+- median;
+- p95;
+- p99;
+- max.
+
+Report components:
+
+- acquisition / estimation;
+- grid evolution / geometry update;
+- TF;
+- decoder;
+- branch;
+- serialization/checkpoint overhead where applicable.
+
+Report:
+
+- 0.5 s deadline decision;
+- 1.0 s deadline decision;
+
+using the same durable-checkpoint semantics as Stage A.
+
+For triggered policies, report both:
+
+    population-average branch cost
+    and
+    triggered-frame conditional branch cost.
+
+Use symmetric instrumentation.
+
+Do not compare a new kernel timer to an old complete-wrapper timer.
+
+======================================================================
+PART VII — FINAL SCIENTIFIC ADJUDICATION
+======================================================================
+
+After all admitted comparisons are frozen, answer the following.
+
+Q1.
+Does an efficiently implemented F1 now match or dominate F0+TF+CSTATE?
+
+Q2.
+Does early corrected D-GAMP-GESBL / GESBL adaptation match or dominate it?
+
+Q3.
+Does triggered F2 match CSTATE on the same F0 failures at comparable or lower complete cost?
+
+Q4.
+After a strong front end, does CSTATE provide a material increment beyond matched LOCAL continuation?
+
+Q5.
+What is the actual reliability–cost frontier among the tested receivers?
+
+Issue one final systems verdict:
+
+KILL:
+    a stronger practical receiver dominates the current proposed operating point.
+
+SCOPED:
+    the F0+CSTATE receiver remains a valid implementation result,
+    but stronger estimation or triggered alternatives remove any broad CSTATE-specific advantage.
+
+ECONOMICAL-DEFERRED:
+    stronger early estimation can achieve similar reliability,
+    but only at materially greater complete cost,
+    while triggered alternatives do not match CSTATE's risk–cost point.
+
+COMPLEMENTARY:
+    stronger acquisition materially improves F0,
+    yet CSTATE still adds a meaningful benefit beyond LOCAL at worthwhile cost.
+
+UNRESOLVED:
+    only if a concrete remaining scientific/implementation defect prevents adjudication.
+
+Do not protect CSTATE.
+
+Do not treat lack of statistical significance as equivalence.
+
+Do not convert this developmental population into a confirmatory claim.
+
+======================================================================
+PART VIII — MANUSCRIPT CONSEQUENCES
+======================================================================
+
+Based on the final evidence, produce one short file:
+
+    MANUSCRIPT_SCOPE_DECISION.md
+
+It should state exactly which claims survive.
+
+The intended high-level paper framing, if supported, is:
+
+> A structured coded SP-AFDM receiver whose physical representation,
+> approximate inference, and continuation strategy are evaluated jointly
+> under complete computational cost, together with an exact
+> geometry/covariance compatibility analysis of one scalar contraction.
+
+Do NOT claim:
+
+- a new general value-of-computation theory;
+- that syndrome diagnoses physical-model error;
+- that global reopening is universally necessary;
+- that scalar closure discrepancy implies FER degradation;
+- that the receiver is globally optimal.
+
+State whether the stronger-front-end challenge belongs in the main paper.
+It probably should unless the final evidence falsifies that interpretation.
+
+======================================================================
+PART IX — STOP RULE
+======================================================================
+
+After this task:
+
+Do NOT invent another method.
+
+If the practical comparison is closed and the theory is verified, methodological search is over.
+
+Recommend only one of:
+
+1. proceed to one fresh confirmatory campaign with the strongest frozen competitors;
+2. rewrite/scoped paper without fresh CSTATE-necessity claim;
+3. stop the current algorithmic story because it is dominated.
+
+No fourth option involving another patch should be proposed unless a genuine correctness defect is discovered.
+
+======================================================================
+FINAL RESPONSE
+======================================================================
+
+Return a compact closure packet containing:
+
+1. closure-compatibility theorem verdict;
+2. corrected theorem/proof statement;
+3. F1 Python-overhead verdict;
+4. admitted optimized F1 timing;
+5. F2 correction/adaptation verdict;
+6. F2 small-reference qualification;
+7. F2-EARLY results;
+8. triggered-F2 versus CSTATE;
+9. CSTATE-after-strong-front-end versus LOCAL;
+10. final reliability–cost frontier;
+11. final systems verdict;
+12. exact manuscript claims that survive;
+13. whether a fresh confirmation campaign is justified;
+14. repository artifact paths and hashes.
+
+The purpose is to close the question, not reopen the research tree.

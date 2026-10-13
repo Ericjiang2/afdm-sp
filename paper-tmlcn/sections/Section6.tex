@@ -1,0 +1,155 @@
+\section{Discussion and Conclusion}
+\label{sec:discussion}
+
+\subsection{Mechanism of the learned head's high-SNR contribution}
+\label{ssec:disc_head}
+
+The role of the learned head is to recover Dirichlet-leakage atoms that
+OMP's greedy selection discards and that the prune-by-gain rule then
+fails to flag. Under~\eqref{eq:dirichlet}, each path produces a
+main-lobe atom at the nearest integer Doppler bin and two side-lobes
+at $\pm 1$ Doppler offsets carrying $5$--$20\%$ of main-lobe energy
+depending on the fractional residual. OMP always picks the main lobe,
+but picks a side-lobe only when the side-lobe matched-filter response
+beats every other unselected atom --- a function of both main-lobe
+amplitude and noise realisation. At low SNR the noise dominates the
+selection and the side-lobe is drowned; at high SNR the noise
+background falls below the side-lobe amplitudes and the side-lobes
+appear at \emph{predictable} integer offsets from active atoms, which
+is exactly the pair-feature $\mathbf{v}_{i,s}$ of \eqref{eq:pairfeature}.
+The $-37.7\%/-40.2\%/-37.6\%$ pooled paired-BER reductions at
+$\snr\in\{20,25,30\}$~dB are therefore not a generic noise-averaging
+effect but the signature of a Dirichlet side-lobe support-repair
+mechanism that becomes exploitable once the structural predictability
+of the side-lobes rises above the residual noise floor. The
+attribution of Table~\ref{tab:attribution} (\S\ref{ssec:exp_attribution})
+makes this measurable: $>99\%$ of head-added atoms land on
+Dirichlet side-lobes / virtual taps.
+
+\subsection{Loss-form and head-capacity ablations}
+\label{ssec:disc_lossform}
+Two ablations rule out the train-deploy objective gap and a
+head-capacity bottleneck. (i) Five support-refinement-head retrainings under a
+ListNet-style listwise cross-entropy produce pixel-identical bit
+decisions on a shared evaluation cache at $\snr=20$~dB (64 bit errors /
+204\,800 bits per seed); the fixed-budget selector reads only the rank order,
+so training-time stochasticity does not propagate to deployment.
+(ii) Widening pair-MLP and scorer from 16 to 64 takes the head from
+1\,041 to 13\,377 parameters ($12.8\times$) and fits BCE
+$\approx 1.9\times$ more tightly but yields a non-significant $-5.1\%$
+paired reduction at $\snr=20$~dB (McNemar $p=0.34$). Neither
+loss-form nor capacity changes the residual BER above the
+physical-support oracle floor materially; further improvement requires
+an architectural change (non-rank deployment selector), not a training
+change.
+
+\subsection{Justification of the 4\,B operating point}
+\label{ssec:disc_oversampling}
+The $\fs=4B$ operating point is non-standard for AFDM literature
+(Bemani 2023~\cite{bemani2023afdm} uses $\fs=B$; most OTFS/AFDM-UWA
+papers use $\fs=2B$ Nyquist). The sensitivity test
+(\S\ref{ssec:exp_fs}) confirms that $2B$ is $2.4\times$ \emph{worse}
+than $4B$ for end-to-end neural receivers under matched hyperparameters,
+because $4B$ reduces $k_{\max}$ from 4 to 2 (finer integer Doppler grid,
+smaller residual fractional offset, tighter Dirichlet side-lobe energy),
+even though $l_{\max}$ doubles and the total dictionary $Q$ grows from
+720 to 800. The $4B$ oversampling is therefore not a post hoc
+artefact but a defensible design choice for suppressing Doppler ambiguity,
+consistent with the oversampled AFDM channel estimator of
+Ma~\emph{et al.}~\cite{ma2024oversampledafdm}.
+
+\subsection{Position vs.\ prior AFDM and UWA work}
+\label{ssec:disc_priorart}
+
+Table~\ref{tab:priorart} consolidates the design provenance. The
+present receiver inherits the sparse-recovery channel-estimation
+skeleton from~\cite{benzine2023sparseafdm}, the iterative joint
+estimation--detection structure from~\cite{qing2024spafdm,zhao2024gifreeafdm},
+the fractional-Doppler Dirichlet expansion from~\cite{yin2024drceafdm},
+the $4B$ operating point from~\cite{ma2024oversampledafdm}, the MSML
+treatment (first-order) from~\cite{zhou2024msmlafdm}, and the
+deep-unfolding template from~\cite{monga2021unrolling,gregor2010lista,borgerding2017amp}.
+The 16-pilot reproduction of the SP-AFDM receiver
+of~\cite{qing2024spafdm} at its native operating point
+matches the published Fig.~3 curve to $\pm 0.2$ log-decade at $4/6$ SNR
+cells on a 1\,000-frame budget (Appendix~\ref{app:cao_baseline}). A
+direct head-to-head BER comparison is precluded by Zheng's pilot-feasibility
+constraint $M(Q{+}1)<\Nsub{-}Q$, structurally incompatible with our
+$Q\approx\Nsub/3$ at $\Nsub\geq 1024$.
+
+\begin{table}[t]
+\centering
+\caption{Structural comparison. SP=superimposed pilots, EP=embedded,
+MSML=multi-scale multi-lag, ``stat.\ disc.''=paired-seed significance
+testing. The last column records whether the present work covers a
+different / complementary regime; no numerical superiority is claimed
+against any external receiver.}
+\label{tab:priorart}
+\footnotesize
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lllllll}
+\toprule
+Work & Waveform & Pilot & Channel & Iter./learned & Stat. & vs.\ this work \\
+\midrule
+\cite{bemani2023afdm} & AFDM & EP & 2-path, integer Doppler & No/no & no & diff.\ axis \\
+\cite{benzine2023sparseafdm} & AFDM & EP & Sparse DD & OMP/no & no & diff.\ axis \\
+\cite{qing2024spafdm} & AFDM & SP & Sparse DD & Iter./no & no & complementary; Fig 3 reproduced \\
+\cite{zhao2024gifreeafdm} & AFDM & GI-free & Sparse DD & Iter.\ IC/no & no & complementary \\
+\cite{yin2024drceafdm} & MIMO-AFDM & Pilot & Frac.\ Doppler & Diag.\ recon./no & no & complementary \\
+\cite{ma2024oversampledafdm} & Oversampled AFDM & Pilot & Sparse DD & Iter./no & no & complementary; phys.\ motivation \\
+\cite{zhou2024msmlafdm} & AFDM & Pilot & MSML & AFDM-OMP/no & no & stricter physics \\
+\cite{afdm2025jointcesd} & AFDM & GI-free & Sparse DD & GI-iter.\ or DNN & no & diff.\ axis (no SP, no UWA) \\
+\textbf{This} & AFDM & \textbf{SP} & \textbf{Sparse DD + 1st-MSML} & \textbf{OMP-once + LS/MP-BP + learned} & \textbf{yes} & --- \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection{Limitations}
+\label{ssec:limitations}
+
+Five limitations delimit the design statement. (i) The learned head is
+deployed as a single trained model; the 3-train-seed envelope at
+the $\fs=4B$ hard-decision deployment point on a $3{\times}3$ grid gives
+$-5.17\%\pm 0.57$~pp at $\snr=20$~dB, transferred to the headline
+recipe by the rank-invariance bridge (\S\ref{ssec:multiseed}). A
+strictly empirical $2B+\text{soft}$ retraining envelope is the obvious
+follow-up. (ii) Complexity accounting is in per-frame MAC; embedded
+latency, memory-hierarchy, and energy on DSP/FPGA are out of scope.
+(iii) The simulator is block-fading with first-order MSML; full
+broadband per-path waveform resampling and per-frame Doppler jitter
+(\cite{zhou2024msmlafdm}) are not modelled. (iv) Head-to-head reproduction
+of~\cite{qing2024spafdm} under matched channel statistics is precluded by
+the pilot-feasibility constraint $M(Q{+}1)<\Nsub{-}Q$.
+(v) Scope is fixed at single-antenna, QPSK, $\rhop=0.5$,
+$v_{\max}=3$~m/s; MIMO, higher-order QAM, $\rhop$ sweep, and
+high-velocity (>5~m/s) extensions are natural follow-ups.
+
+\subsection{Conclusion}
+\label{sec:conclusion}
+
+This paper develops an SP-AFDM joint receiver as a controlled instance
+in which the three central methodological gaps in existing
+learned receivers can be closed simultaneously: initialization-faithful
+unrolling (Claim~\ref{thm:initfaithful}), DA-LS-inclusive
+complexity accounting (\S\ref{ssec:complexity_results}), and same-budget
+classical heuristic comparison (\S\ref{ssec:exp_omppk}). On the
+methodology side, a 1\,041-parameter learned support-refinement head
+inserted between the single OMP pass and the iterative LS/MP-BP loop
+delivers a consistent $-37.7\%/-40.2\%/-37.6\%$ paired BER reduction
+at $\snr\in\{20,25,30\}$~dB under continuity-corrected paired McNemar
+($p<10^{-6}$), at $\approx 8\%$ analytical MAC overhead and measured GPU
+wall-clock parity. On the mechanism side, the population-level
+per-candidate attribution shows $>99\%$ of head additions land on
+Dirichlet side-lobes / virtual taps of active physical paths, and the
+top-$\Ppath$ physical-support oracle confirms that the learned head
+closes $61\%/81\%/98\%$ of the available BER reduction ceiling.
+
+Four directions sharpen the contribution: (a) a strict
+$2B+\text{soft}$ retraining-seed envelope to confirm the rank-invariance
+bridge empirically; (b) a head-to-head reproduction of~\cite{qing2024spafdm}
+at a downscaled operating point; (c) a full broadband-MSML simulator
+extension following~\cite{zhou2024msmlafdm}; and (d) an
+engineering-deployability study measuring runtime, memory, and energy
+on a reference embedded target. None of the four invalidates the
+methodology statement of the present paper; they extend its scope.

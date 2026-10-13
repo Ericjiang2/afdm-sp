@@ -1,0 +1,9 @@
+# 四臂完整CPU成本工程报价
+
+前置：execution-count-engineering-v1和composition-engineering-v1均16F完成、raw PASS。组合工程1980数组、114CE、42内部回放、10终端LDPC核验；硬输出精确、最大连续相对误差7.111860544917192e-10，早停对自身完整链前缀及重复精确。工程源码dda768131432c43757e5a67034008a311d23f4b16e127aee47770d60ae2ae155；组合summary 53b23ff9deb72ad0ae95d4cd9f1fd33d581226bc01c2e0b8c3c9ff70273b23a9，raw 7e1e44e382e126750df5e289ec65bb84f0f4f38242e7e8f85bebcada1fb8e359。
+
+报价复用trans_next_cpu_cost_quote，新schema trans-cpu-cost-factorial-v1。DENSE、INTEGER、DENSE_QPSK、INTEGER_QPSK都保留终端码先验并使用普通早停。8个既有开发块×7/8dB×2次计时×4臂=128F，另8F预热；所有F后独立预约136D回放。每SNR每臂在4种位置各出现4次。136F/136D、600秒、8GiB、单CPU线程；全程共享接收机，单独报告构造和RSS；仅run_arm计时，序列化、评分、比较和回放在外。每格16次计时只有8个独立外生块。
+
+全部与已审计retained STOP比较：硬值精确、普通臂全部连续值精确、QPSK臂连续值rtol1e-5/atol1e-6；实际CE/BP/LDPC计数与原始审计相等。57项真实CPU测试通过，1.508秒，完整源码清单087b4c81c6817785562e8b05d20c48873611a6b0f0f0433c536a23b363aea766。旧68F来源和失败记录保持原样。
+
+判读：报告两因素各自、条件增量与组合完整成本，禁止用不同报价批次耗时相减。工程报价不算正式COST或独立确认；普通稀疏表示和QPSK恒等式不自动构成新颖贡献。

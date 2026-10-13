@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "<stdin>", line 12, in <module>
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/test_supplement_feedback.py", line 24, in run
+    outer=self.model(tensor(observed['y']),tensor(observed['pilot']),torch.tensor(observed['sigma2'],dtype=torch.float64),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/afdm-supplement-validation-20260909/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/afdm-supplement-validation-20260909/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<stdin>", line 11, in <lambda>
+  File "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/classical_joint_unrolled.py", line 2027, in forward
+    p = dals_payload['probabilities']
+        ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'probabilities'
+{"status": "reproduced", "N": 16, "error": "'probabilities'", "scope": "real tiny outer CE/BP integration, not development FER", "controller_stages": ["detector_consume", "decoder", "CE_consume"]}

@@ -1,0 +1,80 @@
+{
+  "diagnostic": {
+    "archived_exact_discrete_and_counter_flags": [
+      {
+        "attempt": 1,
+        "exact": true,
+        "mode": "reference"
+      },
+      {
+        "attempt": 2,
+        "exact": false,
+        "mode": "fast"
+      },
+      {
+        "attempt": 3,
+        "exact": true,
+        "mode": "reference"
+      },
+      {
+        "attempt": 4,
+        "exact": false,
+        "mode": "fast"
+      }
+    ],
+    "attempt_count": 4,
+    "coordinate_scores_by_outcome": [
+      995,
+      995,
+      995,
+      995
+    ],
+    "declared_calls": 4,
+    "declared_decoder_calls": 0,
+    "declared_full_receiver_calls": 0,
+    "declared_truth_reads": 0,
+    "first_differences": {
+      "fast_self": null,
+      "reference_self": null,
+      "reference_vs_fast_first": null,
+      "reference_vs_fast_second": null
+    },
+    "interpretation": "All four instrumented branch executions report 995 coordinate scores and the diagnostic receipt records null first-difference fields. This does not reproduce the original 1002 count within this instrumented single-frame condition; it does not overturn the original invalid_partial run or establish matched-cohort equivalence. The fast outcomes still report archived exact-discrete/counter comparison false.",
+    "mode_order": [
+      "reference",
+      "fast",
+      "reference",
+      "fast"
+    ],
+    "observation_id": "s650_f0197",
+    "same_observation_and_input_sha_all_attempts": true
+  },
+  "limits": {
+    "decoder_run": false,
+    "full_reader_run": false,
+    "original_invalid_partial_reversed": false,
+    "raw_npz_opened": false,
+    "receiver_run": false,
+    "truth_opened": false
+  },
+  "result": "PASS_DIAGNOSTIC_METADATA_ONLY",
+  "schema": "stage-b-f1-f197-diagnostic-recount/1",
+  "scope": "Read-only metadata and diagnostic trace receipt check for the instrumented single-frame f197 run. No receiver/decoder/truth execution or access.",
+  "source_files": {
+    "attempts.jsonl": {
+      "bytes": 743,
+      "md5": "d4696fe3c04d06d37d6264725deac9ef",
+      "sha256": "13ec89259bfb041c9adef9ae5ac4bafae4cffafbc6952b5cb0dca1d0bf5f9cfd"
+    },
+    "receipt.json": {
+      "bytes": 19451,
+      "md5": "b8a86bd298369a6ed151bc0ba05d7247",
+      "sha256": "b5fbbe8ec077674782b5192ffc6e1712b30b0060fb9a4d2dd2b3bd52bbcf1b5f"
+    },
+    "traces.json": {
+      "bytes": 1049957,
+      "md5": "b052ffc413a35c39f149bdfe358abc46",
+      "sha256": "73de1c9b598331392d7900f0ebe99926dac9dee2aa98397d30d93496825c3ccb"
+    }
+  }
+}

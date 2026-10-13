@@ -1,0 +1,283 @@
+\section{System Model and Differentiable Unrolling}
+\label{sec:method}
+
+This section establishes the AFDM-SP system model
+(\S\ref{ssec:daft}--\S\ref{ssec:sp}), the OMP dictionary on which the
+proposed receiver acts (\S\ref{ssec:dictionary}), the classical OMP-once
++ iterative LS/MP-BP joint receiver (\S\ref{ssec:joint}), the
+differentiable unrolling and its initialization-faithful validation
+(\S\ref{ssec:unrolling}), and the learned support-refinement head
+(\S\ref{ssec:c2rel}).
+
+\subsection{AFDM signal model and the DAFT}
+\label{ssec:daft}
+
+AFDM transmits along $\Nsub$ discrete chirp basis functions parameterised
+by $(c_1,c_2)$. Given chirp-domain coefficients $\mbx\in\C^{\Nsub}$, the
+time-domain waveform is the inverse discrete affine Fourier transform
+(IDAFT)
+\begin{equation}
+s[n] = \frac{1}{\sqrt{\Nsub}}\sum_{m=0}^{\Nsub-1} x[m]\,
+       e^{j2\pi(c_1 n^2 + mn/\Nsub + c_2 m^2)},
+\label{eq:idaft}
+\end{equation}
+$n=0,\dots,\Nsub-1$. The forward DAFT inverts \eqref{eq:idaft} and the
+chirp-domain received vector $\mby\in\C^{\Nsub}$ obeys
+$\mby = \Heff\,\mbx + \mbn$ with $\mbn\sim\mathcal{CN}(0,\sigma_n^2 I)$,
+where $(c_1,c_2)$ can be chosen so that each physical path produces a
+compact pattern in $\Heff$~\cite{bemani2023afdm}, which makes
+OMP-type recovery effective.
+
+\subsection{Doubly-dispersive channel and Dirichlet expansion}
+\label{ssec:channel}
+
+The simulator models $\Ppath=8$ paths with delay spread
+$\tau_{\text{spread}}=10$~ms (exponential PDP, $\tau_{\text{mean}}=0.8$~ms)
+and per-path velocity $v\sim\mathcal{N}(2,0.5^2)$~m/s. MSML scaling is
+captured to first order via per-path scaling factors $a_p=v_p/c$ giving a
+delay rescaling $\tau_p\mapsto\tau_p/(1+a_p)$ and a constant per-path
+Doppler shift $f_{D,p}=a_p\fc$. Carrier $\fc=12$~kHz, bandwidth $B=4$~kHz,
+sampling $\fs=4B$. Each path is mapped to the integer
+$(l_p,k_p)$-lattice with $l_p=\mathrm{round}(\tau_p\fs)$ and
+$k_p^{\text{real}}=v_p\fc\Nsub/(c\fs)$; the residual fractional Doppler
+is absorbed via a Dirichlet (aliased-sinc) expansion of half-width
+$\kleak=2$, so each path is decomposed into $2\kleak{+}1=5$ virtual
+integer-bin taps with
+\begin{equation}
+|\tilde{h}_{p,j}|=|h_p|\!\cdot\!\left|\tfrac{\sin(\pi(k_p^{\text{real}}-k_p-j))}{\Nsub\sin(\pi(k_p^{\text{real}}-k_p-j)/\Nsub)}\right|.
+\label{eq:dirichlet}
+\end{equation}
+At the worst-case residual $|k_p^{\text{real}}-k_p|=0.5$, two integer
+bins carry $\approx 41\%$ of per-path energy each; the next-nearest
+carry $\approx 4.4\%$; the truncated tail beyond $|\delta|>\kleak$ is
+$\approx 8.3\%$. With $\Ppath=8$ and $\kleak=2$, the effective
+virtual-tap count averages $\preal\approx 28$ per frame
+(Fig.~\ref{fig:dirichlet}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.75\linewidth]{system_block/fig_dirichlet_kernel.pdf}
+\caption{Dirichlet-kernel magnitude
+$|D(\delta)|=|\sin(\pi\delta)/(\Nsub\sin(\pi\delta/\Nsub))|$ from
+\eqref{eq:dirichlet} at $\Nsub=1024$. Integer-aligned residual
+($\kappa=0$, blue) collapses to a sampling indicator; worst-case
+$|\kappa|=0.5$ (red) puts $\approx 41\%$ of per-path energy on each of
+two adjacent integer bins. The dashed verticals mark the $\kleak=2$
+truncation boundary. The side-lobes flanking the kernel peak are the
+structurally predictable energy that the post-OMP virtual-tap expansion
+(\S\ref{ssec:joint}) and the learned support-refinement ranker
+(\S\ref{ssec:c2rel}) are designed to recover.}
+\label{fig:dirichlet}
+\end{figure}
+
+\subsection{Superimposed-pilot frame and the estimation-limited floor}
+\label{ssec:sp}
+
+Every chirp sub-carrier carries
+$\mbx=\sqrt{\rhop}\,\xp+\sqrt{1-\rhop}\,\xd$ with $\rhop=0.5$, where
+$\xp$ is a unit-norm Zadoff--Chu sequence of root $r=7$~\cite{kaleh2005zadoffchu}
+and $\xd$ is a QPSK data vector. The pilot projection at the receiver
+yields
+\begin{equation}
+\xp^H\mby = \sqrt{\rhop}\,\xp^H\Heff\xp + \sqrt{1-\rhop}\,\xp^H\Heff\xd + \xp^H\mbn,
+\label{eq:pilot_projection}
+\end{equation}
+where the data term $\sqrt{1-\rhop}\,\xp^H\Heff\xd$ enters as
+\emph{structured} interference whose conditional second moment given
+$\Heff$ is $(1-\rhop)\,\|\Heff^H\xp\|^2/\Nsub$~--- independent of
+$\sigma_n^2$. This is the algebraic origin of the estimation-limited
+floor at $\ber\approx 5\times 10^{-2}$ for $\snr\geq 15$~dB on the
+serial receiver, and it is the term that the iterative recipe of
+\S\ref{ssec:joint} attenuates via successive hard-decision feedback.
+
+\subsection{OMP dictionary}
+\label{ssec:dictionary}
+
+The dictionary $\mbPhi\in\C^{\Nsub\times Q}$ is constructed column-wise by
+evaluating the chirp-domain response of every candidate $(l,k)$-bin in
+$l\in\{0,\dots,\lmax{-}1\}$, $k\in\{-\kmax,\dots,\kmax\}$, so
+$Q=(2\kmax{+}1)\,\lmax$. The Dirichlet expansion \eqref{eq:dirichlet} is
+applied \emph{post-OMP}; $\kleak$ does not enlarge the dictionary. The
+caps follow physical channel parameters,
+$\lmax=\lceil\tau_{\text{spread}}\fs\rceil$ and
+$\kmax=\lceil v_{\max}\fc\Nsub/(c\fs)\rceil$, and at fixed $\fs$ give
+$Q=\mathcal{O}(\Nsub)$.
+
+\subsection{Classical OMP-once + iterative LS/MP-BP receiver}
+\label{ssec:joint}
+
+The receiver runs OMP once on $\mbPhi$ with target sparsity $\Ppath$,
+then iterates over a damped data-aided least-squares (DA-LS) path-gain
+refit and sparse MP-BP detection on the chirp-domain factor graph
+induced by $\Heff(\hat{\mbh})$. Algorithm~\ref{alg:joint} summarises the
+recipe.
+
+\begin{algorithm}[t]
+\caption{Classical joint OMP-once + iterative LS/MP-BP receiver.}
+\label{alg:joint}
+\begin{small}
+\textbf{Input}: $\mby$, $\mbPhi$, known $\xp$, pilot power $\rhop$. \\
+\textbf{Output}: hard-decision data bits $\hat{\xd}$. \\
+\textbf{Hyperparameters}: $T_\text{out}=5$, $T_\text{mp}=20$,
+$\gamma_h=0.7$, $\tau_h=10^{-2}\max|\hat{h}|$.
+\begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
+  \item OMP-once on $\mbPhi$ with target sparsity $\Ppath$ to obtain
+        $\hat{S}^{(0)},\hat{\mbh}^{(0)}$; LMMSE-initialise
+        $\hat{\xd}^{(0)}$ on $\hat{S}^{(0)}$.
+  \item For $t=1,\dots,T_\text{out}$:
+  \begin{enumerate}[leftmargin=*,itemsep=1pt]
+    \item Residual $\mathbf{r}^{(t)}=\mby-\sqrt{1-\rhop}\,\Heff(\hat{\mbh}^{(t-1)})\,\hat{\xd}^{(t-1)}$;
+    \item Damped DA-LS on $\hat{S}^{(t-1)}$:
+          $\hat{\mbh}^{(t)}=(1-\gamma_h)\hat{\mbh}^{(t-1)}+\gamma_h\,\mbPhi_{\hat{S}^{(t-1)}}^{\dagger}\mathbf{r}^{(t)}$;
+    \item MP-BP for $T_\text{mp}$ iterations (damping $0.5$); update
+          posterior means $\hat{\xd}^{(t)}$;
+    \item Adaptive $\sigma^2$ update; prune
+          $|\hat{h}_s^{(t)}|<\tau_h$ (retain top-$\Ppath$).
+  \end{enumerate}
+  \item $\hat{\xd}=\mathrm{QPSK\text{-}demap}(\hat{\xd}^{(T_\text{out})})$.
+\end{enumerate}
+\end{small}
+\end{algorithm}
+
+\paragraph{Design rationale.}
+After pilot subtraction the MP-BP factor graph carries $\Nsub$ variable
+and $\Nsub$ factor nodes with neighbourhood degree bounded by
+$\Ppath(2\kleak{+}1)=40$ (average $\preal\approx 28$); standard
+Gaussian message passing~\cite{wymeersch2007iterativereceiver,kschischang2001factorgraph}
+at $T_\text{mp}=20$ inner iterations and damping $\eta=0.5$ costs
+$\mathcal{O}(\preal\Nsub)$ per inner iteration, two orders of magnitude
+cheaper than the $\mathcal{O}(\Nsub^3)$ of a dense MMSE equaliser at
+$\Nsub=1024$. Four design choices justify OMP-once + iterative LS/MP-BP:
+(i) the empirical support Jaccard between OMP iterations exceeds $0.94$
+from iteration~2 onwards so re-OMP adds nothing; (ii) the support-recall
+probe (\S\ref{ssec:exp_probes}) confirms $\approx 95\%$ recall after one
+pass; (iii) damped DA-LS on the locked support keeps gain-update cost at
+$\mathcal{O}(\Ppath^2\Nsub)$; (iv) sparse MP-BP is two orders of
+magnitude cheaper than dense MMSE. Together these establish the
+proposed receiver as a complexity-preserving joint design:
+$\mathcal{O}(\Ppath\Nsub^2)$ per frame, in the same arithmetic class as
+a single OMP-once matched-filter sweep.
+
+\subsection{Differentiable unrolling and initialization-faithful validation}
+\label{ssec:unrolling}
+
+Algorithm~\ref{alg:joint} is unrolled into a differentiable computational
+graph with deterministic OMP atom selection, a Tikhonov-stabilised
+DA-LS refit matching the classical reference, and a vectorised MP-BP
+step with the same damping schedule, adaptive $\sigma^2$ update, and
+prune threshold. The learned head (\S\ref{ssec:c2rel}) is inserted as a
+plug-in slot after OMP-once: at random head init with the final-scorer
+bias set so no candidates pass the gate, the head is a no-op and the
+receiver reduces to Algorithm~\ref{alg:joint} up to floating-point
+round-off ---
+\emph{initialization-faithful} in the computational sense formalised
+below.
+
+\begin{claim}[Numerical verification of initialization-faithful unrolling]
+\label{thm:initfaithful}
+Let $\mathcal{R}_\text{ref}$ denote the classical reference
+implementation of Algorithm~\ref{alg:joint}, and let
+$\mathcal{R}_\text{unroll}^{\theta=0}$ denote the unrolled
+implementation of the same algorithm with the learned-head bias set so
+that the head appends zero atoms (random head weight initialisation).
+Let $\hat{\xd}_{\text{ref}}^{\text{soft}}(\mby,\mbPhi)$ and
+$\hat{\xd}_{\text{unroll}}^{\theta=0,\text{soft}}(\mby,\mbPhi)$ be the
+\emph{final} soft posterior-mean outputs of the two implementations,
+and $\hat{\mbh}_\text{ref}, \hat{\mbh}_\text{unroll}^{\theta=0}$ the
+corresponding final channel-estimate vectors, on a common
+$(\mby,\mbPhi)$ pair drawn at $\Nsub=512$ from the simulator. Under
+a deterministic double-precision verification suite of $30$ frames
+across $\snr\in\{15,20,25\}$~dB:
+\begin{align}
+\frac{\bigl\|\hat{\xd}_\text{unroll}^{\theta=0,\text{soft}}
+            -\hat{\xd}_{\text{ref}}^{\text{soft}}\bigr\|_2}
+     {\bigl\|\hat{\xd}_{\text{ref}}^{\text{soft}}\bigr\|_2}
+&\;<\;\varepsilon_\text{rel} = 10^{-5},
+\label{eq:initfaithful_soft}\\
+\frac{\bigl\|\hat{\mbh}_\text{unroll}^{\theta=0}-\hat{\mbh}_\text{ref}\bigr\|_F}
+     {\bigl\|\hat{\mbh}_\text{ref}\bigr\|_F}
+&\;<\;10^{-5},
+\label{eq:initfaithful_chan}\\
+\bigl|\,\ber_\text{unroll}^{\theta=0}-\ber_\text{ref}\,\bigr|
+&\;<\;10^{-4},
+\label{eq:initfaithful_ber}
+\end{align}
+over the entire verification suite (worst-frame measure).
+\end{claim}
+
+The statement is computational rather than analytical: it certifies a
+\emph{relative-tolerance regression test} rather than per-iteration
+exact bit-equality. Every algorithmic block in the unrolled path
+(top-$\Ppath$ argmax, the LS solve, MP-BP, adaptive prune) is matched
+to its reference counterpart at the same numerical precision so that the
+only cross-implementation divergence source is intermediate
+floating-point round-off, kept below $\varepsilon_\text{rel}=10^{-5}$
+on the verification suite. The verification protocol is reproduced in
+Appendix~\ref{app:initfaithful}; extending the suite to $\Nsub=1024$
+or to per-iteration hard-decision equality is left as future work
+and would strengthen the certificate but is not asserted by the
+present claim.
+
+\subsection{Learned support-refinement head}
+\label{ssec:c2rel}
+
+The head is a 1\,041-parameter deep-unfolding module that scores
+off-support candidates against the active support and appends the
+highest-ranked $\Kadd$ atoms at $t=0$, immediately after OMP-once
+and before the iterative LS/MP-BP loop begins.
+
+\paragraph{Features and architecture.}
+$M=96$ off-support candidates are surfaced by the top-$M$ residual
+correlation. For each $i$ a 7-D self-feature $\mathbf{u}_i$ collects
+$\log|\mbPhi_i^H\mathbf{r}|$, margin to weakest active atom,
+normalised $(l_i,k_i)$ lattice indices, residual-normalised projection,
+rank, and an indicator of $\kleak$-bin Doppler-neighbour of an active
+atom. For each (candidate, active atom) pair $(i,s)$, a 6-D pair
+feature
+\begin{equation}
+\begin{aligned}
+\mathbf{v}_{i,s}=\bigl[&
+l_i-l_s,\; k_i-k_s,\; \log|\hat{h}_s|,\;
+|\mbPhi_i^H\mbPhi_s|,\\
+&\|\Delta\|_2/(\lmax+2\kmax),\;
+|\hat{h}_s|/\max_{s'}|\hat{h}_{s'}|\bigr].
+\end{aligned}
+\label{eq:pairfeature}
+\end{equation}
+encodes the Dirichlet side-lobe integer-offset signature of
+Fig.~\ref{fig:dirichlet}. A shared pair encoder
+$f_\text{pair}:\R^{6}\!\to\!\R^{16}\!\to\!\R^{16}$ (SiLU activation,
+384 params) is applied to every $\mathbf{v}_{i,s}$, pooled across $s$
+by concat(max, mean) into a 32-D descriptor, concatenated with
+$\mathbf{u}_i$ into a 39-D vector, and passed through the scorer
+$f_\text{score}:\R^{39}\!\to\!\R^{16}\!\to\!\R^{1}$ (657 params; output
+bias $-8$). Total: $1\,041$ trainable parameters.
+
+\paragraph{Inference.}
+At $t=0$ the head ranks the $M=96$ off-support candidates and appends
+the top-$\Kadd=4$ logits to the active support, executed twice (refine
+rounds). Prune is deferred to the final outer iteration; the two most
+recently appended atoms are protected; hard-decision symbol feedback is
+used. The learned final-scorer bias is replaced by $+10$ at inference
+(rank-preserving threshold shift, Appendix~\ref{app:topk_patch}).
+
+\subsection{Complexity}
+\label{ssec:complexity}
+The classical core has per-frame cost
+$C_\text{classical}=\mathcal{O}(\Ppath\Nsub Q)
++T_\text{out}[\mathcal{O}(\Ppath^2\Nsub)+\mathcal{O}(T_\text{mp}\Nsub)]
+=\mathcal{O}(\Ppath\Nsub^2)$ under $Q=\mathcal{O}(\Nsub)$. Per
+refinement round, the head performs (i) the residual--dictionary
+correlation $\mbPhi^H\mathbf{r}$ at $\mathcal{O}(\Nsub Q)$
+(reused if the OMP correlation is cached); (ii) $M$ residual
+projections at $\mathcal{O}(\Nsub)$ each; (iii) $M\Ppath$ pair inner
+products at $\mathcal{O}(\Nsub)$ each; (iv) $\mathcal{O}(M\Ppath)$
+pair-encoder and $\mathcal{O}(M)$ scorer evaluations. Summed over the
+two refinement rounds, $C_\text{head}=\mathcal{O}(\Nsub Q + M\Ppath
+\Nsub) = \mathcal{O}(\Nsub^2)$. The proposed receiver therefore lies
+in the same $\mathcal{O}(\Ppath\Nsub^2)$ class as the classical
+baseline, adds $\approx 1.5$~M MAC over the classical
+$\approx 18.6$~M-MAC core at $\Nsub=1024$ ($\approx 8\%$ overhead), and
+is two orders of magnitude cheaper than a dense LMMSE channel
+estimator. Wall-clock measurements and DA-LS-inclusive accounting are deferred to
+\S\ref{ssec:complexity_results}.

@@ -1,0 +1,25 @@
+{
+  "status": "algorithm_preregistered_before_structure_results",
+  "recorded_at": "2026-09-08T14:47:27.209070+00:00",
+  "allocation": "structure-allocation-preregister.json",
+  "support": "I=sorted(unique(S0) intersection merged nonzero legal S_true); threshold0 after complex merge; all four arms same I, no added atoms",
+  "observation": "raw y; Phi_I=G_I times already-scaled pilot; no true data cancellation, no true gains in fit interface",
+  "terminal": "Hfit for both cancellation and data detection; original BP20 + LDPC50; all arms use same normal B_star sigma2_terminal unchanged",
+  "physical_template": "Reuse physical_cluster_weights(system,{taps,l_i,k_real}) then restrict rows to I. Normalized unknown physical gains estimated by LS, never provided. No post-fit Frobenius normalization.",
+  "free": "complex SVD least squares Phi_I g=y; eps64*max(shape) relative rank cutoff",
+  "link": "SVD LS Phi_I L_I h=y, emit only I coefficients L_I h; rank-deficient min-norm identifiable solution, no individual path identifiability claim",
+  "sham": "L_sham=diag(exp(2pi*j*frac((atom_id+1)*sqrt(2)))) L_I; frozen across campaign. Preserves incidence, slot count, singular values and rank of L. Log projector difference and conditioning. Degenerate sham marked not_testable, never redraw.",
+  "group": {
+    "objective": "0.5||y-Phi_I g||2^2 + lambda sum_p sqrt(|J_p|)||g[J_p]||2",
+    "overlap": "one coefficient per unique atom; ADMM copies constrained equal, no independent latent extra coefficients",
+    "lambda": "sqrt(sigma2_terminal)*median(column_norm(Phi_I))",
+    "rho": "mean(column_norm(Phi_I)^2)",
+    "iterations_max": 2000,
+    "absolute_tolerance": 1e-07,
+    "relative_tolerance": 1e-06,
+    "failure": "nonconvergence or numerical failure explicit; no silent LS fallback, no result-based tuning"
+  },
+  "empty_I": "zero-dimensional common model, retain frame, each scheduled fit and terminal accounted",
+  "truth_recovery": "Regenerate frozen CampaignData for same split/block/SNR; match all input hashes to disk normal frame before extracting path geometry. Costs separately accounted; no receiver rerun.",
+  "limitations": "Oracle diagnostic; same support deletion shared by all arms. Pilot-only observation includes unknown SP data interference. Chosen group prior is one frozen classical reference, not exhaustive strongest possible grouped method."
+}

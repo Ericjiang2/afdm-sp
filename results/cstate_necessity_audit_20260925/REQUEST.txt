@@ -1,0 +1,668 @@
+You are now the theory-to-code scientist for a CSTATE necessity audit in the coded SP-AFDM project.
+
+Do **not** start a large simulation campaign.
+
+Do **not** try to prove that CSTATE is useful.
+
+Do **not** modify the frozen TF+CSTATE receiver.
+
+The purpose of this task is to determine whether CSTATE is repairing a genuinely hard late-stage structural failure or merely repairing physical paths that were already visible to the front end but were lost by the current acquisition/grouping pipeline.
+
+At the same time, formalize—but do not yet production-run—the strongest low-cost classical challenger proposed by the research lead:
+
+> **F1: multiplicity-preserving Newtonized physical OMP / NOMP-style AFDM acquisition**
+
+The desired endpoint is:
+
+$$
+\boxed{
+\text{acquisition-loss mechanism understood}
++
+\text{F1 fully specified and frozen}
+}
+$$
+
+before any receiver-level comparison is authorized.
+
+---
+
+# 1. Current scientific question
+
+The current front-end path is approximately:
+
+$$
+\text{515 integer DD pilot atoms}
+\rightarrow
+\text{up to 40 selected atoms}
+\rightarrow
+\text{delay-energy grouping}
+\rightarrow
+\le 8\text{ retained delay groups}
+\rightarrow
+\text{one Doppler center per delay}
+\rightarrow
+\text{bounded physical refinement}
+\rightarrow
+\text{TF}.
+$$
+
+CSTATE is invoked only after decoder failure and can globally reopen physical model space, including insertion of previously absent delays and distinct same-delay Dopplers.
+
+Existing mechanism evidence shows that CSTATE repairs real structural failures. However, it is not yet known whether those failures were:
+
+1. genuinely not discoverable from the initial pilot observation at modest cost; or
+2. already visible in the coarse acquisition but discarded by grouping / slot allocation / one-center-per-delay compression.
+
+This distinction is now critical to the paper.
+
+A cheap stronger front end that eliminates most CSTATE rescues would materially weaken the current systems argument.
+
+---
+
+# 2. Historical evidence to preserve
+
+Do not mix campaigns.
+
+The most informative historical geometry-reopening population is the earlier 6.5-dB 1,024-observation campaign with **43 native-TF failures**.
+
+Existing summary evidence reports:
+
+* 23/43 failures missed at least one distinct delay;
+* 25/43 underrepresented true path multiplicity at represented delays;
+* 3/43 hit the final local-refinement boundary;
+* GLOBAL rescued 31/43 versus LOCAL 10/43;
+* true geometry rescued 27/32 selected failures;
+* full true \(H\) rescued 28/32;
+* explicit GLOBAL witnesses include:
+
+  * `s650_f0035`: insertion of delay 51 near Doppler 1.008;
+  * `s650_f0221`: insertion of delay 37 near Doppler 0.733.
+
+The later prospective TF+CSTATE primary campaign and the later CGR campaign are separate datasets.
+
+Do not resolve identical-looking frame names across campaigns without observation hashes.
+
+---
+
+# PART A — Acquisition-loss lineage audit
+
+## 3. Cohort
+
+Primary diagnostic cohort:
+
+* all 40 triggered frames from the final 6.5-dB TF+CSTATE prospective primary cell, if the required intermediate acquisition artifacts exist;
+* annotate the 34 CSTATE rescues and 6 remaining failures separately.
+
+Also retain a deterministic success-control subset.
+
+Historical witnesses from the earlier geometry-reopening campaign may be used only under their original observation hashes:
+
+* `s650_f0035`
+* `s650_f0221`
+* `s650_f0863`
+* `s650_f0605`
+
+If the final prospective campaign did not retain all requested intermediate states, do not reconstruct them by rerunning the receiver. Mark them unavailable and fall back to the archived historical campaign where appropriate.
+
+### Hard boundary
+
+For Part A:
+
+* receiver calls = 0
+* decoder calls = 0
+* new observations = 0
+* acquisition replays = 0
+
+Read archived artifacts only.
+
+---
+
+# 4. Reconstruct the acquisition lineage
+
+For each diagnostic frame, reconstruct as much of the following chain as is actually archived:
+
+### Stage A0 — full admissible coarse bank
+
+Record:
+
+* delay grid;
+* integer Doppler grid;
+* total dictionary size;
+* pilot-response normalization convention;
+* actual candidate identifiers.
+
+### Stage A1 — coarse acquisition output
+
+Record:
+
+* selected up-to-40 integer atoms;
+* their complex coefficients;
+* their ranking / selection order where available;
+* residual or score values if archived.
+
+### Stage A2 — delay grouping
+
+For each delay:
+
+$$
+E_l=\sum_{k\in\mathcal K_l}|\hat g_{l,k}|^2.
+$$
+
+Record:
+
+* which coarse atoms were assigned to each delay;
+* group energy;
+* delay-group rank;
+* which groups were discarded.
+
+### Stage A3 — physical center initialization
+
+Record:
+
+* retained delay;
+* strongest Doppler atom;
+* initial continuous Doppler center;
+* initial gain / group aggregate.
+
+### Stage A4 — bounded local physical refinement
+
+Record:
+
+* allowed Doppler interval;
+* accepted refinement result;
+* whether the final coordinate hit a bound;
+* objective change.
+
+### Stage A5 — first TF-entry geometry
+
+Record the exact physical path set entering native TF.
+
+### Stage A6 — later pre-CSTATE geometry
+
+Where available, record the second coded-round geometry immediately before the CSTATE trigger.
+
+### Stage A7 — CSTATE modification
+
+Record:
+
+* deleted path;
+* inserted path;
+* old delay/Doppler;
+* new delay/Doppler;
+* whether the inserted delay was absent previously;
+* whether the modification introduced same-delay multiplicity;
+* structural objective improvement;
+* final rescue outcome.
+
+---
+
+# 5. Truth-tagged classification
+
+Truth may be used only for offline diagnosis after binding the observation artifacts.
+
+For each true physical path, classify its acquisition lineage into categories such as:
+
+### L0 — not visible / not selected at coarse acquisition
+
+The nearest physically relevant candidate is absent from the selected coarse pool.
+
+### L1 — acquired but lost during delay grouping
+
+A suitable coarse atom was selected, but its delay group was not retained among the final groups.
+
+### L2 — delay retained but multiplicity collapsed
+
+Relevant coarse evidence existed at a retained delay, but one-center-per-delay compression removed a second physically meaningful Doppler component.
+
+### L3 — retained center but local refinement inadequate
+
+The correct delay survived and the center was nearby, but bounded refinement did not reach an adequate physical solution.
+
+### L4 — geometry adequate; failure originates downstream
+
+The working geometry is sufficiently matched, but TF/data/gain/decoder inference still fails.
+
+You may refine these categories if the source requires a more precise taxonomy.
+
+Do not force mutually exclusive classification when evidence supports overlap.
+
+For every category give:
+
+* count among failures;
+* count among rescues;
+* count among controls;
+* energy-weighted diagnostics where meaningful.
+
+---
+
+# 6. The key causal question
+
+For every CSTATE rescue, answer if the archive permits:
+
+> Was the eventually useful CSTATE-inserted physical direction already represented strongly enough in the original coarse top-40 acquisition to have been preserved by a more sensible low-cost model-selection rule?
+
+This is more important than whether the exact CSTATE candidate was top-ranked later.
+
+Later CSTATE scores use decoder-conditioned APP information and are not evidence that the path was pilot-visible initially.
+
+Where available, compare:
+
+$$
+\text{pilot-only rank}
+$$
+
+versus
+
+$$
+\text{later APP-conditioned structural rank}.
+$$
+
+The main distinction is:
+
+$$
+\boxed{
+\text{information unavailable early}
+}
+$$
+
+versus
+
+$$
+\boxed{
+\text{information available early but discarded by architecture}
+}
+$$
+
+Quantify this honestly.
+
+---
+
+# 7. Specific question about the one-center-per-delay restriction
+
+Determine how much of the CSTATE rescue population can plausibly be attributed to the hard pre-CSTATE representation
+
+$$
+\text{one retained physical Doppler per delay}.
+$$
+
+For each relevant frame distinguish:
+
+* true physical same-delay multiplicity;
+* merely two nearby fitted hypotheses approximating one physical path;
+* same-delay duplicates created by model mismatch;
+* ambiguous cases.
+
+Do not label every CSTATE same-delay pair as a recovered true physical doublet.
+
+---
+
+# 8. Part-A report
+
+Produce:
+
+`CSTATE_ACQUISITION_LINEAGE_AUDIT.md`
+
+and machine-readable tables, preferably:
+
+* `acquisition_lineage.parquet` or CSV;
+* `path_lineage.csv`;
+* `cstate_replacement_lineage.csv`;
+* `artifact_availability.json`.
+
+End Part A with one of these mechanism verdicts:
+
+### A1
+
+Most useful CSTATE directions were **already available in the initial coarse acquisition but lost by grouping/model compression**.
+
+### A2
+
+Most useful CSTATE directions were **not sufficiently supported at initial acquisition and became identifiable only with later information**.
+
+### A3
+
+Both mechanisms materially contribute.
+
+### A4
+
+Archive is insufficient to decide.
+
+Do not infer A1/A2 from final outcomes alone.
+
+---
+
+# PART B — Freeze the F1 challenger
+
+## 9. Objective of F1
+
+F1 is not a new contribution.
+
+It is a hostile classical comparator designed to remove the most artificial-looking weaknesses of F0 while remaining plausibly low complexity.
+
+Its purpose is to test:
+
+> Could a modestly stronger physical acquisition make CSTATE largely unnecessary?
+
+F1 should preserve:
+
+* same observation \(y\);
+* same pilot;
+* same thermal-noise knowledge;
+* same AFDM/CPP physical path operators;
+* no decoder information at initial acquisition;
+* no truth.
+
+F1 should eliminate:
+
+* forced unique-delay grouping;
+* one-center-per-delay compression;
+* purely leakage-atom-based final model selection.
+
+---
+
+# 10. Independently specify a NOMP-style AFDM F1
+
+Do not simply copy the original sinusoid NOMP equations.
+
+Derive the AFDM version from the current physical operator.
+
+A candidate physical path is:
+
+$$
+\theta=(l,\nu),
+$$
+
+with response to the known pilot determined by the frozen AFDM/CPP operator.
+
+Specify:
+
+### 10.1 Detection/search step
+
+How a new path candidate is globally selected from the residual.
+
+State the exact scoring statistic.
+
+Use the same admissible delay range as F0.
+
+Select an explicit frozen coarse/fine Doppler search bank.
+
+The research lead suggested a possible quarter-bin bank only as a sanity check; verify whether that is the correct choice rather than adopting it blindly.
+
+### 10.2 Continuous refinement
+
+Specify Newton / bounded Newton / scalar optimization for Doppler.
+
+Derive:
+
+$$
+\frac{\partial U(l,\nu)}{\partial \nu}
+$$
+
+and, if required,
+
+$$
+\frac{\partial^2 U(l,\nu)}{\partial \nu^2}.
+$$
+
+Use the actual CPP/sign convention.
+
+### 10.3 Gain refit
+
+Specify the joint LS / regularized gain refit after adding a path.
+
+### 10.4 Cyclic refinement
+
+Specify whether and how previously selected paths are revisited.
+
+### 10.5 Multiplicity
+
+Allow:
+
+$$
+(l,\nu_1),\quad(l,\nu_2)
+$$
+
+for the same delay.
+
+Define duplicate / minimum-separation handling.
+
+Do not impose the old one-center-per-delay restriction.
+
+### 10.6 Model order
+
+For the first necessity test, freeze a fair maximum physical-path budget.
+
+Do not give F1 an unlimited support size.
+
+If the current physical receiver uses at most eight slots, explain whether F1 should use exactly eight or a bounded \(\le8\) stopping rule.
+
+Any stopping criterion must be observed-only.
+
+### 10.7 Initialization and stopping
+
+Specify:
+
+* residual initialization;
+* maximum number of paths;
+* Newton iterations;
+* cyclic passes;
+* tolerance;
+* duplicate rule;
+* numerical safeguards.
+
+No tuning after seeing the A/B/C/D outcome.
+
+---
+
+# 11. F1 must preserve its geometry into TF
+
+This is critical.
+
+The native `time_refine` path currently enforces one Doppler center per delay.
+
+Therefore F1 output cannot be passed through a function that silently destroys same-delay multiplicity.
+
+Design a comparator-only geometry handoff that:
+
+* preserves F1 physical slots;
+* uses the same low-level TF scalar map;
+* uses the same gain prior convention unless a documented dimensional change requires adjustment;
+* uses the same code/decoder;
+* does not alter frozen F0+TF+CSTATE.
+
+Clearly separate:
+
+$$
+\text{comparator interface adaptation}
+$$
+
+from
+
+$$
+\text{changes to the proposed receiver}.
+$$
+
+---
+
+# 12. Fair complexity ledger
+
+Before implementation, derive an operation-level accounting for:
+
+### F0
+
+* dictionary correlations;
+* 40-step acquisition work;
+* LS work;
+* grouping;
+* local refit.
+
+### F1
+
+* global physical-bank correlations;
+* continuous refinement;
+* gain refits;
+* cyclic refinement;
+* dictionary/operator generation.
+
+Do not claim runtime equivalence from correlation counts alone.
+
+Still check the research lead's observation:
+
+$$
+8\times2575 \approx 40\times515
+$$
+
+under the actual proposed bank definition.
+
+Explain what this equality counts and what it omits.
+
+Identify cacheable versus per-frame work.
+
+---
+
+# 13. Do not implement F2 yet
+
+Do **not** implement D-GAMP-GESBL in this task.
+
+Instead create a short interface note:
+
+`F2_GAMP_GESBL_ADAPTATION_NOTES.md`
+
+covering only:
+
+* published algorithm inputs;
+* its data-feedback policy;
+* geometry representation;
+* model-order handling;
+* required adaptation for this project's integer-delay / fractional-Doppler SISO coded setting;
+* what information it may legally consume;
+* how an always-on version and a syndrome-triggered substitute would differ.
+
+This note exists so that F2 can be implemented later only if F1 fails to resolve the necessity question.
+
+---
+
+# 14. Freeze the future Stage-A experiment, but DO NOT RUN IT
+
+Write a preregistration draft for the developmental comparison:
+
+$$
+\begin{array}{ll}
+A:&F_0+\mathrm{TF}\\
+B:&F_0+\mathrm{TF+CSTATE}\\
+C:&F_1+\mathrm{TF}\\
+D:&F_1+\mathrm{TF+CSTATE}
+\end{array}
+$$
+
+plus the necessary matched LOCAL continuation for F1-triggered cases if required for mechanism attribution.
+
+Specify:
+
+* exact population;
+* pairing;
+* source commit;
+* F1 parameters;
+* primary FER comparison;
+* deadline metric;
+* complete latency;
+* trigger rate;
+* front-end runtime;
+* p95/p99;
+* peak state;
+* numerical failures;
+* structural lineage diagnostics.
+
+This archived 1024-frame population is **developmental**, not fresh confirmation.
+
+Predefine outcomes that would:
+
+1. kill the broad CSTATE systems-necessity story;
+2. reduce it to a scoped engineering contribution;
+3. show CSTATE incremental value after stronger acquisition;
+4. justify proceeding to F2.
+
+Do not run Stage A until this specification is reviewed.
+
+---
+
+# 15. Repository requirements
+
+Commit the outputs to a dedicated project record, for example:
+
+`research_records/2026-09-24_cstate_necessity/`
+
+or the closest project-native location.
+
+At minimum retain:
+
+* `README.md`
+* `CSTATE_ACQUISITION_LINEAGE_AUDIT.md`
+* machine-readable lineage tables
+* `F1_NOMP_AFDM_SPEC.md`
+* `F1_EQUATION_TO_SOURCE_MAP.md`
+* `F1_COMPLEXITY_LEDGER.md`
+* `F2_GAMP_GESBL_ADAPTATION_NOTES.md`
+* `STAGE_A_PREREGISTRATION.md`
+* `PROVENANCE.json`
+
+Update the project research index / handoff / negative-results or open-questions ledger with backlinks.
+
+The record must be searchable by:
+
+* CSTATE necessity
+* front-end strength
+* acquisition lineage
+* grouping loss
+* same-delay multiplicity
+* F1
+* NOMP
+* stronger initializer
+* D-GAMP-GESBL
+* risk-cost frontier
+
+---
+
+# 16. Provenance
+
+Record:
+
+* date;
+* Git commit(s);
+* source hashes;
+* historical campaign IDs;
+* exact frame IDs + observation hashes;
+* artifacts actually available;
+* unavailable artifacts;
+* any assumptions introduced.
+
+For this task:
+
+* new receiver calls = 0
+* new decoder calls = 0
+* new Monte Carlo observations = 0
+
+Synthetic local algebra/unit tests for F1 equations are allowed only if they do not execute the production receiver. Clearly mark them as implementation-unit tests, not evidence.
+
+---
+
+# 17. Final response
+
+Return a concise decision packet containing:
+
+1. **Acquisition-lineage verdict A1/A2/A3/A4.**
+2. Where useful CSTATE directions are actually lost.
+3. Whether the one-center-per-delay restriction is materially responsible.
+4. Which current F0 weakness F1 specifically removes.
+5. Frozen F1 mathematical specification.
+6. Expected complexity relative to F0.
+7. Any unresolved implementation/fairness issue.
+8. Whether Stage A is ready to run.
+9. Exact repository files created/updated.
+10. Explicit confirmation that no receiver comparison was run.
+
+Do not optimize CSTATE.
+
+Do not tune F1 to beat it.
+
+The purpose is to create a fair test that is capable of showing that the current CSTATE story is unnecessary.

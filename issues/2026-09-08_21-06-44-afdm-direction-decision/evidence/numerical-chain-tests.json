@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "scope": "CPU numerical/contracts: real small BP+LDPC; real n2048 LDPC; generator pairing test is small fixture. Separate N1024 smoke is integration only, no FER inference.",
+  "tests": 21,
+  "command": "/home/guoyikun/.conda/envs/AFDM/bin/python -m unittest afdm_sp_joint_unrolled.test_direction_data_receiver afdm_sp_joint_unrolled.test_direction_budget afdm_sp_joint_unrolled.test_direction_logging afdm_sp_joint_unrolled.test_budgeted_job_queue -v",
+  "exit_code": 0,
+  "environment": "deinlab AFDM Python3.10.20 CPU CUDA_VISIBLE_DEVICES empty, BLAS1",
+  "source_manifest": "source-snapshot-runtime-v3.json",
+  "protocol_sha256": "4f307ad9f6c1f4667704eaa64f1594249c748f8ecf9c7707a32a1545e09c2941",
+  "raw_evidence": {
+    "tests": "numerical-contract-tests-v3.log",
+    "dense_comparison": "dense-likelihood-bp-v3.json"
+  },
+  "coverage": [
+    "white complex noise E|n|2 and sigma variance scale",
+    "pure pilot actual OMP+LS+single-path template",
+    "sqrt(rho) cancellation sign negative controls",
+    "exact diagonal QPSK LLR equals BP demap",
+    "coupled tiny true BP versus exact enumeration: differences retained as approximation",
+    "actual LDPC code hash/noiseless sign and short terminal decode"
+  ],
+  "limits": "No N1024 optimality claim; no FER bound from these tests."
+}

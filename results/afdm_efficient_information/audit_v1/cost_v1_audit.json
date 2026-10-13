@@ -1,0 +1,35 @@
+{
+  "report": {
+    "stage": "cost_v1",
+    "input_stages": 8,
+    "source_derived_operation_corrections": [
+      {
+        "stage": "feature_control_v1",
+        "point": 0,
+        "cholesky_matrices": 256,
+        "general_solve_matrices": 256,
+        "reported_field": "teacher_covariance_factorizations counts Cholesky matrices only; general solve additionally factors each covariance"
+      },
+      {
+        "stage": "feature_control_v1",
+        "point": 1,
+        "cholesky_matrices": 256,
+        "general_solve_matrices": 256,
+        "reported_field": "teacher_covariance_factorizations counts Cholesky matrices only; general solve additionally factors each covariance"
+      },
+      {
+        "stage": "inference_control_v1",
+        "cholesky_matrices": 15360,
+        "general_solve_matrices": 15360,
+        "reported_field": "covariance_factorizations counts Cholesky matrices only; general solves are additional"
+      }
+    ],
+    "timing_scope": "all original whole-stage wall/CPU already includes both operations; do not alter measured time"
+  },
+  "cumulative_checks": {
+    "checks": 71,
+    "maximum_absolute_error": 0.0,
+    "failures": [],
+    "passed": true
+  }
+}

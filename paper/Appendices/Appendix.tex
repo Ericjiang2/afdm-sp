@@ -1,0 +1,150 @@
+\section*{Appendices}
+\addcontentsline{toc}{section}{Appendices}
+
+\renewcommand{\thesection}{\Alph{section}}
+\setcounter{section}{0}
+
+\section{Simulator Correspondence and Pilot Convention}
+\label{app:matlab}
+
+All Monte-Carlo runs reported in Chapter~\ref{sec:results} use a torch-GPU reimplementation of a NumPy reference simulator that is, in turn, a faithful port of an in-house MATLAB implementation.
+The three implementations produce bit-exact identical outputs on $\Nsub = 512$ pilot--data realisations; the verification harness logs the maximum absolute difference between detected QPSK symbols as exactly zero across 64 seeded test frames.
+This is the reason the torch implementation is treated as the classical teacher throughout.
+
+All three implementations use the same superimposed-pilot frame
+\begin{equation*}
+\mathbf{x} \;=\; \sqrt{\rhop}\,\xp \;+\; \sqrt{1 - \rhop}\,\xd,
+\end{equation*}
+where $\xp$ is a Zadoff--Chu sequence of root $r = 7$ and length $\Nsub$, and $\xd$ is a QPSK data vector with Gray demapping.
+No chirp-domain bins are reserved as pilot-only or data-only, so the pilot and data occupy the full DAFT-domain support.
+Table~\ref{tab:simparams} in Chapter~\ref{sec:results} lists the canonical physical and algorithmic parameters used across every experiment in the revised Chapter~\ref{sec:results}; all Monte-Carlo results in the main chapter operate exclusively at the oversampled $\fs = 4B$ operating point (the Nyquist $\fs = 2B$ rate appears only in Table~\ref{tab:dictsize} of Chapter~\ref{sec:method} as a reference scaling illustration, not as a separate evaluation point).
+
+\section{Paired-Bootstrap and Clopper--Pearson Confidence Intervals}
+\label{app:ci}
+
+Two complementary confidence-interval procedures are used in Chapter~\ref{sec:results}.
+Paired-bootstrap CIs are reported alongside the paired BER-reduction figures in Experiment~1 (main 4\,B BER waterfall; see Chapter~\ref{sec:results}) because those reductions are paired differences $\delta_i = e^{(0)}_i - e^{(1)}_i$ on the same $(\mathrm{channel},\mathrm{data},\mathrm{noise})$ realisation; a non-paired CI would be substantially wider and would mask the contribution of the learned head.
+Clopper--Pearson exact-binomial CIs are used on the high-SNR per-arm BER numbers in the same Experiment~1 (in particular at $\snr = 25$ and $30$~dB) because the observed bit-error counts there are close to the finite-sample censoring floor, where the binomial distribution is highly skewed and a Wald-type CI would under-cover.
+
+\paragraph{Paired bootstrap (Experiment~1, 3-seed pooled).}
+Let $n$ denote the number of evaluated frames at a given SNR, and for frame $i \in \{1, \dots, n\}$ let $e^{(0)}_i$ and $e^{(1)}_i$ be the bit-error counts of the baseline and the candidate receiver on the same $(\mathrm{channel}, \mathrm{data}, \mathrm{noise})$ realisation.
+Define the per-frame gain $\delta_i = e^{(0)}_i - e^{(1)}_i$ and the mean gain $\bar{\delta} = n^{-1}\sum_i \delta_i$.
+The $95\%$ paired-bootstrap CI is computed by (i) drawing $B_\text{boot} = 1\,000$ bootstrap resamples of $\{\delta_1, \dots, \delta_n\}$ with replacement, (ii) computing the resample mean $\bar{\delta}^{(b)}$ for each, and (iii) reporting the $2.5\%$ and $97.5\%$ quantiles of the resample distribution as the CI.
+
+\paragraph{Clopper--Pearson (Experiment~1 headline at high SNR).}
+Let $k$ be the observed bit-error count and $n$ the total tested bit count.
+For $1 \leq k \leq n-1$, the two-sided Clopper--Pearson $95\%$ CI for the unknown BER $p$ is
+\begin{equation*}
+\bigl[\, F^{-1}_{k,\, n-k+1}(0.025),\; F^{-1}_{k+1,\, n-k}(0.975)\,\bigr],
+\end{equation*}
+where $F^{-1}_{a, b}$ is the inverse CDF of a Beta distribution with parameters $(a, b)$ (equivalent to the exact binomial tail inversion).
+For the boundary cases the standard Clopper--Pearson convention applies: at $k = 0$ the lower bound is defined to be $0$ (the $\mathrm{Beta}(0, n+1)$ distribution is improper) and the upper bound is $1 - 0.025^{1/n}$; at $k = n$ the lower bound is $0.025^{1/n}$ and the upper bound is $1$.
+For the $\snr = 25$~dB 4\,B observation of the learned arm reported in Chapter~\ref{sec:results} ($k = 4$ bit errors at the adaptive-stop budget of $n \approx 7.17 \times 10^{5}$ bits), the interior formula yields $\mathrm{CI}_{95\%} \approx [1.52 \times 10^{-6},\, 1.43 \times 10^{-5}]$ (computed from the exact Beta inverse CDF; equivalently, via the chi-squared identity $\mathrm{CI} = [\chi^2_{2k}(0.025)/(2n),\, \chi^2_{2(k+1)}(0.975)/(2n)]$).
+For the 4\,B \Oracle{} (PCSI+MMSE) reference at $\snr = 25$~dB the adaptive early-stop rule does not trigger because the oracle accumulates zero classical-arm errors, so the oracle arm runs to the full nominal budget $n = 8.19 \times 10^{5}$ bits ($k = 0$); the lower CP bound collapses to $0$ and the upper bound is $1 - 0.025^{1/n} \approx 4.5 \times 10^{-6}$. (At the same adaptive-stop budget $n \approx 7.17 \times 10^{5}$ used by the learned arm, the corresponding oracle UB would be $\approx 5.1 \times 10^{-6}$; we quote the larger-budget value $4.5 \times 10^{-6}$ in the main text because that is what the oracle Monte-Carlo actually evaluated.) This is what we mean by ``finite-sample censoring'' in Chapters~\ref{sec:results} and~\ref{sec:discussion}.
+
+\section{OMP-Once Recall Against the Oracle Dirichlet Support (Probe (a))}
+\label{app:recall}
+
+Probe~(a) of \S\ref{ssec:probes} is computed directly from the per-candidate binary labels already present in the feature cache produced during head training, with no fresh Monte-Carlo required.
+
+\emph{Support-set definitions (crucial; depends on \S\ref{ssec:complexity} and \eqref{eq:dirichlet}).}
+Three distinct support sets are involved in this probe and must be kept separate because the recall bookkeeping depends on which of the three is on which side of the intersection.
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=1pt]
+\item $S_{\text{OMP}}^{\text{phys}}$ is the \emph{physical} top-$\Ppath$ integer $(l, k)$-bin support returned by a single OMP-once pass run with target sparsity equal to the physical path count: $|S_{\text{OMP}}^{\text{phys}}| = \Ppath = 8$.
+\item $\tilde{S}_{\text{OMP}}$ is the \emph{Dirichlet-expansion} of $S_{\text{OMP}}^{\text{phys}}$ into the virtual-tap lattice obtained by replicating each physical bin into the $2\kleak + 1$ adjacent Doppler bins per~\eqref{eq:dirichlet}; nominally $|\tilde{S}_{\text{OMP}}| = \Ppath \cdot (2\kleak + 1) = 40$.
+\item $S_{\text{oracle}}$ is the \emph{Dirichlet-weighted virtual-tap} oracle support, i.e.\ the set of virtual taps that the simulator's stored channel parameters and \eqref{eq:dirichlet} actually populate. Nominally $|S_{\text{oracle}}| \leq \Ppath \cdot (2\kleak + 1) = 40$; because the per-tap Dirichlet coefficient \eqref{eq:dirichlet} is small for fractional residuals near zero, only an \emph{effective} mean of $p_{\text{real}} \approx 28$ virtual taps per frame are non-negligible, and the probe stores this per-frame effective count.
+\end{itemize}
+Note that $|S_{\text{OMP}}^{\text{phys}}| = \Ppath = 8$ and $|\tilde{S}_{\text{OMP}}| \leq 40$ are both in general different from $|S_{\text{oracle}}| \approx 28$, so recall and precision are \emph{not} equal in this probe; the previous draft erroneously claimed they were, and that claim is withdrawn.
+
+For each cached frame, the harvesting script runs the physical OMP-once pass to obtain $S_{\text{OMP}}^{\text{phys}}$, computes both $\tilde{S}_{\text{OMP}}$ and $S_{\text{oracle}}$, and assigns $y_i = 1$ iff candidate $i$ is an oracle virtual tap that is not covered by the Dirichlet-expanded OMP support (i.e.\ $\text{cand\_cols}_i \in S_{\text{oracle}} \setminus \tilde{S}_{\text{OMP}}$). The cache also stores $p_{\text{real}} = |S_{\text{oracle}}|$ per frame.
+
+Recall against the oracle virtual-tap support is
+\begin{equation*}
+\text{recall} \;=\; \frac{|\tilde{S}_{\text{OMP}} \cap S_{\text{oracle}}|}{|S_{\text{oracle}}|} \;=\; \frac{p_{\text{real}} - \sum_i y_i}{p_{\text{real}}}.
+\end{equation*}
+A consistency cross-check on the aggregates: the table-level mean recall is $\overline{\text{recall}} \approx 0.953$ with mean missed taps $\overline{\sum_i y_i} \approx 1.31$ per frame; the ratio $1.31/(1 - 0.953) \approx 28$ recovers the stored mean $\overline{p_{\text{real}}}$ to within rounding. (This is a ratio-of-means cross-check on the aggregate bookkeeping, not an exact identity for individual frames; the per-frame denominator $p_{\text{real}}$ varies between frames.)
+
+Precision, by contrast, equals $|\tilde{S}_{\text{OMP}} \cap S_{\text{oracle}}| / |\tilde{S}_{\text{OMP}}|$ and is in general different from recall because $|\tilde{S}_{\text{OMP}}| \neq |S_{\text{oracle}}|$; Table~\ref{tab:supportrecall} reports recall only and does not rely on a precision-equal-to-recall claim.
+
+A lightweight post-processing pass computes per-frame and per-SNR aggregates from this formula directly off the cached labels; the pass runs in $\approx 30$~s on the 27\,k-frame 4\,B cache and requires no GPU.
+
+\section{McNemar Paired-Bit Significance Test}
+\label{app:mcnemar}
+
+On a paired bit-level comparison between the classical joint and the learned receiver, let $n_{10}$ denote the number of bits on which the classical is wrong and the learned is correct, and $n_{01}$ the number of bits on which the classical is correct and the learned is wrong.
+The continuity-corrected McNemar $\chi^2$ statistic is
+\begin{equation*}
+\chi^2_\text{MN} \;=\; \frac{(|n_{10} - n_{01}| - 1)^2}{n_{10} + n_{01}}, \qquad (n_{10} + n_{01} \geq 1)
+\end{equation*}
+which is approximately $\chi^2_1$-distributed under the null hypothesis that the two receivers have the same bit-wise error probability and that the discordant-pair indicators are mutually independent.
+The \emph{two-sided asymptotic} $p$-value $p_\text{two} = 1 - F_{\chi^2_1}(\chi^2_\text{MN})$ is the value reported in Table~\ref{tab:ber4b}; this is the standard continuity-corrected McNemar convention.
+For the degenerate case $n_{10} + n_{01} = 0$ (no discordant pairs at all) the statistic is undefined; we report this as ``not informative ($p = 1$)'' and exclude that SNR cell from the significance summary.
+For very small discordant counts (rule-of-thumb $n_{10} + n_{01} < 25$), the asymptotic $\chi^2_1$ approximation is unreliable, and we instead use the exact one-sided binomial sign test described next.
+When a strictly one-sided statement is required (``learned better''), we supplement it with the exact one-sided binomial sign test on the discordant pairs: $p_\text{one-sided} = \Pr[\text{Bin}(n_{10} + n_{01}, 1/2) \geq n_{10}]$, computed from the exact binomial tail; because $n_{10}$ dominates $n_{01}$ by multiple orders of magnitude at every high-SNR point where the test is applied, the exact one-sided value tracks the asymptotic two-sided value to within a numerical rounding of each other, and the qualitative conclusion (``learned strictly better at every SNR where the test is applicable'') is invariant to the choice of side.
+
+\paragraph{Independence assumption: a known caveat.}
+The McNemar test as classically derived assumes that each discordant indicator is an independent Bernoulli draw under $H_0$. In our application the unit of analysis is the \emph{bit}, and bits within a single $(\mathrm{channel}, \mathrm{data}, \mathrm{noise})$ frame share a common $\Heff$ realisation; within-frame discordant indicators are therefore positively correlated (a frame in which the learned receiver helps tends to help on most of its bits at once). This violates the strict independence assumption, and the consequence is that the effective number of independent Bernoulli draws underlying the test is less than $n_{10} + n_{01}$. The resulting $p$-values are anti-conservative relative to a frame-clustered alternative such as a frame-level paired sign test or a frame-clustered bootstrap. We therefore quote the bit-level McNemar $p$-values as a within-protocol consistency indicator rather than as the output of an independence-respecting exact test, and the qualitative result on which we rely --- consistent paired BER reduction across three independent evaluation seeds (Table~\ref{tab:ber4b}) --- remains the binding observation.
+
+\section{Analytical Decomposition of the Force-Topk Bias Patch}
+\label{app:topk_patch}
+
+This appendix expands the implementation-level argument summarised in the ``Ranking-only deployment'' paragraph of \S\ref{ssec:training}. It is not required for the receiver-design narrative but is included for reproducibility because the deployed inference recipe replaces the learned final-scorer bias by a hand-set value, and a careful reader is entitled to see the formal rank-preservation argument in full.
+
+Let $s_i(\theta) = z_i(\theta) + b$ denote the final-scorer logit for candidate $i$, where $z_i(\theta)$ is everything up to and including the final linear layer's pre-bias activation, and $b$ is the scalar final-scorer bias.
+Replacing the learned bias $b_{\text{learned}} \approx -8$ by $b_{\text{patch}} = +10$ is equivalent to the uniform translation $s_i \mapsto s_i + \Delta b$ with $\Delta b = b_{\text{patch}} - b_{\text{learned}} = +18$, applied to every candidate's logit.
+The deployed selection is the composition of two operations: first a per-candidate \emph{gate} $g_i := \mathbf{1}\{\sigma(s_i) > 0.5\} = \mathbf{1}\{s_i > 0\}$, then a top-$\Kadd$ ranker over the gated set.
+The two operations decompose cleanly:
+\begin{enumerate}[leftmargin=*,itemsep=0pt,topsep=2pt]
+  \item \textbf{Rank-preservation (no effect)}: conditional on the same set of candidates passing the gate, the top-$\Kadd$ output is invariant under uniform translation, because $\mathrm{argtop}_K(s_1+\Delta b, \dots, s_M+\Delta b) = \mathrm{argtop}_K(s_1, \dots, s_M)$ for any $\Delta b \in \R$, assuming the same deterministic tie-breaking rule is applied to both inputs (the deployed implementation uses \texttt{torch.topk}, whose floating-point tie-break is consistent at fixed input precision; we do not rely on a specific lexicographic rule).
+  \item \textbf{Gate-toggling (the patch's actual effect)}: the patch shifts the gate threshold from ``$z_i > 8$'' (typical for $b_{\text{learned}} = -8$, almost never satisfied) to ``$z_i > -10$'' (typical for $b_{\text{patch}} = +10$, almost always satisfied), so under the patch every frame proceeds to a forced top-$\Kadd$ selection rather than to a no-op gate output.
+\end{enumerate}
+The combined behaviour is therefore \emph{not} a no-op: the patch converts a frame-rate-conditional thresholded selector (whose default action is to append zero atoms whenever the learned logits fall below the gate) into a frame-unconditional fixed-budget top-$\Kadd$ ranker (which always appends $\Kadd$ atoms).
+This is intentional --- the head is reported throughout this report as a \emph{deterministic fixed-budget ranker}, not a calibrated detector --- but the patch is part of that deployment definition rather than a no-op manipulation.
+What the patch does \emph{not} do is alter the relative ordering of the $\Kadd$ atoms that survive the (now always-on) gate; the rank-preservation argument above ensures that conditional on the gate firing, the selected atoms are identical to those that the raw learned logits would rank.
+The learned logits $s_i$ are consumed downstream only through $\mathrm{argtop}_{\Kadd}$, and probability calibration of the scores is out of scope for this report.
+
+\section{OMP Dictionary Atom Construction and Algorithm Steps}
+\label{app:omp}
+
+This appendix gives an explicit construction of the chirp-domain dictionary atoms used by the OMP step of Algorithm~\ref{alg:joint} and writes out the OMP iteration with per-step complexity annotations, recovering the bound $C_\text{OMP} = \mathcal{O}(\Ppath \Nsub^2)$ stated in~\eqref{eq:omp_cost}.
+
+\subsection*{F.1\quad Dictionary atom construction}
+
+The OMP dictionary $\mbPhi \in \C^{\Nsub \times Q}$ has one column per integer delay--Doppler bin $(l, k)$ with $l \in \{0, \dots, \lmax - 1\}$ and $k \in \{-\kmax, \dots, \kmax\}$, so $Q = (2\kmax + 1)\,\lmax$. The $(l, k)$ atom is the chirp-domain response that the unit-energy Zadoff--Chu pilot $\xp$ would produce if the channel consisted of a single path of unit gain with integer delay $l$ and integer Doppler $k$. Writing the IDAFT of~\eqref{eq:idaft} in matrix form as $\mathbf{F}^{-1}$ and the forward DAFT as $\mathbf{F}$, the time-domain cyclic delay operator as $\mathbf{T}_l$ (the cyclic shift by $l$ samples), and the time-domain Doppler shift as $\mathbf{D}_k = \mathrm{diag}\bigl(e^{j 2\pi k n / \Nsub}\bigr)_{n=0}^{\Nsub-1}$, the atom is
+\begin{equation}
+\boldsymbol{\phi}_{(l,k)} \;=\; \sqrt{\rhop}\, \mathbf{F}\, \mathbf{D}_k\, \mathbf{T}_l\, \mathbf{F}^{-1}\, \xp \;\in\; \C^{\Nsub}, \label{eq:atom_construction}
+\end{equation}
+which encodes the round trip ``transmit pilot through the chirp domain $\to$ apply delay-$l$ Doppler-$k$ in time $\to$ observe in the chirp domain''. Because $\mathbf{F}$ is unitary, $\mathbf{T}_l$ is a permutation matrix, and $\mathbf{D}_k$ has unit-modulus diagonal entries, the energy of every atom is exactly the pilot fraction: $\|\boldsymbol{\phi}_{(l,k)}\|^2 = \rhop \cdot \|\xp\|^2 = \rhop$ for all $(l, k)$. This places OMP's matched-filter scoring on a common energy scale across the dictionary and is the reason no per-column normalisation is needed inside the OMP iteration.
+
+The dictionary spans physical integer $(l, k)$ bins only. Each fractional-Doppler physical path $(\tau_p, k_p^\text{real})$ of \S\ref{ssec:channel} excites one main-lobe column $\boldsymbol{\phi}_{(l_p, k_p)}$ together with $2\kleak$ side-lobe columns at $(l_p, k_p \pm 1), \dots, (l_p, k_p \pm \kleak)$ through the Dirichlet kernel of~\eqref{eq:dirichlet}; OMP recovers a subset of these columns directly, and the post-OMP DA-LS refit and MP-BP detection blocks of \S\ref{ssec:joint} operate on the $(2\kleak{+}1)$-fold expanded virtual-tap representation. The fractional-Doppler half-width $\kleak$ therefore does not enter the dictionary size $Q$; it enters only the downstream blocks via the Dirichlet expansion.
+
+\subsection*{F.2\quad OMP algorithm steps}
+
+Given the chirp-domain observation $\mby$ and the dictionary $\mbPhi$, OMP recovers a sparse support $\hat{S}$ of size $\Ppath$ together with the corresponding least-squares path-gain estimate $\hat{\mbh}$. The iteration is summarised in Algorithm~\ref{alg:omp} with per-step complex-multiplication counts.
+
+\begin{algorithm}[t]
+\caption{Orthogonal Matching Pursuit on the chirp-domain pilot dictionary~\cite{tropp2007signal}.}
+\label{alg:omp}
+\begin{small}
+\textbf{Input}: chirp-domain observation $\mby \in \C^{\Nsub}$, dictionary $\mbPhi \in \C^{\Nsub \times Q}$, target sparsity $\Ppath$. \\
+\textbf{Output}: support $\hat{S} \subseteq \{0, \dots, Q-1\}$ with $|\hat{S}| = \Ppath$, path-gain vector $\hat{\mbh} \in \C^{\Ppath}$.
+\begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
+  \item Initialise residual $\mathbf{r}^{(0)} = \mby$ and support $\hat{S}^{(0)} = \emptyset$.
+  \item \textbf{For} $s = 1, \dots, \Ppath$:
+  \begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item Compute the matched-filter response: $\mathbf{c}^{(s)} = \mbPhi^H \mathbf{r}^{(s-1)} \in \C^{Q}$. \hfill ($\mathcal{O}(\Nsub Q)$)
+    \item Pick the strongest unselected atom: $\hat{j}^{(s)} = \arg\max_{j \notin \hat{S}^{(s-1)}} |c_j^{(s)}|$. \hfill ($\mathcal{O}(Q)$)
+    \item Append it to the support: $\hat{S}^{(s)} = \hat{S}^{(s-1)} \cup \{\hat{j}^{(s)}\}$.
+    \item Solve the restricted least-squares problem on the current support, $\hat{\mbh}^{(s)} = \mbPhi_{\hat{S}^{(s)}}^{\dagger}\, \mby$, by QR or normal-equations factorisation. \hfill ($\mathcal{O}(\Nsub s + s^3)$)
+    \item Update the residual: $\mathbf{r}^{(s)} = \mby - \mbPhi_{\hat{S}^{(s)}}\, \hat{\mbh}^{(s)}$. \hfill ($\mathcal{O}(\Nsub s)$)
+  \end{enumerate}
+  \item Return $\hat{S} = \hat{S}^{(\Ppath)}$ and $\hat{\mbh} = \hat{\mbh}^{(\Ppath)}$.
+\end{enumerate}
+\end{small}
+\end{algorithm}
+
+The dominant per-iteration cost is the matched-filter sweep at $\mathcal{O}(\Nsub Q)$ in step~2(a); the least-squares solve at $\mathcal{O}(\Nsub s + s^3)$ is sub-dominant because the support size $s \leq \Ppath = 8$ remains small throughout and $s^3$ is therefore bounded by a constant much less than $\Nsub$. Summing the matched-filter sweep across $\Ppath$ iterations and the least-squares cost across $s = 1, \dots, \Ppath$ gives a total of
+\begin{equation*}
+C_\text{OMP} \;=\; \mathcal{O}(\Ppath \Nsub Q) \;+\; \mathcal{O}\!\bigl(\Nsub \sum_{s=1}^{\Ppath} s + \sum_{s=1}^{\Ppath} s^3\bigr) \;=\; \mathcal{O}(\Ppath \Nsub Q + \Ppath^2 \Nsub + \Ppath^4) \;=\; \mathcal{O}(\Ppath \Nsub Q),
+\end{equation*}
+where the absorption uses $\Ppath \ll \Nsub$ and $Q = \mathcal{O}(\Nsub)$ from~\eqref{eq:Qlinear}. With $Q = \mathcal{O}(\Nsub)$ the bound reduces to $\mathcal{O}(\Ppath \Nsub^2)$, which is the form recorded in~\eqref{eq:omp_cost}. This makes the matched-filter sweep step~2(a) the dominant block in the per-frame budget of~\eqref{eq:classcomplex}, with a measured $14$--$18.6$\,M MAC at $\Nsub = 1024$ per Table~\ref{tab:complexity}.

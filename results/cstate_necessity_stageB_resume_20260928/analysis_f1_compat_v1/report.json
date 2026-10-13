@@ -1,0 +1,415 @@
+{
+  "campaign": "f1",
+  "component_semantics": "F1 branch_seconds is producer branch stage; branch_complete_seconds is full completion minus durable native-r1 checkpoint, including branch and final raw/decision serialization. F2 input/receiver/post-receiver clocks are exclusive within each call; checkpoint, front, and exclusive-stage fields are nested in receiver and must not be added again",
+  "git_attestation_verified_before_truth": true,
+  "input_sha256": {
+    "ledger": "fe04491d815fad44e9187b6e043b7cb26341f03418e4e13656087cec7032b1f3",
+    "observed_seal": "067fa733bbc1ecf26fe25b843f95d556f191bebb9d7b2ce4fcd3dae67f0cebdb",
+    "truth_seal": "cb5e737c293848be4206e1480e0d4545869c886d139b655a2867e7c3d2f104d4"
+  },
+  "population": "sealed exposed 6.5-dB developmental 1024",
+  "population_numerical_failures": 0,
+  "schema": "method-closure-offline-analysis/1",
+  "status": "pass",
+  "summary": {
+    "arms": {
+      "B": {
+        "branch_cost_conditional_on_execution": {
+          "max": 0.3030216390034184,
+          "mean": 0.2552782635204494,
+          "median": 0.25107350549660623,
+          "n": 40,
+          "p95": 0.2873843857087195,
+          "p99": 0.2994949863909278
+        },
+        "branch_cost_population": {
+          "max": 0.3030216390034184,
+          "mean": 0.009971807168767555,
+          "median": 0.0,
+          "n": 1024,
+          "p95": 0.0,
+          "p99": 0.2684773634048178
+        },
+        "coded_BER": 0.0006494522094726562,
+        "coded_bit_errors": 1362,
+        "deadlines": {
+          "0.5": {
+            "correct": 1004,
+            "missing": 0,
+            "n": 1024,
+            "wrong_ready": 20
+          },
+          "1.0": {
+            "correct": 1018,
+            "missing": 0,
+            "n": 1024,
+            "wrong_ready": 6
+          }
+        },
+        "executed_branch_n": 40,
+        "information_FER": 0.005859375,
+        "information_failures": 6,
+        "n": 1024,
+        "numerical_failures": 0,
+        "syndrome_nonzero": 6,
+        "timing": {
+          "acquisition_seconds": {
+            "max": 0.11448594194371253,
+            "mean": 0.08203203298830886,
+            "median": 0.0786937159136869,
+            "n": 1024,
+            "p95": 0.09870575969689525,
+            "p99": 0.10506966664222998
+          },
+          "branch_complete_seconds": {
+            "max": 0.3030216390034184,
+            "mean": 0.009971807168767555,
+            "median": 0.0,
+            "n": 1024,
+            "p95": 0.0,
+            "p99": 0.2684773634048178
+          },
+          "branch_seconds": {
+            "max": 0.21972205000929534,
+            "mean": 0.007102542051939054,
+            "median": 0.0,
+            "n": 1024,
+            "p95": 0.0,
+            "p99": 0.18704150612233206
+          },
+          "complete_latency_seconds": {
+            "max": 0.6410718030529097,
+            "mean": 0.3463944937972201,
+            "median": 0.33514001400908455,
+            "n": 1024,
+            "p95": 0.38739753429545076,
+            "p99": 0.5859852440399117
+          },
+          "decision_record_seconds": {
+            "max": 0.03533073700964451,
+            "mean": 0.01002109698640652,
+            "median": 0.007865815539844334,
+            "n": 1024,
+            "p95": 0.02192803691141307,
+            "p99": 0.030335672423243518
+          },
+          "decoder_seconds": {
+            "max": 0.04853052902035415,
+            "mean": 0.036403922373438036,
+            "median": 0.03443567897193134,
+            "n": 1024,
+            "p95": 0.043912126298528156,
+            "p99": 0.04832595382235013
+          },
+          "native_seconds": {
+            "max": 0.3635649480856955,
+            "mean": 0.29175256353926216,
+            "median": 0.29026403347961605,
+            "n": 1024,
+            "p95": 0.3136490486038383,
+            "p99": 0.3233386239048559
+          },
+          "raw_serialization_seconds": {
+            "max": 0.084369309945032,
+            "mean": 0.022880617157056804,
+            "median": 0.019653723982628435,
+            "n": 1024,
+            "p95": 0.04188913348480116,
+            "p99": 0.0660615783964749
+          },
+          "refit_seconds": {
+            "max": 0.11277957505080849,
+            "mean": 0.09415550964922659,
+            "median": 0.09366786060854793,
+            "n": 1024,
+            "p95": 0.0998897586017847,
+            "p99": 0.10658240065095015
+          },
+          "tf_seconds": {
+            "max": 0.04955157497897744,
+            "mean": 0.03853016855475744,
+            "median": 0.03847599041182548,
+            "n": 1024,
+            "p95": 0.038872561877360566,
+            "p99": 0.03963938040891662
+          }
+        },
+        "triggered_prefix_nonzero": 40,
+        "valid_but_wrong": 0
+      },
+      "Ccompat": {
+        "branch_cost_conditional_on_execution": null,
+        "branch_cost_population": {
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "n": 1024,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "coded_BER": 0.0008082389831542969,
+        "coded_bit_errors": 1695,
+        "deadlines": {
+          "0.5": {
+            "correct": 755,
+            "missing": 0,
+            "n": 1024,
+            "wrong_ready": 269
+          },
+          "1.0": {
+            "correct": 1012,
+            "missing": 0,
+            "n": 1024,
+            "wrong_ready": 12
+          }
+        },
+        "executed_branch_n": 0,
+        "information_FER": 0.01171875,
+        "information_failures": 12,
+        "n": 1024,
+        "numerical_failures": 0,
+        "syndrome_nonzero": 12,
+        "timing": {
+          "acquisition_seconds": {
+            "max": 0.31371364498045295,
+            "mean": 0.27433281786852604,
+            "median": 0.273624784022104,
+            "n": 1024,
+            "p95": 0.29082307980861516,
+            "p99": 0.2993177346163429
+          },
+          "branch_complete_seconds": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 1024,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "branch_seconds": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 1024,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "complete_latency_seconds": {
+            "max": 0.6478635120438412,
+            "mean": 0.5583123145142963,
+            "median": 0.5574890345451422,
+            "n": 1024,
+            "p95": 0.5947506165597588,
+            "p99": 0.6104038186068647
+          },
+          "decision_record_seconds": {
+            "max": 0.042809750069864094,
+            "mean": 0.012600956441929156,
+            "median": 0.00975199305685237,
+            "n": 1024,
+            "p95": 0.02716457471833563,
+            "p99": 0.035432196689071126
+          },
+          "decoder_seconds": {
+            "max": 0.04898706602398306,
+            "mean": 0.03646516149831314,
+            "median": 0.034703338460531086,
+            "n": 1024,
+            "p95": 0.042330899590160696,
+            "p99": 0.04850351094617508
+          },
+          "native_seconds": {
+            "max": 0.5642552030039951,
+            "mean": 0.5063073487137899,
+            "median": 0.5061785930301994,
+            "n": 1024,
+            "p95": 0.5317934267106466,
+            "p99": 0.5455151577759534
+          },
+          "raw_serialization_seconds": {
+            "max": 0.06121030601207167,
+            "mean": 0.02516780639064109,
+            "median": 0.02114952349802479,
+            "n": 1024,
+            "p95": 0.043632527923909946,
+            "p99": 0.05250454977387562
+          },
+          "refit_seconds": {
+            "max": 0.14204665808938444,
+            "mean": 0.10998142192795513,
+            "median": 0.10863628349034116,
+            "n": 1024,
+            "p95": 0.12280990915023719,
+            "p99": 0.12951859513064845
+          },
+          "tf_seconds": {
+            "max": 0.042212557047605515,
+            "mean": 0.03864042919781241,
+            "median": 0.03859797603217885,
+            "n": 1024,
+            "p95": 0.03899418189539574,
+            "p99": 0.03974981910549104
+          }
+        },
+        "triggered_prefix_nonzero": 0,
+        "valid_but_wrong": 0
+      },
+      "Cref": {
+        "branch_cost_conditional_on_execution": null,
+        "branch_cost_population": {
+          "max": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "n": 64,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "coded_BER": 0.00154876708984375,
+        "coded_bit_errors": 203,
+        "deadlines": {
+          "0.5": {
+            "correct": 25,
+            "missing": 23,
+            "n": 64,
+            "wrong_ready": 16
+          },
+          "1.0": {
+            "correct": 62,
+            "missing": 0,
+            "n": 64,
+            "wrong_ready": 2
+          }
+        },
+        "executed_branch_n": 0,
+        "information_FER": 0.03125,
+        "information_failures": 2,
+        "n": 64,
+        "numerical_failures": 0,
+        "syndrome_nonzero": 2,
+        "timing": {
+          "acquisition_seconds": {
+            "max": 0.44525204796809703,
+            "mean": 0.3642799493027269,
+            "median": 0.3628178400103934,
+            "n": 64,
+            "p95": 0.3779492004250642,
+            "p99": 0.4076939477724953
+          },
+          "branch_complete_seconds": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 64,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "branch_seconds": {
+            "max": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "n": 64,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "complete_latency_seconds": {
+            "max": 0.732294179033488,
+            "mean": 0.6336874235548748,
+            "median": 0.6326394724892452,
+            "n": 64,
+            "p95": 0.6632981100527103,
+            "p99": 0.702173497865442
+          },
+          "decision_record_seconds": {
+            "max": 0.020502684055827558,
+            "mean": 0.00876753257944074,
+            "median": 0.006787056510802358,
+            "n": 64,
+            "p95": 0.018582202499965197,
+            "p99": 0.019856183034135028
+          },
+          "decoder_seconds": {
+            "max": 0.0489031890174374,
+            "mean": 0.03759618097137718,
+            "median": 0.03650183603167534,
+            "n": 64,
+            "p95": 0.04304453108343295,
+            "p99": 0.048840632474748416
+          },
+          "native_seconds": {
+            "max": 0.6803471880266443,
+            "mean": 0.5904601672282297,
+            "median": 0.589540344546549,
+            "n": 64,
+            "p95": 0.61000373410061,
+            "p99": 0.6451653879636432
+          },
+          "raw_serialization_seconds": {
+            "max": 0.042734064045362175,
+            "mean": 0.02064495050399273,
+            "median": 0.019189791986718774,
+            "n": 64,
+            "p95": 0.028819926298456255,
+            "p99": 0.039094863337231785
+          },
+          "refit_seconds": {
+            "max": 0.11993752396665514,
+            "mean": 0.10800316027052759,
+            "median": 0.10737800394417718,
+            "n": 64,
+            "p95": 0.11736187665956092,
+            "p99": 0.11893902628333307
+          },
+          "tf_seconds": {
+            "max": 0.039808507077395916,
+            "mean": 0.03863396410633868,
+            "median": 0.038628118578344584,
+            "n": 64,
+            "p95": 0.038994554395321755,
+            "p99": 0.03938078178558498
+          }
+        },
+        "triggered_prefix_nonzero": 0,
+        "valid_but_wrong": 0
+      }
+    },
+    "paired": {
+      "B_vs_Ccompat": {
+        "both_correct": 1008,
+        "both_wrong": 2,
+        "fer_first_minus_second": -0.005859375,
+        "fer_second_minus_first": 0.005859375,
+        "first_only_correct": 10,
+        "mcnemar_exact_two_sided_p": 0.1795654296875,
+        "n": 1024,
+        "second_only_correct": 4,
+        "upper_95_fer_first_minus_second": 0.0052784565565149565,
+        "upper_95_fer_second_minus_first": 0.016820474630511038
+      },
+      "B_vs_Cref": {
+        "both_correct": 61,
+        "both_wrong": 0,
+        "fer_first_minus_second": -0.015625,
+        "fer_second_minus_first": 0.015625,
+        "first_only_correct": 2,
+        "mcnemar_exact_two_sided_p": 1.0,
+        "n": 64,
+        "second_only_correct": 1,
+        "upper_95_fer_first_minus_second": 0.08020314505248131,
+        "upper_95_fer_second_minus_first": 0.10797500971046646
+      },
+      "Ccompat_vs_Cref": {
+        "both_correct": 62,
+        "both_wrong": 2,
+        "fer_first_minus_second": 0.0,
+        "fer_second_minus_first": 0.0,
+        "first_only_correct": 0,
+        "mcnemar_exact_two_sided_p": 1.0,
+        "n": 64,
+        "second_only_correct": 0,
+        "upper_95_fer_first_minus_second": 0.05600908938663656,
+        "upper_95_fer_second_minus_first": 0.05600908938663656
+      }
+    }
+  },
+  "timing_boundary": "F1 and F2 clocks are distinct campaigns; no raw seconds pooled"
+}

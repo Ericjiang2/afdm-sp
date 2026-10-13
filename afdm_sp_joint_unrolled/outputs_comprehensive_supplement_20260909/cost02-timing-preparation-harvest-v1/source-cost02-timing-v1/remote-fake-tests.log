@@ -1,0 +1,26 @@
+................FF...failure receipt publication also failed: OSError('output publication would exceed frozen storage budget')
+............................................
+======================================================================
+FAIL: test_real_indirect_paths_and_cpu_observation_contract (afdm_sp_joint_unrolled.test_supplement_timing_collection.TimingCollectionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-cost02-timing-v1/source/afdm_sp_joint_unrolled/test_supplement_timing_collection.py", line 518, in test_real_indirect_paths_and_cpu_observation_contract
+    with self.assertRaisesRegex(ValueError,'prior'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_real_reservation_rejects_external_prior_manifest_path (afdm_sp_joint_unrolled.test_supplement_timing_collection.TimingCollectionTests)
+----------------------------------------------------------------------
+ValueError: invalid timing reservation
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-cost02-timing-v1/source/afdm_sp_joint_unrolled/test_supplement_timing_collection.py", line 542, in test_real_reservation_rejects_external_prior_manifest_path
+    with self.assertRaisesRegex(ValueError, 'reserved timing manifest'):
+AssertionError: "reserved timing manifest" does not match "invalid timing reservation"
+
+----------------------------------------------------------------------
+Ran 65 tests in 13.283s
+
+FAILED (failures=2)

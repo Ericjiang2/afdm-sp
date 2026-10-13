@@ -1,0 +1,13 @@
+id,claim,status,manuscript_location,code,evidence
+C01,Exact full-fractional time rows,proved; independently rechecked,Main II--III; Supplement S1,src/independent_check.py; src/independent_foundation.py,results/new_independent_verification.json; results/foundation_recheck.json
+C02,Monotone normalized marginal prefix,proved,Main Theorem 1,inherited/SP_AFDM_Certified_List_V4/src/sequential_search.py,results/estimated_geometry.npz; inherited/SP_AFDM_Certified_List_V4/results/independent_verification.json
+C03,Finite-list MAP and mass budget,proved and checked on stated data,Main Theorem 2,inherited/SP_AFDM_Certified_List_V4/src/adaptive_mass.py,results/estimated_geometry.npz; results/frozen_integration.npz
+C04,Bit-specific probability and LLR intervals,derived and checked,Main Corollary 1,src/targeted_checks.py:summarize; src/independent_check.py,results/estimated_geometry.npz; results/new_independent_verification.json
+C05,Posterior channel-mean fidelity,proved and checked,Main Theorem 3,src/targeted_checks.py; src/independent_check.py,results/estimated_geometry.csv; results/frozen_integration.csv
+C06,V4 192-draw fidelity and work,retained executed evidence; not new replication,Main VI-B,inherited/SP_AFDM_Certified_List_V4/src,inherited/SP_AFDM_Certified_List_V4/results/adaptive_mass.csv
+C07,Representative rescue-stage time reductions,retained fixture-specific timing,Main VI-D,inherited/SP_AFDM_Certified_List_V4/src/timing_final.py,inherited/SP_AFDM_Certified_List_V4/results/timing_final.csv; timing_raw.csv in same directory
+C08,Observed-geometry fidelity,new 32 draws; poor cold-start accuracy acknowledged,Main VI-E,src/targeted_checks.py,results/estimated_geometry.csv; results/estimated_geometry.npz
+C09,Clipped max-log equality does not control probability sums,post-synthesis same-list adaptation and counterexamples,Main VI-E; Supplement S7.6,src/clipped_maxlog.py; src/independent_foundation.py,results/clipped_maxlog.csv; results/clipped_maxlog.npz; results/clipped_maxlog_verification.json
+C10,Actual formal frozen-I1 terminal attachment,one engineering block; not FER confirmation,Main VI-F; Supplement S7.3,src/frozen_integration.py; supplied TimingReceiver,results/frozen_integration.json; results/frozen_integration.csv; results/frozen_integration.npz
+C11,End-to-end gain at production scale,unresolved; no population claim,Main VII,not established by one engineering block,No claimed supporting production sweep
+C12,Supporting original identities,proved under stated assumptions; selected independent rechecks,Supplement S1--S5,src/independent_foundation.py,results/foundation_recheck.json

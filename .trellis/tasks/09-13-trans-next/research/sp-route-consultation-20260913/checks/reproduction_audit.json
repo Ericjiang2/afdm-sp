@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "scope": "Same-model self-reproduction from bundled source in temporary directory; not independent scientific review or project FER",
+  "source_hashes_match_original_run": true,
+  "contract_and_raw_hashes_match": true,
+  "reproduced_npz_arrays_exact": 258,
+  "same_model_runs": [
+    {
+      "script": "finite_fourier_check.py",
+      "exit_code": 0
+    },
+    {
+      "script": "small_experiments.py",
+      "exit_code": 0
+    }
+  ],
+  "small_experiment_scientific_JSON_fields_exact": true,
+  "algebra_JSON_max_absolute_difference": 9.992007221626409e-16,
+  "portability_check_note": "First exact-JSON comparison of algebra results failed across Python runtimes; float-aware comparison then passed (atol1e-14/rtol1e-12). Numerical experiment JSON and NPZ arrays reproduce exactly. No science data changed.",
+  "n_observation_frames": 128,
+  "n_width_specific_frame_records": 256,
+  "unique_data_noise_blocks": 32,
+  "reproduction_seconds": 0.4047543329652399,
+  "numpy_version": "2.3.5",
+  "path_edit": "Runner loads bundled source copies rather than locating workspace; numerical functions unchanged."
+}

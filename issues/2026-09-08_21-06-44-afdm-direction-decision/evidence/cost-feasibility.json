@@ -1,0 +1,217 @@
+{
+  "status": "passed_for_staged_development",
+  "exit_code": 0,
+  "command": "direction_cost --pairs6; exact command/args in cost-micro-v4/contract.json",
+  "source_manifest": "source-snapshot-runtime-v4.json",
+  "raw_evidence": "cost-micro-v4/complete.json",
+  "prior_hash_verified": "74f23844a95ea36ea90490f7aa5fca76bd14ff8a97f954f4387a4e85c852444e",
+  "same_harness_A2_replayed": true,
+  "microcost": {
+    "A2": {
+      "mean": 0.7642347373184748,
+      "n": 6,
+      "p95": 0.7750675599818351,
+      "raw": [
+        0.757317162991967,
+        0.7613433779915795,
+        0.7723253860021941,
+        0.7759816179750487,
+        0.7496119779534638,
+        0.7688289009965956
+      ],
+      "scope": "microcost descriptive quantile; not formal deployment tail estimate"
+    },
+    "B0": {
+      "mean": 0.6403717131858381,
+      "n": 6,
+      "p95": 0.6436908460018458,
+      "raw": [
+        0.6390495280502364,
+        0.640700274030678,
+        0.6418838020181283,
+        0.6442931939964183,
+        0.6350357310147956,
+        0.6412677500047721
+      ],
+      "scope": "microcost descriptive quantile; not formal deployment tail estimate"
+    },
+    "c_E": {
+      "mean": 0.029787008670003463,
+      "n": 6,
+      "p95": 0.030578470483305864,
+      "raw": [
+        0.029295385989826173,
+        0.029872328974306583,
+        0.030813850986305624,
+        0.02912233700044453,
+        0.029823189019225538,
+        0.029794960049912333
+      ],
+      "scope": "microcost descriptive quantile; not formal deployment tail estimate"
+    },
+    "c_T": {
+      "mean": 0.04902810916731445,
+      "n": 6,
+      "p95": 0.052492124756099656,
+      "raw": [
+        0.048050965007860214,
+        0.04740044998470694,
+        0.04966810398036614,
+        0.053433465014677495,
+        0.04688634799094871,
+        0.048729323025327176
+      ],
+      "scope": "microcost descriptive quantile; not formal deployment tail estimate"
+    }
+  },
+  "host_preparation_included_separately": {
+    "A2": {
+      "mean": 0.9103490538254846,
+      "n": 6,
+      "p95": 0.9252623712818604,
+      "raw": [
+        0.9081069550011307,
+        0.904086805996485,
+        0.9267280340427533,
+        0.9208653829991817,
+        0.8942521769204177,
+        0.908054967992939
+      ],
+      "scope": "microcost descriptive quantile; not formal deployment tail estimate"
+    },
+    "B0": {
+      "mean": 0.6403717131858381,
+      "n": 6,
+      "p95": 0.6436908460018458,
+      "raw": [
+        0.6390495280502364,
+        0.640700274030678,
+        0.6418838020181283,
+        0.6442931939964183,
+        0.6350357310147956,
+        0.6412677500047721
+      ],
+      "scope": "microcost descriptive quantile; not formal deployment tail estimate"
+    }
+  },
+  "resources": {
+    "cpu_core_seconds": 22.954866262,
+    "gpu_seconds": 23.461515929026064,
+    "host_seconds": 23.461515929026064
+  },
+  "cost_model": {
+    "cF_host_with_generation_logging_envelope": 1.8,
+    "cT_original_envelope": 0.06823976218292956,
+    "cE_OMP_envelope": 0.039752011628297626,
+    "extra_setup_audit_transfer_reserve_seconds": 1200,
+    "reference_detector_and_physical_fit": "Not measured yet; must measure and debit before their runs; OMP cE is not fit_physical cost."
+  },
+  "phase_envelopes": [
+    {
+      "stage": "baseline",
+      "NF": 1536,
+      "NT": 0,
+      "NE": 0,
+      "host_seconds_envelope": 2764.8
+    },
+    {
+      "stage": "mechanism",
+      "NF": 768,
+      "NT": 6144,
+      "NE": 0,
+      "host_seconds_envelope": 1801.6650988519193
+    },
+    {
+      "stage": "structure",
+      "NF": 0,
+      "NT": 3072,
+      "NE": 3066,
+      "host_seconds_envelope": 331.51221707832013
+    },
+    {
+      "stage": "prototype-max",
+      "NF": 2304,
+      "NT": 0,
+      "NE": 0,
+      "host_seconds_envelope": 4147.2
+    },
+    {
+      "stage": "counterexample-max",
+      "NF": 2304,
+      "NT": 0,
+      "NE": 0,
+      "host_seconds_envelope": 4147.2
+    },
+    {
+      "stage": "formal-timing-cap",
+      "NF": 1200,
+      "NT": 0,
+      "NE": 0,
+      "host_seconds_envelope": 2160.0
+    }
+  ],
+  "confirmation_scenarios": [
+    {
+      "primary_n": 1024,
+      "neighbor_n": 512,
+      "arms": 2,
+      "confirmation_full_calls": 4096,
+      "serial_host_seconds_envelope": 23925.17731593024,
+      "fits_8h_serial": true,
+      "interpretation": "upper-envelope planning, not power approval; unselected prototype/counterexample maxima can be pruned by actual route"
+    },
+    {
+      "primary_n": 1024,
+      "neighbor_n": 512,
+      "arms": 3,
+      "confirmation_full_calls": 6144,
+      "serial_host_seconds_envelope": 27611.57731593024,
+      "fits_8h_serial": true,
+      "interpretation": "upper-envelope planning, not power approval; unselected prototype/counterexample maxima can be pruned by actual route"
+    },
+    {
+      "primary_n": 2048,
+      "neighbor_n": 1024,
+      "arms": 2,
+      "confirmation_full_calls": 8192,
+      "serial_host_seconds_envelope": 31297.977315930242,
+      "fits_8h_serial": false,
+      "interpretation": "upper-envelope planning, not power approval; unselected prototype/counterexample maxima can be pruned by actual route"
+    },
+    {
+      "primary_n": 2048,
+      "neighbor_n": 1024,
+      "arms": 3,
+      "confirmation_full_calls": 12288,
+      "serial_host_seconds_envelope": 38670.777315930245,
+      "fits_8h_serial": false,
+      "interpretation": "upper-envelope planning, not power approval; unselected prototype/counterexample maxima can be pruned by actual route"
+    },
+    {
+      "primary_n": 4096,
+      "neighbor_n": 2048,
+      "arms": 2,
+      "confirmation_full_calls": 16384,
+      "serial_host_seconds_envelope": 46043.57731593024,
+      "fits_8h_serial": false,
+      "interpretation": "upper-envelope planning, not power approval; unselected prototype/counterexample maxima can be pruned by actual route"
+    },
+    {
+      "primary_n": 4096,
+      "neighbor_n": 2048,
+      "arms": 3,
+      "confirmation_full_calls": 24576,
+      "serial_host_seconds_envelope": 60789.17731593024,
+      "fits_8h_serial": false,
+      "interpretation": "upper-envelope planning, not power approval; unselected prototype/counterexample maxima can be pruned by actual route"
+    }
+  ],
+  "dispatch": {
+    "next": "eight-recipe engineering smoke then two disjoint-CPU workers for D_design, shared atomic budget ledger",
+    "baseline_host_upper_seconds": 3317.76,
+    "reservation_max_seconds_per_packet": 7200,
+    "formal_confirmation": "not authorized by cost estimate; FREEZE01 must bind power/n/arms and measured remaining costs"
+  },
+  "limits": "6 timing pairs do not validate p95 cost gate. All maximum stages + maximum confirm do not fit conservative serial budget; do not run them blindly. Route pruning and measured parallel throughput allowed; preserve primary precision or decline confirmation.",
+  "accounting": "Each GPU worker charges full occupied wall conservatively; parallel worker times are summed in ledger, no double-spending from host concurrency; four CPU affinity cores cap each reservation."
+}

@@ -1,0 +1,45 @@
+{
+  "loop_topic": "TCOM uplift from FYP A5 (86.7) to TCOM strong-accept (>=8.5/10)",
+  "round": 5,
+  "status": "completed",
+  "stop_reason": "target_score_reached (8.5/10 confirmed by codex gpt-5.5 xhigh on 2026-05-07)",
+  "difficulty": "nightmare",
+  "max_rounds": 5,
+  "target_score": 8.5,
+  "final_score": 8.5,
+  "reviewer": "codex MCP, gpt-5.5, xhigh reasoning effort",
+  "branch": "trans/tcom-main",
+  "score_progression": [6.5, 7.1, 8.0, 8.2, 8.25, 8.4, 8.45, 8.5],
+  "round_results": [
+    {"round": 1, "raw_score": 6.5, "after_rebuttal_score": 7.1, "verdict": "major revisions", "fixes": ["W3","W4","W5","W8"]},
+    {"round": 2, "score": 8.0, "verdict": "TCOM-plausible methodology", "fixes": ["W1 caption","§IV-D attribution","§IV-E loss/capacity","§III-E wall-clock"]},
+    {"round": 3, "score": 8.2, "verdict": "solid TCOM-plausible", "fixes": ["aggregate_pooled_pairedeval.py","Zheng Fig 3 footnote","limitations rewrite"]},
+    {"round": 4, "score": 8.25, "verdict": "partial substitute", "fixes": ["§IV-D rank-invariance paragraph"]},
+    {"round": 5, "score": 8.5, "verdict": "TCOM 8.5+ ACHIEVED", "fixes": [
+      "9-cell retraining grid (3 train seeds × 3 eval seeds × SNR=20 × 600 frames, fs=4B + use-hard)",
+      "tab:varenv with -5.17% ± 0.57 pp",
+      "rank-invariance reconciliation paragraph (2/3 ckpts bit-identical)",
+      "softened wording: supports/plausibly robust"
+    ]}
+  ],
+  "deliverables": {
+    "post_r1_pdf": "review-stage/main_after_r1_fixes.pdf",
+    "post_r2_pdf": "review-stage/main_after_r2_fixes.pdf",
+    "post_r3_pdf": "review-stage/main_after_r3_fixes.pdf",
+    "post_r4_pdf": "review-stage/main_after_r3_strengthen.pdf",
+    "post_r5_variance_pdf": "review-stage/main_after_r5_variance.pdf",
+    "post_r5_bridge_pdf": "review-stage/main_after_r5_bridge.pdf",
+    "final_pdf": "review-stage/main_after_r5_softened.pdf",
+    "auto_review_log": "review-stage/AUTO_REVIEW.md",
+    "reviewer_memory": "review-stage/REVIEWER_MEMORY.md",
+    "raw_responses": ["review-stage/R1_RAW_RESPONSE.md","review-stage/R1_REBUTTAL.md"],
+    "scripts": [
+      "afdm_sp_joint_unrolled/scripts/aggregate_pooled_pairedeval.py",
+      "afdm_sp_joint_unrolled/scripts/aggregate_canonical_grid.py",
+      "afdm_sp_joint_unrolled/scripts/canonical_grid_summary.md",
+      "afdm_sp_joint_unrolled/scripts/pooled_paired_eval_4B_table_ber4b.md"
+    ],
+    "grid_jsons": "afdm_sp_joint_unrolled/outputs_canonical_grid/t*/results.json (9 cells)"
+  },
+  "timestamp": "2026-05-07T12:18:00+0800"
+}

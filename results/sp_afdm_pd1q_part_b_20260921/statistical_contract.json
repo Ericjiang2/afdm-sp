@@ -1,0 +1,68 @@
+{
+  "schema": "spafdm-pd1q-partb-statistical-contract/1",
+  "authority": "Explicit user Part B authorization; approved_ticket.md controls allocation. Design is background, not extra execution authority.",
+  "observations_per_cell": 1024,
+  "snr_centi_db": [
+    600,
+    650,
+    700
+  ],
+  "primary_arms": [
+    "TF_J20_R2",
+    "EP2_MEAN_R2",
+    "EP4_MEAN_R2"
+  ],
+  "point_first_n": 128,
+  "pbi_first_n": 32,
+  "total_observations": 3072,
+  "total_receiver_calls": 9696,
+  "extra_scope_authorized": false,
+  "extra_receiver_warmups_authorized": false,
+  "alpha": 0.05,
+  "reliability_upper": "beta.ppf(1-alpha/12,H+1,n-H) - beta.ppf(alpha/12,R,n-R+1), exact zero/all endpoints",
+  "reliability_lower": "beta.ppf(alpha/12,H,n-H+1) - beta.ppf(1-alpha/12,R+1,n-R), exact zero/all endpoints",
+  "reliability_tolerances": {
+    "600": 0.02,
+    "650": 0.02,
+    "700": 0.01
+  },
+  "reliability_scope": "Six simultaneous one-sided95% upper bounds. Lower bounds are a separately controlled six-comparison one-sided95% family; do not call combined interval simultaneous95% two-sided. No added superiority test.",
+  "latency_bootstrap": {
+    "kind": "paired circular moving block per SNR in actual frame order",
+    "block_frames": 32,
+    "replicates": 2000,
+    "seed": 941002,
+    "two_sided_percentiles": [
+      2.5,
+      97.5
+    ],
+    "one_sided_upper_percentile": 95,
+    "one_sided_lower_percentile": 5,
+    "scope": "pointwise bootstrap uncertainty, not familywise; whole paired frames resampled; all finite attempt costs retained",
+    "subset_block_frames": {
+      "primary_1024": 32,
+      "POINT_128": 16,
+      "PBi_32": 4
+    },
+    "block_rule": "min(32,max(1,registered_paired_frame_count//8)); fixed by prospective subset size, not outcomes. Primary block32, POINT16, PBi4. Avoid full-sample circular blocks producing degenerate control intervals."
+  },
+  "deadline_fractions": [
+    0.6,
+    0.8,
+    1,
+    1.5,
+    2
+  ],
+  "deadline_reference": "Frozen E1 D EP2 complete-time median of all32 frames per cell on same machine, value/hash locked before production",
+  "deadline_rule": "last valid completed decoder checkpoint ready<=deadline; no timely decision is frame failure; never use future checkpoint",
+  "failure_rule": "numerical failure retains paid time and latest valid completed checkpoint; missing decision is FER failure, unavailable BER bits remain missing; all anomalies explicit. Integrity/qualification/source/leak/unfair-cost defect stops science for report without silent repair/resume.",
+  "decision": {
+    "supported": "All six excess-FER upper bounds<=tolerance AND all three TF/EP2 median-ratio one-sided95% upper bounds<0.8 AND all three observed TF/EP2 p90 ratios<=1; integrity/recount complete. EP4 full results remain disclosed.",
+    "falsified": "Any separately controlled lower excess-FER bound>tolerance OR TF/EP2 one-sided95% lower median-ratio bound>=0.8 OR one-sided95% lower p90-ratio bound>1 in any primary cell. Integrity defect is blocked, not scientific falsification.",
+    "inconclusive": "Complete validated allocation with neither supported nor falsified condition. Point estimates and failed pass criteria retained; no allocation extension."
+  },
+  "retention": "Per-frame seeds/config/source hashes; actual checkpoint bits,input/APP/check,paths/scalar traces/stages. Heavy vector subset frame0/cell and numerical exceptions only. No outcome-dependent collection on ordinary decode errors.",
+  "design_reference_sha256": "868db4d3f48201f0e2d5b6f499e37c17b2cba1198f05ec9aaa87199ac23560f7",
+  "primary_error_unit": "information-frame error (any wrong information bit); missing decision counts failure. Codeword-frame errors and both BER counts reported separately.",
+  "checkpoint_validity": "completed numerical decoder output with validated binary shape/accounting. Do not require zero syndrome or use truth to choose checkpoint; select latest available completion."
+}

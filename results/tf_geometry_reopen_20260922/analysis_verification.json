@@ -1,0 +1,59 @@
+{
+  "schema": "tf-geometry-analysis-verification/1",
+  "status": "pass",
+  "observed_seal_sha256": "98e741ce5e827bf31e62e76e613a6719444fc81e6d47a9d2029c923b0bb912a8",
+  "seal_commit": "d237fece9eb8912e58e8a6ec4378fa8265989814",
+  "seal_git_blob_matches_local": true,
+  "analysis_receipt_sha256": "d9d9ee811205c3d20a386298e0baf88427b54912f1fa77f70b45da0bc14d0709",
+  "analysis_files_rehashed": 7,
+  "remote_inventory_files_matched": 604,
+  "remote_verify_seal": {
+    "status": "pass",
+    "completed_calls": 150,
+    "inventory_files": 603
+  },
+  "ledger_calls": 150,
+  "replay_max_difference": 0,
+  "triggered_count": 43,
+  "forced_control_count": 32,
+  "paired_2x2": {
+    "neither_correct": 12,
+    "global_only_correct": 21,
+    "local_only_correct": 0,
+    "both_correct": 10,
+    "net_global_extra_correct": 21,
+    "total": 43
+  },
+  "old23_count": 23,
+  "global_old23_rescues": 15,
+  "forced_control_harms": {
+    "LOCAL20": {
+      "count": 0,
+      "valid_but_wrong_ids": []
+    },
+    "GLOBAL20": {
+      "count": 0,
+      "valid_but_wrong_ids": []
+    }
+  },
+  "global_added_complete_branch_mean_seconds": 0.7176249846030937,
+  "gates": {
+    "net_extra_correct_at_least5": true,
+    "old23_rescues_at_least5": true,
+    "mean_global_added_complete_branch_at_most_0p6s": false
+  },
+  "deadline_rows_checked": 300,
+  "global_grid_remote_recalculation": {
+    "checked_global_steps": 145,
+    "checked_top20": 2900,
+    "checked_truth_rank_rows": 1160,
+    "min_valid_candidates": 20593,
+    "max_valid_candidates": 20600,
+    "csv_sha256": {
+      "global_steps.csv": "3bc84185aa9ef676d992033d434a7d3f9359251cb3a40850fb1244ce2249eb10",
+      "global_top20.csv": "17bf3d49e2c1d8f18ffedbf8dfd7a44efac932fe0eddbb3edd3b6671b80ec0da",
+      "truth_grid_ranks.csv": "c624f95066b8e121287f3b8dd5cea7331364b2b3dadecd2dd815f786af47eeed"
+    }
+  },
+  "scope": "Independent CSV/ledger/receipt recalculation plus read-only remote sealed-artifact and complete-grid verification; no receiver calls."
+}

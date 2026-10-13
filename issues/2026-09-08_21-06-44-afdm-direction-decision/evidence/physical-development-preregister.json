@@ -1,0 +1,72 @@
+{
+  "status": "preregistered_before_design",
+  "campaign_id": "afdm-direction-20260908-v1",
+  "stage": "M_anchor_development",
+  "created_utc": "2026-09-08T17:08:23.647701+00:00",
+  "split": "design",
+  "block_start": 0,
+  "block_stop": 192,
+  "SNR": 8,
+  "new_arms": [
+    "m-group",
+    "m-param-budget",
+    "m-param-reference",
+    "m-soft"
+  ],
+  "new_full_calls": 768,
+  "allocation_id": "physical-design-anchor-v1",
+  "allocation_cap": 768,
+  "algorithm_sha256": "a935882dca5bf6d7face0df68a8010481f698b82ef0ae39c2f784608f16bf084",
+  "protocol_sha256": "4f307ad9f6c1f4667704eaa64f1594249c748f8ecf9c7707a32a1545e09c2941",
+  "engineering_audit_sha256": "95c7091cccd2b8f6277d94d5f5f262d76e0ae3d0427825ca3e1c911e10318a06",
+  "existing_reference": "sbl-s0.5 D_design192 original v4 complete cache; verify per-frame source/config/snapshot/input hashes before reuse. Cached baseline is not an additional full run.",
+  "comparison_roles": {
+    "deployable": [
+      "cached B_star",
+      "m-group",
+      "m-param-budget",
+      "m-soft"
+    ],
+    "separately_costed_high_reference": "m-param-reference explicitly required by M-03, not an additional novel candidate"
+  },
+  "single_new_prototype": "m-soft",
+  "hyperparameter_tuning": "none; all numerical parameters and queries frozen before design",
+  "decision": {
+    "viable_legal_candidate": "At complete192-block anchor only: m-soft FER point improvement >=0.05 against B_star and >=0.02 against BOTH deployment classical comparators m-group and m-param-budget; group must converge, while bounded local parameterization is explicitly a budget comparator, not a converged reference. No unaccounted errors or information violations. High-compute reference adequacy must be reported separately. Engineering cost must not already establish infeasibility; n3 timing never grants COST-02 pass. This is an exploratory allocation screen, not confirmation.",
+    "classical_solution": "If a classical deployable comparator matches or beats m-soft point FER, no novel candidate confirmation; retain recommendation to strengthen baseline, with design uncertainty.",
+    "uncertain_or_failed": "If screen fails or reference adequacy is unresolved, no adaptive additional anchor samples, no second prototype branch. Record limited/no-go development outcome; do not call lack of significance equivalence.",
+    "intervals": "Paired wins/losses; simultaneous95% conservative CP four-tail union bounds for six prelisted contrasts. Describe uncertainty separately from point allocation screen.",
+    "contrasts": [
+      "B_star versus m-soft",
+      "m-group versus m-soft",
+      "m-param-budget versus m-soft",
+      "m-param-reference versus m-soft",
+      "B_star versus m-group",
+      "B_star versus m-param-budget"
+    ],
+    "timing": "Engineering same-worker3samples per M arm plus old A2/B_star micro, explicitly cross-run and insufficient. Full development diagnostic time reported but no formal cost pass. Keep Pareto ambiguity; no elimination by unpaired old parallel times.",
+    "oracle_gap": "Descriptive comparison only: M_link uses truth-derived I and geometry on D_mech; cannot subtract oracle FER across datasets and claim a causal deployability gap."
+  },
+  "neighbor_stage": {
+    "admitted": false,
+    "condition": "Only viable anchor candidate enters a separately frozen stage; no neighbor data accessed under anchor admission.",
+    "maximum_possible_new_full_calls": 960,
+    "outline": "If all3 required arms retained:160same design blocks x2neighborSNR x3arms=960; would require explicit design-domain amendment and full budget/source freeze first. No promise of failure rerun reserve."
+  },
+  "resources": {
+    "conservative_full_seconds": 2.2685548833964275,
+    "anchor_predicted_host_gpu_seconds": 1742.2501504484562,
+    "anchor_deadline_seconds": 2400,
+    "source_and_stats_reserve_seconds": 600,
+    "remaining_before": {
+      "host_seconds": 18150.6337038098,
+      "gpu_seconds": 21849.534975942865,
+      "cpu_core_seconds": 450883.62621758203
+    },
+    "remaining_prototype_full_before": 1728,
+    "remaining_after_anchor": 960,
+    "no_blanket_confirmation_fit_claim": "Only current stage admitted after source-bound actual engineering evidence. FREEZE-01 must still resolve power, reference arm count, scene precision and remaining resource fit; never reduce required comparators or precision just to fit.",
+    "parallelism": "one GPU worker with4CPU affinity andBLAS1; compare four M arms in shared shuffled order; avoids concurrent GPU timing noise during current developmental diagnostics"
+  },
+  "retention": "All records and failures retained; no interim FER-driven selection or stopping. Budget/deadline failures are incomplete, not null effects."
+}
