@@ -15,8 +15,9 @@ m() { git --git-dir="$MIRROR/repo.git" --work-tree="$WT" "$@"; }
 git -C "$VAULT" archive "$SHA:$PREFIX" | tar -x -C "$WT"
 
 cd "$WT"
-# Agent runtime traces: not useful for reading.
-rm -rf .mission .claude .codex .agents
+# Agent runtime traces: not useful for reading. Keep .mission task CSVs (linked from STATE.md).
+rm -rf .claude .codex .agents
+[ -d .mission ] && find .mission -type f ! -name '*.csv' -delete && find .mission -type d -empty -delete
 # Binaries GPT cannot read.
 find . -type f \( -iname '*.npz' -o -iname '*.npy' -o -iname '*.pt' -o -iname '*.pth' \
   -o -iname '*.ckpt' -o -iname '*.mat' -o -iname '*.pkl' -o -iname '*.pickle' -o -iname '*.h5' \

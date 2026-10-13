@@ -17,7 +17,7 @@
 
 ## 镜像中被排除的内容
 
-- `.mission/`、`.claude/`、`.codex/`、`.agents/`（agent 运行痕迹）。`STATE.md` 中指向 `.mission/...csv` 的链接在此会失效。
+- `.claude/`、`.codex/`、`.agents/`（agent 配置），`.mission/` 中除任务 `*.csv` 外的运行痕迹。`STATE.md` 链接的 `.mission/...csv` 若尚未在 vault commit，则此处缺失。
 - 二进制数据：`*.npz *.npy *.pt *.pth *.ckpt *.mat *.pkl *.h5 *.gz *.zip *.tar *.fig` 等。
 - 单文件 > 50 MB。
 - vault 中尚未 commit 的改动。
