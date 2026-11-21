@@ -20,7 +20,7 @@
 - screen_every: 5；l2_per_screen: 3
 - round_budget: 每个 runner 每轮最多 40 个深想 idea 或 8 小时（先到为准；外部模型替本地出的也算）。粗估每个深想 idea 2–5 美元，一轮每边约 80–200 美元，未实测；Eric 改 prompts 里那一行即可调。
 - cloud_target: 15（云端不能放行，攒够 15 张 L2 候选就停，交本地放行）
-- 子 agent（只限本地 devin）：max_idea_workers 10（`.devin/agents/idea-worker.md`，Claude Opus 5.5 high），max_lit_workers 10（`.devin/agents/lit-reader.md`，SWE-2 high）；只在协议列的条件下开，同时最多 2 个，不嵌套；前 4 个工人出的 idea 全死就停用。
+- 子 agent（只限本地 devin）：max_idea_workers 10（`.devin/agents/idea-worker.md`，Fusion：Claude Opus 5.5 high + SWE-2 medium（助手免费）），max_lit_workers 10（`.devin/agents/lit-reader.md`，SWE-2 high）；只在协议列的条件下开，同时最多 2 个，不嵌套；前 4 个工人出的 idea 全死就停用。
 - l2_cap: 30 分钟 agent 时间，≤ 1 CPU 核时，不用 GPU，只用已有代码
 - 跨模型放行：Claude 系生成时用 `codex exec --sandbox read-only -m gpt-6.2-sol`（提示走 stdin）或 `devin -p --model <GPT 系模型>`，每次筛选一次批量调用
 
