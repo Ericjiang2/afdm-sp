@@ -2,7 +2,7 @@
 """Idea funnel helper (protocol: ../SKILL.md). Cards are the only source of truth; BOARD.md is generated.
 
   python3 funnel.py init  <funnel dir> --project NAME
-  python3 funnel.py new   <funnel dir> --title T --anchor A|B|C|D [--parent ID] [--runner c]   (prints the new card path)
+  python3 funnel.py new   <funnel dir> --title T --anchor A|B|C|D [--parent ID] [--runner c] [--generator MODEL]   (prints the new card path)
   python3 funnel.py board <funnel dir>                                (validate cards, rewrite BOARD.md; exit 1 on errors)
   python3 funnel.py import <funnel dir> --src <cards dir from elsewhere>   (copy cards, keep local eric: marks)
 """
@@ -55,14 +55,14 @@ def init(d, project):
     board(d)
 
 
-def new(d, title, anchor, parent='', runner=''):
+def new(d, title, anchor, parent='', runner='', generator=''):
     stamp = datetime.date.today().strftime('%Y%m%d')
     tpl = (SKILL / 'templates/card.md').read_text(encoding='utf-8')
     for n in range(1, 1000):
         path = d / 'cards' / f'I-{stamp}-{runner}{n:02d}.md'   # runner letter keeps parallel runs from colliding
         try:
             with open(path, 'x', encoding='utf-8') as fh:    # exclusive create: parallel agents never share an id
-                fh.write(tpl.format(id=path.stem, title=title, anchor_type=anchor, parent=parent, date=today()))
+                fh.write(tpl.format(id=path.stem, title=title, anchor_type=anchor, parent=parent, generator=generator, date=today()))
             print(path)
             return
         except FileExistsError:
@@ -102,6 +102,7 @@ def board(d):
     def row(c):
         mark = f' · Eric：{c["eric"]}' if c['eric'] else ''
         mark += f' · 来自 {c["parent"]}' if c.get('parent') else ''
+        mark += f' · 出题 {c["generator"]}' if c.get('generator') else ''
         return f'- [{c["id"]}]({c["file"]}) {c["title"]} — {c["layer"]}，价值 {c["value"]}{mark}\n  - {c["log"]}'
 
     groups = [('等你看（L3）', lambda c: c['status'] == 'active' and c['layer'] == 'L3'),
@@ -128,6 +129,7 @@ if __name__ == '__main__':
     ap.add_argument('--title', default='')
     ap.add_argument('--anchor', choices=sorted(ALLOWED['anchor_type']))
     ap.add_argument('--parent', default='')
+    ap.add_argument('--generator', default='', help='model that generated the idea, e.g. claude-opus-5-5, gpt-6.2-sol')
     ap.add_argument('--runner', default='', help='one lowercase letter per parallel runner, e.g. l (local) or c (cloud)')
     ap.add_argument('--src', type=Path)
     a = ap.parse_args()
@@ -136,7 +138,7 @@ if __name__ == '__main__':
     elif a.cmd == 'new':
         if not a.title or not a.anchor:
             sys.exit('new needs --title and --anchor')
-        new(a.dir, a.title, a.anchor, a.parent, a.runner)
+        new(a.dir, a.title, a.anchor, a.parent, a.runner, a.generator)
     elif a.cmd == 'import':
         if not a.src:
             sys.exit('import needs --src')

@@ -42,7 +42,8 @@ the older quick-batch mode; cards from it are screened like L1 cards.)
 
 ## A round
 
-A round ends when `target_ready` cards (default 10) are at L3, or the round budget in `FUNNEL.md` is spent, or
+A round ends when `target_ready` mutually distinct cards (default 10) are at L3 — children of one root count once unless
+the gate judged them distinct problems (the "yield" of IDEAgent: the largest set of mutually diverse ideas above the bar) — or the round budget in `FUNNEL.md` is spent, or
 `stall_limit` deep ideas in a row (default 8) have produced no new L2 candidate — whichever comes first. Then stop and
 report. Before starting, read `FUNNEL.md`, every existing card (killed ones included, so nothing is proposed twice) and
 the must-read files it lists, and state the round budget.
@@ -54,25 +55,39 @@ Loop until the round ends:
    with this project's numbers; search the 3–5 closest works (`scoop-check`, `paper-search`, `literature-search`,
    `comm-lit-review` or plain web search) and say how each differs; write the three 去壳 sentences; name the cheapest
    check that could kill it; set `value` (3 = would change a design decision across a subfield, 2 = changes one system's
-   design or a standard parameter, 1 = incremental) and `next_cost`. Only then create the card (`layer: L1`). If the idea
+   design or a standard parameter, 1 = incremental) and `next_cost`. Only then create the card (`layer: L1`, `generator:`
+   the model that did the thinking). If the idea
    dies during the work (already solved, already being worked per `FUNNEL.md`, on a killed list, or a 去壳 sentence
    cannot be written plainly), do not make a card: add the title and one-line reason to `runs.md` as a dropped draft.
 2. **Grow the tree.** When a card passes L2, gets REVISE from the gate, or the derivation suggests a sharper or more
    general version, write the variant as a child card (`funnel.py new --parent <id>`). A child states its one change from
    the parent in its first 筛选记录 line. Kill a parent when a child subsumes it.
-3. **Screen together** every `screen_every` new cards (default 5): re-rank all active cards side by side by value over
-   next_cost, keeping variety; kill duplicates and dominated cards; pick at most `l2_per_screen` (default 3) for L2.
+3. **Screen together** every `screen_every` new cards (default 5): rank all active cards by pairwise comparison ("which
+   of these two is more worth a long simulation, and why"), once by the runner and once in one batched call by a judge
+   from a family other than most of the cards' generators; where the two rankings disagree strongly, keep both cards
+   (the best LLM judges match expert pairwise preference only about 73% of the time, worst on feasibility: Ideation
+   Arena, EMNLP 2026). Kill duplicates and dominated cards; pick at most `l2_per_screen` (default 3) for L2, keeping
+   variety.
 4. **L2 cheap evidence** within the cap: a readout of existing data, an estimate or bound, a small run of existing code,
    or reading the closest 5–10 papers in full to confirm the gap. At least one check per card faces outside the project
    (literature, standard or real-system evidence): internal simulations alone favour problems we created ourselves.
    Result: kill, park with the heavier check and its cost, or gate candidate.
-5. **Cross-model gate**, one batched call for all candidates of this screening: send the cards to a reviewer of a
-   different model family (e.g. `codex exec --sandbox read-only -m <model>` with the prompt on stdin, or
+5. **Cross-model gate**, one batched call per reviewer family for the candidates of this screening: send each card to a
+   reviewer of a family different from its `generator` (e.g. `codex exec --sandbox read-only -m <model>` with the prompt on stdin, or
    `devin -p --model <GPT model>`, from a Claude-family generator; Claude from a GPT-family generator), asking per card
    for the strongest objection, whether the anchor and closest-work notes hold, and PASS / KILL / REVISE. Record reviewer,
    model and verdict in the card. PASS → L3; KILL → killed; REVISE → child card or back to L2. With no second family
    available, leave candidates at L2 with `next_cost: cross-model review`.
 6. Run `board`; append progress to the round's line in `runs.md`; continue.
+
+External generators (ARIS `idea-creator` Phase 2: generators of different families fail differently, so take the
+union). A runner that can call other models — `codex --search exec --sandbox read-only -m gpt-6.2-sol` or
+`-m gpt-6.2-astra` (prompt on stdin), `devin -p --model <id>` — should, each cycle, have one or two of them think an idea
+through independently, in parallel with its own, using the fill-in prompt in the project's funnel folder
+(`prompts/external-idea.md`). Each result that is not DROPPED becomes a card with `generator:` set to that model; never
+pre-filter a card for looking weak, the joint screening decides. While generating, runners and external generators read
+the screened history (cards, killed lists) but not other runners' unscreened work; merging happens at screening, because
+coupled agents converge ("Diversity Collapse in Multi-Agent LLM Systems", arXiv 2604.18005).
 
 Anchors (every card needs at least one, with its source): **A** a specific recent paper that states the limitation or
 leaves it open (found with a search tool in this round, never from memory alone); **B** a number and file path from this
@@ -97,7 +112,9 @@ it, following the project's own rules) and write the task link in the card.
 - **Several runners at once** (e.g. local and cloud): each runner uses its own `--runner` letter for new cards and works
   only its share of anchors and lenses as `FUNNEL.md` assigns; it edits only cards carrying its own letter, plus any
   older cards `FUNNEL.md` hands to it. After an import, the next joint screening compares all runners' cards and merges
-  duplicates.
+  duplicates. Prefer a different model family per runner: generators fail differently and the union keeps one model's
+  taste from capping the pool (ARIS `idea-creator` Phase 2 brainstorms with two external models for this reason); the
+  gate then sends each card to a family other than the one that generated it.
 - **Cloud and local together** (when `FUNNEL.md` sets `cloud_repo`): a cloud agent (e.g. Devin Cloud) clones that repo,
   reads this protocol from the copy the sync puts at `.sync/idea-funnel/`, runs steps 1–4 and 6 on its own machine
   (L2 small runs on its CPU with the project code), commits only files under the funnel folder to the branch

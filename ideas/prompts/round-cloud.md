@@ -2,7 +2,7 @@
 
 先读 `.sync/idea-funnel/SKILL.md`（协议，完整遵守），再读 `ideas/FUNNEL.md`、其中列的必读文件和 `ideas/cards/` 里全部卡片。仓库根目录就是项目根目录（协议里的"项目文件"都相对这里）。
 
-- 新卡一律 `python3 .sync/idea-funnel/scripts/funnel.py new ideas --runner c ...`。
+- 新卡一律 `python3 .sync/idea-funnel/scripts/funnel.py new ideas --runner c --generator <你的模型名> ...`。
 - 只做 FUNNEL.md 分给云端的部分：锚点 A（近期论文明说或留下的局限，必须本轮用搜索找到）和 D（两群互不引用、各握一半答案的文献）；视角以方法迁移、矛盾结论为主。不改任何不以 c 开头编号的卡。
 - 本轮预算：最多 15 个深想 idea（Eric 可改这一行）；停止条件按 FUNNEL.md。
 - 不做跨模型放行：L2 通过的卡保持 `layer: L2`，`next_cost: cross-model review`，由本地放行。
