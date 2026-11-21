@@ -126,10 +126,25 @@ this round; harvest anchors from the limitations sections of 10–20 recent pape
 different angle (a new child, not a revival). Reset the stall count and count the pivot. If a pivot teaches something
 about the project's structure, revise `ABSTRACTION.md` and say so in the pivot note.
 
+Context and subagents. Long rounds outgrow any context window, so the harness will compact; recall also degrades in very
+long contexts, and ideas written next to all earlier ideas drift toward them. Two rules:
+- **Memory lives in files.** After a compaction or restart, do not continue from a vague memory: re-read `FUNNEL.md`,
+  `BOARD.md` and the last reflection, pivot and lesson lines in `runs.md`, then go on.
+- **Fresh-context workers only when they pay.** By default the runner thinks its own ideas in its own context (cheaper:
+  it reuses the prompt cache). Hand one idea to a fresh worker only when one of these holds: the runner has thought eight
+  or more ideas in its current context; the last reflection flagged circling or a crowded neighbourhood; or the idea is
+  a pivot into a new field where fresh eyes matter. Hand literature reading to a cheap worker when a check needs more
+  than three papers read. Caps per round (`FUNNEL.md`): `max_idea_workers` (default 10) and `max_lit_workers`
+  (default 10); never nest workers; at most two running at once. Stop-loss: if the first four worker ideas of a round
+  all die at L1 or are dropped, stop using idea workers for the rest of the round. Give workers a short brief with a
+  fixed opening (so repeated briefs share a cached prefix) and the variable assignment last. Log every worker use in
+  `runs.md` (profile, purpose, outcome) so the next round can judge whether they paid.
+
 External generators (ARIS `idea-creator` Phase 2: generators of different families fail differently, so take the
 union). A runner that can call other models — `codex --search exec --sandbox read-only -m gpt-6.2-astra` (prompt on stdin),
 `~/.local/bin/agy -p "<prompt>" --model gemini-4-neon-high --mode plan --add-dir <skill dir>` (read-only; slow, minutes per
-call), `devin -p --model <id>` — should, each cycle, have one or two of them think an idea
+call; use `--output-format json` and, if the response has no final result, ask again with `--conversation <id>` — plan
+mode sometimes stops after reading files), `devin -p --model <id>` — should, each cycle, have one or two of them think an idea
 through independently, in parallel with its own, using the fill-in prompt in the project's funnel folder
 (`prompts/external-idea.md`). Each result that is not DROPPED becomes a card with `generator:` set to that model; never
 pre-filter a card for looking weak, the joint screening decides. While generating, runners and external generators read
