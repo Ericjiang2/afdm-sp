@@ -45,6 +45,12 @@ def last_log(text):
     return lines[-1][2:] if lines else ''
 
 
+def section(text, heading):
+    """Body of one '## ' section, stripped."""
+    parts = text.split(heading, 1)
+    return parts[1].split('\n## ', 1)[0].strip() if len(parts) == 2 else ''
+
+
 def init(d, project):
     (d / 'cards').mkdir(parents=True, exist_ok=True)
     if not (d / 'FUNNEL.md').exists():
@@ -70,20 +76,35 @@ def new(d, title, anchor, parent='', runner='', generator=''):
     sys.exit('no free id today')
 
 
+def log_lines(text):
+    return [l for l in text.split('## 筛选记录', 1)[-1].splitlines() if l.startswith('- ')]
+
+
 def import_cards(d, src):
-    """Take cards from src (a cloud run); a local non-empty eric: mark always wins over the incoming one."""
-    added = updated = 0
+    """Take cards from src (a cloud run). The incoming card wins only if its screening log contains every local line
+    (it is newer); a local card with lines the incoming lacks (e.g. gated locally) is kept. A local non-empty eric:
+    mark always survives."""
+    added = updated = kept = 0
     for p in sorted(Path(src).glob('*.md')):
         text = p.read_text(encoding='utf-8'); dest = d / 'cards' / p.name
         if dest.exists():
-            mark = re.search(r'^eric:(.*)$', dest.read_text(encoding='utf-8'), re.M)
+            local = dest.read_text(encoding='utf-8')
+            mine, theirs = log_lines(local), log_lines(text)
+            if not set(mine) <= set(theirs):
+                kept += 1
+                if not set(theirs) <= set(mine):
+                    print(f'conflict, kept local: {p.name} (both sides have new screening lines; check by hand)')
+                continue
+            mark = re.search(r'^eric:(.*)$', local, re.M)
             if mark and mark.group(1).strip():
                 text = re.sub(r'^eric:.*$', f'eric:{mark.group(1)}', text, count=1, flags=re.M)
-            updated += dest.read_text(encoding='utf-8') != text
+            if local == text:
+                continue
+            updated += 1
         else:
             added += 1
         dest.write_text(text, encoding='utf-8')
-    print(f'import: {added} new, {updated} updated')
+    print(f'import: {added} new, {updated} updated, {kept} kept local')
     board(d)
 
 
@@ -94,16 +115,22 @@ def board(d):
         if errors:
             bad.append(f'{p.name}: ' + '; '.join(errors))
         else:
-            cards.append(dict(meta, log=last_log(text), file=f'cards/{p.name}'))
+            cards.append(dict(meta, log=last_log(text), file=f'cards/{p.name}', problem=section(text, '## 问题（一句话）'),
+                              plain=section(text, '## 白话与类比'), shell=section(text, '## 去壳三句')))
     if bad:
         print('\n'.join(bad), file=sys.stderr)
         sys.exit(1)
 
-    def row(c):
+    def row(c, full=False):
         mark = f' · Eric：{c["eric"]}' if c['eric'] else ''
         mark += f' · 来自 {c["parent"]}' if c.get('parent') else ''
         mark += f' · 出题 {c["generator"]}' if c.get('generator') else ''
-        return f'- [{c["id"]}]({c["file"]}) {c["title"]} — {c["layer"]}，价值 {c["value"]}{mark}\n  - {c["log"]}'
+        head = f'- [{c["id"]}]({c["file"]}) {c["title"]} — {c["layer"]}，价值 {c["value"]}{mark}'
+        if full:   # cards waiting for Eric: everything he needs to judge, on the board itself
+            body = [f'  - 问题：{c["problem"]}', '  - 白话与类比：', *('    ' + l for l in c['plain'].splitlines()),
+                    '  - 去壳三句：', *('    ' + l for l in c['shell'].splitlines()), f'  - 最近记录：{c["log"]}']
+            return '\n'.join([head, *body])
+        return f'{head}\n  - {c["problem"] or c["log"]}\n  - 最近：{c["log"]}'
 
     groups = [('等你看（L3）', lambda c: c['status'] == 'active' and c['layer'] == 'L3'),
               ('筛选中（L0–L2）', lambda c: c['status'] == 'active' and c['layer'] in ('L0', 'L1', 'L2')),
@@ -115,7 +142,7 @@ def board(d):
            f'共 {len(cards)} 张：进行中 {counts["active"]}，停放 {counts["parked"]}，晋级 {counts["promoted"]}，淘汰 {counts["killed"]}。',
            '在卡片的 `eric:` 一栏写 `继续` / `停` / `改：…`，下次运行时生效。']
     for name, keep in groups:
-        rows = [row(c) for c in cards if keep(c)]
+        rows = [row(c, full=name.startswith('等你看')) for c in cards if keep(c)]
         out += ['', f'## {name}（{len(rows)}）', *(rows or ['- 无'])]
     (d / 'BOARD.md').write_text('\n'.join(out) + '\n', encoding='utf-8')
     print(f'BOARD.md: {len(cards)} cards')
