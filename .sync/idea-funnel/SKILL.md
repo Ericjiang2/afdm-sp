@@ -14,7 +14,10 @@ Design reasons and sources: [DESIGN.md](DESIGN.md) (read only when changing this
 
 ## Files
 
-- Funnel folder (one per project, e.g. `<project>/ideas/`): `FUNNEL.md` (project settings: domain, must-read files,
+- This skill folder: `METHODS.md` (idea-generation methods with sources; read before every round), this protocol,
+  templates and scripts.
+- Funnel folder (one per project, e.g. `<project>/ideas/`): `ABSTRACTION.md` (first-principles map: layers, analogous
+  fields, open problems, premises worth doubting), `FUNNEL.md` (project settings: domain, must-read files,
   what is already being worked, budgets, where to run), `cards/I-YYYYMMDD-NN.md` (one card per idea, the only source of
   truth), `BOARD.md` (generated, never hand-edited), `runs.md` (one line per round, plus dropped drafts).
 - Helper: `python3 <this skill>/scripts/funnel.py init|new|board|import <funnel folder>` (no dependencies). `new` reserves
@@ -42,54 +45,86 @@ the older quick-batch mode; cards from it are screened like L1 cards.)
 
 ## A round
 
-A round ends when `target_ready` mutually distinct cards (default 10) are at L3 — children of one root count once unless
-the gate judged them distinct problems (the "yield" of IDEAgent: the largest set of mutually diverse ideas above the bar) — or the round budget in `FUNNEL.md` is spent (deep ideas or hours), or
-`stall_limit` deep ideas in a row (default 8) have produced no new L2 candidate after widening (below) — whichever comes
-first. A runner that cannot run the gate (e.g. a cloud runner) stops instead at `cloud_target` gate candidates (default
-15), since its cards cannot reach L3 on their own. Then stop and report.
+Before starting, read [METHODS.md](METHODS.md) (a toolbox of ways to generate ideas, with sources), `FUNNEL.md`,
+every existing card (killed ones included, so nothing is proposed twice) and the must-read files it lists. Then, before
+opening the project's `ABSTRACTION.md`, write your own first-principles decomposition of the project (METHODS §F: what
+the code names do physically and mathematically, the layers, what is scarce or limiting at each, the abstract problem
+class, which other fields share it, which premises look doubtful) into `ideas/abstractions/<runner>-<date>.md`. Only
+then read `ABSTRACTION.md`, which is one earlier author's reference map, not a starting point, and append to your file
+where you disagree with it and why; the next reflection may revise the map from these notes. One generator per round
+(e.g. one external generator) never reads the map at all. State the budget and the rough track mix you aim for.
+
+The round ends on the first of: (1) `target_ready` mutually distinct cards (default 10) at L3 — children of one root
+count once unless the gate judged them distinct problems (IDEAgent's "yield") — or, for a runner that cannot run the
+gate, `cloud_target` gate candidates (default 15); (2) the budget in `FUNNEL.md` is spent (deep ideas or hours);
+(3) pivots are exhausted: `max_pivots` pivots (default 4) have each been followed by `stall_limit` deep ideas (default 8)
+without a new L2 candidate, and at least `min_hours` (default 4) of work have passed. A stall alone is never a reason to
+stop; it is a reason to pivot (below). Then stop and report.
 
 Run without pausing: a round is meant to run for hours. Do not stop to report, summarise or ask for confirmation; after
 each screening start the next cycle at once. Commit after every screening (a cloud runner also pushes) so the work
-survives an interrupted session. End only on a stop condition.
+survives an interrupted session.
 
-Widen before counting a stall: when the assigned anchors and lenses seem used up, do not stop. In order: (a) switch to
-the other lenses and anchors; (b) grow children of every L1 or L2 survivor and parked card, one stated change each;
-(c) harvest anchors from the limitations and future-work sections of 10–20 recent papers in the area; (d) revisit killed
-cards for a clearly different angle (a new child, not a revival). Only deep ideas that still produce nothing after these
-count toward `stall_limit`. Before starting, read `FUNNEL.md`, every existing card (killed ones included, so nothing is proposed twice) and
-the must-read files it lists, and state the round budget.
+Tracks, so the round does not circle inside one pit (rough targets for the round's mix, not quotas to fill;
+`FUNNEL.md` may override; every card sets `track:`):
+- **core** (about 50%): this project's own problems.
+- **adjacent** (about 25%): the same abstract problem class in another system or waveform (`ABSTRACTION.md` §3).
+- **explore** (about 15%): outside the project but within the owner's reach (for Eric: physical-layer signal processing,
+  estimation, coding); judged by its value as a standalone Transactions paper.
+- **pit** (about 10%): questions the project's own premises (`ABSTRACTION.md` §5): if the pit is bad, this is how the
+  funnel finds out.
+One idea in five is a wildcard: the generator chooses its own method, anchor and track.
 
-Loop until the round ends:
+Each cycle:
 
-1. **Think one idea through (L1).** Choose an anchor and a lens not yet covered (see below). Work it like a research
-   conversation, not a list item: state the problem precisely; derive the key relation or a back-of-envelope estimate
-   with this project's numbers; search the 3–5 closest works (`scoop-check`, `paper-search`, `literature-search`,
-   `comm-lit-review` or plain web search) and say how each differs; write the three 去壳 sentences; name the cheapest
-   check that could kill it; set `value` (3 = would change a design decision across a subfield, 2 = changes one system's
-   design or a standard parameter, 1 = incremental) and `next_cost`. Only then create the card (`layer: L1`, `generator:`
-   the model that did the thinking). If the idea
-   dies during the work (already solved, already being worked per `FUNNEL.md`, on a killed list, or a 去壳 sentence
-   cannot be written plainly), do not make a card: add the title and one-line reason to `runs.md` as a dropped draft.
-2. **Grow the tree.** When a card passes L2, gets REVISE from the gate, or the derivation suggests a sharper or more
+1. **Inspiration read** (about 10 minutes): skim 3–5 recent papers from the field rotation in `ABSTRACTION.md` §3, one
+   of them from a far field; note in `runs.md` the sparks and which open problem (§4) each bears on (METHODS M1). This
+   is reading for ideas, not checking novelty.
+2. **Think one idea through (L1).** Pick track, anchor and lens; use any method from METHODS that helps, or your own,
+   and write `方法：<id 或 自己的>` in the first 筛选记录 line. Name the layer the idea attacks and its abstract problem
+   class from your own decomposition, and look at how other fields with the same class handle it (G12). Then work it like a research conversation, not a list item: state the
+   problem precisely; derive the key relation or an estimate with this project's numbers (formula and substitution);
+   search the 3–5 closest works (`scoop-check`, `paper-search`, `literature-search`, `comm-lit-review` or plain web
+   search) and say how each differs; write the three 去壳 sentences; name the cheapest check that could kill it; set
+   `value` (3 = would change a design decision across a subfield, 2 = changes one system's design or a standard
+   parameter, 1 = incremental) and `next_cost`. Before dropping it, name its smallest plausible repair (G15). Only then
+   create the card (`layer: L1`, `generator:` the model that did the thinking, `track:`). If it still dies (already
+   solved, already being worked per `FUNNEL.md`, on a killed list, or a 去壳 sentence cannot be written plainly), add the
+   title and reason to `runs.md` as a dropped draft.
+3. **Learn from every death.** For each dropped draft or killed card, write one lesson line in `runs.md`: why it died,
+   which assumption failed, and what that suggests trying instead.
+4. **Grow the tree.** When a card passes L2, gets REVISE from the gate, or the derivation suggests a sharper or more
    general version, write the variant as a child card (`funnel.py new --parent <id>`). A child states its one change from
    the parent in its first 筛选记录 line. Kill a parent when a child subsumes it.
-3. **Screen together** every `screen_every` new cards (default 5): rank all active cards by pairwise comparison ("which
-   of these two is more worth a long simulation, and why"), once by the runner and once in one batched call by a judge
-   from a family other than most of the cards' generators; where the two rankings disagree strongly, keep both cards
-   (the best LLM judges match expert pairwise preference only about 73% of the time, worst on feasibility: Ideation
-   Arena, EMNLP 2026). Kill duplicates and dominated cards; pick at most `l2_per_screen` (default 3) for L2, keeping
-   variety.
-4. **L2 cheap evidence** within the cap: a readout of existing data, an estimate or bound, a small run of existing code,
+5. **Screen together and reflect** every `screen_every` new cards (default 5). Rank all active cards by pairwise
+   comparison ("which of these two is more worth a long simulation, and why"), once by the runner and once in one
+   batched call by a judge from a family other than most of the cards' generators; where the two rankings disagree
+   strongly, keep both cards (the best LLM judges match expert pairwise preference only about 73% of the time, worst on
+   feasibility: Ideation Arena, EMNLP 2026). Kill duplicates and dominated cards; pick at most `l2_per_screen`
+   (default 3) for L2, keeping variety. Then write a reflection line in `runs.md`: death reasons counted; which tracks,
+   methods and layers were used and which produced survivors; whether a failure pattern from METHODS §X is showing; and
+   an explicit decision for the next cycles (track, method, layer or field). Act on it.
+6. **L2 cheap evidence** within the cap: a readout of existing data, an estimate or bound, a small run of existing code,
    or reading the closest 5–10 papers in full to confirm the gap. At least one check per card faces outside the project
-   (literature, standard or real-system evidence): internal simulations alone favour problems we created ourselves.
-   Result: kill, park with the heavier check and its cost, or gate candidate.
-5. **Cross-model gate**, one batched call per reviewer family for the candidates of this screening: send each card to a
-   reviewer of a family different from its `generator` (e.g. `codex exec --sandbox read-only -m <model>` with the prompt on stdin, or
-   `devin -p --model <GPT model>`, from a Claude-family generator; Claude from a GPT-family generator), asking per card
-   for the strongest objection, whether the anchor and closest-work notes hold, and PASS / KILL / REVISE. Record reviewer,
-   model and verdict in the card. PASS → L3; KILL → killed; REVISE → child card or back to L2. With no second family
-   available, leave candidates at L2 with `next_cost: cross-model review`.
-6. Run `board`; append progress to the round's line in `runs.md`; continue.
+   (literature, standard or real-system evidence): internal simulations alone favour problems we created ourselves. For
+   a gate candidate, have a model of another family re-derive its key number independently. Result: kill, park with the
+   heavier check and its cost, or gate candidate.
+7. **Cross-model gate**, one batched call per reviewer family for the candidates of this screening: send each card to a
+   reviewer of a family different from its `generator` (e.g. `codex exec --sandbox read-only -m <model>` with the prompt
+   on stdin, or `devin -p --model <GPT model>`, from a Claude-family generator; Claude from a GPT-family generator),
+   asking per card for the strongest objection, whether the anchor and closest-work notes hold, and PASS / KILL /
+   REVISE. Record reviewer, model and verdict in the card. PASS → L3 (a `pit` card at L3 is a decision for Eric, shown in
+   its own board section); KILL → killed; REVISE → child card or back to L2. With no second family available, leave
+   candidates at L2 with `next_cost: cross-model review`.
+8. Run `board`; append progress to the round's line in `runs.md`; commit; continue.
+
+**Pivot** when `stall_limit` deep ideas in a row produce no new L2 candidate. Do not stop. Write a pivot note in
+`runs.md`: diagnose the stall with METHODS §X (crowded neighbourhood, circling, self-made problem), then make one change
+bigger than switching lenses: move up or down an abstraction layer (your decomposition, or `ABSTRACTION.md` §2); go to an analogous field (yours or §3)
+and bring back how it solves the problem; switch track (adjacent, explore, pit); take an open problem from §4 not touched
+this round; harvest anchors from the limitations sections of 10–20 recent papers; or revisit killed cards for a clearly
+different angle (a new child, not a revival). Reset the stall count and count the pivot. If a pivot teaches something
+about the project's structure, revise `ABSTRACTION.md` and say so in the pivot note.
 
 External generators (ARIS `idea-creator` Phase 2: generators of different families fail differently, so take the
 union). A runner that can call other models — `codex --search exec --sandbox read-only -m gpt-6.2-astra` (prompt on stdin),
