@@ -189,7 +189,7 @@ other than the card's generator:
 |---|---|---|
 | Main runner: choosing problems, framing, the story | Claude (Eric's local runner: Fable 5.2 Fusion high) | sets direction and tone |
 | Generator: cross-domain analogies, world knowledge (method-transfer, toy-setting, anchor D) | Gemini 4 Neon high | Eric 2026-11-21: Gemini is the most inventive, with the broadest world knowledge |
-| Generator: derivation-heavy ideas (GPT family vote) | GPT-6.2 Astra high | rigorous mathematics (about-eric §6); weaker at choosing direction, so it gets an assigned anchor |
+| Generator: derivation-heavy ideas (GPT family vote) | GPT-6.2 Sol high; Astra high only when the idea needs rigorous derivation (a bound, closed form, asymptotics) | Eric 2026-11-21: Astra is costly and not every idea needs it (its 5 cards in the first local round reached no L3); GPT models are rigorous but weaker at choosing direction (about-eric §6), so the slot gets an assigned anchor |
 | L1 novelty search | Gemini 4 Neon high, or the runner | broad literature knowledge; Gemini found prior work the others missed on 2026-11-21 ("data as pilot") |
 | L2 derivation, estimate, hole-finding | GPT-6.2 Astra high | rigour and auditing |
 | L2 small code runs | the runner, or GPT-6.2 Sol | cheap execution |

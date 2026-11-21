@@ -61,6 +61,8 @@ Eric 原话要点（逐条）：模型知不知道前沿公开的出 idea 方法
 
 - 放行评审改派（Eric 11-21 21:20）：GPT 出的卡原来交 Claude Opus 5.5 放行，这是 14:23 只有 Claude/GPT 两家时的写法，14:59 写模型表时被顺手填成 Opus、没有理由，加入 Gemini 后也没重审。现改为交 Gemini Neon，并与第 7 步查新合成一次 agy 调用：Neon 与 GPT、与 Claude runner 都不同家族，不占 Claude 额度，也不在 app 侧栏留会话；Gemini 出的卡反过来两步都交 Astra。代价：评审质量依赖 Gemini（11-21 的 Neon 审查扎实，但有一处说过头），关键数字仍由 runner 抽查。agy 非交互调用用默认模式加 `--sandbox`（本账号没有 `--mode auto`；实测能跑 skill 的 Python）。
 
+- GPT 出题位改默认 Sol（Eric 11-21 21:40）：每个循环固定用 Astra 出一题太贵，本地第一轮 Astra 的 5 张卡没有一张进 L3；改为默认 Sol，只有需要严格推导的题才用 Astra，并在 runs.md 写明理由。Sol 与 Astra 同属 GPT 家族，出的卡同样批量交 Neon 查新加放行。
+
 ## 维护成本与退出条件
 
 - 维护：几乎为零（一个 skill、两个模板、一个无依赖脚本）。
