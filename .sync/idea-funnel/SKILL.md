@@ -45,10 +45,14 @@ the older quick-batch mode; cards from it are screened like L1 cards.)
 
 ## A round
 
-Before starting, read [METHODS.md](METHODS.md) (how to generate ideas, with sources), the project's `ABSTRACTION.md`
-(the first-principles map of the project; if it is missing, build it per METHODS §F before generating anything),
-`FUNNEL.md`, every existing card (killed ones included, so nothing is proposed twice) and the must-read files it lists.
-State the budget, the track quotas and the methods you plan to rotate.
+Before starting, read [METHODS.md](METHODS.md) (a toolbox of ways to generate ideas, with sources), `FUNNEL.md`,
+every existing card (killed ones included, so nothing is proposed twice) and the must-read files it lists. Then, before
+opening the project's `ABSTRACTION.md`, write your own first-principles decomposition of the project (METHODS §F: what
+the code names do physically and mathematically, the layers, what is scarce or limiting at each, the abstract problem
+class, which other fields share it, which premises look doubtful) into `ideas/abstractions/<runner>-<date>.md`. Only
+then read `ABSTRACTION.md`, which is one earlier author's reference map, not a starting point, and append to your file
+where you disagree with it and why; the next reflection may revise the map from these notes. One generator per round
+(e.g. one external generator) never reads the map at all. State the budget and the rough track mix you aim for.
 
 The round ends on the first of: (1) `target_ready` mutually distinct cards (default 10) at L3 — children of one root
 count once unless the gate judged them distinct problems (IDEAgent's "yield") — or, for a runner that cannot run the
@@ -61,8 +65,8 @@ Run without pausing: a round is meant to run for hours. Do not stop to report, s
 each screening start the next cycle at once. Commit after every screening (a cloud runner also pushes) so the work
 survives an interrupted session.
 
-Tracks, so the round does not circle inside one pit (quotas per round, `FUNNEL.md` may override; every card sets
-`track:`):
+Tracks, so the round does not circle inside one pit (rough targets for the round's mix, not quotas to fill;
+`FUNNEL.md` may override; every card sets `track:`):
 - **core** (about 50%): this project's own problems.
 - **adjacent** (about 25%): the same abstract problem class in another system or waveform (`ABSTRACTION.md` §3).
 - **explore** (about 15%): outside the project but within the owner's reach (for Eric: physical-layer signal processing,
@@ -76,9 +80,9 @@ Each cycle:
 1. **Inspiration read** (about 10 minutes): skim 3–5 recent papers from the field rotation in `ABSTRACTION.md` §3, one
    of them from a far field; note in `runs.md` the sparks and which open problem (§4) each bears on (METHODS M1). This
    is reading for ideas, not checking novelty.
-2. **Think one idea through (L1).** Pick track, method (METHODS; rotate; write `方法：<id>` in the first 筛选记录 line),
-   anchor and lens. Start from `ABSTRACTION.md`: name the layer the idea attacks and its abstract problem class, and look
-   at how the analogous fields handle it (G12). Then work it like a research conversation, not a list item: state the
+2. **Think one idea through (L1).** Pick track, anchor and lens; use any method from METHODS that helps, or your own,
+   and write `方法：<id 或 自己的>` in the first 筛选记录 line. Name the layer the idea attacks and its abstract problem
+   class from your own decomposition, and look at how other fields with the same class handle it (G12). Then work it like a research conversation, not a list item: state the
    problem precisely; derive the key relation or an estimate with this project's numbers (formula and substitution);
    search the 3–5 closest works (`scoop-check`, `paper-search`, `literature-search`, `comm-lit-review` or plain web
    search) and say how each differs; write the three 去壳 sentences; name the cheapest check that could kill it; set
@@ -116,7 +120,7 @@ Each cycle:
 
 **Pivot** when `stall_limit` deep ideas in a row produce no new L2 candidate. Do not stop. Write a pivot note in
 `runs.md`: diagnose the stall with METHODS §X (crowded neighbourhood, circling, self-made problem), then make one change
-bigger than switching lenses: move up or down an abstraction layer (`ABSTRACTION.md` §2); go to an analogous field (§3)
+bigger than switching lenses: move up or down an abstraction layer (your decomposition, or `ABSTRACTION.md` §2); go to an analogous field (yours or §3)
 and bring back how it solves the problem; switch track (adjacent, explore, pit); take an open problem from §4 not touched
 this round; harvest anchors from the limitations sections of 10–20 recent papers; or revisit killed cards for a clearly
 different angle (a new child, not a revival). Reset the stall count and count the pivot. If a pivot teaches something

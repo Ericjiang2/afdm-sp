@@ -7,7 +7,7 @@
 
 ## 出题前必读
 - 出题方法：协议目录的 `METHODS.md`（本地 `~/projects/personal-ai-workflow/skills/idea-funnel/METHODS.md`，云端 `.sync/idea-funnel/METHODS.md`）。
-- 第一性原理地图：[ABSTRACTION.md](ABSTRACTION.md)（分层、别的领域的同类问题、开放问题清单、值得怀疑的前提）。
+- 第一性原理地图：[ABSTRACTION.md](ABSTRACTION.md)（Claude 一人起草的参考，每行标可靠程度，可能错）。先自己拆解再读；各 runner 的独立拆解与分歧在 `abstractions/`。
 - 当前状态与开放线索：[STATE.md](../STATE.md)（"接续入口"与"待办与开放线索"两段）。
 - 已否定方向：[否定结果台账](../.trellis/tasks/09-22-tf-production-gap-audit/research/discovery_negative_results_ledger.md)。
 - 已接受结论：[research-assets/index.md](../research-assets/index.md)；预测与打分：[prediction-ledger.md](../research-assets/prediction-ledger.md)。
@@ -16,7 +16,7 @@
 ## 轮次与预算（不写则用协议默认值）
 - target_ready: 10（攒够这么多张彼此不同的 L3 就停一轮；同根子卡算一张）
 - stall_limit: 8；max_pivots: 4；min_hours: 4（连续 8 个深想没有新 L2 候选就"转向"——换抽象层次、换领域、换赛道、换开放问题——而不是停；转向 4 次仍无产出、且已跑满 4 小时才停）
-- 赛道配额：core 约 50%（本项目问题）、adjacent 约 25%（同类抽象问题在别的系统或波形上）、explore 约 15%（项目之外、在 Eric 物理层与信号处理能力内，按能否独立成 Trans 论文评价）、pit 约 10%（质疑本项目的前提，见 ABSTRACTION.md §5）；每 5 个里 1 个是自由选题
+- 赛道比例（大致目标，不是配额）：core 约 50%（本项目问题）、adjacent 约 25%（同类抽象问题在别的系统或波形上）、explore 约 15%（项目之外、在 Eric 物理层与信号处理能力内，按能否独立成 Trans 论文评价）、pit 约 10%（质疑本项目的前提，见 ABSTRACTION.md §5）；每 5 个里 1 个是自由选题
 - screen_every: 5；l2_per_screen: 3
 - round_budget: 每个 runner 每轮最多 40 个深想 idea 或 8 小时（先到为准；外部模型替本地出的也算）。粗估每个深想 idea 2–5 美元，一轮每边约 80–200 美元，未实测；Eric 改 prompts 里那一行即可调。
 - cloud_target: 15（云端不能放行，攒够 15 张 L2 候选就停，交本地放行）
