@@ -44,6 +44,8 @@ Eric 原话要点：不是一次出 30 个便宜低级 idea，而是每个都全
 | Ideation Arena（EMNLP 2026，arXiv 2608.29696） | 统一筛选改为两两比较，runner 与异族评委各排一次，分歧大的都留 | 6,000+ 次专家两两比较；最好的 LLM 评委只复现约 73%，可行性最差 |
 | Diversity Collapse in Multi-Agent LLM Systems（arXiv 2604.18005，仅读标题与摘要） | 出题时各 runner 互不看未筛选的卡，筛选时再合并 | 耦合的多智能体会趋同 |
 
+- 模型分工（Eric 11-21：加 agy 的 Gemini 4 Neon/Hydrogen，各取所长）：Gemini Neon 出跨领域类比与世界知识类题、做查新；Astra 做推导型题、L2 推导与放行审计；Hydrogen 做便宜的两两比较初排和 L3 卡的白话；Claude 做主 runner 定题定调。依据：Eric 对 Gemini 的经验、about-eric §6 对 Astra 的画像、Ideation Arena 对评委可靠性的结论。agy 非交互调用已实测可用（`agy -p ... --mode plan`），但很慢（一次小请求约 3 分钟）。
+
 本地 runner 不再限锚点；云端因为不能调外部模型、不能上 deinlab、没有本机 skills，仍以 A/D 为主。
 
 ## 维护成本与退出条件

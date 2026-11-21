@@ -81,13 +81,31 @@ Loop until the round ends:
 6. Run `board`; append progress to the round's line in `runs.md`; continue.
 
 External generators (ARIS `idea-creator` Phase 2: generators of different families fail differently, so take the
-union). A runner that can call other models — `codex --search exec --sandbox read-only -m gpt-6.2-sol` or
-`-m gpt-6.2-astra` (prompt on stdin), `devin -p --model <id>` — should, each cycle, have one or two of them think an idea
+union). A runner that can call other models — `codex --search exec --sandbox read-only -m gpt-6.2-astra` (prompt on stdin),
+`~/.local/bin/agy -p "<prompt>" --model gemini-4-neon-high --mode plan --add-dir <skill dir>` (read-only; slow, minutes per
+call), `devin -p --model <id>` — should, each cycle, have one or two of them think an idea
 through independently, in parallel with its own, using the fill-in prompt in the project's funnel folder
 (`prompts/external-idea.md`). Each result that is not DROPPED becomes a card with `generator:` set to that model; never
 pre-filter a card for looking weak, the joint screening decides. While generating, runners and external generators read
 the screened history (cards, killed lists) but not other runners' unscreened work; merging happens at screening, because
 coupled agents converge ("Diversity Collapse in Multi-Agent LLM Systems", arXiv 2604.18005).
+
+Model roles (defaults; `FUNNEL.md` may override). Use each model where it is strong, and keep every verdict in a family
+other than the card's generator:
+
+| Step | Default | Why |
+|---|---|---|
+| Main runner: choosing problems, framing, the story | Claude Opus 5.5 high (or Fable) | sets direction and tone |
+| Generator: cross-domain analogies, world knowledge (method-transfer, toy-setting, anchor D) | Gemini 4 Neon high | Eric 2026-11-21: Gemini is the most inventive, with the broadest world knowledge |
+| Generator: derivation-heavy ideas (GPT family vote) | GPT-6.2 Astra high | rigorous mathematics (about-eric §6); weaker at choosing direction, so it gets an assigned anchor |
+| L1 novelty search | Gemini 4 Neon high, or the runner | broad literature knowledge; Gemini found prior work the others missed on 2026-11-21 ("data as pilot") |
+| L2 derivation, estimate, hole-finding | GPT-6.2 Astra high | rigour and auditing |
+| L2 small code runs | the runner, or GPT-6.2 Sol | cheap execution |
+| Pairwise ranking pass (volume) | Gemini 4 Hydrogen high; GPT-6.2 Sol when most cards are Gemini's | cheap; the ranking is advisory (judges match experts about 73%) |
+| Cross-model gate | Claude or Gemini cards → GPT-6.2 Astra high; GPT cards → Claude Opus 5.5 high | auditing strength, family crossing |
+| 白话与类比 on L3 cards (the ones Eric reads) | Gemini 4 Hydrogen high | plain language is a Gemini strength and Hydrogen is cheaper |
+
+Reasoning effort: high by default; xhigh only for a judgement-heavy call that could swing the round.
 
 Anchors (every card needs at least one, with its source): **A** a specific recent paper that states the limitation or
 leaves it open (found with a search tool in this round, never from memory alone); **B** a number and file path from this
