@@ -13,8 +13,9 @@
 每个循环：
 1. 你自己深想一个 idea（协议第 1 步），同时在后台并行让 Gemini（默认 `carbon-idea`，可另加 agy 的 Neon）和 Astra 各独立深想一个。按 Model roles 分配：Gemini 拿跨领域类比、方法迁移、玩具设定或锚点 D；Astra 拿推导型的题，给它指定锚点；你自己定题定调。Gemini 出题位每个循环固定一个，不受下面"子 agent 只在三种情况下开"的限制，但算进本轮 40 个深想预算。外部输出不是 DROPPED 的，用 `python3 ~/projects/personal-ai-workflow/skills/idea-funnel/scripts/funnel.py new ideas --runner l --generator <模型> --title ... --anchor ...` 建卡并原样填入；自己的卡 `--generator` 写你的模型名。DROPPED 的记进 runs.md。
 2. 每攒 5 张做一次统一筛选（协议第 3 步）：先导入云端已推送的卡（`~/projects/personal-ai-workflow/skills/idea-funnel/scripts/import_branch.sh /Users/guoyikun/Downloads/share/claode_birain/afdm-sp-mirror/repo.git funnel/<日期>-c ideas`，分支还不存在就跳过）；你两两比较排一次；再把在筛卡片一次性交给 Hydrogen 做两两比较排序（多数卡是 Gemini 出的就改用 Sol）。分歧大的都留下。
-3. L1 查新可交给 Gemini Neon；L2 推导和估算交给 Astra；L2 小检验 ≤ 1 CPU 核时，可以 ssh deinlab，必须遵守项目 CLAUDE.md 的远程规则（不写 /tmp、tmux 用 g_ 前缀、conda AFDM）。不启动长仿真，不用 GPU。 L2 先挑 `next_cost` 写着"需本地仿真"或"需 deinlab"的卡（多是云端停放下来的），再做别的；判别性的检验能用仿真就用仿真。
+3. L1 查新可交给 Gemini Neon；L2 推导和估算交给 Astra；L2 小检验 ≤ 5 CPU 核时（Eric 11-21 17:15 放大），可以 ssh deinlab，必须遵守项目 CLAUDE.md 的远程规则（不写 /tmp、tmux 用 g_ 前缀、conda AFDM）。不启动长仿真，不用 GPU。 L2 先挑 `next_cost` 写着"需本地仿真"或"需 deinlab"的卡（多是云端停放下来的），再做别的；判别性的检验能用仿真就用仿真。
 - 仿真检验的四条纪律（第一次跨家族盲审把带仿真的卡全部打回，都是犯了这几条）：跑之前写好判据和门限；不在报告用的同一批帧上挑门限（留出帧或换新帧确认）；对照要和论断的设定一致（如真时延的论断对真时延臂）；说"这类帧受益"时，要在同一批帧上也跑另一种做法，排除"它们本来就容易"；样本小时给区间。
+- 放行之前加一步"查新 + 为什么没人做"审查（协议第 7 步）：候选卡批量交给和出题者不同家族的模型（默认 Gemini），跨领域找 ≥5 篇最接近工作，剥掉术语用一个日常类比说清；若没人做过，判定是 (1) 没人发现、(2) 发现了但不重要、(3) 发现了但做不了，并给证据和真实系统里的影响量级。只有 (1) 进放行；(2) 淘汰或停放；(3) 长子卡。模板见 `ideas/prompts/novelty-importance.md`（改成当轮的卡片）。
 4. 放行：Claude 或 Gemini 出的候选卡交 Astra，GPT 出的交 Claude（devin -p）；同一评审的候选合成一次调用。按协议记录评审者、模型和结论。进 L3 的卡，把"白话与类比"一节交 Hydrogen 改写成更白的话（只改这一节，事实不变）。
 5. 运行 `funnel.py board ideas`，只 `git commit` 本项目的 `ideas/`（不 push）。
 

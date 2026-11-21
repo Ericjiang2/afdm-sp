@@ -131,14 +131,22 @@ Each cycle:
    alternative action on the same cases to rule out "they were easy anyway". Report counts with an interval when the
    sample is small.
    Result: kill, park with the heavier check and its cost, or gate candidate.
-7. **Cross-model gate**, one batched call per reviewer family for the candidates of this screening: send each card to a
+7. **Novelty and why-unsolved review** before the gate, for each gate candidate (batch them), by a model of another
+   family than the generator (Gemini by default: broad world knowledge): search for the closest work across fields
+   (not only the project's waveform), at least five works with one line each; restate the claim in plain words with
+   one everyday analogy, and say so if it reduces to common practice; then, if nobody has done it, decide why — (1)
+   nobody noticed, (2) noticed but unimportant in real systems (for example a small pilot margin avoids it), or (3)
+   noticed but blocked or with a hidden cost — with evidence, and estimate what design decision it would change in
+   real systems and by how much. Only (1) moves on to the gate as is; (2) is killed or parked with the reason; (3)
+   becomes a child that addresses the block. A fill-in prompt lives in the project's `prompts/novelty-importance.md`.
+8. **Cross-model gate**, one batched call per reviewer family for the candidates of this screening: send each card to a
    reviewer of a family different from its `generator` (e.g. `codex exec --sandbox read-only -m <model>` with the prompt
    on stdin, or `devin -p --model <GPT model>`, from a Claude-family generator; Claude from a GPT-family generator),
    asking per card for the strongest objection, whether the anchor and closest-work notes hold, and PASS / KILL /
    REVISE. Record reviewer, model and verdict in the card. PASS → L3 (a `pit` card at L3 is a decision for Eric, shown in
    its own board section); KILL → killed; REVISE → child card or back to L2. With no second family available, leave
    candidates at L2 with `next_cost: cross-model review`.
-8. Run `board`; append progress to the round's line in `runs.md`; commit; continue.
+9. Run `board`; append progress to the round's line in `runs.md`; commit; continue.
 
 **Pivot** when `stall_limit` deep ideas in a row produce no new L2 candidate. Do not stop. Write a pivot note in
 `runs.md`: diagnose the stall with METHODS §X (crowded neighbourhood, circling, self-made problem), then make one change

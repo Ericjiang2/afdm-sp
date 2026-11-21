@@ -21,9 +21,9 @@
 - round_budget：以时间为主——每个 runner 每轮 8 小时；安全阀 max_deep_ideas 60（只数通过深度核查的深想）。深度核查：卡里要有用本项目数字的推导或估算（公式与代入）、至少 3 篇真正打开过的最接近工作（带链接或编号）及差别、一个具名的最便宜致命检验；不过的打回重做、不计数。
 - 先深挖最好的分支：每次筛选后，两两排序前 2 名各长一张子卡再开新根；全轮至少约 40% 的深想是子卡；有承接关系的卡必须写 `parent:`。
 - cloud_target: 15（云端不能放行，本轮新增 15 张 L2 候选就停，交本地放行；之前轮次留下的不算。第四轮曾因把旧的 11 张算进去、只新增 4 张就停了）
-- 仿真：云端（M4 Pro）和本地都能跑接收机（阶段 A–A4 管线，2026-11-21 起代码已进 vault 与镜像）；L2 单次 ≤ 1 CPU 核时；超出的停放，写明 `需 deinlab：<内容、估计核时>`。
+- 仿真：云端（M4 Pro）和本地都能跑接收机（阶段 A–A4 管线，2026-11-21 起代码已进 vault 与镜像）；L2 单次 ≤ 5 CPU 核时（Eric 11-21 17:15 从 1 放大到 5）；超出的停放，写明 `需 deinlab：<内容、估计核时>`。
 - 子 agent（只限本地 devin）：max_idea_workers 10（`.devin/agents/idea-worker.md`，Fusion：Claude Fable 5.2 high + SWE-2 high（与主会话同一套，助手免费）），max_lit_workers 10（`.devin/agents/lit-reader.md`，SWE-2 high）；只在协议列的条件下开，同时最多 2 个，不嵌套；前 4 个工人出的 idea 全死就停用。
-- l2_cap: 30 分钟 agent 时间，≤ 1 CPU 核时，不用 GPU，只用已有代码
+- l2_cap: 30 分钟 agent 时间，≤ 5 CPU 核时（Eric 11-21 17:15 从 1 放大到 5），不用 GPU，只用已有代码
 - 跨模型放行：Claude 系生成时用 `codex exec --sandbox read-only -m gpt-6.2-sol`（提示走 stdin）或 `devin -p --model <GPT 系模型>`，每次筛选一次批量调用
 
 ## 在哪里跑（本地与云端并行）
