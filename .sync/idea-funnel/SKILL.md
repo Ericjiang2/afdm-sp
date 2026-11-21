@@ -56,10 +56,17 @@ where you disagree with it and why; the next reflection may revise the map from 
 
 The round ends on the first of: (1) `target_ready` mutually distinct cards (default 10) at L3 — children of one root
 count once unless the gate judged them distinct problems (IDEAgent's "yield") — or, for a runner that cannot run the
-gate, `cloud_target` gate candidates (default 15); (2) the budget in `FUNNEL.md` is spent (deep ideas or hours);
-(3) pivots are exhausted: `max_pivots` pivots (default 4) have each been followed by `stall_limit` deep ideas (default 8)
-without a new L2 candidate, and at least `min_hours` (default 4) of work have passed. A stall alone is never a reason to
-stop; it is a reason to pivot (below). Then stop and report.
+gate, `cloud_target` gate candidates (default 15); (2) the time budget in `FUNNEL.md` is spent (hours; time, not idea
+count, is the budget); (3) pivots are exhausted: `max_pivots` pivots (default 4) have each been followed by
+`stall_limit` deep ideas (default 8) without a new L2 candidate, and at least `min_hours` (default 4) of work have
+passed; (4) the safety valve `max_deep_ideas` (default 60 audited deep ideas) is reached. A stall alone is never a
+reason to stop; it is a reason to pivot (below). Then stop and report. (First AFDM cloud round with an idea-count
+budget, 2026-11-21: 40 "deep ideas" in 16 minutes, about 24 seconds each; a count budget rewards shallow ideas.)
+
+Depth floor: a deep idea counts toward any budget or stall only if its card passes the depth audit at screening —
+it contains a derivation or estimate with this project's numbers (formula and substitution), at least three closest
+works that were actually opened (with links or identifiers) and how each differs, and a named cheapest decisive check.
+A card that fails is sent back to L1 for the missing part, not counted.
 
 Run without pausing: a round is meant to run for hours. Do not stop to report, summarise or ask for confirmation; after
 each screening start the next cycle at once. Commit after every screening (a cloud runner also pushes) so the work
@@ -93,22 +100,30 @@ Each cycle:
    title and reason to `runs.md` as a dropped draft.
 3. **Learn from every death.** For each dropped draft or killed card, write one lesson line in `runs.md`: why it died,
    which assumption failed, and what that suggests trying instead.
-4. **Grow the tree.** When a card passes L2, gets REVISE from the gate, or the derivation suggests a sharper or more
-   general version, write the variant as a child card (`funnel.py new --parent <id>`). A child states its one change from
-   the parent in its first 筛选记录 line. Kill a parent when a child subsumes it.
+4. **Grow the tree.** Children are the main way to go deep, and they do not wait for the gate. Write a child
+   (`funnel.py new --parent <id>`) when a card passes L2, gets REVISE, is picked for deepening at screening (step 5), or
+   the derivation suggests a sharper or more general version. A child states its one change from the parent in its
+   first 筛选记录 line (change one condition, generalise, attack the strongest objection, or bring a method from another
+   field). Whenever one idea builds on another, record it as `parent:`, even if the link was only noticed afterwards.
+   Kill a parent when a child subsumes it.
 5. **Screen together and reflect** every `screen_every` new cards (default 5). Rank all active cards by pairwise
    comparison ("which of these two is more worth a long simulation, and why"), once by the runner and once in one
    batched call by a judge from a family other than most of the cards' generators; where the two rankings disagree
    strongly, keep both cards (the best LLM judges match expert pairwise preference only about 73% of the time, worst on
-   feasibility: Ideation Arena, EMNLP 2026). Kill duplicates and dominated cards; pick at most `l2_per_screen`
-   (default 3) for L2, keeping variety. Then write a reflection line in `runs.md`: death reasons counted; which tracks,
+   feasibility: Ideation Arena, EMNLP 2026). Run the depth audit (above) and send failing cards back. Kill
+   duplicates and dominated cards; pick at most `l2_per_screen` (default 3) for L2, keeping variety. Then deepen
+   best-first: the top `deepen_per_screen` cards of the ranking (default 2) each get one child before any new root is
+   started; across the round at least `child_share` of deep ideas (default 40%) are children. Then write a reflection line in `runs.md`: death reasons counted; which tracks,
    methods and layers were used and which produced survivors; whether a failure pattern from METHODS §X is showing; and
    an explicit decision for the next cycles (track, method, layer or field). Act on it.
 6. **L2 cheap evidence** within the cap: a readout of existing data, an estimate or bound, a small run of existing code,
    or reading the closest 5–10 papers in full to confirm the gap. At least one check per card faces outside the project
    (literature, standard or real-system evidence): internal simulations alone favour problems we created ourselves. For
-   a gate candidate, have a model of another family re-derive its key number independently. Result: kill, park with the
-   heavier check and its cost, or gate candidate.
+   a gate candidate, have a model of another family re-derive its key number independently. Use the cap: a check that
+   only reads files and does arithmetic is fine when it is decisive, but when the decisive check is a simulation, run
+   it. A runner that cannot run the project's simulations (e.g. a cloud runner without the receiver's environment)
+   parks the card with `next_cost: 需本地仿真：<what, estimated cost>`; local runners take such cards first in their L2.
+   Result: kill, park with the heavier check and its cost, or gate candidate.
 7. **Cross-model gate**, one batched call per reviewer family for the candidates of this screening: send each card to a
    reviewer of a family different from its `generator` (e.g. `codex exec --sandbox read-only -m <model>` with the prompt
    on stdin, or `devin -p --model <GPT model>`, from a Claude-family generator; Claude from a GPT-family generator),
