@@ -3,7 +3,7 @@
 范围：不限锚点和视角，本地能做的都可以做；优先做云端做不了的（要 ssh deinlab 的检验、要调外部模型的、要用本机 skills 的）。另外负责已有的待办卡 I-20261121-02、08、09、10。不改 c 开头的卡（云端的），除非是导入后的统一筛选和放行。
 
 外部模型调用（都在项目根目录运行；P 为填好锚点和视角的提示）：
-- `P=$(sed 's/{anchor}/<锚点或"自选">/; s/{lens}/<视角或"自选">/' ideas/prompts/external-idea.md)`
+- `P=$(sed 's/{anchor}/<锚点或"自选">/; s/{lens}/<视角或"自选">/; s/{track}/<赛道或"自选">/; s/{method}/<方法编号或"自选">/' ideas/prompts/external-idea.md)`
 - Gemini Neon 出题：`~/.local/bin/agy -p "$P" --model gemini-4-neon-high --mode plan --add-dir ~/projects/personal-ai-workflow/skills/idea-funnel --print-timeout 0`（只读；一次要几分钟，放后台）
 - Astra 出题：`printf '%s' "$P" | codex --search exec --sandbox read-only -m gpt-6.2-astra -`
 - Astra 推导或审计、Sol 跑小代码：`codex exec --sandbox read-only -m <gpt-6.2-astra|gpt-6.2-sol> -`（提示走 stdin）
@@ -17,5 +17,10 @@
 4. 放行：Claude 或 Gemini 出的候选卡交 Astra，GPT 出的交 Claude（devin -p）；同一评审的候选合成一次调用。按协议记录评审者、模型和结论。进 L3 的卡，把"白话与类比"一节交 Hydrogen 改写成更白的话（只改这一节，事实不变）。
 5. 运行 `funnel.py board ideas`，只 `git commit` 本项目的 `ideas/`（不 push）。
 
-预算与节奏：本轮最多 40 个深想 idea 或 8 小时，先到为准，外部模型出的也算在内（Eric 可改这一行）。停止条件按 FUNNEL.md：10 张彼此不同的 L3 / 预算 / 放宽之后仍连续 8 个无产出。这一轮要连续跑几个小时：不要中途停下来汇报、总结或征求确认，每次筛选完立刻开始下一个循环；觉得方向用完了，先按协议"放宽"（换视角和锚点、给幸存卡长子卡、从 10–20 篇近期论文的局限段收集锚点、换角度重看淘汰卡），不要停。
+预算与节奏：本轮最多 40 个深想 idea 或 8 小时，先到为准，外部模型出的也算在内（Eric 可改这一行）。停止条件按 FUNNEL.md：10 张彼此不同的 L3 / 预算 / 转向 4 次仍无产出且满 4 小时。这一轮要连续跑几个小时：不要中途停下来汇报、总结或征求确认，每次筛选完立刻开始下一个循环；卡住时按下面的"转向"做，不要停。
+出题方法与第一性原理（必须做）：
+- 开轮前读 `~/projects/personal-ai-workflow/skills/idea-funnel/METHODS.md` 和 `ideas/ABSTRACTION.md`。每个深想 idea 先说它打的是哪一层、属于哪类抽象问题，再看 ABSTRACTION.md §3 里别的领域怎么处理同类问题；从 METHODS.md 选一个方法（轮换，同一方法不连用超过两次），在第一行筛选记录写 `方法：<编号>`；建卡时用 `--track core|adjacent|explore|pit`，按 FUNNEL.md 的赛道配额分配，每 5 个里 1 个自由选题。
+- 每个循环开始先做约 10 分钟灵感阅读：从 ABSTRACTION.md §3 的领域轮换里挑 3–5 篇近期论文（其中 1 篇来自远一点的领域）略读，把火花和它对应的开放问题记进 runs.md。这是为了找灵感，不是查新。
+- 每个丢弃或淘汰都写一行教训（为什么死、哪个假设错了、接下来该试什么）；每次统一筛选后写一行反思（死因统计、哪些赛道/方法/层次出了幸存者、是否出现 METHODS.md §X 的失败模式、接下来换什么），并照着做。
+- 连续 8 个深想没有新 L2 候选时不要停，按协议"转向"：先写转向说明（诊断是拥挤、打转还是自造问题），再做一个比换视角更大的改变——换抽象层次、去同类领域借办法、换赛道（adjacent/explore/pit）、换 §4 里本轮没碰过的开放问题、从 10–20 篇近期论文的局限段收集锚点、或换角度给淘汰卡长新子卡。转向 4 次仍无产出、且已跑满 4 小时才停。学到项目结构上的新东西就修订 ABSTRACTION.md 并在转向说明里写明。
 结束时在 `ideas/runs.md` 写本轮一行（各模型出了几个、各自存活几个），用简体中文向 Eric 汇报：深想了几个、丢弃和淘汰的原因（分组）、L3 卡各一句、停放卡及其需要的检验和代价、用掉的预算。

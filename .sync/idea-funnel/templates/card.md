@@ -3,6 +3,7 @@ id: {id}
 title: {title}
 parent: {parent}
 generator: {generator}
+track: {track}
 layer: L1
 status: active
 anchor_type: {anchor_type}
