@@ -56,7 +56,8 @@ where you disagree with it and why; the next reflection may revise the map from 
 
 The round ends on the first of: (1) `target_ready` mutually distinct cards (default 10) at L3 — children of one root
 count once unless the gate judged them distinct problems (IDEAgent's "yield") — or, for a runner that cannot run the
-gate, `cloud_target` gate candidates (default 15); (2) the time budget in `FUNNEL.md` is spent (hours; time, not idea
+gate, `cloud_target` new gate candidates produced in this round (default 15; candidates left over from earlier rounds do
+not count); (2) the time budget in `FUNNEL.md` is spent (hours; time, not idea
 count, is the budget); (3) pivots are exhausted: `max_pivots` pivots (default 4) have each been followed by
 `stall_limit` deep ideas (default 8) without a new L2 candidate, and at least `min_hours` (default 4) of work have
 passed; (4) the safety valve `max_deep_ideas` (default 60 audited deep ideas) is reached. A stall alone is never a
@@ -123,6 +124,12 @@ Each cycle:
    only reads files and does arithmetic is fine when it is decisive, but when the decisive check is a simulation, run
    it. A runner that cannot run the project's simulations (e.g. a cloud runner without the receiver's environment)
    parks the card with `next_cost: 需本地仿真：<what, estimated cost>`; local runners take such cards first in their L2.
+   A simulation check follows four rules (first blind cross-family review, 2026-11-21, sent every simulated card back for
+   breaking one of them): write the decision rule and any threshold before running; never pick a threshold on the same
+   frames you report (hold frames out, or confirm on fresh frames); compare against the reference that matches the
+   claim's setting (e.g. a true-delay claim against the true-delay arm); for a "these cases benefit" claim, run the
+   alternative action on the same cases to rule out "they were easy anyway". Report counts with an interval when the
+   sample is small.
    Result: kill, park with the heavier check and its cost, or gate candidate.
 7. **Cross-model gate**, one batched call per reviewer family for the candidates of this screening: send each card to a
    reviewer of a family different from its `generator` (e.g. `codex exec --sandbox read-only -m <model>` with the prompt
