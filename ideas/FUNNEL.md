@@ -27,7 +27,7 @@
 - 查新审查与跨模型放行：按协议 Model roles 表，本项目不另覆盖；每次筛选每个评审一次批量调用（命令见 [prompts/round-local.md](prompts/round-local.md)）
 
 ## 在哪里跑（本地与云端并行）
-- runner：本地 `l`（启动提示 [prompts/round-local.md](prompts/round-local.md)），云端 `c`（[prompts/round-cloud.md](prompts/round-cloud.md)）。
+- runner：本地 `l`（启动提示 [prompts/round-local.md](prompts/round-local.md)；11-21 起 Devin 额度用完时改在 agy IDE 用 Gemini 4 Carbon 跑，再叠加 [prompts/round-agy.md](prompts/round-agy.md)），云端 `c`（[prompts/round-cloud.md](prompts/round-cloud.md)）。
 - 分工：本地不限锚点和视角，优先做云端做不了的（ssh deinlab 的检验、调外部模型、本机 skills），并负责已有待办卡（I-20261121-02、08、09、10）；本地每个循环还让 Gemini Neon 与 Astra 各独立深想一个（[prompts/external-idea.md](prompts/external-idea.md)）。云端不能调外部模型、不能上 deinlab、没有本机 skills：先做锚点 A、D 和方法迁移、矛盾结论视角，用完后放宽到全部锚点（B 可读仓库里的已有读数）和全部视角。重复的在统一筛选里合并；出题时两边互不看对方未筛选的卡。
 - 模型分工：按协议的 Model roles 表——本地主 runner Fusion Claude Fable 5.2 high + SWE-2 high（定题定调）；Gemini 出跨领域类比和世界知识类题（本地默认 Devin 子 agent `carbon-idea`，Gemini 4 Carbon high，与云端的 Neon 错开；想再加一票 Neon 时用 agy）、做查新；GPT 出推导型题（默认 Sol，要严格推导时 Astra）；Astra 做 L2 推导与放行审计；Gemini 4 Hydrogen 做两两比较初排和 L3 卡白话。云端 runner 用 Gemini 4 Neon（云端模型列表里没有 Carbon；不用 Fusion 自动调配，因为看不出背后是哪家模型、放行无法按家族交叉），不开子 agent。
 - 跨模型放行只在本地做：Claude 出的卡查新交 Neon、放行交 Astra；GPT（Sol、Astra）出的卡两步都交 Neon（一次 agy 调用）；Gemini 出的卡两步都交 Astra；家族不明的两家都过（Eric 11-21 21:20 起，不再用 Opus）。云端第 1–3 轮的卡写 `generator: devin`（31 张，全是 c 开头），和第 5 轮的 `fusion-auto` 一样是 Fusion 自动调配，家族不明；没有 `generator` 的早期卡（01–11 等）是 Claude 出的。

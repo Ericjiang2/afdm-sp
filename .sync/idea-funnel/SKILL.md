@@ -73,6 +73,16 @@ Run without pausing: a round is meant to run for hours. Do not stop to report, s
 each screening start the next cycle at once. Commit after every screening (a cloud runner also pushes) so the work
 survives an interrupted session.
 
+Out-of-quota calls never stop a round (Eric 2026-11-21). An external model is unavailable when its call errors with
+credits, quota, usage limit, rate limit or login, or returns nothing with a non-zero exit. Then skip that call: for a
+review, set each affected card's `next_cost` to `未审核（<step>：<model> 无额度）`; for a generator slot, give the slot
+to another family or think the idea yourself. Add the item to a `待审` list in the round's `runs.md` line (card, step,
+model, prompt file) so Eric can rerun it after switching accounts, and retry once at the next screening. Only the main
+runner's own quota ends a round. Fallback for steps 7–8: at most two fresh-context reviews per screening, batched, by a
+model of the runner's or the generator's own family (e.g. agy Neon), recorded as `兜底评审（同家族）`. A fallback review
+may KILL or REVISE; its PASS does not promote: the card stays at L2 with `next_cost: 未审核（跨家族放行）` until a
+cross-family reviewer passes it.
+
 Tracks, so the round does not circle inside one pit (rough targets for the round's mix, not quotas to fill;
 `FUNNEL.md` may override; every card sets `track:`):
 - **core** (about 50%): this project's own problems.
@@ -151,7 +161,7 @@ Each cycle:
    REVISE. Cards whose checks finish mid-cycle wait for the next screening instead of getting a call of their own (on
    2026-11-21 each such call rebuilt a ~44k-token prefix and read 0.56–1.7M cached tokens). Record reviewer, model and verdict in the card. PASS →
    L3 (a `pit` card at L3 is a decision for Eric, shown in its own board section); KILL → killed; REVISE → child card or
-   back to L2. With no second family available, leave candidates at L2 with `next_cost: cross-model review`. When step 7
+   back to L2. With no second family available, follow the out-of-quota rule above (skip, mark 未审核, optional same-family fallback). When step 7
    and the gate go to the same reviewer (see Model roles), send them as one call with the gate questions appended.
 9. Run `board`; append progress to the round's line in `runs.md`; commit; continue.
 
