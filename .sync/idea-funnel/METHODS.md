@@ -74,6 +74,9 @@ wrong; record where you disagree.
   field, do not try a tenth variant.
 - Self-made problems: issues that exist only in our code or our simulator (Neon, 2026-11-20 retrospective) → require an
   outside-facing check.
-- Circling in the pit: three ideas in a row on the same mechanism → ban that mechanism for the rest of the round.
+- Circling in the pit: three ideas in a row on the same mechanism → ban that mechanism for the rest of the round. A
+  variant: one experiment re-run at another parameter value and filed as a new child (cloud round 5, 2026-11-21: 45 deep
+  ideas around c48/c77, none gated as its own problem) → a parameter-only child must say why that parameter is decisive,
+  and at most two in a row per branch (SKILL step 4).
 - Judging by looks: LLM-generated ideas look more novel than they turn out after execution (Si et al., 2024; 2025) →
   promotion depends on checks, not on wording.

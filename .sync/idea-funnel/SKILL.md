@@ -107,6 +107,12 @@ Each cycle:
    first 筛选记录 line (change one condition, generalise, attack the strongest objection, or bring a method from another
    field). Whenever one idea builds on another, record it as `parent:`, even if the link was only noticed afterwards.
    Kill a parent when a child subsumes it.
+   A child that only changes a parameter value counts as a child only when the parameter is decisive: before running,
+   it states why (the parent's claim predicts the outcome changes across it, e.g. a threshold, a crossover or a
+   dose-response) and writes that prediction. Otherwise the run is an extra line in the parent's 筛选记录 and does not
+   count toward `child_share`. On one branch, at most two parameter-only children in a row; the next child changes the
+   question (condition, generalisation, strongest objection, outside method) or the branch stops (Eric 2026-11-21, after
+   cloud round 5 spent 45 deep ideas varying parameters around two cards).
 5. **Screen together and reflect** every `screen_every` new cards (default 5). Rank all active cards by pairwise
    comparison ("which of these two is more worth a long simulation, and why"), once by the runner and once in one
    batched call by a judge from a family other than most of the cards' generators; where the two rankings disagree
