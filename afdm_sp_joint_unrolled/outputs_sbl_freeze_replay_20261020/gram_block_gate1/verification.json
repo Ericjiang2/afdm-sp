@@ -1,0 +1,52 @@
+{
+  "status": "ok",
+  "producing_local_commit": "5d2feb6e",
+  "verification_scope": "Independent saved first-system solves, covariance and diagonal formula; no receiver rerun. All-step parity is the frozen runtime gate, summarized and checked here.",
+  "local_source_md5": {
+    "gram_block.py": "00658a71ef07e1921997b369d568658e",
+    "gram_block_probe.py": "ba0206d74fa6e431b2fed84932bf9e5f",
+    "test_gram_block.py": "f52e651bd03b0cd45523af9cc5bc13dc",
+    "representation_probe.py": "2d17524f5be35e68a3e1c0e1a4c672cb"
+  },
+  "files_sha256": {
+    "summary.json": "0073259504edb1c97779745f86dba7b6f04be683667590306466cb5c3a063206",
+    "run.log": "a43aed78227af9c5c9ed061eb9a245dc9668f169b96620e2513119e0f775b3de",
+    "config.json": "855d9382ef964e083b08960ddbb38bbc1089d4139ef63b987ca6b6ad6c9f45c7",
+    "STATUS.txt": "9c0f6cb759f6041001196383203f537826e164f8a7b147c4851beeeab1ea2050"
+  },
+  "cases": {
+    "synthetic": {
+      "first_system_solve_max_abs": {
+        "original/full": 1.3877787807814457e-17,
+        "original/diag": 0.0,
+        "duplicate/full": 9.15960278627676e-17,
+        "duplicate/diag": 0.0
+      },
+      "independent_full_covariance_max_abs": 2.5153591141335627e-17,
+      "independent_diag_difference_formula_max_abs": 1.1123893155135927e-16,
+      "full_max20_physical_relative": 5.398399330434932e-16,
+      "full_final_llr_max_abs": 1.0658141036401503e-14,
+      "diag_first_physical_relative": 0.9761262029352423
+    },
+    "real": {
+      "first_system_solve_max_abs": {
+        "original/full": 2.5049791416410363e-15,
+        "original/diag": 2.797157557069881e-17,
+        "duplicate/full": 7.42417873031498e-15,
+        "duplicate/diag": 0.0
+      },
+      "independent_full_covariance_max_abs": 2.1686818829658703e-16,
+      "independent_diag_difference_formula_max_abs": 5.551115123125783e-17,
+      "full_max20_physical_relative": 4.426480791558387e-15,
+      "full_final_llr_max_abs": 2.05613304160579e-13,
+      "diag_first_physical_relative": 0.9907819865794847
+    }
+  },
+  "engineering_forecasts": {
+    "G1": "partial observation in gate1; completed by same-case all-step LLR gate2",
+    "G2": true
+  },
+  "remote_files_sha256_match": true,
+  "verification_receiver_calls": 0,
+  "observation_gap": "All-step LLRs were not directly observed here; see immutable gate2 observer completion and its numerical parity receipt."
+}

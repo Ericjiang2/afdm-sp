@@ -116,6 +116,9 @@ def fit_physical_cluster(system, params, Phi, y, rounded=False):
     K = 2*system.k_max_cap+1
     H = system.gen_h_daft(h[cols],cols//K,cols%K-system.k_max_cap)
     metadata = dict(position='rounded' if rounded else 'true_truncated',
+                    pilot_residual_squared=float(np.linalg.norm(y-A@gains)**2),
+                    fitted_gains=dict(real=gains.real.tolist(),imag=gains.imag.tolist()),
+                    locations=(np.round(params['k_real']) if rounded else np.asarray(params['k_real'])).tolist(),
                     physical_slots=W.shape[1],rank=int(rank),rank_deficient=bool(rank<W.shape[1]),
                     singular_values=singular.tolist(),rcond=rcond,
                     zero_basis_slots=np.flatnonzero(~np.any(W!=0,axis=0)).tolist(),
@@ -123,6 +126,58 @@ def fit_physical_cluster(system, params, Phi, y, rounded=False):
                     basis_weights=dict(real=W[cols].real.tolist(),imag=W[cols].imag.tolist()),
                     interpretation='known quantized delay; truncated Doppler basis; minimum-norm pilot LS')
     return H,metadata
+
+
+
+def fit_local_physical_cluster(system, known_delays, initial_rounded_locations, Phi, y):
+    """Partial oracle: known eight slots; optimize using observed pilot residual only."""
+    delays=np.asarray(known_delays);centers=np.asarray(initial_rounded_locations,dtype=float)
+    clip=min(system.k_max_cap,system.N_total//2-system.k_guard-1)
+    if (delays.shape!=(8,) or centers.shape!=(8,) or not np.isfinite(delays).all()
+        or not np.isfinite(centers).all() or np.any(delays!=delays.astype(int))
+        or np.any(delays<0) or np.any(delays>system.l_max_cap)
+        or np.any(centers!=np.round(centers)) or np.any(np.abs(centers)>clip)):
+        raise ValueError('registered local reference needs eight valid known integer slots')
+    lower=np.maximum(centers-.5,-clip);upper=np.minimum(centers+.5,clip)
+    fits=0;trace=[]
+    def fit(locations):
+        nonlocal fits
+        if fits>=33:raise RuntimeError('registered position fit cap exhausted')
+        fits+=1
+        # Only known initialization and current trial coordinates enter this adapter.
+        params=dict(taps=8,l_i=delays,k_real=locations)
+        try:
+            H,metadata=fit_physical_cluster(system,params,Phi,y)
+        except (ValueError,np.linalg.LinAlgError) as exc:
+            raise ValueError(f'position fit {fits}/33 failed: {exc}') from exc
+        return H,dict(metadata,position='trial_truncated')
+    current=centers.copy();H,meta=fit(current)
+    trace.append(dict(stage='initial',fit_index=fits,locations=current.tolist(),fit=meta))
+    for sweep,step in enumerate((.25,.125)):
+        for path in range(8):
+            base=current.copy();best=(current,H,meta);trials=[]
+            old_objective=meta['pilot_residual_squared']
+            for sign in (-1,1):
+                candidate=base.copy();candidate[path]+=sign*step
+                event=dict(sweep=sweep,step=step,path=path,sign=sign,locations=candidate.tolist())
+                if np.any(candidate<lower) or np.any(candidate>upper):
+                    event.update(status='outside_registered_bound');trials.append(event);continue
+                candidate_H,candidate_meta=fit(candidate)
+                objective=candidate_meta['pilot_residual_squared']
+                event.update(status='evaluated',fit_index=fits,fit=candidate_meta)
+                trials.append(event)
+                threshold=1e-12*max(1.,best[2]['pilot_residual_squared'])
+                if objective<best[2]['pilot_residual_squared']-threshold:
+                    best=(candidate,candidate_H,candidate_meta)
+            current,H,meta=best
+            trace.append(dict(stage='coordinate',sweep=sweep,path=path,trials=trials,
+                accepted=bool(np.any(current!=base)),before=old_objective,after=meta['pilot_residual_squared'],
+                locations=current.tolist()))
+    return H,dict(meta,position='local_truncated',initial_rounded_locations=centers.tolist(),
+        known_delays=delays.tolist(),fit_count=fits,trace=trace,
+        lower=lower.tolist(),upper=upper.tolist(),stop_reason='registered_sweeps_exhausted',
+        partial_oracle='known quantized delays and eight rounded physical slots; observed y only for decisions',
+        scope='two fixed discrete coordinate sweeps, not continuous global optimum or full interval coverage')
 
 
 def feedback_statistics(payload, true_data):

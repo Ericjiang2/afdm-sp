@@ -1,0 +1,537 @@
+{
+  "_argv": [
+    "static source inspection; no generator/receiver/numerical execution"
+  ],
+  "_config": {
+    "active_task": ".trellis/tasks/10-19-generator-snr-audit",
+    "scope": "Deliverable A static definition layer only",
+    "frozen_code_edited": false,
+    "receiver_runs": 0,
+    "numerical_frames": 0,
+    "independent_runtime_checks": "Reported separately by main-session audit harness",
+    "actual_main_configs_remote_verified": [
+      "experiments/tf_split_prosp_20261018/out/main/config_S_shard000.json",
+      "experiments/tf_split_prosp_20261018/out/main/config_K_shard000.json"
+    ],
+    "remote_validation": "ssh deinlab bash -lc; conda activate AFDM; python -B reading pathlib/json/hashlib only; no project imports, experiment/generator/receiver calls or remote writes."
+  },
+  "common_sources": {
+    "G": {
+      "evidence": "`experiments/tcom_reference_frame_20261015/gen_fixed.py:303`–`:343`",
+      "definition": "`sqrt(1-rho)*qpsk_map(coded,scale=1)`, `sqrt(rho)*zc`, complex unit noise, `sigma2=10**(-snr/10)`, then physical observation."
+    },
+    "A1": {
+      "evidence": "`experiments/tcom_reference_frame_20261015/gen_fixed.py:263`–`:283`; `:151`–`:156`",
+      "definition": "Unit Rayleigh-amplitude norm; `fix_energy=True` leaves scale=1, without rescaling the truncated virtual-Doppler matrix."
+    },
+    "OBS": {
+      "evidence": "`experiments/headroom_ladder_20261008/driver.py:227`–`:240`",
+      "definition": "`a=sqrt(2*(1-rho))`; receiver `y,pilot` divided by a; `sigma2` divided by a²; receiver data energy exactly .5."
+    },
+    "PHY": {
+      "evidence": "`experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py:72`–`:136`",
+      "definition": "Physical CPP rebuild replaces the preliminary truncated-atom channel; records channel energy; SNR reuse scales only the same noise array."
+    },
+    "Q": {
+      "evidence": "`experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py:178`–`:191`",
+      "definition": "QPSK `(±1±j)/sqrt(2)`, I bits followed by Q bits; unscaled symbol energy 1. No Eb/N0 conversion."
+    },
+    "CODE": {
+      "evidence": "`experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py:105`–`:111`; `experiments/tcom_reference_frame_20261015/p2b_driver.py:59`–`:60`",
+      "definition": "SP n=2048, k=1024, N=1024; frozen generator-matrix SHA256 `bfd42472…aa6af`."
+    },
+    "RNG": {
+      "evidence": "`experiments/tcom_reference_frame_20261015/p1_driver.py:42`–`:47`, `:118`–`:126`, `:341`–`:362`",
+      "definition": "TCRF entropy/domain + frame + component (channel=1,message=2,noise=3); no rho/SNR/scenario coordinate. Paired fingerprints asserted."
+    },
+    "CTX": {
+      "evidence": "`experiments/tcom_channel_crb_20261016/p1ctx.py:13`–`:27`; `experiments/tcom_genie_support_20261016/gs_driver.py:57`–`:59`",
+      "definition": "All later P1 families regenerate the same frame with P1 seeds then reuse it at SNR; `gd.observe` calls OBS."
+    },
+    "DET": {
+      "evidence": "`experiments/sp_afdm_native_joint_20260921/src/native_twofft.py:15`–`:22`; `experiments/tf_cstate_validation_20260922/run_validation.py:59`, `:88`; `experiments/cstate_necessity_stageA_20260928/native_f1.py:24`–`:41`",
+      "definition": "CE ridge and detector use the passed internal sigma2; native data power `1-system.rho=.5`; F1 explicitly uses .5."
+    }
+  },
+  "comparisons": [
+    {
+      "comparison_and_executed_path": "**P1 F0/B/LOCAL**. `experiments/tcom_reference_frame_20261015/launch_p1.sh:47`; `out/p1/config_shard000.json:2`–`:47`; driver `:341`–`:363`",
+      "snr_and_channel_normalisation": "G/A1/PHY; U/G, unit per-frame path power; physical channel energy/N=1 when delays distinct.",
+      "pilot_data_split": "Physical rho/.7 or .5/.5 via G; OBS internal data=.5.",
+      "constellation_and_eb_es": "Q/CODE; total nominal Es/N0 axis.",
+      "receiver_noise": "OBS supplies sigma2_int; F0 and both branches consume the same obs (DET; `p1_driver.py:142`–`:164`).",
+      "frames_and_seeds": "Same observation for all arms; 0..1999; all rho/SNR share channel, noise and bits; U/G share exogenous draws, but Dopplers intentionally differ (RNG)."
+    },
+    {
+      "comparison_and_executed_path": "**P1 F1 C/D**. Same launcher/config; `experiments/tcom_reference_frame_20261015/p1_driver.py:175`–`:197`",
+      "snr_and_channel_normalisation": "Same G/A1/PHY frame as F0.",
+      "pilot_data_split": "Same G/OBS.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "Same sigma2_int; F1 CE/detection and D branch consume OBS (`native_f1.py:24`–`:41`).",
+      "frames_and_seeds": "C and D use the same P1 obs/truth; C prefix reused by D. Same RNG pairing as F0."
+    },
+    {
+      "comparison_and_executed_path": "**P1 true-H A3**. Same launcher/config; `p1_driver.py:203`–`:205`; `experiments/headroom_ladder_20261008/driver.py:474`–`:480`",
+      "snr_and_channel_normalisation": "Same physical frame and true physical gains from G/A1/PHY.",
+      "pilot_data_split": "G/OBS.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "sigma2_int passed with obs to fixed-channel TF (`experiments/tf_production_gap_audit_20260922/interventions.py:287`–`:319`); no extra physical noise.",
+      "frames_and_seeds": "Exactly the same P1 observation; supplied H is the sole genie intervention."
+    },
+    {
+      "comparison_and_executed_path": "**P2a Zheng port**. `experiments/tcom_reference_frame_20261015/launch_zport.sh:40`; `out/zport/config_shard000.json:2`; `zport_driver.py:191`–`:214`",
+      "snr_and_channel_normalisation": "G/A1/PHY channel; sigma2_phys applied to impulse-pilot noiseless observation (`zport_driver.py:212`–`:214`).",
+      "pilot_data_split": "Impulse at index0 amplitude sqrt(rho*N), plus the P1 data on all N positions (`zport_driver.py:46`–`:55`), nominal energies rho*N and (1-rho)*N.",
+      "constellation_and_eb_es": "Q/CODE; no Eb/N0 conversion, same codeword as P1.",
+      "receiver_noise": "**Unscaled** sigma2_phys passed to `zp.run(y,rho,sigma2,...)` (`zport_driver.py:79`–`:88`); correct for its unscaled y; MP update adds sigma2 (`zport_rx.py:225`).",
+      "frames_and_seeds": "P1 seed_fn, frames0..999; same channel/noise/codeword as P1 and across rho/SNR; pilot waveform differs by design. Card `research-assets/res-20261016-01.md:22`–`:24` claims precisely this."
+    },
+    {
+      "comparison_and_executed_path": "**P2b SP versus EP/EPG (+SPG)**. `experiments/tcom_reference_frame_20261015/launch_p2b.sh:48`; `out/p2b_test/config_shard000.json:2`; `p2b_driver.py:96`–`:158`",
+      "snr_and_channel_normalisation": "Same total nominal useful-frame energy/N=1 axis. FLAGS_S D1/D2/geometric/A1, delay mean*25/102, truncate25 (`p2b_driver.py:45`–`:46`). Physical gains unit path power; prefix102 retained.",
+      "pilot_data_split": "SP rho=.3/.5 (G/OBS). EP rho_EP=.2, pilot sqrt(.2N), data per occupied symbol `.8N/765` (`ep_rx.py:74`–`:91`). Zero guard means EP total energy exactly N.",
+      "constellation_and_eb_es": "SP Q/CODE; EP765 QPSK symbols, n1530,k767; no axis conversion. Equal **total frame energy**, not equal information-bit energy. EP Eb higher by 10log10(1024/767)=1.255 dB; already disclosed in card `res-20261015-03.md:60`.",
+      "receiver_noise": "SP uses sigma2_int; EP/EPG get sigma2_phys for Hx+sqrt(sigma2_phys)*noise (`p2b_driver.py:133`–`:154`; `ep_rx.py:240`–`:260`). SPG also uses sigma2_phys with raw SP y (`p2b_driver.py:146`).",
+      "frames_and_seeds": "TEST TCP2 entropy distinct from P1, DEV TCDP distinct (`p2b_driver.py:36`–`:40`, `:248`). All SP/EP arms share physical channel/noise; SP rhos share codeword; EP has its own n/k and information vector (same message stream, different length), not a shared codeword. Asserted channel/noise equality at `:107`–`:110`."
+    },
+    {
+      "comparison_and_executed_path": "**CRB tier**. `experiments/tcom_channel_crb_20261016/launch_crb.sh:11`; `out/main/config_shard000.json:2`; `crb_driver.py:170`–`:180`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY, frames0..499 (GD0..99). The bounds are computed in **physical coordinates**, not OBS coordinates.",
+      "pilot_data_split": "Physical pilot raw['pilot'], data raw['data']; data covariance (1-rho) and exact coded off-diagonal correction (`crb_driver.py:77`–`:92`; `crb.py:82`–`:110`).",
+      "constellation_and_eb_es": "Q/CODE; same total nominal Es axis.",
+      "receiver_noise": "Receivers get sigma2_int through OBS; bounds get raw sigma2_phys (`crb_driver.py:175`–`:180`), paired with physical B(x) and covariance, so no coordinate mismatch.",
+      "frames_and_seeds": "CTX/RNG: same first500 P1 frames, codewords and noise; bounds/receivers share raw frame. Accepted card `res-20261016-02.md:14`–`:15`, `:25`."
+    },
+    {
+      "comparison_and_executed_path": "**Genie support + GS+CSTATE**. `experiments/tcom_genie_support_20261016/launch_gs.sh:12`, `launch_a1.sh`; configs `out/main/config_shard000.json:2`, `out/a1/config_shard000.json:2`; `gs_driver.py:152`–`:157`; `gs_cstate.py:103`–`:108`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY, same physical coordinates as CRB.",
+      "pilot_data_split": "G/OBS.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "CTX/OBS sigma2_int; supplied to `_instrumented` (`gs_driver.py:51`–`:59`). Genie alters delays/refit, not noise or power.",
+      "frames_and_seeds": "FER frames0..1999 shared with P1 B/A3; NMSE0..499 shared with CRB. A1 continuation also regenerates CTX frames; `res-20261016-03.md:17`–`:18`."
+    },
+    {
+      "comparison_and_executed_path": "**E-1**. `experiments/tf_cstate_e1_20261017/launch_e1.sh:35`; `out/main/config_shard000.json:2`; `e1_driver.py:320`–`:343`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY regenerated for ledger-selected triggered keys.",
+      "pilot_data_split": "G/OBS.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "CTX/OBS; branch ridge=obs sigma2, detector=obs sigma2 (`e1_driver.py:218`–`:243`).",
+      "frames_and_seeds": "Same F0 observation/state captured once, all arms reuse it. P1 frames0..1999; rho/SNR share RNG. Selection is conditional on F0 syndrome, not a new draw. `e1_driver.py:325`–`:334`."
+    },
+    {
+      "comparison_and_executed_path": "**E-2 R**. `experiments/tf_cstate_e2_20261017/launch_e2.sh:55`; `out/main_R/config_shard000.json:2`; `e2_driver.py:250`–`:261`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY, fresh frame indices3000..3999 on TCRF.",
+      "pilot_data_split": "G/OBS.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "CTX/OBS, same sigma2_int to F0/branches (`e2_driver.py:156`, `:179`).",
+      "frames_and_seeds": "All arms on a key share observation/F0 state; all rho/SNR share exogenous RNG. Frame indices disjoint from E1 main."
+    },
+    {
+      "comparison_and_executed_path": "**E-2 C**. `experiments/tf_cstate_e2_20261017/launch_e2.sh:66`; `out/main_C/config_shard000.json:2`; `e2_driver.py:264`–`:285`",
+      "snr_and_channel_normalisation": "Same sigma2_phys axis, **physical Frobenius energy/N=1** by rescaling actual co-delay CPP matrix (`e2_channels.py:129`–`:167`); sum(abs(g)^2) need not remain1 after that. J4 means **1+Poisson(3) rays/tap**, not exactly4 (`:84`–`:107`).",
+      "pilot_data_split": "Same physical sqrt(rho),sqrt(1-rho) law (`e2_channels.py:138`–`:153`).",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "`e2_channels.py:193`–`:195` adds sigma2_phys noise; `e2_driver.py:282` calls OBS, hence sigma2_int.",
+      "frames_and_seeds": "E2CJ entropy/domain (`e2_channels.py:19`–`:45`) independent of P1/R even for same numeric frame index. Across rho/SNR and arms, channel/noise/codeword shared; `e2_driver.py:266`–`:283`. Main0..999. rho.3 grid6/8/10/12, rho.5 grid8/10/12/14 (`out/calibrate/GRID.json:8`–`:47`)."
+    },
+    {
+      "comparison_and_executed_path": "**E-3**. `experiments/tf_e3_sbl_20261017/launch_e3_waves.sh:23`; `out/main/config_shard000.json:2`; `e3_driver.py:247`–`:267`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY; identical physical power/noise law despite internal .5 representation.",
+      "pilot_data_split": "G/OBS; data_true_af also divided by a (`e3_driver.py:250`–`:254`).",
+      "constellation_and_eb_es": "Q/CODE; internal constellation energy=.5.",
+      "receiver_noise": "obs sigma2_int; E3 detector `e3_driver.py:121`–`:124`; SBL beta0 uses 1/(sigma2_int+pd), 1/(sigma2_int+mean_v), or genie1/sigma2_int (`:152`–`:202`). SBL subsequently **learns beta**, rather than fixing it to known sigma2 (`sbl_rx.py:96`–`:140`); this is the declared estimator.",
+      "frames_and_seeds": "TCRF frames4000..4399, all four (U/G,rho) cells, grid6..11; variants share same observation/stage1/round1. rho/SNR/noise/codeword paired via CTX/RNG."
+    },
+    {
+      "comparison_and_executed_path": "**E-3b**. `experiments/tf_e3b_offgrid_20261017/launch_e3b.sh:65`; `out/main/config_shard000.json:2`; `e3b_driver.py:210`–`:231`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY unchanged; calls E3.observe_key verbatim.",
+      "pilot_data_split": "G/OBS; rho.3 physical, data=.5 internal.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "sigma2_int from obs (`e3b_driver.py:98`–`:111`), passed to refinement (`:171`) and E3 detector; SBL beta learning unchanged.",
+      "frames_and_seeds": "TCRF4000..4199, U/G,rho.3,6..11; shared with E3 subset; no claim of fresh confirmation (`res-20261017-04.md:31`)."
+    },
+    {
+      "comparison_and_executed_path": "**E-3c**. `experiments/tf_e3c_shrink_20261018/launch_e3c.sh:26`; **qualified_v3** `out/qualified_v3/main/config_shard000.json:2`; `e3c_driver.py:295`–`:305`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY unchanged; exact E3.observe_key.",
+      "pilot_data_split": "G/OBS; actual physical/internal power recorded at `e3c_driver.py:121`–`:126`.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "sigma2_int from obs (`e3c_driver.py:78`–`:91`); same detector and declared SBL/regularisation interventions.",
+      "frames_and_seeds": "Same TCRF4000..4099 U/G,rho.3,6..11 subset; all six arms share observation; reused old E3b/E3 inputs (`res-20261018-01.md:12`)."
+    },
+    {
+      "comparison_and_executed_path": "**GSO**. `experiments/tf_gso_20261018/launch_gso.sh:66`; `out/main/config_shard000.json:2`; `gso_driver.py:304`–`:309`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY through CTX and E3.observe_key.",
+      "pilot_data_split": "G/OBS; rho.3 physical, internal .5.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "sigma2_int from obs (`gso_driver.py:95`–`:108`); LS0 explicitly ridge=sigma2_int (`:64`–`:77`), SBL learns beta.",
+      "frames_and_seeds": "Same1200 keys/TCRF4000..4099 as E3c (`PROTOCOL.md:25`); all six arms share observation/stage1/round1."
+    },
+    {
+      "comparison_and_executed_path": "**10-18 prospective S/K**. `experiments/tf_split_prosp_20261018/launch_sp.sh:69`–`:73`; `out/main/REMOTE_ROWS_MD5.txt:17`–`:32`; `sp_driver.py:418`–`:436`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY via same E3.observe_key for both families; no new channel family.",
+      "pilot_data_split": "G/OBS; S rho.3; K rho.3/.5.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "Same sigma2_int for both families (`sp_driver.py:124`, `:270`; common E3 detector and E1 branch). SBL beta learns in S; K ridge/detector use obs sigma2.",
+      "frames_and_seeds": "New TCRF7000..7199 (`sp_lib.py:41`–`:48`). Same exogenous frame across S/K,U/G,rho,SNR; U/G channels differ only Doppler; S6..11, K4.5..8. Actual remote main config_S_shard000 and config_K_shard000 were read and MD5-verified against the main manifest: S 8974109dd7146cad49af6acdf8d4aff9, K 57c0530f4eb0553015e81d498db6af1c; both register [7000,7200), TCRF and system rho=.5/p_d=.5. Verified shard0 coordinates: S rho300/SNR600..1100, K rho300,500/SNR450..800; these are actual run configs, not gate configs."
+    }
+  ],
+  "power_examples": [
+    {
+      "rho": 0.3,
+      "physical_data_power": 0.7,
+      "physical_pilot_power": 0.3,
+      "physical_to_internal_scale": 1.1832159566199232,
+      "internal_data_power": 0.5,
+      "internal_pilot_power": 0.2142857142857143,
+      "noise_variance_multiplier": 0.7142857142857143,
+      "physical_to_internal_snr_offset_db": 0.0
+    },
+    {
+      "rho": 0.5,
+      "physical_data_power": 0.5,
+      "physical_pilot_power": 0.5,
+      "physical_to_internal_scale": 1.0,
+      "internal_data_power": 0.5,
+      "internal_pilot_power": 0.5,
+      "noise_variance_multiplier": 1.0,
+      "physical_to_internal_snr_offset_db": 0.0
+    }
+  ],
+  "findings": [
+    {
+      "id": "DEF-01",
+      "severity": "OK",
+      "finding": "P1 and E3 share a physical SNR/power/noise convention. The receiver coordinate shim scales y and noise together.",
+      "evidence": [
+        "experiments/headroom_ladder_20261008/driver.py:227-240",
+        "experiments/tf_e3_sbl_20261017/e3_driver.py:247-254"
+      ],
+      "nominal_inter_arm_offset_db": 0.0
+    },
+    {
+      "id": "DEF-02",
+      "severity": "OK",
+      "finding": "P2b is equal nominal total useful-frame energy, not equal Eb. Different data symbol energy/code rate is stated explicitly.",
+      "evidence": [
+        "experiments/tcom_reference_frame_20261015/ep_rx.py:74-91",
+        "research-assets/res-20261015-03.md:60-61"
+      ],
+      "ep_eb_offset_relative_sp_db": 1.2550459269083096
+    },
+    {
+      "id": "DEF-03",
+      "severity": "MINOR",
+      "finding": "Audit brief phrase Jakes-4 rays per tap is ambiguous: actual and preregistered law is 1+Poisson(3), mean4, not exactly4.",
+      "evidence": [
+        ".trellis/tasks/10-19-generator-snr-audit/codex-brief.md:39",
+        "experiments/tf_cstate_e2_20261017/PROTOCOL.md:50",
+        "experiments/tf_cstate_e2_20261017/e2_channels.py:84-106",
+        "research-assets/res-20261017-02.md:37"
+      ],
+      "accepted_card_mismatch": false
+    },
+    {
+      "id": "DEF-04",
+      "severity": "OK",
+      "finding": "Original P1 gen_fixed source has an exact MD5-matching saved copy; current default-preserving scenario-S extension must be distinguished.",
+      "evidence": [
+        "experiments/tcom_reference_frame_20261015/out/p1/config_shard000.json:107",
+        "experiments/tcom_reference_frame_20261015/out/p2b_gates/ref/gen_fixed_p1.py:281-322",
+        "experiments/tcom_reference_frame_20261015/gen_fixed.py:303-343"
+      ]
+    }
+  ],
+  "confirmed_blockers": [],
+  "source_identity": [
+    {
+      "module": "afdm_sp_joint_unrolled.e1_ldpc",
+      "executed_path": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py",
+      "inspected_local_path": "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py",
+      "expected_md5": "5a44682768d2285cbbd8c5d24563022a",
+      "local_md5": "5a44682768d2285cbbd8c5d24563022a",
+      "exact_match": true
+    },
+    {
+      "module": "afdm_sp_joint_unrolled.supplement_g1",
+      "executed_path": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py",
+      "inspected_local_path": "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py",
+      "expected_md5": "5965bb0eeadad2bccc4e41b82c9291a4",
+      "local_md5": "5965bb0eeadad2bccc4e41b82c9291a4",
+      "exact_match": true
+    },
+    {
+      "module": "afdm_sp_joint_unrolled.supplement_pilots",
+      "executed_path": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilots.py",
+      "inspected_local_path": "experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilots.py",
+      "expected_md5": "f2c9a6cb50e1139e58a696dda1ec8c35",
+      "local_md5": "f2c9a6cb50e1139e58a696dda1ec8c35",
+      "exact_match": true
+    },
+    {
+      "module": "native_twofft",
+      "executed_path": "experiments/sp_afdm_native_joint_reviewed_20260921/src/native_twofft.py",
+      "inspected_local_path": "experiments/sp_afdm_native_joint_20260921/src/native_twofft.py",
+      "expected_md5": "d47af1373b2f0052e6de078de40711ba",
+      "local_md5": "d47af1373b2f0052e6de078de40711ba",
+      "exact_match": true
+    },
+    {
+      "module": "twofft",
+      "executed_path": "experiments/sp_afdm_native_joint_reviewed_20260921/src/twofft.py",
+      "inspected_local_path": "experiments/sp_afdm_native_joint_20260921/src/twofft.py",
+      "expected_md5": "cdbdf40eabf43c1e02b52d25062a594d",
+      "local_md5": "cdbdf40eabf43c1e02b52d25062a594d",
+      "exact_match": true
+    },
+    {
+      "module": "physical",
+      "executed_path": "experiments/sp_afdm_frozen_reviewed_20260921/src/physical.py",
+      "inspected_local_path": "experiments/sp_afdm_frozen_20260920/src/physical.py",
+      "expected_md5": "aa8ad5c843f82792d7d0f6e5c09ac0a3",
+      "local_md5": "aa8ad5c843f82792d7d0f6e5c09ac0a3",
+      "exact_match": true
+    },
+    {
+      "module": "messages",
+      "executed_path": "experiments/sp_afdm_frozen_reviewed_20260921/src/messages.py",
+      "inspected_local_path": "experiments/sp_afdm_frozen_20260920/src/messages.py",
+      "expected_md5": "5e29ddc722ce448229beeb437ade093b",
+      "local_md5": "5e29ddc722ce448229beeb437ade093b",
+      "exact_match": true
+    },
+    {
+      "module": "receiver",
+      "executed_path": "experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py",
+      "inspected_local_path": "experiments/sp_afdm_frozen_20260920/src/receiver.py",
+      "expected_md5": "228411ca9751eecfca2f794ace909dfd",
+      "local_md5": "228411ca9751eecfca2f794ace909dfd",
+      "exact_match": true
+    },
+    {
+      "module": "gen_fixed",
+      "executed_path": "experiments/tcom_reference_frame_20261015/gen_fixed.py",
+      "inspected_local_path": "experiments/tcom_reference_frame_20261015/gen_fixed.py",
+      "expected_md5": "cb9be5ea91c0a9b1863758ed598de1c6",
+      "local_md5": "9a3a987e0a1aaecde33018da5f38c74c",
+      "exact_match": false,
+      "exact_p1_snapshot": "experiments/tcom_reference_frame_20261015/out/p2b_gates/ref/gen_fixed_p1.py",
+      "snapshot_md5": "cb9be5ea91c0a9b1863758ed598de1c6",
+      "snapshot_match": true,
+      "reason": "Current source adds delay_scale/l_trunc for scenario S; default-preserving static diff only."
+    },
+    {
+      "module": "p1_driver",
+      "executed_path": "experiments/tcom_reference_frame_20261015/p1_driver.py",
+      "inspected_local_path": "experiments/tcom_reference_frame_20261015/p1_driver.py",
+      "expected_md5": "e8594ebfe04f490a86fc16ebd5069cd2",
+      "local_md5": "e8594ebfe04f490a86fc16ebd5069cd2",
+      "exact_match": true
+    },
+    {
+      "module": "interventions",
+      "executed_path": "experiments/tf_production_gap_audit_20260922/interventions.py",
+      "inspected_local_path": "experiments/tf_production_gap_audit_20260922/interventions.py",
+      "expected_md5": "82d47057b3e18b631cae01c3b9b17291",
+      "local_md5": "82d47057b3e18b631cae01c3b9b17291",
+      "exact_match": true
+    },
+    {
+      "module": "run_validation",
+      "executed_path": "experiments/tf_cstate_validation_20260922/run_validation.py",
+      "inspected_local_path": "experiments/tf_cstate_validation_20260922/run_validation.py",
+      "expected_md5": "3bf475ab8e15d855e7bfbefd387bfdac",
+      "local_md5": "3bf475ab8e15d855e7bfbefd387bfdac",
+      "exact_match": true
+    },
+    {
+      "module": "native_f1",
+      "executed_path": "experiments/cstate_necessity_stageA_20260928/native_f1.py",
+      "inspected_local_path": "experiments/cstate_necessity_stageA_20260928/native_f1.py",
+      "expected_md5": "e1f8b0f857b1580fa4e03f5e8f3e1799",
+      "local_md5": "e1f8b0f857b1580fa4e03f5e8f3e1799",
+      "exact_match": true
+    }
+  ],
+  "source_receipts": {
+    "experiments/tcom_reference_frame_20261015/out/p1/config_shard000.json": {
+      "md5": "ac551e7c910cb4d017a74fe2812ff78d",
+      "sha256": "77bd7c7a5b59989650aa639be6c84ebfb97542bc77052df31074882f92a7cea4"
+    },
+    "experiments/tf_cstate_e2_20261017/PROTOCOL.md": {
+      "md5": "f19cdd60329b1fade2e5d57cc0558339",
+      "sha256": "d60a447c0cacedb221be7e738d9c0ac03774b280d5a34e9d7fe7ee3be6dd3dda"
+    },
+    "research-assets/res-20261015-03.md": {
+      "md5": "7c60b2b0dca7b22183aeed6fc8a8a282",
+      "sha256": "b80d30c449bc71219cbb46482bfc0c0609965e9da15f049175d776da077d2a6e"
+    },
+    "research-assets/res-20261017-02.md": {
+      "md5": "3e3934292fe60775b2b4449e12ca44d8",
+      "sha256": "e951d01164ec6382aabf252735eb0a218c566708d7b92c91abb1f2facd5276fb"
+    },
+    ".trellis/tasks/10-19-generator-snr-audit/codex-brief.md": {
+      "md5": "0f4486685cdda6d4527705d9e7282768",
+      "sha256": "d13e24fbaaad02439ee2dc4cdfd376e962d11fb82e0f0ebda11af9e21efc11a5"
+    }
+  },
+  "limits": [
+    "Static inspection is not runtime verification.",
+    "Unit nominal total energy is not unit realised combined/received energy for every superimposed frame.",
+    "P1 U/G share raw exogenous draws; their physical Dopplers and therefore H differ intentionally.",
+    "E2 C has independent E2CJ entropy; numeric frame indices do not pair it to P1/R.",
+    "P2b SP and EP share channel/noise, but differing codeword dimensions preclude codeword equality.",
+    "SBL beta is learned after initialization using the correct known input variance; this is not a generator-noise mismatch."
+  ],
+  "remote_read_only_receipts": [
+    {
+      "kind": "prospective_main_config",
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_split_prosp_20261018/out/main/config_S_shard000.json",
+      "md5": "8974109dd7146cad49af6acdf8d4aff9",
+      "manifest_md5": "8974109dd7146cad49af6acdf8d4aff9",
+      "manifest_match": true,
+      "read_only_ssh_verified": true,
+      "argv": [
+        "sp_driver.py",
+        "--mode",
+        "run",
+        "--family",
+        "S",
+        "--out",
+        "out/main",
+        "--shard",
+        "0",
+        "--nshard",
+        "13",
+        "--cost-cap-seconds",
+        "54000"
+      ],
+      "fields": {
+        "rng": {
+          "domain": "1413698118",
+          "entropy": "2261fde33dab09d163b6dd926ef8d521e5d44fdda771d356f02efabfee96eb23"
+        },
+        "system": {
+          "N": 1024,
+          "c1": 0.00244140625,
+          "c2": 1.9751241797117955e-07,
+          "l_max_cap": 102,
+          "p_d": 0.5,
+          "rho": 0.5
+        },
+        "main_frame_range_registered": [
+          7000,
+          7200
+        ],
+        "family": "S",
+        "mode": "run",
+        "smoke": false,
+        "nshard": 13
+      },
+      "shard_coordinates": {
+        "n_keys": 186,
+        "scenarios": [
+          "G",
+          "U"
+        ],
+        "rho_permille": [
+          300
+        ],
+        "snr_centi_db": [
+          600,
+          700,
+          800,
+          900,
+          1000,
+          1100
+        ],
+        "frame_min": 7000,
+        "frame_max": 7195
+      }
+    },
+    {
+      "kind": "prospective_main_config",
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_split_prosp_20261018/out/main/config_K_shard000.json",
+      "md5": "57c0530f4eb0553015e81d498db6af1c",
+      "manifest_md5": "57c0530f4eb0553015e81d498db6af1c",
+      "manifest_match": true,
+      "read_only_ssh_verified": true,
+      "argv": [
+        "sp_driver.py",
+        "--mode",
+        "run",
+        "--family",
+        "K",
+        "--out",
+        "out/main",
+        "--shard",
+        "0",
+        "--nshard",
+        "3",
+        "--cost-cap-seconds",
+        "54000"
+      ],
+      "fields": {
+        "rng": {
+          "domain": "1413698118",
+          "entropy": "2261fde33dab09d163b6dd926ef8d521e5d44fdda771d356f02efabfee96eb23"
+        },
+        "system": {
+          "N": 1024,
+          "c1": 0.00244140625,
+          "c2": 1.9751241797117955e-07,
+          "l_max_cap": 102,
+          "p_d": 0.5,
+          "rho": 0.5
+        },
+        "main_frame_range_registered": [
+          7000,
+          7200
+        ],
+        "family": "K",
+        "mode": "run",
+        "smoke": false,
+        "nshard": 3
+      },
+      "shard_coordinates": {
+        "n_keys": 2136,
+        "scenarios": [
+          "G",
+          "U"
+        ],
+        "rho_permille": [
+          300,
+          500
+        ],
+        "snr_centi_db": [
+          450,
+          500,
+          550,
+          600,
+          650,
+          700,
+          750,
+          800
+        ],
+        "frame_min": 7000,
+        "frame_max": 7199
+      }
+    },
+    {
+      "kind": "original_p1_snapshot",
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/p2b_gates/ref/gen_fixed_p1.py",
+      "exists": true,
+      "md5": "cb9be5ea91c0a9b1863758ed598de1c6",
+      "matches_recorded_p1_md5": true
+    },
+    {
+      "kind": "p1_recorded_import_paths",
+      "config": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/p1/config_shard000.json",
+      "module_count": 64,
+      "missing": [],
+      "selected_core_modules": 13,
+      "exact_md5_matches": 12,
+      "current_gen_fixed_md5": "9a3a987e0a1aaecde33018da5f38c74c",
+      "original_gen_fixed_verified_by_saved_snapshot": true
+    }
+  ]
+}

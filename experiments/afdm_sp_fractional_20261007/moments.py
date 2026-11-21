@@ -1,10 +1,10 @@
-"""Exact quadratic moments for independent path-Doppler factors and AF variances.
+"""Exact quadratic moments for independent path-Doppler factors and AF covariance.
 
 This evaluates E[log likelihood] for a declared factor model. It is neither a
 QPSK marginal likelihood nor an update under the normalized production prior.
 All N-dimensional operators use the frozen physical DAFT/CPP convention.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
 
@@ -47,6 +47,24 @@ def real_result(value, name, *, nonnegative=False):
     return value.real
 
 
+def _immutable_array(value):
+    """Copy numeric storage onto bytes, so setflags cannot re-enable writes."""
+    order = 'F' if value.flags.f_contiguous and not value.flags.c_contiguous else 'C'
+    return np.frombuffer(value.tobytes(order=order), dtype=value.dtype).reshape(value.shape, order=order)
+
+
+def _index_pairs(value, n, name):
+    # Object inspection preserves the original types in mixed Python inputs;
+    # casting first could silently accept bools, floats or complex indices.
+    original = np.asarray(value, dtype=object)
+    require(original.ndim == 2 and original.shape[1] == 2, f'{name}: expected shape (K,2)')
+    require(np.issubdtype(np.asarray(value).dtype, np.integer) and
+            all(isinstance(index, (int, np.integer)) and not isinstance(index, (bool, np.bool_))
+                for index in original.flat), f'{name}: integer indices required')
+    require(all(0 <= index < n for index in original.flat), f'{name}: index outside [0,N)')
+    return original.astype(np.intp)
+
+
 @dataclass(frozen=True)
 class SourceMoments:
     owner: object
@@ -55,6 +73,9 @@ class SourceMoments:
     responses: np.ndarray
     variance_fft: np.ndarray
     energy: float
+    pair_indices: np.ndarray
+    pair_covariance: np.ndarray
+    _cross_cache: dict = field(default_factory=dict, repr=False, compare=False)
 
 
 @dataclass(frozen=True)
@@ -149,9 +170,19 @@ class PathMoments:
         self.phi = np.sum(weights[:, :, None]*np.exp(1j*nodes[:, :, None]*self.time), axis=1)
         require(np.allclose(self.phi[:, 0], 1., atol=1e-12, rtol=0) and
                 np.max(abs(self.phi)) <= 1+1e-12, 'invalid characteristic moments')
-        for value in (self.delays, self.nodes, self.weights, self.mean, self.covariance,
-                      self.second, self.time, self.indices, self.cpp, self.phi):
-            value.setflags(write=False)
+        for name in ('delays', 'nodes', 'weights', 'mean', 'covariance', 'second',
+                     'time', 'indices', 'cpp', 'phi'):
+            setattr(self, name, _immutable_array(getattr(self, name)))
+        # Caches belong to this exact physical geometry and characteristic law.
+        # Replacing any dependency requires a fresh owner, even with equal data.
+        self._geometry_state = {name: getattr(self, name) for name in
+                                ('n', 'p', 'c1', 'c2', 'delays', 'nodes', 'weights',
+                                 'time', 'indices', 'cpp', 'phi')}
+        self._gram_query_cache = {}
+
+    def _geometry(self):
+        require(all(getattr(self, name, None) is value for name, value in self._geometry_state.items()),
+                'path geometry or characteristic moments changed; construct a new PathMoments owner')
 
     def _daft(self, value, *, inverse=False):
         key = 'inverse_daft_vectors' if inverse else 'forward_daft_vectors'
@@ -162,29 +193,107 @@ class PathMoments:
         self.work_counts['ordinary_fft_vectors'] += 1
         return np.fft.fft(value)
 
-    def prepare_source(self, pilot, data_mean, data_variance):
+    def _ifft(self, value):
+        work = self.work_counts
+        work['ordinary_ifft_vectors'] = work.get('ordinary_ifft_vectors', 0)+1
+        return np.fft.ifft(value)
+
+    def prepare_source(self, pilot, data_mean, data_variance, *, pair_indices=None, pair_covariance=None):
+        """Prepare disjoint Hermitian 2x2 data blocks; omission is diagonal.
+
+        pair_covariance[k] is C[u,v], with C[v,u] its conjugate. Reverse pairs
+        are canonicalized to u<v. Both arrays must be supplied together, with
+        shapes (K,2) and (K,); explicit empty arrays retain the diagonal path.
+        PSD accepts normalized determinant roundoff at ROUNDOFF: dividing each
+        block by its largest absolute real/imaginary entry gives
+        |c/scale|**2 <= (v[u]/scale)*(v[v]/scale)+ROUNDOFF. No entry is repaired.
+        """
+        self._geometry()
         pilot = vector(pilot, self.n, 'AF pilot')
         mean = vector(data_mean, self.n, 'AF data mean')
         variance = vector(data_variance, self.n, 'AF data variance', real=True)
         require(np.all(variance >= 0), 'negative AF data variance')
+        require((pair_indices is None) == (pair_covariance is None),
+                'pair indices and covariance must be supplied together')
+        pairs = np.empty((0, 2), dtype=np.intp)
+        covariance = np.empty(0, complex)
+        if pair_indices is not None:
+            pairs = _index_pairs(pair_indices, self.n, 'AF covariance pairs')
+            covariance = vector(pair_covariance, len(pairs), 'AF pair covariance')
+            require(np.all(pairs[:, 0] != pairs[:, 1]), 'AF covariance pair endpoints must differ')
+            require(len(set(pairs.flat)) == pairs.size, 'AF covariance pairs must have disjoint endpoints')
+            reverse = pairs[:, 0] > pairs[:, 1]
+            pairs[reverse] = pairs[reverse, ::-1]
+            covariance[reverse] = covariance[reverse].conj()
+            left, right = variance[pairs[:, 0]], variance[pairs[:, 1]]
+            # A deterministic coordinate has exactly zero cross covariance;
+            # determinant roundoff cannot relax this support invariant.
+            zero_variance = (left == 0) | (right == 0)
+            require(np.all(covariance[zero_variance] == 0),
+                    'zero AF data variance requires zero pair covariance')
+            scale = np.maximum.reduce((left, right, abs(covariance.real), abs(covariance.imag)))
+            scale[scale == 0] = 1.  # The exactly zero block already has zero determinant.
+            squared = (covariance.real/scale)**2+(covariance.imag/scale)**2
+            require(np.all(squared <= (left/scale)*(right/scale)+ROUNDOFF),
+                    'AF pair covariance must be PSD within normalized determinant roundoff')
         mean += pilot
         time_mean = self._daft(mean, inverse=True)
         responses = self.cpp*time_mean[self.indices]
         variance_fft = self._fft(variance)/self.n
         energy = float(np.vdot(mean, mean).real+variance.sum())
-        for value in (mean, variance, responses, variance_fft):
-            value.setflags(write=False)
-        return SourceMoments(self, mean, variance, responses, variance_fft, energy)
+        require(np.isfinite(responses).all() and np.isfinite(variance_fft).all() and np.isfinite(energy),
+                'nonfinite AF source moments')
+        return SourceMoments(self, _immutable_array(mean), _immutable_array(variance),
+                             _immutable_array(responses), _immutable_array(variance_fft), energy,
+                             _immutable_array(pairs), _immutable_array(covariance))
 
     def _source(self, source):
         require(isinstance(source, SourceMoments) and source.owner is self, 'source belongs to another path model')
+        self._geometry()
+
+    def _delay_phase(self, i, j):
+        difference = int(self.delays[i]-self.delays[j])
+        return np.exp(2j*np.pi*self.c1*(2*np.arange(self.n)*difference-
+                                      self.delays[i]**2+self.delays[j]**2))
+
+    def _symbol_pair_phase(self, i, j, u, v):
+        # The chirp and delay phases use original indices, not their modulo difference.
+        return np.exp(2j*np.pi*self.c2*(u**2-v**2)+
+                      2j*np.pi*(self.delays[i]*u-self.delays[j]*v)/self.n)
 
     def _cross_source(self, source, i, j):
+        self._source(source)
+        require(all(isinstance(index, (int, np.integer)) and not isinstance(index, (bool, np.bool_)) and
+                    0 <= index < self.p for index in (i, j)), 'invalid source path indices')
+        if len(source.pair_indices):
+            return self._paired_cross_source(source, i, j)
+        # Preserve the original arithmetic and transform path when pairs are absent.
         difference = int(self.delays[i]-self.delays[j])
-        phase = np.exp(2j*np.pi*self.c1*(2*np.arange(self.n)*difference-
-                                        self.delays[i]**2+self.delays[j]**2))
+        phase = self._delay_phase(i, j)
         return (source.responses[i]*source.responses[j].conj()+
                 source.variance_fft[difference % self.n]*phase)
+
+    def _paired_cross_source(self, source, i, j):
+        if i > j:
+            return self._paired_cross_source(source, j, i).conj()
+        key = (i, j)
+        work = self.work_counts
+        if key in source._cross_cache:
+            work['source_pair_cache_hits'] = work.get('source_pair_cache_hits', 0)+1
+            return source._cross_cache[key]
+        u, v = source.pair_indices.T
+        weights = np.zeros(self.n, complex)
+        np.add.at(weights, (u-v) % self.n, source.pair_covariance*self._symbol_pair_phase(i, j, u, v).conj())
+        np.add.at(weights, (v-u) % self.n, source.pair_covariance.conj()*self._symbol_pair_phase(i, j, v, u).conj())
+        work['source_pair_covariance_entries'] = work.get('source_pair_covariance_entries', 0)+2*len(u)
+        work['source_pair_ifft_vectors'] = work.get('source_pair_ifft_vectors', 0)+1
+        correction = self._ifft(weights)
+        difference = int(self.delays[i]-self.delays[j])
+        covariance = self._delay_phase(i, j)*(source.variance_fft[difference % self.n]+correction)
+        cross = source.responses[i]*source.responses[j].conj()+covariance
+        require(np.isfinite(cross).all(), 'nonfinite paired source moments')
+        source._cross_cache[key] = _immutable_array(cross)
+        return source._cross_cache[key]
 
     def expected_quadratic(self, y, source):
         self._source(source)
@@ -246,6 +355,7 @@ class PathMoments:
 
     def gram_matvec(self, value):
         """E[H^H H] value, using S[j,i] and the same-offset self terms."""
+        self._geometry()
         time_value = self._daft(vector(value, self.n, 'Gram input'), inverse=True)
         output = np.trace(self.second)*time_value
         for i in range(self.p):
@@ -259,6 +369,7 @@ class PathMoments:
         return result
 
     def gram_diagonal(self):
+        self._geometry()
         coefficients = np.zeros(self.n, complex)
         coefficients[0] = np.trace(self.second)
         for i in range(self.p):
@@ -271,7 +382,54 @@ class PathMoments:
                     coefficients[delta % self.n] += self.second[j, i]*xi
         return real_result(self._fft(coefficients), 'expected Gram diagonal', nonnegative=True)
 
+    def _gram_query_kernel(self, i, j):
+        """Z_ij for i<j; independent of every SourceMoments covariance cache."""
+        key = (i, j)
+        work = self.work_counts
+        if key in self._gram_query_cache:
+            work['gram_query_cache_hits'] = work.get('gram_query_cache_hits', 0)+1
+            return self._gram_query_cache[key]
+        psi = self.phi[i].conj()*self.phi[j]
+        work['gram_query_fft_vectors'] = work.get('gram_query_fft_vectors', 0)+1
+        kernel = self._fft(psi*self._delay_phase(i, j).conj())/self.n
+        require(np.isfinite(kernel).all(), 'nonfinite Gram query kernel')
+        self._gram_query_cache[key] = _immutable_array(kernel)
+        return self._gram_query_cache[key]
+
+    def gram_entries(self, pair_indices):
+        """Return E[H^H H][u,v] for integer (Q,2) queries in their input order.
+
+        Reversed, repeated and diagonal queries are legal. Q=0 returns an empty
+        complex vector without building kernels. No candidates are enumerated.
+        Each unordered distinct path pair lazily costs one N-point FFT and
+        O(N) cache; queries then cost O(P**2 Q). A fresh owner is required after
+        geometry or Doppler-law changes. Same-path psi_ii=1 gives exactly I,
+        even under a non-point Doppler law; it must not use |phi_i|**2.
+        """
+        self._geometry()
+        pairs = _index_pairs(pair_indices, self.n, 'Gram query pairs')
+        work = self.work_counts
+        work['gram_query_calls'] = work.get('gram_query_calls', 0)+1
+        work['gram_query_entries'] = work.get('gram_query_entries', 0)+len(pairs)
+        result = np.zeros(len(pairs), complex)
+        if not len(pairs):
+            return result
+        u, v = pairs.T
+        frequency = (u-v) % self.n
+        result += np.trace(self.second)*(u == v)
+        for i in range(self.p):
+            for j in range(i+1, self.p):
+                kernel = self._gram_query_kernel(i, j)
+                work['gram_query_cross_terms'] = work.get('gram_query_cross_terms', 0)+2*len(pairs)
+                result += self.second[j, i]*self._symbol_pair_phase(i, j, u, v)*kernel[frequency]
+                # Z_ji[k] = conj(Z_ij[-k]); retain the transposed gain weights.
+                result += (self.second[i, j]*self._symbol_pair_phase(j, i, u, v)*
+                           kernel[(-frequency) % self.n].conj())
+        require(np.isfinite(result).all(), 'nonfinite Gram entries')
+        return result
+
     def mean_adjoint(self, y):
+        self._geometry()
         time_y = self._daft(vector(y, self.n, 'AF observation fixture'), inverse=True)
         result = np.zeros(self.n, complex)
         for i in range(self.p):

@@ -1,0 +1,27 @@
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.010s
+
+OK
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.073s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3c_shrink_20261018/e3c_gate.py", line 100, in <module>
+    main()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3c_shrink_20261018/e3c_gate.py", line 70, in main
+    unit(a)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3c_shrink_20261018/e3c_gate.py", line 32, in unit
+    receipt.write_text(json.dumps(dict(passed=True,sources_sha256=source_identity()),indent=1)+'\n')
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3c_shrink_20261018/e3c_driver.py", line 230, in source_identity
+    resolutions = resolve_frozen(HERE.parent, frozen,
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3c_shrink_20261018/e3c_provenance.py", line 38, in resolve_frozen
+    raise RuntimeError(f'frozen source md5 mismatch {rel} via {actual}: {md5} != {expected}')
+RuntimeError: frozen source md5 mismatch sp_afdm_frozen_20260920/src/receiver.py via /data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_20260920/src/receiver.py: 0304216512070168854aa4dff94fcf39 != 228411ca9751eecfca2f794ace909dfd

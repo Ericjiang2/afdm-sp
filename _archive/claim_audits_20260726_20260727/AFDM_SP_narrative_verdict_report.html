@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFDM-SP 联合估计检测：证据约束下的贡献重组裁决报告</title>
+<style>
+  :root{
+    --bg:#0e1116; --card:#171b23; --card2:#131720; --ink:#e7eaf0; --muted:#98a2b3;
+    --line:#2a3040; --accent:#5db0ff; --good:#3fce96; --bad:#ff6b6b; --warn:#ffc95c;
+    --tie:#c9a3ff; --gA:#3fce96; --gB:#5db0ff; --gC:#ffc95c; --gD:#ff6b6b;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,"Segoe UI",Roboto,"Noto Sans CJK SC","PingFang SC",sans-serif;}
+  .wrap{max-width:1020px;margin:0 auto;padding:42px 26px 90px;}
+  h1{font-size:28px;margin:0 0 8px;letter-spacing:.3px;line-height:1.35}
+  h2{font-size:21px;margin:52px 0 16px;padding:10px 0 10px 14px;border-left:4px solid var(--accent);
+     background:linear-gradient(90deg,#1a2130,transparent);color:#dce7f7;border-radius:4px}
+  h3{font-size:16.5px;margin:28px 0 10px;color:#c9d6ea}
+  h4{font-size:14.5px;margin:20px 0 6px;color:#b7c4da}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:18px 0}
+  .card.dim{background:var(--card2)}
+  p{margin:9px 0}
+  code{background:#1e2330;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;color:#bfe1ff}
+  .formula{background:#141926;border:1px solid var(--line);border-radius:8px;padding:12px 18px;margin:12px 0;
+    font-family:"STIX Two Math","Cambria Math",Georgia,serif;font-size:15.5px;color:#d7e6ff;overflow-x:auto}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;margin-right:6px;vertical-align:middle;white-space:nowrap}
+  .t-dead{background:#3a1e22;color:var(--bad);border:1px solid #5a2a2f}
+  .t-win{background:#16302a;color:var(--good);border:1px solid #235040}
+  .t-tie{background:#2a2440;color:var(--tie);border:1px solid #3f3463}
+  .t-key{background:#2e2a16;color:var(--warn);border:1px solid #4c4423}
+  .t-info{background:#16232e;color:var(--accent);border:1px solid #234050}
+  .lv{display:inline-block;font-size:10.5px;font-weight:800;padding:1px 8px;border-radius:5px;
+    background:#1c2534;color:#8fc4ff;border:1px solid #2c3d55;margin-left:6px;vertical-align:middle}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr.hl td{background:#1c2434}
+  .good{color:var(--good)} .bad{color:var(--bad)} .tiec{color:var(--tie)} .warnc{color:var(--warn)} .muted{color:var(--muted)}
+  .verdict{border-left:4px solid var(--accent);padding:12px 18px;margin:16px 0;background:#151b28;border-radius:0 8px 8px 0}
+  .verdict.dead{border-color:var(--bad)} .verdict.win{border-color:var(--good)}
+  .verdict.tie{border-color:var(--tie)} .verdict.warn{border-color:var(--warn)}
+  .hero-card{background:linear-gradient(135deg,#12233a,#0f1a2c 60%);border:1.5px solid #2c5a8f;
+    border-radius:14px;padding:26px 30px;margin:22px 0;box-shadow:0 0 40px rgba(60,140,255,.08)}
+  .hero-card h3{margin-top:0;color:#7cc0ff}
+  ul,ol{margin:8px 0 8px 4px;padding-left:22px} li{margin:6px 0}
+  .toc{columns:2;column-gap:36px;font-size:14px}
+  .toc a{color:#9ec9f5;text-decoration:none} .toc a:hover{text-decoration:underline}
+  .toc li{margin:4px 0;break-inside:avoid}
+  .grade{font-weight:800;font-size:15px}
+  .score{display:inline-block;min-width:44px;text-align:center;font-weight:700;border-radius:6px;padding:1px 8px}
+  .sA{background:#153228;color:var(--gA)} .sB{background:#16283a;color:var(--gB)}
+  .sC{background:#332b14;color:var(--gC)} .sD{background:#361b1e;color:var(--gD)}
+  .green,.red{border-radius:8px;padding:10px 16px;margin:8px 0;font-size:14px}
+  .green{background:#12271f;border:1px solid #235040}
+  .red{background:#2c1518;border:1px solid #5a2a2f}
+  .green::before{content:"✓ ";color:var(--good);font-weight:800}
+  .red::before{content:"✗ ";color:var(--bad);font-weight:800}
+  .memo{background:#1a2130;border:1px solid #31405c;border-radius:12px;padding:22px 26px}
+  .memo dt{font-weight:700;color:#8fc4ff;margin-top:14px} .memo dd{margin:4px 0 0 0}
+  .refnum{color:var(--accent);font-weight:700}
+  a{color:#9ec9f5} 
+  .foot{color:var(--muted);font-size:12px;margin-top:48px;border-top:1px solid var(--line);padding-top:16px}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}.toc{columns:1}}
+  @media print{
+    body{background:#fff;color:#111}
+    :root{--bg:#fff;--card:#f7f8fa;--card2:#f2f4f7;--ink:#111;--muted:#555;--line:#ccc}
+    .card,.hero-card,.memo{box-shadow:none;border-color:#bbb}
+    h2{color:#123;background:#eef2f7}
+    code{color:#0b4f8a;background:#eef2f7;border-color:#ccd}
+    .formula{color:#123;background:#f4f6fa}
+    a{color:#0b4f8a}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>AFDM-SP 联合信道估计与检测：<br>证据约束下的贡献重组与投稿叙事裁决报告</h1>
+<div class="sub">资深审稿人 + 研究战略视角 · 2026-07-26 · 依据：QA#46–48 配对实验（帧级 block bootstrap、多 seed、机制控制）+ 2023–2026 文献检索<br>
+证据层级标注：<span class="lv">L0</span> 推测 · <span class="lv">L1</span> 单次实验 · <span class="lv">L2</span> 配对+CI · <span class="lv">L3</span> 多 seed + 机制控制 + 反证</div>
+
+<div class="card dim">
+<h3 style="margin-top:0">目录</h3>
+<ol class="toc">
+<li><a href="#s1">Executive Verdict（先给结论）</a></li>
+<li><a href="#s2">First-Principles Problem Diagnosis</a></li>
+<li><a href="#s3">Evidence Inventory（证据→claim 映射）</a></li>
+<li><a href="#s4">Literature Closest-Art Map</a></li>
+<li><a href="#s5">Contribution Triage（A/B/C/D 四档）</a></li>
+<li><a href="#s6">Recommended Paper Thesis &amp; Contributions</a></li>
+<li><a href="#s7">Claim Language：Allowed / Forbidden</a></li>
+<li><a href="#s8">Venue Fit &amp; Missing Experiments</a></li>
+<li><a href="#s9">MVP Paper Blueprint</a></li>
+<li><a href="#s10">Learning-Narrative Resurrection Paths</a></li>
+<li><a href="#s11">What NOT to Do Next（含博士叙事边界）</a></li>
+<li><a href="#s12">2-Week Action Plan</a></li>
+<li><a href="#s13">References</a></li>
+<li><a href="#s14">给导师的最终备忘（6 句）</a></li>
+</ol>
+</div>
+
+<!-- ================= 1 EXECUTIVE VERDICT ================= -->
+<h2 id="s1">1 · Executive Verdict — 一页看懂结论</h2>
+
+<div class="hero-card">
+<h3>最终推荐叙事（Recommended Narrative）</h3>
+<p><b>骨架：S1+S4 hybrid — Theory-first，负结果做机制证据，F2-P 做部署载体。</b></p>
+<p><b>一句话 thesis：</b>在 SP-AFDM 联合估计检测中，支配性的杠杆不是"学习"，而是<b>对 SP 结构性数据干扰做白化</b>：
+一个闭式、可实现（plug-in）的白化后验比打分器 <b>achievable-Λ</b>，以约 1.6% 的接收机开销贴近 genie 白化上界、
+CI-firm 击败几何先验与 1k-param 学习 head；把它装进 OMP-once + F2-P support-refinement 部署回路，
+才把打分优势兑现为 BER。学习的角色被严格标定：给对协方差特征与 rank loss 后，学习<b>追平但不超过</b>闭式 Λ —— 
+这本身是一条有部署价值的科学结论。</p>
+<p style="margin-bottom:0"><b>英文工作标题（建议）：</b><i>Whitening the Superimposed-Pilot Interference: A Plug-in
+Posterior-Ratio Scorer for Joint Channel Estimation and Detection in AFDM — and Where Learning Stops Helping</i></p>
+</div>
+
+<div class="verdict dead"><span class="tag t-dead">弃用</span>
+<b>弃用 claim 清单（不可再出现于任何稿件）：</b>
+"learned head 凭学习显著降 BER"（head ≈ 手调 geom，CI 重叠）；"SNR15 −35.7% / SNR20 −28.9% 归因于学习"（归因于 F2-P 部署 + scorer，其中 scorer 部分手调 geom 即可复现）；
+旧 −55~76% 点估计（12–49 errors 噪声）；"泄漏制造先验"子假设（integer-Doppler 控制证伪）；SNR20 self-suppression remark（9200 帧证伪，方向反转）；
+一切 "near-optimal" / "first to learn" / "AI-native receiver" 语言。</div>
+
+<div class="verdict win"><span class="tag t-win">保留</span>
+<b>核心可辩护资产（证据最硬的三件）：</b>
+① achievable-Λ CI-firm 击败 geom 与 head 并贴近 genie（800f SNR15，ratio 0.980 [.968,.992] / head/ach 1.019 [1.007,1.032]）<span class="lv">L3</span>；
+② 机制归因：优势随 ρ↓ 单调放大（C<sub>d</sub> ∝ 1−ρ），integer-Doppler 控制下不消失 → 价值来自 SP 数据干扰白化而非 Doppler 泄漏 <span class="lv">L3</span>；
+③ 复杂度：dense Cholesky 白化仅占接收机 1.6%（N=1024）→ 闭式 scorer 可部署、无需学习摊运 <span class="lv">L2</span>。</div>
+
+<div class="verdict warn"><span class="tag t-key">投稿硬门槛</span>
+现在证据全部是 <b>uncoded BER、单场景（UWA 风格仿真）、无外部 baseline 同设定复现</b>。
+LDPC-coded BER + 至少一个已发表 SP-AFDM/SP-OTFS baseline 的 head-to-head 是冲 TCOM/TWC 的前置；
+不补的话，当前证据支撑的是<b>一篇高质量 letter（WCL/COMML）或会议长文</b> + 一篇完整期刊的骨架。</div>
+
+<table>
+<thead><tr><th>问题</th><th>裁决</th></tr></thead>
+<tbody>
+<tr><td>论文真正的 claim 是什么？</td><td>SP 数据干扰的<b>结构性有色协方差</b>是 SP-AFDM 支撑检测的第一性瓶颈；闭式 plug-in 白化后验比（achievable-Λ）是正确且便宜的解，学习不超过它。</td></tr>
+<tr><td>theory / engineering / learning？</td><td><b>Theory-first</b>；F2-P 工程作为"把 scorer 增益兑现为 BER"的部署章节；learning 降为标定实验（cov-head 追平闭式 Λ）+ 严格负结果。</td></tr>
+<tr><td>现在能投什么档？</td><td>Letter/会议：现在就能写。TCOM/TWC 完整篇：补 coded BER + 外部 baseline 后可冲。TSP：需再加检测理论分析（如 deflection/ROC 层面的白化增益刻画），可作后续。</td></tr>
+<tr><td>最危险的 overclaim？</td><td>把 −35.7% 写成学习的功劳（已被自家配对实验证伪——审稿人复现 geom scorer 就能拆穿）。</td></tr>
+</tbody>
+</table>
+
+<!-- ================= 2 FIRST-PRINCIPLES ================= -->
+<h2 id="s2">2 · First-Principles Problem Diagnosis（Q1）</h2>
+
+<h3>2.1 为什么 SP 会制造"结构性"数据干扰</h3>
+<div class="card">
+<p>SP 帧的接收模型是 <code>y = H(√ρ·x_p + √(1−ρ)·x_d) + n</code>。对信道估计而言，数据分量不是白噪声——它经过<b>同一个信道 H</b>：</p>
+<div class="formula">C<sub>d</sub> = (1−ρ)·H Σ<sub>d</sub> H<sup>H</sup> + σ²I</div>
+<p>在 AFDM/DAFT 域，H = Σ<sub>p</sub> h<sub>p</sub>·(移位对角阵)，因此 HH<sup>H</sup> 是<b>准带状</b>的：作者的复杂度实验实测 populated diagonals ≤ 26 条（P² 聚簇）、条件数 ≈ 60–90。这给出三个第一性结论：</p>
+<ul>
+<li><b>干扰是有色的、结构化的、且依赖未知信道本身</b>（鸡生蛋结构）——这是 SP 区别于 EP（embedded pilot）的本质难点，也是文献里 SP 方案都要做迭代干扰消除的根本原因（[7][8][10]）。</li>
+<li>有色干扰下的最优支撑检验统计量是<b>白化匹配滤波</b>（GLRT in colored noise）；OMP 的白 MF 选择量 <code>|φ<sub>i</sub><sup>H</sup>r|²</code> 恰是 C→σ²I 的白噪声特例（作者 Prop.1 自检已验证）。</li>
+<li>因为 C 依赖 H，<b>严格最优不可实现</b>；自然的可实现量是 plug-in：用 OMP-once 的 Ĥ⁰ 构造 <code>C=(1−ρ)Ĥ⁰(Ĥ⁰)<sup>H</sup>+σ²I</code> 再白化——这正是 achievable-Λ。它与雷达自适应检测里 Kelly-GLRT/AMF 用样本协方差替代真协方差的 plug-in 思想同构 [17]，但此处协方差来自<b>信道估计的参数化重建</b>而非样本平均，是 SP-AFDM 特有的结构。</li>
+</ul>
+</div>
+
+<h3>2.2 为什么 support 误差与 gain 误差来源不同</h3>
+<div class="card">
+<p>联合接收的误差分解为两层：<b>support（离散检测问题）</b>——哪些 delay-Doppler 原子在场，误差表现为漏检/虚警，由有色干扰 + 分数 Doppler 的 Dirichlet 泄漏主导；<b>gain（连续估计问题）</b>——给定支撑后的 LS/MMSE 系数误差，由噪声 + 干扰的投影残差主导。
+两者对 BER 的传导路径不同：下游接收机的 cluster-expand（±k_leak）会<b>吸收近邻 support 误差</b>——这解释了作者 Phase-6 的发现：one-shot recall 的边际改进对 BER 大多冗余（missed atoms 落在 cluster-expand 覆盖内），只有 F2-P 的多轮 refine + protect-from-prune 能把"远端/易误删"的支撑错误转化为 BER 增益。<b>所以"scorer 好"与"BER 降"之间必须有部署机制作为传导层——这两层必须在论文里显式分开。</b></p>
+</div>
+
+<h3>2.3 为什么"学一个 scorer"在这个结构里容易退化成学几何先验</h3>
+<div class="card">
+<p>把候选打分写成作者的 C1 因式分解：</p>
+<div class="formula">log Λ(φ<sub>i</sub>) = log(π<sub>i</sub>/(1−π<sub>i</sub>)) + (b<sub>i</sub>/(1+b<sub>i</sub>))·T(φ<sub>i</sub>) − log(1+b<sub>i</sub>)</div>
+<p>第一项是<b>几何先验</b>（候选与已检原子的 (dl,dk) 邻接结构），第二项是<b>白化证据</b>。学习退化的机制有三重，每一重都被作者的实验独立印证：</p>
+<ol>
+<li><b>标签的信息结构偏向先验项。</b>训练标签（该候选是否真原子）的可预测性大头来自几何邻接——分数 Doppler 使真支撑天然以主瓣 (0,±1) 邻域聚簇。BCE 训练下网络先吃掉这块最容易的增益，就是 pure-geom 能复现 head 全部 BER 位置的原因（Gate A：4213 vs 4180，CI 重叠）<span class="lv">L2</span>。</li>
+<li><b>白化证据需要"对的输入特征"。</b>原 head 的输入没有 Ĥ⁰-协方差充分统计量（T/q_realiz），网络无从表示白化——不是"不想学"，是<b>表示不可达</b>。cov-head 补上特征后确实超过了原 head <span class="lv">L2</span>。</li>
+<li><b>任务是排序不是校准。</b>F2-P 里 scorer 的作用是给 top-m 候选排序；BCE 优化校准而非排序，v1(BCE) 输给闭式 Λ、v2(+rank loss) 才追平——目标函数错配再贡献一层退化 <span class="lv">L2</span>。</li>
+</ol>
+<p><b>合并结论：</b>在"闭式充分统计量存在且便宜"的问题结构里，学习的可达上限就是把这个统计量摊运出来（amortization）；而摊运在此处没有 runtime 动机（1.6%）。这不是学习失败的轶事，而是一个<b>可迁移的判据</b>：deep-unfolding 文献 [12][13] 通常在"闭式解不存在或太贵"处获益，本工作从反面给出了边界条件。</p>
+</div>
+
+<h3>2.4 为什么 achievable-Λ 是"自然正确"的中间量</h3>
+<div class="card">
+<p>它同时满足四个必要属性：<b>(i) 检测理论最优形的 plug-in 版本</b>（有色 GLRT 用估计协方差替代）；<b>(ii) 可实现</b>——只依赖 OMP-once 已经算出的 Ĥ⁰，无 genie 信息；<b>(iii) 便宜</b>——dense Cholesky 8.7ms@N=1024，占接收机 1.6% <span class="lv">L2</span>；<b>(iv) 贴界</b>——800f SNR15 达 genie-Λ 上界（17163 vs ~17000，CI 不可分）<span class="lv">L2</span>。
+四条同时成立时，它就是该问题的"正确答案"，学习与手调都只是它的近似。论文应把它立为主角。</p>
+</div>
+
+<!-- ================= 3 EVIDENCE INVENTORY ================= -->
+<h2 id="s3">3 · Evidence Inventory — 已有证据 → 可支撑 claim 映射</h2>
+
+<table>
+<thead><tr><th>#</th><th>实验证据（协议）</th><th>关键数字</th><th>支撑的 claim</th><th>层级</th></tr></thead>
+<tbody>
+<tr><td>E1</td><td>Gate A：同一 F2-P 回路只换 scorer，200f SNR15，帧级 block bootstrap，seed 20260601</td><td class="num">classical 6491 → white 4408 / geom 4213 / head 4180 / achievable 4134 / genie 4083</td><td>head ≈ geom（HERO 死）；失配 white-Λ 有害（white &lt; geom）→ 白化价值 regime-dependent</td><td><span class="lv">L2</span></td></tr>
+<tr><td>E2</td><td>Gate B：800f SNR15 有功效区（classical 27259）</td><td class="num">achievable 17163：vs geom ratio 0.980 [.968,.992]；head/ach 1.019 [1.007,1.032]；贴近 genie ~17000</td><td>achievable-Λ CI-firm 击败 geom 与 head，达 genie 上界</td><td><span class="lv">L2→L3</span>（与 E4/E5 机制控制合并后）</td></tr>
+<tr><td>E3</td><td>cov-head v1/v2（Ĥ⁰-协方差特征 + rank loss，纯观测特征）</td><td class="num">v2 17322：超 geom 0.989 [.981,.997]、超 head 0.990 [.981,.999]、追平 ach 1.009 [.999,1.020]</td><td>学习可以摊运白化，但不超过闭式 Λ——学习的可达上限被闭式统计量封顶</td><td><span class="lv">L2</span></td></tr>
+<tr><td>E4</td><td>ρ-sweep（QA#48 T2，800f SNR15，5 个 ρ 点）</td><td class="num">ratio(ach/geom)：ρ=.75→0.993 / .625→0.990 / .5→0.980 / .375→0.955 / .25→0.954（前四点 CI-separated）</td><td>白化增益 ∝ 数据干扰功率（C<sub>d</sub> ∝ 1−ρ）→ 机制 = SP 数据干扰白化</td><td><span class="lv">L3</span></td></tr>
+<tr><td>E5</td><td>integer-Doppler 控制（关分数 Doppler，杀 Dirichlet 泄漏）</td><td class="num">ratio 0.977 [.970,.984]，优势不消失反略增</td><td><b>反证</b>："泄漏制造先验"子假设为假；白化价值不来自 off-grid 泄漏</td><td><span class="lv">L3</span></td></tr>
+<tr><td>E6</td><td>复杂度基准（QA#48 T1，N∈{512,1024,2048}）</td><td class="num">whitened_suffstats dense Cholesky 8.7ms@1024 = receiver 532ms 的 1.6%（1.2%@512 / 3.4%@2048）；HH<sup>H</sup> ≤26 diagonals，cond≈60–90</td><td>闭式 scorer 可部署；学习摊运无 runtime 动机 → cov-head 降脚注</td><td><span class="lv">L2</span></td></tr>
+<tr><td>E7</td><td>SNR20 self-suppression 池化（9200 帧，8 shard）</td><td class="num">ratio(ach/genie)=1.098 [0.979,1.357]，sign_p=0.91（ach 695 / genie 633）</td><td>tested-and-null：不加 self-suppression remark；genie 仍是（弱）上界；高 SNR 深衰落重尾警示</td><td><span class="lv">L3</span></td></tr>
+<tr><td>E8</td><td>F2-P 3-seed firm（fresh data，seed 20260601；refine=2, topm=96, defer-prune, protect=2, n_outer=10）</td><td class="num">SNR15 −35.7%（4180/4166/4168，CI 分离）；SNR20 −28.9%（196/194/192）；剔除共享深衰落帧 −49.4%</td><td>F2-P 部署把 scorer 排序质量兑现为 BER；<b>不可归因学习</b>（E1）</td><td><span class="lv">L3</span></td></tr>
+<tr><td>E9</td><td>Phase-6 single-pass 对照</td><td class="num">one-shot recall 边际对 BER 大多冗余（cluster-expand ±k_leak 覆盖 ~91%）</td><td>"scorer→BER"必须经 F2-P 传导；serial floor ≈5e-2、NMSE ≈ −11.3 dB 支撑 motivation</td><td><span class="lv">L2</span></td></tr>
+<tr><td>E10</td><td>Claim audit（38 条，Codex fresh-thread，FAIL→WARN 闭环）</td><td class="num">P2–P5 已修；P1（4B 绝对 BER 源 JSON 缺失）为已知 gap</td><td>叙事重写时：<b>不引用任何 4B 绝对 BER 列</b>；一律用 2B 池化可溯源数字</td><td>—</td></tr>
+</tbody>
+</table>
+
+<div class="verdict warn"><span class="tag t-key">证据缺口</span>
+<b>E-missing：</b>① LDPC-coded BER（全部结论目前 uncoded）；② 与已发表 SP-AFDM [3]、SP-OTFS [7][8][10] 的同设定 head-to-head；③ 高 SNR 深衰落重尾使 SNR20 结论只能写"点估计一致、CI 不可分"；④ UWA 无实测数据（Bellhop 风格仿真 + Dirichlet 泄漏）。</div>
+
+<!-- ================= 4 LITERATURE MAP ================= -->
+<h2 id="s4">4 · Literature Closest-Art Map（Q2，检索至 2026-07）</h2>
+
+<p class="sub">检索途径：arXiv / IEEE Xplore / Semantic Scholar，关键词覆盖 AFDM CE、SP joint CE-DD、deep unfolding、learned greedy、UWA AFDM/OTFS。以下仅列与本工作构成"最近邻"的条目；完整书目见 §13。</p>
+
+<h3>4.1 七个方向的最近邻与真实 delta</h3>
+<table>
+<thead><tr><th>方向</th><th>Closest work</th><th>一句话做了什么</th><th>重叠点</th><th><b>作者证据支撑的 delta</b>（或 delta 不成立的判定）</th></tr></thead>
+<tbody>
+<tr><td rowspan="3">① AFDM 信道估计</td>
+<td><span class="refnum">[1]</span> Bemani et al., TWC 2023 + arXiv:2203.05781</td><td>AFDM 奠基 + EP 导频 CE（SPA/MPA，MIMO/多用户扩展）</td><td>DAFT 域信道结构、EP baseline</td><td>作者不做 EP；delta 在 SP 场景，与其正交。作为 baseline 必引。</td></tr>
+<tr><td><span class="refnum">[2]</span> Zheng, Mao et al., arXiv:2404.10232（2024）</td><td>首个 AFDM-SP CE：DAFT 域叠加导频 + 导频位置优化 + 迭代估计-检测消干扰</td><td><b>最近邻之一。</b>同为 SP-AFDM、同做迭代 CE-DD</td><td>该文的干扰处理是"迭代对消"，<b>没有</b>对数据干扰协方差做白化、没有支撑检测的后验比理论、没有配对归因。作者 delta = 检测理论层（Λ 因式分解 + achievable-Λ）+ 机制证据（ρ-sweep）。<b>成立，但必须同设定复现它做 baseline，否则审稿人第一枪就打这里。</b></td></tr>
+<tr><td><span class="refnum">[3]</span> SP-AFDM sparse CE+DD, IEEE ICC-类会议 2025（Xplore 10946599）</td><td>SP-AFDM 下把 CE 写成稀疏恢复，用 OMP 求解</td><td><b>最近邻之一。</b>同为 SP-AFDM + OMP 稀疏恢复</td><td>该文的 OMP 用白 MF 选择量（= 作者阶梯的地板）。作者 delta = 白化选择量 + F2-P 部署 + 配对 BER 证据。<b>成立且是最干净的对照物。</b></td></tr>
+<tr><td rowspan="2">② AFDM 联合 CE+检测</td>
+<td><span class="refnum">[5]</span> Li &amp; Sha (Eurecom)，AFDM 时域导频 + 双线性 EP</td><td>时域块导频 + 参数化双线性推断（Dirac-mixture EP）做联合 CE-DD</td><td>联合接收、双弥散、消 pilot-data 干扰的动机相同</td><td>方法族不同（变分/EP vs 贪婪+检测理论打分）。作者 delta = 复杂度口径（OMP-once 保持贪婪复杂度）+ 白化机制刻画。<b>成立但需复杂度对比表支撑。</b></td></tr>
+<tr><td><span class="refnum">[6]</span> JCEDD with oversampling, arXiv:2410.05088</td><td>时域过采样 + PBiGaBP 联合估计检测</td><td>联合 CE-DD、消息传递下游</td><td>过采样是硬件路径，与作者正交；引用即可，非直接对手。</td></tr>
+<tr><td rowspan="3">③ SP 联合估计检测（跨波形）</td>
+<td><span class="refnum">[7]</span> Yuan et al., WCL 2021（OTFS SP data-aided）</td><td>OTFS 单 SP：粗估→迭代检测-精估</td><td>SP + 迭代 CE-DD 范式的源头</td><td>作者 delta = AFDM 域 + 支撑检测理论层。成立。</td></tr>
+<tr><td><span class="refnum">[8]</span> Mishra et al., TWC 2022（SP-OTFS 两种设计）</td><td>SP-OTFS：把数据当干扰的一次估计 vs 迭代设计</td><td>"数据干扰劣化估计"问题意识相同</td><td>该文明确指出 data-as-interference 的高 SNR 劣化但只用迭代缓解；<b>没有协方差白化</b>。作者 delta 成立。</td></tr>
+<tr><td><span class="refnum">[10]</span> "SP-OTFS: Will It Work?" arXiv:2501.15935（2025，coded）</td><td>多 SP + 译码软信息迭代对消，coded 吞吐量评估</td><td>SP + coded 场景 + 干扰对消</td><td><b>警钟：</b>该文已把 SP 方案推进到 coded/吞吐量口径。作者仍停在 uncoded → <b>这是投稿差距而非 delta</b>；coded BER 补上前，对该文没有可辩护优势。</td></tr>
+<tr><td rowspan="2">④ 模型驱动 / deep unfolding</td>
+<td><span class="refnum">[12]</span> Deka et al., deep-unfolding 综述（IoT-J 2026 / arXiv:2502.05952）；<span class="refnum">[13]</span> OTFS PnP, arXiv:2503.11102</td><td>展开/即插即用式模型驱动接收机的谱系</td><td>方法签名重叠（作者的 unrolled 管线）</td><td>作者对这个方向的贡献是<b>负结果 + 边界条件</b>：当闭式充分统计量存在且便宜时，学习退化为摊运。这在 unfolding 文献里几乎没有被严格配对地演示过——<b>负贡献成立且新颖</b>。</td></tr>
+<tr><td><span class="refnum">[14]</span> GNN-assisted BiG-AMP, TWC 2025</td><td>massive MIMO 联合 CE-DD 的 GNN 增强消息传递</td><td>learned 模块嵌入联合接收回路</td><td>该文 learning 在"闭式不可得"处（loopy 图修正）获益——恰是作者边界判据的正例。作为讨论对照引用。</td></tr>
+<tr><td>⑤ 协方差感知 / 白化稀疏恢复</td>
+<td><span class="refnum">[17]</span> Kelly GLRT 1986；Robey et al. AMF 1992（经典自适应检测）</td><td>用估计协方差 plug-in 白化的检验统计量族</td><td>achievable-Λ 的思想祖先</td><td>作者 delta = 协方差来自<b>信道参数化重建</b>（Ĥ⁰ 移位对角结构）而非样本平均；且嵌入贪婪支撑回路。<b>检索未见 SP-AFDM/SP-OTFS 下的白化支撑打分先例</b>（限定语：截至本次检索）。这是理论层新颖性的锚点，必须诚实写"plug-in/adaptive-detection 思想的结构化迁移"，不能写"全新理论"。</td></tr>
+<tr><td>⑥ Learned scoring / pruning in sparse recovery</td>
+<td><span class="refnum">[15]</span> LGM, arXiv:2010.07069；<span class="refnum">[16]</span> Soft-OMP/IHT, arXiv:2505.15661（2025）</td><td>OMP 的展开/可微化（softsort 松弛 argsort）</td><td>learned 原子选择与作者 head/F2-P 同族</td><td>这些工作在通用稀疏模型上展示 learned selection 增益；作者的配对证据表明<b>在本问题结构里</b>该增益收敛于闭式 Λ。delta = 领域特定的边界判定 + rank-loss 必要性观察（与 [16] 的可微排序动机互证）。成立。</td></tr>
+<tr><td>⑦ UWA 双弥散接收机</td>
+<td><span class="refnum">[19]</span> AFDM 综述 arXiv:2502.04735 §UWA；<span class="refnum">[21]</span> SS-AFDM, WUWNet 2023；<span class="refnum">[22]</span> 模型驱动 UWA-OTFS CE, JMSE 2023；<span class="refnum">[23]</span> deep-unfolding UWA-OFDM 均衡, TVT 2023</td><td>AFDM 被点名适合 UWA；已有 UWA AFDM/OTFS 初步工作</td><td>场景重叠</td><td>UWA-AFDM 的 SP 联合接收尚无发表先例（检索限定）→ 场景新颖性可写，但<b>只有仿真</b>，不能对 JOE 级 venue 构成贡献；对 TCOM/TVT 是合格的场景动机。</td></tr>
+</tbody>
+</table>
+
+<div class="verdict win"><span class="tag t-win">真缺口判定</span>
+综合 ①–⑦：<b>"SP 数据干扰的结构化协方差白化用于支撑检测打分 + 严格配对的学习归因"在 AFDM（乃至 OTFS）SP 文献中未被占据。</b>
+[2][3][7][8][10] 全部用迭代对消或阈值法处理数据干扰，无人把它当作有色检测问题做白化；unfolding 文献 [12]–[16] 无人给出"学习收敛于闭式统计量"的配对证明。这是包装不出来的真缺口——前提是把 [2][3] 复现为 baseline。</div>
+
+<!-- ================= 5 TRIAGE ================= -->
+<h2 id="s5">5 · Contribution Triage — A/B/C/D 四档（Q3）</h2>
+
+<table>
+<thead><tr><th>候选贡献</th><th>档</th><th>分</th><th>裁决理由（证据）</th></tr></thead>
+<tbody>
+<tr class="hl"><td>5. <b>achievable-Λ 可实现闭式 scorer</b></td><td><span class="score sA">A</span></td><td class="num">5.0</td><td>E2+E4+E5+E6 四证合围：CI-firm 胜 geom/head、贴 genie、机制归因清楚、1.6% 开销。<b>主贡献。</b></td></tr>
+<tr class="hl"><td>7. <b>SP 干扰白化机制解释（ρ-sweep + integer-Doppler 控制）</b></td><td><span class="score sA">A</span></td><td class="num">4.5</td><td>E4/E5 是 L3 级机制证据，且给了失配 white-Λ 有害的反面（E1）→ "白化价值 regime-dependent" 闭环。</td></tr>
+<tr><td>4. <b>C1 / Λ 因式分解理论</b></td><td><span class="score sA">A−</span></td><td class="num">4.0</td><td>先验/证据两项分解 + OMP=白噪声 GLRT 特例，被整个 scorer 阶梯（E1/E2）验证。写成"检测理论框架"而非"新定理"——它是 plug-in GLRT 的结构化实例，理论深度中等，靠证据链撑。</td></tr>
+<tr><td>10. <b>Negative results 三连（hero 死 / leakage-prior 死 / self-suppression null）</b></td><td><span class="score sA">A−</span></td><td class="num">4.0</td><td>E1/E5/E7 全部 L2–L3。写法：作为"学习边界"与"机制排他"的科学证据编入正文，不是失败日记（见 §6 C5）。</td></tr>
+<tr><td>2. <b>F2-P 部署机制</b></td><td><span class="score sB">B</span></td><td class="num">3.5</td><td>E8 证据硬（3-seed CI 分离），但它是工程机制：贡献写法必须限定"部署层"，且 −35.7%/−28.9% 只能挂在"F2-P+scorer 整体"名下。加限定后可进 contribution list 第 3–4 条。</td></tr>
+<tr><td>3. <b>OMP-once 联合接收机工程配方（+inner LS/MP-BP）</b></td><td><span class="score sB">B</span></td><td class="num">3.0</td><td>complexity-preserving 有 E6/E9 支撑，但相对 [2][5] 的优势没有同设定对比 → 降调为系统章节骨架，不单列贡献。</td></tr>
+<tr><td>9. <b>complexity-preserving 叙事</b></td><td><span class="score sB">B</span></td><td class="num">3.0</td><td>可写，口径必须收窄为："相对 per-iter re-OMP / dense LMMSE 联合方案保持贪婪复杂度，白化开销 1.6%"。禁写 "complexity-optimal"。</td></tr>
+<tr><td>8. <b>UWA / 分数多普勒场景适配</b></td><td><span class="score sB">B−</span></td><td class="num">2.5</td><td>作为场景动机与参数设定成立（[19][21] 支持 AFDM-UWA 前景）；无实测 → 不能做贡献 bullet，只能做 setting。</td></tr>
+<tr><td>6. <b>cov-head 摊运</b></td><td><span class="score sC">C</span></td><td class="num">2.0</td><td>E3+E6：追平不超 + 无 runtime 动机 → QA#48 判决"降为验证实验/脚注"正确。它的价值是给 C5（学习边界）当证据。</td></tr>
+<tr><td>1. <b>学习 head 本身</b></td><td><span class="score sC">C−</span></td><td class="num">1.0</td><td>E1：≈ 手调 geom。只配出现在 ablation 表与负结果叙述里。</td></tr>
+<tr><td>旧 hero 叙事 / −55~76% / "泄漏制造先验" / self-suppression remark</td><td><span class="score sD">D</span></td><td class="num">0</td><td>分别被 E1 / E10 / E5 / E7 证伪或判废。全部弃用。</td></tr>
+</tbody>
+</table>
+
+<!-- ================= 6 THESIS ================= -->
+<h2 id="s6">6 · Recommended Paper Thesis &amp; Contribution List（Q4）</h2>
+
+<h3>6.1 骨架裁决</h3>
+<table>
+<thead><tr><th>骨架</th><th>判定</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td>S1 Theory-first（C1 + achievable-Λ 主，学习验证）</td><td class="good"><b>主骨架 ✓</b></td><td>与全部 L2/L3 证据一致；理论层是唯一未被 [2][3][7][8] 占据的缺口。</td></tr>
+<tr><td>S4 Negative-result + mechanism</td><td class="good"><b>并入 S1 ✓</b></td><td>三个负结果（E1/E5/E7）恰好是 S1 机制章的排他性证据；单独成篇 venue 面太窄，并入后每条负结果都有正面职能。</td></tr>
+<tr><td>S2 Engineering-first（OMP-once + F2-P 主）</td><td class="warnc">备选</td><td>证据也支持，但贡献易被 [2][5] 用"又一个迭代联合接收机"归类，novelty 答辩吃力；且 F2-P 的 −35.7% 无法归因单一模块，工程主叙事反而更难写。作为 fallback：若审稿要求砍理论，可降级为 TVT 系统文。</td></tr>
+<tr><td>S3 Learning-first</td><td class="bad">否决</td><td>E1 直接证伪。无复活条件（§10 的路径全部改变问题设定，不改变本篇）。</td></tr>
+<tr><td>S5 拆两篇（理论/系统）</td><td class="bad">否决（现阶段）</td><td>理论篇脱离 F2-P 就只剩"scorer 排序质量"，无 BER 落地；系统篇脱离理论就撞 [2][3]。证据量也不足以撑两篇期刊。DD-ISAC 扩展才是合理的"第二篇"。</td></tr>
+</tbody>
+</table>
+
+<h3>6.2 Contribution List（审稿人可读）</h3>
+<div class="card">
+<p><b>Thesis（一句话）：</b>见 §1 hero card。</p>
+<ol>
+<li><b>C1 (theory).</b> <i>We formulate atom scoring in SP-AFDM joint channel estimation and detection as a binary hypothesis test in colored, channel-dependent interference, yielding a posterior-ratio factorization that separates a geometric-prior term from a whitened-evidence term, with white-MF OMP recovered as its white-noise special case.</i><br>
+<span class="muted">中文：把 SP-AFDM 支撑打分写成有色干扰下的假设检验，Λ 分解为几何先验 + 白化证据两项，OMP 是白噪声特例。<br><b>最小充分证据：</b>推导 + Prop.1 退化自检 + E1 阶梯排序与理论预测一致。</span></li>
+<li><b>C2 (algorithm, 主).</b> <i>We propose achievable-Λ, a plug-in whitened posterior-ratio scorer that rebuilds the data-interference covariance from the one-shot OMP channel estimate, adds ≈1.6% receiver runtime (N=1024, dense Cholesky), and attains the genie-whitening bound in paired evaluation.</i><br>
+<span class="muted">中文：用 OMP-once 的 Ĥ⁰ 重建干扰协方差做白化打分，开销 1.6%，配对实验贴 genie 上界。<br><b>最小充分证据：</b>E2 + E6。</span></li>
+<li><b>C3 (mechanism).</b> <i>Controlled experiments attribute the whitening gain to superimposed-pilot data interference: it scales monotonically with data power (C<sub>d</sub> ∝ 1−ρ), survives an integer-Doppler control that removes fractional-Doppler leakage, and reverses under covariance mismatch (white-Λ &lt; geometric prior).</i><br>
+<span class="muted">中文：ρ-sweep 单调性 + integer-Doppler 反证 + 失配白化有害，三面钉死机制。<br><b>最小充分证据：</b>E4 + E5 + E1（white 行）。</span></li>
+<li><b>C4 (deployment).</b> <i>We show that scorer quality is monetized into BER only through a support-refinement deployment loop (F2-P: multi-round refine, protect-from-prune); one-shot recall improvements are largely absorbed by receiver-side cluster expansion. The full receiver achieves −35.7% uncoded BER at SNR 15 (3-seed, paired CI-separated) over its non-refined counterpart.</i><br>
+<span class="muted">中文：scorer→BER 需经 F2-P 部署兑现；one-shot recall 边际被 cluster-expand 吸收。数字挂"整机 vs 无 refinement"名下。<br><b>最小充分证据：</b>E8 + E9。</span></li>
+<li><b>C5 (learning boundary / negative).</b> <i>Under byte-identical paired deployment, a 1k-parameter learned scorer is statistically indistinguishable from a hand-tuned geometric prior; augmenting it with covariance features and a rank loss lets it match — but never exceed — the closed-form achievable-Λ. This delineates when learned scoring helps in sparse joint receivers: only when the closed-form sufficient statistic is unavailable or unaffordable, which is not the case here.</i><br>
+<span class="muted">中文：配对部署下学习 head ≈ 手调先验；给对特征与 rank loss 后追平但不超闭式 Λ → 给出"学习何时有用"的边界条件。<br><b>最小充分证据：</b>E1 + E3 + E6。</span></li>
+</ol>
+<p><b>必须弃用/改写的旧数字：</b>−55~76%（弃）；"−35.7% by learning"（改写为 C4 口径）；4B 绝对 BER 列（E10，一律 2B 可溯源数字）；"serial floor 4.1e-2"（→ ≈5×10⁻²）；"2.5 orders"（→ two-to-three orders）；"p=4e-3"（→ p&lt;10⁻⁶）。</p>
+</div>
+
+<!-- ================= 7 CLAIM LANGUAGE ================= -->
+<h2 id="s7">7 · Claim Language：Allowed / Forbidden（Q5）</h2>
+
+<h3>7.1 绿色句式（可写）</h3>
+<div class="green">"Under a paired, byte-identical deployment protocol, the plug-in whitened scorer reduces uncoded BER by x% relative to the geometric-prior scorer at SNR 15 (frame-level block bootstrap, 95% CI [a, b])."</div>
+<div class="green">"The learned scorer is statistically indistinguishable from a hand-tuned geometric prior in this regime (CI overlap), indicating that its previously reported gain is attributable to the deployment loop rather than to learning."</div>
+<div class="green">"achievable-Λ attains the genie-whitening reference within confidence limits at SNR 15; at SNR 20 the point estimates agree but deep-fade heavy tails leave the comparison underpowered."</div>
+<div class="green">"The whitening gain grows monotonically as pilot power fraction ρ decreases, consistent with C<sub>d</sub> ∝ (1−ρ); an integer-Doppler control rules out fractional-Doppler leakage as the driver."（机制句式：结论 + 控制实验，成对出现）</div>
+<div class="green">"To the best of our knowledge, no prior SP-AFDM/SP-OTFS work treats data interference as a colored-detection problem via covariance whitening of the support test statistic."（"first"的唯一安全形态：范围限定 + to-our-knowledge + 可被文献表支撑）</div>
+
+<h3>7.2 红色句式（禁写）+ 点名审查</h3>
+<div class="red">"why learning helps" 任何变体 —— 自家 E1 证明这里学习<b>不</b> helps；只能写 "when learning helps and when it does not"。</div>
+<div class="red">"near-optimal" —— genie-Λ 只是白化族内上界，不是 MAP/最优接收机；E7 还显示高 SNR 下 ach/genie 点估计反差 ~10%。可写 "attains the genie-whitening reference (SNR 15, CI-overlap)"。</div>
+<div class="red">"first AFDM superimposed-pilot channel estimation / first joint receiver" —— [2][3][5] 已占。first 只能按 7.1 绿色第 5 条的窄口径写。</div>
+<div class="red">"significant BER reduction by the learned module" —— E1 直接证伪，这是全文最危险的 overclaim；任何 −35.7% 必须挂 F2-P 整机名下并写明 scorer 可被手调 geom 替换。</div>
+<div class="red">"complexity-optimal / lowest-complexity" —— 只有 dense-Cholesky vs receiver 的占比测量，没有复杂度下界；写 "complexity-preserving (≈1.6% overhead)"。</div>
+<div class="red">"robust in underwater acoustic channels" —— 无实测；写 "in a UWA-motivated doubly dispersive simulation setting (fractional Doppler, Dirichlet leakage)"。</div>
+
+<h3>7.3 必加限定词清单</h3>
+<ul>
+<li><b>uncoded</b>：coded 结果出现前，每个 BER claim 都要带。</li>
+<li><b>配对协议</b>：paired frames / identical downstream / frame-level block bootstrap —— 这是作者方法学的最大卖点，写全反而加分。</li>
+<li><b>场景</b>：N=1024, P=8, fractional Doppler, SP ρ=0.5（除 sweep），UWA-motivated simulation。</li>
+<li><b>相对谁</b>：每个百分数标对照臂（vs non-refined classical / vs geometric-prior scorer / vs current head）。</li>
+<li><b>复杂度口径</b>：measured wall-clock share of one receiver iteration at N=1024, naive dense Cholesky, single-thread —— 防"你没算 banded 下界"的攻击。</li>
+<li><b>SNR20 一律加</b> "underpowered due to deep-fade heavy tails; point estimates only"。</li>
+</ul>
+
+<!-- ================= 8 VENUE ================= -->
+<h2 id="s8">8 · Venue Fit &amp; Missing Experiments（Q6）</h2>
+
+<h3>8.1 档位判定</h3>
+<table>
+<thead><tr><th>Venue</th><th>现在可投？</th><th>差什么</th></tr></thead>
+<tbody>
+<tr><td><b>WCL / COMML（letter）</b></td><td class="good">✓ 现在即可</td><td>C2+C3 压缩成 4 页：achievable-Λ + ρ-sweep 机制 + 1 张 BER 图。学习内容全部删除或一句话脚注。</td></tr>
+<tr><td><b>ICC/GLOBECOM/SPAWC 会议长文</b></td><td class="good">✓ 现在即可</td><td>C1–C4 均可进；负结果 C5 做 discussion。可作期刊版的占位。</td></tr>
+<tr><td><b>TCOM / TWC（主目标）</b></td><td class="warnc">差 2 项硬实验</td><td>M1 coded BER + M2 外部 baseline（见下）。补齐后 S1 骨架完整可冲。</td></tr>
+<tr><td><b>TSP</b></td><td class="warnc">差理论增量</td><td>需要 deflection/ROC 或 SEP 层面的白化增益解析刻画（哪怕高斯近似下的 closed-form gap），否则理论密度不够。可作二段目标。</td></tr>
+<tr><td><b>JSAC 特刊</b></td><td class="muted">视特刊主题</td><td>若有 ISAC/NTN/UWA 特刊且截稿合适，C1–C5 + coded 结果够格；不为 JSAC 单独加实验。</td></tr>
+<tr><td><b>IEEE JOE / OCEANS（UWA 线）</b></td><td class="bad">不建议本篇</td><td>JOE 审稿文化重实测/海试；纯仿真会被打回。留给拿到实测数据之后。</td></tr>
+</tbody>
+</table>
+
+<h3>8.2 缺失实验优先级</h3>
+<table>
+<thead><tr><th>优先级</th><th>实验</th><th>目的 / 解锁</th><th>工作量估计</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>M1 · P0</b></td><td>LDPC-coded BER（5G NR LDPC，rate 1/2 起，SNR 10–20，classical/geom/achievable/F2-P 四臂配对）</td><td>解锁 TCOM/TWC；同时回答 §10 R3（coded 指标是否改变归因）。[10] 已在 coded 口径发表 SP-OTFS——不补则被动。</td><td class="num">代码 2–3 天（MP-BP 已有软信息）+ 机时 3–5 天</td></tr>
+<tr class="hl"><td><b>M2 · P0</b></td><td>外部 baseline 同设定复现：[2]（AFDM-SP 迭代对消）与 [3]（SP-AFDM OMP）至少一个，同帧协议</td><td>解锁 "相对已发表 SP-AFDM 的位置"；没有它，Reviewer 2 必然写 "compare with [2404.10232]"。</td><td class="num">1 周（[3] 的 OMP 白 MF 臂几乎 = 作者 classical，主要是对齐参数）</td></tr>
+<tr><td><b>M3 · P1</b></td><td>ρ=0.25 加帧到 CI 分离（现在 [.905,1.003] 跨 1）</td><td>把 C3 的 ρ-sweep 尾点钉牢，防"你最强的点恰好不显著"。</td><td class="num">机时 1–2 天</td></tr>
+<tr><td><b>M4 · P1</b></td><td>runtime 表格化（已有 E6 数据 + banded 结构分析写成 Table）</td><td>C2 的复杂度 claim 正文化；无新实验。</td><td class="num">0.5 天</td></tr>
+<tr><td><b>M5 · P2</b></td><td>16-QAM（现 QPSK 假定）单点验证</td><td>防"只在 QPSK 成立"；不解锁 venue，但堵一个常见审稿点。</td><td class="num">2–3 天</td></tr>
+<tr><td><b>M6 · P3</b></td><td>MIMO / 实测 UWA / LEO 参数</td><td>全部留给后续论文（§11）。本篇不做。</td><td class="num">—</td></tr>
+</tbody>
+</table>
+
+<!-- ================= 9 MVP ================= -->
+<h2 id="s9">9 · MVP Paper Blueprint（Q7）</h2>
+
+<div class="card">
+<p><b>标题（建议）：</b><br>
+EN: <i>Whitening Superimposed-Pilot Interference for Joint Channel Estimation and Detection in AFDM: A Plug-in Posterior-Ratio Scorer and the Limits of Learned Scoring</i><br>
+中: 《AFDM 叠加导频干扰白化：可实现后验比打分器与学习打分的边界》</p>
+<p><b>摘要逻辑（问题→方法→理论→实验→结论）：</b>SP-AFDM 的数据分量经同一信道形成结构化有色干扰 → 把支撑打分写成有色 GLRT，给出 Λ 因式分解（理论）→ 提出 plug-in achievable-Λ，开销 1.6%（方法）→ 配对协议下贴 genie、胜几何先验与学习 head；ρ-sweep 与 integer-Doppler 控制钉死机制（实验）→ 学习在闭式统计量可得且便宜时退化为摊运（结论/边界）。</p>
+</div>
+
+<h3>9.1 章节大纲（到 subsection）</h3>
+<table>
+<thead><tr><th>Section</th><th>内容</th><th>现有材料去向</th></tr></thead>
+<tbody>
+<tr><td><b>I. Introduction</b></td><td>SP vs EP 的谱效动机（UWA/双弥散设定）；三个 gap：无人白化 SP 干扰、scorer→BER 传导未拆、learned scoring 无严格归因；contributions C1–C5</td><td>serial floor ≈5e-2 / NMSE −11.3 dB 做 motivation 数字</td></tr>
+<tr><td><b>II. System Model</b></td><td>II-A AFDM/DAFT 与 DD 信道；II-B SP 帧与干扰协方差 C<sub>d</sub>=(1−ρ)HΣH<sup>H</sup>+σ²I 的准带状结构；II-C OMP-once + LS/MP-BP 接收机骨架</td><td>≤26 diagonals / cond 60–90 图进 II-B</td></tr>
+<tr><td><b>III. Posterior-Ratio Scoring Theory</b></td><td>III-A 假设检验形式化与 Λ 因式分解；III-B OMP = 白噪声特例（Prop.1）；III-C plug-in achievable-Λ 构造与复杂度（Cholesky, 1.6%）</td><td>C1 推导 + E6 表</td></tr>
+<tr><td><b>IV. Deployment: F2-P Support Refinement</b></td><td>IV-A refine/protect/prune 回路；IV-B cluster-expand 吸收效应（为何 one-shot recall 冗余）；IV-C 复杂度核算（MAC 表，标明 analytical）</td><td>E9 + F2-P 配置；C36 遗留问题在 caption 写明 analytical</td></tr>
+<tr><td><b>V. Paired Evaluation</b></td><td>V-A 协议（同 seed、字节同构下游、frame-level block bootstrap）；V-B scorer 阶梯主表；V-C 整机 BER（3-seed）；V-D 机制：ρ-sweep + integer-Doppler；V-E coded BER（M1 补）</td><td>E1/E2/E8/E4/E5；SNR20 全部标 underpowered</td></tr>
+<tr><td><b>VI. When Does Learned Scoring Help?</b></td><td>VI-A head≈geom（配对证据）；VI-B cov-head：特征+rank loss 追平不超闭式 Λ；VI-C 边界条件讨论（对照 [12]–[16]）</td><td>E1/E3；cov-head 训练细节压 appendix</td></tr>
+<tr><td><b>VII. Conclusion</b></td><td>结论 + 限定（uncoded→coded 已补 / 仿真场景 / 单天线）+ DD-ISAC 一句话展望</td><td>—</td></tr>
+</tbody>
+</table>
+
+<h3>9.2 主图主表</h3>
+<ul>
+<li><b>Fig. 1（hero figure）：</b>scorer 阶梯条形图 + CI（white / geom / head / achievable / genie，800f SNR15）——一图讲完 C2+C5。</li>
+<li><b>Fig. 2：</b>ρ-sweep 曲线（ratio vs ρ，CI 带）+ integer-Doppler 控制点 —— 机制图。</li>
+<li><b>Fig. 3：</b>BER vs SNR（classical / F2-P+geom / F2-P+achievable / genie 参考，3-seed，CI）。</li>
+<li><b>Fig. 4（M1 后）：</b>coded BER 同臂。</li>
+<li><b>Table I：</b>与 [2][3][5][7][8][10] 的定性对照表（干扰处理方式 / 是否白化 / 是否配对归因 / 复杂度）。</li>
+<li><b>Table II：</b>复杂度：白化开销占比 @N∈{512,1024,2048} + MAC 核算。</li>
+<li><b>降级/删除：</b>cov-head 训练曲线 → appendix；oracle-headroom 表 → appendix 或删；4B 绝对 BER 全部删；−55~76% 删；self-suppression 一句 "tested and null" 脚注。</li>
+</ul>
+
+<h3>9.3 预估审稿攻击点 Top-5 + 预答辩</h3>
+<table>
+<thead><tr><th>#</th><th>攻击</th><th>预答辩</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>"没有与 arXiv:2404.10232 / ICC'25 SP-AFDM baseline 对比"</td><td>M2 前置补齐；Table I 定性 + V-B 定量双覆盖。</td></tr>
+<tr><td>2</td><td>"uncoded BER 不代表实际系统"</td><td>M1 coded 图进正文；uncoded 保留为归因工具（配对协议在 uncoded 下功效最高）。</td></tr>
+<tr><td>3</td><td>"achievable-Λ 只是 plug-in GLRT/AMF 换皮"</td><td>正面承认思想谱系（引 [17]），delta 写清楚：协方差来自参数化信道重建、嵌入贪婪支撑回路、并给出机制级配对验证——这三点 [17] 族都没有。</td></tr>
+<tr><td>4</td><td>"学习部分是负结果，为什么要放？"</td><td>VI 章定位为边界条件：告诉社区在此问题结构下不要花 GPU 学 scorer——引用 [12] 综述里 unfolding 增益前提做对照；负结果有 L3 证据，比多数正结果硬。</td></tr>
+<tr><td>5</td><td>"SNR20/高 SNR 区结论不显著"</td><td>不藏：正文写明 heavy-tail underpowered、只报点估计；deep-fade 帧分析放 appendix（n11 共享失败帧剔除后 −49.4% 作为敏感性分析，不进 headline）。</td></tr>
+</tbody>
+</table>
+
+<!-- ================= 10 RESURRECTION ================= -->
+<h2 id="s10">10 · Learning-Narrative Resurrection Paths（Q8）</h2>
+
+<p>前提申明：以下任何路径都<b>不改变本篇论文的裁决</b>（本篇的学习章节定位已由 E1/E3/E6 锁死）。它们是"下一篇"的假设，且每条都自带死刑判据。</p>
+
+<table>
+<thead><tr><th>路径</th><th>假设</th><th>关键实验</th><th>成功判据</th><th>彻底放弃信号</th></tr></thead>
+<tbody>
+<tr><td><b>R1 · 解析 Λ 之上的可学残差</b></td><td>plug-in 用的 Ĥ⁰ 有估计误差；学习或可校正 "plug-in gap"（对 C 的不确定性建模），在 ach 与 genie 之间还有夹层</td><td>以 achievable-Λ 为特征基线，训残差 head，配对对比 ach / ach+res / genie 三臂；重点在 Ĥ⁰ 误差大的 regime（低 SNR、少导频功率、大 P）</td><td>ach+res CI-firm 超 ach 且尚未及 genie（说明吃的确实是 plug-in gap）</td><td>SNR15 800f 下 ach+res ≈ ach（CI 重叠）——注意 E2 显示 ach 已贴 genie，<b>夹层可能本来就 ≈ 0，先验概率低</b></td></tr>
+<tr><td><b>R2 · listwise / differentiable top-K</b></td><td>F2-P 是集合选择问题；pointwise rank loss 不是集合最优，softsort/OT 松弛（[16] 族）或改变可达点</td><td>cov-head v3：listwise loss（可微 top-K），同一配对协议</td><td>v3 CI-firm 超闭式 achievable-Λ（不只是超 v2）</td><td>v3 仍追平 ach —— 则"集合目标"论证也死，学习线在本设定终结</td></tr>
+<tr><td><b>R3 · coded / packet 指标改变归因</b></td><td>coded 域错误结构（burst vs scattered）不同，scorer 排序差异或在 FER 上重新分离</td><td>= M1（无额外成本）：coded 四臂配对，FER + BLER</td><td>coded 口径下 head 或 cov-head CI-firm 超 geom/ach</td><td>coded 排序与 uncoded 相同（大概率）——顺手写进 V-E，负结果也充实 C5</td></tr>
+<tr><td><b>R4 · 分布外 / 未知统计</b></td><td>闭式 Λ 需要知道 ρ、σ²、干扰模型；模型失配（实测 UWA、脉冲噪声、非高斯干扰）下 plug-in 断裂，学习重新有价值</td><td>失配矩阵：训练 nominal，测试 {错 ρ、脉冲噪声、实测信道 replay}；对比 ach（失配）vs cov-head vs 重校准 ach</td><td>存在失配轴使 cov-head CI-firm 超失配 ach，<b>且</b>简单重校准（重估 ρ/σ²）救不回来</td><td>重校准 ach 总能追回 —— 说明该轴上"学习价值"只是参数估计，写成自适应 ach 即可</td></tr>
+<tr><td><b>R5 · 更难 regime</b></td><td>更大 P、更小 N、更强 Doppler 下 OMP-once 的 Ĥ⁰ 更差 → plug-in gap 变大（与 R1 复合）</td><td>P∈{8,16,24} × N∈{512,1024} 扫 ach-vs-genie gap；gap 张开处重跑 R1</td><td>找到 gap CI-分离的 regime 且学习吃到其中一部分</td><td>gap 不随难度张开，或张开但学习吃不到</td></tr>
+</tbody>
+</table>
+
+<div class="verdict tie"><span class="tag t-tie">战略判断</span>
+唯一值得优先投入的是 <b>R3（免费，搭 M1 便车）与 R4（与 DD-ISAC/实测 UWA 的博士主线天然衔接）</b>。R1/R2/R5 是纯防御性实验，只有审稿人逼问时再做。"学习在模型失配下重新有价值"若成立，才是下一篇的合法 learning 叙事——而且那时的对照组永远是"重校准的闭式 Λ"，这是本篇给未来自己立的方法学规矩。</div>
+
+<!-- ================= 11 WHAT NOT TO DO ================= -->
+<h2 id="s11">11 · What NOT to Do Next + 博士叙事边界（Q9）</h2>
+
+<div class="card">
+<ul>
+<li><b>不要</b>为本篇加 MIMO、LEO、ISAC、端到端可学波形——它们不解锁任何 C1–C5 claim，只稀释配对证据的密度。</li>
+<li><b>不要</b>试图在本篇里"复活"学习主叙事（§10 全部是下一篇的假设）。</li>
+<li><b>不要</b>引用任何 4B 绝对 BER / −55~76% / self-suppression / leakage-prior 的旧文字——E10 审计已把可溯源边界画清。</li>
+<li><b>不要</b>投 JOE/海洋线（无实测）；<b>不要</b>为凑 TSP 现在去证白化增益定理而推迟投稿——先 TCOM/TWC，理论深化做第二篇。</li>
+<li><b>不要</b>把 F2-P 的每个工程旋钮（refine-rounds、topm、protect-added）单独写成贡献——合并为一个部署机制 + 一张 ablation 表。</li>
+</ul>
+<h4>Intra-paper claim vs 博士大叙事</h4>
+<p><b>本篇守住的小 claim：</b>"SP-AFDM 支撑检测中，结构化干扰白化是支配杠杆；闭式 plug-in 统计量封顶学习。"——一个波形、一个导频体制、一个接收机族内的陈述。</p>
+<p><b>留给 DD-ISAC / 后续的：</b>白化框架到 ISAC 感知通道的迁移（雷达自适应检测本就是 [17] 的主场，衔接自然）；R4 的模型失配学习叙事（实测 UWA/LEO）；端到端波形-接收机联合设计。博士蓝图里 "模型驱动/深度展开" 的方法签名经本篇修正为：<b>"以闭式充分统计量为上界锚点的模型驱动设计"</b>——这反而是更成熟、更可辩护的方法论标签。</p>
+</div>
+
+<!-- ================= 12 ACTION PLAN ================= -->
+<h2 id="s12">12 · 2-Week Action Plan（非常具体）</h2>
+
+<table>
+<thead><tr><th>日</th><th>任务</th><th>产出物 / 完成判据</th></tr></thead>
+<tbody>
+<tr><td><b>D1–D2</b></td><td>冻结叙事：按 §6 重写 abstract + contribution list + §I gap 段；建立 "banned claims" lint 清单（§7 红色句式 + 旧数字 grep 模式）跑一遍现有 LaTeX</td><td><code>Abstract.tex/Section1.tex</code> 重写稿；grep 报告 0 违例</td></tr>
+<tr><td><b>D2–D3</b></td><td>M4：把 E6 复杂度数据 + ≤26-diagonal 结构图写成 Table II + II-B 图；MAC 表 caption 标注 analytical（顺手关 C36）</td><td>Table II + Fig（结构谱）进稿</td></tr>
+<tr><td><b>D3–D5</b></td><td>M2 启动：对齐 [3]（ICC'25 SP-AFDM OMP）参数到作者帧协议，先跑 200f smoke；同时精读 [2] 判定复现成本，若 >1 周则 Table I 定性对照 + [3] 定量</td><td>baseline 臂 smoke 结果 + 复现成本决定 memo</td></tr>
+<tr><td><b>D4–D8</b></td><td>M1 主线：MP-BP 软输出 → NR LDPC（rate 1/2, K≈8448 或按帧长适配）编解码接入；四臂（classical / F2-P+geom / F2-P+ach / genie 参考）配对，SNR 10/12.5/15/17.5/20，先 200f smoke 后放量</td><td>coded smoke 曲线；放量 job 在跑</td></tr>
+<tr><td><b>D8–D9</b></td><td>M3：ρ=0.25 加帧至 CI 分离（或明确写 underpowered）；顺手把 ρ-sweep 图（Fig.2）定稿</td><td>Fig.2 final + JSON 可溯源</td></tr>
+<tr><td><b>D9–D11</b></td><td>V 章重写：主表（Fig.1 阶梯）、Fig.3 BER、协议小节（配对 + block bootstrap 写成 methods 段）；VI 章按 C5 口径重写学习章节</td><td>Section V/VI 完整稿</td></tr>
+<tr><td><b>D11–D12</b></td><td>收 M1 放量结果 → Fig.4 coded 图 + V-E；若 coded 改变任何排序，触发 §10 R3 评估（写进 VI-C 而非改主叙事）</td><td>Fig.4 + V-E 段</td></tr>
+<tr><td><b>D13</b></td><td>Related work 定稿：Table I 对照表 + §13 书目核对（每条 closest-art 的 delta 句与 §4 一致）</td><td>Section II related-work + Table I</td></tr>
+<tr><td><b>D14</b></td><td>全稿 claim audit 自查（复用 oracle_io 审计流程，38 条协议扩到新数字）；投稿包：TCOM 为主投，ICC/SPAWC 版本剪裁为 backup</td><td>audit PASS/WARN 报告 + 投稿版 PDF</td></tr>
+</tbody>
+</table>
+<p class="muted">依赖关系：D4–D8 的 M1 是关键路径（机时最长），D1 就该把远程机器排上队；写作任务全部安排在等机时的空隙。若 M1 两周内放量不完，投稿包先出会议版，期刊版等 coded 图。</p>
+
+<!-- ================= 13 REFERENCES ================= -->
+<h2 id="s13">13 · References（检索依据）</h2>
+<div class="card dim" style="font-size:13.5px">
+<ol>
+<li>A. Bemani, N. Ksairi, M. Kountouris, "Affine Frequency Division Multiplexing for Next Generation Wireless Communications," IEEE TWC 2023；及 "Pilot-Aided Channel Estimation for AFDM in Doubly Dispersive Channels," arXiv:2203.05781 / ICC 2022 —— AFDM 奠基与 EP 信道估计。</li>
+<li>K. Zheng et al., "Channel Estimation for AFDM With Superimposed Pilots," arXiv:2404.10232 (2024)；期刊版见 IEEE TVT 2025 —— 首个 SP-AFDM CE，DAFT 域导频位置优化 + 迭代估计-检测干扰对消。<b>最近邻。</b></li>
+<li>"Sparse Channel Estimation and Data Detection for AFDM With Superimposed Pilot Scheme," IEEE ICC-系会议 2025 (Xplore 10946599) —— SP-AFDM 稀疏恢复 (OMP/白 MF)。<b>最近邻。</b></li>
+<li>W. Benzine et al., "Affine Frequency Division Multiplexing: Extending OFDM for Scenario-Flexibility and Resilience," arXiv:2502.04735 (2025) —— AFDM 综述，UWA 适配性论述。</li>
+<li>Q. Li, J. Sha et al. (Eurecom), "Joint Channel Estimation and Signal Detection for AFDM with Time-Domain Pilot Arrangement" —— 时域导频 + 双线性推断联合接收。</li>
+<li>"Low Complexity Joint Channel Estimation and Data Detection for AFDM Receivers With Oversampling," arXiv:2410.05088 / IEEE 会议 2025 —— 过采样 PBiGaBP 联合接收。</li>
+<li>W. Yuan et al., "Data-Aided Channel Estimation for OTFS Systems with a Superimposed Pilot and Data Transmission Scheme," IEEE WCL 2021 (Xplore 9456894) —— SP-OTFS 迭代 CE-DD 源头。</li>
+<li>H. B. Mishra et al., "OTFS Channel Estimation and Data Detection Designs With Superimposed Pilots," IEEE TWC 2022 (Xplore 9539066) —— SP-OTFS 两种设计，明确 data-as-interference 问题。</li>
+<li>"Sparse Superimposed Pilot Based Channel Estimation in OTFS Systems," IEEE 会议 2023 (Xplore 10118899) —— 稀疏 SP-OTFS。</li>
+<li>"Superimposed Pilot-Based OTFS – Will It Work?" arXiv:2501.15935 (2025) —— 多 SP + 译码软信息对消，<b>coded 口径</b>的 SP 方案评估。</li>
+<li>"Joint Superimposed Pilot-aided Channel Estimation and Data Detection for FTN Signaling over Doubly-Selective Channels," arXiv:2503.17565 (2025) —— SP 联合 CE-DD 在 FTN/双选信道的近邻做法。</li>
+<li>A. Deka et al., "Comprehensive Review of Deep Unfolding Techniques for Next-Generation Wireless Communication Systems," arXiv:2502.05952 (2025/2026) —— deep unfolding 综述（增益前提：闭式不可得/太贵）。</li>
+<li>"Deep Learning-based OTFS Channel Estimation and Symbol Detection with Plug-and-Play Framework," arXiv:2503.11102 (2025) —— OTFS 模型驱动 PnP 联合接收。</li>
+<li>GNN-assisted BiG-AMP 类联合 CE-DD, IEEE TWC 2025 —— learning 在 loopy-MP 修正处获益的正例。</li>
+<li>R. Giryes et al., "Learned Greedy Method (LGM)," arXiv:2010.07069 / JVCIR 2021 —— OMP 的可学习化。</li>
+<li>"Deep greedy unfolding: Sorting out argsorting in greedy sparse recovery algorithms," arXiv:2505.15661 (2025) —— softsort/可微 top-K 松弛贪婪恢复（R2 的方法来源）。</li>
+<li>E. J. Kelly, "An Adaptive Detection Algorithm," IEEE T-AES 1986；F. C. Robey et al., "A CFAR Adaptive Matched Filter Detector," T-AES 1992 —— plug-in 协方差白化检测的经典谱系（achievable-Λ 的思想祖先，必须诚实引用）。</li>
+<li>"BEM-Assisted Low-Complexity Channel Estimation for AFDM Systems over Doubly Selective Channels," arXiv:2504.18901 (2025) —— AFDM 低复杂度 CE 近邻。</li>
+<li>"Affine Frequency Division Multiplexing for Communication and Channel Sounding," arXiv:2509.16643 (2025) —— AFDM 通感/信道探测（DD-ISAC 衔接点）。</li>
+<li>"Non-Orthogonal AFDM for Spectrally Efficient High-Mobility Communications," arXiv:2508.09782 (2025) —— AFDM 谱效路线旁证。</li>
+<li>"Spread Spectrum Based AFDM Communications over Underwater Acoustic Channels," WUWNet 2023 (ACM) —— UWA-AFDM 初步工作。</li>
+<li>"Model-Driven Deep-Learning-Based Underwater Acoustic OTFS Channel Estimation," JMSE 2023 —— UWA-OTFS 模型驱动 CE。</li>
+<li>UWA 深度接收机相关（DNN-OFDM UWA receiver 等，PMC11435698 (2024)）—— UWA learning 接收机背景。</li>
+</ol>
+<p class="muted">注：[3][14] 等以 Xplore 记录检索得到，作者应在定稿前用 IEEE Xplore 核对完整作者名/卷期页码；标注"最近邻"的两篇（[2][3]）必须精读全文并同设定复现（M2）。</p>
+</div>
+
+<!-- ================= 14 MEMO ================= -->
+<h2 id="s14">14 · 给导师的最终备忘（6 句）</h2>
+<div class="memo">
+<dl>
+<dt>1. 这篇论文的一句话贡献是什么？</dt>
+<dd>证明并利用了这件事：SP-AFDM 联合接收的支配杠杆是对叠加导频数据干扰做<b>闭式、可实现的协方差白化</b>（achievable-Λ，开销 1.6%，贴 genie 上界），并用严格配对协议标定了学习打分的边界（追平、不超）。</dd>
+<dt>2. 它不是什么？</dt>
+<dd>不是"AI 降 BER"论文，不是新波形论文，不是 UWA 实测论文，也不是第一篇 SP-AFDM 信道估计（[2][3] 在先）；它是检测理论 + 机制归因 + 部署验证的接收机论文。</dd>
+<dt>3. 主 claim 靠哪 3 个最硬证据？</dt>
+<dd>① 800f 配对阶梯：achievable-Λ CI-firm 胜 geom/head、贴 genie（L2）；② ρ-sweep 单调性 + integer-Doppler 反证的机制归因（L3）；③ 3-seed F2-P 整机 BER −35.7%（SNR15，CI 分离，L3）+ 白化开销 1.6% 的复杂度测量。</dd>
+<dt>4. 最危险的 overclaim 是哪句？</dt>
+<dd>"学习模块显著降低 BER"（或任何把 −35.7% 归因学习的句子）——自家 Gate A 已证 head ≈ 手调几何先验，审稿人只要复现 geom scorer 就能推翻整篇。</dd>
+<dt>5. 现在就能开写吗？还是先补哪个实验？</dt>
+<dd>正文即刻可写（叙事与图表已由现有证据锁定）；投 TCOM/TWC 前必须补两件：LDPC-coded BER（M1）与至少一个已发表 SP-AFDM baseline 的同设定对比（M2）。两周计划里两者都在关键路径上。</dd>
+<dt>6. 若只能保留一个创新点，保留哪一个？</dt>
+<dd>achievable-Λ：可实现的白化后验比打分器（含其机制证据链）。它同时是理论锚点、算法贡献和学习边界的参照系——其余贡献都挂在它上面。</dd>
+</dl>
+</div>
+
+<div class="foot">本报告依据：作者仓库 QA#46–48 裁决实验（GateAB_covhead_report.html、_QA_Index.md、findings.md、PAPER_CLAIM_AUDIT.md）+ 2026-07 文献检索（arXiv / IEEE Xplore / Semantic Scholar）。
+所有 CI 与计数直接引自作者的帧级 block bootstrap 产物；文献结论以检索摘要为准，定稿前请核对原文。冲突处理原则：证据 + 文献 &gt; 旧叙事愿望。</div>
+
+</div>
+</body>
+</html>

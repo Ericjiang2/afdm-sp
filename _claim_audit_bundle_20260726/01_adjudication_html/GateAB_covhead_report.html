@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFDM "为什么要学" BER 层裁决报告 — Gate A / Gate B / Cov-head</title>
+<style>
+  :root{
+    --bg:#0f1117; --card:#181b24; --ink:#e6e8ee; --muted:#9aa3b2;
+    --line:#2a2f3a; --accent:#5db0ff; --good:#46d39a; --bad:#ff6b6b;
+    --warn:#ffcc66; --tie:#c9a3ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.65 -apple-system,"Segoe UI",Roboto,"Noto Sans CJK SC",sans-serif;}
+  .wrap{max-width:980px;margin:0 auto;padding:40px 22px 80px;}
+  h1{font-size:27px;margin:0 0 6px;letter-spacing:.2px}
+  h2{font-size:20px;margin:38px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);color:var(--accent)}
+  h3{font-size:16px;margin:24px 0 8px;color:#cdd6e6}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:26px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0}
+  p{margin:8px 0}
+  code{background:#222633;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;color:#bfe1ff}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;margin-right:6px;vertical-align:middle}
+  .t-dead{background:#3a1e22;color:var(--bad);border:1px solid #5a2a2f}
+  .t-win{background:#16302a;color:var(--good);border:1px solid #235040}
+  .t-tie{background:#2a2440;color:var(--tie);border:1px solid #3f3463}
+  .t-key{background:#2e2a16;color:var(--warn);border:1px solid #4c4423}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  td.num{font-variant-numeric:tabular-nums;text-align:right}
+  tr.hl td{background:#1d2330}
+  .bar{height:9px;border-radius:5px;background:linear-gradient(90deg,var(--accent),#3a78c2)}
+  .barwrap{background:#222633;border-radius:5px;overflow:hidden;min-width:90px}
+  .good{color:var(--good)} .bad{color:var(--bad)} .tie{color:var(--tie)} .muted{color:var(--muted)}
+  .verdict{border-left:4px solid var(--accent);padding:8px 16px;margin:14px 0;background:#161b26}
+  .verdict.dead{border-color:var(--bad)} .verdict.win{border-color:var(--good)} .verdict.tie{border-color:var(--tie)}
+  ul{margin:8px 0 8px 4px;padding-left:20px} li{margin:5px 0}
+  .flow{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+  .step{flex:1;min-width:150px;background:#151922;border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-size:13px}
+  .step b{color:var(--accent)}
+  .foot{color:var(--muted);font-size:12px;margin-top:40px;border-top:1px solid var(--line);padding-top:14px}
+  .pill{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>AFDM「为什么要学」BER 层裁决报告</h1>
+<div class="sub">Gate A · Gate B · 协方差感知 head — 2026-06-12 · 论文逻辑断点闭合 ·
+全程配对 seed 20260601 · 帧级 block bootstrap</div>
+
+<!-- ============ 0 起点 ============ -->
+<h2>0 · 逻辑断点（本轮起点）</h2>
+<div class="card">
+<p>上一轮（QA#46）定下 F2-P headline：<b>SNR15 −35.7% / SNR20 −28.9%</b>（CI 分离，3-seed firm）。
+但审稿逻辑链有个<b>断点</b>：这个 −35.7% 把两件事混在一起——</p>
+<ul>
+  <li><b>F2-P 部署机制</b>的增益（refine-rounds 2 + cand-topm 96 + defer-prune + protect-added 2）</li>
+  <li><b>学习 head 打分器</b>本身的增益</li>
+</ul>
+<p>无法归因 → <b>「为什么要学」在 BER 层悬空</b>。论文不能说 head 有价值，因为可能全是 F2-P 机制的功劳。
+本轮任务：把这个断点钉死。</p>
+</div>
+
+<!-- ============ 1 方法 ============ -->
+<h2>1 · 方法：同一 F2-P 回路换 scorer</h2>
+<div class="card">
+<p>核心手术：给 <code>apply_f2p_refinement</code> 注入可选 <code>score_override</code> callable
+（默认 <code>None</code>=学习 head，向后兼容，<b>不碰已验证 bit-exact 主干</b>）。
+在 <code>paired_learned_eval.py</code> 加 <code>--gateA-scorer</code>，per-frame 把手调 scorer 装进同一回路，
+<b>learned 臂变成「F2-P + 手调 scorer」，帧生成 / DA-LS / MP-BP 下游 / 输出全部字节不变</b>。</p>
+<div class="flow">
+  <div class="step"><b>OMP-once</b><br>支撑 + LS 增益</div>
+  <div class="step"><b>F2-P 回路</b><br>refine/protect/prune<br>（不变）</div>
+  <div class="step"><b>scorer 插槽</b><br>head / geom / white / genie / achievable / covhead</div>
+  <div class="step"><b>同一接收机</b><br>DA-LS + MP-BP<br>10 轮（不变）</div>
+  <div class="step"><b>配对 BER</b><br>帧级 block bootstrap</div>
+</div>
+<p class="muted">验证：head 臂（override=None）在 200 帧复现 firm <b>4180=完全一致</b> →
+Path A 保真，改动非回归。统计用帧级 block bootstrap 替代偏 anti-conservative 的 bit-level McNemar。</p>
+</div>
+
+<!-- ============ 2 Gate A ============ -->
+<h2>2 · Gate A：head 是不是真比手调强？</h2>
+<p class="sub">200 帧 · SNR15 · classical=6491 errs · 阶梯（errs 少=好）</p>
+<table>
+<thead><tr><th>scorer</th><th>errs</th><th>rel vs classical</th><th>占比</th><th>vs head（帧 bootstrap）</th></tr></thead>
+<tbody>
+<tr><td>classical（无 F2-P）</td><td class="num">6491</td><td class="num">—</td>
+  <td><div class="barwrap"><div class="bar" style="width:100%"></div></div></td><td>—</td></tr>
+<tr><td>white-Λ（失配白化）</td><td class="num">4408</td><td class="num">−32.1%</td>
+  <td><div class="barwrap"><div class="bar" style="width:68%"></div></div></td>
+  <td class="good">head <b>CI-击败</b> ratio 0.948 [.927,.969] p=2e-9</td></tr>
+<tr class="hl"><td>pure-geom（纯几何先验）</td><td class="num">4213</td><td class="num">−35.1%</td>
+  <td><div class="barwrap"><div class="bar" style="width:65%"></div></div></td>
+  <td class="tie">head <b>≈ geom</b> CI[−.26,+.65] p=.07 重叠</td></tr>
+<tr class="hl"><td><b>head（学习）</b></td><td class="num"><b>4180</b></td><td class="num"><b>−35.6%</b></td>
+  <td><div class="barwrap"><div class="bar" style="width:64%"></div></div></td><td>—</td></tr>
+<tr><td>achievable-Λ（Ĥ⁰ 白化）</td><td class="num">4134</td><td class="num">−36.3%</td>
+  <td><div class="barwrap"><div class="bar" style="width:64%"></div></div></td><td class="muted">overlap</td></tr>
+<tr><td>genie-Λ（真 H 上界）</td><td class="num">4083</td><td class="num">−37.1%</td>
+  <td><div class="barwrap"><div class="bar" style="width:63%"></div></div></td><td class="muted">天花板</td></tr>
+</tbody>
+</table>
+<div class="verdict dead"><span class="tag t-dead">HERO 死</span>
+<b>head ≈ 手调 pure-geom</b>（CI 重叠，两个 SNR 都是）。−35.7% headline 用一个手调
+<code>log(π/(1−π))</code> 几何 scorer 就能复现，<b>不需要学习</b>。head 只学到了几何先验。</div>
+<div class="verdict win"><span class="tag t-key">C1 坐实</span>
+head <b>CI-击败 white-Λ</b>，且 <b>white &lt; geom</b> → 失配白化的证据<b>有害</b>。
+印证 C1：白化价值 regime-dependent，失配协方差下白化反而拖累。</div>
+
+<!-- ============ 3 Gate B ============ -->
+<h2>3 · Gate B：追 genie gap，找真正可学目标</h2>
+<p>既然 head≈几何、genie 上界更高 → 中间有没有<b>可实现</b>（不靠 genie 真信道）的更强 scorer？
+构造 <b>achievable-Λ</b>：用 OMP-once 估计的有效信道 Ĥ⁰ 建协方差
+<code>C=(1−ρ)Ĥ⁰Ĥ⁰ᴴ+σ²I</code>（<code>gen_h_daft(g_ls, l_omp, k_omp)</code>），白化后验比。无 genie 身份。</p>
+
+<h3>800 帧 SNR15（有功效区，classical=27259）</h3>
+<table>
+<thead><tr><th>scorer</th><th>errs</th><th>rel</th><th>帧 bootstrap 关键比较</th></tr></thead>
+<tbody>
+<tr><td>geom</td><td class="num">17510</td><td class="num">−35.8%</td><td class="muted">基准</td></tr>
+<tr><td>head</td><td class="num">17496</td><td class="num">−35.8%</td><td class="muted">≈ geom</td></tr>
+<tr class="hl"><td><b>achievable-Λ</b></td><td class="num"><b>17163</b></td><td class="num"><b>−37.0%</b></td>
+  <td class="good"><b>CI-击败 geom</b> ratio 0.980 [.968,.992] Δ+0.43/帧 [+.18,+.70]<br>
+  <b>CI-击败 head</b> head/ach 1.019 [1.007,1.032]</td></tr>
+<tr><td>genie-Λ 上界</td><td class="num">~17000</td><td class="num">−37%+</td><td class="muted">achievable 已贴近</td></tr>
+</tbody>
+</table>
+<div class="verdict win"><span class="tag t-win">可学目标确立</span>
+<b>achievable-Λ（可实现 Ĥ⁰-白化）CI-firm 击败几何先验 AND 当前 head，并达到 genie 上界。</b>
+这是真正值得学的东西——当前 head 没抓到。</div>
+<p class="muted"><b>SNR20</b>：点估计差距更大（achievable −47% vs head −41% vs geom −36%），
+但该区 BER 由极少数深衰落帧主导（重尾）→ 帧级 CI 重叠（rare-event 低功效，不是 null）。</p>
+
+<!-- ============ 4 cov-head ============ -->
+<h2>4 · 协方差感知 head：把可学目标训出来</h2>
+<p>既然 achievable-Λ 是可学目标，训一个 head 实现它。特征 = 纯观测量（无 genie、无手调 fine-prior）：
+<code>[logT_realiz, logq_realiz, dl, dk, log_mf, margin, logσ², g_nn]</code>，部署为 trainable
+<code>score_override</code>，下游同样字节不变。目标：超过手调 achievable-Λ。</p>
+
+<table>
+<thead><tr><th>版本</th><th>errs (800f S15)</th><th>vs geom</th><th>vs head</th><th>vs achievable-Λ</th></tr></thead>
+<tbody>
+<tr><td>cov-head v1<br><span class="pill">BCE only · 50ep</span></td><td class="num">17344</td>
+  <td class="good">COV-WINS 0.987</td><td class="tie">≈ 重叠</td>
+  <td class="bad">输 1.011 [1.001,1.021]</td></tr>
+<tr class="hl"><td><b>cov-head v2</b><br><span class="pill">+rank loss · 3×64 · 120ep</span></td><td class="num"><b>17322</b></td>
+  <td class="good"><b>COV-WINS</b> 0.989 [.981,.997]</td>
+  <td class="good"><b>COV-WINS</b> 0.990 [.981,.999]</td>
+  <td class="tie"><b>追平</b> 1.009 [.999,1.020] 重叠</td></tr>
+</tbody>
+</table>
+<div class="verdict tie"><span class="tag t-win">学习有用</span><span class="tag t-tie">但不超解析 Λ</span>
+v1（只 BCE）超几何但<b>输</b>闭式 achievable-Λ。v2 加<b>逐帧 rank loss</b> + 更大 MLP →
+<b>CI-超几何 AND 超当前 head</b>，<b>追平</b>解析 achievable-Λ（点估计微落后，CI 不可分）。</div>
+<p class="muted">机制：rank loss 关键——head 在 F2-P 里的任务是<b>排序</b>候选不是校准。
+给对协方差特征 + rank loss，学习 head 达到解析 Λ 天花板，但<b>不超过</b>闭式后验比。</p>
+
+<!-- ============ 5 总结 ============ -->
+<h2>5 · 净结论 & 论文走向</h2>
+<div class="card">
+<table>
+<thead><tr><th>问题</th><th>答案</th></tr></thead>
+<tbody>
+<tr><td>当前 head 凭学习挣到 BER 位置？</td><td class="bad">否。head ≈ 手调几何先验（HERO 死）</td></tr>
+<tr><td>有没有真正可学的东西？</td><td class="good">有。可实现 Ĥ⁰-白化（achievable-Λ）CI-firm 超几何/head，达 genie 上界</td></tr>
+<tr><td>训 head 能实现它吗？</td><td class="tie">能。cov-head v2 CI-超几何+当前 head，追平解析 Λ</td></tr>
+<tr><td>学习能超过解析 Λ 吗？</td><td class="muted">不能（追平不超）。闭式后验比是 equal-best 参考</td></tr>
+</tbody>
+</table>
+<h3>论文 framing → theory-first</h3>
+<ul>
+  <li><b>核心贡献 = C1 后验比 Λ 理论 + 可实现 achievable-Λ scorer</b>（不是学习 head）。</li>
+  <li>head <b>重定位</b>为 <b>协方差感知摊运</b>（amortizes Ĥ⁰-whitening），而非几何摊运。</li>
+  <li>white 证据有害 / genie 上界 / achievable 贴界 → 给 C1「白化 regime-dependent」闭环证据。</li>
+  <li>仍待：LDPC coded BER（投稿前置，当前全 uncoded）。</li>
+</ul>
+</div>
+
+<!-- ============ 附 ============ -->
+<h2>附 · 复现与产物</h2>
+<div class="card">
+<p><b>代码</b>（均已 commit，带 <code>_argv</code>/<code>_config</code> 指纹）：</p>
+<ul>
+  <li><code>classical_joint_unrolled.py</code> — <code>score_override</code> 注入（L1166 / L1574）</li>
+  <li><code>paired_learned_eval.py</code> — <code>--gateA-scorer {none,white,geom,genie,achievable,covhead}</code> + <code>--dump-per-frame</code></li>
+  <li><code>decision_gateA.py</code> — scorer callables + <code>make_covhead_scorer</code></li>
+  <li><code>decision_gateA_bootstrap.py</code> — 配对帧级 block bootstrap</li>
+  <li><code>decision_harvest.py</code> — +T/q_realiz（Ĥ⁰ 协方差）</li>
+  <li><code>decision_covhead_{harvest,train}.py</code> — cov-head 缓存 + 训练（v2 含 rank loss）</li>
+</ul>
+<p><b>结果</b>：<code>outputs_gateA_artifacts/*.json</code>（200f 全阶梯 + 800f firm + covhead v1/v2 CI）；
+远程 <code>outputs_gateA{,_s15firm,_s20firm}/</code>、<code>outputs_covhead/ckpt_v2.pt</code>。</p>
+<p class="muted"><b>陷阱记录</b>：单 SNR 调用会让 <code>rng_master</code> 错位 → 跨 <code>--snr-list</code> 不同的 run 帧<b>不配对</b>
+（SNR20 单跑 classical=15≠273）；只有同 snr-list 的 run 才配对。故 cov-head 判读只信 800f SNR15。</p>
+</div>
+
+<div class="foot">QA #47 · 2026-06-12 · afdm-e2e-main · 全程配对 seed 20260601 · 帧级 block bootstrap n=20000 ·
+HERO 旧 framing 弃用 → theory-first</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,2535 @@
+{
+  "status": "DONE",
+  "scientific_verdict": "OK",
+  "task": ".trellis/tasks/10-19-generator-snr-audit",
+  "freeze_revision": "b1fc64d0",
+  "_argv": [
+    "experiments/generator_snr_audit_20261019/audit.py",
+    "--out",
+    "experiments/generator_snr_audit_20261019/out/main",
+    "--freeze-revision",
+    "b1fc64d0"
+  ],
+  "_config": {
+    "out": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/generator_snr_audit_20261019/out/main",
+    "alpha": 0.01,
+    "multiplicity": "Holm across every law test; frame-independent tests by path coordinate",
+    "operator_rtol": 1e-10,
+    "power_atol": 1e-09,
+    "snr_systematic_offset_blocker_db": 0.1,
+    "P1_operator_frames_per_scenario": 200,
+    "C_operator_frames": 50,
+    "law_frames_per_scenario": 2000,
+    "reference_frames_per_scenario": 20000,
+    "sharing_frames": 50,
+    "nominal_snr_db": 6.0,
+    "cost_cap_core_hours": 6,
+    "environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "TMPDIR": "/data/guoyikun/tmp/generator_snr_audit_20261019"
+    },
+    "independent_md5": "9f5e28f22416c9093e527bd92aff5115",
+    "audit_md5": "25f8961bc34cdfc599da7c2d2fd76d81",
+    "seed_coordinates": {
+      "P1": {
+        "entropy": "2261fde33dab09d163b6dd926ef8d521e5d44fdda771d356f02efabfee96eb23",
+        "domain": 1413698118
+      },
+      "S": {
+        "entropy": "e0f4a8f31b265a62e0a9f1ab4076a4a189f046acecec5d4c920b0a5cf64bee80",
+        "domain": 1413697586
+      },
+      "C": {
+        "entropy": "850a0ce3fe4865e4799e3876ba125ffd95e879da1b0de7f2d16c05ad38da80a1",
+        "domain": 1160921930
+      },
+      "components": {
+        "channel": 1,
+        "message": 2,
+        "noise": 3
+      },
+      "independent_reference_seeds": {
+        "U": 2026101985,
+        "G": 2026101971,
+        "S": 2026101983
+      },
+      "C_reference_seed": 2026101942
+    },
+    "scenario_flags": {
+      "U": {
+        "fix_delay_cap": true,
+        "fix_delay_grid": true,
+        "doppler_law": "uwa",
+        "fix_energy": true,
+        "delay_scale": 1.0,
+        "l_trunc": null
+      },
+      "G": {
+        "fix_delay_cap": true,
+        "fix_delay_grid": true,
+        "doppler_law": "geometric",
+        "fix_energy": true,
+        "delay_scale": 1.0,
+        "l_trunc": null
+      },
+      "S": {
+        "fix_delay_cap": true,
+        "fix_delay_grid": true,
+        "doppler_law": "geometric",
+        "fix_energy": true,
+        "delay_scale": 0.24509803921568626,
+        "l_trunc": 25
+      }
+    },
+    "historical_P1_generator": {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/p2b_gates/ref/gen_fixed_p1.py",
+      "md5": "cb9be5ea91c0a9b1863758ed598de1c6",
+      "equivalence_frames_per_scenario": 50
+    },
+    "P1_saved_source_contract": {
+      "config_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/p1/config_shard000.json",
+      "config_md5": "ac551e7c910cb4d017a74fe2812ff78d",
+      "checked": {
+        "gen_fixed": {
+          "expected_md5": "cb9be5ea91c0a9b1863758ed598de1c6",
+          "evidence_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/p2b_gates/ref/gen_fixed_p1.py",
+          "checked_md5": "cb9be5ea91c0a9b1863758ed598de1c6",
+          "current": {
+            "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/gen_fixed.py",
+            "md5": "9a3a987e0a1aaecde33018da5f38c74c"
+          },
+          "historical_path": "experiments/tcom_reference_frame_20261015/gen_fixed.py"
+        },
+        "p1_driver": {
+          "expected_md5": "e8594ebfe04f490a86fc16ebd5069cd2",
+          "evidence_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py",
+          "checked_md5": "e8594ebfe04f490a86fc16ebd5069cd2",
+          "current": {
+            "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py",
+            "md5": "e8594ebfe04f490a86fc16ebd5069cd2"
+          },
+          "historical_path": "experiments/tcom_reference_frame_20261015/p1_driver.py"
+        },
+        "receiver": {
+          "expected_md5": "228411ca9751eecfca2f794ace909dfd",
+          "evidence_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py",
+          "checked_md5": "228411ca9751eecfca2f794ace909dfd",
+          "current": {
+            "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py",
+            "md5": "228411ca9751eecfca2f794ace909dfd"
+          },
+          "historical_path": "experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py"
+        },
+        "afdm_sp_joint_unrolled.afdm_env": {
+          "expected_md5": "7e8da04165de5ee0c2e85230d485d32d",
+          "evidence_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_env.py",
+          "checked_md5": "7e8da04165de5ee0c2e85230d485d32d",
+          "current": {
+            "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_env.py",
+            "md5": "7e8da04165de5ee0c2e85230d485d32d"
+          },
+          "historical_path": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_env.py"
+        },
+        "afdm_sp_joint_unrolled.supplement_g1": {
+          "expected_md5": "5965bb0eeadad2bccc4e41b82c9291a4",
+          "evidence_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py",
+          "checked_md5": "5965bb0eeadad2bccc4e41b82c9291a4",
+          "current": {
+            "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py",
+            "md5": "5965bb0eeadad2bccc4e41b82c9291a4"
+          },
+          "historical_path": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py"
+        },
+        "afdm_sp_joint_unrolled.supplement_pilots": {
+          "expected_md5": "f2c9a6cb50e1139e58a696dda1ec8c35",
+          "evidence_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilots.py",
+          "checked_md5": "f2c9a6cb50e1139e58a696dda1ec8c35",
+          "current": {
+            "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilots.py",
+            "md5": "f2c9a6cb50e1139e58a696dda1ec8c35"
+          },
+          "historical_path": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilots.py"
+        },
+        "afdm_sp_joint_unrolled.e1_ldpc": {
+          "expected_md5": "5a44682768d2285cbbd8c5d24563022a",
+          "evidence_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py",
+          "checked_md5": "5a44682768d2285cbbd8c5d24563022a",
+          "current": {
+            "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py",
+            "md5": "5a44682768d2285cbbd8c5d24563022a"
+          },
+          "historical_path": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py"
+        },
+        "afdm_sp_joint_unrolled.budgeted_support_diagnostics": {
+          "expected_md5": "c1f4b976a2f6a9aea10e6f13d56f0489",
+          "evidence_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_diagnostics.py",
+          "checked_md5": "c1f4b976a2f6a9aea10e6f13d56f0489",
+          "current": {
+            "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_diagnostics.py",
+            "md5": "c1f4b976a2f6a9aea10e6f13d56f0489"
+          },
+          "historical_path": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_diagnostics.py"
+        },
+        "afdm_sp_joint_unrolled.budgeted_support_eval": {
+          "expected_md5": "5f1a77ccad9a02a7d6ecbd257c776e1c",
+          "evidence_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_eval.py",
+          "checked_md5": "5f1a77ccad9a02a7d6ecbd257c776e1c",
+          "current": {
+            "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_eval.py",
+            "md5": "5f1a77ccad9a02a7d6ecbd257c776e1c"
+          },
+          "historical_path": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_eval.py"
+        }
+      }
+    },
+    "freeze_revision": "b1fc64d0",
+    "versions": {
+      "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]",
+      "numpy": "1.26.4",
+      "scipy": "1.10.1"
+    },
+    "C_source_contract": {
+      "config_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_e2_20261017/out/main_C/config_shard000.json",
+      "config_md5": "9954fda3a750e3356af288a245c00257",
+      "channel_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_e2_20261017/e2_channels.py",
+      "channel_md5": "ccef36136693aa137f429e4b184314f1"
+    },
+    "source_fingerprints": {
+      "afdm_sp_joint_unrolled.afdm_baselines": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_baselines.py",
+        "md5": "a63a4c0668633c3bfc5f1543f7d49449"
+      },
+      "afdm_sp_joint_unrolled.afdm_env": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_env.py",
+        "md5": "7e8da04165de5ee0c2e85230d485d32d"
+      },
+      "afdm_sp_joint_unrolled.afdm_layers": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_layers.py",
+        "md5": "d5494f60a5049dfcb4a62555933c70f9"
+      },
+      "afdm_sp_joint_unrolled.afdm_models": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_models.py",
+        "md5": "b4bfb56226c5fe4070b4e6e23d8f708b"
+      },
+      "afdm_sp_joint_unrolled.afdm_trainer": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_trainer.py",
+        "md5": "9da66875462f174b6cc90f708540f276"
+      },
+      "afdm_sp_joint_unrolled.budgeted_frame_store": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_frame_store.py",
+        "md5": "e1602e697ac49291fcc1a96c0efe4dd7"
+      },
+      "afdm_sp_joint_unrolled.budgeted_job_queue": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_job_queue.py",
+        "md5": "37590acdf663dbf5d8c754a87cad23e0"
+      },
+      "afdm_sp_joint_unrolled.budgeted_support_diagnostics": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_diagnostics.py",
+        "md5": "c1f4b976a2f6a9aea10e6f13d56f0489"
+      },
+      "afdm_sp_joint_unrolled.budgeted_support_eval": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_eval.py",
+        "md5": "5f1a77ccad9a02a7d6ecbd257c776e1c"
+      },
+      "afdm_sp_joint_unrolled.cao_baseline.cao_isp_receiver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/cao_baseline/cao_isp_receiver.py",
+        "md5": "a5c38382b9cb5e842df8c94032a4be94"
+      },
+      "afdm_sp_joint_unrolled.classical_joint_unrolled": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/classical_joint_unrolled.py",
+        "md5": "6e0f1097e67a2f1d9bb58b98e9b0b310"
+      },
+      "afdm_sp_joint_unrolled.decision_bound": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_bound.py",
+        "md5": "0ca02c25d20c654be62841856557c3c4"
+      },
+      "afdm_sp_joint_unrolled.decision_gateA": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_gateA.py",
+        "md5": "5792ae90c60ee9e1dbc9df39c29b8f93"
+      },
+      "afdm_sp_joint_unrolled.decision_harvest": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_harvest.py",
+        "md5": "d233368f13ef76a447ce6dff6f44fb0f"
+      },
+      "afdm_sp_joint_unrolled.decision_metrics": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_metrics.py",
+        "md5": "4a32dad597e34bf7169378aac65c8bf1"
+      },
+      "afdm_sp_joint_unrolled.decision_review": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_review.py",
+        "md5": "e82db37d132ef4ceb5d1ae3020096521"
+      },
+      "afdm_sp_joint_unrolled.direction_data": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_data.py",
+        "md5": "8e75c0e4a6c1efcb3d8cd0944b500724"
+      },
+      "afdm_sp_joint_unrolled.direction_physical": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_physical.py",
+        "md5": "d04369d03551ac17d837feca70f185f5"
+      },
+      "afdm_sp_joint_unrolled.direction_physical_receiver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_physical_receiver.py",
+        "md5": "2ac879e4dd28b115d0865bf09cf50363"
+      },
+      "afdm_sp_joint_unrolled.direction_receiver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_receiver.py",
+        "md5": "58b5da6ee67a008b0e6bf61172442ae3"
+      },
+      "afdm_sp_joint_unrolled.direction_structure": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_structure.py",
+        "md5": "73bd874a6df948111ae1584e15cbf2af"
+      },
+      "afdm_sp_joint_unrolled.drce_baseline.drce_receiver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/drce_baseline/drce_receiver.py",
+        "md5": "6bb4fb50aa2635a2db558f4ec390ea39"
+      },
+      "afdm_sp_joint_unrolled.e1_ldpc": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py",
+        "md5": "5a44682768d2285cbbd8c5d24563022a"
+      },
+      "afdm_sp_joint_unrolled.e1_ldpc_coded_eval": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc_coded_eval.py",
+        "md5": "255e0970d24cfbb832475724d2e3890a"
+      },
+      "afdm_sp_joint_unrolled.eval_classical_joint_unrolled": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py",
+        "md5": "4e8e778bd64f62554a20c00c45dd739d"
+      },
+      "afdm_sp_joint_unrolled.lmmse_baseline.lmmse_receiver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/lmmse_baseline/lmmse_receiver.py",
+        "md5": "98b4aea2d6c5a03020d5e3c6955f0392"
+      },
+      "afdm_sp_joint_unrolled.loop9_cache_features": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/loop9_cache_features.py",
+        "md5": "8dcefb486914eb0cff786689af36e5c6"
+      },
+      "afdm_sp_joint_unrolled.mp_detect_bp_torch": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/mp_detect_bp_torch.py",
+        "md5": "701bc5b730bc616f1f66917ba20b9ae5"
+      },
+      "afdm_sp_joint_unrolled.paired_learned_eval": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/paired_learned_eval.py",
+        "md5": "2f8d6574bae3cdc677d888640612298d"
+      },
+      "afdm_sp_joint_unrolled.pbigabp_baseline.pbigabp_receiver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/pbigabp_baseline/pbigabp_receiver.py",
+        "md5": "aa863751c868c3f9f9b150f64f2d9021"
+      },
+      "afdm_sp_joint_unrolled.pbigabp_baseline.pbigabp_receiver_v2": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/pbigabp_baseline/pbigabp_receiver_v2.py",
+        "md5": "bd8840eced9787e43c645a7e49984c9d"
+      },
+      "afdm_sp_joint_unrolled.physical_stride": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/physical_stride.py",
+        "md5": "f2eb41ffb1ce897309c6febb5f3d133d"
+      },
+      "afdm_sp_joint_unrolled.run_classical_baselines_python": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/run_classical_baselines_python.py",
+        "md5": "e4ba5ebe8d40d0bd5726091fc66a055d"
+      },
+      "afdm_sp_joint_unrolled.supplement_baselines": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_baselines.py",
+        "md5": "b76afa0c10647f29cdeaf9fd999613b3"
+      },
+      "afdm_sp_joint_unrolled.supplement_feedback": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback.py",
+        "md5": "620feae6afe7b5b968b1df4fda2cc0d4"
+      },
+      "afdm_sp_joint_unrolled.supplement_feedback_schedule": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback_schedule.py",
+        "md5": "db0e591c812a525434e2e44567fba157"
+      },
+      "afdm_sp_joint_unrolled.supplement_g1": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py",
+        "md5": "5965bb0eeadad2bccc4e41b82c9291a4"
+      },
+      "afdm_sp_joint_unrolled.supplement_messages": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_messages.py",
+        "md5": "0faa9467458dfbf5c43c68e04ef7ea63"
+      },
+      "afdm_sp_joint_unrolled.supplement_pilots": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilots.py",
+        "md5": "f2c9a6cb50e1139e58a696dda1ec8c35"
+      },
+      "afdm_sp_joint_unrolled.system_config": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/system_config.py",
+        "md5": "a93487aa0219b3a63b1c0250501af46f"
+      },
+      "afdm_sp_joint_unrolled.v3_initial": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/v3_initial.py",
+        "md5": "b0e020b6e5491316ef925de914c2fbe2"
+      },
+      "arms": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/arms.py",
+        "md5": "610e73307c3b1028626ef704933b4b99"
+      },
+      "audit_io": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_production_gap_audit_20260922/audit_io.py",
+        "md5": "0892e7d699f6910ffea22e57a52fed28"
+      },
+      "bilinear": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/bilinear.py",
+        "md5": "5392061840bcc94064142366bbe1261d"
+      },
+      "compact_state": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_validation_20260922/compact_state.py",
+        "md5": "f53731554196e52b75332db564ef1b02"
+      },
+      "crb": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/crb.py",
+        "md5": "c361e086eacaca182223c3bc589f55da"
+      },
+      "e1_lib": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_e1_20261017/e1_lib.py",
+        "md5": "80e0dae8f1cb503d76b737475f72cb85"
+      },
+      "e2_channels": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_e2_20261017/e2_channels.py",
+        "md5": "ccef36136693aa137f429e4b184314f1"
+      },
+      "e3_calib": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3_sbl_20261017/e3_calib.py",
+        "md5": "d438bdfa87aa85e7f620fe381c5de59c"
+      },
+      "e3_driver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3_sbl_20261017/e3_driver.py",
+        "md5": "4d9154d30bd8160f7a84dda0886cd82a"
+      },
+      "e3_lib": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3_sbl_20261017/e3_lib.py",
+        "md5": "a42fadbfa2d53cabcc209b2bc00ef557"
+      },
+      "ep_rx": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/ep_rx.py",
+        "md5": "914b059cc16d6cb812df6e64d7fb88a5"
+      },
+      "evidence": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/evidence.py",
+        "md5": "346694ed3c52082f3825494a5fb43a6f"
+      },
+      "f1": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_necessity_stageA_20260928/f1.py",
+        "md5": "1459e8a2e9f68ff0ceab7cc4239b52f2"
+      },
+      "gen_fixed": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/gen_fixed.py",
+        "md5": "9a3a987e0a1aaecde33018da5f38c74c"
+      },
+      "geometry_reopen": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_geometry_reopen_20260922/geometry_reopen.py",
+        "md5": "a6de0ff1238faeff21d767dd10b084de"
+      },
+      "geometry_validation": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_validation_20260922/geometry_validation.py",
+        "md5": "b576a04dea5cbfc10cc61d748ebe8fbc"
+      },
+      "gs_driver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_genie_support_20261016/gs_driver.py",
+        "md5": "10611942919e1efcf2839ee5c260d22a"
+      },
+      "historical_p1_gen": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/p2b_gates/ref/gen_fixed_p1.py",
+        "md5": "cb9be5ea91c0a9b1863758ed598de1c6"
+      },
+      "independent": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/generator_snr_audit_20261019/independent.py",
+        "md5": "9f5e28f22416c9093e527bd92aff5115"
+      },
+      "interventions": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_production_gap_audit_20260922/interventions.py",
+        "md5": "82d47057b3e18b631cae01c3b9b17291"
+      },
+      "keep_slots": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_necessity_stageA_20260928/keep_slots.py",
+        "md5": "e0bb1e7fa036384dd6dc304f756ab24d"
+      },
+      "messages": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/messages.py",
+        "md5": "5e29ddc722ce448229beeb437ade093b"
+      },
+      "native_f1": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_necessity_stageA_20260928/native_f1.py",
+        "md5": "e1f8b0f857b1580fa4e03f5e8f3e1799"
+      },
+      "native_twofft": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_native_joint_reviewed_20260921/src/native_twofft.py",
+        "md5": "d47af1373b2f0052e6de078de40711ba"
+      },
+      "offgrid": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/offgrid.py",
+        "md5": "147e04762f6aaf341ac23c5c03b60056"
+      },
+      "p1_driver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py",
+        "md5": "e8594ebfe04f490a86fc16ebd5069cd2"
+      },
+      "p1ctx": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py",
+        "md5": "e66268616035f8111aacb4910d5bc8a2"
+      },
+      "p2b_driver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p2b_driver.py",
+        "md5": "62eda9e2759eff3162c3136b0e958249"
+      },
+      "physical": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/physical.py",
+        "md5": "aa8ad5c843f82792d7d0f6e5c09ac0a3"
+      },
+      "receiver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py",
+        "md5": "228411ca9751eecfca2f794ace909dfd"
+      },
+      "run_frozen_i1_smoke": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py",
+        "md5": "1c300f23e57f8acece8446dd55fa2ef7"
+      },
+      "run_reopening": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_geometry_reopen_20260922/run_reopening.py",
+        "md5": "3e35d03080ce21e50c13e1b4326f973d"
+      },
+      "run_validation": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_validation_20260922/run_validation.py",
+        "md5": "3bf475ab8e15d855e7bfbefd387bfdac"
+      },
+      "sbl_rx": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3_sbl_20261017/sbl_rx.py",
+        "md5": "7509783b3fbe80e596b642dcd098f89b"
+      },
+      "structured_ep": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/structured_ep.py",
+        "md5": "19194ff3dbd3ddda4923cf247ba92c9a"
+      },
+      "twofft": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_native_joint_reviewed_20260921/src/twofft.py",
+        "md5": "cdbdf40eabf43c1e02b52d25062a594d"
+      },
+      "zport_driver": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/zport_driver.py",
+        "md5": "b3afaef479de5d14b5bca5588a981e8a"
+      },
+      "zport_rx": {
+        "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/zport_rx.py",
+        "md5": "36f96af43c0961f17db12771fa27f80c"
+      }
+    },
+    "system": {
+      "N_total": 1024.0,
+      "fs": 16000.0,
+      "Ts": 6.25e-05,
+      "c1": 0.00244140625,
+      "c2": 1.9751241797117955e-07,
+      "l_max_cap": 102.0,
+      "P_paths": 8.0,
+      "tau_mean": 0.0008,
+      "tau_spread": 0.01,
+      "att_dB": 20.0
+    },
+    "comparison_source_contracts": [
+      {
+        "config_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/zport/config_shard000.json",
+        "config_md5": "9a1249bc98b7bd6f43617029f575245a",
+        "module_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/zport_driver.py",
+        "md5": "b3afaef479de5d14b5bca5588a981e8a"
+      },
+      {
+        "config_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/p2b_test/config_shard000.json",
+        "config_md5": "b93be42ef48c49d19fbcd779a22f4aee",
+        "module_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p2b_driver.py",
+        "md5": "62eda9e2759eff3162c3136b0e958249"
+      },
+      {
+        "config_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/p2b_test/config_shard000.json",
+        "config_md5": "b93be42ef48c49d19fbcd779a22f4aee",
+        "module_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/ep_rx.py",
+        "md5": "914b059cc16d6cb812df6e64d7fb88a5"
+      },
+      {
+        "config_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3_sbl_20261017/out/main/config_shard000.json",
+        "config_md5": "f14f56c5cf7509eafbcd3690ad6dec95",
+        "module_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3_sbl_20261017/e3_driver.py",
+        "md5": "4d9154d30bd8160f7a84dda0886cd82a"
+      }
+    ],
+    "C_grid": {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_e2_20261017/out/calibrate/GRID.json",
+      "md5": "1714fa759f01f0d17e84d413bf966921"
+    }
+  },
+  "severity_counts": {
+    "BLOCKER": 0,
+    "MAJOR": 0,
+    "MINOR": 1
+  },
+  "findings": [
+    {
+      "id": "SCI-01",
+      "severity": "OK",
+      "finding": "No scientific BLOCKER or MAJOR detected in the frozen audit; A numerical and B1-B4 completed.",
+      "evidence": [
+        "out/main/runtime.json:status",
+        "audit.py:123",
+        "audit.py:221",
+        "audit.py:296"
+      ]
+    },
+    {
+      "id": "SCI-02",
+      "severity": "OK",
+      "finding": "Independent CPP propagation matches 400 P1 and 50 family-C stored-truth reconstructions.",
+      "max_relative_error": 8.921708859753474e-13,
+      "tolerance": 1e-10,
+      "evidence": [
+        "audit.py:221",
+        "independent.py:29"
+      ]
+    },
+    {
+      "id": "SCI-03",
+      "severity": "OK",
+      "finding": "Physical/internal SNR and noise-coordinate scaling agree; all sampled nominal-to-empirical group differences are below 0.056 dB.",
+      "max_physical_internal_snr_difference_db": 1.9286549331065747e-15,
+      "max_abs_group_empirical_minus_nominal_db": 0.05541383052109872,
+      "evidence": [
+        "experiments/headroom_ladder_20261008/driver.py:227",
+        "audit.py:296"
+      ]
+    },
+    {
+      "id": "DOC-01",
+      "severity": "MINOR",
+      "finding": "Jakes-4 denotes 1+Poisson(3) rays per tap, mean four; the brief wording can suggest exactly four.",
+      "observed_mean_rays_per_tap": 4.0045,
+      "observed_max_rays_per_tap": 12,
+      "evidence": [
+        ".trellis/tasks/10-19-generator-snr-audit/codex-brief.md:39",
+        "experiments/tf_cstate_e2_20261017/e2_channels.py:84",
+        "experiments/tf_cstate_e2_20261017/PROTOCOL.md:50",
+        "research-assets/res-20261017-02.md:37"
+      ]
+    }
+  ],
+  "frozen_verdicts": {
+    "A_numerical": "OK",
+    "B1": "OK",
+    "B2": "OK: no Holm rejection",
+    "B3": "OK",
+    "B4": "OK"
+  },
+  "cpu_seconds": 206.185100034,
+  "core_hours": 0.05727363889833333,
+  "execution_fixes": [],
+  "physical_operator_summary": [
+    {
+      "family": "P1",
+      "scenario": "U",
+      "n": 200,
+      "max_relative_error": 8.711358033043222e-13,
+      "max_operator_power_error": 4.440892098500626e-16
+    },
+    {
+      "family": "P1",
+      "scenario": "G",
+      "n": 200,
+      "max_relative_error": 8.891769845055212e-13,
+      "max_operator_power_error": 4.440892098500626e-16
+    },
+    {
+      "family": "C",
+      "scenario": "J4",
+      "n": 50,
+      "max_relative_error": 8.921708859753474e-13,
+      "max_operator_power_error": 6.661338147750939e-16
+    }
+  ],
+  "parameter_laws": {
+    "U": {
+      "n": 2000,
+      "reference_n": 20000,
+      "first_rejection_rate": 0.497,
+      "independent_first_rejection_rate": 0.485,
+      "historical_approximate_rate": 0.486,
+      "max_delay": 102,
+      "max_power_error": 6.661338147750939e-16,
+      "first_rejection_99pct_interval": [
+        0.46798713963174987,
+        0.5260272848886232
+      ],
+      "historical_three_se": 0.03352786900475484,
+      "historical_within_three_se": true
+    },
+    "G": {
+      "n": 2000,
+      "reference_n": 20000,
+      "first_rejection_rate": 0.497,
+      "independent_first_rejection_rate": 0.48575,
+      "historical_approximate_rate": 0.486,
+      "max_delay": 102,
+      "max_power_error": 6.661338147750939e-16,
+      "first_rejection_99pct_interval": [
+        0.46798713963174987,
+        0.5260272848886232
+      ],
+      "historical_three_se": 0.03352786900475484,
+      "historical_within_three_se": true
+    },
+    "S": {
+      "n": 2000,
+      "reference_n": 20000,
+      "first_rejection_rate": 0.595,
+      "independent_first_rejection_rate": 0.5804,
+      "historical_approximate_rate": 0.582,
+      "max_delay": 25,
+      "max_power_error": 5.551115123125783e-16,
+      "first_rejection_99pct_interval": [
+        0.5662745585262247,
+        0.6232685667088989
+      ],
+      "historical_three_se": 0.033086885619532096,
+      "historical_within_three_se": true
+    }
+  },
+  "C_parameter_laws": {
+    "frames": 2000,
+    "mean_rays_per_tap": 4.0045,
+    "max_rays_per_tap": 12,
+    "spacing_reference_frames": 20000
+  },
+  "law_test_summary": {
+    "n": 140,
+    "alpha": 0.01,
+    "multiplicity": "Holm",
+    "rejections": 0,
+    "min_raw_p": 0.00919045817898268,
+    "min_holm_p": 1.0
+  },
+  "law_tests": [
+    {
+      "scenario": "U",
+      "name": "phase_uniform_0",
+      "statistic": 0.026376346658216476,
+      "p": 0.12152551296649916,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "phase_uniform_1",
+      "statistic": 0.009400406814775442,
+      "p": 0.9938053029486533,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "phase_uniform_2",
+      "statistic": 0.015726094319289063,
+      "p": 0.699589272954469,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "phase_uniform_3",
+      "statistic": 0.01664717993968501,
+      "p": 0.6302406415225128,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "phase_uniform_4",
+      "statistic": 0.017410228719636572,
+      "p": 0.5731857369810958,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "phase_uniform_5",
+      "statistic": 0.019366430812811863,
+      "p": 0.4357545750385927,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "phase_uniform_6",
+      "statistic": 0.01670508319041991,
+      "p": 0.6258802538518777,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "phase_uniform_7",
+      "statistic": 0.01011643282826713,
+      "p": 0.9854053661866824,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "max_delay",
+      "statistic": 0.01915,
+      "p": 0.5113447333898702,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "span",
+      "statistic": 0.025599999999999956,
+      "p": 0.18129845629444707,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "attempts",
+      "statistic": 0.01200000000000001,
+      "p": 0.9531604280877628,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "delay_0",
+      "statistic": 0.011700000000000002,
+      "p": 0.9621908897052466,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "doppler_0",
+      "statistic": 0.014700000000000046,
+      "p": 0.8213146977013358,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "gain_power_0",
+      "statistic": 0.034650000000000014,
+      "p": 0.024821208862969346,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "conditional_gain_0",
+      "statistic": 0.033,
+      "p": 0.0372932177233104,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "delay_1",
+      "statistic": 0.01185,
+      "p": 0.9578255115479886,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "doppler_1",
+      "statistic": 0.015750000000000042,
+      "p": 0.7516849939250347,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "gain_power_1",
+      "statistic": 0.022249999999999992,
+      "p": 0.32431752632252486,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "conditional_gain_1",
+      "statistic": 0.01435000000000003,
+      "p": 0.842824784435584,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "delay_2",
+      "statistic": 0.015049999999999994,
+      "p": 0.7988570137091316,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "doppler_2",
+      "statistic": 0.016100000000000003,
+      "p": 0.727260624008568,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "gain_power_2",
+      "statistic": 0.018399999999999972,
+      "p": 0.5631054121531689,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "conditional_gain_2",
+      "statistic": 0.016449999999999965,
+      "p": 0.7024635664412354,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "delay_3",
+      "statistic": 0.009999999999999995,
+      "p": 0.9925794846677787,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "doppler_3",
+      "statistic": 0.01860000000000006,
+      "p": 0.5491272155974122,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "gain_power_3",
+      "statistic": 0.026650000000000063,
+      "p": 0.14845238860294496,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "conditional_gain_3",
+      "statistic": 0.02464999999999995,
+      "p": 0.21569545770665832,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "delay_4",
+      "statistic": 0.012050000000000005,
+      "p": 0.9515384914087864,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "doppler_4",
+      "statistic": 0.019250000000000017,
+      "p": 0.5045924277021778,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "gain_power_4",
+      "statistic": 0.022400000000000003,
+      "p": 0.3165796392039887,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "conditional_gain_4",
+      "statistic": 0.021699999999999997,
+      "p": 0.3537799690189072,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "delay_5",
+      "statistic": 0.017249999999999988,
+      "p": 0.6450764442333229,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "doppler_5",
+      "statistic": 0.018199999999999994,
+      "p": 0.5771903958456461,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "gain_power_5",
+      "statistic": 0.016650000000000054,
+      "p": 0.6881774223646251,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "conditional_gain_5",
+      "statistic": 0.013449999999999962,
+      "p": 0.8928033131684497,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "delay_6",
+      "statistic": 0.02024999999999999,
+      "p": 0.43942181388414925,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "doppler_6",
+      "statistic": 0.021050000000000013,
+      "p": 0.39077774416321986,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "gain_power_6",
+      "statistic": 0.019299999999999984,
+      "p": 0.5012309816339011,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "conditional_gain_6",
+      "statistic": 0.02400000000000002,
+      "p": 0.24196084436313625,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "delay_7",
+      "statistic": 0.01915,
+      "p": 0.5113447333898702,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "doppler_7",
+      "statistic": 0.015550000000000008,
+      "p": 0.7654214306801239,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "gain_power_7",
+      "statistic": 0.027549999999999963,
+      "p": 0.12426699806084951,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "conditional_gain_7",
+      "statistic": 0.02254999999999996,
+      "p": 0.30896962788358384,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "U",
+      "name": "first_rejection_rate",
+      "p": 0.313072108504019,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "phase_uniform_0",
+      "statistic": 0.026376346658216476,
+      "p": 0.12152551296649916,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "phase_uniform_1",
+      "statistic": 0.009400406814775442,
+      "p": 0.9938053029486533,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "phase_uniform_2",
+      "statistic": 0.015726094319289063,
+      "p": 0.699589272954469,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "phase_uniform_3",
+      "statistic": 0.01664717993968501,
+      "p": 0.6302406415225128,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "phase_uniform_4",
+      "statistic": 0.017410228719636572,
+      "p": 0.5731857369810958,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "phase_uniform_5",
+      "statistic": 0.019366430812811863,
+      "p": 0.4357545750385927,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "phase_uniform_6",
+      "statistic": 0.01670508319041991,
+      "p": 0.6258802538518777,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "phase_uniform_7",
+      "statistic": 0.01011643282826713,
+      "p": 0.9854053661866824,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "max_delay",
+      "statistic": 0.01915,
+      "p": 0.5113447333898702,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "span",
+      "statistic": 0.019350000000000034,
+      "p": 0.49787954707001825,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "attempts",
+      "statistic": 0.011249999999999982,
+      "p": 0.9735234033088975,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "delay_0",
+      "statistic": 0.013950000000000004,
+      "p": 0.866063840591079,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "doppler_0",
+      "statistic": 0.021499999999999964,
+      "p": 0.3649151966358416,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "gain_power_0",
+      "statistic": 0.03284999999999999,
+      "p": 0.03866127115313922,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "conditional_gain_0",
+      "statistic": 0.030950000000000005,
+      "p": 0.060158813218828766,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "delay_1",
+      "statistic": 0.009100000000000052,
+      "p": 0.9979296088975562,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "doppler_1",
+      "statistic": 0.015249999999999986,
+      "p": 0.7856549739526713,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "gain_power_1",
+      "statistic": 0.025449999999999973,
+      "p": 0.18642459087636987,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "conditional_gain_1",
+      "statistic": 0.021950000000000025,
+      "p": 0.3401761870087132,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "delay_2",
+      "statistic": 0.01905000000000001,
+      "p": 0.5181351874014379,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "doppler_2",
+      "statistic": 0.024900000000000005,
+      "p": 0.20619298392966956,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "gain_power_2",
+      "statistic": 0.011799999999999977,
+      "p": 0.9593138245189207,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "conditional_gain_2",
+      "statistic": 0.02300000000000002,
+      "p": 0.2869066447715396,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "delay_3",
+      "statistic": 0.015649999999999997,
+      "p": 0.7585757135196083,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "doppler_3",
+      "statistic": 0.028699999999999948,
+      "p": 0.09815313269281478,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "gain_power_3",
+      "statistic": 0.024050000000000016,
+      "p": 0.23985920714401332,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "conditional_gain_3",
+      "statistic": 0.025249999999999995,
+      "p": 0.19343472601206102,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "delay_4",
+      "statistic": 0.014850000000000002,
+      "p": 0.8117974960735426,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "doppler_4",
+      "statistic": 0.01924999999999999,
+      "p": 0.5045924277021796,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "gain_power_4",
+      "statistic": 0.027200000000000002,
+      "p": 0.13325967371083958,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "conditional_gain_4",
+      "statistic": 0.026900000000000007,
+      "p": 0.14138217199999803,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "delay_5",
+      "statistic": 0.015549999999999953,
+      "p": 0.7654214306801277,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "doppler_5",
+      "statistic": 0.03474999999999995,
+      "p": 0.02420084662244304,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "gain_power_5",
+      "statistic": 0.01589999999999997,
+      "p": 0.7412717780987292,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "conditional_gain_5",
+      "statistic": 0.022150000000000003,
+      "p": 0.3295470888736569,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "delay_6",
+      "statistic": 0.018850000000000033,
+      "p": 0.5318251505931513,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "doppler_6",
+      "statistic": 0.01824999999999999,
+      "p": 0.5736599157635203,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "gain_power_6",
+      "statistic": 0.01815,
+      "p": 0.5807266471735477,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "conditional_gain_6",
+      "statistic": 0.020600000000000063,
+      "p": 0.41773196680008284,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "delay_7",
+      "statistic": 0.01915,
+      "p": 0.5113447333898702,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "doppler_7",
+      "statistic": 0.010950000000000001,
+      "p": 0.9796653738216637,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "gain_power_7",
+      "statistic": 0.026249999999999996,
+      "p": 0.1603528898574096,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "conditional_gain_7",
+      "statistic": 0.02244999999999997,
+      "p": 0.3140287562156978,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "G",
+      "name": "first_rejection_rate",
+      "p": 0.34803564556899225,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "phase_uniform_0",
+      "statistic": 0.01927993599236788,
+      "p": 0.4414503060474112,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "phase_uniform_1",
+      "statistic": 0.01359511498906818,
+      "p": 0.8484667267016657,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "phase_uniform_2",
+      "statistic": 0.0204797890212689,
+      "p": 0.36625341661471067,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "phase_uniform_3",
+      "statistic": 0.011588395418567266,
+      "p": 0.9481771687860873,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "phase_uniform_4",
+      "statistic": 0.010342473611020225,
+      "p": 0.9815842658256684,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "phase_uniform_5",
+      "statistic": 0.01532446857165537,
+      "p": 0.729435931182309,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "phase_uniform_6",
+      "statistic": 0.013159059545668372,
+      "p": 0.8744849245089852,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "phase_uniform_7",
+      "statistic": 0.023206879142721126,
+      "p": 0.22807793945465638,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "max_delay",
+      "statistic": 0.0240999999999999,
+      "p": 0.23777123478687756,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "span",
+      "statistic": 0.022949999999999915,
+      "p": 0.28930134919627215,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "attempts",
+      "statistic": 0.014599999999999946,
+      "p": 0.8275634906890237,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "delay_0",
+      "statistic": 0.008699999999999986,
+      "p": 0.9989757166919782,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "doppler_0",
+      "statistic": 0.020449999999999968,
+      "p": 0.42695170181638464,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "gain_power_0",
+      "statistic": 0.025249999999999995,
+      "p": 0.19343472601206102,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "conditional_gain_0",
+      "statistic": 0.026100000000000012,
+      "p": 0.16500696331024278,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "delay_1",
+      "statistic": 0.016100000000000003,
+      "p": 0.727260624008568,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "doppler_1",
+      "statistic": 0.024450000000000027,
+      "p": 0.22353517776462084,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "gain_power_1",
+      "statistic": 0.018849999999999992,
+      "p": 0.5318251505931539,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "conditional_gain_1",
+      "statistic": 0.016250000000000007,
+      "p": 0.7166711073543985,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "delay_2",
+      "statistic": 0.017449999999999966,
+      "p": 0.6307001537809322,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "doppler_2",
+      "statistic": 0.01770000000000005,
+      "p": 0.6127722018993492,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "gain_power_2",
+      "statistic": 0.02070000000000005,
+      "p": 0.4116499382816615,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "conditional_gain_2",
+      "statistic": 0.01805000000000001,
+      "p": 0.5878155120132875,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "delay_3",
+      "statistic": 0.007199999999999984,
+      "p": 0.9999771245599699,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "doppler_3",
+      "statistic": 0.01865,
+      "p": 0.5456509586432663,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "gain_power_3",
+      "statistic": 0.01684999999999992,
+      "p": 0.6738360511039727,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "conditional_gain_3",
+      "statistic": 0.012249999999999983,
+      "p": 0.9447155620262618,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "delay_4",
+      "statistic": 0.01579999999999998,
+      "p": 0.7482237956115442,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "doppler_4",
+      "statistic": 0.029400000000000093,
+      "p": 0.08462168630982836,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "gain_power_4",
+      "statistic": 0.015199999999999991,
+      "p": 0.788978503162524,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "conditional_gain_4",
+      "statistic": 0.016949999999999965,
+      "p": 0.6666517076524496,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "delay_5",
+      "statistic": 0.015,
+      "p": 0.8021177283786495,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "doppler_5",
+      "statistic": 0.013349999999999973,
+      "p": 0.8978147091575132,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "gain_power_5",
+      "statistic": 0.018850000000000033,
+      "p": 0.5318251505931513,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "conditional_gain_5",
+      "statistic": 0.02244999999999997,
+      "p": 0.3140287562156978,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "delay_6",
+      "statistic": 0.012550000000000061,
+      "p": 0.9334786828355339,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "doppler_6",
+      "statistic": 0.01630000000000001,
+      "p": 0.71312790293882,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "gain_power_6",
+      "statistic": 0.02325000000000002,
+      "p": 0.27514513296127363,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "conditional_gain_6",
+      "statistic": 0.025749999999999995,
+      "p": 0.17628354159464,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "delay_7",
+      "statistic": 0.0240999999999999,
+      "p": 0.23777123478687756,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "doppler_7",
+      "statistic": 0.011849999999999972,
+      "p": 0.9578255115479894,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "gain_power_7",
+      "statistic": 0.014300000000000035,
+      "p": 0.8458118715097793,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "conditional_gain_7",
+      "statistic": 0.014249999999999985,
+      "p": 0.8487762738681036,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "S",
+      "name": "first_rejection_rate",
+      "p": 0.2078138317508958,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "C",
+      "name": "rays_1_plus_poisson3",
+      "statistic": 9.058518288512223,
+      "p": 0.3373835132418308,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "C",
+      "name": "truncated_geometric_spacing_0",
+      "statistic": 16.421407935378127,
+      "p": 0.6901607945112658,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "C",
+      "name": "truncated_geometric_spacing_1",
+      "statistic": 19.214875442516206,
+      "p": 0.5079009136058523,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "C",
+      "name": "truncated_geometric_spacing_2",
+      "statistic": 37.86789337196749,
+      "p": 0.00919045817898268,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "C",
+      "name": "uniform_angle_first_ray_tap_0",
+      "statistic": 0.025897790363095696,
+      "p": 0.1343500261554711,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "C",
+      "name": "uniform_angle_first_ray_tap_1",
+      "statistic": 0.02191995494855209,
+      "p": 0.28754004161845303,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "C",
+      "name": "uniform_angle_first_ray_tap_2",
+      "statistic": 0.02559190685918944,
+      "p": 0.14310810860034517,
+      "p_holm": 1.0,
+      "severity": "OK"
+    },
+    {
+      "scenario": "C",
+      "name": "uniform_angle_first_ray_tap_3",
+      "statistic": 0.022937619353269295,
+      "p": 0.23968660162564104,
+      "p_holm": 1.0,
+      "severity": "OK"
+    }
+  ],
+  "invariants": {
+    "D2_grid": {
+      "ts": 6.25e-05,
+      "delta_f": 15.625,
+      "delay_res": 6.25e-05,
+      "cap_idx_fixed": 103,
+      "cap_idx_frozen": 54
+    },
+    "deterministic_frames": 100,
+    "rho_shared_frames": 100,
+    "snr_shared_frames": 100,
+    "UG_shared_frames": 50,
+    "ep_n": 1530,
+    "ep_k": 767,
+    "C_channel_determinism_frames": 50,
+    "C_rho_sharing_frames": 50,
+    "C_snr_sharing_frames": 100,
+    "S_determinism_frames": 100,
+    "S_rho_sharing_frames": 50,
+    "S_snr_sharing_frames": 100,
+    "EP_SP_channel_noise_sharing_frames": 50
+  },
+  "snr_energy_summary": [
+    {
+      "comparison_family": "E1",
+      "scenario": "G",
+      "rho": 0.3,
+      "n": 100,
+      "nominal_snr_db": 4.5,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 0.9992554670110115,
+      "rx_noiseless_power": 0.9944742726714816,
+      "rx_data_power": 0.6974469217362036,
+      "noise_power": 0.35689587376568205,
+      "empirical_total_snr_db": 4.4505202537554,
+      "empirical_data_snr_db": 2.909696348932828,
+      "frame_min": 1,
+      "frame_max": 1907
+    },
+    {
+      "comparison_family": "E1",
+      "scenario": "G",
+      "rho": 0.5,
+      "n": 100,
+      "nominal_snr_db": 4.5,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 0.9967888649380496,
+      "rx_noiseless_power": 0.9924309196947977,
+      "rx_data_power": 0.49721924106535575,
+      "noise_power": 0.3557344701092149,
+      "empirical_total_snr_db": 4.455743368032411,
+      "empirical_data_snr_db": 1.4542197666367063,
+      "frame_min": 48,
+      "frame_max": 1970
+    },
+    {
+      "comparison_family": "E1",
+      "scenario": "U",
+      "rho": 0.3,
+      "n": 100,
+      "nominal_snr_db": 4.5,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 1.000461568355483,
+      "rx_noiseless_power": 0.997366302872313,
+      "rx_data_power": 0.6984211990189202,
+      "noise_power": 0.3562417776639424,
+      "empirical_total_snr_db": 4.471098417297067,
+      "empirical_data_snr_db": 2.9237256365931796,
+      "frame_min": 0,
+      "frame_max": 1945
+    },
+    {
+      "comparison_family": "E1",
+      "scenario": "U",
+      "rho": 0.5,
+      "n": 100,
+      "nominal_snr_db": 4.5,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 1.0016585895868377,
+      "rx_noiseless_power": 0.9951605594961608,
+      "rx_data_power": 0.5001770168012075,
+      "noise_power": 0.3559272352397514,
+      "empirical_total_snr_db": 4.465319344896921,
+      "empirical_data_snr_db": 1.4776251085713517,
+      "frame_min": 28,
+      "frame_max": 1950
+    },
+    {
+      "comparison_family": "E2-C",
+      "scenario": "J4",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 1.0014441210017275,
+      "rx_noiseless_power": 1.0035671762313196,
+      "rx_data_power": 0.7026685449806734,
+      "noise_power": 0.2510175203866134,
+      "empirical_total_snr_db": 6.018424131703498,
+      "empirical_data_snr_db": 4.470464775487077,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "E2-C",
+      "scenario": "J4",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 8.0,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 1.0015756651912127,
+      "rx_noiseless_power": 1.002952085057109,
+      "rx_data_power": 0.501906103557624,
+      "noise_power": 0.1583813480811404,
+      "empirical_total_snr_db": 8.015761503775142,
+      "empirical_data_snr_db": 5.009184418704696,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "E2-R",
+      "scenario": "G",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 0.9994122440891444,
+      "rx_noiseless_power": 0.9932373847486768,
+      "rx_data_power": 0.6946230540606686,
+      "noise_power": 0.25250451920761774,
+      "empirical_total_snr_db": 5.947839024020956,
+      "empirical_data_snr_db": 4.394800378251689,
+      "frame_min": 3000,
+      "frame_max": 3049
+    },
+    {
+      "comparison_family": "E2-R",
+      "scenario": "G",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 0.9993587057257969,
+      "rx_noiseless_power": 0.994534842141253,
+      "rx_data_power": 0.4961593243290491,
+      "noise_power": 0.25250451920761774,
+      "empirical_total_snr_db": 5.953508473050375,
+      "empirical_data_snr_db": 2.933520021469309,
+      "frame_min": 3000,
+      "frame_max": 3049
+    },
+    {
+      "comparison_family": "E2-R",
+      "scenario": "U",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 0.9994122440891444,
+      "rx_noiseless_power": 0.9961008379021343,
+      "rx_data_power": 0.6967844706686401,
+      "noise_power": 0.25250451920761774,
+      "empirical_total_snr_db": 5.960341500959508,
+      "empirical_data_snr_db": 4.408293076031364,
+      "frame_min": 3000,
+      "frame_max": 3049
+    },
+    {
+      "comparison_family": "E2-R",
+      "scenario": "U",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 0.9993587057257969,
+      "rx_noiseless_power": 0.9974691960942437,
+      "rx_data_power": 0.497703193334743,
+      "noise_power": 0.25250451920761774,
+      "empirical_total_snr_db": 5.9663033733321,
+      "empirical_data_snr_db": 2.947012719248984,
+      "frame_min": 3000,
+      "frame_max": 3049
+    },
+    {
+      "comparison_family": "E3",
+      "scenario": "G",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 1.0017902507227503,
+      "rx_noiseless_power": 1.0007443833085323,
+      "rx_data_power": 0.49974223475962387,
+      "noise_power": 0.24941759282447046,
+      "empirical_total_snr_db": 6.033960778469454,
+      "empirical_data_snr_db": 3.0181897110819773,
+      "frame_min": 4000,
+      "frame_max": 4049
+    },
+    {
+      "comparison_family": "E3",
+      "scenario": "U",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 1.0017902507227503,
+      "rx_noiseless_power": 1.0057000379246728,
+      "rx_data_power": 0.5010593601400781,
+      "noise_power": 0.24941759282447046,
+      "empirical_total_snr_db": 6.055413830521099,
+      "empirical_data_snr_db": 3.029620960150239,
+      "frame_min": 4000,
+      "frame_max": 4049
+    },
+    {
+      "comparison_family": "E3/E3b/E3c/GSO",
+      "scenario": "G",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 1.0016407918899903,
+      "rx_noiseless_power": 1.0006713723410723,
+      "rx_data_power": 0.6996391286634734,
+      "noise_power": 0.24941759282447046,
+      "empirical_total_snr_db": 6.033643920163417,
+      "empirical_data_snr_db": 4.479470067864357,
+      "frame_min": 4000,
+      "frame_max": 4049
+    },
+    {
+      "comparison_family": "E3/E3b/E3c/GSO",
+      "scenario": "U",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 1.0016407918899903,
+      "rx_noiseless_power": 1.005111214213179,
+      "rx_data_power": 0.7014831041961094,
+      "noise_power": 0.24941759282447046,
+      "empirical_total_snr_db": 6.052870350661883,
+      "empirical_data_snr_db": 4.490901316932618,
+      "frame_min": 4000,
+      "frame_max": 4049
+    },
+    {
+      "comparison_family": "P1+CRB+genie",
+      "scenario": "G",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 0.9989358248482652,
+      "rx_noiseless_power": 0.9969847144708324,
+      "rx_data_power": 0.6991295522137204,
+      "noise_power": 0.2511673656333421,
+      "empirical_total_snr_db": 5.987252893457513,
+      "empirical_data_snr_db": 4.445944496307432,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "P1+CRB+genie",
+      "scenario": "G",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 0.9988388897177343,
+      "rx_noiseless_power": 0.9966318884745897,
+      "rx_data_power": 0.4993782515812289,
+      "noise_power": 0.2511673656333421,
+      "empirical_total_snr_db": 5.98571568329771,
+      "empirical_data_snr_db": 2.9846641395250524,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "P1+CRB+genie",
+      "scenario": "U",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 0.9989358248482652,
+      "rx_noiseless_power": 0.9899016054703564,
+      "rx_data_power": 0.6957050603596816,
+      "noise_power": 0.2511673656333421,
+      "empirical_total_snr_db": 5.956288180940414,
+      "empirical_data_snr_db": 4.424619517843158,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "P1+CRB+genie",
+      "scenario": "U",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 0.9988388897177343,
+      "rx_noiseless_power": 0.9899553648593532,
+      "rx_data_power": 0.4969321859712012,
+      "noise_power": 0.2511673656333421,
+      "empirical_total_snr_db": 5.956524030361329,
+      "empirical_data_snr_db": 2.9633391610607784,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "P2a",
+      "scenario": "G",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 1.0008100925873054,
+      "rx_noiseless_power": 0.9980795965032248,
+      "rx_data_power": 0.6991295522137204,
+      "noise_power": 0.2511673656333421,
+      "empirical_total_snr_db": 5.992019669847868,
+      "empirical_data_snr_db": 4.445944496307432,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "P2a",
+      "scenario": "G",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5000000000000001,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 1.0008838834764833,
+      "rx_noiseless_power": 0.9983931387823219,
+      "rx_data_power": 0.4993782515812289,
+      "noise_power": 0.2511673656333421,
+      "empirical_total_snr_db": 5.993383772451105,
+      "empirical_data_snr_db": 2.9846641395250524,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "P2a",
+      "scenario": "U",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 1.0008100925873054,
+      "rx_noiseless_power": 0.9944326359209754,
+      "rx_data_power": 0.6957050603596816,
+      "noise_power": 0.2511673656333421,
+      "empirical_total_snr_db": 5.9761215830053445,
+      "empirical_data_snr_db": 4.424619517843158,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "P2a",
+      "scenario": "U",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5000000000000001,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 1.0008838834764833,
+      "rx_noiseless_power": 0.9955932367418301,
+      "rx_data_power": 0.4969321859712012,
+      "noise_power": 0.2511673656333421,
+      "empirical_total_snr_db": 5.981187271811312,
+      "empirical_data_snr_db": 2.9633391610607784,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "P2b-EP/EPG",
+      "scenario": "S",
+      "rho": 0.2,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.2,
+      "tx_data_power": 0.8000000000000007,
+      "tx_combined_power": 1.0,
+      "rx_noiseless_power": 1.0042202565587446,
+      "rx_data_power": 0.8046252977513862,
+      "noise_power": 0.24977284475392517,
+      "empirical_total_snr_db": 6.0428375725878265,
+      "empirical_data_snr_db": 5.080484626389174,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "P2b-SP",
+      "scenario": "S",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 1.0034080484309207,
+      "rx_noiseless_power": 0.99477354547229,
+      "rx_data_power": 0.6926400883425533,
+      "noise_power": 0.24977284475392517,
+      "empirical_total_snr_db": 6.001790071248518,
+      "empirical_data_snr_db": 4.429624036523322,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "P2b-SP",
+      "scenario": "S",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 1.003718485692088,
+      "rx_noiseless_power": 0.9971053744942406,
+      "rx_data_power": 0.494742920244681,
+      "noise_power": 0.24977284475392517,
+      "empirical_total_snr_db": 6.011958369426155,
+      "empirical_data_snr_db": 2.9683436797409417,
+      "frame_min": 0,
+      "frame_max": 49
+    },
+    {
+      "comparison_family": "prospective-K",
+      "scenario": "G",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 0.9980131078041775,
+      "rx_noiseless_power": 0.9981523901517586,
+      "rx_data_power": 0.5007425773538031,
+      "noise_power": 0.250883241153568,
+      "empirical_total_snr_db": 5.997251993777269,
+      "empirical_data_snr_db": 3.00142868666852,
+      "frame_min": 7000,
+      "frame_max": 7049
+    },
+    {
+      "comparison_family": "prospective-K",
+      "scenario": "U",
+      "rho": 0.5,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.5,
+      "tx_data_power": 0.5,
+      "tx_combined_power": 0.9980131078041775,
+      "rx_noiseless_power": 1.0035273203850295,
+      "rx_data_power": 0.5010877039582108,
+      "noise_power": 0.250883241153568,
+      "empirical_total_snr_db": 6.020575486931965,
+      "empirical_data_snr_db": 3.0044209417156598,
+      "frame_min": 7000,
+      "frame_max": 7049
+    },
+    {
+      "comparison_family": "prospective-S/K",
+      "scenario": "G",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 0.9981789832229852,
+      "rx_noiseless_power": 0.9986685225590608,
+      "rx_data_power": 0.7010396082953244,
+      "noise_power": 0.250883241153568,
+      "empirical_total_snr_db": 5.999497097081104,
+      "empirical_data_snr_db": 4.462709043450901,
+      "frame_min": 7000,
+      "frame_max": 7049
+    },
+    {
+      "comparison_family": "prospective-S/K",
+      "scenario": "U",
+      "rho": 0.3,
+      "n": 50,
+      "nominal_snr_db": 6.0,
+      "tx_pilot_power": 0.29999999999999993,
+      "tx_data_power": 0.7000000000000015,
+      "tx_combined_power": 0.9981789832229852,
+      "rx_noiseless_power": 1.003999103242796,
+      "rx_data_power": 0.701522785541495,
+      "noise_power": 0.250883241153568,
+      "empirical_total_snr_db": 6.022616732249038,
+      "empirical_data_snr_db": 4.46570129849804,
+      "frame_min": 7000,
+      "frame_max": 7049
+    }
+  ],
+  "comparisons": [
+    {
+      "comparison_and_executed_path": "**P1 F0/B/LOCAL**. `experiments/tcom_reference_frame_20261015/launch_p1.sh:47`; `out/p1/config_shard000.json:2`\u2013`:47`; driver `:341`\u2013`:363`",
+      "snr_and_channel_normalisation": "G/A1/PHY; U/G, unit per-frame path power; physical channel energy/N=1 when delays distinct.",
+      "pilot_data_split": "Physical rho/.7 or .5/.5 via G; OBS internal data=.5.",
+      "constellation_and_eb_es": "Q/CODE; total nominal Es/N0 axis.",
+      "receiver_noise": "OBS supplies sigma2_int; F0 and both branches consume the same obs (DET; `p1_driver.py:142`\u2013`:164`).",
+      "frames_and_seeds": "Same observation for all arms; 0..1999; all rho/SNR share channel, noise and bits; U/G share exogenous draws, but Dopplers intentionally differ (RNG)."
+    },
+    {
+      "comparison_and_executed_path": "**P1 F1 C/D**. Same launcher/config; `experiments/tcom_reference_frame_20261015/p1_driver.py:175`\u2013`:197`",
+      "snr_and_channel_normalisation": "Same G/A1/PHY frame as F0.",
+      "pilot_data_split": "Same G/OBS.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "Same sigma2_int; F1 CE/detection and D branch consume OBS (`native_f1.py:24`\u2013`:41`).",
+      "frames_and_seeds": "C and D use the same P1 obs/truth; C prefix reused by D. Same RNG pairing as F0."
+    },
+    {
+      "comparison_and_executed_path": "**P1 true-H A3**. Same launcher/config; `p1_driver.py:203`\u2013`:205`; `experiments/headroom_ladder_20261008/driver.py:474`\u2013`:480`",
+      "snr_and_channel_normalisation": "Same physical frame and true physical gains from G/A1/PHY.",
+      "pilot_data_split": "G/OBS.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "sigma2_int passed with obs to fixed-channel TF (`experiments/tf_production_gap_audit_20260922/interventions.py:287`\u2013`:319`); no extra physical noise.",
+      "frames_and_seeds": "Exactly the same P1 observation; supplied H is the sole genie intervention."
+    },
+    {
+      "comparison_and_executed_path": "**P2a Zheng port**. `experiments/tcom_reference_frame_20261015/launch_zport.sh:40`; `out/zport/config_shard000.json:2`; `zport_driver.py:191`\u2013`:214`",
+      "snr_and_channel_normalisation": "G/A1/PHY channel; sigma2_phys applied to impulse-pilot noiseless observation (`zport_driver.py:212`\u2013`:214`).",
+      "pilot_data_split": "Impulse at index0 amplitude sqrt(rho*N), plus the P1 data on all N positions (`zport_driver.py:46`\u2013`:55`), nominal energies rho*N and (1-rho)*N.",
+      "constellation_and_eb_es": "Q/CODE; no Eb/N0 conversion, same codeword as P1.",
+      "receiver_noise": "**Unscaled** sigma2_phys passed to `zp.run(y,rho,sigma2,...)` (`zport_driver.py:79`\u2013`:88`); correct for its unscaled y; MP update adds sigma2 (`zport_rx.py:225`).",
+      "frames_and_seeds": "P1 seed_fn, frames0..999; same channel/noise/codeword as P1 and across rho/SNR; pilot waveform differs by design. Card `research-assets/res-20261016-01.md:22`\u2013`:24` claims precisely this."
+    },
+    {
+      "comparison_and_executed_path": "**P2b SP versus EP/EPG (+SPG)**. `experiments/tcom_reference_frame_20261015/launch_p2b.sh:48`; `out/p2b_test/config_shard000.json:2`; `p2b_driver.py:96`\u2013`:158`",
+      "snr_and_channel_normalisation": "Same total nominal useful-frame energy/N=1 axis. FLAGS_S D1/D2/geometric/A1, delay mean*25/102, truncate25 (`p2b_driver.py:45`\u2013`:46`). Physical gains unit path power; prefix102 retained.",
+      "pilot_data_split": "SP rho=.3/.5 (G/OBS). EP rho_EP=.2, pilot sqrt(.2N), data per occupied symbol `.8N/765` (`ep_rx.py:74`\u2013`:91`). Zero guard means EP total energy exactly N.",
+      "constellation_and_eb_es": "SP Q/CODE; EP765 QPSK symbols, n1530,k767; no axis conversion. Equal **total frame energy**, not equal information-bit energy. EP Eb higher by 10log10(1024/767)=1.255 dB; already disclosed in card `res-20261015-03.md:60`.",
+      "receiver_noise": "SP uses sigma2_int; EP/EPG get sigma2_phys for Hx+sqrt(sigma2_phys)*noise (`p2b_driver.py:133`\u2013`:154`; `ep_rx.py:240`\u2013`:260`). SPG also uses sigma2_phys with raw SP y (`p2b_driver.py:146`).",
+      "frames_and_seeds": "TEST TCP2 entropy distinct from P1, DEV TCDP distinct (`p2b_driver.py:36`\u2013`:40`, `:248`). All SP/EP arms share physical channel/noise; SP rhos share codeword; EP has its own n/k and information vector (same message stream, different length), not a shared codeword. Asserted channel/noise equality at `:107`\u2013`:110`."
+    },
+    {
+      "comparison_and_executed_path": "**CRB tier**. `experiments/tcom_channel_crb_20261016/launch_crb.sh:11`; `out/main/config_shard000.json:2`; `crb_driver.py:170`\u2013`:180`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY, frames0..499 (GD0..99). The bounds are computed in **physical coordinates**, not OBS coordinates.",
+      "pilot_data_split": "Physical pilot raw['pilot'], data raw['data']; data covariance (1-rho) and exact coded off-diagonal correction (`crb_driver.py:77`\u2013`:92`; `crb.py:82`\u2013`:110`).",
+      "constellation_and_eb_es": "Q/CODE; same total nominal Es axis.",
+      "receiver_noise": "Receivers get sigma2_int through OBS; bounds get raw sigma2_phys (`crb_driver.py:175`\u2013`:180`), paired with physical B(x) and covariance, so no coordinate mismatch.",
+      "frames_and_seeds": "CTX/RNG: same first500 P1 frames, codewords and noise; bounds/receivers share raw frame. Accepted card `res-20261016-02.md:14`\u2013`:15`, `:25`."
+    },
+    {
+      "comparison_and_executed_path": "**Genie support + GS+CSTATE**. `experiments/tcom_genie_support_20261016/launch_gs.sh:12`, `launch_a1.sh`; configs `out/main/config_shard000.json:2`, `out/a1/config_shard000.json:2`; `gs_driver.py:152`\u2013`:157`; `gs_cstate.py:103`\u2013`:108`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY, same physical coordinates as CRB.",
+      "pilot_data_split": "G/OBS.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "CTX/OBS sigma2_int; supplied to `_instrumented` (`gs_driver.py:51`\u2013`:59`). Genie alters delays/refit, not noise or power.",
+      "frames_and_seeds": "FER frames0..1999 shared with P1 B/A3; NMSE0..499 shared with CRB. A1 continuation also regenerates CTX frames; `res-20261016-03.md:17`\u2013`:18`."
+    },
+    {
+      "comparison_and_executed_path": "**E-1**. `experiments/tf_cstate_e1_20261017/launch_e1.sh:35`; `out/main/config_shard000.json:2`; `e1_driver.py:320`\u2013`:343`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY regenerated for ledger-selected triggered keys.",
+      "pilot_data_split": "G/OBS.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "CTX/OBS; branch ridge=obs sigma2, detector=obs sigma2 (`e1_driver.py:218`\u2013`:243`).",
+      "frames_and_seeds": "Same F0 observation/state captured once, all arms reuse it. P1 frames0..1999; rho/SNR share RNG. Selection is conditional on F0 syndrome, not a new draw. `e1_driver.py:325`\u2013`:334`."
+    },
+    {
+      "comparison_and_executed_path": "**E-2 R**. `experiments/tf_cstate_e2_20261017/launch_e2.sh:55`; `out/main_R/config_shard000.json:2`; `e2_driver.py:250`\u2013`:261`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY, fresh frame indices3000..3999 on TCRF.",
+      "pilot_data_split": "G/OBS.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "CTX/OBS, same sigma2_int to F0/branches (`e2_driver.py:156`, `:179`).",
+      "frames_and_seeds": "All arms on a key share observation/F0 state; all rho/SNR share exogenous RNG. Frame indices disjoint from E1 main."
+    },
+    {
+      "comparison_and_executed_path": "**E-2 C**. `experiments/tf_cstate_e2_20261017/launch_e2.sh:66`; `out/main_C/config_shard000.json:2`; `e2_driver.py:264`\u2013`:285`",
+      "snr_and_channel_normalisation": "Same sigma2_phys axis, **physical Frobenius energy/N=1** by rescaling actual co-delay CPP matrix (`e2_channels.py:129`\u2013`:167`); sum(abs(g)^2) need not remain1 after that. J4 means **1+Poisson(3) rays/tap**, not exactly4 (`:84`\u2013`:107`).",
+      "pilot_data_split": "Same physical sqrt(rho),sqrt(1-rho) law (`e2_channels.py:138`\u2013`:153`).",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "`e2_channels.py:193`\u2013`:195` adds sigma2_phys noise; `e2_driver.py:282` calls OBS, hence sigma2_int.",
+      "frames_and_seeds": "E2CJ entropy/domain (`e2_channels.py:19`\u2013`:45`) independent of P1/R even for same numeric frame index. Across rho/SNR and arms, channel/noise/codeword shared; `e2_driver.py:266`\u2013`:283`. Main0..999. rho.3 grid6/8/10/12, rho.5 grid8/10/12/14 (`out/calibrate/GRID.json:8`\u2013`:47`)."
+    },
+    {
+      "comparison_and_executed_path": "**E-3**. `experiments/tf_e3_sbl_20261017/launch_e3_waves.sh:23`; `out/main/config_shard000.json:2`; `e3_driver.py:247`\u2013`:267`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY; identical physical power/noise law despite internal .5 representation.",
+      "pilot_data_split": "G/OBS; data_true_af also divided by a (`e3_driver.py:250`\u2013`:254`).",
+      "constellation_and_eb_es": "Q/CODE; internal constellation energy=.5.",
+      "receiver_noise": "obs sigma2_int; E3 detector `e3_driver.py:121`\u2013`:124`; SBL beta0 uses 1/(sigma2_int+pd), 1/(sigma2_int+mean_v), or genie1/sigma2_int (`:152`\u2013`:202`). SBL subsequently **learns beta**, rather than fixing it to known sigma2 (`sbl_rx.py:96`\u2013`:140`); this is the declared estimator.",
+      "frames_and_seeds": "TCRF frames4000..4399, all four (U/G,rho) cells, grid6..11; variants share same observation/stage1/round1. rho/SNR/noise/codeword paired via CTX/RNG."
+    },
+    {
+      "comparison_and_executed_path": "**E-3b**. `experiments/tf_e3b_offgrid_20261017/launch_e3b.sh:65`; `out/main/config_shard000.json:2`; `e3b_driver.py:210`\u2013`:231`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY unchanged; calls E3.observe_key verbatim.",
+      "pilot_data_split": "G/OBS; rho.3 physical, data=.5 internal.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "sigma2_int from obs (`e3b_driver.py:98`\u2013`:111`), passed to refinement (`:171`) and E3 detector; SBL beta learning unchanged.",
+      "frames_and_seeds": "TCRF4000..4199, U/G,rho.3,6..11; shared with E3 subset; no claim of fresh confirmation (`res-20261017-04.md:31`)."
+    },
+    {
+      "comparison_and_executed_path": "**E-3c**. `experiments/tf_e3c_shrink_20261018/launch_e3c.sh:26`; **qualified_v3** `out/qualified_v3/main/config_shard000.json:2`; `e3c_driver.py:295`\u2013`:305`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY unchanged; exact E3.observe_key.",
+      "pilot_data_split": "G/OBS; actual physical/internal power recorded at `e3c_driver.py:121`\u2013`:126`.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "sigma2_int from obs (`e3c_driver.py:78`\u2013`:91`); same detector and declared SBL/regularisation interventions.",
+      "frames_and_seeds": "Same TCRF4000..4099 U/G,rho.3,6..11 subset; all six arms share observation; reused old E3b/E3 inputs (`res-20261018-01.md:12`)."
+    },
+    {
+      "comparison_and_executed_path": "**GSO**. `experiments/tf_gso_20261018/launch_gso.sh:66`; `out/main/config_shard000.json:2`; `gso_driver.py:304`\u2013`:309`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY through CTX and E3.observe_key.",
+      "pilot_data_split": "G/OBS; rho.3 physical, internal .5.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "sigma2_int from obs (`gso_driver.py:95`\u2013`:108`); LS0 explicitly ridge=sigma2_int (`:64`\u2013`:77`), SBL learns beta.",
+      "frames_and_seeds": "Same1200 keys/TCRF4000..4099 as E3c (`PROTOCOL.md:25`); all six arms share observation/stage1/round1."
+    },
+    {
+      "comparison_and_executed_path": "**10-18 prospective S/K**. `experiments/tf_split_prosp_20261018/launch_sp.sh:69`\u2013`:73`; `out/main/REMOTE_ROWS_MD5.txt:17`\u2013`:32`; `sp_driver.py:418`\u2013`:436`",
+      "snr_and_channel_normalisation": "P1 G/A1/PHY via same E3.observe_key for both families; no new channel family.",
+      "pilot_data_split": "G/OBS; S rho.3; K rho.3/.5.",
+      "constellation_and_eb_es": "Q/CODE.",
+      "receiver_noise": "Same sigma2_int for both families (`sp_driver.py:124`, `:270`; common E3 detector and E1 branch). SBL beta learns in S; K ridge/detector use obs sigma2.",
+      "frames_and_seeds": "New TCRF7000..7199 (`sp_lib.py:41`\u2013`:48`). Same exogenous frame across S/K,U/G,rho,SNR; U/G channels differ only Doppler; S6..11, K4.5..8. Actual remote main config_S_shard000 and config_K_shard000 were read and MD5-verified against the main manifest: S 8974109dd7146cad49af6acdf8d4aff9, K 57c0530f4eb0553015e81d498db6af1c; both register [7000,7200), TCRF and system rho=.5/p_d=.5. Verified shard0 coordinates: S rho300/SNR600..1100, K rho300,500/SNR450..800; these are actual run configs, not gate configs."
+    }
+  ],
+  "common_sources": {
+    "G": {
+      "evidence": "`experiments/tcom_reference_frame_20261015/gen_fixed.py:303`\u2013`:343`",
+      "definition": "`sqrt(1-rho)*qpsk_map(coded,scale=1)`, `sqrt(rho)*zc`, complex unit noise, `sigma2=10**(-snr/10)`, then physical observation."
+    },
+    "A1": {
+      "evidence": "`experiments/tcom_reference_frame_20261015/gen_fixed.py:263`\u2013`:283`; `:151`\u2013`:156`",
+      "definition": "Unit Rayleigh-amplitude norm; `fix_energy=True` leaves scale=1, without rescaling the truncated virtual-Doppler matrix."
+    },
+    "OBS": {
+      "evidence": "`experiments/headroom_ladder_20261008/driver.py:227`\u2013`:240`",
+      "definition": "`a=sqrt(2*(1-rho))`; receiver `y,pilot` divided by a; `sigma2` divided by a\u00b2; receiver data energy exactly .5."
+    },
+    "PHY": {
+      "evidence": "`experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py:72`\u2013`:136`",
+      "definition": "Physical CPP rebuild replaces the preliminary truncated-atom channel; records channel energy; SNR reuse scales only the same noise array."
+    },
+    "Q": {
+      "evidence": "`experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py:178`\u2013`:191`",
+      "definition": "QPSK `(\u00b11\u00b1j)/sqrt(2)`, I bits followed by Q bits; unscaled symbol energy 1. No Eb/N0 conversion."
+    },
+    "CODE": {
+      "evidence": "`experiments/sp_afdm_frozen_20260920/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py:105`\u2013`:111`; `experiments/tcom_reference_frame_20261015/p2b_driver.py:59`\u2013`:60`",
+      "definition": "SP n=2048, k=1024, N=1024; frozen generator-matrix SHA256 `bfd42472\u2026aa6af`."
+    },
+    "RNG": {
+      "evidence": "`experiments/tcom_reference_frame_20261015/p1_driver.py:42`\u2013`:47`, `:118`\u2013`:126`, `:341`\u2013`:362`",
+      "definition": "TCRF entropy/domain + frame + component (channel=1,message=2,noise=3); no rho/SNR/scenario coordinate. Paired fingerprints asserted."
+    },
+    "CTX": {
+      "evidence": "`experiments/tcom_channel_crb_20261016/p1ctx.py:13`\u2013`:27`; `experiments/tcom_genie_support_20261016/gs_driver.py:57`\u2013`:59`",
+      "definition": "All later P1 families regenerate the same frame with P1 seeds then reuse it at SNR; `gd.observe` calls OBS."
+    },
+    "DET": {
+      "evidence": "`experiments/sp_afdm_native_joint_20260921/src/native_twofft.py:15`\u2013`:22`; `experiments/tf_cstate_validation_20260922/run_validation.py:59`, `:88`; `experiments/cstate_necessity_stageA_20260928/native_f1.py:24`\u2013`:41`",
+      "definition": "CE ridge and detector use the passed internal sigma2; native data power `1-system.rho=.5`; F1 explicitly uses .5."
+    }
+  },
+  "remote_artifacts": [
+    {
+      "path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/generator_snr_audit_20261019/out/main/parameter_draws.npz",
+      "md5": "853ecae4820a74221faca002619c2055",
+      "bytes": 1208482
+    }
+  ],
+  "runtime_evidence": "out/main/runtime.json",
+  "definition_table": "definitions.md",
+  "checkpoint_moment_2": {
+    "observation": "450 operator comparisons, 1650 energy measurements in 29 groups, 140 law tests and registered invariants completed.",
+    "frozen_verdict": "OK for the tested scope; no scientific BLOCKER/MAJOR.",
+    "untested_explanation": null,
+    "prediction_ledger": {
+      "H0_prior": 0.8,
+      "Hpower_prior": 0.15,
+      "Hoperator_prior": 0.05,
+      "observed_registered_outcome": "H0 supported within audited scope",
+      "multiclass_brier_score": 0.065
+    }
+  },
+  "limitations": [
+    "Finite sampled generator/definition audit; no receiver/decoder, FER, MCRB or genie-result recomputation was performed.",
+    "P1 complex gains were regenerated and authenticated against saved gain-array SHA256; stored E1 delays/Dopplers and C complex gains were used. The preserved P1 source snapshot and current default-path equivalence distinguish the later scenario-S extension.",
+    "Distributional non-rejection is not proof of equality. Discrete KS tests are conservative; the 140 tests use the frozen Holm family at alpha=.01, preserving the shared-frame sampling design.",
+    "Nominal SNR uses unit nominal pilot-plus-data energy per useful symbol, excluding CPP energy. Realized pilot/data cross terms and noise energy vary; P2b compares equal nominal total energy, with its disclosed +1.255 dB EP energy per information bit."
+  ],
+  "delivery": {
+    "report_commit_owner": "orchestrator",
+    "codex_commit_attempted": false,
+    "push_performed": false
+  }
+}

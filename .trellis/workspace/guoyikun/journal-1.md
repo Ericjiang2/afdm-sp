@@ -669,3 +669,624 @@ Task 10-08-doppler-cluster (research parent stays open).
 ### Status
 
 [OK] **Completed**
+
+
+## Session 19: Bounds screens and F0+CSTATE TCOM reference frame
+
+**Date**: 2026-10-16
+**Task**: Bounds screens and F0+CSTATE TCOM reference frame
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Upper-bound screen (res-20261015-01, UNINFORMATIVE; bracket with LB too wide). Mainline switched to F0+CSTATE. Child task 10-15-tcom-reference-frame: generator fixes (D1/D2/A1), P1 fresh confirmation (H1 INCONCLUSIVE by one point, H3 PASS, near genie at rho .5), P2b embedded pilots (infeasible in main channel; SP better at rho .3), P2a Zheng 2025 (printed constants do not reproduce; port incl. Z-OMP never reaches 1e-2 by 8 dB, H5 PASS). Three cards accepted; res-20261015-02 supersedes SCOPED items 11-12. Task archived; BCRB follow-up started in its own session.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `2ba31064` | (see git log) |
+| `7895315a` | (see git log) |
+| `4f0ebe56` | (see git log) |
+| `f5e1cafe` | (see git log) |
+| `8c9e96da` | (see git log) |
+| `edd06d27` | (see git log) |
+| `f36047d8` | (see git log) |
+| `afa4c039` | (see git log) |
+| `2cd61b7c` | (see git log) |
+| `1f28139e` | (see git log) |
+| `5313e43f` | (see git log) |
+| `06935d42` | (see git log) |
+| `d727b09e` | (see git log) |
+| `6c1f0815` | (see git log) |
+| `1234b71f` | (see git log) |
+| `6bb5fa3b` | (see git log) |
+| `6c20abf0` | (see git log) |
+| `f2e35c46` | (see git log) |
+| `43baf559` | (see git log) |
+| `7b908e8a` | (see git log) |
+| `0cfbd43b` | (see git log) |
+| `09eedc33` | (see git log) |
+| `6ff70752` | (see git log) |
+
+### Status
+
+[OK] **Completed**
+
+
+## Session 20: E3c completed: ridge recovery and gain-refit control
+
+**Date**: 2026-10-18
+**Task**: E3c completed: ridge recovery and gain-refit control
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+E3c-first milestone completed; full research task remains in progress.
+
+### Main Changes
+
+- 1200 paired keys completed; six-arm result card remains draft.
+- Fixed-geometry gain control corrects E3b causal interpretation; broad audit deferred.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `e1bfd013` | (see git log) |
+
+### Testing
+
+- [OK] Qualification gates passed; independent result check verified 318227 numeric leaves and all 1200 keys.
+- [OK] Frozen source unchanged; summary SHA256 matched; total charged budget 9.507352 core-hours.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- Await user interpretation/acceptance; old-campaign audit and fresh predictions remain deferred.
+
+
+## Session 21: Audits, P correction and slot-mismatch pilots
+
+**Date**: 2026-10-19
+**Task**: Audits, P correction and slot-mismatch pilots
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Generator/SNR audit and saved-row recount clean; P-known correction; slot and edit-budget pilots show the full/scalar gap does not depend on spare slots or edits. Full ledger: .trellis/tasks/09-22-tf-production-gap-audit/research/ledger-20261019.md
+
+### Main Changes
+
+- Gemini Deep Research reviewed: no new direction; cheap items and citation fixes recorded
+- Rank-inversion check (Gemini report 2): PARTIAL, rho factor has the wrong sign (exploratory)
+- res-20261016-01 explicit correction: receivers cap paths at max_paths=8 = true P
+- Independent recount of E-1/E-2/E-3/E-3b reproduces 212 frozen scalars; Codex generator/SNR audit: no BLOCKER/MAJOR
+- Slot-mismatch pilots 1-3 and zero-sim checks: gap ratio .90 (spare slots), 1.00 (doubled edits); raising the edit budget is not a weak-path route
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `56e3874f` | (see git log) |
+| `5f268d65` | (see git log) |
+| `5adff9c7` | (see git log) |
+| `0c2e09c9` | (see git log) |
+| `3f5d2b83` | (see git log) |
+| `1975541a` | (see git log) |
+
+### Testing
+
+- [OK] Gates: variant receive 40/40, E-2 reproduction 58/58, edit-kernel variant 48/48 bit-exact; independent recounts match
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- Detector gain re-estimation hypothesis (possible unification of the SBL reversal): zero-sim check first, after an independent model's direction review
+- Slot-mismatch confirmation on frames 10000-10999 after protocol fixes
+- Paired Luo-style SBL baseline with timing; pending acceptances listed in the ledger
+
+
+## Session 22: Detector-gain lead: zero-sim check, CSTATE and SBL pilots
+
+**Date**: 2026-10-19
+**Task**: Detector-gain lead: zero-sim check, CSTATE and SBL pilots
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Pilots 4-5 and a zero-sim check support the detector-interface lead: near-duplicate co-delay atoms hurt when the detector re-estimates gains jointly; in SBL the scalar/full ordering flips with the detector interface. Records consolidated; staged-look tip added to the rules repo (722c0f0).
+
+### Main Changes
+
+- Zero-sim on 10-18 K rows: fixed-gain benefit only in units with near-collinear co-delay pairs (+.068 vs -.010), P7 held
+- Pilot 4 (CSTATE side): fixed gains rescue .184 and merging .127 of scalar-Gamma phantom failures; ~80% unrescued
+- Pilot 5 (SBL side): fixed detector scalar .024 vs full .088; joint detector scalar .101 vs full .018; interaction +.148
+- Findings placement: open leads in STATE, killed leads in the negative-results ledger, predictions in the prediction ledger; audit card res-20261019-01 (draft); AGENTS.md points Codex to the record table
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `14db22de` | (see git log) |
+| `01521088` | (see git log) |
+| `9c244fb9` | (see git log) |
+| `d8dd854a` | (see git log) |
+| `1090a270` | (see git log) |
+
+### Testing
+
+- [OK] Gates bit-exact against saved 10-18 and E-3 rows; independent recounts match
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- Prospective confirmation of the detector-interface unification on fresh frames (rho .5, more SNRs, E-3b off-grid), after an independent model's direction review
+- Then decide whether the paper main line adopts the unified Claim B
+
+
+## Session 23: Bounded SBL detector diagnostic: mean-only harm, joint mitigation
+
+**Date**: 2026-10-20
+**Task**: Bounded SBL detector diagnostic: mean-only harm, joint mitigation
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Delivered the user-requested first small result and stopped: 200 paired keys/50 old frame clusters, scalar FER fixed .020, point .200, joint .115. Mean-only mode harms decoding despite improved average channel NMSE; joint mode mitigates point harm. No mechanism claim promotion or expansion.
+
+### Main Changes
+
+- Added frozen-pipeline three-mode driver, trajectory observer, strict replay and frame-cluster analysis; preserved original aggregation failure and analysis-only repair.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `d3e4a468` | (see git log) |
+| `f7d5d4a8` | (see git log) |
+| `2b856d2a` | (see git log) |
+
+### Testing
+
+- [OK] Real gate, all 200 old-result replays, six-arm independent raw counts and 12 raw hashes verified; 3 aggregation regression tests pass; local independent code and evidence review.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- User evaluates the small exploratory result before deciding any further study; parent remains open.
+
+
+## Session 24: Bounded SBL final-gain restart readout
+
+**Date**: 2026-10-20
+**Task**: Bounded SBL final-gain restart readout
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Approved RF/P40 replay finished on 200 old paired keys; RF 20 failures, P40 41 versus point20 40 and fixed20 4. Reset/freeze remains combined; awaiting user assessment.
+
+### Main Changes
+
+- Recorded the source-gate collision and minimal alias fix; preserved failed run1 and successful run2 receipts.
+- Scored P17-P19, linked the exploratory readout in STATE, retained scientific acceptance and task archive as pending.
+- User delegation preference persisted in canonical personal-ai-workflow source and installed across three clients; no new sub-agent was spawned.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `feffc7ed` | (see git log) |
+| `50d79546` | (see git log) |
+| `0ca77870` | (see git log) |
+
+### Testing
+
+- [OK] Two aggregation tests, compilation and shell syntax; real receiver/source/prefix gates; direct 200-key raw recount and source/hash bindings.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- User assesses this bounded result; no automatic extra arm, sample extension, claim promotion or archive.
+
+
+## Session 25: Matched SBL restart-point addendum
+
+**Date**: 2026-10-20
+**Task**: Matched SBL restart-point addendum
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+User-approved RP single arm completed on all 200 old keys: RP31 failures versus RF20 and continuous P4041; both directional paired cluster criteria pass. Conditional operational effects only.
+
+### Main Changes
+
+- Added only new entry/aggregate/tests/launcher; reused saved h20/prior with no SBL rerun and preserved original results.
+- Reused one existing latest-Sol agent, qualified real RF replay and first-update equality, scored P20/P21 and linked bounded readout in STATE.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `99f918be` | (see git log) |
+| `1081e27a` | (see git log) |
+
+### Testing
+
+- [OK] Seven aggregate tests and syntax checks; full source/input/hash gates; independent raw recount. EXIT0, 14.50s wall, about .0284 core-hours.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- User assesses the result; no automatic additional arm, scientific claim promotion or archive.
+
+
+## Session 26: Zero-simulation SBL trajectory analysis
+
+**Date**: 2026-10-21
+**Task**: Zero-simulation SBL trajectory analysis
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+All200 old keys/six arms analyzed with no receiver calls. Scalar point-fixed full20 E increases and V decreases; positive gap interaction, but mismatch shared by full Gamma and not a unique causal explanation.
+
+### Main Changes
+
+- Delivered four-panel PNG/editableSVG, paired time-average/endpoint statistics and complete provenance; preserved original raw and scripts.
+- Used pre-update h alignment and common internal symbol units, scored informed T1/T2 checks, and reported generic mismatch plus cell/time-average limitations.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `ef324633` | (see git log) |
+| `ef8f09fe` | (see git log) |
+
+### Testing
+
+- [OK] Thirteen combined tests, compile, actual raw/config/helper/endpoint qualification, independent raw-average recomputation, source/derived hashes and visual inspection. EXIT0, one CPUthread, 4.16s wall.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- User assesses this bounded diagnostic; no automatic causal intervention, new frames, claim promotion or archive.
+
+
+## Session 27: Matched physical-prior duplicate representation probe
+
+**Date**: 2026-10-21
+**Task**: Matched physical-prior duplicate representation probe
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Exact H0 and working Gaussian prior preserved under uniform2x duplication; fixed/first-symbol invariant, first point aggregate update differs by a verified closed form in one synthetic and one predetermined old real case.
+
+### Main Changes
+
+- Recorded independently reviewed derivation, frozen native two-case probe and source/input receipts; no SBL rerun or old source modification.
+- Located sensitivity at first point gain update, with exact Gaussian posterior controls invariant. Real final LLR max difference9.53; no population FER or actual Gamma-reversal attribution.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `c4635b24` | (see git log) |
+| `e7b55f97` | (see git log) |
+
+### Testing
+
+- [OK] Seventeen tests, compilation, native physical/prior/fixed/first-symbol gates, baseline/h20 replay, formula residual<1.2e-16, independent recorded posterior/formula/hash verification. OneCPU, EXIT0,4.73s.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- User assesses bounded structural result; no automatic near-duplicate sweep, new cohort, receiver modification, claim promotion or archive.
+
+
+## Session 28: Matched soft-Gram block derivation and minimal qualification
+
+**Date**: 2026-10-21
+**Task**: Matched soft-Gram block derivation and minimal qualification
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Full local gain block preserves uniform-duplicate physical/state/LLR invariance; diagonal does not. Same two predetermined cases only; no population claim.
+
+### Main Changes
+
+- Derived matched full/diagonal expected-log Gaussian gain solves with alpha=noise*P and the same pre-symbol snapshot; preserved all original sources/results.
+- Completed missing all-step LLR observation using a return-preserving wrapper on the same cases. Numerical outputs match gate1 exactly; real errors full0/diag351/native42, old fixed0.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `5d2feb6e` | (see git log) |
+| `62f70a16` | (see git log) |
+| `86e20c09` | (see git log) |
+
+### Testing
+
+- [OK] Twenty-two NumPy tests, four-module compilation, native bit-exact clone and saved h20/score replay, dense mixed-delay Gamma, full20 state/covariance/LLR aggregation, independent saved-system/source/SHA verification. Two oneCPU runs EXIT0, total10.11s wall.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- User evaluates bounded candidate; do not launch200-key study, promote claims or archive without scientific acceptance.
+
+
+## Session 29: Actual-support soft-Gram200-key screening and independent audit
+
+**Date**: 2026-10-21
+**Task**: Actual-support soft-Gram200-key screening and independent audit
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Both full-block arms decode all200 old keys; log loss lower versus best native, with higher instrumented cost and inconclusive low-event FER superiority.
+
+### Main Changes
+
+- Reused both frozen upstream support/h0 outputs and saved priors; ran800 new block calls plus1200 native matched replays, zero SBL fits. Preserved old sources/results.
+- Corrected an infeasible low-event forecast before freeze. Reported all ten arms/cells, paired contrasts, diagnostic compute and explicit non-claims; no new frames or Gemini transmission.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `ee5882ce` | (see git log) |
+| `9ffa2efd` | (see git log) |
+
+### Testing
+
+- [OK] Thirty-two contract tests, compilation/shell syntax, all native replays, source/prior/raw/primitive gates; independent zero-call raw/primary-bootstrap recount and local/remote hashes pass. Main2000/2000 plus gate16/10 calls; DONE EXIT0,32.77s wall.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- Independent Gemini assessment is now useful before user decides new-frame validation; no claim promotion or archive.
+
+
+## Session 30: Independent Opus5.5 high review of soft-Gram disputes
+
+**Date**: 2026-10-21
+**Task**: Independent Opus5.5 high review of soft-Gram disputes
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Completed one explicitly authorized Claude Opus5.5 high review; it supports five bounded objections and differs on experiment priority. Independently qualified reviewer assumptions; no new receiver experiments or claim changes.
+
+### Main Changes
+
+- Archived the complete prompt, original Gemini text, untouched Claude CLI reply, authorization chronology and hash manifest; preserved original source whitespace.
+- Recorded agreements, useful matrix construction cost reminder, goal-dependent ablation priority and corrected reviewer assumptions in the active Trellis task.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `7100551f` | (see git log) |
+
+### Testing
+
+- [OK] CLI success, canonical model claude-opus-5-5, explicit effort high; all twelve archive manifest hashes pass. Saved-prior moment calculation falsifies the uniform initial variance assumption without receiver calls.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- Present the reviewed opinion to the user; do not automatically launch experiments or further model debate.
+
+
+## Session 31: Audited Gamma-only off-diagonal ablation on saved SBL cohort
+
+**Date**: 2026-10-21
+**Task**: Audited Gamma-only off-diagonal ablation on saved SBL cohort
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Keeping full BHB but deleting Gamma offdiagonals raises logloss under both saved upstreams; independent raw and bootstrap audit passes. Existing old cohort only, no SBL/newframes or claim promotion.
+
+### Main Changes
+
+- Added narrow covariance facade and reused immutable full-loop/ref results; pre-run protocol and informed GA1/GA2 forecasts frozen before real calls. Fixed original-Gamma PSD projection and actual gate-full schema gaps before launch.
+- Archived compact results/receipts and kept7745248raw bytes remote with hashes; cleaned only this runs disposable cache directories. User clarified context/cache reuse priority: reuse existing agents with incremental handoffs; actual cache hits require usage evidence.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `1198b266` | (see git log) |
+| `03b6be16` | (see git log) |
+
+### Testing
+
+- [OK] Eight focused tests, compilation/shell syntax, gate8full replay and8observer assertions pass. DONE EXIT0 in32.20s,0.04869corehours;400/400main plus24/16gate calls. Independent zero-call raw/count/source/bootstrap verification passes, maximum CI/point deviation2.08e-17.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- Keep full Gamma as candidate pending user decision on prospective new-frame validation; no automatic experiment, external discussion, mainline switch or archive.
+
+
+## Session 32: Prospective fresh-frame soft-Gram score validation
+
+**Date**: 2026-10-21
+**Task**: Prospective fresh-frame soft-Gram score validation
+**Branch**: `trans/tcom-main`
+
+### Summary
+
+Frozen full-block logloss benefit reproduces on50reserved fresh P1 frames/200keys: about12.7percent lower versus preselected native reference,1failure each versus4;FER unresolved. Independent saved-raw/source/count/bootstrap audit passes.
+
+### Main Changes
+
+- Refit both frozen SBL upstreams and shared round1 prior; evaluated only2full candidates and the fixed L-cov/native-joint reference. Reserved newframe IDs before outcomes, froze NF1/NF2, and qualified old-key inputs/endpoints before fresh generation.
+- Reused existing implement/review contexts with incremental handoffs. Fixed shared-loader and gate-config provenance before launch; kept20,276,050raw bytes remote with hashes and cleaned only verified run caches. No further study, tuning, novelty claim, deployment or archive.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `73882cff` | (see git log) |
+| `31bd1ee6` | (see git log) |
+
+### Testing
+
+- [OK] Nine focused synthetic tests plus affected corruption regression, compilation/shell syntax, old-key exact gate and complete fresh cohort pass.603SBL/804receiver/804decoder,101base generations,DONE EXIT0 in148.37s/.369611corehours. Independent zero-call bootstrap matches within2.08e-17; saved-vector/source qualification boundaries documented.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- User evaluates prospective same-model score result before choosing further reliability/cost/novelty evidence; do not automatically extend or promote claims.
+
+
+## Session 33: AFDM web publication screening and Opus design opinion
+
+**Date**: 2026-10-28
+**Task**: AFDM web publication screening and Opus design opinion
+**Branch**: `workbuddy/monetization`
+
+### Summary
+
+Planning only: screened committed evidence and reviewed a minimal shared-AgentDock design. Keep free-form conversation outside learning; prevent wrong-project file writes without OS isolation.
+
+### Main Changes
+
+- Created 10-28-afdm-web-evidence planning artifacts and reproducible coarse inventory: 897 initial files/23.46 MiB from 20172; retain all 49 cards, defer older tests/snapshots, no source deletion.
+- One tools-disabled claude-opus-5-5 high review, USD0.147915; simplify exchange to unsealed learning, identity and release pointer; evidence only in read-only drop.
+
+### Git Commits
+
+Planning artifacts are committed in the Git log; no deployment commit.
+
+### Testing
+
+- [OK] Inventory counts/bytes and seeds, safe paths, no default exam/source snapshots, reviewer model/effort/packet hashes and curated manifests checked; no deployment, runtime closure or web E2E.
+
+### Status
+
+[OK] **Planning/review deliverables complete; task remains planning**
+
+### Next Steps
+
+- User reviews latest design before any implementation/deployment; no GitHub/VPS project push or AFWDM changes.
+
+
+## Session 34: Deploy scoped AFDM web evidence and learning exchange
+
+**Date**: 2026-10-28
+**Task**: Deploy scoped AFDM web evidence and learning exchange
+**Branch**: `workbuddy/monetization`
+
+### Summary
+
+Published 909 selected evidence files and a five-file learning exchange on existing jgw AgentDock; AFWDM existing dirty work and refs unchanged. Updated canonical optional-delegation/GPT-6.1 Sol rule. Web acceptance remains with Eric; task stays in_progress.
+
+### Main Changes
+
+- Source/hash and effective-user read/write checks pass; shared service restart occurred once under explicit approval; host records committed/pushed to verified private host-jgw.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `820630b6` | (see git log) |
+
+### Testing
+
+- [OK] Eight targeted temporary-Git tests, Ruff and compilation passed; live payload/identity and AFWDM fingerprint checks passed; rule installer consistency passes. No actual web interaction, official test note or scientific calls.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- Eric manually verifies ChatGPT reading/learning. Do not archive until human acceptance; automatic approval rejected premature archive.
+
+
+## Session 35: Close AFDM web access after manual acceptance
+
+**Date**: 2026-10-28
+**Task**: Close AFDM web access after manual acceptance
+**Branch**: `workbuddy/monetization`
+
+### Summary
+
+Eric explicitly reported 我验收了 on 2026-10-28. Recorded user-reported web acceptance and archived only afdm-web-evidence; no repeated tests, deployment, source deletion or scientific calls.
+
+### Main Changes
+
+- Closed the manual acceptance gate and retained original deployment receipts; task archived under 2026-10.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `e31661d9` | (see git log) |
+
+### Testing
+
+- [OK] Record-only change: explicit acceptance verified against user message; no new web test claimed.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- Completed; normal use and future updates follow tools/web_access/README.md.
+
+## 2026-11-09 — Fixed-channel OAMP/LDPC screen
+
+User-authorized deinlab replay is complete. On the 40 archived 6.5 dB syndrome-triggered frames, OAMP recovers 9 after two LDPC calls versus fixed-TF 14, at median continuation times 0.629/0.086 s. Frozen screen fails. Separate raw recount checks 160 decoded checkpoints with no receiver reruns. Code/protocol `cd24f670`, initial result `a4af3f2e`. Scope and evidence are in `.trellis/tasks/09-22-tf-production-gap-audit/research/oamp-ldpc-screen-20261109.md`. No open follow-up was added.
+
+User-challenged fairness/cost follow-up completed the same adapter through20rounds (6/9/12/14/15rescues at1/2/5/10/20;24frames still changing at20). Exact cyclic-band LE parity on one real frame passes and reduces one-step dense setup/update median from0.573s to0.107s. Opus5.5 supplied-material review confirms LE correctness but limits naming to an isotropic turbo-LMMSE adapter. Original budget counts stand, previous implication of OAMP elimination is explicitly corrected. Authorized reviewer packet, response, and synthesis are under the parent task's `research/oamp-review-20261109/`.
+
+User-requested complete cost comparison now measured serially on deinlab with alternating arm order. OAMP20 versus TF2 continuation medians1.114289/.086183s (12.929×); setup .578938s, OAMP decoder .480448s. All880 saved checkpoints reproduce exactly, compact timing aggregation passed locally. Source `f6bc287a`, output `outputs_oamp_ldpc_20261109/timing20_v1/timing_results.json`. Common native prefix excluded, dense implementation and fixed rounds without early termination.

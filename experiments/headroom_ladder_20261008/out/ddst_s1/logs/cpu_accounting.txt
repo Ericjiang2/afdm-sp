@@ -1,0 +1,3 @@
+Concurrency management (not a protocol change): shards 20-39 were SIGSTOPped 04:38:03 UTC (after ~8 min CPU each) and released one by one 04:48-04:52 UTC as shards 0-19 exited, to cut memory/cache contention (40 concurrent shards: 375 s per frame; 20 concurrent: ~225 s; quiet single process: 122 s). Rows are unaffected; one arm-run per stopped shard has an inflated wall time (excluded from the timing means).
+
+CPU seconds per shard (last ps sample before exit, <= 30 s stale): total 47226 = 13.12 core-hours; per shard min 1074 max 1316

@@ -1,5 +1,11 @@
 # AFDM–SP：I1 为什么强，下一步还能突破什么
 
+## 2026-09-14：A/B 阶段结束后的研究判断
+
+最新A/B没有合格候选。当前重新排序与完整推导见[后续研究判断](.trellis/tasks/09-13-trans-next/research/brainstorm-after-ab-20260914-v2.md)：优先判别固定离散模型中联合信道不确定性是否仍有可兑现检测价值；结构化软输出计算为备选；表示—估计风险分解作为机制理论。本文旧建议按各自日期理解，不恢复已停止配方。
+
+本次是科学咨询与本地代数核验，不切换任务或执行阶段，不修改CSV/STATE、论文或旧实验资产，不启动接收仿真。候选优势与新颖性仍未证明。
+
 ## 2026-09-13：后续轻量实测更新
 
 本轮指定轻量判别、冻结候选的新鲜CPU开发和原始总账已完成，完整结果见[本批报告](.mission/20260912_14-15-00-afdm-light-gap-closure/results.md)。[新推导与逐轮重估](.mission/20260912_14-15-00-afdm-light-gap-closure/research/l16-reassessment-v1.md)仍以报文风险和完整成本为对象，状态为 **COHERENT AFTER REFRAMING / EXTRA ASSUMPTION**：局部恒等式成立，新算法优势尚未确认。

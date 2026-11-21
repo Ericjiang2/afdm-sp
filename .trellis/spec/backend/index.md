@@ -19,7 +19,10 @@ This directory contains guidelines for backend development. Fill in each file wi
 | [Error Handling](./error-handling.md) | Error types, handling strategies | To fill |
 | [Quality Guidelines](./quality-guidelines.md) | Code standards, forbidden patterns | To fill |
 | [Logging Guidelines](./logging-guidelines.md) | Structured logging, log levels | To fill |
+| [Research Diagnostics](./research-diagnostics.md) | Receiver interventions, cache domains, pairing and experiment evidence | Active |
+| [Covariance Experiment Evidence](./covariance-experiment-evidence.md) | Actual import identity, tiny-variance checks and shared-frame resampling | Active |
 | [Structured Inference](./structured-inference.md) | Prior transport, collapsed scores, tilted messages and potential contracts | Active |
+| [Web Evidence](./web-evidence.md) | Selected jgw replicas, project boundaries and reviewed learning return | Active |
 
 ---
 

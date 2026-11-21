@@ -1,0 +1,900 @@
+Fast Marginal Likelihood Maximisation for
+Sparse Bayesian Models
+Michael E. Tipping and Anita C. Faul
+Microsoft Research, Cambridge, U.K.
+
+....................................................................
+ Published as:           “Fast marginal likelihood maximisation for sparse Bayesian models.” In C. M. Bishop
+                         and B. J. Frey (Eds.), Proceedings of the Ninth International Workshop on Artificial
+                         Intelligence and Statistics, Key West, FL, Jan 3–6.
+ Year of publication:    2003
+ This version typeset:   June 26, 2006
+ Available from:         http://www.miketipping.com/papers.htm
+ Correspondence:         mail@miketipping.com
+
+
+
+
+Abstract         The ‘sparse Bayesian’ modelling approach, as exemplified by the ‘relevance vector machine’,
+                 enables sparse classification and regression functions to be obtained by linearly-weighting
+                 a small number of fixed basis functions from a large dictionary of potential candidates.
+                 Such a model conveys a number of advantages over the related and very popular ‘support
+                 vector machine’, but the necessary ‘training’ procedure — optimisation of the marginal
+                 likelihood function — is typically much slower. We describe a new and highly accelerated
+                 algorithm which exploits recently-elucidated properties of the marginal likelihood function
+                 to enable maximisation via a principled and efficient sequential addition and deletion of
+                 candidate basis functions.
+
+
+
+1    Introduction
+
+It is an understatement to say that there has been considerable focus on ‘sparse’ models in machine
+learning in recent years. The ‘support vector machine’ (SVM) [2, 12], and other related kernel
+approaches, have generated great interest.
+
+Typically, a sparse model would initially take the form:
+                                                      M
+                                                      X
+                                             y(x) =         wm φm (x),                                          (1)
+                                                      m=1
+
+where y(x) may be an intended approximation to a real-valued function of interest (i.e. regression)
+or a discriminant function (i.e. classification). Although the model is linear in the parameters, it
+may still be highly flexible as the size of the basis set, M , may be very large. Given a sample
+of N corresponding ‘training’ pairs {xn , tn }N n=1 , the objective is to find values for the weights
+w = (w1 , . . . wM )T such that y(x) generalises well to new data yet only a few elements of w are
+non-zero.
+
+The notion of setting weights to zero (as distinct from constraining them, say, to small values), is
+a compelling one in terms of controlling model complexity and avoiding over-fitting. A secondary
+feature is that inducing sparsity can be a highly effective method to control the computational
+characteristics of a resulting model. This can hopefully be exploited to an extent in the training
+procedure, but is typically much more valuable when the model is to be deployed in a practical
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                                      2
+
+
+
+scenario where CPU and memory resources may be significantly limited. Relevant examples would
+be an implementation of a handwriting recogniser on a hand-held computer or of an “AI engine”
+in a video game.
+
+In the SVM, the model is implicitly defined such that M = N and φm (x) = K(x, xm ), with
+K(·, ·) a positive definite kernel function and xm an example from the training set. (Typically, a
+‘bias’ would also be used.) As well as this definitional constraint, there are a number of other well-
+documented limitations of the SVM paradigm, most of which, such as the absence of posterior class
+probability estimates in classification, stem from there being no associated probabilistic model.
+
+To overcome this deficiency, some researchers have proposed modifications to the SVM framework
+itself [9, 5]. An alternative perspective is to consider the linear model (1) directly within a ‘sparse
+Bayesian’ framework, which leads to a model such as the ‘relevance vector machine’ (RVM) [10,
+11]. This approach is summarised in Section 2, and is able to utilise more flexible candidate
+models, which are typically much sparser, offers probabilistic predictions and avoids the need to
+set additional regularisation parameters. However, one drawback of this approach is that the run
+time for the existing training algorithm scales approximately in the cube of the number of basis
+functions1 preventing practical application of the algorithm to large data sets. Conversely, there
+now exist some very effective algorithms for efficiently training SVMs on large-scale problems [8, 4].
+
+In this paper we present an accelerated training algorithm for sparse Bayesian models. Specifi-
+cally, we exploit a recent result concerning the properties of the marginal likelihood function [3],
+discussed in Section 3, to derive a ‘constructive’ method for maximisation thereof. The original
+RVM algorithm [10] commenced with all the M basis functions included in the model, and updated
+hyperparameters iteratively. As a consequence of these updates, some basis functions would be
+‘pruned’ and the algorithm would accelerate, but nevertheless the first few iterations would still
+require O(M 3 ) computations. In the algorithm described in Section 4 we initialise with an ‘empty’
+model, and sequentially ‘add’ basis functions to increase the marginal likelihood, and also modify
+their weightings. Within the same principled framework, we can also increase the objective func-
+tion by ‘deleting’ functions which subsequently become redundant. This is an important feature,
+as it offsets the inherent ‘greediness’ that is exhibited by other sequential algorithms of this type.
+
+We compared the performance of the method with both the original RVM algorithm, as well as
+with that of an SVM implementation, on some examples in Section 5, and summarise in Section
+6. Some further implementation details for the algorithm are included in an appendix.
+
+
+
+2     Sparse Bayesian Modelling
+
+We describe the sparse Bayesian regression model first, and consider the adjustments required for
+classification later.
+
+
+2.1     Regression
+
+Given a data set {xn , tn }N
+                           n=1 we write the targets as a vector t = (t1 , . . . , tN ) , and express it as the
+                                                                                      T
+
+
+sum of an approximation vector y = (y(x1 ), . . . , y(xN )) and an ‘error’ vector ² = (²1 , . . . , ²N )T :
+                                                           T
+
+
+
+
+                                                  t = y + ²,
+                                                    = Φw + ²,                                                  (2)
+   1 For the RVM, this is equivalent to the number of data points, as in the SVM. Unlike the SVM though, the
+
+sparse Bayesian framework permits use of arbitrarily sized sets of arbitrary basis functions, so computation can be
+constrained by explicitly reducing the basis size if so desired.
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                                         3
+
+
+
+where w is the parameter vector and where Φ = [φ1 . . . φM ] is the N × M ‘design’ matrix whose
+columns comprise the complete set of M ‘basis vectors’.
+
+The sparse Bayesian framework makes the conventional assumption that the errors   QN are modelled
+probabilistically as independent zero-mean Gaussian, with variance σ 2 : so p(²) = n=1 N (²n |0, σ 2 ).
+This is of course equivalent to a mean-squared-error criterion. The parameter σ 2 can be set in
+advance if known but more usually would be estimated from the data. This error model thus
+implies a multivariate Gaussian likelihood for the target vector t:
+                                                          ½             ¾
+                                   2        −N/2 −N          kt − yk2
+                           p(t|w, σ ) = (2π)     σ    exp −               .                       (3)
+                                                                2σ 2
+
+This likelihood function is complemented by a prior over the parameters which takes the form:
+                                                       M
+                                                       Y           µ      2
+                                                                            ¶
+                                                                      αm wm
+                              p(w|α) = (2π)−M/2             1/2
+                                                           αm   exp −         .                                   (4)
+                                                       m=1
+                                                                        2
+
+Of note here is the introduction of M independent hyperparameters, α = (α1 , . . . , αM )T , each one
+individually controlling the strength of the prior over its associated weight. It is this form of prior
+that is ultimately responsible for the sparsity properties of the model (for more insight, see [11]).
+Given α, the posterior parameter distribution conditioned on the data is given by combining the
+likelihood and prior within Bayes’ rule:
+
+                                p(w|t, α, σ 2 ) = p(t|w, σ 2 )p(w|α)/p(t|α, σ 2 ),                                (5)
+
+and is Gaussian N (µ, Σ) with
+
+                                 Σ = (A + σ −2 ΦT Φ)−1            µ = σ −2 ΣΦT t,                                 (6)
+
+and A defined as diag (α1 , . . . , αM ). Rather than extending the model to include Bayesian inference
+over those hyperparameters (which is analytically intractable), a most-probable point estimate αMP
+may be found via a type-II maximum likelihood procedure. That is, sparse Bayesian ‘learning’ is
+formulated as the (local) maximisation with respect to α of the marginal likelihood 2 , or equivalently,
+its logarithm L(α):
+                                                      Z ∞
+                                              2
+                      L(α) = log p(t|α, σ ) = log          p(t|w, σ 2 ) p(w|α) dw,
+                                                            −∞
+                                   1£                            ¤
+                                = − N log 2π + log |C| + tT C−1 t ,                                               (7)
+                                   2
+with
+                                              C = σ 2 I + ΦA−1 ΦT .                                               (8)
+A point estimate µMP for the parameters is then obtained by evaluating (6) with α = αMP , giving
+a final (posterior mean) approximator y = ΦµMP . The crucial observation is that typically the
+optimal values of many hyperparameters are infinite [11]. From (6) this leads to a parameter poste-
+rior infinitely peaked at zero for many weights wm with the consequence that µMP correspondingly
+comprises very few non-zero elements.
+
+
+2.2     Classification
+
+Sparse Bayesian classification follows an essentially identical framework as detailed for regression
+above, but using a Bernouilli likelihood and a sigmoidal link function to account for the change in
+the target quantities. As a consequence, there is an additional approximation step in the algorithm.
+   2 This implicitly assumes a flat hyperprior over log(α), which as well as being a practically convenient choice, is
+
+also pleasingly invariant to the scale of the target quantities. More general hyperpriors are considered in [11, 1].
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                         4
+
+
+
+Applying the logistic sigmoid link function σ(y) = 1/(1 + e−y ) to y(x) and, adopting the Bernoulli
+distribution for P (t|x), we write the likelihood as:
+                                    N
+                                    Y                                         1−tn
+                        P (t|w) =         σ{y(xn ; w)}tn [1 − σ{y(xn ; w)}]          ,            (9)
+                                    n=1
+
+where, following from the probabilistic specification, the targets tn ∈ {0, 1}.
+
+Unlike the regression case, the weights cannot be integrated out analytically, precluding closed-
+form expressions for either the weight posterior p(w|t, α) or the marginal likelihood P (t|α). We
+thus utilise the Laplace approximation procedure, as used in [6]:
+
+
+  1. For the current values of α, the the mode of the posterior distribution is found iteratively to
+     give the ‘most probable’ weights µMP .
+      Since p(w|t, α) ∝ P (t|w)p(w|α), this is equivalent to finding the maximum, over w, of
+
+                           log {P (t|w)p(w|α)} =
+                               N
+                               X                                        1
+                                  [tn log yn + (1 − tn ) log(1 − yn )] − wT Aw,                  (10)
+                              n=1
+                                                                        2
+
+      with yn = σ{y(xn ; w)}. This is a standard procedure, since (10) is a penalised logistic log-
+      likelihood function, and necessitates iterative maximisation. We used a second-order Newton
+      method by adapting the efficient ‘iteratively-reweighted least-squares’ algorithm (e.g. [7]) to
+      find µMP .
+
+  2. Laplace’s method is simply a quadratic approximation to the log-posterior around its mode.
+     The quantity (10) is differentiated twice to give:
+                                                  ¯
+                              ∇w ∇w log p(w|t, α)¯µ = −(ΦT BΦ + A),                        (11)
+                                                         MP
+
+
+      where B = diag (β1 , β2 , . . . , βN ) is a diagonal matrix with βn = σ{y(xn )} [1 − σ{y(xn )}].
+      This is then negated and inverted to give the covariance Σ for a Gaussian approximation to
+      the posterior over weights centred at µMP .
+
+                                                                           ¯
+At the mode of p(w|t, α), using (11) and the fact that ∇w log p(w|t, α)¯µ = 0, we can see we
+                                                                             MP
+have effectively locally ‘linearised’ the classification problem around µMP with
+
+                                        Σ = (ΦT BΦ + A)−1 ,                                      (12)
+                                      µMP = ΣΦT Bbt,                                             (13)
+
+and
+                                      b
+                                      t = ΦµMP + B−1 (t − y).                                    (14)
+These equations are equivalent to the solution to a ‘generalised least squares’ problem. Compared
+with (6), it can be seen that the Laplace approximation effectively maps the classification problem
+to a regression one with ‘targets’ b t and data-dependent (heteroscedastic) noise, with the inverse
+noise variance for ²n given by βn = σ{y(xn )} [1 − σ{y(xn )}]. It will be convenient to utilise this
+linearised form in the classification variant of the newly-proposed algorithm.
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                          5
+
+
+
+3    Marginal Likelihood Maximisation
+
+The algorithm proposed in this paper is a particular strategy for maximisation of the marginal
+likelihood (7), the effectiveness of which is dependent on the properties thereof. We summarise
+some key properties here, and greater detail is given in [3].
+
+Considering the dependence of L(α) on a single hyperparameter αi , i ∈ {1 . . . M }, we can decom-
+pose C in (8) as
+                                       X
+                            C = σ2 I +      −1
+                                           αm  φm φTm + αi−1 φi φTi ,
+                                              m6=i
+
+                                   = C−i + αi−1 φi φTi ,                                          (15)
+
+where C−i is C with the contribution of basis vector i removed. Established matrix determinant
+and inverse identities may be used to write the terms of interest in L(α) as:
+
+                                     |C| = |C−i | |1 + αi−1 φTi C−1
+                                                                 −i φi |,                         (16)
+                                               C−1      T   −1
+                                                 −i φi φi C−i
+                                   C−1 = C−1
+                                          −i −                  .                                 (17)
+                                               αi + φTi C−1
+                                                          −i φi
+
+From this, we can write L(α) as:
+                               1h
+                     L(α) = −    N log(2π) + log |C−i | + tT C−1 −i t
+                               2
+                                                                                 2 i
+                                                                   (φTi C−1−i t)
+                             − log αi + log(αi + φTi C−1
+                                                       −i φi ) −                    ,
+                                                                 αi + φi C−1
+                                                                         T
+                                                                              −i φi
+                                          ·                                    ¸
+                                       1                                qi2
+                           = L(α−i ) +     log αi − log(αi + si ) +
+                                       2                              αi + si
+                           = L(α−i ) + `(αi ),                                                    (18)
+
+where for simplification of forthcoming expressions, we have defined:
+
+                                 si , φTi C−1
+                                           −i φi ,   and    qi , φTi C−1
+                                                                      −i t.                       (19)
+
+The ‘sparsity factor’ si can be seen to be a measure of the extent that basis vector φi ‘overlaps’
+those already present in the model. The ‘quality factor’ can be written as qi = σ −2 φTi (t − y−i ),
+and is thus a measure of the alignment of φi with the error of the model with that vector excluded.
+
+The objective function has now been decomposed into L(α−i ), the marginal likelihood with φi
+excluded, and `(αi ), where terms in αi are now conveniently isolated.
+
+Analysis of `(αi ) [3] shows that L(α) has a unique maximum with respect to αi :
+
+                                     s2i
+                          αi =            ,                           if qi2 > si ,               (20)
+                                 qi2 − si
+                          αi = ∞,                                     if qi2 ≤ si .               (21)
+
+
+An example illustrating these two cases is given in Figure 1.
+
+It is relatively straightforward to compute qi and si for all the basis functions φi in the dictionary,
+including those not currently utilised in the model (i.e. for which αi = ∞). In fact, it is easier to
+maintain and update values of
+
+                               Sm = φTm C−1 φm ,           Qm = φTm C−1 t,                        (22)
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                                   6
+
+
+                                                                 Q2>S                    Q2<S
+
+
+
+
+                           log marginal likelihood
+                                                            α
+                                                      −7           0      7      −7        0       7
+                                                     10           10     10     10        10      10
+                                                             i
+
+
+
+     Figure 1: Example plots of `(αi ) against αi (on a log scale) for q 2 > s (left), showing the single
+               maximum at finite αi , and q 2 < s (right), showing the maximum as αi → ∞.
+
+
+
+and from these it follows simply:
+                                                                    αm Sm              αm Qm
+                                                           sm =            ,   qm =           .             (23)
+                                                                   αm − Sm            αm − Sm
+Note that when αm = ∞, sm = Sm and qm = Qm . In practice, then, it is convenient to utilise the
+Woodbury identity to obtain the quantities of interest:
+
+                                                           Sm = φTm Bφm − φTm BΦΣΦT Bφm ,                   (24)
+                                                           Qm = φTm Bb
+                                                                     t − φTm BΦΣΦT Bb
+                                                                                    t,                      (25)
+
+where B ≡ σ −2 I and b  t ≡ t in the regression case, and for the classification case as defined by
+(11) and (14) in Section 2.2. Here quantities Φ and Σ contain only those basis functions that are
+currently included in the model, and computation thus scales in the cube of that measure which
+is typically only a very small fraction of the full M . Furthermore, if σ 2 is fixed in regression,
+these quantities can all be calculated via ‘update’ formulae, given in the Appendix, with reduced
+computation.
+
+The results (20) and (21) imply that:
+
+
+   • If φi is ‘in the model’ (i.e. αi < ∞) yet qi2 ≤ si , then φi may be deleted (i.e. αi set to ∞),
+   • If φi is excluded from the model (αi = ∞) and qi2 > si , φi may be added (i.e. αi is set to
+     some optimal finite value).
+
+
+In both these cases we are able to make discrete changes to the model structure while at the same
+time we are guaranteed to increase the marginal likelihood objective function. Additionally, we can
+re-estimate αi if (20) applies for basis vectors already in the model. If we perform these operations
+sequentially for varying i, we can realise an efficient learning algorithm which we detail in the next
+section.
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                             7
+
+
+
+4     A Sequential Sparse Bayesian Learning Algorithm
+
+The proposed marginal likelihood maximisation algorithm is as follows:
+
+
+    1. If regression initialise σ 2 to some sensible value (e.g. var[t] × 0.1).
+
+    2. Initialise with a single basis vector φi , setting, from (20):
+
+                                                         kφi k2
+                                           αi =                        .                             (26)
+                                                  kφi tk /kφi k2 − σ 2
+                                                     T  2
+
+
+       All other αm are notionally set to infinity.
+    3. Explicitly compute Σ and µ (which are scalars initially), along with initial values of sm and
+       qm for all M bases φm .
+    4. Select a candidate basis vector φi from the set of all M .
+    5. Compute θi , qi2 − si .
+    6. If θi > 0 and αi < ∞ (i.e. φi is in the model), re-estimate αi .
+    7. If θi > 0 and αi = ∞, add φi to the model with updated αi .
+    8. If θi ≤ 0 and αi < ∞, then delete φi from the model and set αi = ∞.
+                                                                                          P
+    9. If regression and estimating the noise level, update σ 2 = kt − yk2 /(N − M +         m αm Σmm )
+       [11].
+
+ 10. Recompute/update Σ, µ (using the Laplace approximation procedure in classification) and
+     all sm and qm using equations (23)–(25).
+ 11. If converged terminate, otherwise goto 4.
+
+
+4.1     Initialisation
+
+A potential basis vector for initialisation in step 2 could be the bias, i.e. φi = (1, 1, . . . , 1)T , if
+included. A sensible alternative would be that vector with the largest normalised projection onto
+the target vector, kφTi tk2 /kφi k2 , which can also be seen to give the largest initial likelihood.
+
+
+4.2     Selection
+
+In step 4, we must select a candidate basis function for updating. This should be from the set
+of all functions, both included in and excluded from the current model. Candidates could be
+selected (even generated) purely at random, or from an ordered list in sequence. Alternatively,
+for proportionately little additional computational expense, values of θi and updated αi can be
+calculated for all bases, and the change in marginal likelihood computed for each potential update
+(see Appendix). That giving the greatest increase can then be implemented.
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                                       8
+
+
+
+4.3     Updating statistics
+
+In step 10, we desire to recompute Σ, µ, and all quantities sm and qm . If the noise variance σ 2 is
+fixed, this can be done efficiently using ‘update’ formulae which are detailed in the Appendix. If
+σ 2 has been updated in a regression iteration, the necessary quantities are recomputed in full from
+(24) and (25). In classification, the Laplace approximation must be re-fitted, and the linearised
+quantities used in the full recomputations.
+
+
+4.4     Convergence
+
+In step 11, we must judge if we have attained a local maximum of the marginal likelihood. We
+terminate when the changes in log α in Step 6 for all basis functions in the model are smaller than
+10−6 and all other θi ≤ 0.
+
+We would re-iterate here that the above algorithm is guaranteed to increase the marginal likelihood
+at each step, until a local maximum is attained. Indeed, although superficially we appear to be
+‘adding’ and ‘deleting’ basis functions, we can consider that notionally we are maintaining posterior
+statistics for all basis vectors concurrently (all elements of Σ and µ corresponding to ‘out of model’
+basis vectors are trivially zero).
+
+
+
+5      Simulations
+
+In this section we offer some running-time comparisons between the previous sparse Bayesian
+learning algorithm and that proposed in this paper. We utilise RVM (i.e. M = N plus bias)
+models so that, for reasons of illustration rather than critical comparison, we can compare with a
+state-of-the-art SVM implementation, SVMlight [4]. In addition, we also compare the sparsity and
+generalisation errors of the old and new sparse Bayesian algorithms3 .
+
+
+5.1     Regression
+
+For this comparison, we synthetically generated data from the two-dimensional ‘sinc’ function
+y(x) = sin(kxk)/kxk, with added noise of standard deviation 0.1. A Gaussian kernel function of
+‘width’ 2.5 was utilised. In the RVM case, we also re-estimated the noise variance one in every five
+iterations.
+
+The experiment was run with varying values of N , from 100 to 4000, such that at the upper limit,
+the design matrix was still contained in memory. The ‘old’ RVM algorithm was only run up to
+N = 1000. Figure 2 shows the resulting run times4 , averaged over 10 random generations of the
+data set.
+
+
+
+
+    3 Note that we choose not to compare errors between RVM and SVM here, as our focus is on the comparison
+
+between new and old sparse Bayesian techniques. Any error results for the SVM would be very much dependent on
+the strategy adopted for optimising its control parameters C and ², which makes deterministic comparison difficult,
+and both models’ performance depends on the choice of kernel parameters too. However, a general observation for
+both sets of data presented here is that the RVM does give noticably lower error, which evidence suggests is typical
+for regression but atypical for classification [11].
+   4 Quoted values were obtained on an AMD Athlon XP 2000+ PC under Windows XP.
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                                                                                                      9
+
+
+
+                                                                3
+                                                                                                   Regression run time
+                                                               10
+
+
+
+
+                                                                2
+                                                               10
+
+
+
+
+                                                 Time (secs)
+                                                                1
+                                                               10
+
+
+
+
+                                                                0
+                                                               10
+                                                                                                                                                   New RVM
+                                                                                                                                                   Old RVM
+                                                                                                                                                   SVMlight
+
+                                                                −1
+                                                               10
+                                                                     0         500         1000     1500       2000                       2500    3000    3500    4000
+                                                                                                                N
+
+
+
+      Figure 2: Regression run time for the old and new sparse Bayesian learning algorithms, along
+                with that of the equivalent SVMlight .
+
+
+
+Comparing at N = 1000 we have:
+
+ Old RVM        4 mins 17 secs
+ New RVM            14.42 secs
+ SVMlight            1.03 secs
+
+There is a clear and dramatic improvement over the existing sparse Bayesian algorithm, though
+SVMlight remains significantly faster.
+
+A comparison of generalisation error (from an independent test set) and sparsity for the two
+Bayesian regression algorithms is given in figure 3. In terms of error, the two approaches appear
+comparable, although the new algorithm appears systematically sparser to a small degree.
+
+                                               RVM Regression Error                                                                                 RVM Sparsity
+                                     0.1                                                                                                 45
+                                                                                                  New
+                                    0.09
+                                                                                                  Old
+                                                                                                                                         40
+                                                                                                                    Basis vectors used
+
+
+
+
+                                    0.08
+                        RMS error
+
+
+
+
+                                                                                                                                         35
+                                    0.07
+
+
+                                    0.06
+                                                                                                                                         30
+
+                                    0.05
+                                                                                                                                         25
+                                    0.04
+
+
+                                    0.03                                                                                                 20
+                                           0     200                     400         600     800        1000                                  0   200    400     600     800   1000
+                                                                               N
+
+
+Figure 3: RMS errors and final model sparsity for the old and new sparse Bayesian learning algorithms.
+
+
+
+
+5.2     Classification
+
+For this comparison, we again synthetically generated data from a two-dimensional problem, this
+time from two classes with mixtures of Gaussian conditional distributions, as used and illustrated
+in [10]. A Gaussian kernel function of ‘width’ 1.0 was utilised.
+
+The experiment was again run with varying values of N , from 100 to 4000. Again, the ‘old’ RVM
+algorithm was only run up to N = 1000. Figure 4 shows the resulting run times, averaged over 10
+random generations of the data set.
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                                                                                                                       10
+
+
+
+                                                                                3
+                                                                                                                  Classification run time
+                                                                               10
+
+
+
+
+                                                                                2
+                                                                               10
+
+
+
+
+                                                                 Time (secs)
+                                                                                1
+                                                                               10
+
+
+
+
+                                                                                0
+                                                                               10
+
+                                                                                                                                                                     New RVM
+                                                                                                                                                                     Old RVM
+                                                                                                                                                                     SVMlight
+
+                                                                                −1
+                                                                               10
+                                                                                     0         500         1000     1500       2000                        2500    3000    3500    4000
+                                                                                                                                N
+
+
+
+      Figure 4: Classification run time for the old and new sparse Bayesian learning algorithms, along
+                with that of the equivalent SVMlight .
+
+
+
+Comparing at N = 1000 we have:
+
+ Old RVM        4 mins 58 secs
+ New RVM            12.84 secs
+ SVMlight            0.38 secs
+
+A comparison of generalisation error and sparsity for the two sparse Bayesian algorithms is given
+in figure 5.
+
+                                                             RVM Classification Error                                                                                RVM Sparsity
+                                                      10.4                                                                                               7.5
+                                                                                                                  New
+                                                      10.2                                                        Old                                     7
+                         Misclassification rate (%)
+
+
+
+
+                                                       10
+                                                                                                                                    Basis vectors used
+
+
+
+
+                                                                                                                                                         6.5
+
+                                                       9.8
+                                                                                                                                                          6
+                                                       9.6
+                                                                                                                                                         5.5
+                                                       9.4
+
+                                                                                                                                                          5
+                                                       9.2
+
+                                                        9                                                                                                4.5
+
+
+                                                       8.8                                                                                                4
+                                                             0   200                     400         600     800        1000                                   0   200    400     600     800   1000
+                                                                                               N
+
+
+      Figure 5: Classification errors and final model sparsity for the old and new sparse Bayesian
+                learning algorithms.
+
+
+Similarly to the regression case, in terms of speed the new algorithm is much faster than the old,
+while appearing comparable in terms of error and slightly sparser in utilisation of basis functions.
+
+
+
+6     Summary
+
+6.1     Efficacy of the sequential algorithm
+
+Based on the evidence of the experiments in Section 5, the new marginal likelihood maximisation
+algorithm appears to operate highly effectively. It offers a very clear speed advantage over the
+originally proposed approach. Given that the sparse Bayesian framework arguably offers a num-
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                        11
+
+
+
+ber of advantageous features when compared with the popular SVM, it is salient that its main
+disadvantage, that of grossly extended training time for large data sets, can be largely overcome.
+
+That said, sparse Bayesian models still require significantly greater training time than SVMlight ,
+which operates at very impressive speed. The comparison with SVMlight is intended to be illus-
+trative only, but given the differential between RVM and SVM training times, it is fair to make
+the following points:
+
+
+   • SVMlight is a refined C implementation of the SVM, while our experiments were run using
+     ‘prototype’-level Matlab code. Some room for improvement in the latter is to be expected.
+
+   • The SVM timings understate the ‘real’ time requirement of fitting the model as in practice
+     multiple runs must be undertaken to validate a value for the error/margin trade-off parameter
+     (‘C’), and in regression, the error tolerance (‘²’) too. Such validation is not necessary in the
+     sparse Bayesian case.
+
+
+The new algorithm also conveys an advantage over the old in that deletion of basis functions
+(i.e. setting α to infinity) now occurs analytically. In [10], basis functions were pruned when
+individual iterated α values grew numerically too large. The increased numerical precision of the
+deletion operation is the likely explanation for the improvement in sparsity demonstrated by the
+new algorithm.
+
+In a sequential algorithm such as presented here, there is always a concern that the procedure will
+be ‘greedy’ and converge on a sub-optimal model. The experimental evidence of generalisation
+error (which is only weakly an indicator of the ‘greediness’ of the procedure, but the one of most
+interest) indicates that little if any cost in solution ‘quality’ is being paid, on the simple data
+studied here at least.
+
+
+6.2   Directions for further investigation
+
+   • There is a potential modification to the algorithm to reduce its greediness. As well as ad-
+     dition, deletion and updating, it is possible to consider exchanging of basis vectors — i.e.
+     simultaneous deletion and addition. This permits the deletion of a basis function which
+     would initially lower the marginal likelihood, which is then more than compensated for by an
+     additional vector. This requires only little further computation in practice. A first implemen-
+     tation shows this to work effectively, but we have encountered initial numerical difficulties
+     with this feature which we are currently working to overcome.
+
+   • An alternative suggestion is to propose ‘split’ and ‘merge’ operations, where, for example,
+     two basis functions could be combined and replaced with a single such function located at
+     their respective midpoint. The effect of such modifications on the marginal likelihood could
+     be assessed relatively efficiently given the framework presented here.
+   • One final notable issue we have not considered here is application to larger data sets where
+     the design matrix will not fit in memory and where the original algorithm cannot be used.
+     The presented sequential algorithm can be applied without modification in this case, although
+     there is a large additional cost associated with the extra repeated re-evaluations of the basis
+     functions. For practical efficiency, we have therefore adopted an approach where we apply the
+     algorithm in full to subsets of the basis functions in sequence, and terminate when all have
+     simultaneously converged (which still maximises the correct marginal likelihood measure).
+     We are currently finalising the exact mechanism of this technique, but have already obtained
+     successful results on as many as one million data points.
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                                12
+
+
+
+Acknowledgments
+
+The authors would like to thank the reviewers for helpful comments and suggestions.
+
+
+
+References
+
+ [1] C. M. Bishop and M. E. Tipping. Variational relevance vector machines. In C. Boutilier and M. Gold-
+     szmidt, editors, Proceedings of the 16th Conference on Uncertainty in Artificial Intelligence, pages
+     46–53. Morgan Kaufmann, 2000.
+ [2] C. Cortes and V. N. Vapnik. Support vector networks. Machine Learning, 20:273–297, 1995.
+ [3] A. C. Faul and M. E. Tipping. Analysis of sparse Bayesian learning. In T. G. Dietterich, S. Becker,
+     and Z. Ghahramani, editors, Advances in Neural Information Processing Systems 14, pages 383–389.
+     MIT Press, 2002.
+ [4] T. Joachims. Making large-scale SVM learning practical. In B. Schölkopf, C. Burges, and A. Smola,
+     editors, Advances in Kernel Methods — Support Vector Learning. MIT Press, 1999.
+ [5] J. T.-K. Kwok. The evidence framework applied to support vector machines. IEEE Transactions on
+     Neural Networks, 11(5):1162–1173, 2000.
+ [6] D. J. C. MacKay. The evidence framework applied to classification networks. Neural Computation,
+     4(5):720–736, 1992.
+ [7] I. T. Nabney. Efficient training of RBF networks for classification. In Proceedings of the Ninth
+     International Conference on Artificial Neural Networks (ICANN99), pages 210–215. IEE, 1999.
+ [8] J. Platt. Fast training of support vector machines using sequential minimal optimization. In
+     B. Schölkopf, C. J. C. Burges, and A. J. Smola, editors, Advances in Kernel Methods — Support
+     Vector Learning, pages 185–208, Cambridge, MA, 1999. MIT Press.
+ [9] P. Sollich. Probabilistic methods for support vector machines. In S. A. Solla, T. K. Leen, and K.-R.
+     Müller, editors, Advances in Neural Information Processing Systems 12, pages 349–355. MIT Press,
+     2000.
+[10] M. E. Tipping. The Relevance Vector Machine. In S. A. Solla, T. K. Leen, and K.-R. Müller, editors,
+     Advances in Neural Information Processing Systems 12, pages 652–658. MIT Press, 2000.
+[11] M. E. Tipping. Sparse Bayesian learning and the relevance vector machine. Journal of Machine
+     Learning Research, 1:211–244, 2001.
+[12] V. N. Vapnik. Statistical Learning Theory. Wiley, 1998.
+
+
+
+A     Efficient calculations for some quantities of interest
+
+In step 4 of the algorithm in Section 4 we may wish to calculate the increase or decrease of the marginal
+likelihood L(α) according to which basis function is added, deleted or re-estimated. Efficient expressions
+for the likelihood changes are given below.
+
+Also, in step 10, it is necessary to recompute Σ, µ, and all quantities sm and qm . If σ 2 is fixed (perhaps
+only for the iteration in question), then in all cases update formulae can be utilised for efficiency and
+accuracy; no quantities need be calculated ab initio.
+
+
+
+A.1     Notation
+
+The size of the basis at step t of the algorithm is denoted as Mt . For efficiency, Φ as used below need only
+comprise columns of included basis functions, and so is N × Mt . Similarly Σ and µ likewise are computed
+only for the ‘current’ basis and so are of order Mt (all other entries in the ‘full’ version of Σ and µ would
+Fast Marginal Likelihood Maximisation for Sparse Bayesian Models                                                   13
+
+
+
+be zero). The integer i ∈ {1 . . . M } is used to index the single basis function for which αi is to be updated,
+and the integer j ∈ {1 . . . Mt } to denote the index within the current basis that corresponds to i. The
+index m ranges over all basis functions. For convenience, β , σ −2 . Updated quantities are denoted by a
+            e).
+tilde (e.g. α
+
+
+
+A.2     Adding a new basis function
+
+
+                                    Q2i − Si      Si
+                           2∆L =             + log 2 ,                                                     (27)
+                                       Si         Qi
+                                    "                                                 #
+                              e =
+                                        Σ + β 2 Σii ΣΦT φi φT
+                                                            i ΦΣ        −β 2 Σii ΣΦT φi
+                              Σ                                                         ,                  (28)
+                                          −β 2 Σii (ΣΦT φi )T                 Σii
+                                                           
+                                     µ − µi βΣΦT φi
+                              e=
+                              µ                     ,                                                      (29)
+                                            µi
+                             Sem = Sm − Σii (βφT     2
+                                               m ei ) ,                                                    (30)
+                            e m = Qm − µi (βφT ei ),
+                            Q                                                                              (31)
+                                                    m
+
+
+where Σii = (αi + Si )−1 , µi = Σii Qi and we define ei , φi − βΦΣΦT φi .
+
+
+
+A.3     Re-estimating a basis function
+
+                      ei − αi )−1 )−1 and Σj as the j-th column of Σ:
+Defining κj , (Σjj + (α
+
+                                             Q2i                       −1   −1
+                          2∆L =                                       e i − αi ]
+                                                        − log 1 + Si [α                     ,              (32)
+                                          ei − αi−1 ]−1
+                                    Si + [α −1
+
+                             e = Σ − κ j Σj ΣT
+                             Σ               j,                                                            (33)
+                             e = µ − κ j µj Σ j ,
+                             µ                                                                             (34)
+                            Sem = Sm + κj (βΣj Φ φm ) ,
+                                                  T     T       2
+                                                                                                           (35)
+                           e m = Qm + κj µj (βΣj Φ φ ).
+                           Q                            T   T
+                                                                                                           (36)
+                                                    m
+
+
+
+
+A.4     Deleting a basis function
+
+                                                                           
+                                                  Q2i                  Si
+                                         2∆L =            − log 1 −         ,                              (37)
+                                                Si − α i               αi
+                                            e = Σ − 1 Σj ΣT
+                                            Σ                   j,                                         (38)
+                                                     Σjj
+                                                      µj
+                                            e =µ−
+                                            µ              Σj ,                                            (39)
+                                                     Σjj
+                                                         1
+                                          Sem = Sm +        (βΣT     T    2
+                                                                 j Φ φm ) ,                                (40)
+                                                       Σjj
+                                          e m = Qm + µj (βΣT
+                                          Q                          T
+                                                                  j Φ φm ).                                (41)
+                                                       Σjj
+
+                                                                                     e and µ
+Following updates (38) and (39), the appropriate row and/or column j is removed from Σ     e.
+

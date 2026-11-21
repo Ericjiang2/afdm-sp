@@ -1,0 +1,127 @@
+{
+  "pairing": {
+    "passed": true,
+    "frames": 8,
+    "differences": {
+      "snr": [],
+      "frame_index": [],
+      "frame_seed": [],
+      "y_source_sha256": [],
+      "H_true_sha256": [],
+      "noise_unit_sha256": [],
+      "info_bits_sha256": [],
+      "coded_bits_sha256": [],
+      "pilot_sha256": [],
+      "classical_raw_errors": [],
+      "classical_info_errors": [],
+      "receiver_sparsity": [],
+      "capacity_source": []
+    },
+    "scope": "shared exogenous source arrays; actual arm dtypes may differ"
+  },
+  "achievable_replay": {
+    "passed": true,
+    "scope": "frame seeds, integer error counts and decoder flags only",
+    "conditions": {
+      "7": {
+        "perframe_seed": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_classical_raw_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_raw_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_classical_info_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_info_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_classical_decode_ok": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_decode_ok": {
+          "equal": true,
+          "differences": []
+        }
+      }
+    }
+  },
+  "geom_replay": {
+    "passed": false,
+    "scope": "frame seeds, integer error counts and decoder flags only",
+    "conditions": {
+      "7": {
+        "perframe_seed": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_classical_raw_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_raw_errs": {
+          "equal": false,
+          "differences": [
+            {
+              "frame": 1,
+              "current": 284,
+              "historical": 285
+            },
+            {
+              "frame": 4,
+              "current": 245,
+              "historical": 246
+            },
+            {
+              "frame": 7,
+              "current": 284,
+              "historical": 288
+            }
+          ]
+        },
+        "perframe_classical_info_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_info_errs": {
+          "equal": false,
+          "differences": [
+            {
+              "frame": 4,
+              "current": 44,
+              "historical": 56
+            },
+            {
+              "frame": 7,
+              "current": 105,
+              "historical": 86
+            }
+          ]
+        },
+        "perframe_classical_decode_ok": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_decode_ok": {
+          "equal": true,
+          "differences": []
+        }
+      }
+    }
+  },
+  "budget_anchor": {
+    "status": "insufficient",
+    "frames": 0,
+    "warmup": 10
+  },
+  "replay_and_pairing_passed": false
+}

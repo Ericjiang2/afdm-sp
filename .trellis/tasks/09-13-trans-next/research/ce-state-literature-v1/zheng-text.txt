@@ -1,0 +1,353 @@
+Channel Estimation for AFDM With Superimposed Pilots
+Report GitHub Issue
+×
+Title:
+Content selection saved. Describe the issue below:
+Description:
+Submit without GitHub
+Submit in GitHub
+arXiv is now an independent nonprofit!
+Learn more
+×
+Back to arXiv
+Why HTML?
+Report Issue
+Back to Abstract
+Download PDF
+Abstract
+I Introduction
+II Basic Concepts of AFDM
+III Channel Estimation and Data Detection with Superimposed Pilots for AFDM
+III-A Superimposed Pilot Scheme
+III-B Channel Estimation
+III-C Data Detection
+III-D Iterative Channel Estimation and Data Detection
+IV Simulation Results
+V Conclusion
+References
+License: arXiv.org perpetual non-exclusive license
+arXiv:2404.10232v1 [eess.SP] 16 Apr 2024
+Channel Estimation for AFDM
+With Superimposed Pilots
+Kai Zheng
+Miaowen Wen
+Senior Member, IEEE
+Tianqi Mao
+Member, IEEE
+Lixia Xiao
+Member, IEEE
+and Zhaocheng Wang
+Fellow, IEEE
+††thanks:
+Kai Zheng and Miaowen Wen are with the School of Electronic and Information Engineering, South China University of Technology, Guangzhou 510640, China (Email: eekaizheng@163.com, eemwwen@scut.edu.cn).
+Tianqi Mao is with the MIIT Key Laboratory of Complex-Field Intelligent Sensing, Beijing Institute of Technology,
+Beijing 100081, China, and also with theYangtze Delta Region Academy, Beijing Institute of Technology (Jiaxing), Jiaxing 314019, China (Email: maotq@bit.edu.cn).
+Lixia Xiao is with the Wuhan National Laboratory for Optoelectronics and
+the Research Center of 6G Mobile Communications, Huazhong University
+of Science and Technology, Wuhan 430074, China (Email: lixiaxiao@
+hust.edu.cn).
+Zhaocheng Wang is with the Department of Electronic Engineering, Tsinghua University, Beijing 100084, China, and also with the Shenzhen International Graduate School, Tsinghua University, Shenzhen 518055, China (Email:
+zcwang@tsinghua.edu.cn).
+Abstract
+The recent proposed affine frequency division multiplexing (AFDM) employing a multi-chirp waveform has shown its reliability and robustness in doubly selective fading channels. In the existing embedded pilot-aided channel estimation methods, the presence of guard symbols in the discrete affine Fourier transform (DAFT) domain causes inevitable degradation of the spectral efficiency (SE). To improve the SE, we propose a novel AFDM channel estimation scheme by introducing the superimposed pilots in the DAFT domain. An effective pilot placement method that minimizes the channel estimation error is also developed with a rigorous proof. To mitigate the pilot-data interference, we further propose an iterative channel estimator and signal detector. Simulation results demonstrate that both channel estimation and data detection performances can be improved by the proposed scheme as the number of superimposed pilots increases.
+Index Terms:
+AFDM, DAFT, doubly selective fading channel, superimposed pilot, channel estimation.
+I Introduction
+Orthogonal frequency division multiplexing (OFDM) has been widely adopted in existing wireless communication systems. OFDM boasts excellent resistance to frequency-selective fading channels and the capability to achieve full diversity. However, in the next generation of wireless communication systems, the spectrum will expand into higher frequencies, and scenarios with high mobility (such as high-speed railway communication, V2X systems, and satellite communications) will become prevalent, resulting in excessive Doppler shift effects. These inevitably induce strong time variance/time selectivity of the propagation channel, which disrupts the orthogonality of the OFDM subcarriers, leading severe inter-carrier interference. Furthermore, for the high-mobility scenario with multi-path effects, the communication signals have to suffer from both frequency and time selective channel fading, referred to as doubly selective fading. To address this issue, one possible solution is to identify a new set of orthogonal bases for multi-carrier data transmission [1].
+Recent researches have introduced several new modulation waveforms employing the novel orthogonal bases to combat doubly selective channel fading.
+Orthogonal time frequency space (OTFS) modulation [2], a novel two-dimensional modulation employing symplectic finite Fourier transform, outperforms OFDM in time-varying channels. In [3], the author rigorously derived that modulation in the delay-Doppler domain can be realized with a set of orthogonal bases using the ZAK representation. Additionally, affine frequency division multiplexing (AFDM) was proposed which is one-dimensional modulation in discrete affine Fourier transform (DAFT) domain [4]. AFDM multiplexes a set of orthogonal chirp signals generated using DAFT with two carefully chosen parameters to outperform OFDM in time-varying channels. Both AFDM and OTFS are considered to be promising for implementation in the next-generation communication systems.
+In wireless communication systems, accurate and timely channel estimation is crucial for data detection especially for doubly selective fading channels. There have been preliminary researches on channel estimation of the aforementioned novel modulation waveforms. In [5], the author proposed embedded pilot-aided channel estimation for OTFS, which utilized the guard symbols to mitigate mutual interference between pilot and data signals. Similarly, in [4], embedded pilot-aided channel estimation for AFDM was introduced, requiring less overhead of guard symbols compared to that for OTFS. However, in scenarios with large Doppler shift ranges or under low-latency requirement, the presence of guard symbols inevitably decreases the spectral efficiency (SE). To address this issue, the superimposed pilot scheme for OTFS was proposed in [6, 7, 8]. In [6], a single pilot symbol was superimposed in the OTFS frame, increasing the SE at the cost of reliability. Furthermore, the multiple superimposed pilot scheme was proposed for OTFS in [7] and [8], which outperformed the single pilot scheme.
+In the context of AFDM, the multiple embedded pilot-aided channel estimation was proposed to provide accurate channel state information at the receiver under multi-user scenarios [9]. However, this channel estimation method significantly degrades the SE due to usage of multiple guard symbols especially under massive-user communication scenarios [9].
+To address the SE challenges in AFDM and different principles between OTFS and AFDM, we present a novel AFDM channel estimation approach by introducing the superimposed pilots. Specifically, the superimposed pilot philosophy is employed in the DAFT domain. Then the pilot placement strategy is optimized to achieve minimal mean estimation error with rigorous derivations. With such arrangement, we propose a novel AFDM channel estimation approach capable of capturing the Doppler shift, delay, and channel coefficient parameters of the time varying channel.
+Notations: Vectors and matrices are represented by lowercase bold letters and uppercase bold letters, respectively. The superscripts $(\cdot)^{*},(\cdot)^{T}$ , and $(\cdot)^{H}$ denote the conjugate, transpose, and Hermitian operations, respectively. The $N\times N$ identity matrix is symbolized by $\mathbf{I}_{N}$ . $\mathcal{CN}(\mu,\sigma^{2})$ represents the complex Gaussian distribution with mean $\mu$ and variance $\sigma^{2}$ . The operator $\left<\cdot\right>_{N}$ denotes the modulo operation with divisor $N$ . For any matrix $\mathbf{A}$ , $\mathbf{A}(m,n)$ denotes the element in the $m$ -th row and $n$ -th column of matrix $\mathbf{A}$ . $\text{Tr}\{\mathbf{A}\}$ represents the trace of the matrix $\mathbf{A}$ . $\lfloor x\rfloor$ denotes the greatest integer number smaller than or equal to $x$ . $\mathbb{E}\{\cdot\}$ denotes the expectation operator. The discrete Dirac function $\delta(x)$ equals $1$ when $x=0$ and is zero otherwise. The operator diag( $\mathbf{v}$ ) tramsfroms the vector $\mathbf{v}$ into a diagonal matrix.
+II Basic Concepts of AFDM
+Let $\mathbf{x}=[x_{0},x_{1},\ldots,x_{N-1}]^{T}$ denote the vector of $N$ phase shift keying (PSK) symbols in the DAFT domain. After mapping $\mathbf{x}$ to the time domain using the inverse DAFT, the modulated signal in the time domain is expressed as
+[S2.E1]
+$\mathbf{s}=\boldsymbol{\Lambda}_{c_{1}}^{H}\mathbf{F}^{H}\boldsymbol{\Lambda}_{c_{2}}^{H}\mathbf{x},$
+(1)
+where ${\mathbf{F}}$ is the $N$ -point discrete Fourier transform (DFT) matrix with ${\mathbf{F}}(m,n)=e^{-j2\pi mn/N}$ , $m,n\in\{1,\ldots,N\}$ , and $\boldsymbol{\Lambda}_{c}$ is given by
+[S2.E2]
+$\boldsymbol{\Lambda}_{c}=\text{diag}\left(\left[1,e^{-j2\pi c},\ldots,e^{-j2\pi c(N-1)^{2}}\right]^{T}\right).$
+(2)
+After the transmission of the time-domain signal over a linear time-varying channel
+[S2.E3]
+$g_{n}(l)=\sum_{i=1}^{P}h_{i}e^{-j2\pi f_{i}n}\delta(l-l_{i}),$
+(3)
+the time-domain signal $\mathbf{r}$ arrives at the receiver, whose $n$ -th sample is given by
+[S2.E4]
+$r_{n}=\sum_{l=0}^{+\infty}s_{n-l}g_{n}(l)+w_{n},$
+(4)
+where $w_{n}\sim\mathcal{CN}\left(0,N_{0}\right)$ is additive white Gaussian noise (AWGN). In (3), $P>1$ is the number of channel paths, and $h_{i}$ , $l_{i}$ , and $f_{i}$ denote the channel coefficient, delay index, and Doppler shift associated with the $i$ -th path, respectively.
+After the DAFT operation, the time-domain received signal is transformed back to the DAFT domain as
+$\displaystyle\mathbf{y}=$
+$\displaystyle\boldsymbol{\Lambda}_{c_{2}}\mathbf{F}\boldsymbol{\Lambda}_{c_{1}}\mathbf{r}$
+$\displaystyle=$
+$\displaystyle\sum_{i=1}^{P}h_{i}\boldsymbol{\Lambda}_{c_{2}}\mathbf{F}\boldsymbol{\Lambda}_{c_{1}}\boldsymbol{\Gamma}_{\mathrm{CPP}i}\boldsymbol{\Delta}_{f_{i}}\boldsymbol{\Pi}^{l_{i}}\boldsymbol{\Lambda}_{c_{1}}^{H}\mathbf{F}^{H}\boldsymbol{\Lambda}_{c_{2}}^{H}\mathbf{x}+\widetilde{\mathbf{w}}$
+$\displaystyle=$
+$\displaystyle\sum_{i=1}^{P}h_{i}\mathbf{H}_{i}\mathbf{x}+\widetilde{\mathbf{w}}$
+[S2.E5]
+$\displaystyle=$
+$\displaystyle\mathbf{H}_{\mathrm{eff}}\mathbf{x}+\widetilde{\mathbf{w}},$
+(5)
+where $\widetilde{\mathbf{w}}\sim\mathcal{CN}\left(\mathbf{0},N_{0}\mathbf{I}_{N}\right)$ , $\boldsymbol{\Pi}$ is the permutation (a.k.a. forward cyclic-shift) matrix, the Doppler shift matrix $\boldsymbol{\Delta}_{f_{i}}$ is a diagonal matrix given by
+[S2.E6]
+$\boldsymbol{\Delta}_{f_{i}}=\text{diag}\left(\left[1,e^{-j2\pi f_{i}},\ldots,e^{-j2\pi f_{i}(N-1)^{2}}\right]^{T}\right),$
+(6)
+and the chirp cyclic prefix $\boldsymbol{\Gamma}_{\mathrm{CPP}i}$ is an $N\times N$ diagonal matrix expressed as
+[S2.E7]
+$\boldsymbol{\Gamma}_{\mathrm{CPP}i}=\begin{cases}e^{-j2\pi c_{1}\left(N^{2}-2N\left(l_{i}-n\right)\right)},&n<l_{i},\\
+1,&n\geq l_{i}.\end{cases}$
+(7)
+In (5), $\mathbf{H}_{i}(m,n)$ can be expressed as
+[S2.E8]
+$\mathbf{H}_{i}(m,n)=e^{j\frac{2\pi}{N}(Nc_{1}l_{i}^{2}-nl_{i}+Nc_{2}(n^{2}-m^{2}))}\delta\left(\left<n-m-\text{loc}_{i}\right>_{N}\right),$
+(8)
+where $\text{loc}_{i}\triangleq\alpha_{i}+2Nc_{1}l_{i}$ , with $\alpha_{i}=Nf_{i}\in[-\alpha_{\text{max}},\alpha_{\text{max}}]$ and $l_{i}\in[0,l_{\text{max}}]$ assumed to be integer valued numbers. Parameters $\alpha_{\text{max}}$ and $l_{\text{max}}$ are defined as the maximum Doppler shift index and maximum delay index, respectively. As proved in [4],
+in order to avoid different non-zero entries to coincide at the same position,
+$c_{1}$ should satisfy
+[S2.E9]
+$c_{1}=\frac{2\alpha_{\text{max}}+1}{2N}.$
+(9)
+Parameter $c_{2}$ should be an arbitrary irrational number to achieve full diversity.
+III Channel Estimation and Data Detection with Superimposed Pilots for AFDM
+III-A Superimposed Pilot Scheme
+Fig. 1: Proposed superimposed pilot scheme.
+In the conventional embedded pilot scheme for AFDM, there are $Q=(l_{\text{max}}+1)(2\alpha_{\text{max}}+1)-1$ null guard samples placed on both sides of each pilot to ensure no interference between pilot and data signals, which results in a low SE. To increase the SE, we propose the superimposed pilot scheme, whose structure is shown in Fig. 1. In our proposed scheme, we eliminate the guard samples to allow full data transmission and place the pilots on top of the data signal in the DAFT domain.
+Therefore, the transmitting signal $\mathbf{x}$ , formed by superimposing the pilot signal $\mathbf{x}_{p}=[x_{p0},x_{p1},\ldots,x_{p(N-1)}]^{T}\in\mathbb{C}^{N\times 1}$ and the data signal $\mathbf{x}_{d}=[x_{d0},x_{d1},\ldots,x_{d(N-1)}]^{T}\in\mathbb{C}^{N\times 1}$ , is given by
+[S3.E10]
+$\mathbf{x}=\mathbf{x}_{p}+\mathbf{x}_{d}.$
+(10)
+We define the pilot power as $\sigma_{p}^{2}$ and data power as $\sigma_{d}^{2}$ , such that $\mathbf{x}_{p}^{H}\mathbf{x}_{p}=\sigma_{p}^{2}$ and $\mathbb{E}\{\mathbf{x}_{d}\mathbf{x}_{d}^{H}\}=\sigma_{d}^{2}\mathbf{I}_{N}$ . Theoretically, we can insert full pilots over the whole DAFT domain, which means all elements of $\mathbf{x}_{p}$ are non-zero. However, as will be explained in the next subsection the interference between pilots will arise, which might deteriorate the channel estimation performance. Therefore, to circumvent this issue, we suggest to place multiple equally spaced pilots with a spacing of at least $Q$ , such that the element of $\mathbf{x}_{p}$ satisfies
+[S3.E11]
+$x_{pm}=\begin{cases}\sigma_{p}/{\left(\sqrt{M+1}\right)},&m\in\{0,Q+1,\ldots,M(Q+1)\},\\
+0,&\text{otherwise},\end{cases}$
+(11)
+where $0\leq M(Q+1)<N-Q$ and $M+1$ denotes the total number of superimposed pilots.
+III-B Channel Estimation
+Since there are at most $Q+1$ channel paths, the received signal can be written as
+[S3.E12]
+$\mathbf{y}=\sum_{t=1}^{Q+1}h_{t}\boldsymbol{\Theta}_{t}(\mathbf{x}_{p}+\mathbf{x}_{d})+\widetilde{\mathbf{w}},$
+(12)
+where $\boldsymbol{\Theta}_{t}=\boldsymbol{\Lambda}_{c_{2}}\mathbf{F}\boldsymbol{\Lambda}_{c_{1}}\boldsymbol{\Gamma}_{\mathrm{CPP}t}\boldsymbol{\Delta}_{f_{t}}\boldsymbol{\Pi}^{l_{t}}\boldsymbol{\Lambda}_{c_{1}}^{H}\mathbf{F}^{H}\boldsymbol{\Lambda}_{c_{2}}^{H}$ . The values of the delay index $l_{t}$ and the Doppler shift index $\alpha_{t}=Nf_{t}$ associated with index $t$ are given by
+[S3.E13]
+$l_{t}=\left\lfloor\frac{t-1}{2Nc_{1}}\right\rfloor$
+(13)
+and
+[S3.E14]
+$\alpha_{t}=\left<t-1\right>_{2Nc_{1}}-\alpha_{\text{max}},$
+(14)
+respectively. The received signal vector $\mathbf{y}$ in (12) can be expressed in a more compact form as
+[S3.E15]
+$\mathbf{y}=\boldsymbol{\Phi}_{p}\mathbf{h}+\boldsymbol{\Phi}_{d}\mathbf{h}+\widetilde{\mathbf{w}},$
+(15)
+where $\boldsymbol{\Phi}_{p}(\boldsymbol{\Phi}_{d})\in\mathbb{C}^{N\times(Q+1)}$ and $\mathbf{h}\in\mathbb{C}^{(Q+1)\times 1}$ . The channel state information (CSI) vector $\mathbf{h}$ has a mean of $\mathbb{E}\{\mathbf{h}\}=\mathbf{0}$ and a covariance matrix of $\mathbf{C_{h}}=\mathbb{E}\{\mathbf{h}\mathbf{h}^{H}\}=\text{diag}([\sigma_{h1}^{2},\sigma_{h2}^{2},\ldots,\sigma_{h(Q+1)}^{2}]^{T})$ . The matrices $\boldsymbol{\Phi}_{p}$ and $\boldsymbol{\Phi}_{d}$ , which contain the pilot vector $\mathbf{x}_{p}$ and the data vector $\mathbf{x}_{d}$ , respectively, can be obtained as
+[S3.E16]
+$\displaystyle\boldsymbol{\Phi}_{p}=\left[\boldsymbol{\Theta}_{1}\mathbf{x}_{p},\boldsymbol{\Theta}_{2}\mathbf{x}_{p},\ldots,\boldsymbol{\Theta}_{(Q+1)}\mathbf{x}_{p}\right],$
+(16)
+[S3.E17]
+$\displaystyle\boldsymbol{\Phi}_{d}=\left[\boldsymbol{\Theta}_{1}\mathbf{x}_{d},\boldsymbol{\Theta}_{2}\mathbf{x}_{d},\ldots,\boldsymbol{\Theta}_{(Q+1)}\mathbf{x}_{d}\right].$
+(17)
+Lemma 1: The mean and covariance matrix of the random matrix $\boldsymbol{\Phi}_{d}$ are $\mathbb{E}\{\boldsymbol{\Phi}_{d}\}=\mathbf{0}$ and $\mathbb{E}\{\boldsymbol{\Phi}_{d}\boldsymbol{\Phi}_{d}^{H}\}=\sigma_{d}^{2}(Q+1)\mathbf{I}_{N}$ , respectively.
+Proof:
+See Appendix A.
+∎
+The pilots and data are mixed in the received vector $\mathbf{y}$ , causing the pilot-data interference. However, the data and pilots are statistically independent. Therefore, we can treat $\boldsymbol{\Phi}_{d}\mathbf{x}_{d}$ as part of the effective noise in the process of channel estimation. Furthermore, we define $\widehat{\mathbf{w}}=\boldsymbol{\Phi}_{d}\mathbf{h}+\widetilde{\mathbf{w}}$ as the effective noise in the channel estimation.
+Lemma 2: The vector $\widehat{\mathbf{w}}$ has a mean of $\mathbb{E}\{\widehat{\mathbf{w}}\}=0$ and a covariance matrix of
+[S3.E18]
+$\mathbf{C}_{\widehat{\mathbf{w}}}=\mathbb{E}\left\{\widehat{\mathbf{w}}\widehat{\mathbf{w}}^{H}\right\}=\left(\left(\sum_{i=1}^{Q+1}\sigma_{h_{i}}^{2}\right)\sigma_{d}^{2}+N_{0}\right)\mathbf{I}_{N}=\sigma_{\widehat{\mathbf{w}}}^{2}\mathbf{I}_{N}.$
+(18)
+Proof:
+See Appendix B.
+∎
+Given the statistics of the channel and effective noise, the minimum mean square error (MSE) estimate $\widehat{\mathbf{h}}$ can be readily obtained as [8]
+[S3.E19]
+$\widehat{\mathbf{h}}=\left(\boldsymbol{\Phi}_{p}^{H}\mathbf{C}_{\widehat{\mathbf{w}}}^{-1}\boldsymbol{\Phi}_{p}+\mathbf{C_{h}}^{-1}\right)^{-1}\boldsymbol{\Phi}_{p}^{H}\mathbf{C}_{\widehat{\mathbf{w}}}^{-1}\mathbf{y}.$
+(19)
+Lemma 3: To minimize the MSE $\mathbb{E}\{||\widehat{\mathbf{h}}-\mathbf{h}||^{2}\}$ , the column vectors of the matrix $\boldsymbol{\Phi}_{p}$ should form a set of orthogonal bases. This means for any integer $m,n\in[1,2,\ldots,Q+1]$ , the following condition should hold
+[S3.E20]
+$\displaystyle\mathbf{x}_{p}^{H}\boldsymbol{\Theta}_{m}^{H}\boldsymbol{\Theta}_{n}\mathbf{x}_{p}=\begin{cases}\sigma_{p}^{2},&\text{if }m=n,\\
+0,&\text{if }m\neq n.\end{cases}$
+(20)
+This condition ensures that the columns of $\boldsymbol{\Phi}_{p}$ are orthogonal to each other. In our proposed superimposed pilot scheme, the interval of two adjacent pilots, namely $Q$ , is carefully chosen such that all column vectors in $\boldsymbol{\Phi}_{p}$ are orthogonal to each other.
+Proof:
+See Appendix C.
+∎To alleviate the interference for channel estimation resulting from the data and noise, we introduce a threshold criterion to estimate $\widehat{\mathbf{h}}$ . Therefore, if we define a path indicator vector $\mathbf{b}=[b_{1},b_{2},\ldots,b_{(Q+1)}]^{T}$ , where $b_{t}$ indicates whether a path associated with $\boldsymbol{\Theta_{t}}$ exists or not, we have
+[S3.E21]
+$b_{t}=\begin{cases}1,&\text{if }\widehat{h}_{t}>\gamma,\\
+0,&\text{otherwise}.\end{cases}$
+(21)
+The value of $\gamma$ influences the channel estimation performance. When $\gamma$ is relatively large, some existing channel paths with a marginal gain may be missed. On the contrary, when $\gamma$ is relatively small, some non-existent paths will be erroneously included due to data and noise. According to our extensive simulations, the optimal performance is achieved when $\gamma$ is set as $3\sqrt{{\sigma_{\widehat{\mathbf{w}}}^{2}}/\sigma_{p}^{2}}$ . This is in consistent with the result reported for OTFS channel estimation in [5].
+III-C Data Detection
+After obtaining the estimated CSI vector $\widehat{\mathbf{h}}$ , we can now cancel the interference caused by the pilot signal for data detection as
+[S3.E22]
+$\mathbf{y}_{d}=\mathbf{y}-\widehat{\mathbf{H}}_{\mathrm{{eff}}}\mathbf{x}_{p},$
+(22)
+where $\widehat{\mathbf{H}}_{\mathrm{{eff}}}=\sum_{t=1}^{Q+1}b_{t}\boldsymbol{\Theta}_{t}\widehat{\mathbf{h}}$ . Assuming the channel estimation is perfect, the received signal associated with the data can be approximately derived as
+[S3.E23]
+$\mathbf{y}_{d}=\widehat{\mathbf{H}}_{\mathrm{{eff}}}\mathbf{x}_{d}+\widetilde{\mathbf{w}}.$
+(23)
+Since the matrix $\widehat{\mathbf{H}}_{\mathrm{eff}}$ is typically sparse, we can adopt the message passing (MP) algorithm that offers low complexity.
+III-D Iterative Channel Estimation and Data Detection
+Due to the mutual interference between data and pilot signals, both the channel estimation and data detection are imprecise. To achieve more precise estimation, we resort to the iterative interference cancellation. Let $\mathbf{b}^{i}$ , $\widehat{\mathbf{h}}^{i}$ and $\widehat{\mathbf{x}}_{d}^{i}$ denote the path indicator vector, channel estimation and data detection after the $i$ -th iteration, respectively. In the $(i+1)$ -th iteration, the CSI vector can be estimated by
+[S3.E24]
+$\widehat{\mathbf{h}}^{i+1}=\left(\boldsymbol{\Phi}_{p}^{H}\mathbf{C}_{\widehat{\mathbf{w}}}^{-1}\boldsymbol{\Phi}_{p}+\mathbf{C_{h}}^{-1}\right)^{-1}\boldsymbol{\Phi}_{p}^{H}\mathbf{C}_{\widehat{\mathbf{w}}}^{-1}\left(\mathbf{y}-\widehat{\mathbf{H}}_{\mathrm{{eff}}}^{i}\mathbf{x}_{d}^{i}\right),$
+(24)
+where $\widehat{\mathbf{H}}_{\mathrm{{eff}}}^{i}=\sum_{t=1}^{Q+1}b_{t}^{i}\boldsymbol{\Theta}_{t}\widehat{\mathbf{h}}^{i}$ . We compare the elements of $\widehat{\mathbf{h}}^{i+1}$ with the threshold $\gamma$ to obtain $\mathbf{b}^{i+1}$ and $\widehat{\mathbf{H}}_{\mathrm{eff}}^{i+1}$ . Finally, ${\mathbf{x}}_{d}$ can be estimated from $\mathbf{y}_{d}^{i+1}=\mathbf{y}-\widehat{\mathbf{H}}_{\mathrm{{eff}}}^{i+1}\mathbf{x}_{p}$ via the MP algorithm after the $(i+1)$ -th iteration.
+IV Simulation Results
+In this section, we consider the AFDM system with $N=512$ and quadrature PSK. The maximum Doppler shift index $\alpha_{\text{max}}=2$ , and the maximum delay index $l_{\text{max}}=2.$ The number of channel paths is $P=3.$ Each channel path has a different delay index and random Doppler index chosen from $[-\alpha_{\text{max}},\alpha_{\text{max}}].$ Each channel coefficient follows the distribution $\mathcal{CN}\left(0,{1}/{P}\right)$ . The noise variance is set to $N_{0}=1$ dBm. The data signal-to-noise ratio (SNR) for transmission and pilot SNR for channel estimation are defined as $\text{SNR}_{d}={\sigma_{d}^{2}}/{N_{0}}$ and $\text{SNR}_{p}={\sigma_{p}^{2}}/{N_{0}}$ , respectively. Following [7], we set $\text{SNR}_{p}=50$ dB. The simulation results are obtained from more than $10^{6}$ independent channel realizations.
+Fig. 2: MSE performance versus $\text{SNR}_{d}$ with $\text{SNR}_{p}=50$ dB.
+In Fig. 2, we illustrate the MSE performance. We consider the different numbers of iterations and superimposed pilots. It is observed that when the number of pilots is fixed, the MSE performance is improved as the number of iterations increases. This result confirms the effectiveness of our iterative algorithm. Furthermore, the increasing MSE performance with 4 and 16 pilots are more noticeable than that with a single pilot. In other words, as the pilot number increases, the channel estimation performs better and the effect of the iterative algorithm is more obvious. The results confirm multiple superimposed pilots with a reasonable placement achieve better performance in channel estimation.
+Fig. 3: BER performance versus $\text{SNR}_{d}$ with 2 iterations and $\text{SNR}_{p}=50$ dB.
+In Fig. 3, we present the uncoded bit error rate (BER) performance based on the MP detector with 2 iterations. Two interesting findings emerge from the figure. Firstly, as the number of pilots increases, the minimum BER for each curve decreases when $\text{SNR}_{d}=$ 21 dB. This further confirms the benefit of our superimposed pilot scheme, and the fact there is an optimal power allocation for the pilot and data signals. Secondly, for each BER curve, as the $\text{SNR}_{d}$ increases for the range of $\text{SNR}_{d}$ $<21$ dB, the BER decreases because the noise effect decreases. However, as the $\text{SNR}_{d}$ increases when $\text{SNR}_{d}$ $>21$ dB, the BER performance deteriorates with the increasing $\text{SNR}_{d}$ . This phenomenon occurs because the pilot signal power is fixed. As the $\text{SNR}_{d}$ increases, there is more interference between the data and pilot signals which causes the inferior channel estimation presented in Fig. 2, leading to the degraded BER performance in Fig. 3.
+V Conclusion
+We have proposed an AFDM channel estimation scheme with superimposed pilots, aiming to increase the SE by superimposing data and pilots in the DAFT domain as well as to minimize the channel estimation MSE by ensuring at least $Q$ guard intervals between two adjacent pilots. We have shown through rigorous derivations that our proposed scheme can effectively minimize the channel estimation MSE when the pilot signal power is fixed. Simulation results have demonstrated that both the MSE and BER performance are improved as the number of pilots increases. For future work,
+we will extend our proposed scheme to multi-input-multi-output and/or multi-user systems.
+APPENDIX A
+The random matrix $\boldsymbol{\Phi}_{d}$ satisfies
+[Sx1.E25]
+$\mathbb{E}\left\{\boldsymbol{\Phi}_{d}\right\}=[\boldsymbol{\Theta}_{1}\mathbb{E}\left\{\mathbf{x}_{d}\right\}\,\boldsymbol{\Theta}_{2}\mathbb{E}\left\{\mathbf{x}_{d}\right\}\,\cdots\,\boldsymbol{\Theta}_{Q+1}\mathbb{E}\left\{\mathbf{x}_{d}\right\}]=\mathbf{0}$
+(25)
+and
+[Sx1.E26]
+$\mathbb{E}\left\{\boldsymbol{\Phi}_{d}\boldsymbol{\Phi}_{d}^{H}\right\}=\sum_{t=1}^{Q+1}\boldsymbol{\Theta}_{t}\mathbb{E}\left\{\mathbf{x}_{d}\mathbf{x}_{d}^{H}\right\}\boldsymbol{\Theta}_{t}^{H}=(Q+1)\sigma_{d}^{2}\mathbf{I}_{N}$
+(26)
+where $\boldsymbol{\Theta}_{t}\boldsymbol{\Theta}_{t}^{H}=\mathbf{I}_{N}.$
+APPENDIX B
+Since the data signal is statistically independent of the noise $\widehat{\mathbf{w}}$ , we can express the covariance matrix of $\widehat{\mathbf{w}}$ as
+[Sx2.E27]
+$\mathbb{E}\left\{\widehat{\mathbf{w}}\widehat{\mathbf{w}}^{H}\right\}=\mathbb{E}\left\{\boldsymbol{\Phi}_{d}\mathbf{h}\mathbf{h}^{H}\boldsymbol{\Phi}_{d}^{H}\right\}+\mathbb{E}\left\{\widetilde{\mathbf{w}}\widetilde{\mathbf{w}}^{H}\right\}.$
+(27)
+As proved in[10], if a random matrix $\mathbf{A}\in\mathbb{C}^{m\times n}$ has the covariance $\mathbb{E}\{\mathbf{AA}^{H}\}=\sigma\mathbf{I}_{M}$ , for any Hermitian matrix $\mathbf{B}\in\mathbb{C}^{n\times n}$ it follows that $\mathbb{E}\{\mathbf{ABA}^{H}\}=\frac{\text{Tr}\left\{\mathbf{B}\right\}}{n}\mathbb{E}\{\mathbf{AA}^{H}\}$ .
+Since $\mathbb{E}\left\{\boldsymbol{\Phi}_{d}\boldsymbol{\Phi}_{d}^{H}\right\}=(Q+1)\sigma_{d}^{2}\mathbf{I}_{N}$ , the first term of the right hand side of (27) can be calculated as
+$\displaystyle\mathbb{E}\left\{\boldsymbol{\Phi}_{d}\mathbf{hh}^{H}\boldsymbol{\Phi}_{d}^{H}\right\}$
+$\displaystyle=\mathbb{E}\left\{\mathbb{E}\left\{\boldsymbol{\Phi}_{d}\mathbf{hh}^{H}\boldsymbol{\Phi}_{d}^{H}\right\}|\mathbf{h}\right\}$
+$\displaystyle=\sigma_{d}^{2}\mathbb{E}\left\{\text{Tr}\left\{\mathbf{hh}^{H}\right\}|\mathbf{h}\right\}\mathbf{I}_{N}$
+[Sx2.E28]
+$\displaystyle=\left(\sum_{i=1}^{Q+1}\sigma_{h_{i}}^{2}\right)\sigma_{d}^{2}\mathbf{I}_{N}.$
+(28)
+Substituting (28) and the covariance matrix of $\widehat{\mathbf{w}}$ into (27), we arrive at (18).
+APPENDIX C
+The covariance matrix of $\widehat{\mathbf{h}}$ can be calculated as [11]
+[Sx3.E29]
+$\mathbf{C}_{\widehat{\mathbf{h}}}=\left(\boldsymbol{\Phi}_{p}^{H}\mathbf{C}_{\widehat{\mathbf{w}}}^{-1}\boldsymbol{\Phi}_{p}+\mathbf{C_{h}}^{-1}\right)^{-1},$
+(29)
+where the second term can be omitted as $\sigma_{p}^{2}\gg 1$ . The MSE of the channel estimation is thereby given by
+$\displaystyle\mathbb{E}\left\{\left\|\widehat{\mathbf{h}}-\mathbf{h}\right\|^{2}\right\}$
+$\displaystyle=\text{Tr}\left\{\mathbf{C}_{\widehat{\mathbf{h}}}\right\}$
+$\displaystyle\approx\text{Tr}\left\{\left(\boldsymbol{\Phi}_{p}^{H}\mathbf{C}_{\widehat{\mathbf{w}}}^{-1}\boldsymbol{\Phi}_{p}\right)^{-1}\right\}$
+[Sx3.E30]
+$\displaystyle=\sigma_{\widehat{\mathbf{w}}}^{2}\text{Tr}\left\{\left(\boldsymbol{\Phi}_{p}^{H}\boldsymbol{\Phi}_{p}\right)^{-1}\right\}.$
+(30)
+Note that the trace of $\boldsymbol{\Phi}_{p}^{H}\boldsymbol{\Phi}_{p}$ is given by
+[Sx3.E31]
+$\text{Tr}\left\{\boldsymbol{\Phi}_{p}^{H}\boldsymbol{\Phi}_{p}\right\}=\sum_{t=1}^{Q+1}\mathbf{x}_{p}^{H}\boldsymbol{\Theta}_{t}^{H}\boldsymbol{\Theta}_{t}\mathbf{x}_{p}=(Q+1)\sigma_{p}^{2}.$
+(31)
+Also note that for a square matrix $\mathbf{A}$ , the trace of $\mathbf{A}$ is equal to the sum of its eigenvalues, namely $\text{Tr}\{\mathbf{A}\}=\sum_{i}\varepsilon_{i}$ , where $\varepsilon_{i}$ is the $i$ -th eigenvalue of $\mathbf{A}$ . If $\mathbf{A}$ is invertible, then $\{1/\varepsilon_{i}\}$ are the eigenvalues of $\mathbf{A}^{-1}$ . We define $\lambda_{l},l\in\{1,2,\ldots,Q+1\}$ as the eigenvalue of $\boldsymbol{\Phi}_{p}^{H}\boldsymbol{\Phi}_{p}$ . According to (31), the sum of the eigenvalues $\sum_{l}\lambda_{l}$ is fixed. Minimizing the trace of $(\boldsymbol{\Phi}_{p}^{H}\boldsymbol{\Phi}_{p})^{-1}$ is equivalent to minimizing $\sum_{l}1/\lambda_{l}$ . Therefore, all the eigenvalues $\{\lambda_{l}\}$ need to be identical. Since $\boldsymbol{\Phi}_{p}^{H}\boldsymbol{\Phi}_{p}$ has equal diagonal elements, all the column vectors in $\boldsymbol{\Phi}_{p}^{H}\boldsymbol{\Phi}_{p}$ should be orthogonal to each other.
+Let us consider two arbitrary column vectors $\boldsymbol{\Theta}_{j}\mathbf{x}_{p}$ and $\boldsymbol{\Theta}_{i}\mathbf{x}_{p}$ in $\boldsymbol{\Phi}_{p}$ , where $i,j\in[1,Q+1]$ . The ( $m$ , $n$ )-th entry of $\boldsymbol{\Theta}_{i}$ can be expressed as
+[Sx3.E32]
+$\boldsymbol{\Theta}_{i}\left(m,n\right)=e^{j\frac{2\pi}{N}(Nc_{1}l_{i}^{2}-nl_{i}+Nc_{2}(n^{2}-m^{2}))}\delta(\left<n-m-\text{loc}_{i}\right>_{N}).$
+(32)
+Therefore, $\boldsymbol{\Theta}_{j}^{H}\boldsymbol{\Theta}_{i}\left(m,n\right)$ can be written as
+$\displaystyle\boldsymbol{\Theta}_{j}^{H}\boldsymbol{\Theta}_{i}\left(m,n\right)$
+$\displaystyle=\sum_{k=1}^{N}\boldsymbol{\Theta}_{j}^{H}\left(m,k\right)\boldsymbol{\Theta}_{i}\left(k,n\right)$
+[Sx3.E33]
+$\displaystyle=\zeta_{m,n}\delta\left(\left<n-m-\text{loc}_{i}+\text{loc}_{j}\right>_{N}\right)$
+(33)
+where
+[Sx3.E34]
+$\zeta_{m,n}=e^{j\frac{2\pi}{N}(Nc_{1}\left(l_{i}^{2}-l_{j}^{2}\right)-\left(nl_{i}-ml_{j}\right)+Nc_{2}(n^{2}-m^{2}))}.$
+(34)
+On the other hand, the inner product between $\boldsymbol{\Theta}_{j}\mathbf{x}_{p}$ and $\boldsymbol{\Theta}_{i}\mathbf{x}_{p}$ can be expressed as
+[Sx3.E35]
+$\mathbf{x}_{p}^{H}\boldsymbol{\Theta}_{j}^{H}\boldsymbol{\Theta}_{i}\mathbf{x}_{p}=\sum_{m=0}^{N-1}x_{pm}^{*}x_{p\left<m+\text{loc}_{i}-\text{loc}_{j}\right>_{N}}\zeta_{m,\left<m+\text{loc}_{i}-\text{loc}_{j}\right>_{N}}.$
+(35)
+Since $\text{loc}_{i}-\text{loc}_{j}\in[-Q,Q]$ and $Q$ null guard samples are placed on both sides of each non-zero $x_{pm}$ in $\mathbf{x}_{p}$ , the value of $x_{pm}^{*}x_{p\left<m+\text{loc}_{i}-\text{loc}_{j}\right>_{N}}$ is always zero when $i\neq j$ . Equation (35) can be thereby simplified as $\mathbf{x}_{p}^{H}\mathbf{x}=\sigma_{p}^{2}$ when $i=j$ .
+References
+[1]
+W. Saad, M. Bennis, and M. Chen, “A vision of 6G wireless systems:
+applications, trends, technologies, and open research problems,” IEEE
+Netw., vol. 34, no. 3, pp. 134–142, May 2020.
+[2]
+R. Hadani, S. Rakib, M. Tsatsanis, A. Monk, A. J. Goldsmith, A. F. Molisch, and
+R. Calderbank, “Orthogonal time frequency space modulation,” in Proc.
+IEEE Wireless Commun. Netw. Conf. (WCNC), San Francisco, CA, USA, Mar. 2017,
+pp. 1–6.
+[3]
+S. K. Mohammed, “Derivation of OTFS modulation from first principles,”
+IEEE Trans. Veh. Technol., vol. 70, no. 8, pp. 7619–7636, Mar. 2021.
+[4]
+A. Bemani, N. Ksairi, and M. Kountouris, “Affine frequency division
+multiplexing for next generation wireless communications,” IEEE Trans.
+Wireless Commun., vol. 22, no. 11, pp. 8214–8229, Nov. 2023.
+[5]
+P. Raviteja, K. T. Phan, and Y. Hong, “Embedded pilot-aided channel estimation
+for OTFS in delay-Doppler channels,” IEEE Trans. Veh. Technol.,
+vol. 68, no. 5, pp. 4906–4917, Mar. 2019.
+[6]
+W. Yuan, S. Li, Z. Wei, J. Yuan, and D. W. K. Ng, “Data-aided channel
+estimation for OTFS systems with a superimposed pilot and data transmission
+scheme,” IEEE Trans. Wireless Commun. Lett., vol. 10, no. 9, pp.
+1954–1958, Jun. 2021.
+[7]
+Y. Kanazawa, H. Iimori, C. Pradhan, S. Malomsoky, and N. Ishikawa, “Multiple
+superimposed pilots for accurate channel estimation in orthogonal time
+frequency space modulation,” in Proc. 2023 IEEE 98th Vehicular
+Technology Conference (VTC2023-Fall), Hong Kong, China, Oct. 2023, pp. 1–5.
+[8]
+H. B. Mishra, P. Singh, A. K. Prasad, and R. Budhiraja, “OTFS channel
+estimation and data detection designs with superimposed pilots,” IEEE
+Trans. Wireless Commun., vol. 21, no. 4, pp. 2258–2274, Sept. 2022.
+[9]
+H. Yin and Y. Tang, “Pilot aided channel estimation for AFDM in doubly
+dispersive channels,” in Proc. 2022 IEEE/CIC International Conference
+on Communications in China (ICCC), Sanshui, Foshan, China, Aug. 2022, pp.
+308–313.
+[10]
+P. Singh, H. B. Mishra, A. K. Jagannatham, and K. Vasudevan, “Semi-blind,
+training, and data-aided channel estimation schemes for MIMO-FBMC-OQAM
+systems,” IEEE Trans. Signal Process., vol. 67, no. 18, pp.
+4668–4682, Jul. 2019.
+[11]
+S. M. Kay, Fundamentals of Statistical Signal Processing: Estimation
+Theory. Prentice-Hall, Inc., 1993.
+Experimental support, please
+view the build logs
+for errors. Generated by
+L
+A
+T
+E
+xml
+.
+Instructions for reporting errors
+We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+methods listed below:
+Click the "Report Issue" (
+) button, located in the page header.
+Tip: You can select the relevant text first, to include it in your report.
+Our team has already identified the following issues. We appreciate your time reviewing and reporting rendering errors we
+may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+all.
+Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a list of packages that need conversion, and welcome developer contributions.
+We gratefully acknowledge support from
+our major funders,
+member institutions, ,
+and all contributors.
+About
+·
+Help
+·
+Contact
+·
+Subscribe
+·
+Copyright
+·
+Privacy
+·
+Accessibility
+·
+Operational Status (opens in new tab)
+Major funding support from

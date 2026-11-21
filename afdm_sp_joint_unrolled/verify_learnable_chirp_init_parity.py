@@ -40,7 +40,7 @@ from afdm_sp_joint_unrolled.run_classical_baselines_python import (  # noqa: E40
     QPSK,
     _make_system_variable_N,
 )
-from afdm_sp_joint_unrolled.verify_oamp import _make_system  # noqa: E402
+from afdm_sp_joint_unrolled.system_config import _make_system  # noqa: E402
 
 
 def _setup_system(n_total: int, p_paths: int = 10):

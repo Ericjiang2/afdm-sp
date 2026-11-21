@@ -1,0 +1,80 @@
+{
+  "local": {
+    "folders": {
+      "experiments/sbl_residual_gap_20261119/out": {
+        "exists": true,
+        "scanned": {
+          "metadata": 33
+        },
+        "hits": [],
+        "errors": []
+      },
+      "_archive": {
+        "exists": true,
+        "scanned": {
+          "metadata": 63
+        },
+        "hits": [],
+        "errors": []
+      },
+      "results": {
+        "exists": true,
+        "scanned": {
+          "metadata": 3125,
+          "rows": 109,
+          "empty": 3
+        },
+        "hits": [],
+        "errors": []
+      }
+    },
+    "_config": {
+      "root": "/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation",
+      "first": 5000,
+      "last": 5799,
+      "scanner_sha256": "40469e202deb18d6d5b546ef3dc1b20e8b33c259896cc8d28b8c2a93eb9c7b6e"
+    }
+  },
+  "deinlab": {
+    "folders": {
+      "experiments/sbl_residual_gap_20261119/out": {
+        "exists": true,
+        "scanned": {
+          "metadata": 37,
+          "rows": 19
+        },
+        "hits": [],
+        "errors": []
+      },
+      "_archive": {
+        "exists": false,
+        "scanned": {},
+        "hits": [],
+        "errors": []
+      },
+      "results": {
+        "exists": true,
+        "scanned": {
+          "metadata": 26668,
+          "rows": 82,
+          "empty": 1,
+          "appledouble": 6
+        },
+        "hits": [],
+        "errors": []
+      }
+    },
+    "_config": {
+      "root": "/data/guoyikun/00inbox/AFDM-channel-estimation",
+      "first": 5000,
+      "last": 5799,
+      "scanner_sha256": "40469e202deb18d6d5b546ef3dc1b20e8b33c259896cc8d28b8c2a93eb9c7b6e"
+    }
+  },
+  "_argv": [
+    "python3",
+    "<scanner source below>",
+    "<project root>"
+  ],
+  "scanner_driver": "from collections import Counter\nimport hashlib\nimport json\nfrom pathlib import Path\nimport sys\n\nroot = Path(sys.argv[1]).resolve()\nsys.path.insert(0, str(root / 'experiments/rho_sweep_20261119'))\nfrom audit import audit_fresh\n\nscan = audit_fresh.archived\nsummaries = {}\nfor relative in ('experiments/sbl_residual_gap_20261119/out', '_archive', 'results'):\n    folder = root / relative\n    counts = Counter()\n    hits, errors = [], []\n    for path in sorted(folder.rglob('*')):\n        if not path.is_file() or not path.name.endswith(scan.WATCH_SUFFIXES):\n            continue\n        if not path.stat().st_size:\n            counts['empty'] += 1\n            continue\n        if path.name.startswith('._'):\n            with path.open('rb') as handle:\n                if handle.read(4) == b'\\x00\\x05\\x16\\x07':\n                    counts['appledouble'] += 1\n                    continue\n        structured = not path.name.endswith(('.jsonl', '.jsonl.gz'))\n        counts['metadata' if structured else 'rows'] += 1\n        try:\n            frames, _ = scan.scan_file(path, structured)\n        except (OSError, ValueError, EOFError) as error:\n            errors.append(dict(file=str(path.relative_to(root)), type=type(error).__name__))\n            continue\n        findings = sorted(f for f in frames if 5000 <= f <= 5799)\n        if findings:\n            hits.append(dict(file=str(path.relative_to(root)), frames=scan.ranges(findings)))\n    summaries[relative] = dict(exists=folder.is_dir(), scanned=counts, hits=hits, errors=errors)\nprint(json.dumps(dict(folders=summaries, _config=dict(root=str(root), first=5000, last=5799,\n    scanner_sha256=hashlib.sha256(Path(scan.__file__).read_bytes()).hexdigest()))))\n"
+}

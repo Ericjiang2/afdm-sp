@@ -1,0 +1,104 @@
+{
+  "_argv": [
+    "python",
+    "-",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/slot_mismatch_20261019/out/main_20261118",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sigma2_dd_20261118/out/gate_20261118/g1.json",
+    "10000",
+    "10001",
+    "10998",
+    "10999"
+  ],
+  "_config": {
+    "host": "liunxgpu",
+    "ssh_alias": "deinlab",
+    "archive": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/slot_mismatch_20261019/out/main_20261118",
+    "frozen_commit": "9b633ce9df020158d51621600d7b6eab3b65395d",
+    "archived_producer_sha256": "c9263f41caa673227752c6205809a8f3e8c4733b0f832b152ed12f6aa6a65503",
+    "manifest_sha256": "f760e33c9bf4d464d6c06cbddd48b4bbec07e11f88736e609bc3fb90dcdeeadf",
+    "frames": [
+      10000,
+      10001,
+      10998,
+      10999
+    ],
+    "snr_centi_db": [
+      450,
+      500,
+      550,
+      600,
+      650,
+      700,
+      750,
+      800
+    ],
+    "scenario": "G",
+    "rho_permille": 300,
+    "cap": 8,
+    "selection": "Two frames at either end of the historical block, each at all eight SNRs",
+    "decision_rule": "A1c on nonzero final F0 syndrome, F0 otherwise"
+  },
+  "utc": "2026-11-18T13:39:19+00:00",
+  "status": "FAIL",
+  "reason": "Historical archive omitted decoded bits and their hashes for the selected B decisions.",
+  "receiver_calls": 0,
+  "hash_comparisons": 0,
+  "shard_md5_verified": {
+    "rows_shard000.jsonl.gz": "40f8d44a977e150d7a860a3bce63c10e",
+    "rows_shard199.jsonl.gz": "1e4a26cea041916bbd8a540250ed2b6b"
+  },
+  "non_row_files_scanned": 206,
+  "sidecars_with_decoded_evidence": [],
+  "arms": {
+    "B_known": {
+      "family": "M",
+      "selected_keys": 32,
+      "reference_keys_with_decoded_evidence": 0,
+      "selected_branches": {
+        "A1c": 6,
+        "f0": 26
+      },
+      "fields_by_branch": {
+        "A1c": [
+          "edits",
+          "final_delays",
+          "final_dopplers",
+          "info_errors"
+        ],
+        "f0": [
+          "info_errors",
+          "r1_delays",
+          "r1_dopplers",
+          "slot_count",
+          "slot_count_r0",
+          "syndrome"
+        ]
+      }
+    },
+    "B_SF": {
+      "family": "N",
+      "selected_keys": 32,
+      "reference_keys_with_decoded_evidence": 0,
+      "selected_branches": {
+        "A1c": 14,
+        "f0": 18
+      },
+      "fields_by_branch": {
+        "A1c": [
+          "edits",
+          "final_delays",
+          "final_dopplers",
+          "info_errors"
+        ],
+        "f0": [
+          "info_errors",
+          "r1_delays",
+          "r1_dopplers",
+          "slot_count",
+          "slot_count_r0",
+          "syndrome"
+        ]
+      }
+    }
+  }
+}

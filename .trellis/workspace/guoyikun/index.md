@@ -8,8 +8,8 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 18
-- **Last Active**: 2026-10-10
+- **Total Sessions**: 35
+- **Last Active**: 2026-10-28
 <!-- @@@/auto:current-status -->
 
 ---
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~671 | Active |
+| `journal-1.md` | ~1284 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,23 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 35 | 2026-10-28 | Close AFDM web access after manual acceptance | `e31661d9` | `workbuddy/monetization` |
+| 34 | 2026-10-28 | Deploy scoped AFDM web evidence and learning exchange | `820630b6` | `workbuddy/monetization` |
+| 33 | 2026-10-28 | AFDM web publication screening and Opus design opinion | - | `workbuddy/monetization` |
+| 32 | 2026-10-21 | Prospective fresh-frame soft-Gram score validation | `73882cff`, `31bd1ee6` | `trans/tcom-main` |
+| 31 | 2026-10-21 | Audited Gamma-only off-diagonal ablation on saved SBL cohort | `1198b266`, `03b6be16` | `trans/tcom-main` |
+| 30 | 2026-10-21 | Independent Opus5.5 high review of soft-Gram disputes | `7100551f` | `trans/tcom-main` |
+| 29 | 2026-10-21 | Actual-support soft-Gram200-key screening and independent audit | `ee5882ce`, `9ffa2efd` | `trans/tcom-main` |
+| 28 | 2026-10-21 | Matched soft-Gram block derivation and minimal qualification | `5d2feb6e`, `62f70a16`, `86e20c09` | `trans/tcom-main` |
+| 27 | 2026-10-21 | Matched physical-prior duplicate representation probe | `c4635b24`, `e7b55f97` | `trans/tcom-main` |
+| 26 | 2026-10-21 | Zero-simulation SBL trajectory analysis | `ef324633`, `ef8f09fe` | `trans/tcom-main` |
+| 25 | 2026-10-20 | Matched SBL restart-point addendum | `99f918be`, `1081e27a` | `trans/tcom-main` |
+| 24 | 2026-10-20 | Bounded SBL final-gain restart readout | `feffc7ed`, `50d79546`, `0ca77870` | `trans/tcom-main` |
+| 23 | 2026-10-20 | Bounded SBL detector diagnostic: mean-only harm, joint mitigation | `d3e4a468`, `f7d5d4a8`, `2b856d2a` | `trans/tcom-main` |
+| 22 | 2026-10-19 | Detector-gain lead: zero-sim check, CSTATE and SBL pilots | `14db22de`, `01521088`, `9c244fb9`, `d8dd854a`, `1090a270` | `trans/tcom-main` |
+| 21 | 2026-10-19 | Audits, P correction and slot-mismatch pilots | `56e3874f`, `5f268d65`, `5adff9c7`, `0c2e09c9`, `3f5d2b83`, `1975541a` | `trans/tcom-main` |
+| 20 | 2026-10-18 | E3c completed: ridge recovery and gain-refit control | `e1bfd013` | `trans/tcom-main` |
+| 19 | 2026-10-16 | Bounds screens and F0+CSTATE TCOM reference frame | `2ba31064`, `7895315a`, `4f0ebe56`, `f5e1cafe`, `8c9e96da`, `edd06d27`, `f36047d8`, `afa4c039`, `2cd61b7c`, `1f28139e`, `5313e43f`, `06935d42`, `d727b09e`, `6c1f0815`, `1234b71f`, `6bb5fa3b`, `6c20abf0`, `f2e35c46`, `43baf559`, `7b908e8a`, `0cfbd43b`, `09eedc33`, `6ff70752` | `trans/tcom-main` |
 | 18 | 2026-10-10 | C1 fold, round-1 law tests, joint-FP theory, inner-budget lever | `fdb2b382`, `4d517d17`, `5d9d24a6`, `882e676f`, `d7d2d0a7`, `6966ca78`, `12a6338c`, `f006b0ad`, `8d26126c`, `3fe96318`, `cae5f3d2`, `773b2139`, `f7425f7e`, `272a0304`, `4c933d10`, `4f3563fa`, `c242c36f`, `3a45be5e`, `9c3f8a45`, `52df712c`, `7e49125d`, `d1698c72`, `dfa18ce8`, `4569b034`, `c2658539`, `e94d0464`, `dd4cfa22`, `1bc119df` | `trans/tcom-main` |
 | 17 | 2026-10-09 | C1 mechanism closure and round-1 loop law | `d79a578d`, `1dfb182c`, `ac08735a`, `bdad1a06`, `9473a774`, `6b3ebda9`, `2d0a2f90`, `bf35001e` | `trans/tcom-main` |
 | 16 | 2026-10-05 | 碰撞信息到未知参数方法与优势 | `66422eb5`, `4573ce71`, `9d77e2ea`, `e552bba1`, `c84a2db2` | `trans/tcom-main` |

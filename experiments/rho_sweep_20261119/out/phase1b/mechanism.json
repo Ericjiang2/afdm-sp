@@ -1,0 +1,3830 @@
+{
+  "_argv": [
+    "phase1b.py",
+    "--out",
+    "out/phase1b",
+    "--workers",
+    "16"
+  ],
+  "_config": {
+    "out": "out/phase1b",
+    "workers": 16,
+    "start_method": "spawn",
+    "arms": [
+      "F0",
+      "A2",
+      "CD"
+    ],
+    "scenarios": [
+      "U",
+      "G"
+    ],
+    "rhos": [
+      150,
+      200,
+      250,
+      300,
+      400,
+      500
+    ],
+    "snrs": [
+      300,
+      400,
+      450,
+      500,
+      550,
+      600,
+      650,
+      700,
+      800,
+      900,
+      1000,
+      1100,
+      1200
+    ],
+    "cost_frames": [
+      4000,
+      4001,
+      4002,
+      4003,
+      4004,
+      4005,
+      4006,
+      4007
+    ],
+    "smoke_frames": [
+      8600,
+      8601
+    ],
+    "joined_sha256": "043e57d4dfc67996c6f291c6cf88d99a51714765ccd0a1a492c70461bbf165ad",
+    "g2_sha256": "67a2f676a9ea1cde0c669262e9b032e7a3e302a797544c60aac65c77cf2e76d0",
+    "threads": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    },
+    "source_sha256": {
+      "phase1b.py": "4c8a44224867ddd602f5223f5d3fec76973e07e3dc63aed86e5f010a654162aa",
+      "phase1.py": "4b531189cc268d9978c7bbda6ebea5b486228695dd2d6641203624c8acd419e9",
+      "mechanism.py": "f40a9ebea38427dfa4fadeafec9cb8e5b4e5e656817548cba82e5b5cc6671218"
+    }
+  },
+  "archive": {
+    "G/300/500": {
+      "frames": 400,
+      "triggered": 107,
+      "trigger_rate": 0.2675,
+      "arms": {
+        "A2": {
+          "rescues": 30,
+          "harms": 0,
+          "rescues_per_trigger": 0.2803738317757009,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 102,
+              "true_delay": 5,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 107,
+            "shares_of_accepted": {
+              "phantom": 0.9532710280373832,
+              "true_delay": 0.04672897196261682,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 107,
+            "wins": {
+              "phantom": 102,
+              "true_delay": 5,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.9532710280373832,
+              "true_delay": 0.04672897196261682,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 96,
+          "harms": 0,
+          "rescues_per_trigger": 0.897196261682243,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 4,
+              "true_delay": 103,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 107,
+            "shares_of_accepted": {
+              "phantom": 0.037383177570093455,
+              "true_delay": 0.9626168224299065,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 107,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 107,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/300/550": {
+      "frames": 400,
+      "triggered": 38,
+      "trigger_rate": 0.095,
+      "arms": {
+        "A2": {
+          "rescues": 18,
+          "harms": 0,
+          "rescues_per_trigger": 0.47368421052631576,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 29,
+              "true_delay": 9,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 38,
+            "shares_of_accepted": {
+              "phantom": 0.7631578947368421,
+              "true_delay": 0.23684210526315788,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 38,
+            "wins": {
+              "phantom": 29,
+              "true_delay": 9,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.7631578947368421,
+              "true_delay": 0.23684210526315788,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 38,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 3,
+              "true_delay": 35,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 38,
+            "shares_of_accepted": {
+              "phantom": 0.07894736842105263,
+              "true_delay": 0.9210526315789473,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 38,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 38,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/300/600": {
+      "frames": 400,
+      "triggered": 14,
+      "trigger_rate": 0.035,
+      "arms": {
+        "A2": {
+          "rescues": 9,
+          "harms": 0,
+          "rescues_per_trigger": 0.6428571428571429,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 9,
+              "true_delay": 5,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 14,
+            "shares_of_accepted": {
+              "phantom": 0.6428571428571429,
+              "true_delay": 0.35714285714285715,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 14,
+            "wins": {
+              "phantom": 8,
+              "true_delay": 6,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.5714285714285714,
+              "true_delay": 0.42857142857142855,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 14,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 3,
+              "true_delay": 11,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 14,
+            "shares_of_accepted": {
+              "phantom": 0.21428571428571427,
+              "true_delay": 0.7857142857142857,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 14,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 14,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/300/700": {
+      "frames": 400,
+      "triggered": 3,
+      "trigger_rate": 0.0075,
+      "arms": {
+        "A2": {
+          "rescues": 3,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 1,
+              "true_delay": 1,
+              "other": 1,
+              "no_edit": 0
+            },
+            "accepted": 3,
+            "shares_of_accepted": {
+              "phantom": 0.3333333333333333,
+              "true_delay": 0.3333333333333333,
+              "other": 0.3333333333333333
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 3,
+            "wins": {
+              "phantom": 1,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.3333333333333333,
+              "true_delay": 0.6666666666666666,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 3,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 1,
+              "other": 2,
+              "no_edit": 0
+            },
+            "accepted": 3,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 0.3333333333333333,
+              "other": 0.6666666666666666
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 3,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 3,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/300/800": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/300/900": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/300/1000": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/300/1100": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/500/500": {
+      "frames": 400,
+      "triggered": 398,
+      "trigger_rate": 0.995,
+      "arms": {
+        "A2": {
+          "rescues": 3,
+          "harms": 0,
+          "rescues_per_trigger": 0.007537688442211055,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 375,
+              "true_delay": 0,
+              "other": 10,
+              "no_edit": 13
+            },
+            "accepted": 385,
+            "shares_of_accepted": {
+              "phantom": 0.974025974025974,
+              "true_delay": 0.0,
+              "other": 0.025974025974025976
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 284,
+            "wins": {
+              "phantom": 284,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 6,
+          "harms": 0,
+          "rescues_per_trigger": 0.01507537688442211,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 3,
+              "true_delay": 165,
+              "other": 145,
+              "no_edit": 85
+            },
+            "accepted": 313,
+            "shares_of_accepted": {
+              "phantom": 0.009584664536741214,
+              "true_delay": 0.5271565495207667,
+              "other": 0.46325878594249204
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 284,
+            "wins": {
+              "phantom": 8,
+              "true_delay": 276,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.028169014084507043,
+              "true_delay": 0.971830985915493,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/500/550": {
+      "frames": 400,
+      "triggered": 336,
+      "trigger_rate": 0.84,
+      "arms": {
+        "A2": {
+          "rescues": 36,
+          "harms": 0,
+          "rescues_per_trigger": 0.10714285714285714,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 306,
+              "true_delay": 3,
+              "other": 15,
+              "no_edit": 12
+            },
+            "accepted": 324,
+            "shares_of_accepted": {
+              "phantom": 0.9444444444444444,
+              "true_delay": 0.009259259259259259,
+              "other": 0.046296296296296294
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 246,
+            "wins": {
+              "phantom": 243,
+              "true_delay": 3,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.9878048780487805,
+              "true_delay": 0.012195121951219513,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 102,
+          "harms": 0,
+          "rescues_per_trigger": 0.30357142857142855,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 3,
+              "true_delay": 182,
+              "other": 107,
+              "no_edit": 44
+            },
+            "accepted": 292,
+            "shares_of_accepted": {
+              "phantom": 0.010273972602739725,
+              "true_delay": 0.6232876712328768,
+              "other": 0.3664383561643836
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 246,
+            "wins": {
+              "phantom": 4,
+              "true_delay": 242,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.016260162601626018,
+              "true_delay": 0.983739837398374,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/500/600": {
+      "frames": 400,
+      "triggered": 113,
+      "trigger_rate": 0.2825,
+      "arms": {
+        "A2": {
+          "rescues": 38,
+          "harms": 0,
+          "rescues_per_trigger": 0.336283185840708,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 105,
+              "true_delay": 2,
+              "other": 4,
+              "no_edit": 2
+            },
+            "accepted": 111,
+            "shares_of_accepted": {
+              "phantom": 0.9459459459459459,
+              "true_delay": 0.018018018018018018,
+              "other": 0.036036036036036036
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 101,
+            "wins": {
+              "phantom": 99,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.9801980198019802,
+              "true_delay": 0.019801980198019802,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 91,
+          "harms": 0,
+          "rescues_per_trigger": 0.8053097345132744,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 89,
+              "other": 15,
+              "no_edit": 7
+            },
+            "accepted": 106,
+            "shares_of_accepted": {
+              "phantom": 0.018867924528301886,
+              "true_delay": 0.839622641509434,
+              "other": 0.14150943396226415
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 101,
+            "wins": {
+              "phantom": 1,
+              "true_delay": 100,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.009900990099009901,
+              "true_delay": 0.9900990099009901,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/500/650": {
+      "frames": 400,
+      "triggered": 14,
+      "trigger_rate": 0.035,
+      "arms": {
+        "A2": {
+          "rescues": 8,
+          "harms": 0,
+          "rescues_per_trigger": 0.5714285714285714,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 13,
+              "true_delay": 1,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 14,
+            "shares_of_accepted": {
+              "phantom": 0.9285714285714286,
+              "true_delay": 0.07142857142857142,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 14,
+            "wins": {
+              "phantom": 13,
+              "true_delay": 1,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.9285714285714286,
+              "true_delay": 0.07142857142857142,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 14,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 12,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 14,
+            "shares_of_accepted": {
+              "phantom": 0.14285714285714285,
+              "true_delay": 0.8571428571428571,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 14,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 14,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/500/700": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/500/800": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/500/900": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/500/1000": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/500/1100": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "U/300/500": {
+      "frames": 400,
+      "triggered": 78,
+      "trigger_rate": 0.195,
+      "arms": {
+        "A2": {
+          "rescues": 27,
+          "harms": 0,
+          "rescues_per_trigger": 0.34615384615384615,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 68,
+              "true_delay": 10,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 78,
+            "shares_of_accepted": {
+              "phantom": 0.8717948717948718,
+              "true_delay": 0.1282051282051282,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 78,
+            "wins": {
+              "phantom": 68,
+              "true_delay": 10,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.8717948717948718,
+              "true_delay": 0.1282051282051282,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 70,
+          "harms": 0,
+          "rescues_per_trigger": 0.8974358974358975,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 74,
+              "other": 2,
+              "no_edit": 0
+            },
+            "accepted": 78,
+            "shares_of_accepted": {
+              "phantom": 0.02564102564102564,
+              "true_delay": 0.9487179487179487,
+              "other": 0.02564102564102564
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 78,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 78,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/300/550": {
+      "frames": 400,
+      "triggered": 23,
+      "trigger_rate": 0.0575,
+      "arms": {
+        "A2": {
+          "rescues": 11,
+          "harms": 0,
+          "rescues_per_trigger": 0.4782608695652174,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 18,
+              "true_delay": 5,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 23,
+            "shares_of_accepted": {
+              "phantom": 0.782608695652174,
+              "true_delay": 0.21739130434782608,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 23,
+            "wins": {
+              "phantom": 18,
+              "true_delay": 5,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.782608695652174,
+              "true_delay": 0.21739130434782608,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 22,
+          "harms": 0,
+          "rescues_per_trigger": 0.9565217391304348,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 1,
+              "true_delay": 22,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 23,
+            "shares_of_accepted": {
+              "phantom": 0.043478260869565216,
+              "true_delay": 0.9565217391304348,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 23,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 23,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/300/600": {
+      "frames": 400,
+      "triggered": 9,
+      "trigger_rate": 0.0225,
+      "arms": {
+        "A2": {
+          "rescues": 6,
+          "harms": 0,
+          "rescues_per_trigger": 0.6666666666666666,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 4,
+              "true_delay": 5,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 9,
+            "shares_of_accepted": {
+              "phantom": 0.4444444444444444,
+              "true_delay": 0.5555555555555556,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 9,
+            "wins": {
+              "phantom": 4,
+              "true_delay": 5,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.4444444444444444,
+              "true_delay": 0.5555555555555556,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 7,
+          "harms": 0,
+          "rescues_per_trigger": 0.7777777777777778,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 9,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 9,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 9,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 9,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/300/700": {
+      "frames": 400,
+      "triggered": 4,
+      "trigger_rate": 0.01,
+      "arms": {
+        "A2": {
+          "rescues": 3,
+          "harms": 0,
+          "rescues_per_trigger": 0.75,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 1,
+              "true_delay": 3,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 4,
+            "shares_of_accepted": {
+              "phantom": 0.25,
+              "true_delay": 0.75,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 4,
+            "wins": {
+              "phantom": 1,
+              "true_delay": 3,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.25,
+              "true_delay": 0.75,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 4,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 4,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 4,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 4,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 4,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/300/800": {
+      "frames": 400,
+      "triggered": 2,
+      "trigger_rate": 0.005,
+      "arms": {
+        "A2": {
+          "rescues": 2,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 2,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 2,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 2,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/300/900": {
+      "frames": 400,
+      "triggered": 2,
+      "trigger_rate": 0.005,
+      "arms": {
+        "A2": {
+          "rescues": 2,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 2,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 2,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 2,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/300/1000": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "U/300/1100": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "U/500/500": {
+      "frames": 400,
+      "triggered": 398,
+      "trigger_rate": 0.995,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 379,
+              "true_delay": 0,
+              "other": 12,
+              "no_edit": 7
+            },
+            "accepted": 391,
+            "shares_of_accepted": {
+              "phantom": 0.969309462915601,
+              "true_delay": 0.0,
+              "other": 0.030690537084398978
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 273,
+            "wins": {
+              "phantom": 273,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 5,
+              "true_delay": 144,
+              "other": 167,
+              "no_edit": 82
+            },
+            "accepted": 316,
+            "shares_of_accepted": {
+              "phantom": 0.015822784810126583,
+              "true_delay": 0.45569620253164556,
+              "other": 0.5284810126582279
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 273,
+            "wins": {
+              "phantom": 6,
+              "true_delay": 267,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.02197802197802198,
+              "true_delay": 0.978021978021978,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/500/550": {
+      "frames": 400,
+      "triggered": 332,
+      "trigger_rate": 0.83,
+      "arms": {
+        "A2": {
+          "rescues": 31,
+          "harms": 0,
+          "rescues_per_trigger": 0.09337349397590361,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 303,
+              "true_delay": 1,
+              "other": 17,
+              "no_edit": 11
+            },
+            "accepted": 321,
+            "shares_of_accepted": {
+              "phantom": 0.9439252336448598,
+              "true_delay": 0.003115264797507788,
+              "other": 0.0529595015576324
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 236,
+            "wins": {
+              "phantom": 235,
+              "true_delay": 1,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.9957627118644068,
+              "true_delay": 0.00423728813559322,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 99,
+          "harms": 0,
+          "rescues_per_trigger": 0.29819277108433734,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 3,
+              "true_delay": 164,
+              "other": 115,
+              "no_edit": 50
+            },
+            "accepted": 282,
+            "shares_of_accepted": {
+              "phantom": 0.010638297872340425,
+              "true_delay": 0.5815602836879432,
+              "other": 0.4078014184397163
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 236,
+            "wins": {
+              "phantom": 3,
+              "true_delay": 233,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.012711864406779662,
+              "true_delay": 0.9872881355932204,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/500/600": {
+      "frames": 400,
+      "triggered": 95,
+      "trigger_rate": 0.2375,
+      "arms": {
+        "A2": {
+          "rescues": 42,
+          "harms": 0,
+          "rescues_per_trigger": 0.4421052631578947,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 81,
+              "true_delay": 3,
+              "other": 9,
+              "no_edit": 2
+            },
+            "accepted": 93,
+            "shares_of_accepted": {
+              "phantom": 0.8709677419354839,
+              "true_delay": 0.03225806451612903,
+              "other": 0.0967741935483871
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 76,
+            "wins": {
+              "phantom": 73,
+              "true_delay": 3,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.9605263157894737,
+              "true_delay": 0.039473684210526314,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 78,
+          "harms": 0,
+          "rescues_per_trigger": 0.8210526315789474,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 67,
+              "other": 23,
+              "no_edit": 5
+            },
+            "accepted": 90,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 0.7444444444444445,
+              "other": 0.25555555555555554
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 76,
+            "wins": {
+              "phantom": 1,
+              "true_delay": 75,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.013157894736842105,
+              "true_delay": 0.9868421052631579,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/500/650": {
+      "frames": 400,
+      "triggered": 9,
+      "trigger_rate": 0.0225,
+      "arms": {
+        "A2": {
+          "rescues": 6,
+          "harms": 0,
+          "rescues_per_trigger": 0.6666666666666666,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 8,
+              "true_delay": 1,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 9,
+            "shares_of_accepted": {
+              "phantom": 0.8888888888888888,
+              "true_delay": 0.1111111111111111,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 8,
+            "wins": {
+              "phantom": 7,
+              "true_delay": 1,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.875,
+              "true_delay": 0.125,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 8,
+          "harms": 0,
+          "rescues_per_trigger": 0.8888888888888888,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 7,
+              "other": 1,
+              "no_edit": 1
+            },
+            "accepted": 8,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 0.875,
+              "other": 0.125
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 8,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 8,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/500/700": {
+      "frames": 400,
+      "triggered": 1,
+      "trigger_rate": 0.0025,
+      "arms": {
+        "A2": {
+          "rescues": 1,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 1,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 1,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 1,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 1,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 1,
+          "harms": 0,
+          "rescues_per_trigger": 1.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 1,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 1,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 1,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 1,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/500/800": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "U/500/900": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "U/500/1000": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "U/500/1100": {
+      "frames": 400,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "smoke": {
+    "G/150/300": {
+      "frames": 2,
+      "triggered": 2,
+      "trigger_rate": 1.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 2,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 2,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/150/1200": {
+      "frames": 2,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/200/300": {
+      "frames": 2,
+      "triggered": 2,
+      "trigger_rate": 1.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 2,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 2,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/200/1200": {
+      "frames": 2,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/250/300": {
+      "frames": 2,
+      "triggered": 2,
+      "trigger_rate": 1.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 2,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 2,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/250/1200": {
+      "frames": 2,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "G/400/300": {
+      "frames": 2,
+      "triggered": 2,
+      "trigger_rate": 1.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 2,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 2,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "G/400/1200": {
+      "frames": 2,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "U/150/300": {
+      "frames": 2,
+      "triggered": 2,
+      "trigger_rate": 1.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 2,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 2,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/150/1200": {
+      "frames": 2,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "U/200/300": {
+      "frames": 2,
+      "triggered": 2,
+      "trigger_rate": 1.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 2,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 2,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/200/1200": {
+      "frames": 2,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "U/250/300": {
+      "frames": 2,
+      "triggered": 2,
+      "trigger_rate": 1.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 2,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 1,
+              "other": 0,
+              "no_edit": 1
+            },
+            "accepted": 1,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 2,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 2,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/250/1200": {
+      "frames": 2,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    },
+    "U/400/300": {
+      "frames": 2,
+      "triggered": 2,
+      "trigger_rate": 1.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 2,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 2,
+            "shares_of_accepted": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 1,
+            "wins": {
+              "phantom": 1,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 1.0,
+              "true_delay": 0.0,
+              "tie": 0.0
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": 0.0,
+          "harms_per_trigger": 0.0,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 1,
+              "other": 0,
+              "no_edit": 1
+            },
+            "accepted": 1,
+            "shares_of_accepted": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "other": 0.0
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 1,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 1,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": 0.0,
+              "true_delay": 1.0,
+              "tie": 0.0
+            }
+          }
+        }
+      }
+    },
+    "U/400/1200": {
+      "frames": 2,
+      "triggered": 0,
+      "trigger_rate": 0.0,
+      "arms": {
+        "A2": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        },
+        "CD": {
+          "rescues": 0,
+          "harms": 0,
+          "rescues_per_trigger": null,
+          "harms_per_trigger": null,
+          "first_edits": {
+            "counts": {
+              "phantom": 0,
+              "true_delay": 0,
+              "other": 0,
+              "no_edit": 0
+            },
+            "accepted": 0,
+            "shares_of_accepted": {
+              "phantom": null,
+              "true_delay": null,
+              "other": null
+            },
+            "phantom_on_true_codelay": 0
+          },
+          "common_pair": {
+            "eligible_triggers": 0,
+            "wins": {
+              "phantom": 0,
+              "true_delay": 0,
+              "tie": 0
+            },
+            "shares": {
+              "phantom": null,
+              "true_delay": null,
+              "tie": null
+            }
+          }
+        }
+      }
+    }
+  }
+}

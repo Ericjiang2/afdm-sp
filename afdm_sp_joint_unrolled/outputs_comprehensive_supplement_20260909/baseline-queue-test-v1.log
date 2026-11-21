@@ -1,0 +1,33 @@
+test_actual_runner_schema_80_record_fixture_and_identity_rejection (test_baseline_queue_v1.QueueTests) ... ok
+test_all_detector_v2_sessions_count_queue_excluded (test_baseline_queue_v1.QueueTests) ... ok
+test_count_includes_detector_and_only_live (test_baseline_queue_v1.QueueTests) ... ok
+test_deadline_no_command_or_kill (test_baseline_queue_v1.QueueTests) ... ok
+test_existing_output_never_relaunched (test_baseline_queue_v1.QueueTests) ... ok
+test_failed_batch_stops_new_but_preserves_other (test_baseline_queue_v1.QueueTests) ... ok
+test_fixed_plan_matches_all_ten_local_shells_and_6320_calls (test_baseline_queue_v1.QueueTests) ... ERROR
+test_full_capacity_does_not_check_gpu_or_launch (test_baseline_queue_v1.QueueTests) ... ok
+test_gpu_conjunction (test_baseline_queue_v1.QueueTests) ... ok
+test_intent_never_restarted (test_baseline_queue_v1.QueueTests) ... ok
+test_launch_maximum_two_with_persistent_exact_identity (test_baseline_queue_v1.QueueTests) ... ok
+test_live_pid_missing_pane_halts_dispatch (test_baseline_queue_v1.QueueTests) ... ok
+test_process_observation_error_is_not_exit (test_baseline_queue_v1.QueueTests) ... ok
+test_process_pid_reuse_is_not_success (test_baseline_queue_v1.QueueTests) ... ok
+test_restart_rejects_changed_deadline_unknown_job_and_missing_ticks (test_baseline_queue_v1.QueueTests) ... ok
+test_tmux_observation_failure_is_not_exit (test_baseline_queue_v1.QueueTests) ... ok
+
+======================================================================
+ERROR: test_fixed_plan_matches_all_ten_local_shells_and_6320_calls (test_baseline_queue_v1.QueueTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/test_baseline_queue_v1.py", line 99, in test_fixed_plan_matches_all_ten_local_shells_and_6320_calls
+    plan=json.loads((dispatch.parent/'evidence/baseline-queue-plan.json').read_text())
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/pathlib.py", line 1134, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/pathlib.py", line 1119, in open
+    return self._accessor.open(self, mode, buffering, encoding, errors,
+FileNotFoundError: [Errno 2] No such file or directory: '/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/evidence/baseline-queue-plan.json'
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.088s
+
+FAILED (errors=1)

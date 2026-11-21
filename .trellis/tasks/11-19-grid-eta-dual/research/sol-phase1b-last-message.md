@@ -1,0 +1,8 @@
+- Committed Phase 1b as `bc8c117e`. Appendix B is complete. No freeze or main run was performed.
+- **Stage-specific grid.** The first round stays at η = 4. Only the second-stage candidate grid varies.
+- **Gates passed.** η = 4 matched 36/36 Phase 1 arm records, excluding runtime fields. First-round fingerprints matched across grids on 36/36 keys. X matched 32/32 archived pair records. All seven verdict tests passed.
+- **Freshness audit.** Both hosts confirmed prior use of all frames 7000–7199, ruling out the extension.
+- **Projected 95% half-widths** at 200 frames are 4.90, 5.89, and 6.95 percentage points for η contrasts 4−2, 8−4, and 8−2.
+- **Selected schedule.** R0/R1, U/G, ρ = .30, 6 dB, frames 6800–6999. **5.65 core-hours** with the 1.3 factor, under the 15-hour cap.
+- **200-iteration check.** R1’s decoded bits changed on 7/10 old keys, frame-error status changed on 0/10, and 1/10 converged by 200 iterations. [Phase 1b receipt](/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/grid_eta_dual_20261119/out/phase1b/receipt.json)
+- model: `gpt-6.2-sol`

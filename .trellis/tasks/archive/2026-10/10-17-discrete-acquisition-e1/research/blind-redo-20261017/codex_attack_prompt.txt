@@ -1,0 +1,15 @@
+Role: independent ATTACK-ONLY reviewer. One pass, read-only. Your only job is to find what is wrong, unsupported or already published in one report. Do not propose new research directions and do not praise.
+
+Repository: current dir (AFDM SP joint channel-estimation/detection project, IEEE TCOM target).
+Report under attack: .trellis/tasks/10-17-discrete-acquisition-e1/research/blind-redo-20261017/REPORT.md
+Its numerical checks: .trellis/tasks/10-17-discrete-acquisition-e1/research/blind-redo-20261017/checks/{miss_law,floor_check,tail_check}.py
+Do NOT read other files in .trellis/tasks/10-17-discrete-acquisition-e1/ (they hold a different analysis; stay independent of it).
+Ground truth sources you may read: research-assets/ cards cited in the report, experiments/tcom_reference_frame_20261015/gen_fixed.py and p1_driver.py, experiments/tcom_genie_support_20261016/, experiments/sp_afdm_native_joint_20260921/src/, STATE.md.
+
+Attack these, in priority order (spend most effort on 1-3):
+1. E11 "interference-limited miss law" (SINR = rho*N*q/(1-rho+sigma^2), one threshold T=7.39 calibrated on one cell, |ln| <= .14 on 16 U cells). Check miss_law.py against the real generator/receiver: is the channel/PDP law it re-implements the same as gen_fixed.py (delays, PDP, fractional Doppler, power normalisation, amendment A1 per-frame unit power)? Is the "measured" missed energy it fits actually what F0's pilot stage misses, or a proxy? Is the fit predictive or would any monotone function of (1-rho+sigma^2)/rho fit as well (the report itself suspects this - test it if cheap, <5 CPU-min)?
+2. E12 "missed-energy-as-noise predicts F0 crossover ~4.9 dB vs measured 6.4-7.0, floor ~0 vs 3-6.5e-3" -> kappa ~1.8 amplification. Is the inference valid or an artifact of the proxy/model in floor_check.py/tail_check.py?
+3. Prior-art collisions for the #1 direction M1 (SP interference-limited support-bootstrap law + decode-certified re-acquisition): verify with web search arXiv:2501.15935 (Kanazawa et al., SP-OTFS, LDPC soft replica, threshold) and arXiv:2607.18881 (Luo et al., "accepted to TCOM"? SP-AFDM data-aided). Do they already contain the miss/floor law, the rho* rule, or decode-triggered re-acquisition? Also search for any SP-OTFS/AFDM paper giving an analytical pilot-power rule from support-detection probability. Give exact IDs.
+4. Ranking logic: is M1 > M3 > M2 justified by the report's own evidence? Any established project fact (research-assets cards) that the report misstates or omits and that would flip a ranking?
+
+Output (<= 60 lines, terse, English): for each item 1-4: verdict {HOLDS / WEAKENED / FALSE / UNVERIFIABLE}, the decisive evidence (file:line or paper ID + quote <= 15 words), and the minimal fix. End with "Overall: <one sentence on whether the report's #1 survives>".

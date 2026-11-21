@@ -16,7 +16,7 @@ TMLCN 论文投稿收尾（research parent）。科学问题：1041-param learne
   achievable-Λ 为唯一 innovation 核心；学习降为 tested-and-null；kill list（§9 K1–K10）全部执行；
   措辞按 §7 红绿灯；venue TMLCN → **TCOM regular**，标题禁 learned/neural。
 - **主线实验闭合**（children）：E1 LDPC（最先，可证伪）→ E2 firm-seed 基线 → E6 Λ-cost dump；E3 可选；E4/E5/E7/E8/E9 推迟。
-- 审计报告存档：`~/Downloads/AFDM_claim_reconstruction_audit_20260726_app-ans.html`（评审对象为 `_claim_audit_bundle_20260726/`）。
+- 审计报告存档：[[_archive/claim_audits_20260726_20260727/README|2026-07-26—27 claim-audit 时间线与原件]]；初始重建审计的评审对象为 `_claim_audit_bundle_20260726/`，v4 终裁另使用 E1/E2 final analysis。
 - 终稿前重跑 paper-claim-audit（对重写后的稿），citation-audit / kill-argument 按需。
 - 边界：新增实验一律走 child task；投稿动作永远由用户执行。
 

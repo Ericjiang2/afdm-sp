@@ -1,0 +1,2 @@
+- **MAJOR** — [p1_agg.py:256](/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_agg.py:256)：F0 低端截断判定会把增益 CI 下界 ≤ 0 的 FAIL 覆盖为 INCONCLUSIVE；修复：优先判定 FAIL。
+- **MAJOR** — [p1_agg.py:341](/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_agg.py:341)：缺格时的 INCOMPLETE 会掩盖已有格的 FAIL；修复：先检查任一格 FAIL，再检查缺格。

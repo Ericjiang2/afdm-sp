@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paper Architecture — Detection-Theoretic Support Refinement for SP-AFDM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Spline+Sans+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" id="MathJax-script" async></script>
+<style>
+:root{
+  --paper:#f6f1e7; --paper2:#efe8d9; --ink:#211d1a; --ink2:#4a423b;
+  --accent:#8b2e3f; --accent2:#b9714f; --line:#d8cdb8; --gold:#9a7b3f;
+  --src:#2f5e3f; --syn:#6a4a86; --risk:#9a3a2a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper);
+  color:var(--ink);
+  font-family:"Newsreader",Georgia,serif; font-size:19px; line-height:1.72;
+  font-optical-sizing:auto;
+  background-image:radial-gradient(circle at 12% 8%, rgba(155,123,63,.06), transparent 40%),radial-gradient(circle at 88% 92%, rgba(139,46,63,.05), transparent 42%);
+}
+.wrap{max-width:880px; margin:0 auto; padding:64px 28px 120px}
+header.masthead{border-bottom:3px double var(--accent); padding-bottom:30px; margin-bottom:14px}
+.kicker{font-family:"Spline Sans Mono",monospace; font-size:12.5px; letter-spacing:.32em; text-transform:uppercase; color:var(--accent); margin:0 0 16px}
+h1{font-family:"Fraunces",serif; font-weight:800; font-size:clamp(34px,5.4vw,54px); line-height:1.04; letter-spacing:-.015em; margin:0 0 14px}
+h1 em{font-style:italic; color:var(--accent); font-weight:500}
+.sub{font-size:18px; color:var(--ink2); font-style:italic; max-width:62ch}
+.meta{font-family:"Spline Sans Mono",monospace; font-size:12px; color:var(--ink2); margin-top:22px; letter-spacing:.04em}
+h2{font-family:"Fraunces",serif; font-weight:700; font-size:30px; letter-spacing:-.01em; margin:62px 0 6px; padding-top:10px}
+h2 .no{font-family:"Spline Sans Mono",monospace; font-size:15px; color:var(--accent); font-weight:600; margin-right:12px; vertical-align:middle}
+h3{font-family:"Fraunces",serif; font-weight:600; font-size:21px; margin:34px 0 8px; color:var(--accent)}
+.rule{height:1px; background:linear-gradient(90deg,var(--accent),transparent); margin:8px 0 22px}
+p{margin:14px 0}
+strong{font-weight:600; color:#0f0c0a}
+em{font-style:italic}
+a{color:var(--accent)}
+.lead{font-size:21px; line-height:1.7}
+.thesis{
+  background:linear-gradient(135deg,#2a2320,#3a2f28); color:#f3ead8;
+  border-radius:4px; padding:34px 36px; margin:30px 0 12px;
+  box-shadow:0 18px 40px -22px rgba(33,29,26,.7); position:relative; overflow:hidden;
+}
+.thesis::before{content:"“"; position:absolute; top:-26px; left:14px; font-family:"Fraunces",serif; font-size:150px; color:rgba(185,113,79,.22)}
+.thesis .lbl{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--accent2); display:block; margin-bottom:12px}
+.thesis p{font-family:"Fraunces",serif; font-size:22px; line-height:1.5; margin:0; font-weight:400}
+.thesis b{color:#f0c98a; font-weight:600}
+/* callouts */
+.box{border-left:4px solid var(--line); background:rgba(255,255,255,.42); padding:14px 20px 14px 22px; margin:20px 0; border-radius:0 6px 6px 0; font-size:17.5px}
+.box .tag{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; font-weight:600; display:block; margin-bottom:5px}
+.box.src{border-color:var(--src)} .box.src .tag{color:var(--src)}
+.box.syn{border-color:var(--syn)} .box.syn .tag{color:var(--syn)}
+.box.risk{border-color:var(--risk); background:rgba(154,58,42,.06)} .box.risk .tag{color:var(--risk)}
+.box.reuse{border-color:var(--gold)} .box.reuse .tag{color:var(--gold)}
+/* hierarchy figure */
+.fig{background:#fbf8f1; border:1px solid var(--line); border-radius:10px; padding:30px 24px 24px; margin:26px 0; box-shadow:0 10px 30px -24px rgba(33,29,26,.6)}
+.fig .cap{font-family:"Spline Sans Mono",monospace; font-size:11.5px; letter-spacing:.12em; color:var(--ink2); text-transform:uppercase; margin-bottom:20px; text-align:center}
+.node{border:1.5px solid var(--ink); border-radius:7px; padding:12px 16px; background:#fff; text-align:center}
+.node .t{font-family:"Fraunces",serif; font-weight:600; font-size:16.5px; line-height:1.2}
+.node .d{font-family:"Spline Sans Mono",monospace; font-size:10.5px; color:var(--ink2); margin-top:5px; letter-spacing:.02em}
+.node.top{border-color:var(--accent); border-width:2px; background:linear-gradient(180deg,#fff,#f9efe6)}
+.node.top .t{color:var(--accent); font-size:18px}
+.node.mine{border-color:var(--src); border-width:2px; background:linear-gradient(180deg,#fff,#eef5ef)}
+.descend{text-align:center; color:var(--accent); font-size:24px; margin:9px 0; line-height:1}
+.branches{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:6px 0}
+.branch .role{font-family:"Spline Sans Mono",monospace; font-size:9.5px; text-align:center; margin-top:6px; padding:3px 6px; border-radius:20px; letter-spacing:.05em}
+.role.ref{background:#efe1e3; color:var(--accent)}
+.role.base{background:#e7eef0; color:#2b5560}
+.role.dev{background:#e6f1e7; color:var(--src); font-weight:600}
+.stack{display:flex; flex-direction:column; gap:8px; margin-top:10px; max-width:420px; margin-left:auto; margin-right:auto}
+.stack .node{padding:9px 14px}
+.stack .node .t{font-size:14.5px}
+@media(max-width:620px){.branches{grid-template-columns:1fr} body{font-size:17px}}
+/* section cards */
+.sec{display:grid; grid-template-columns:74px 1fr; gap:18px; border-top:1px solid var(--line); padding:20px 0}
+.sec .n{font-family:"Fraunces",serif; font-weight:800; font-size:24px; color:var(--accent); line-height:1}
+.sec .n small{display:block; font-family:"Spline Sans Mono",monospace; font-size:10px; color:var(--ink2); font-weight:400; margin-top:6px; letter-spacing:.05em}
+.sec h4{margin:0 0 6px; font-family:"Fraunces",serif; font-size:19px; font-weight:600}
+.sec p{margin:6px 0; font-size:16.5px; line-height:1.6}
+.pill{display:inline-block; font-family:"Spline Sans Mono",monospace; font-size:10px; letter-spacing:.08em; padding:2px 9px; border-radius:20px; margin-right:6px; vertical-align:middle}
+.pill.new{background:var(--accent); color:#fff}
+.pill.old{background:var(--paper2); color:var(--ink2); border:1px solid var(--line)}
+.pill.gate{background:#f3e3d6; color:var(--accent2); border:1px solid var(--accent2)}
+ul,ol{margin:12px 0; padding-left:24px}
+li{margin:7px 0}
+.contrib{background:rgba(255,255,255,.5); border:1px solid var(--line); border-radius:8px; padding:6px 22px; margin:18px 0}
+.contrib dt{font-family:"Fraunces",serif; font-weight:700; color:var(--accent); font-size:18px; margin-top:14px}
+.contrib dd{margin:4px 0 14px; font-size:17px}
+.titleopt{font-family:"Newsreader",serif; font-style:italic; font-size:18.5px; background:rgba(255,255,255,.5); border-left:3px solid var(--accent2); padding:10px 16px; margin:10px 0; border-radius:0 5px 5px 0}
+footer{margin-top:70px; border-top:3px double var(--accent); padding-top:20px; font-size:14.5px; color:var(--ink2); font-family:"Spline Sans Mono",monospace; line-height:1.7}
+.fork-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:18px 0}
+.fork-grid > div{border:1px solid var(--line); border-radius:8px; padding:16px 18px; background:rgba(255,255,255,.45)}
+.fork-grid h5{margin:0 0 8px; font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase}
+.fork-grid .pass h5{color:var(--src)} .fork-grid .fail h5{color:var(--risk)}
+@media(max-width:620px){.fork-grid{grid-template-columns:1fr} .sec{grid-template-columns:1fr; gap:6px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="kicker">Document I · Paper Architecture &amp; Narrative</p>
+  <h1>低复杂度 on-grid 接收机里,<br><em>对最优联合接收机的</em> 一次有原则的下降</h1>
+  <p class="sub">Detection-Theoretic Support Refinement for Superimposed-Pilot AFDM under Fractional-Doppler Leakage — 论文的故事、结构、层级与内容安排。</p>
+  <p class="meta">FORMAT · 中文叙述 / 英文正式命题与章节名 / 标准数学记号　|　COMPANION · Document II (理论推导)</p>
+</header>
+
+<p class="lead">这份文档回答四件事:论文讲了一个<strong>什么故事</strong>、用<strong>什么层级</strong>组织、<strong>章节怎么排</strong>、哪些是复用 FYP、哪些是新做。核心判断:全局最优<strong>不推但必须提</strong>——它是让 on-grid 每个选择都合法的北极星;"提它"恰是让全文不乱的东西。</p>
+
+<div class="thesis">
+  <span class="lbl">The single thesis · 一句话主线</span>
+  <p>SP-AFDM 的最优接收机是对数据与连续延迟–多普勒的<b>联合贝叶斯/ML 估计</b>(不可解);低复杂度 on-grid 代理把分数多普勒变成 <b>Dirichlet support 泄漏</b>;该代理内残余 support 模糊有<b>类内最优检测器 $\Lambda$</b>,而 OMP(白噪声匹配滤波)实现不了它——因为 SP 使干扰<b>有色且非高斯</b>;我们用一个轻量 learned head <b>摊销 $\Lambda$</b>,并由 <b>turbo 迭代</b>桥成可实现接收机。</p>
+</div>
+
+<h2><span class="no">§1</span>The story — 论文讲了一个什么故事</h2>
+<div class="rule"></div>
+<p>故事是一条<strong>下降线</strong>,不是一张功能清单。它这样展开:</p>
+<p><strong>第一幕(动机与北极星)。</strong> AFDM 是高速/水声场景的有力波形;叠加导频(SP)不占额外带宽地提升谱效,代价是未知数据成为信道估计的干扰。如果完全不计复杂度,这个问题的最优解是明确的——对数据 $\mathbf x_d$ 与连续路径参数 $\{g_p,\tau_p,\nu_p\}$ 的联合 MAP/ML。它是北极星,但因"离散组合数据 $\times$ 连续非凸参数"而不可解。</p>
+<p><strong>第二幕(下降与问题诞生)。</strong> 从北极星下降两步:① 数据↔信道交替(turbo);② 把连续参数离散到 on-grid 字典,换取低复杂度稀疏恢复。第二步的代价被当场点名:<strong>分数多普勒在 on-grid 表示下摊成 Dirichlet 旁瓣泄漏</strong>,稀疏性被破坏,$k_{\text{leak}}$ 截断之外留下不可约失配地板。论文的真正问题在此结晶:<em>SP 有色非高斯干扰下的 on-grid support 修复</em>。</p>
+<p><strong>第三幕(诊断与最优)。</strong> 一个有牙齿的观察:OMP 的贪婪选择量等价于<strong>白噪声下的 GLRT</strong>;但 SP 下干扰有色且非高斯,所以 OMP 是<strong>失配检测器</strong>。在 on-grid 类内,support 修复有一个最优决策 $\Lambda$(逐候选贝叶斯检测),它把"白化数据证据 × Dirichlet 几何先验"组合起来。</p>
+<p><strong>第四幕(达成器与桥)。</strong> 精确 $\Lambda$ 不可实现(协方差耦合于待估信道,且精确似然是指数级高斯混合)。于是用一个 1041 参数的 learned head <strong>摊销</strong> $\Lambda$——它的自特征↔证据项、对特征↔几何先验。再用 <strong>turbo 迭代</strong>:从当前信道估计出干扰协方差、软消数据把残差高斯化,使被摊销的 $\Lambda$ 逐步可计算且逼近真最优。</p>
+<p><strong>第五幕(验证)。</strong> 不声称解决了分数多普勒(off-grid 才是),而是在复杂度–精度 Pareto 前沿上定位:以 off-grid 连续估计为精度天花板、经典 OMP 为地板,证明 head 逼近类内最优 $\Lambda$、并打过白匹配滤波与手调几何规则。</p>
+
+<h2><span class="no">§2</span>The hierarchy — 层级图(表征轴)</h2>
+<div class="rule"></div>
+<p>这张图是全篇的导航器。分支节点按<strong>"用什么表征那条被摊开的时变信道"</strong>分三支:连续参数 / 基系数 / 离散支撑。三种并列出现<strong>一次</strong>,你只发展离散端。</p>
+
+<div class="fig">
+  <p class="cap">Fig. A — From the optimal joint receiver to a low-complexity on-grid achiever</p>
+  <div class="node top"><div class="t">Joint Bayesian / ML receiver</div><div class="d">over $\{\mathbf{x}_d,\ \tau_p,\nu_p,\ g_p\}$ · OPTIMAL · INTRACTABLE · 北极星,不求解</div></div>
+  <div class="descend">▼ &nbsp; two approximations · 两步近似</div>
+  <div class="branches">
+    <div class="branch">
+      <div class="node"><div class="t">① 连续参数估计</div><div class="d">off-grid / super-res<br>ML · SBL · atomic-norm</div></div>
+      <div class="role ref">ROLE · 精度天花板 / 引用 + 1 baseline</div>
+    </div>
+    <div class="branch">
+      <div class="node"><div class="t">② 基扩展</div><div class="d">BEM / GCE-BEM<br>估基系数 · 吸收泄漏</div></div>
+      <div class="role base">ROLE · 中间档 / 引用 + 可选 baseline</div>
+    </div>
+    <div class="branch">
+      <div class="node mine"><div class="t">③ 离散 on-grid + 修正</div><div class="d">virtual taps · OMP+repair<br>泄漏建成离散抽头</div></div>
+      <div class="role dev">ROLE · 本文发展的分支</div>
+    </div>
+  </div>
+  <div class="descend">▼ &nbsp; inside the on-grid surrogate · 在 on-grid 代理内</div>
+  <div class="stack">
+    <div class="node"><div class="t">OMP-once (white matched filter)</div><div class="d">mismatched under SP · 失配 · the floor</div></div>
+    <div class="descend">▼</div>
+    <div class="node"><div class="t">In-class optimal detector $\Lambda$</div><div class="d">colored + non-Gaussian Bayes · C1 目标</div></div>
+    <div class="descend">▼</div>
+    <div class="node mine"><div class="t">Learned head = amortized $\Lambda$</div><div class="d">1041 params · C2</div></div>
+    <div class="descend">▼</div>
+    <div class="node"><div class="t">Turbo realization</div><div class="d">estimate $\mathbf{C}_d$ · Gaussianize residual · C3</div></div>
+  </div>
+</div>
+
+<div class="box syn"><span class="tag">Synthesis · 为什么这样画不乱</span>三种近似是<strong>同一北极星的并列下降</strong>,不是三条独立故事线;每个节点标"最优对象 / 复杂度 / 在本文角色"。全局最优整个活在顶端这一格,下降一次后再不作为工作线出现。</div>
+
+<h2><span class="no">§3</span>The descent — 下降楼梯(§III 的内容)</h2>
+<div class="rule"></div>
+<p>这是让 on-grid 选择合法的"自洽引擎",占约 1–1.5 页,在论文里写成 §III,含三小节:</p>
+<ol>
+  <li><strong>§III-A The optimal joint receiver.</strong> 写出联合 MAP/ML(2–3 式),引文献证其不可解(SP-OFDM 的 ML/CRB、SP-OTFS 的迭代近似)。</li>
+  <li><strong>§III-B Two approximations, each with its stated cost.</strong> 近似① turbo 分解(代理而非真联合);近似② on-grid 离散化(代价:分数多普勒→Dirichlet 泄漏,定义 mismatch floor)。一段话定位"没走的路":连续参数估计(精度高/复杂度高)与基扩展(折中)。</li>
+  <li><strong>§III-C Problem statement.</strong> 结晶出本文问题:SP 有色非高斯干扰下的 on-grid support refinement——此后所有"optimal"都带限定词"<em>in-class / on-grid surrogate optimal</em>"。</li>
+</ol>
+<div class="box risk"><span class="tag">Pitfall · 防"思路乱"的纪律</span>全局最优只在 §III-A + Fig. A 出现一次。<strong>"只讲 on-grid"反而更乱</strong>——选择失去依据,看着像拼凑;提了北极星才把每步变成有据的下降。三种表征只在 §III-B 与相关工作并列出现一次。</div>
+
+<h2><span class="no">§4</span>Section-by-section — 章节安排</h2>
+<div class="rule"></div>
+<p>标准信号处理 Trans 的"模型 → 理论/边界 → 算法/实验"三段式。<span class="pill new">NEW</span> = 新做,<span class="pill old">REUSE</span> = 复用 FYP,<span class="pill gate">GATE</span> = 依赖裁决实验。</p>
+
+<div class="sec"><div class="n">§I<small>INTRO</small></div><div>
+  <h4>Introduction</h4>
+  <p>动机(AFDM 高速/UWA、SP 谱效、分数多普勒);gap(SP-AFDM 低复杂度接收机的 support 模糊;OMP 对 SP 有色非高斯干扰失配);贡献按单论点的后果陈述 C1–C4。</p>
+  <p><span class="pill new">NEW</span> 重写 gap 与贡献叙事　<span class="pill old">REUSE</span> 背景文献</p>
+</div></div>
+
+<div class="sec"><div class="n">§II<small>MODEL</small></div><div>
+  <h4>System Model</h4>
+  <p>AFDM-SP 信号模型;参数化信道 $\{g_p,\tau_p,\nu_p\}$;DAFT 域 Dirichlet 核;on-grid 字典 $\boldsymbol\Phi$。</p>
+  <p><span class="pill old">REUSE</span> 大部分来自 FYP　<span class="pill new">NEW</span> 把核写成参数化形式以接 §IV</p>
+</div></div>
+
+<div class="sec"><div class="n">§III<small>DESCENT</small></div><div>
+  <h4>From the Optimal Receiver to a Low-Complexity On-Grid Surrogate</h4>
+  <p>下降楼梯(见 §3)。<strong>全篇自洽引擎。</strong> 含 Fig. A。</p>
+  <p><span class="pill new">NEW</span> 全新一节</p>
+</div></div>
+
+<div class="sec"><div class="n">§IV<small>THEORY · C1</small></div><div>
+  <h4>Detection-Theoretic Characterization of In-Class Optimal Support Refinement</h4>
+  <p>逐候选假设检验;命题"OMP = 白噪声 GLRT";有色+非高斯干扰;高斯近似 GLRT/Bayes $\Lambda$;精确混合不可解;边界层级 PCSI $\ge$ oracle $\ge\Lambda\ge$ achievable;genie-CRB;mismatch floor。<em>详见 Document II Part A。</em></p>
+  <p><span class="pill new">NEW</span> 核心分析贡献(Trans 分量来源)</p>
+</div></div>
+
+<div class="sec"><div class="n">§V<small>METHOD · C2</small></div><div>
+  <h4>An Amortized Learned Support-Refinement Head</h4>
+  <p>head 架构;特征↔贝叶斯因子对应($\Lambda$ 两因子 ↔ 自/对特征);训练;按 Shlezinger 归类为 <strong>DNN-aided hybrid</strong>(不是 deep unfolding)。</p>
+  <p><span class="pill old">REUSE</span> 架构/训练来自 FYP　<span class="pill new">NEW</span> 摊销解释 + 分类定位</p>
+</div></div>
+
+<div class="sec"><div class="n">§VI<small>TURBO · C3</small></div><div>
+  <h4>Turbo Realization: Covariance Estimation and Residual Gaussianization</h4>
+  <p>IDD 环;从当前 $\hat{\mathbf H}$ 估耦合协方差 $\mathbf C_d$;软消数据→残差高斯化→高斯 GLRT 渐近精确;逐迭代重打分。<em>详见 Document II Part B。</em></p>
+  <p><span class="pill new">NEW</span> 全新一节(method depth 升级)</p>
+</div></div>
+
+<div class="sec"><div class="n">§VII<small>EXPT</small></div><div>
+  <h4>Experiments</h4>
+  <p>(a) head logits vs $\Lambda$ 排序一致性(Kendall $\tau$);(b) BER gap 分解 OMP $\le$ head $\le\Lambda\le$ oracle $\le$ PCSI;(c) <strong>为什么要学</strong>裁决(打过白MF + 手调几何规则,逼近 genie-$\Lambda$);(d) 复杂度–精度平面 + off-grid baseline;(e) 可选通感双用。</p>
+  <p><span class="pill old">REUSE</span> BER/oracle/McNemar　<span class="pill new">NEW</span>(a)(c)(d)　<span class="pill gate">GATE</span>(c) 决定 head 是英雄还是旁证</p>
+</div></div>
+
+<div class="sec"><div class="n">§VIII<small>CONC</small></div><div>
+  <h4>Conclusion</h4>
+  <p>总结单论点;指出 off-grid 精度天花板与本文复杂度优势的权衡;通感与多尺度(UWA DTS)为 future work。</p>
+  <p><span class="pill new">NEW</span></p>
+</div></div>
+
+<h2><span class="no">§5</span>Contributions — 四个贡献(单论点的后果)</h2>
+<div class="rule"></div>
+<p>务必写成"一个论点的逻辑后果",而非并列清单——这是自洽 vs 拼凑的分水岭。</p>
+<dl class="contrib">
+  <dt>C1 · Theory</dt><dd>在 SP 有色非高斯干扰下,刻画 on-grid support 修复的<strong>类内最优检测器 $\Lambda$</strong>,给出边界层级与 Dirichlet 失配地板;并证明 OMP 是其白噪声特例(失配)。</dd>
+  <dt>C2 · Method</dt><dd>一个轻量 learned head,<strong>摊销 $\Lambda$</strong>;特征组与贝叶斯两因子(白化证据 / 几何先验)一一对应。</dd>
+  <dt>C3 · Realization</dt><dd>turbo 实现:<strong>估计参数耦合协方差 + 高斯化残差</strong>,把 genie-$\Lambda$ 桥成可实现接收机,并使高斯近似渐近精确。</dd>
+  <dt>C4 · (optional) Dual-use</dt><dd>support 即延迟–多普勒图,故 head 同时改善<strong>检测与感知</strong>——通感双用(取决于感知探针结果)。</dd>
+</dl>
+
+<h2><span class="no">§6</span>The fork — 一个诚实的分叉</h2>
+<div class="rule"></div>
+<p>整套结构默认"为什么要学"裁决(§VII-c)通过。结构对结果<strong>鲁棒</strong>,因为理论 §IV 能独立站住:</p>
+<div class="fork-grid">
+  <div class="pass"><h5>✓ 裁决通过</h5><p>head 打过手调规则、逼近 $\Lambda$ → 完整 C1–C3(+C4)成立,head 是英雄。一篇"理论边界 + 摊销学习达成器 + turbo 实现"的厚论文,目标 TWC/JSAC(ISAC 专刊)。</p></div>
+  <div class="fail"><h5>✗ 裁决失败</h5><p>head $\approx$ 手调规则 → 收缩为<strong>偏理论论文</strong>:§IV 的 $\Lambda$/边界刻画为主角,head 降为"一个简单达成器"的旁证。仍可发,故事改为 TSP 风格的检测/估计理论。</p></div>
+</div>
+<div class="box risk"><span class="tag">Calibration</span>结构让它<strong>自洽</strong>,但自洽 ≠ 录用。承重件:§IV 理论须出非平凡结果(不能只是"旁瓣存在");§VII 的排序一致性与裁决须真正 land;{IDD 增益,感知增益} 至少一个兑现。</div>
+
+<h2><span class="no">§7</span>Title options — 标题候选</h2>
+<div class="rule"></div>
+<div class="titleopt">Detection-Theoretic Support Refinement for Superimposed-Pilot AFDM under Fractional-Doppler Leakage: Achievable Bound and an Amortized Learned Achiever</div>
+<div class="titleopt">Optimal On-Grid Support Refinement for Superimposed-Pilot AFDM: A Detection Bound and Its Amortized Learned Achiever</div>
+<div class="box reuse"><span class="tag">Naming discipline</span>别用 "low-complexity" 当 headline(你和基线同复杂度类,经不起审,IDD 也让它更弱);改用 "detection-theoretic / achievable-bound" 当卖点。"deep-unfolding" 改 "physics-informed / DNN-aided hybrid"。</div>
+
+<footer>
+  PROVENANCE · 本文档为规划/叙事综合,基于本次对话的逐步推演。<br>
+  正式命题、章节名、数学记号可直接进英文论文;中文叙述供规划理解。<br>
+  COMPANION · Document II 给出 §IV(on-grid 最优检测理论)与 §VI(turbo)的完整推导。<br>
+  STATUS · 结构默认裁决实验通过;见 §6 分叉。
+</footer>
+
+</div>
+</body>
+</html>

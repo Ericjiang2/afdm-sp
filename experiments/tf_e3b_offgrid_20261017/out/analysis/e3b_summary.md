@@ -1,0 +1,137 @@
+# E-3b aggregate
+
+interpretable: True; gates_all_pass: True; units: 2400
+
+integrity: {"n_rows": 2400, "n_keys": 2400, "n_error_rows": 0, "e3_pairing_missing": 0, "ongrid_mismatches": {"stage1_atoms": 0, "round1_sha": 0, "n_cand2": 0, "atoms_ongrid": 0}, "invariant_violations": {"monotone": 0, "recheck": 0, "evals": 0, "bounds": 0, "window": 0, "gamma_zero": 0, "gamma_diag_only": 0, "gamma_diag_sum_v": 0}, "cholesky_jitter_events": 0, "non_converged_sbl_stage2": 8279, "problems": [], "ok": true}
+
+## Verdict: **PERSISTS**
+
+post-hoc interpolation explanation REJECTED (the advantage is not affected by refinement)
+
+A_on = FER(L-cov) - FER(L-diag); A_off = FER(cov-off) - FER(diag-off); Delta = A_on - A_off  (paired cluster bootstrap, 20000 resamples, seed 20261017, 400 clusters, percentile 95% CI); CI contains 0: not significant != equivalent
+
+| quantity | point | 95% CI | contains 0 |
+|---|---|---|---|
+| A_on | +0.07542 | [+0.06458, +0.08667] | False |
+| A_off | +0.13625 | [+0.12167, +0.15083] | False |
+| Delta | -0.06083 | [-0.07167, -0.05042] | False |
+
+## FER (unconditional)
+
+| variant | on-grid (E-3) | 95% CI | off-grid (E-3b) | 95% CI | off - on | 95% CI |
+|---|---|---|---|---|---|---|
+| hard-off / L-hard | 0.12708 | [0.11208, 0.14250] | 0.18458 | [0.16583, 0.20375] | +0.05750 | [+0.04708, +0.06833] |
+| diag-off / L-diag | 0.04333 | [0.03500, 0.05208] | 0.02792 | [0.02083, 0.03542] | -0.01542 | [-0.02125, -0.00958] |
+| cov-off / L-cov | 0.11875 | [0.10500, 0.13333] | 0.16417 | [0.14708, 0.18167] | +0.04542 | [+0.03667, +0.05458] |
+| genie-off / L-genie | 0.00000 | [0.00000, 0.00000] | 0.00000 | [0.00000, 0.00000] | +0.00000 | [+0.00000, +0.00000] |
+
+## Exact one-sided McNemar (log10 p)
+
+| test | b | c | log10 p |
+|---|---|---|---|
+| diag_off_better_than_cov_off | 327 | 0 | -98.4 |
+| cov_off_better_than_diag_off | 0 | 327 | 0.0 |
+| diag_on_better_than_cov_on | 187 | 6 | -47.3 |
+
+## Same-delay census (n_pair is unchanged by the refinement: delays are fixed)
+
+| variant | units with pair | mean n_pair | excess vs genie | pairs | |dnu| hist [0,1e-6)/[1e-6,.1)/[.1,.25)/[.25,.5)/[.5,1)/[1,inf) | share |dnu|<.1 | share <1e-6 | median |dnu| |
+|---|---|---|---|---|---|---|---|---|
+| hard-off | 0.9992 | 5.7867 | +0.2292 | 13888 | 0/253/1481/3222/3756/5176 | 0.0182 | 0.0000 | 0.652 |
+| diag-off | 1.0000 | 28.4958 | +22.9383 | 68390 | 0/39956/15998/3944/1969/6523 | 0.5842 | 0.0000 | 0.083 |
+| cov-off | 0.9962 | 5.1179 | -0.4396 | 12283 | 0/255/1479/3195/3434/3920 | 0.0208 | 0.0000 | 0.614 |
+| genie-off | 0.9992 | 5.5575 | +0.0000 | 13338 | 0/794/2643/4461/4541/899 | 0.0595 | 0.0000 | 0.391 |
+
+on-grid (E-3 rows): L-hard n_pair 5.7867 (excess +0.2292); L-diag n_pair 28.4958 (excess +22.9383); L-cov n_pair 5.1179 (excess -0.4396); L-genie n_pair 5.5575 (excess +0.0000)
+
+## Refinement
+
+| variant | coordinates | accepted | acceptance | by pass | evals/coord | atoms moved | mean abs shift | max abs shift | rel. value decrease | cond(Q) median / max |
+|---|---|---|---|---|---|---|---|---|---|---|
+| hard-off | 168213 | 153041 | 0.9098 | 0.945/0.920/0.864 | 8.26 | 0.9475 | 0.0962 | 0.4997 | 0.00834 | 24.1 / 3.23e+04 |
+| diag-off | 170685 | 164829 | 0.9657 | 0.979/0.966/0.952 | 8.79 | 0.9796 | 0.1535 | 0.4997 | 0.04441 | 33.3 / 1.12e+04 |
+| cov-off | 162468 | 147199 | 0.9060 | 0.948/0.922/0.848 | 8.21 | 0.9497 | 0.0877 | 0.4997 | 0.00538 | 23.5 / 1.27e+04 |
+| genie-off | 99525 | 92484 | 0.9293 | 0.991/0.936/0.861 | 8.90 | 0.9917 | 0.1365 | 0.4997 | 0.00847 | 60.1 / 3.68e+04 |
+
+NMSE (dB, median): stage 1 -7.33; on-grid L-hard -11.62; L-diag -12.62; L-cov -11.50; L-genie -23.28; off-grid hard-off -11.38; diag-off -14.78; cov-off -11.26; genie-off -24.34
+
+## FER crossing of 0.01 (dB, per cell)
+
+| cell | L-hard | L-diag | L-cov | L-genie | hard-off | diag-off | cov-off | genie-off |
+|---|---|---|---|---|---|---|---|---|
+| U_300 | 9.57 | 8.23 | 10.00 | <=6.0 | never | 8.23 | never | <=6.0 |
+| G_300 | 10.00 | 7.00 | 9.00 | <=6.0 | never | 7.00 | 10.57 | <=6.0 |
+
+## Per cell and SNR: FER on-grid / off-grid (order hard, diag, cov, genie)
+
+### U_300
+
+| snr (centi-dB) | n | FER on-grid | FER off-grid |
+|---|---|---|---|
+| 600 | 200 | 0.5300 / 0.2200 / 0.5000 / 0.0000 | 0.6550 / 0.1400 / 0.6250 / 0.0000 |
+| 700 | 200 | 0.1450 / 0.0200 / 0.1250 / 0.0000 | 0.2400 / 0.0200 / 0.2000 / 0.0000 |
+| 800 | 200 | 0.0600 / 0.0150 / 0.0400 / 0.0000 | 0.1050 / 0.0150 / 0.0850 / 0.0000 |
+| 900 | 200 | 0.0250 / 0.0000 / 0.0200 / 0.0000 | 0.0500 / 0.0000 / 0.0450 / 0.0000 |
+| 1000 | 200 | 0.0050 / 0.0050 / 0.0100 / 0.0000 | 0.0400 / 0.0100 / 0.0350 / 0.0000 |
+| 1100 | 200 | 0.0100 / 0.0050 / 0.0100 / 0.0000 | 0.0250 / 0.0050 / 0.0200 / 0.0000 |
+
+### G_300
+
+| snr (centi-dB) | n | FER on-grid | FER off-grid |
+|---|---|---|---|
+| 600 | 200 | 0.5250 / 0.2300 / 0.5800 / 0.0000 | 0.6850 / 0.1250 / 0.6900 / 0.0000 |
+| 700 | 200 | 0.1450 / 0.0100 / 0.0850 / 0.0000 | 0.2050 / 0.0100 / 0.1650 / 0.0000 |
+| 800 | 200 | 0.0450 / 0.0150 / 0.0350 / 0.0000 | 0.1150 / 0.0100 / 0.0550 / 0.0000 |
+| 900 | 200 | 0.0200 / 0.0000 / 0.0100 / 0.0000 | 0.0500 / 0.0000 / 0.0200 / 0.0000 |
+| 1000 | 200 | 0.0100 / 0.0000 / 0.0100 / 0.0000 | 0.0300 / 0.0000 / 0.0250 / 0.0000 |
+| 1100 | 200 | 0.0050 / 0.0000 / 0.0000 / 0.0000 | 0.0150 / 0.0000 / 0.0050 / 0.0000 |
+
+## Cost (mean seconds per key)
+
+{
+ "keys": 2400,
+ "per_key": {
+  "stage1_screen": 0.018653496104331375,
+  "stage1_sbl": 0.3680475003183043,
+  "round1_detect": 0.031025663744464207,
+  "round1_decode": 0.02592774918943178,
+  "stage2_screen": 0.23547606583063801,
+  "total": 16.743257807949558
+ },
+ "gen_seconds_per_key": 0.025943103898122596,
+ "variants": {
+  "hard-off": {
+   "columns": 0.053074659803921044,
+   "sbl": 2.827856476340676,
+   "refine": 1.3205791385840469,
+   "detect": 0.030225986446021126,
+   "decode": 0.01970648047106806,
+   "total": 4.255422281866971
+  },
+  "diag-off": {
+   "columns": 0.003370429595815949,
+   "sbl": 2.716933470388176,
+   "refine": 1.4363921570560585,
+   "detect": 0.030372337730562624,
+   "decode": 0.018042565333113696,
+   "total": 4.209401925262839
+  },
+  "cov-off": {
+   "columns": 0.05171420828109452,
+   "sbl": 2.813322669105643,
+   "refine": 1.2454542830733892,
+   "detect": 0.029741522210533732,
+   "decode": 0.019563666365186996,
+   "total": 4.163750477451637
+  },
+  "genie-off": {
+   "columns": 0.053756725237471985,
+   "sbl": 2.808695380848755,
+   "refine": 0.5235940998344449,
+   "detect": 0.02431897341875204,
+   "decode": 0.017342902666229443,
+   "total": 3.431207553839971
+  }
+ },
+ "total_core_hours": 11.17946727456512
+}

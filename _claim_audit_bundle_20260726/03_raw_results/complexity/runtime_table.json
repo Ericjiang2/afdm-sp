@@ -1,0 +1,118 @@
+{
+  "config": {
+    "N_list": [
+      512,
+      1024,
+      2048
+    ],
+    "frames": 50,
+    "snr": 20.0,
+    "p_paths": 8,
+    "tau_spread": 0.01,
+    "v_mean": 2.0,
+    "fs_factor": 2.0,
+    "receivers": [
+      "classical-numpy",
+      "classical-torch",
+      "learned",
+      "qing"
+    ],
+    "learned_ckpt": "afdm_sp_joint_unrolled/outputs_loop9_c2rel_train/ckpt_c2rel_force_topk.pt",
+    "learned_variant": "C2-rel",
+    "cdtype": "complex64",
+    "seed": 20260506,
+    "out": "afdm_sp_joint_unrolled/outputs_complexity"
+  },
+  "rows": [
+    {
+      "receiver": "classical-numpy",
+      "N": 512,
+      "frames": 50,
+      "peak_mem_MB": 0,
+      "mean_ms": 207.19876801595092,
+      "median_ms": 197.78156839311123,
+      "p95_ms": 219.73245684057474
+    },
+    {
+      "receiver": "classical-torch",
+      "N": 512,
+      "frames": 50,
+      "peak_mem_MB": 29,
+      "mean_ms": 242.41447746753693,
+      "median_ms": 238.58510050922632,
+      "p95_ms": 267.36117620021105
+    },
+    {
+      "receiver": "learned",
+      "N": 512,
+      "frames": 50,
+      "peak_mem_MB": 30,
+      "mean_ms": 256.47112376987934,
+      "median_ms": 253.37673723697662,
+      "p95_ms": 287.2562939301133
+    },
+    {
+      "receiver": "qing (native N=512)",
+      "N": 512,
+      "frames": 50,
+      "peak_mem_MB": 0,
+      "mean_ms": 268.1054690293968,
+      "median_ms": 280.3492955863476,
+      "p95_ms": 315.1170117780566
+    },
+    {
+      "receiver": "classical-numpy",
+      "N": 1024,
+      "frames": 50,
+      "peak_mem_MB": 0,
+      "mean_ms": 462.848769556731,
+      "median_ms": 468.5285119339824,
+      "p95_ms": 502.02768575400114
+    },
+    {
+      "receiver": "classical-torch",
+      "N": 1024,
+      "frames": 50,
+      "peak_mem_MB": 89,
+      "mean_ms": 416.0120290517807,
+      "median_ms": 412.6262878999114,
+      "p95_ms": 470.5454483628273
+    },
+    {
+      "receiver": "learned",
+      "N": 1024,
+      "frames": 50,
+      "peak_mem_MB": 92,
+      "mean_ms": 402.3166916333139,
+      "median_ms": 405.61372973024845,
+      "p95_ms": 429.361080750823
+    },
+    {
+      "receiver": "classical-numpy",
+      "N": 2048,
+      "frames": 50,
+      "peak_mem_MB": 0,
+      "mean_ms": 1855.1391286030412,
+      "median_ms": 1817.8872633725405,
+      "p95_ms": 2069.565735757351
+    },
+    {
+      "receiver": "classical-torch",
+      "N": 2048,
+      "frames": 50,
+      "peak_mem_MB": 355,
+      "mean_ms": 802.7087084576488,
+      "median_ms": 803.6266611889005,
+      "p95_ms": 850.6824336946011
+    },
+    {
+      "receiver": "learned",
+      "N": 2048,
+      "frames": 50,
+      "peak_mem_MB": 368,
+      "mean_ms": 834.1414560936391,
+      "median_ms": 842.4866292625666,
+      "p95_ms": 860.5453064665198
+    }
+  ]
+}

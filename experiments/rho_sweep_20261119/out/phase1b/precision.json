@@ -1,0 +1,120 @@
+{
+  "_argv": [
+    "precision.py",
+    "--rows",
+    "out/phase1/leverage-rows.jsonl",
+    "--qualification",
+    "out/phase1b/qualification.json",
+    "--out",
+    "out/phase1b/precision.json"
+  ],
+  "_config": {
+    "stage3_frames_inclusive": [
+      4000,
+      4399
+    ],
+    "rows_sha256": "043e57d4dfc67996c6f291c6cf88d99a51714765ccd0a1a492c70461bbf165ad",
+    "stage3_crossing_inventory_sha256": "76c9ff6df1bdf66e1edcd01ca9158242690c8e6ee3dd813c62958d51961bb808",
+    "analysis_sha256": "e05880699d3862c3cd1ff0856e83bd65779f731eda35c51db9127e5fa29f7708",
+    "bootstrap_seed": 20261122,
+    "bootstrap_draws": 20000,
+    "archived_rho_permille": [
+      300,
+      500
+    ],
+    "p3_scope": "two-point proxy using the six-point tail budget"
+  },
+  "projections": {
+    "400": {
+      "P1": {
+        "point_db": [
+          1.2955144265505183,
+          1.2955144265505183
+        ],
+        "ci98_33_db": [
+          0.5959734226536817,
+          "+inf"
+        ],
+        "half_width_db": "+inf",
+        "censored_draw_fraction": 0.10835
+      },
+      "P2": {
+        "point_db": [
+          -1.07514732558551,
+          -1.07514732558551
+        ],
+        "ci98_33_db": [
+          "-inf",
+          -0.8881299177026332
+        ],
+        "half_width_db": "+inf",
+        "censored_draw_fraction": 0.10835
+      },
+      "P3": {
+        "point_db": [
+          1.5211061481796015,
+          1.5211061481796015
+        ],
+        "ci98_33_db": [
+          0.39264143048452027,
+          "+inf"
+        ],
+        "half_width_db": "+inf",
+        "censored_draw_fraction": 0.10835
+      }
+    },
+    "600": {
+      "P1": {
+        "point_db": [
+          1.2955144265505183,
+          1.2955144265505183
+        ],
+        "ci98_33_db": [
+          0.6932827212663302,
+          "+inf"
+        ],
+        "half_width_db": "+inf",
+        "censored_draw_fraction": 0.04665
+      },
+      "P2": {
+        "point_db": [
+          -1.07514732558551,
+          -1.07514732558551
+        ],
+        "ci98_33_db": [
+          "-inf",
+          -0.9281330995654011
+        ],
+        "half_width_db": "+inf",
+        "censored_draw_fraction": 0.04665
+      },
+      "P3": {
+        "point_db": [
+          1.5211061481796015,
+          1.5211061481796015
+        ],
+        "ci98_33_db": [
+          0.5449475173110194,
+          "+inf"
+        ],
+        "half_width_db": "+inf",
+        "censored_draw_fraction": 0.04665
+      }
+    }
+  },
+  "frame_decision": {
+    "p1_half_width_threshold_db": 0.6,
+    "p1_precision_triggers_extension": true,
+    "candidate_600_within_budget": false,
+    "retained_frames": 400,
+    "retained_block": [
+      5400,
+      5799
+    ],
+    "full_grid_core_hours": {
+      "400": 8.314359380455555,
+      "600": 12.471539070683331
+    },
+    "main_cap_core_hours": 10
+  }
+}

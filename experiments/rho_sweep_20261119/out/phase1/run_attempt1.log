@@ -1,0 +1,346 @@
+AUDIT_DONE
+AFDM System initialized: N_total=1024 subcarriers (from 32x32)
+  Chirp parameters: c1=0.002441, c2=0.000000
+  Caps: l_max=15, k_max=2, delta_max=77 < N=1024: OK
+  UWA params: fc=12.0 kHz, B=4.0 kHz, fs=8.0 kHz, Ts=125.0 us
+  UWA channel: P=10, tau_spread=10.0 ms, v_mean=2.00 m/s, v_std=0.50 m/s
+  Supported AFDM delay window: 1.0 ms
+  Backward-compat speed cap: 12.6 km/h
+  Channel matrix size: 1024x1024
+[_make_system_variable_N] N_total=1024  l_max=102  k_max=4  δ_max=922  < N: True  c1=0.004395  c2=1.98e-07
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Exception in initializer:
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 233, in _process_worker
+    initializer(*initargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 40, in init_worker
+    ctx, full, cd, _ = cstate.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/cstate.py", line 26, in context
+    return stage3.context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/cstate_codelay_sbl_stage3_20261118/run.py", line 50, in context
+    ctx = e1.p1ctx.load()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_channel_crb_20261016/p1ctx.py", line 16, in load
+    return p1_driver.load_context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/p1_driver.py", line 97, in load_context
+    ctx = hd.load_context(args)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/driver.py", line 177, in load_context
+    ctx.system, _model, ctx.code, ctx.header = context()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py", line 26, in context
+    def context():return build(SimpleNamespace(checkpoint=None))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py", line 104, in build
+    torch.set_num_interop_threads(1)
+RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 302, in <module>
+    main()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 287, in main
+    qualify(pool, args.out, stage, split, sources, provenance)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 180, in qualify
+    old_stage, _ = evaluate(pool, stage_keys, ('CD',))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/phase1.py", line 168, in evaluate
+    for job, (base_cpu, cell_rows) in zip(jobs, pool.map(run_cell, jobs), strict=True):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/process.py", line 575, in _chain_from_iterable_of_lists
+    for element in iterable:
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/_base.py", line 621, in result_iterator
+    yield _result_or_cancel(fs.pop())
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/_base.py", line 319, in _result_or_cancel
+    return fut.result(timeout)
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/_base.py", line 458, in result
+    return self.__get_result()
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+concurrent.futures.process.BrokenProcessPool: A process in the process pool was terminated abruptly while the future was running or pending.
+STOPPED (exit 1)

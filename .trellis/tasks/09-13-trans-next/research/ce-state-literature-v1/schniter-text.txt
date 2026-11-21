@@ -1,0 +1,1598 @@
+A Message-Passing Receiver for BICM-OFDM over Unknown Clustered-Sparse Channels
+Report GitHub Issue
+×
+Title:
+Content selection saved. Describe the issue below:
+Description:
+Submit without GitHub
+Submit in GitHub
+arXiv is now an independent nonprofit!
+Learn more
+×
+Back to arXiv
+Why HTML?
+Report Issue
+Back to Abstract
+Download PDF
+Abstract
+I Introduction
+II System Model
+II-A The BICM-OFDM model
+II-B A clustered-sparse tap prior
+II-C An illustrative example: IEEE 802.15.4a channels
+III Joint Channel Estimation and Decoding
+III-A Background on belief propagation
+III-B Background on GAMP
+III-C Joint estimation and decoding using GAMP
+IV Numerical Results
+IV-A Setup
+IV-B Comparison with other schemes
+IV-C BER versus the number of pilot subcarriers $N_{\textsf{p}}$
+IV-D BER versus the number of interspersed training bits $M_{\textsf{t}}$
+IV-E BER versus $E_{b}/N_{o}$
+IV-F Channel-tap NMSE versus $E_{b}/N_{o}$
+IV-G Computational complexity versus $E_{b}/N_{o}$
+V Conclusion
+A Derivation of GAMP Functions $g_{\textsf{out},i}$ and $g^{\prime}_{\textsf{out},i}$
+B Derivation of GAMP Functions $g_{\textsf{in},j}$ and $g^{\prime}_{\textsf{in},j}$
+References
+License: arXiv.org perpetual non-exclusive license
+arXiv:1101.4724v3 [cs.IT] 06 Jun 2011
+A Message-Passing Receiver for
+BICM-OFDM over Unknown Clustered-Sparse Channels
+Philip Schniter*
+††thanks: Please direct all correspondence to
+Prof. Philip Schniter,
+Dept. ECE,
+The Ohio State University,
+2015 Neil Ave., Columbus OH 43210,
+e-mail: schniter@ece.osu.edu,
+phone 614.247.6488, fax 614.292.7596.††thanks: This work has been supported in part by
+NSF grant CCF-1018368 and
+DARPA/ONR grant N66001-10-1-4090, and
+an allocation of computing time from the Ohio Supercomputer Center.
+August 24, 2026
+Abstract
+We propose a factor-graph-based approach to joint
+channel-estimation-and-decoding (JCED) of bit-interleaved coded
+orthogonal frequency division multiplexing (BICM-OFDM).
+In contrast to existing designs, ours is capable of exploiting not only
+sparsity in sampled channel taps but also clustering among the large taps,
+behaviors which are known to manifest at larger communication bandwidths.
+In order to exploit these channel-tap structures, we adopt a two-state
+Gaussian mixture prior in conjunction with a Markov model on the hidden state.
+For loopy belief propagation, we exploit a “generalized approximate
+message passing” (GAMP) algorithm recently developed in the context of
+compressed sensing, and show that it can be successfully coupled with
+soft-input soft-output decoding, as well as hidden Markov inference,
+through the standard sum-product framework.
+For $N$ subcarriers and any channel length $L<N$ ,
+the resulting JCED-GAMP scheme has a computational complexity of only
+$\mathcal{O}(N\log_{2}N+N|\mathbb{S}|)$ , where $|\mathbb{S}|$ is the constellation size.
+Numerical experiments using IEEE 802.15.4a channels
+show that our scheme yields BER performance within 1 dB of
+the known-channel bound and
+3-4 dB better than soft equalization based on LMMSE and LASSO.
+I Introduction
+When designing a digital communications receiver, it is common to model the
+effects of multipath propagation in discrete time using a convolutive
+linear channel that, in the slow-fading scenario, can be characterized
+by a fixed impulse response $\{x_{j}\}_{j=0}^{L-1}$ over
+the duration of one codeword.
+When the communication bandwidth is sufficiently low, the “taps”
+$\{x_{j}\}_{j=0}^{L-1}$ are well modeled as independent complex Gaussian
+random variables, resulting in the “uncorrelated Rayleigh-fading” and
+“uncorrelated Rician-fading” models that have dominated the wireless
+communications literature for many decades [1].
+For receiver design, the Gaussian tap assumption is very convenient
+because the optimal estimation scheme is well known to be linear
+[2].
+As the communication bandwidth increases, however, the channel taps
+are no longer well-modeled as Gaussian nor independent.
+Rather, they tend to be heavy-tailed or “sparse” in that only
+a few values in $\{x_{j}\}_{j=0}^{L-1}$ have significant amplitude
+[3, 4, 5, 6]. Moreover, groups of large taps are often clustered together in lag $j$ .
+These behaviors are both a blessing and a curse: a blessing because, of all
+tap distributions, the independent Gaussian one is most detrimental to
+capacity [7], but a curse because optimal channel estimation
+becomes non-linear and thus receiver design becomes more complicated.
+Recently, there have been many attempts to apply breakthrough
+non-linear estimation techniques from the field of “compressive sensing”
+[8] (e.g., LASSO [9, 10])
+to the wireless channel estimation problem.
+We refer to this approach as “compressed channel sensing” (CCS),
+after the recent comprehensive overview [11].
+The CCS literature generally takes a decoupled approach to
+the problem of channel estimation and data decoding, in that pilot-symbol
+knowledge is first exploited for sparse-channel estimation, after which
+the channel estimate is used for data decoding.
+However, this decoupled approach is known to be suboptimal
+[12].
+The considerations above motivate a joint approach to
+structured-sparse-channel-estimation and decoding that offers both
+near-optimal decoding performance and low implementation complexity.
+In this paper, we propose exactly such a scheme.
+In particular, we focus on orthogonal frequency-division
+multiplexing (OFDM) with bit-interleaved coded modulation (BICM),
+and propose a novel factor-graph-based receiver that leverages recent
+results in “generalized approximate message passing” (GAMP)
+[13],
+soft-input/soft-output (SISO) decoding [14],
+and structured-sparse estimation [15].
+Our receiver assumes a clustered-sparse channel-tap prior constructed using
+a two-state Gaussian mixture with a Markov model on the hidden
+tap state.
+The scheme that we propose has only $\mathcal{O}(N\log_{2}N\!+\!N|\mathbb{S}|)$
+complexity, where $N$ denotes the number of subcarriers and $|\mathbb{S}|$
+denotes the constellation size,
+facilitating large values of $N$ and channel length $L\!<\!N$
+(e.g., we use $N\!=\!1024$ and $L\!=\!256$ for our numerical results).
+For rich non-line-of-sight (NLOS) channels generated according to the
+IEEE 802.15.4a standard [16],
+our numerical experiments show bit error rate (BER)
+performance within $1$ dB of the known-channel bound
+and $3$ – $4$ dB better than soft equalization based on LMMSE and LASSO.
+We now place our work in the context of existing factor-graph designs.
+Factor-graph based joint channel-estimation and decoding (JCED)
+was proposed more than a decade ago
+(see, e.g., the early overview [17]).
+To calculate the messages passed among the nodes of the factor graph,
+first instincts suggest to apply the standard
+“sum-product algorithm” (SPA)
+[18, 19, 20].
+Exact SPA on the JCED factor graph is computationally infeasible,
+however, and so it must be approximated.
+For this, there are many options, since many well-known iterative inference
+algorithms can themselves be recognized as SPA approximations, e.g.,
+the expectation-maximization (EM) algorithm [21],
+particle filtering [22],
+variational (or “mean-field”) techniques [23],
+and even steepest descent [24].
+Moreover, because the JCED factor graph is loopy,
+even non-approximate SPA is not guaranteed to yield the correct
+output distributions, because exact inference is NP hard [25].
+It is perhaps not surprising that, amidst this uncertainty about exact
+SPA and its “best” approximation, a number of different factor-graph
+approaches to JCED over frequency-selective channels have been proposed
+(e.g., [26, 27, 28, 29]).
+Our approach differs from existing factor-graph JCED designs in that
+it uses
+1) a sparse (i.e., non-Gaussian) channel-tap prior,
+2) a clustered (i.e., non-independent) channel-tap prior, and
+3) a state-of-the-art SPA approximation known as “generalized approximate
+message passing” (GAMP), which has been shown to
+admit rigorous analysis
+as $N,L\!\rightarrow\!\infty$ [13].
+In fact, we conjecture that the success of our method is due in large
+part to the principled approximations used within GAMP.
+We also note that, although we focus on the case of clustered-sparse channels,
+our approach could be applied to non-sparse (i.e., Gaussian)
+or non-clustered (i.e., independent) channel-taps or, e.g.,
+non-sparse channels with unknown length $L$ [26],
+with minor modifications of our assumed channel prior.
+Finally, we mention that this work is an evolution of our earlier work
+[30, 31] that was
+limited to an exactly sparse channel, that did not exploit clustering,
+and that was based on the “relaxed belief propagation” (RBP) algorithm
+[32], which has higher implementation complexity
+than GAMP.
+For example, the JCED scheme from
+[30, 31] has complexity
+$\mathcal{O}(NL\!+\!N|\mathbb{S}|)$ , which grows with the channel length $L$ .
+Our paper is organized as follows.
+In Section II we detail our assumptions on the OFDM system
+and the channel prior, and provide an illustrative example of
+clustered-sparse behavior with the IEEE 802.15.4a channel model.
+In Section III we detail our GAMP-based JCED approach,
+in Section IV we report the results of our simulation study, and
+in Section V we conclude.
+Throughout the paper, we use the following notation.
+${\mathbb{R}}$ denotes the field of reals and
+${\mathbb{C}}$ the complex field.
+$(\cdot)^{*}$ denotes conjugate and
+$\real(\cdot)$ extracts the real part.
+Furthermore,
+$\delta(\tau)$ denotes the Dirac delta waveform while
+$\{\delta_{n}\}_{n=-\infty}^{\infty}$ denotes the Kronecker delta sequence.
+Also,
+$\langle j\rangle_{N}$ denotes $j$ -modulo- $N$ ,
+$\star$ convolution, and
+$\propto$ denotes equality up to a scaling.
+We use
+boldface capital letters like $\boldsymbol{B}$ to denote matrices and
+boldface small letters like $\boldsymbol{b}$ to denote vectors.
+$\boldsymbol{I}$ denotes the identity matrix,
+$\boldsymbol{1}$ denotes the vector of ones, and
+$\Diag(\boldsymbol{b})$ constructs a diagonal matrix from the vector $\boldsymbol{b}$ .
+For matrices and vectors,
+$(\cdot)^{\textsf{T}}$ denotes transpose and
+$(\cdot)^{\textsf{H}}$ denotes conjugate transpose.
+When $x_{j}$ is a realization of random variable $X_{j}$ , we write
+$x_{j}\!\sim\!X_{j}$ and use
+$\E_{X_{j}}\{x_{j}\}$ to denote the mean,
+$\var_{X_{j}}\{x_{j}\}$ the variance,
+$p_{X_{j}}(x_{j})$ the pdf, and
+$p_{X_{j}|D_{j}}(x_{j}\,|\,d_{j})$ the pdf conditioned on the event $D_{j}\!=\!d_{j}$ .
+Sometimes we omit the subscript when there is no danger of confusion,
+yielding, e.g., $\E\{x_{j}\}$ , $\var\{x_{j}\}$ , $p(x_{j})$ and $p(x_{j}\,|\,d_{j})$ .
+$\mathcal{CN}(x;\hat{x},\nu^{x})\!\triangleq\!(\pi\nu^{x})^{-1}\exp(-|x-\hat{x}|^{2}/\nu^{x})$
+denotes the circular Gaussian pdf with mean $\hat{x}$ and variance $\nu^{x}$ .
+In fact, we often use $(\hat{v}_{j},\nu_{j}^{v})$ when referring to the
+mean and variance of $V_{j}$ .
+For a random vector $\boldsymbol{x}$ , we use $\cov(\boldsymbol{x})$ to denote the
+covariance matrix.
+II System Model
+II-A The BICM-OFDM model
+We consider an OFDM system with $N$ subcarriers, each modulated by a
+QAM symbol from a $2^{M}$ -ary unit-energy constellation $\mathbb{S}$ .
+Of the $N$ subcarriers, $N_{\textsf{p}}$ are dedicated as pilots,11
+1
+For our GAMP decoder, we recommend $N_{\textsf{p}}\!=\!0$ ; see Section IV.
+and the remaining $N_{\textsf{d}}\!\triangleq\!N\!-\!N_{\textsf{p}}$
+are used to transmit a total of $M_{\textsf{t}}$ training bits
+and $M_{\textsf{d}}\!\triangleq\!N_{\textsf{d}}M\!-\!M_{\textsf{t}}$ coded/interleaved data bits.
+The data bits are generated by encoding $M_{\textsf{i}}$ information bits using a
+rate- $R$ coder, interleaving them, and partitioning the resulting
+$M_{\textsf{c}}\!\triangleq\!M_{\textsf{i}}/R$
+bits among an integer number $Q\!\triangleq\!M_{\textsf{c}}/M_{\textsf{d}}$ of OFDM symbols.
+We note that the resulting scheme has a spectral efficiency of
+$\eta\!\triangleq\!M_{\textsf{d}}R/N$ information bits per channel use (bpcu).
+In the sequel,
+we use $s^{(k)}\!\in\!\mathbb{S}$ for $k\!\in\!\{1,\dots,2^{M}\}$ to denote the
+$k^{th}$ element of the QAM constellation, and
+$\boldsymbol{c}^{(k)}\!\triangleq\![c_{1}^{(k)},\dots,c_{M}^{(k)}]^{\textsf{T}}$ to denote the
+corresponding bits as defined by the symbol mapping.
+Likewise,
+we use $s_{i}[q]\!\in\!\mathbb{S}$ for the QAM symbol transmitted
+on the $i^{th}$ subcarrier of the $q^{th}$ OFDM symbol and
+$\boldsymbol{c}_{i}[q]\!\triangleq\![c_{i,1}[q],\dots,c_{i,M}[q]]^{\textsf{T}}$ for the
+coded/interleaved bits corresponding to that symbol.
+We use $\boldsymbol{c}[q]\!\triangleq\![\boldsymbol{c}_{0}[q],\dots,\boldsymbol{c}_{N-1}[q]]^{\textsf{T}}$
+to denote the coded/interleaved bits in the $q^{th}$ OFDM symbol
+and $\boldsymbol{c}\!\triangleq\![\boldsymbol{c}[1],\dots,\boldsymbol{c}[Q]]^{\textsf{T}}$ to denote
+the entire (interleaved) codeword.
+The elements of $\boldsymbol{c}$ that are apriori known as pilot or training bits
+will be referred to as $\boldsymbol{c}_{\textsf{pt}}$ .
+The remainder of $\boldsymbol{c}$ is determined from the information
+bits $\boldsymbol{b}\!\triangleq\![b_{1},\dots,b_{M_{\textsf{i}}}]^{\textsf{T}}$ by coding/interleaving.
+To modulate the $q^{th}$ OFDM symbol, an $N$ -point inverse discrete Fourier
+transform (DFT) $\boldsymbol{\Phi}^{\textsf{H}}$ is applied to the QAM sequence
+$\boldsymbol{s}[q]\!=\![s_{0}[q],\dots,s_{N-1}[q]]^{\textsf{T}}$ , yielding the time-domain
+sequence $\boldsymbol{\Phi}^{\textsf{H}}\boldsymbol{s}[q]\!=\!\boldsymbol{a}[q]\!=\![a_{0}[q],\dots,a_{N-1}[q]]^{\textsf{T}}$ .
+The OFDM waveform $a(t)$ is then constructed using
+$L$ -cyclic-prefixed versions of $\{a_{j}[q]\}$ and the transmission pulse
+$g_{\text{\sf t}}(\tau)$ :
+[S2.E1]
+$\displaystyle a(t)$
+$\displaystyle=$
+$\displaystyle\sum_{q=1}^{Q}\sum_{j=-L}^{N-1}a_{\langle j\rangle_{N}}\![q]\,g_{\text{\sf t}}\big(t-jT-q(N+L)T\big),$
+(1)
+with $T$ denoting the baud interval (in seconds) and $L<N$ .
+The waveform $a(t)$ propagates through a noisy channel
+with an impulse response $h(\tau)$ that is supported on the interval
+$[\tau_{\min},\tau_{\max}]$ , resulting in the receiver input waveform
+[S2.E2]
+$\displaystyle r(t)$
+$\displaystyle=$
+$\displaystyle w(t)+\int_{\tau_{\min}}^{\tau_{\max}}h(\tau)a(t-\tau)d\tau,$
+(2)
+where $w(t)$ is a Gaussian noise process with flat power spectral density $N_{o}$ .
+We note that a time-invariant channel is assumed for simplicity.
+The receiver samples $r(t)$ through the reception pulse $g_{\text{\sf r}}(\tau)$ , obtaining
+[S2.E3]
+$\displaystyle r_{j}[q]$
+$\displaystyle=$
+$\displaystyle\int r(t)\,g_{\text{\sf r}}\big(jT+q(N+L)T-t\big)dt,$
+(3)
+and applies an $N$ -DFT $\boldsymbol{\Phi}$ to each time-domain sequence
+$\boldsymbol{r}[q]\!=\![r_{0}[q],\dots,r_{N-1}[q]]^{\textsf{T}}$ , yielding the frequency-domain
+sequences $\boldsymbol{\Phi}\boldsymbol{r}[q]\!=\!\boldsymbol{y}[q]\!=\![y_{0}[q],\dots,y_{N-1}[q]]^{\textsf{T}}$
+for $q=1\dots Q$ .
+Defining the pulse-shaped channel response
+$x(\tau)\!\triangleq\!(g_{\text{\sf r}}\star h\star g_{\text{\sf t}})(\tau)$ ,
+it is well known (e.g., [33]) that,
+when the support of $x(\tau)$ is contained within the interval $[0,LT)$ ,
+the frequency domain observation on the $i^{th}$ subcarrier can be written as
+[S2.E4]
+$\displaystyle y_{i}[q]$
+$\displaystyle=$
+$\displaystyle s_{i}[q]z_{i}[q]+w_{i}[q],$
+(4)
+where $z_{i}[q]\in{\mathbb{C}}$ is the $i^{th}$ subcarrier’s gain and
+$\{w_{i}[q]\}$ are Gaussian noise samples.
+Furthermore, defining the uniformly sampled channel “taps”
+$x_{j}[q]\!\triangleq\!x(jT\!+\!q(N\!+\!L)T)$ , the subcarrier gains are related to these taps through the DFT:
+[S2.E5]
+$\displaystyle z_{i}[q]$
+$\displaystyle=$
+$\displaystyle\sum_{j=0}^{L-1}\Phi_{ij}x_{j}[q].$
+(5)
+In addition, when $(g_{\text{\sf r}}\star g_{\text{\sf t}})(\tau)$ is a Nyquist pulse,
+$\{w_{i}[q]\}_{\forall i,q}$ are statistically independent with
+variance $\nu^{w}\!=\!N_{o}$ .
+To simplify the development, we assume that $Q=1$ in the sequel
+(but not in the simulations), and drop the index $[q]$ for brevity.
+II-B A clustered-sparse tap prior
+Empirical studies [3, 4, 5, 6] have suggested that, when the baud rate $T^{-1}$ is sufficiently large,
+the channel taps $\{x_{j}\}$ are “sparse” in that the tap distributions
+tend to be heavy tailed.
+The same empirical studies suggest that large taps tend to be clustered
+in the lag domain.
+Furthermore, both the sparsity and clustering behaviors can be
+lag-dependent, such as when the receiver’s timing-synchronization
+mechanism aligns the first strong multipath arrivals with a
+particular reference lag $j$ .
+A concrete example of these behaviors will be given in
+Section II-C.
+Since our message-passing-based receiver design is inherently Bayesian,
+we seek a prior
+on the taps $\{x_{j}\}$ that is capable of representing this lag-dependent
+clustered sparsity.
+For this purpose, we assume a two-state Gaussian mixture (GM2)
+prior,22
+2
+The message passing algorithm described in Section III-B
+can also handle non-Gaussian mixtures and/or mixtures with more
+than two terms.
+[S2.E6]
+$\displaystyle p(x_{j})$
+$\displaystyle=$
+$\displaystyle(1-\lambda_{j})\mathcal{CN}(x_{j};0,\nu^{0}_{j})+\lambda_{j}\mathcal{CN}(x_{j};0,\nu^{1}_{j}),$
+(6)
+where
+$\nu_{j}^{0}\!\geq\!0$ denotes the variance while in the “small” state,
+$\nu_{j}^{1}\!>\!\nu_{j}^{0}$ denotes the variance while in the “big” state,
+and $\lambda_{j}\!\triangleq\!\Pr\{d_{j}\!=\!1\}$ denotes the prior probability of
+$x_{j}$ being in the “big” state.
+Here, we use $d_{j}\!\in\!\{0,1\}$ to denote the hidden state, implying the
+state-conditional pdf
+$p(x_{j}\,|\,d_{j})=\mathcal{CN}(x_{j};0,\nu^{d_{j}}_{j}).$
+For example, if $x_{j}$ was presumed to be a “sparse” tap, then we would
+choose $\lambda_{j}\!\ll\!1$ and $\nu_{j}^{1}\!\gg\!\nu_{j}^{0}$ in (6).
+If, on the other hand, $x_{j}$ is presumed to be (non-sparse) Rayleigh-fading,
+we would choose $\lambda_{j}\!=\!1$ and set $\nu_{j}^{1}$ equal to the tap variance,
+noting that $\nu_{j}^{0}$ becomes inconsequential.
+If $x_{j}$ is presumed to be Nakagami-fading or similar, we could
+fit the GM2 parameters $[\lambda_{j},\nu_{j}^{0},\nu_{j}^{1}]$ appropriately using
+the EM algorithm, as described in [34, p. 435].
+The GM2 prior has been used successfully in many other
+non-Gaussian inference problems (see, e.g., [35]), and our
+premise here is that the GM2 model achieves a good balance between
+fidelity and tractability when modeling channel taps as well.
+To capture the big-tap clustering behavior, we employ a hidden Markov
+model (HMM).
+For this, we model the tap states $\{d_{j}\}_{j=0}^{L-1}$
+as a Markov chain (MC) with switching probabilities
+$p_{j}^{01}\!\triangleq\!\Pr\{d_{j+1}\!=\!0\,|\,d_{j}\!=\!1\}$
+and $p_{j}^{10}\!\triangleq\!\Pr\{d_{j+1}\!=\!1\,|\,d_{j}\!=\!0\}$ .
+Here, $p_{j}^{01}<0.5$ implies that the neighbors of a big $x_{j}$
+tend to be big, and $p_{j}^{10}<0.5$ implies that the neighbors of
+a small $x_{j}$ tend to be small.
+We note that $\{p_{j}^{01},p_{j}^{10}\}_{j=0}^{L-1}$ must be consistent with
+$\{\lambda_{j}\}_{j=0}^{L-1}$ in that the following must hold
+for all $j$ :
+[S2.E7]
+$\displaystyle\begin{bmatrix}\lambda_{j+1}~&~1\!-\!\lambda_{j+1}\end{bmatrix}$
+$\displaystyle=$
+$\displaystyle\begin{bmatrix}\lambda_{j}~&~1\!-\!\lambda_{j}\end{bmatrix}\begin{bmatrix}1\!-\!p_{j}^{01}&p_{j}^{01}\\
+p_{j}^{10}&1\!-\!p_{j}^{10}\end{bmatrix}.$
+(7)
+Although we allow correlation among the tap states, we assume that the
+tap amplitudes are conditionally independent, i.e.,
+$p(x_{j+1},x_{j}\,|\,d_{j+1},d_{j})\!=\!p(x_{j}\,|\,d_{j})p(x_{j+1}\,|\,d_{j+1})$ .
+Our experiences with IEEE 802.15.4a channels (see below) suggest that this
+is a valid assumption.
+We emphasize that the model parameters
+$\{\lambda_{j},p_{j}^{01},p_{j}^{01},\nu_{j}^{1},\nu_{j}^{0}\}$ are allowed to vary
+with lag $j$ ,
+facilitating the exploitation of apriori known lag-dependencies
+in sparsity and/or clustering.
+II-C An illustrative example: IEEE 802.15.4a channels
+As an illustrative example of the clustered-sparse tap behavior described
+above, we generated realizations of the tap vector
+$\boldsymbol{x}\triangleq[x_{0},\dots,x_{L-1}]^{\textsf{T}}$ from channel impulse responses
+$h(\tau)$ generated according to the method specified in the IEEE 802.15.4a
+“ultra-wideband” standard [16], which uses the
+Saleh-Valenzuela model [36]
+[S2.E8]
+$\displaystyle h(\tau)$
+$\displaystyle=$
+$\displaystyle\sum_{c=0}^{C}\sum_{k=0}^{K}h_{k,c}e^{j\phi_{k,c}}\delta(\tau-T_{c}-\tau_{k,c}),$
+(8)
+where $C$ denotes the number of clusters, $T_{c}$ the delay of the $c^{th}$
+cluster, $K$ the number of components per cluster, $\{\tau_{k,c}\}$ the
+relative component delays, $\{h_{k,c}\}$ the component amplitudes,
+and $\{\phi_{k,c}\}$ the component phases.
+In particular, the 802.15.4a standard specifies the following.
+•
+The cluster arrival times are a Poisson process with rate $\Lambda$ ,
+i.e., $p(T_{c}\,|\,T_{c-1})\!=\!\Lambda\exp(-\Lambda(T_{c}-T_{c-1}))$ .
+The initial cluster delay $T_{0}\!\geq\!\tau_{\min}$ , as seen by the receiver,
+is a function of the timing synchronization algorithm.
+•
+The component arrivals are a mixture of two Poisson processes:
+$p(\tau_{k,c}|\tau_{k-1,c})\!=\!\beta\lambda_{1}\exp(-\lambda_{1}(\tau_{k,c}-\tau_{k-1,c}))\!+\!(1-\beta)\lambda_{2}\exp(-\lambda_{2}(\tau_{k,c}-\tau_{k-1,c}))$
+with $\tau_{0,c}=0$ .
+•
+The component energies obey
+[S2.E9]
+$\displaystyle\E\{|h_{k,c}|^{2}\}$
+$\displaystyle=$
+$\displaystyle\frac{\exp(-T_{l}/\Gamma-\tau_{k,l}/\gamma)}{\gamma[(1-\beta)\lambda_{1}+\beta\lambda_{2}+1]},$
+(9)
+where $\Gamma$ is the cluster decay time constant and
+$\gamma$ is the intra-cluster decay time constant.
+•
+The amplitudes $\{h_{k,c}\}$ are i.i.d Nakagami with $m$ -factors
+randomly generated via i.i.d $m\sim\mathcal{N}(m_{0},\hat{m}^{2}_{0})$ .
+•
+The phases $\{\phi_{k,c}\}$ are i.i.d uniform on $[0,2\pi)$ .
+•
+The number of clusters, $C$ , is Poisson distributed with mean
+$\bar{C}$ , i.e., $p(C)\!=\!(\bar{C})^{C}\exp(-\bar{C})/(C!)$ .
+•
+The number of components per cluster, $K$ , is set large enough
+to yield a desired modeling accuracy.
+Beyond the above specifications, we assume the following.
+•
+The parameters
+$\{\Lambda,\lambda_{1},\lambda_{2},\beta,\Gamma,\gamma,m_{0},\hat{m}_{0},\bar{C}\}$
+are set according to the 802.15.4a “outdoor NLOS” scenario
+[16].
+•
+$K\!=\!100$ components per cluster are used.
+•
+The pulses $g_{\text{\sf t}}(\tau)$ and $g_{\text{\sf r}}(\tau)$ are square-root raised cosine
+(SRRC) designs with parameter $0.5$ .
+•
+The system bandwidth equals $T^{-1}=256$ MHz.
+•
+The number of taps (and CP length) was set at $L=256$
+(implying a maximal delay spread of $1\,\nu$ sec) in order to capture all
+significant energy in $h(\tau)$ .
+•
+The initial delay was generated via $T_{0}\!=\!L_{\text{\sf pre}}T+\tilde{T}_{0}$ ,
+where $L_{\text{\sf pre}}\!=\!20$ and where $\tilde{T}_{0}$ is exponentially
+distributed with mean $T$ ,
+i.e., $p(\tilde{T}_{0})\!=\!\Lambda_{0}\exp(-\Lambda_{0}\tilde{T}_{0})$ for
+$\Lambda_{0}\!=\!1/T$ .
+Here, $L_{\text{\sf pre}}$ was chosen so that $\{x_{j}\}_{j=0}^{L_{\text{\sf pre}}}$ captures
+the “pre-cursor” energy contributed by the pulse shape, while
+$\Lambda_{0}$ models a positive synchronization uncertainty.
+We now show results from an experiment conducted
+using $U=10000$ realizations of the tap vector $\boldsymbol{x}$ .
+In Fig. 1, we show histograms of $\real(x_{j})$ for lags
+$j\!\in\!\{5,23,128,230\}$ .
+There it can be seen that the empirical distribution of $\real(x_{j})$
+changes significantly with lag $j$ :
+for pre-cursor lags $j\!<\!L_{\text{\sf pre}}$ , it is approximately Gaussian;
+for near-cursor lags $j\!\approx\!L_{\text{\sf pre}}$ , it is approximately
+Laplacian; and, for post-cursor lags $j\!\gg\!L_{\text{\sf pre}}$ , it is extremely heavy-tailed.
+In Fig. 2, we show a typical realization of $\boldsymbol{x}$
+and notice clustering among the big taps.
+For comparison, we also plot an empirical estimate of the power-delay profile (PDP)
+$\boldsymbol{\rho}\triangleq[\rho_{0},\dots,\rho_{L-1}]^{\textsf{T}}$ in Fig. 2,
+where $\rho_{j}\!\triangleq\!\E\{|x_{j}|^{2}\}$ .
+Next, we fit the GM2 parameters $\{\lambda_{j},\nu^{0}_{j},\nu^{1}_{j}\}_{j=0}^{L-1}$
+from the realizations $\{\boldsymbol{x}_{u}\}_{u=1}^{U}$ using the EM algorithm
+[34, p. 435], which iterates the steps
+(10)-(13) until convergence:
+[S2.E10]
+$\displaystyle\omega_{j,u}$
+$\displaystyle=$
+$\displaystyle\textstyle\frac{\lambda_{j}\mathcal{CN}(x_{j,u};0,\nu_{j}^{1})}{(1-\lambda_{j})\mathcal{CN}(x_{j,u};0,\nu_{j}^{0})+\lambda_{j}\mathcal{CN}(x_{j,u};0,\nu_{j}^{1})}~\forall j,u$
+(10)
+[S2.E11]
+$\displaystyle\nu^{1}_{j}$
+$\displaystyle=$
+$\displaystyle\textstyle\sum_{u=1}^{U}\omega_{j,u}|x_{j,u}|^{2}/\sum_{u=1}^{U}\omega_{j,u}~\forall j$
+(11)
+[S2.E12]
+$\displaystyle\nu^{0}_{j}$
+$\displaystyle=$
+$\displaystyle\textstyle\sum_{u=1}^{U}(1-\omega_{j,u})|x_{j,u}|^{2}/\sum_{u=1}^{U}(1-\omega_{j,u})~\forall j\quad$
+(12)
+[S2.E13]
+$\displaystyle\lambda_{j}$
+$\displaystyle=$
+$\displaystyle\textstyle\frac{1}{U}\sum_{u=1}^{U}\omega_{j,u}~\forall j.$
+(13)
+Above, $\omega_{j,u}$ is the posterior on the state $d_{j,u}$ of tap $x_{j,u}$ ,
+i.e.,
+$\omega_{j,u}=\Pr\{d_{j,u}\!=\!1\,|\,x_{j,u};\lambda_{j},\nu^{0}_{j},\nu^{1}_{j}\}$ .
+The EM-estimated big-variance profile
+$\boldsymbol{\nu}^{1}\triangleq[\nu^{1}_{0},\dots,\nu^{1}_{L-1}]^{\textsf{T}}$ and
+small-variance profile $\boldsymbol{\nu}^{0}$ are shown in Fig. 2,
+while the sparsity profile $\boldsymbol{\lambda}\triangleq[\lambda_{0},\dots,\lambda_{L-1}]^{\textsf{T}}$
+is shown in Fig. 3.
+Not surprisingly, the best-fit GM2 parameters also change significantly with lag $j$ .
+In particular, as $j$ becomes larger, the variance ratio $\nu^{1}_{j}/\nu^{0}_{j}$
+increases while the big-tap-probability $\lambda_{j}$ decreases, corresponding to
+an increase in sparsity.
+Meanwhile, there exists a peak in $\lambda_{j}$ near $j\!=\!L_{\text{\sf pre}}$ that results
+from synchronization.
+Next, we empirically estimated the switching probabilities
+$\boldsymbol{p}^{01}\triangleq[p^{01}_{0},\dots,p^{01}_{L-1}]^{\textsf{T}}$ and $\boldsymbol{p}^{10}$
+using maximum a-posteriori (MAP) state estimates, i.e.,
+$\hat{d}_{j,u}=\lfloor\omega_{j,u}+0.5\rfloor$ .
+In particular,
+[S2.E14]
+$\displaystyle p_{j}^{01}$
+$\displaystyle=$
+$\displaystyle\textstyle\sum_{u=1}^{U}1_{\{\hat{d}_{j+1,u}=0\,\&\,\hat{d}_{j,u}=1\}}/\sum_{u=1}^{U}1_{\{\hat{d}_{j,u}=1\}}$
+(14)
+[S2.E15]
+$\displaystyle p_{j}^{10}$
+$\displaystyle=$
+$\displaystyle\textstyle\sum_{u=1}^{U}1_{\{\hat{d}_{j+1,u}=1\,\&\,\hat{d}_{j,u}=0\}}/\sum_{u=1}^{U}1_{\{\hat{d}_{j,u}=0\}},$
+(15)
+where $1_{\{A\}}$ denotes the indicator function for event $A$ .
+From the plots in Fig. 3, we see that the estimated switching
+probabilities are lag-dependent as well.
+Finally, using the MAP state estimates $\{\hat{d}_{j,u}\}$ , we empirically
+estimated the normalized conditional correlation
+$\textstyle\frac{\sum_{u=1}^{U}1_{\{\hat{d}_{j+1,u}=1,\hat{d}_{j,u}=1\}}x_{j+1,u}x_{j,u}^{*}}{\sqrt{\sum_{u=1}^{U}1_{\{\hat{d}_{j+1,u}=1,\hat{d}_{j,u}=1\}}|x_{j+1,u}|^{2}\sum_{u=1}^{U}1_{\{\hat{d}_{j+1,u}=1,\hat{d}_{j,u}=1\}}|x_{j,u}|^{2}}}$
+and found that the magnitudes were $<\!0.1$ , validating our assumption
+of conditionally independent tap amplitudes.
+In summary, we see that IEEE 802.15.4a channels do indeed
+yield taps with the lag-dependent clustered sparsity
+described in Section II-B.
+Moreover, we have shown how the GM2-HMM parameters can be estimated
+from realizations of $\boldsymbol{x}$ .
+Next, we propose an efficient factor-graph based approach to joint
+channel-estimation and decoding (JCED) for BICM-OFDM using
+the GM2-HMM prior proposed in Section II-B.
+Fig. 1: Histograms of $\real(x_{j})$ for lags $j\in\{5,23,128,230\}$ , with
+“tight” axes. With synchronization delay $L_{\text{\sf pre}}\!=\!20$ ,
+note that the histogram appears Gaussian for $j\!<\!L_{\text{\sf pre}}$ ,
+Laplacian for $j\!\approx\!L_{\text{\sf pre}}$ , and very sparse for $j\!\gg\!L_{\text{\sf pre}}$ .
+Fig. 2: A sample realization of channel taps $\{x_{j}\}$ generated from the
+IEEE 802.15.4a model with SRRC pulse shaping.
+Also shown is the empirically estimated PDP, best fits of the GM2
+parameters $\{\nu^{0}_{j},\nu^{1}_{j}\}$ , and the MAP threshold for detecting
+the hidden state $d_{j}$ given the tap value $x_{j}$ .
+Fig. 3: Empirically estimated statistics on the tap-states $\{d_{j}\}$ .
+Top: $\lambda_{j}\triangleq\Pr\{d_{j}\!=\!1\}$ ,
+middle: $p^{01}_{j}\triangleq\Pr\{d_{j+1}\!=\!0\,|\,d_{j}\!=\!1\}$ ,
+bottom: $p^{10}_{j}\triangleq\Pr\{d_{j+1}\!=\!1\,|\,d_{j}\!=\!0\}$ .
+The red dashed line shows the synchronization reference, $j=L_{\text{\sf pre}}=20$ .
+III Joint Channel Estimation and Decoding
+Fig. 4: Factor graph of the JCED problem for a
+toy example with $M_{\textsf{i}}=3$ information bits, $N_{\textsf{p}}=1$ pilot subcarrier
+(at subcarrier index $i=3$ ), $M_{\textsf{t}}=2$ training bits, $M=2$ bits per
+QAM symbol, $N=4$ OFDM subcarriers, and channel impulse response
+length $L=3$ .
+Our goal is to infer the information bits $\boldsymbol{b}$
+from the OFDM observations $\boldsymbol{y}$
+and the pilot/training bits $\boldsymbol{c}_{\textsf{pt}}$ ,
+without knowing the channel state $\boldsymbol{x}$ .
+In particular, we aim to maximize the posterior pmf
+$p(b_{m}\,|\,\boldsymbol{y},\boldsymbol{c}_{\textsf{pt}})$ of each info bit.
+To exploit prior knowledge that $\boldsymbol{x}$ is clustered-sparse, we
+employ the GM2-HMM prior described in Section II-B.
+As a result, the info-bit posterior can be decomposed into
+the following product of factors:
+$\displaystyle p(b_{m}\,|\,\boldsymbol{y},\boldsymbol{c}_{\textsf{pt}})\,=\,\sum_{\boldsymbol{b}_{-m}}p(\boldsymbol{b}\,|\,\boldsymbol{y},\boldsymbol{c}_{\textsf{pt}})\,\propto\,\sum_{\boldsymbol{b}_{-m}}p(\boldsymbol{y}\,|\,\boldsymbol{b},\boldsymbol{c}_{\textsf{pt}})p(\boldsymbol{b})$
+(16)
+$\displaystyle=$
+$\displaystyle\int_{\boldsymbol{x}}\sum_{\boldsymbol{s},\boldsymbol{d},\boldsymbol{c},\boldsymbol{b}_{-m}}\hskip-11.38109ptp(\boldsymbol{y}\,|\,\boldsymbol{s},\boldsymbol{x})p(\boldsymbol{x}\,|\,\boldsymbol{d})p(\boldsymbol{d})p(\boldsymbol{s}\,|\,\boldsymbol{c})p(\boldsymbol{c}\,|\,\boldsymbol{b},\boldsymbol{c}_{\textsf{pt}})p(\boldsymbol{b})$
+$\displaystyle=$
+$\displaystyle\int_{\boldsymbol{x}}\sum_{\boldsymbol{d}}\prod_{j=0}^{L-1}p(x_{j}\,|\,d_{j})p(d_{j}\,|\,d_{j-1})\sum_{\boldsymbol{s}}\prod_{i=0}^{N-1}p(y_{i}\,|\,s_{i},\boldsymbol{x})$
+[S3.E17]
+$\displaystyle\mbox{}\times\sum_{\boldsymbol{c}}p(s_{i}\,|\,\boldsymbol{c}_{i})\sum_{\boldsymbol{b}_{-m}}p(\boldsymbol{c}\,|\,\boldsymbol{b},\boldsymbol{c}_{\textsf{pt}})\prod_{m=1}^{M_{\textsf{i}}}p(b_{m}),\quad$
+(17)
+where
+$\boldsymbol{b}_{-m}\!\triangleq\![b_{1},\dots,b_{m-1},b_{m+1},\dots,b_{M_{\textsf{i}}}]^{\textsf{T}}$ .
+This factorization is illustrated by the factor
+graph in Fig. 4, where the round nodes represent
+random variables and the square nodes represent the factors of the
+posterior exposed in (17).
+III-A Background on belief propagation
+Although exact evaluation of the posteriors $\{p(b_{m}\,|\,\boldsymbol{y},\boldsymbol{c}_{\textsf{pt}})\}$
+is computationally impractical for the problem sizes of interest,
+these posteriors can be approximately evaluated using
+belief propagation (BP) [37] on the factor graph in
+Fig. 4.
+In textbook BP, beliefs take the form of pdfs/pmfs that are propagated
+among nodes of the factor graph via the sum/product algorithm (SPA)
+[18, 19, 20]:
+1.
+Say the factor node $f$ is connected to the variable nodes
+$\{v_{a}\}_{a=1}^{A}$ . The belief passed from $f$ to $v_{b}$ is
+$p_{f\rightarrow v_{b}}(v_{b})\propto\int_{\{v_{a}\}_{a\neq b}}f(v_{1},\dots,v_{A})\prod_{a\neq b}p_{v_{a}\rightarrow f}(v_{a})$ ,
+given the beliefs $\{p_{v_{a}\rightarrow f}(\cdot)\}_{a\neq b}$ recently
+passed to $f$ .
+2.
+Say the variable node $v$ is connected to the factor nodes $\{f_{1},\dots,f_{B}\}$ .
+The belief passed from $v$ to $f_{a}$ is
+$p_{v\rightarrow f_{a}}(v)\propto\prod_{b\neq a}p_{f_{b}\rightarrow v}(v)$ ,
+given the beliefs $\{p_{f_{b}\rightarrow v}(\cdot)\}_{b\neq a}$ recently
+passed to $v$ .
+3.
+Say the variable node $v$ is connected to the factor nodes $\{f_{1},\dots,f_{B}\}$ .
+The posterior on $v$ is the product of all recently arriving beliefs,
+i.e., $p(v)\propto\prod_{b=1}^{B}p_{f_{b}\rightarrow v}(v)$ .
+When the factor graph contains no loops, SPA-BP yields exact posteriors after
+two rounds of message passing (i.e., forward and backward).
+But, in the presence of loops, convergence to the exact posteriors is not guaranteed [25].
+That said, there exist many problems to which loopy BP [37]
+has been successfully applied, including
+inference on Markov random fields [38],
+LDPC decoding [14],
+and compressed sensing
+[39, 40, 41, 13, 15, 32].
+Our work not only leverages these past successes, but unites them.
+III-B Background on GAMP
+An important sub-problem within our larger bit-inference problem is the
+estimation of a vector of independent possibly-non-Gaussian variables
+$\boldsymbol{x}$ that are linearly mixed via $\boldsymbol{\Phi}\in{\mathbb{C}}^{N\times L}$
+to form $\boldsymbol{z}\!=\!\boldsymbol{\Phi x}\!=\![z_{0},\dots,z_{N-1}]^{\textsf{T}}$ ,
+and subsequently observed as noisy measurements $\boldsymbol{y}$ through the
+possibly non-Gaussian pdfs $\{p_{Y_{i}|Z_{i}}(.\,|\,.)\}_{i=0}^{N-1}$ .
+In our case, (6) specifies a GM2 prior on $x_{j}$
+and (4)—given the finite-alphabet uncertainty in $s_{i}$ —yields the
+non-Gaussian measurement pdf $p_{Y_{i}|Z_{i}}$ .
+This “linear mixing” sub-problem is described by the factor graph shown within the
+middle dashed box in Fig. 4,
+where each node “ $y_{i}$ ” represents the measurement pdf
+$p_{Y_{i}|Z_{i}}$ and the node rightward of each node “ $x_{j}$ ”
+represents the GM2 prior on $x_{j}$ .
+Building on recent work on multiuser detection by Guo and Wang
+[42], as well as recent work on message passing algorithms
+for compressed sensing by Donoho, Maleki, Montanari, and Bayati
+[40, 41], Rangan proposed a so-called
+generalized approximate message passing (GAMP) scheme
+that, for the sub-problem described above,
+admits rigorous analysis33
+3
+Since it is difficult to give a concise yet accurate account of GAMP’s
+technical properties, we refer the interested reader to [13].
+as $N,L\!\rightarrow\!\infty$ [13].
+The main ideas behind GAMP are the following.
+First, although the beliefs flowing leftward from the nodes $\{x_{j}\}$
+are clearly non-Gaussian, the corresponding belief about
+$z_{i}=\sum_{j=0}^{L-1}\Phi_{ij}x_{j}$ can be accurately approximated as
+Gaussian, when $L$ is large, using the central limit theorem.
+Moreover, to calculate the parameters of this distribution (i.e., its
+mean and variance), only the mean and variance of each $x_{j}$ are needed.
+Thus, it suffices to pass only means and variances leftward from each
+$x_{j}$ node.
+It is similarly desirable to pass only means and variances rightward
+from each measurement node.
+Although the exact rightward flowing beliefs would be non-Gaussian (due to
+the non-Gaussian assumption on the measurement channels $p_{Y_{i}|Z_{i}}$ ),
+GAMP approximates them as Gaussian using a 2nd-order Taylor series,
+and passes only the resulting means and variances.
+A further simplification employed by GAMP is to approximate
+the differences among the outgoing means/variances of each left node,
+and the incoming means/variances of each right node, using Taylor series.
+The GAMP algorithm44
+4
+To be precise, the GAMP algorithm in Table I is an extension of
+that proposed in [13].
+Table I handles circular complex-valued distributions
+and non-identically distributed signals and measurements.
+is summarized in Table I.
+$\begin{array}[]{|lrcl@{}r|}\hline\cr\vrule\lx@intercol\textsf{definitions:}\hfil\lx@intercol&&&\\[-2.84526pt]
+&p_{Z_{i}|Y_{i}}(z|y;\hat{z},\nu^{z})&=&\frac{p_{Y_{i}|Z_{i}}(y|z)\,\mathcal{CN}(z;\hat{z},\nu^{z})}{\int_{z^{\prime}}p_{Y_{i}|Z_{i}}(y|z^{\prime})\,\mathcal{CN}(z^{\prime};\hat{z},\nu^{z})}&\text{(D1)}\\
+&g_{\textsf{out},i}(y,\hat{z},\nu^{z})&=&\frac{1}{\nu^{z}}\left(\E_{Z_{i}|Y_{i}}\{z|y;\hat{z},\nu^{z}\}-\hat{z}\right)&\text{(D2)}\\
+&g_{\textsf{out},i}^{\prime}(y,\hat{z},\nu^{z})&=&\frac{1}{\nu^{z}}\left(\frac{\var_{Z_{i}|Y_{i}}\{z|y;\hat{z},\nu^{z}\}}{\nu^{z}}-1\right)&\text{(D3)}\\
+&p_{X_{j}}\!(x;\hat{r},\nu^{r})&=&\frac{p_{X_{j}}\!(x)\,\mathcal{CN}(x;\hat{r},\nu^{r})}{\int_{x^{\prime}}p_{X_{j}}\!(x^{\prime})\,\mathcal{CN}(x^{\prime};\hat{r},\nu^{r})}&\text{(D4)}\\
+&g_{\textsf{in},j}(\hat{r},\nu^{r})&=&\int_{x}x\,p_{X_{j}}\!(x;\hat{r},\nu^{r})&\text{(D5)}\\
+&g_{\textsf{in},j}^{\prime}(\hat{r},\nu^{r})&=&\frac{1}{\nu^{r}}\int_{x}|x-g_{\textsf{in},j}(\hat{r},\nu^{r})|^{2}\,p_{X_{j}}\!(x;\hat{r},\nu^{r})&\text{(D6)}\\
+\vrule\lx@intercol\textsf{initialize:}\hfil\lx@intercol&&&\\
+&\forall j:\hat{x}_{j}(1)&=&\int_{x}x\,p_{X_{j}}(x)&\text{(I1)}\\
+&\forall j:\nu^{x}_{j}(1)&=&\int_{x}|x-\hat{x}_{j}(1)|^{2}p_{X_{j}}(x)&\text{(I2)}\\
+&\forall i:\hat{u}_{i}(0)&=&0&\text{(I3)}\\
+\vrule\lx@intercol\textsf{for $n=1,2,3,\dots$}\hfil\lx@intercol&&&\\
+&\forall i:\hat{z}_{i}(n)&=&\textstyle\sum_{j=0}^{L-1}\Phi_{ij}\hat{x}_{j}(n)&\text{(R1)}\\
+&\forall i:\nu^{z}_{i}(n)&=&\textstyle\sum_{j=0}^{L-1}|\Phi_{ij}|^{2}\nu^{x}_{j}(n)&\text{(R2)}\\
+&\forall i:\hat{p}_{i}(n)&=&\hat{z}_{i}(n)-\nu^{z}_{i}(n)\,\hat{u}_{i}(n-1)&\text{(R3)}\\
+&\forall i:\hat{u}_{i}(n)&=&g_{\textsf{out},i}(y_{i},\hat{p}_{i}(n),\nu^{z}_{i}(n))&\text{(R4)}\\
+&\forall i:\nu^{u}_{i}(n)&=&-g^{\prime}_{\textsf{out},i}(y_{i},\hat{p}_{i}(n),\nu^{z}_{i}(n))&\text{(R5)}\\
+&\forall j:\nu^{r}_{j}(n)&=&\textstyle\big(\sum_{i=0}^{N-1}|\Phi_{ij}|^{2}\nu^{u}_{i}(n)\big)^{-1}&\text{(R6)}\\
+&\forall j:\hat{r}_{j}(n)&=&\textstyle\hat{x}_{j}(n)+\nu^{r}_{j}(n)\sum_{i=0}^{N-1}\Phi_{ij}^{*}\hat{u}_{i}(n)&\text{(R7)}\\
+&\forall j:\nu^{x}_{j}(n\!+\!1)&=&\nu^{r}_{j}(n)g^{\prime}_{\textsf{in},j}(\hat{r}_{j}(n),\nu^{r}_{j}(n))&\text{(R8)}\\
+&\forall j:\hat{x}_{j}(n\!+\!1)&=&g_{\textsf{in},j}(\hat{r}_{j}(n),\nu^{r}_{j}(n))&\text{(R9)}\\
+\vrule\lx@intercol\textsf{end}\hfil\lx@intercol&&&\\
+\hline\cr\end{array}$
+TABLE I: The GAMP Algorithm
+III-C Joint estimation and decoding using GAMP
+We now detail our application of GAMP to joint channel-estimation and decoding
+(JCED) under the GM2-HMM tap prior,
+frequently referring to the factor graph in Fig. 4.
+Because our factor graph is loopy, there exists considerable
+freedom in the message passing schedule.
+Roughly speaking, we choose to pass messages from the left to the right
+of Fig. 4 and back again,
+several times, stopping as soon as the messages converge.
+Each of these full cycles of message passing will be referred to as a
+“turbo iteration.”
+However, during a single turbo iteration, there may be multiple iterations
+of message passing between the GAMP and MC sub-graphs,
+which will be referred to as “equalizer” iterations.
+Furthermore, during a single equalizer iteration, there may be
+multiple iterations of message passing within the GAMP sub-graph,
+while there is at most one forward-backward iteration within
+the MC sub-graph.
+Finally, the SISO decoding block may itself be implemented using message
+passing, in which case it may also use several internal iterations.
+The message passing details are discussed below.
+At the start of the first turbo iteration,
+there is total uncertainty about the information bits,
+so that $\Pr\{b_{m}\!=\!1\}\!=\!\frac{1}{2}~\forall m$ .
+Thus, the initial bit beliefs flowing rightward
+out of the coding/interleaving block are uniformly distributed.
+Meanwhile, the pilot/training bits are known with certainty.
+Coded-bit beliefs are then propagated rightward into the symbol mapping nodes.
+Since the symbol mapping is deterministic, the corresponding pdf factors
+take the form $p(s^{(k)}\,|\,\boldsymbol{c}^{(l)})=\delta_{k-l}$ .
+The SPA dictates that the message passed rightward from symbol mapping
+node “ $\mathcal{M}_{i}$ ” takes the form
+[S3.E18]
+$\displaystyle p_{\mathcal{M}_{i}\rightarrow s_{i}}(s^{(k)})$
+$\displaystyle\propto$
+$\displaystyle\sum_{\boldsymbol{c}\in\{0,1\}^{M}}p(s^{(k)}|\boldsymbol{c})\prod_{m=1}^{M}p_{c_{i,m}\rightarrow\mathcal{M}_{i}}(c_{m})\quad$
+(18)
+[S3.E19]
+$\displaystyle=$
+$\displaystyle\prod_{m=1}^{M}p_{c_{i,m}\rightarrow\mathcal{M}_{i}}(c_{m}^{(k)}),$
+(19)
+which is then copied forward as the message passed rightward from node $s_{i}$
+(i.e., $p_{\mathcal{M}_{i}\rightarrow s_{i}}(s^{(k)})=p_{s_{i}\rightarrow y_{i}}(s^{(k)})$ ).
+Recall, from Section III-B, that the symbol-belief passed rightward into the
+measurement node “ $y_{i}$ ” determines the pdf $p_{Y_{i}|Z_{i}}$ used in GAMP.
+Writing this symbol belief as
+$\boldsymbol{\beta}_{i}\triangleq[\beta_{i}^{(1)},\dots,\beta_{i}^{(|\mathbb{S}|)}]^{\textsf{T}}$ for
+$\beta_{i}^{(k)}\triangleq p_{s_{i}\rightarrow y_{i}}(s^{(k)})$ ,
+equation (4) implies the measurement pdf
+[S3.E20]
+$\displaystyle p_{Y_{i}|Z_{i}}(y|z)$
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{|\mathbb{S}|}\beta_{i}^{(k)}\,\mathcal{CN}(y;s^{(k)}z;\nu^{w}).$
+(20)
+From (20), it is shown in Appendix A that the
+quantities in (D2)-(D3) of Table I become
+[S3.E21]
+$\displaystyle g_{\textsf{out},i}(y,\hat{z},\nu^{z})$
+$\displaystyle=$
+$\displaystyle\frac{1}{\nu^{z}}\hat{e}_{i}(y,\hat{z},\nu^{z})$
+(21)
+[S3.E22]
+$\displaystyle g^{\prime}_{\textsf{out},i}(y,\hat{z},\nu^{z})$
+$\displaystyle=$
+$\displaystyle\frac{1}{\nu^{z}}\Big(\frac{\nu^{e}_{i}(y,\hat{z},\nu^{z})}{\nu^{z}}-1\Big)$
+(22)
+for
+[S3.E23]
+$\displaystyle\xi_{i}^{(k)}(y,\hat{z},\nu^{z})$
+$\displaystyle\triangleq$
+$\displaystyle\frac{\beta_{i}^{(k)}\mathcal{CN}(y;s^{(k)}\hat{z},|s^{(k)}|^{2}\nu^{z}\!+\!\nu^{w})}{\sum_{k^{\prime}}\beta_{i}^{(k^{\prime})}\mathcal{CN}(y;s^{(k^{\prime})}\hat{z},|s^{(k^{\prime})}|^{2}\nu^{z}\!+\!\nu^{w})}\quad$
+(23)
+[S3.E24]
+$\displaystyle\zeta^{(k)}(\nu^{z})$
+$\displaystyle\triangleq$
+$\displaystyle\frac{|s^{(k)}|^{2}\nu^{z}}{|s^{(k)}|^{2}\nu^{z}+\nu^{w}}$
+(24)
+[S3.E25]
+$\displaystyle\hat{e}^{(k)}(y,\hat{z},\nu^{z})$
+$\displaystyle\triangleq$
+$\displaystyle\Big(\frac{y}{s^{(k)}}-\hat{z}\Big)\zeta^{(k)}(\nu^{z})$
+(25)
+[S3.E26]
+$\displaystyle\hat{e}_{i}(y,\hat{z},\nu^{z})$
+$\displaystyle\triangleq$
+$\displaystyle\sum_{k=1}^{|\mathbb{S}|}\xi_{i}^{(k)}\!(y,\hat{z},\nu^{z})\,\hat{e}^{(k)}(y,\hat{z},\nu^{z})$
+(26)
+[S3.E27]
+$\displaystyle\nu^{e}_{i}(y,\hat{z},\nu^{z})$
+$\displaystyle\triangleq$
+$\displaystyle\sum_{k=1}^{|\mathbb{S}|}\xi_{i}^{(k)}\!(y,\hat{z},\nu^{z})\,\bigg(|\hat{e}^{(k)}(y,\hat{z},\nu^{z})-\hat{e}_{i}(y,\hat{z},\nu^{z})|^{2}+\frac{\nu^{w}\zeta^{(k)}(\nu^{z})}{s^{(k)}}\bigg)$
+(27)
+where $\boldsymbol{\xi}_{i}\!\triangleq\![\xi_{i}^{(1)},\dots,\xi_{i}^{(|\mathbb{S}|)}]^{\textsf{T}}$ characterizes the
+posterior pmf on $s_{i}$ under the channel model $z_{i}\sim\mathcal{CN}(\hat{z},\nu^{z})$ .
+Likewise, from (6), it is shown in Appendix B that the quantities (D5)-(D6)
+take the form
+[S3.E28]
+$\displaystyle g_{\textsf{in},j}(\hat{r},\nu^{r})$
+$\displaystyle=$
+$\displaystyle\Big(\alpha_{j}\,\gamma^{1}_{j}+\big(1-\alpha_{j}\big)\,\gamma^{0}_{j}\Big)\hat{r}$
+(28)
+[S3.E29]
+$\displaystyle g^{\prime}_{\textsf{in},j}(\hat{r},\nu^{r})$
+$\displaystyle=$
+$\displaystyle\alpha_{j}(1-\alpha_{j})(\gamma^{1}_{j}-\gamma^{0}_{j})^{2}\,|\hat{r}|^{2}/\nu^{r}+\alpha_{j}\gamma^{1}_{j}+(1-\alpha_{j})\gamma^{0}_{j},$
+(29)
+for
+$\gamma^{0}_{j}(\nu^{r})\triangleq(1+\nu^{r}/\nu_{j}^{0})^{-1}$ and $\gamma^{1}_{j}(\nu^{r})\triangleq(1+\nu^{r}/\nu_{j}^{1})^{-1}$ and
+[S3.E30]
+$\displaystyle\alpha_{j}(\hat{r},\nu^{r})$
+$\displaystyle\triangleq$
+$\displaystyle\frac{1}{1+\Bigg(\underbrace{\frac{\lambda_{j}}{1-\lambda_{j}}}_{\displaystyle\mathcal{L}^{\text{\sf apri}}_{j}}\underbrace{\frac{\mathcal{CN}(\hat{r};0,\nu_{j}^{1}+\nu^{r})}{\mathcal{CN}(\hat{r};0,\nu_{j}^{0}+\nu^{r})}}_{\displaystyle\mathcal{L}^{\text{\sf ext}}_{j}(\hat{r},\nu^{r})}\Bigg)^{-1}}.$
+(30)
+Above,
+$\mathcal{L}_{j}^{\text{\sf apri}}$ is the apriori likelihood ratio $\frac{\Pr\{d_{j}=1\}}{\Pr\{d_{j}=0\}}$
+on the hidden state,
+$\mathcal{L}_{j}^{\text{\sf ext}}(\hat{r},\nu^{r})$ is GAMP’s extrinsic likelihood ratio, and
+$\alpha_{j}(\hat{r},\nu^{r})$ is the corresponding posterior probability that $d_{j}=1$ .
+Using (21)-(30), the GAMP algorithm in Table I is
+iterated until it converges.55
+5
+More precisely, GAMP is iterated until the mean-square tap-estimate
+difference $\frac{1}{L}\sum_{j=0}^{L-1}|\hat{x}_{j}(n)-\hat{x}_{j}(n-1)|^{2}$
+falls below a threshold or a maximum number of GAMP iterations has elapsed.
+In doing so, GAMP generates (a close approximation to) both the
+conditional means $\hat{\boldsymbol{x}}$ and variances
+$\boldsymbol{\nu}^{x}\!\triangleq\![\nu_{0}^{x},\dots,\nu_{L-1}^{x}]^{\textsf{T}}$
+given the observations $\boldsymbol{y}$ , the soft symbol priors
+$\boldsymbol{\beta}\!\triangleq\![\boldsymbol{\beta}_{0},\dots,\boldsymbol{\beta}_{L-1}]^{\textsf{T}}$
+and the sparsity prior $\boldsymbol{\lambda}$ .
+Conveniently, GAMP also returns (close approximations to) both the
+conditional means $\hat{\boldsymbol{z}}$ and variances $\boldsymbol{\nu}^{z}$
+of the subchannel gains $\boldsymbol{z}$ , as well as posteriors
+$\boldsymbol{\xi}\!\triangleq\![\boldsymbol{\xi}_{0},\dots,\boldsymbol{\xi}_{L-1}]^{\textsf{T}}$
+on the symbols $\boldsymbol{s}$ .
+Before continuing, we discuss some GAMP details that are specific to our
+OFDM-JCED application.
+First, we notice that, to guarantee that the variance $\nu_{i}^{u}(n)$ in (R5)
+is positive, we must have $\nu^{e}_{i}\!<\!\nu_{z}$ in (22).
+Since this is not necessarily the case during the first few GAMP iterations,
+we clip $\nu^{e}_{i}$ at the value $0.99\nu^{z}$ , where $0.99$ was chosen heuristically.
+Second, due to unit-modulus property of the DFT elements $\Phi_{ij}$ ,
+step (R2) in Table I simplifies to $\nu^{z}_{i}(n)\!=\!\sum_{j}\nu_{j}^{x}(n)$
+and (R6) simplifies to $\nu_{j}^{r}(n)\!=\!\big(\sum_{i}\nu_{i}^{u}(n)\big)^{-1}$ .
+With these simplifications, the complexity of GAMP is dominated by either
+the matrix-vector products $\sum_{j}\Phi_{ij}\hat{x}_{j}(n)$
+in (R1) and $\sum_{i}\Phi_{ij}^{*}\hat{u}_{i}(n)$ in (R7), which can be implemented
+using a $N\log_{2}N$ -multiply FFT when $N$ is a power-of-two,
+or by the calculation of $\{\hat{e}_{i},\nu_{i}^{e}\}_{i=0}^{N-1}$ in
+(26)-(27), which requires $\mathcal{O}(N|\mathbb{S}|)$ multiplies.
+Thus, GAMP requires only $\mathcal{O}(N\log_{2}N+N|\mathbb{S}|)$ multiplies per
+iteration.
+After the messages within the GAMP sub-graph have converged, tap-state
+beliefs are passed rightward to the MC sub-graph.
+In particular, the SPA dictates that GAMP passes tap-state likelihoods
+or, equivalently, the extrinsic likelihood ratios $\mathcal{L}_{j}^{\text{\sf ext}}$ .
+Since the MC sub-graph is non-loopy, only one iteration of forward-backward
+message passing is performed,66
+6
+Message passing on the MC factor graph is a standard procedure.
+For details, we refer the reader to [14, 34].
+after which the resulting tap-state likelihoods are passed leftward
+back to GAMP, where they are treated as tap-state priors $\boldsymbol{\lambda}$ in the next
+equalizer iteration.
+This interaction between the GAMP and MC sub-blocks can be recognized as
+an incarnation of the structured-sparse reconstruction scheme recently proposed by
+the authors in [15].
+When the tap-state likelihoods passed between GAMP and MC have
+converged,77
+7
+More precisely, the equalizer iterations are terminated when the mean-square
+difference in tap-state log-likelihoods falls below a threshold
+or a maximum number of equalizer iterations has elapsed.
+the equalizer iterations are terminated and messages are passed leftward
+from the GAMP block.
+For this, SPA dictates that a symbol-belief propagates leftward from
+the $y_{i}$ node with the form
+[S3.E31]
+$\displaystyle p_{s_{i}\leftarrow y_{i}}(s)$
+$\displaystyle\propto$
+$\displaystyle\int_{z}\mathcal{CN}(y_{i};sz,\nu^{w})\,\mathcal{CN}(z;\hat{z}_{i},\nu_{i}^{z})$
+(31)
+[S3.E32]
+$\displaystyle=$
+$\displaystyle\mathcal{CN}(y_{i};s\hat{z}_{i},|s|^{2}\nu_{i}^{z}+\nu^{w}),$
+(32)
+where $(\hat{z}_{i},\nu_{i}^{z})$ play the role of soft channel estimates.
+The SPA then implies that $p_{\mathcal{M}_{i}\leftarrow s_{i}}(s)=p_{s_{i}\leftarrow y_{i}}(s)$ .
+Next, beliefs are passed leftward from each symbol-mapping node $\mathcal{M}_{i}$
+to the corresponding bit nodes $c_{i,m}$ . From the SPA, they take the form
+[S3.E33]
+$\displaystyle p_{c_{i,m}\leftarrow\mathcal{M}_{i}}(c)$ [S3.E33.1.1.1]
+(33)
+$\displaystyle\propto$
+$\displaystyle\sum_{k=1}^{|\mathbb{S}|}\sum_{\boldsymbol{c}:c_{m}=c}p(s^{(k)}\,|\,\boldsymbol{c})~p_{\mathcal{M}_{i}\leftarrow s_{i}}(s^{(k)})\prod_{m^{\prime}\neq m}p_{c_{i,m^{\prime}}\rightarrow\mathcal{M}_{i}}(c_{m^{\prime}})$
+$\displaystyle=$
+$\displaystyle\sum_{k:c_{m}^{(k)}=c}p_{\mathcal{M}_{i}\leftarrow s_{i}}(s^{(k)})\frac{\prod_{m^{\prime}=1}^{M}p_{c_{i,m^{\prime}}\rightarrow\mathcal{M}_{i}}(c_{m^{\prime}}^{(k)})}{p_{c_{i,m}\rightarrow\mathcal{M}_{i}}(c)}$
+[S3.E34]
+$\displaystyle=$
+$\displaystyle\frac{1}{p_{c_{i,m}\rightarrow\mathcal{M}_{i}}(c)}\sum_{k:c_{m}^{(k)}=c}p_{\mathcal{M}_{i}\leftarrow s_{i}}(s^{(k)})p_{\mathcal{M}_{i}\rightarrow s_{i}}(s^{(k)})$
+(34)
+for pairs $(i,m)$ that do not correspond to pilot/training bits.
+(Since the pilot/training bits are known with certainty, there is no need
+to update their pmfs.)
+Finally, messages are passed leftward into the coding/interleaving block.
+Doing so is equivalent to feeding extrinsic soft bit estimates
+to a soft-input/soft-output (SISO) decoder/deinterleaver, which
+treats them as priors.
+Since SISO decoding is a well-studied topic
+[14, 43] and high-performance implementations
+are readily available (e.g., [44]), we will not elaborate
+on the details here.
+It suffices to say that, once the extrinsic outputs of the SISO decoder
+have been computed, they are re-interleaved and passed rightward from the
+coding/interleaving block to begin another turbo iteration.
+These turbo iterations continue until either the
+decoder detects no bit errors, the soft bit estimates have converged, or a
+maximum number of iterations has elapsed.
+IV Numerical Results
+In this section, we present numerical results that compare JCED using our
+GAMP-based scheme to that using soft-input soft-output (SISO) equalizers
+based on linear MMSE (LMMSE) and LASSO [9],
+as well as to performance bounds based on perfect channel state information
+(CSI).
+IV-A Setup
+For all results, we used irregular LDPC codes with codeword length
+$\sim\!10000$ and average column weight $3$ ,
+generated (and decoded) using the publicly available software
+[44], with random interleaving.
+We focus on the case of $N\!=\!1024$ subcarrier OFDM with $16$ -QAM
+(i.e., $M\!=\!4$ ) operating at a spectral efficiency of $\eta\!=\!2$ bpcu.
+For bit-to-symbol mapping, we used multilevel Gray-mapping [45],
+noting recent work [46] that conjectures the optimality
+of Gray-mapping when BICM is used with a strong code.
+In some simulations, we used $N_{\textsf{p}}\!>\!0$ pilot-only subcarriers and $M_{\textsf{t}}\!=\!0$
+interspersed training bits, whereas in others we used $N_{\textsf{p}}\!=\!0$ and $M_{\textsf{t}}\!>\!0$ .
+When $N_{\textsf{p}}\!>\!0$ , the pilot subcarriers were placed randomly and modulated with
+(known) QAM symbols chosen uniformly at random.
+When $M_{\textsf{t}}\!>\!0$ , the training bits were placed at the most significant bits (MSBs)
+of uniformly spaced data-subcarriers and modulated with the bit value $1$ .
+Realizations of the tap vector $\boldsymbol{x}[q]$ were generated
+from IEEE 802.15.4a outdoor-NLOS impulse responses and SRRC pulses,
+as described in Section II-C, and not from the GM2-HMM model.
+The tap vectors generated for our simulations are thus as realistic as one
+can hope to obtain in software.
+All reported results are averaged over $5000$ channel
+realizations (i.e., $10^{7}$ info bits).
+The GM2-HMM parameters $\boldsymbol{\nu}^{0},\boldsymbol{\nu}^{1},\boldsymbol{p}^{01},\boldsymbol{p}^{10}$
+were fit from $10000$ realizations of the tap-vector
+$\boldsymbol{x}$ using the procedure described in Section II-C.
+In doing so, we implicitly assumed88
+8
+If, instead, we knew that the receiver would be used in a different
+operating scenario, then we could generate representative realizations of
+$\boldsymbol{x}$ for that scenario and fit the GM2-HMM parameters accordingly.
+Furthermore, one could optimize the receiver for any desired balance
+between “typical” and “worst-case” operating conditions
+by simply choosing appropriate training realizations $\boldsymbol{x}$ .
+that the receiver is designed for the outdoor scenario, and we leverage
+the prior information made available by the extensive measurement campaign
+conducted for the IEEE 802.15.4a standard [16].
+In all cases, we used a maximum of $10$ turbo iterations, $5$ equalizer
+iterations, $15$ GAMP iterations, and $25$ LDPC decoder iterations, although
+in most cases the iterations converged early (as described in
+Section III-C).
+IV-B Comparison with other schemes
+The proposed GAMP-based equalizer was compared with soft-input soft-output
+(SISO) equalizers based on LMMSE and LASSO [9],
+whose constructions are now detailed.
+All SISO equalizers are provided with the soft inputs $\hat{\boldsymbol{s}}[q]$ and
+$\boldsymbol{\nu}^{s}[q]$ , i.e., the means and variances, respectively, of the symbols
+$\boldsymbol{s}[q]\in\mathbb{S}^{N}$ .
+(Note that, if certain elements in $\boldsymbol{s}[q]$ are known perfectly as pilots,
+then the corresponding elements in $\boldsymbol{\nu}^{s}[q]$ will be zero-valued.)
+Then, writing $\boldsymbol{s}[q]=\hat{\boldsymbol{s}}[q]+\tilde{\boldsymbol{s}}[q]$ , where $\tilde{\boldsymbol{s}}[q]$
+an unknown zero-mean deviation, the subcarrier observations
+$\boldsymbol{y}[q]=\Diag(\boldsymbol{s}[q])\boldsymbol{\Phi}\boldsymbol{x}[q]+\boldsymbol{w}[q]$ can be written as
+[S4.E35]
+$\displaystyle\boldsymbol{y}[q]$
+$\displaystyle=$
+$\displaystyle\Diag(\boldsymbol{s}[q])\boldsymbol{\Phi}\boldsymbol{x}[q]+\boldsymbol{v}[q],$
+(35)
+where
+$\boldsymbol{v}[q]\triangleq\Diag(\tilde{\boldsymbol{s}}[q])\boldsymbol{\Phi}\boldsymbol{x}[q]+\boldsymbol{w}[q]$
+is a zero-mean noise.
+Treating the elements within $\tilde{\boldsymbol{s}}[q]$ as uncorrelated and doing the same
+with $\boldsymbol{x}[q]$ , and leveraging the fact that $\boldsymbol{\Phi}$
+is a truncated DFT matrix, it is straightforward to show that
+$\cov(\boldsymbol{v}[q])=\Diag(\boldsymbol{\nu}^{v}[q])$ with
+$\boldsymbol{\nu}^{v}[q]=\nu^{w}\boldsymbol{1}+(\boldsymbol{1}^{\textsf{T}}\boldsymbol{\rho})\boldsymbol{\nu}^{s}[q]$ ,
+where $\boldsymbol{\rho}$ denotes the channel’s PDP.
+Without loss of generality, (35) can then be converted to
+the equivalent white-noise model
+[S4.E36]
+$\displaystyle\boldsymbol{u}[q]$
+$\displaystyle\triangleq$
+$\displaystyle\Diag(\boldsymbol{\nu}^{v}[q])^{-\frac{1}{2}}\boldsymbol{y}[q]=\boldsymbol{A}\boldsymbol{x}[q]+\boldsymbol{n}[q],$
+(36)
+where $\cov(\boldsymbol{n}[q])=\boldsymbol{I}$ and
+$\boldsymbol{A}[q]\triangleq\Diag(\boldsymbol{\nu}^{v}[q]^{-\frac{1}{2}}\boldsymbol{s}[q])\boldsymbol{\Phi}$
+is a known matrix.
+In summary, (36) provides a mechanism to handle soft inputs for both
+LASSO and LMMSE.
+For LMMSE equalization, we first used (36) to compute
+[S4.E37]
+$\displaystyle\hat{\boldsymbol{x}}_{\text{\sf lmmse}}[q]$
+$\displaystyle=$
+$\displaystyle\Diag(\boldsymbol{\rho})\boldsymbol{A}^{\textsf{H}}[q]\big(\boldsymbol{A}[q]\Diag(\boldsymbol{\rho})\boldsymbol{A}^{\textsf{H}}[q]+\boldsymbol{I}\big)^{-1}\boldsymbol{u}[q]\quad$
+(37)
+from which we obtain the subcarrier gain estimate
+$\hat{\boldsymbol{z}}_{\text{\sf lmmse}}[q]=\boldsymbol{\Phi}\hat{\boldsymbol{x}}_{\text{\sf lmmse}}[q]$ .
+The covariance matrix of $\hat{\boldsymbol{z}}_{\text{\sf lmmse}}[q]$ is [2]
+$\boldsymbol{\Phi}\big(\!\Diag(\boldsymbol{\rho})-\Diag(\boldsymbol{\rho})\boldsymbol{A}^{\textsf{H}}[q]\big(\boldsymbol{A}[q]\Diag(\boldsymbol{\rho})\boldsymbol{A}^{\textsf{H}}[q]+\boldsymbol{I}\big)^{-1}\boldsymbol{A}[q]\Diag(\boldsymbol{\rho})\!\big)\boldsymbol{\Phi}^{\textsf{H}}$
+whose diagonal elements $\boldsymbol{\nu}^{z}_{\text{\sf lmmse}}[q]$ are variances on the
+gain estimates $\hat{\boldsymbol{z}}_{\text{\sf lmmse}}[q]$ .
+Finally, we obtain soft symbol estimates from
+the soft gain estimates $(\hat{\boldsymbol{z}}_{\text{\sf lmmse}}[q],\boldsymbol{\nu}^{z}_{\text{\sf lmmse}}[q])$
+via (32).
+For LASSO,99
+9
+The criterion employed by LASSO [9] is equivalent
+to the one employed in “basis pursuit denoising” [10].
+we first computed the tap estimate $\hat{\boldsymbol{x}}_{\text{\sf lasso}}[q]$ from (36)
+using the celebrated SPGL1 algorithm [47].
+In doing so, we needed to specify the target residual variance, i.e.,
+$\nu^{u}_{\text{\sf lasso}}\!\triangleq\!\frac{1}{N}\|\boldsymbol{u}[q]-\boldsymbol{A}[q]\hat{\boldsymbol{x}}_{\text{\sf lasso}}[q]\|_{2}^{2}$ .
+Because $\cov(\boldsymbol{n}[q])=\boldsymbol{I}$ , we expect the optimal value of
+$\nu^{u}_{\text{\sf lasso}}$ to be near $1$ and,
+after extensive experimentation, we found that the value
+$\nu^{u}_{\text{\sf lasso}}\!=\!0.9$ works well at high SNR and that the value
+$\nu^{u}_{\text{\sf lasso}}\!=\!1.5$ works well at low SNR.
+Thus, for each $\boldsymbol{u}[q]$ , we computed SPGL1 estimates using each
+of these two1010
+10
+We also tried running SPGL1 for a dense grid of $\nu^{u}_{\text{\sf lasso}}$
+values, but often it would get “stuck” at one of them and eventually
+return an error.
+targets, and kept the one that minimized the squared error
+$\nu^{x}_{\text{\sf lasso}}[q]\triangleq\frac{1}{L}\|\boldsymbol{x}[q]-\hat{\boldsymbol{x}}_{\text{\sf lasso}}[q]\|_{2}^{2}$ ,
+which we assume a genie is able to provide.
+For the soft outputs, we set
+$\hat{\boldsymbol{z}}_{\text{\sf lasso}}[q]=\boldsymbol{\Phi}\hat{\boldsymbol{x}}_{\text{\sf lasso}}[q]$ and take
+$\boldsymbol{\nu}^{z}_{\text{\sf lasso}}[q]$ to be the diagonal elements of
+$\boldsymbol{\Phi}\cov(\hat{\boldsymbol{x}}_{\text{\sf lasso}}[q])\boldsymbol{\Phi}^{\textsf{H}}$ .
+Assuming $\cov(\hat{\boldsymbol{x}}_{\text{\sf lasso}}[q])=\nu^{x}_{\text{\sf lasso}}[q]\boldsymbol{I}$
+and leveraging the fact that $\boldsymbol{\Phi}$ is a truncated DFT matrix,
+we find $\boldsymbol{\nu}^{z}_{\text{\sf lasso}}[q]=L\nu^{x}_{\text{\sf lasso}}[q]\boldsymbol{1}$ .
+Finally, using (32), we obtain soft symbol estimates from
+the soft gain estimates $(\hat{\boldsymbol{z}}_{\text{\sf lasso}}[q],\boldsymbol{\nu}^{z}_{\text{\sf lasso}}[q])$ .
+Due to the genie-aided steps, the performance attained
+by our LASSO implementation is better than what could be obtained in practice.
+These LMMSE- and LASSO-based SISO equalizers were then embedded in the
+overall factor graph in the same manner as GAMP, with the following
+exceptions:
+1) The LMMSE and LASSO algorithms could not be connected to the MC sub-block,
+since they are not based on a two-state mixture model;
+2) For LASSO, if the genie-aided MSE $\nu^{x}_{\text{\sf lasso}}[q]$ did not improve
+during a given turbo iteration, then the corresponding outputs
+$(\hat{\boldsymbol{z}}_{\text{\sf lasso}}[q],\boldsymbol{\nu}^{z}_{\text{\sf lasso}}[q])$ were not updated.
+This rule was employed to prevent turbo-LASSO from occasionally diverging
+at low SNR;
+3) For LASSO, if $N_{\textsf{p}}\!>\!0$ and $M_{\textsf{t}}\!=\!0$ , then the LASSO estimates computed
+during the first turbo iteration use only pilot subcarriers.
+This makes the performance of SISO-LASSO after the first turbo iteration
+equal to the performance of the standard pilot-aided LASSO.
+IV-C BER versus the number of pilot subcarriers $N_{\textsf{p}}$
+Figure 5 shows bit error rate (BER) versus the number of pilot subcarriers
+$N_{\textsf{p}}$ at $E_{b}/N_{o}\!=\!11$ dB and a fixed spectral efficiency of $\eta\!=\!2$ bpcu.
+In this and other figures, “ALG-#” refers to algorithm
+ALG with # turbo iterations (and “ALG-fin”
+after turbo convergence; see Fig. 10) with the MC block
+disconnected (i.e., there was no attempt to exploit tap clustering).
+Meanwhile “GAMP-# MC-5” refers to GAMP+MC
+after # turbo iterations, each containing $5$ equalizer iterations.
+Finally, PCSI refers to MAP equalization under perfect
+CSI, which yields a bound on the BER performance of any equalizer.
+The curves in Fig. 5 exhibit a “U” shape because,
+as $N_{\textsf{p}}$ increases, the code rate $R$ must decrease to maintain the
+fixed spectral efficiency $\eta=2$ bpcu.
+While an increase in $N_{\textsf{p}}$ generally makes channel estimation easier,
+the reduction in $R$ makes data decoding more difficult.
+For all schemes under comparison, Fig. 5 suggests that the
+choice $N_{\textsf{p}}\!\approx\!224$ is optimal under the operating conditions.
+Overall, we see GAMP significantly outperforming both LMMSE and LASSO.
+Moreover, we see a small but definite gain from the MC block.
+Fig. 5: BER versus number of pilot subcarriers $N_{\textsf{p}}$ , for
+$E_{b}/N_{o}\!=\!11$ dB, $M_{\textsf{t}}\!=\!0$ training bits,
+$\eta\!=\!2$ bpcu,
+and $16$ -QAM.
+IV-D BER versus the number of interspersed training bits $M_{\textsf{t}}$
+Although $N_{\textsf{p}}>0$ pilot subcarriers are required for decoupled channel
+estimation and decoding, JCED can function with $N_{\textsf{p}}\!=\!0$ as
+long as a sufficient number $M_{\textsf{t}}$ of training bits are interspersed among
+the coded bits used to construct each QAM symbol.
+To examine this latter case, Fig. 6 shows BER versus
+$M_{\textsf{t}}$ at $E_{b}/N_{o}\!=\!10$ dB,
+a fixed spectral efficiency of $\eta\!=\!2$ bpcu, and $N_{\textsf{p}}\!=\!0$ .
+Again we see the “U” shape, but with GAMP working very well for a
+relatively wide range of $M_{\textsf{t}}$ , and again
+we see a small but noticeable BER improvement when the
+MC block is used.
+SISO-LASSO seems to work to some degree with $N_{\textsf{p}}=0$ ,
+but SISO-LASSO does not.
+Fig. 6: BER versus number of interspersed training bits $M_{\textsf{t}}$ , for
+$E_{b}/N_{o}=10$ dB, $N_{\textsf{p}}\!=\!0$ pilots subcarriers,
+$\eta\!=\!2$ bpcu,
+and $16$ -QAM.
+IV-E BER versus $E_{b}/N_{o}$
+Figure 7 shows BER versus $E_{b}/N_{o}$ using
+$N_{\textsf{p}}\!=\!224$ pilot subcarriers (as suggested by Fig. 5)
+and $M_{\textsf{t}}\!=\!0$ training bits.
+Relative to the perfect-CSI bound, we see SISO-LASSO performing within
+$5$ dB during the first turbo iteration and within $4.5$ dB
+after convergence.
+Meanwhile, we see SISO-LMMSE performing very poorly during the first
+turbo iteration, but eventually surpassing SISO-LASSO and coming
+within $4$ dB from the perfect-CSI bound.
+Remarkably, we see GAMP+MC performing within $0.6$ dB of
+the perfect-CSI bound (and within $1$ dB after only $2$ turbo iterations).
+This excellent performance confirms that the proposed GM2-HMM channel model
+and equalizer design together do an excellent job of capturing and
+exploiting the lag-dependent clustered-sparse characteristics of the
+802.15.4a channel taps.
+Comparing the GAMP traces to the GAMP+MC traces, we see that the MC block
+yields a small but noticeable benefit.
+Figure 8 shows BER versus $E_{b}/N_{o}$ using
+$M_{\textsf{t}}\!=\!448$ interspersed training bits (as suggested by Fig. 6)
+and $N_{\textsf{p}}\!=\!0$ pilot subcarriers.
+There we see that SISO-LASSO does not perform well at all.
+SISO-LMMSE works to some degree after several turbo iterations,
+although not as well as in the $N_{\textsf{p}}>0$ case.
+Meanwhile, we see GAMP+MC performing within $1$ dB of the perfect-CSI case,
+and GAMP alone performing within $1.5$ dB.
+Comparing Fig. 8 to Fig. 7,
+we see GAMP with training bits performing about $1$ dB
+better than GAMP with dedicated pilot subcarriers.
+The perfect-CSI bound likewise improves because, with $16$ -QAM, $M_{\textsf{t}}\!=\!448$
+training bits constitutes half the overhead of $N_{\textsf{p}}\!=\!224$ pilot subcarriers,
+allowing Fig. 8 the use of a stronger code at $\eta\!=\!2$ bpcu.
+Fig. 7: BER versus $E_{b}/N_{o}$ , for
+$N_{\textsf{p}}\!=\!224$ pilot subcarriers,
+$M_{\textsf{t}}\!=\!0$ training bits,
+$\eta\!=\!2$ bpcu,
+and $16$ -QAM.
+Fig. 8: BER versus $E_{b}/N_{o}$ , for
+$N_{\textsf{p}}\!=\!0$ pilot subcarriers,
+$M_{\textsf{t}}\!=\!448$ training bits,
+$\eta\!=\!2$ bpcu,
+and $16$ -QAM.
+IV-F Channel-tap NMSE versus $E_{b}/N_{o}$
+Figure 9 shows the channel estimates’ normalized mean-squared
+error (NMSE) $\E\{\|\boldsymbol{x}[q]\!-\!\hat{\boldsymbol{x}}[q]\|_{2}^{2}/\|\boldsymbol{x}[q]\|_{2}^{2}\}$
+versus $E_{b}/N_{o}$ , at the point that the turbo iterations were terminated,
+using $N_{\textsf{p}}\!=\!224$ pilot subcarriers and $M_{\textsf{t}}\!=\!0$ training bits.
+(For comparison, Fig. 7 shows BER for this configuration.)
+We also show the NMSE attained by the “bit and support
+genie” (BSG), which calculates MMSE channel estimates using
+perfect knowledge of both the coded bits and the hidden channel states
+$\{d_{j}\}$ , and which provides a lower bound for any channel estimator.
+In the figure, we see that the NMSEs of LMMSE and LASSO channel estimates
+are within $8$ -to- $12$ dB of the BSG, whereas those of GAMP are within
+$2$ -to- $4$ dB.
+Meanwhile, we see that GAMP+MC has a small but noticeable advantage over
+GAMP alone.
+We reason that the LMMSE estimates are worse than the GAMP estimates because
+they do not exploit the non-Gaussianity of the channel taps $x_{j}$ , and the
+LASSO estimates are worse than the GAMP estimates because they do not
+exploit the known priors on the channel taps (i.e., the
+lag-dependent sparsity $\boldsymbol{\lambda}$ and PDP $\boldsymbol{\rho}$ ).
+Fig. 9: Channel tap NMSE versus $E_{b}/N_{o}$ , for
+$N_{\textsf{p}}\!=\!224$ pilot subcarriers,
+$M_{\textsf{t}}\!=\!0$ training bits,
+$\eta\!=\!2$ bpcu,
+and $16$ -QAM.
+IV-G Computational complexity versus $E_{b}/N_{o}$
+Figure 10 shows the average time per turbo iteration
+(in Matlab seconds on a $2.6$ GHz CPU), the average number of turbo
+iterations, and the average total time (to turbo convergence), as a function
+of $E_{b}/N_{o}$ , using $N_{\textsf{p}}\!=\!224$ pilot subcarriers and $M_{\textsf{t}}\!=\!0$ training
+bits.
+(For comparison, Fig. 7 shows BER for this configuration
+and Fig. 9 shows NMSE.)
+Regarding the average time per turbo iteration, we see GAMP $\pm$ MC
+taking $\approx 1.5$ sec at low $E_{b}/N_{o}$ and $\approx 0.5$ sec at
+high $E_{b}/N_{o}$ .
+GAMP+MC takes only slightly longer than GAMP alone due to the efficiency of
+the message computations within the MC block, and the fact that both the
+GAMP iterations and equalizer iterations are terminated as soon as the
+messages converge.
+In comparison, SISO-LMMSE takes $\approx 4.5$ sec per turbo iteration, and
+SISO-LASSO takes between $1$ and $7$ sec, depending on $E_{b}/N_{o}$ .
+Regarding the number of average number of turbo iterations until convergence,
+we see that—at low $E_{b}/N_{o}$ —GAMP+MC takes about $5$ turbo iterations,
+GAMP alone takes about $7$ ,
+SISO-LMMSE takes about $5$ , and
+SISO-LASSO takes about $3$ , while—at high $E_{b}/N_{o}$ —all algorithms converge after only $1$ turbo iteration.
+Regarding the total time for equalization, GAMP+MC and GAMP are about
+the same at low $E_{b}/N_{o}$ , whereas GAMP alone takes about $30\%$ less time
+at high $E_{b}/N_{o}$ .
+Meanwhile, SISO-LASSO and SISO-LMMSE are uniformly slower than GAMP and GAMP+MC over the entire $E_{b}/N_{o}$ range, in some cases by a factor of $10$ .
+Fig. 10: Average time per turbo iteration (top),
+average number of turbo iterations (middle), and
+average total time (bottom), versus $E_{b}/N_{o}$ , for
+$N_{\textsf{p}}\!=\!224$ pilot subcarriers,
+$M_{\textsf{t}}\!=\!0$ training bits,
+$\eta\!=\!2$ bpcu,
+and $16$ -QAM.
+V Conclusion
+In this paper, we presented a factor-graph approach to joint channel-estimation
+and decoding (JCED) for BICM-OFDM that merges recent advances in
+approximate message passing algorithms [13] with those in
+structured-sparse signal reconstruction [15] and
+SISO decoding [14].
+Different from existing factor-graph approaches to JCED, ours is able to
+exploit not only sparse channel taps, but also clustered sparsity patterns
+that typify large-bandwidth communication channels, such as those that result
+from pulse-shaped communication over IEEE 802.15.4a modeled channels.
+For this purpose, we proposed the use of a two-state Gaussian mixture prior
+with a Markov model on the hidden tap states.
+The implementation complexity of our JCED scheme is dominated by
+$\mathcal{O}(N\log_{2}N\!+\!N|\mathbb{S}|)$ multiplies per GAMP iteration,
+facilitating the application to systems with many subcarriers $N$ and many
+channel taps $L<N$ .
+Experiments with IEEE 802.15.4a modeled channels showed BER performance
+within $1$ dB of the known-channel bound, and $3$ – $4$ dB better than
+LMMSE- and LASSO-based soft equalizers.
+These experiments also suggested that, with our proposed approach, the use
+of interspersed training bits is more efficient than the use of
+dedicated pilot subcarriers.
+For very large constellations (e.g., $|\mathbb{S}|\!=\!1024$ ), future work is
+motivated to reduce the linear complexity dependence on $|\mathbb{S}|$ .
+Appendix A Derivation of GAMP Functions $g_{\textsf{out},i}$ and $g^{\prime}_{\textsf{out},i}$
+In this appendix, we derive the GAMP quantities $g_{\textsf{out},i}(y,\hat{z},\nu^{z})$
+and $g^{\prime}_{\textsf{out},i}(y,\hat{z},\nu^{z})$ given in (21)-(26).
+From (D1), we have that
+[A1.E38]
+$\displaystyle\E_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}$
+$\displaystyle=$
+$\displaystyle\frac{1}{p_{Y_{i}}(y)}\int_{z}z\,p_{Y_{i}|Z_{i}}(y|z)\,\mathcal{CN}(z;\hat{z},\nu^{z}),\quad$
+(38)
+where
+$p_{Y_{i}}(y)\triangleq\int_{z}p_{Y_{i}|Z_{i}}(y|z)\mathcal{CN}(z;\hat{z},\nu^{z})$ .
+From (20), we rewrite $p_{Y_{i}|Z_{i}}(y|z)$ as
+[A1.E39]
+$\displaystyle p_{Y_{i}|Z_{i}}(y|z)$
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\frac{\beta_{i}^{(k)}}{s^{(k)}}\,\mathcal{CN}\Big(z;\frac{y}{s^{(k)}},\frac{\nu^{w}}{|s^{(k)}|^{2}}\Big),$
+(39)
+so that
+[A1.E40]
+$\displaystyle\int_{z}z\,p_{Y_{i}|Z_{i}}(y|z)\mathcal{CN}(z;\hat{z},\nu^{z})$
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\frac{\beta_{i}^{(k)}}{s^{(k)}}\int_{z}z\,\mathcal{CN}\Big(z;\frac{y}{s^{(k)}},\frac{\nu^{w}}{|s^{(k)}|^{2}}\Big)\mathcal{CN}(z;\hat{z},\nu^{z})\quad$
+(40)
+[A1.E41]
+$\displaystyle p_{Y_{i}}(y)$
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\frac{\beta_{i}^{(k)}}{s^{(k)}}\int_{z}\mathcal{CN}\Big(z;\frac{y}{s^{(k)}},\frac{\nu^{w}}{|s^{(k)}|^{2}}\Big)\mathcal{CN}(z;\hat{z},\nu^{z}).$
+(41)
+Using the property that
+[A1.E42]
+$\displaystyle\mathcal{CN}(x;\hat{\theta},\nu^{\theta})\mathcal{CN}(x;\hat{\phi},\nu^{\phi})$
+$\displaystyle=$
+$\displaystyle\mathcal{CN}\Big(x;\frac{\hat{\theta}/\nu^{\theta}+\hat{\phi}/\nu^{\phi}}{1/\nu^{\theta}+1/\nu^{\phi}},\frac{1}{1/\nu^{\theta}+1/\nu^{\phi}}\Big)\mathcal{CN}(0;\hat{\theta}-\hat{\phi},\nu^{\theta}+\nu^{\phi}),$
+(42)
+we can rewrite
+[A1.E43]
+$\displaystyle\int_{z}z\,p_{Y_{i}|Z_{i}}(y|z)\,\mathcal{CN}(z;\hat{z},\nu^{z})$ [A1.E43.1.1.1]
+(43)
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\frac{\beta_{i}^{(k)}}{s^{(k)}}\mathcal{CN}\Big(0;\frac{y_{i}}{s}-\hat{z},\frac{\nu^{w}}{|s^{(k)}|^{2}}+\nu^{z}\Big)\int_{z}z\,\mathcal{CN}\bigg(z;\frac{\frac{y}{s^{(k)}}\frac{|s^{(k)}|^{2}}{\nu^{w}}+\frac{\hat{z}}{\nu^{z}}}{\frac{|s^{(k)}|^{2}}{\nu^{w}}+\frac{1}{\nu^{z}}},\frac{1}{\frac{|s^{(k)}|^{2}}{\nu^{w}}+\frac{1}{\nu^{z}}}\bigg)$
+[A1.E44]
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\frac{\beta_{i}^{(k)}}{s^{(k)}}\mathcal{CN}\Big(\frac{y_{i}}{s};\hat{z},\frac{\nu^{w}}{|s^{(k)}|^{2}}+\nu^{z}\Big)\frac{\frac{y}{s^{(k)}}\frac{|s^{(k)}|^{2}}{\nu^{w}}+\frac{\hat{z}}{\nu^{z}}}{\frac{|s^{(k)}|^{2}}{\nu^{w}}+\frac{1}{\nu^{z}}}\quad$
+(44)
+[A1.E45]
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\beta_{i}^{(k)}\mathcal{CN}\big(y_{i};s^{(k)}\hat{z},|s^{(k)}|^{2}\nu^{z}+\nu^{w}\big)\bigg(\underbrace{\Big(\frac{y}{s^{(k)}}-\hat{z}\Big)\frac{|s^{(k)}|^{2}\nu^{z}}{|s^{(k)}|^{2}\nu^{z}+\nu^{w}}}_{\displaystyle\triangleq\hat{e}^{(k)}(y,\hat{z},\nu^{z})}+\hat{z}\bigg)$
+(45)
+and, using the same procedure, we get
+[A1.E46]
+$\displaystyle p_{Y_{i}}(y)$
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\beta_{i}^{(k)}\mathcal{CN}\big(y_{i};s^{(k)}\hat{z},|s^{(k)}|^{2}\nu^{z}+\nu^{w}\big).$
+(46)
+With $\xi_{i}^{(k)}(y,\hat{z},\nu^{z})$ defined in (23),
+equations (38) and (45) and (46) combine to give
+[A1.E47]
+$\displaystyle\E_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}$
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\xi_{i}^{(k)}(y,\hat{z},\nu^{z})\big(\hat{e}^{(k)}(y,\hat{z},\nu^{z})+\hat{z}\big).\quad$
+(47)
+Finally, from (47) and the definition of $g_{\textsf{out},i}(y,\hat{z},\nu^{z})$
+in (D2), equation (21) follows immediately.
+From (D1), we have that
+[A1.E48]
+$\displaystyle\var_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}$
+$\displaystyle=$
+$\displaystyle\frac{1}{p_{Y_{i}}(y)}\int_{z}|z-\E_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}|^{2}\,p_{Y_{i}|Z_{i}}(y|z)\,\mathcal{CN}(z;\hat{z},\nu^{z}).$
+(48)
+Similar to (43), we can write
+[A1.E49]
+$\displaystyle\int_{z}|z-\E_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}|^{2}\,p_{Y_{i}|Z_{i}}(y|z)\,\mathcal{CN}(z;\hat{z},\nu^{z})$ [A1.E49.1.1.1]
+(49)
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\frac{\beta_{i}^{(k)}}{s^{(k)}}\mathcal{CN}\Big(0;\frac{y_{i}}{s}-\hat{z},\frac{\nu^{w}}{|s^{(k)}|^{2}}+\nu^{z}\Big)$
+$\displaystyle\mbox{}\times\int_{z}|z-\E_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}|^{2}\,\mathcal{CN}\bigg(z;\frac{\frac{y}{s^{(k)}}\frac{|s^{(k)}|^{2}}{\nu^{w}}+\frac{\hat{z}}{\nu^{z}}}{\frac{|s^{(k)}|^{2}}{\nu^{w}}+\frac{1}{\nu^{z}}},\frac{1}{\frac{|s^{(k)}|^{2}}{\nu^{w}}+\frac{1}{\nu^{z}}}\bigg).$
+Then, using the change-of-variable $\tilde{z}\triangleq z-\E_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}$ ,
+and absorbing the $s^{(k)}$ terms as done in (45), we get
+[A1.E50]
+$\displaystyle\int_{z}|z-\E_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}|^{2}\,p_{Y_{i}|Z_{i}}(y|z)\,\mathcal{CN}(z;\hat{z},\nu^{z})$ [A1.E50.1.1.1]
+(50)
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\beta_{i}^{(k)}\mathcal{CN}\big(y_{i};s^{(k)}\hat{z},|s^{(k)}|^{2}\nu^{z}+\nu^{w}\big)$
+$\displaystyle\mbox{}\times\int_{\tilde{z}}|\tilde{z}|^{2}\,\mathcal{CN}\Big(\tilde{z};\hat{e}^{(k)}+\underbrace{\hat{z}-\E_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}}_{\displaystyle=-\hat{e}_{i}},\frac{\nu^{w}\nu^{z}}{|s^{(k)}|^{2}\nu^{z}+\nu^{w}}\Big)$
+[A1.E51]
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\beta_{i}^{(k)}\mathcal{CN}\big(y_{i};s^{(k)}\hat{z},|s^{(k)}|^{2}\nu^{z}+\nu^{w}\big)\Big(|\hat{e}^{(k)}-\hat{e}_{i}|^{2}+\frac{\nu^{w}\nu^{z}}{|s^{(k)}|^{2}\nu^{z}+\nu^{w}}\Big).$
+(51)
+Using $\xi_{i}^{(k)}(y,\hat{z},\nu^{z})$ defined in (23)
+and $\zeta^{(k)}(y,\hat{z},\nu^{z})$ defined in (24),
+equations (46) and (48) and (51) combine to give
+[A1.E52]
+$\displaystyle\var_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}$
+$\displaystyle=$
+$\displaystyle\sum_{k=1}^{2^{M}}\xi_{i}^{(k)}(y,\hat{z},\nu^{z})\Big(\frac{\nu^{w}\zeta^{(k)}(y,\hat{z},\nu^{z})}{|s^{(k)}|^{2}}+\big|\hat{e}_{i}(y,\hat{z},\nu^{z})-\hat{e}^{(k)}(y,\hat{z},\nu^{z})\big|^{2}\Big).$
+(52)
+which is rewritten as $\nu^{e}_{i}(y,\hat{z},\nu^{z})\triangleq\var_{Z_{i}|Y_{i}}\{z\,|\,y;\hat{z},\nu^{z}\}$ in (27).
+Finally, plugging $\nu^{e}_{i}(y,\hat{z},\nu^{z})$ into the definition of
+$g^{\prime}_{\textsf{out},i}(y,\hat{z},\nu^{z})$ in (D3), we immediately obtain (22).
+Appendix B Derivation of GAMP Functions $g_{\textsf{in},j}$ and $g^{\prime}_{\textsf{in},j}$
+In this appendix, we derive the GAMP quantities $g_{\textsf{in},j}(\hat{r},\nu^{r})$
+and $g^{\prime}_{\textsf{in},j}(\hat{r},\nu^{r})$ given in (28)-(30).
+From (D4)-(D6), we note that $g_{\textsf{in},j}(\hat{r},\nu^{r})$
+and $\nu^{r}g^{\prime}_{\textsf{in},j}(\hat{r},\nu^{r})$ are the mean and
+variance, respectively, of the pdf
+[A2.E53]
+$\displaystyle\frac{1}{Z_{j}}p_{X_{j}}\!(r)\,\mathcal{CN}(r;\hat{r},\nu^{r}),$
+(53)
+where $Z_{j}\triangleq\int_{r}p_{X_{j}}\!(r)\,\mathcal{CN}(r;\hat{r},\nu^{r})$ .
+Using (42) together with the definition of $p_{X_{j}}\!(.)$
+from (6), we find
+[A2.E55]
+$\displaystyle p_{X_{j}}\!(r)\,\mathcal{CN}(r;\hat{r},\nu^{r})$ [A2.E55.1.1.1]
+(55)
+$\displaystyle=$
+$\displaystyle\lambda_{j}\mathcal{CN}(r;0,\nu_{j}^{1})\,\mathcal{CN}(r;\hat{r},\nu^{r})+(1-\lambda_{j})\mathcal{CN}(r;0,\nu_{j}^{0})\,\mathcal{CN}(r;\hat{r},\nu^{r})$
+$\displaystyle=$
+$\displaystyle\textstyle\lambda_{j}\mathcal{CN}(\hat{r};0,\nu^{1}_{j}+\nu^{r})\,\mathcal{CN}\big(r;\hat{r}\gamma^{1}_{j}(\nu^{r}),\nu^{r}\gamma^{1}_{j}(\nu^{r})\big)$
+$\displaystyle\mbox{}\textstyle+(1-\lambda_{j})\mathcal{CN}(\hat{r};0,\nu^{0}_{j}+\nu^{r})\,\mathcal{CN}\big(r;\hat{r}\gamma^{0}_{j}(\nu^{r}),\nu^{r}\gamma^{0}_{j}(\nu^{r})\big)$
+for $\gamma^{0}_{j}(\nu^{r})\triangleq(1+\nu^{r}/\nu_{j}^{0})^{-1}$ and
+$\gamma^{1}_{j}(\nu^{r})\triangleq(1+\nu^{r}/\nu_{j}^{1})^{-1}$ .
+This implies that
+[A2.E56]
+$\displaystyle Z_{j}$
+$\displaystyle=$
+$\displaystyle\lambda_{j}\mathcal{CN}(\hat{r};0,\nu^{1}_{j}+\nu^{r})+(1-\lambda_{j})\mathcal{CN}(\hat{r};0,\nu^{0}+\nu^{r}).$
+(56)
+Thus, the mean obeys
+[A2.E57]
+$\displaystyle g_{\textsf{in},j}(\hat{r},\nu^{r})$
+$\displaystyle=$
+$\displaystyle\frac{1}{Z_{j}}\int_{r}r\,p_{X_{j}}\!(r)\,\mathcal{CN}(r;\hat{r},\nu^{r})$
+(57)
+[A2.E58]
+$\displaystyle=$
+$\displaystyle\underbrace{\frac{\lambda_{j}\mathcal{CN}(\hat{r};0,\nu_{j}^{1}+\nu^{r})}{Z_{j}}}_{\displaystyle=\alpha_{j}(\hat{r},\nu^{r})}\gamma_{j}^{1}(\nu^{r})\,\hat{r}+\underbrace{\frac{(1-\lambda_{j})\mathcal{CN}(\hat{r};0,\nu_{j}^{0}+\nu^{r})}{Z_{j}}}_{\displaystyle=1-\alpha_{j}(\hat{r},\nu^{r})}\gamma_{j}^{0}(\nu^{r})\,\hat{r},$
+(58)
+yielding (28), where a straightforward manipulation relates
+the expression for $\alpha_{j}(\hat{r},\nu^{r})$ above with its
+definition in (30).
+Since, for the pdf in (53), $g_{\textsf{in},j}$ is the mean and
+$\nu^{r}g^{\prime}_{\textsf{in},j}$ is the variance, we can write
+[A2.E59]
+$\displaystyle\nu^{r}g^{\prime}_{\textsf{in},j}(\hat{r},\nu^{r})$
+$\displaystyle=$
+$\displaystyle\frac{1}{Z_{j}}\int_{r}|r|^{2}\,p_{X_{j}}\!(r)\,\mathcal{CN}(r;\hat{r},\nu^{r})-|g_{\textsf{in},j}|^{2}$
+(59)
+[A2.E60]
+$\displaystyle=$
+$\displaystyle\alpha_{j}\big(|\hat{r}\gamma^{1}_{j}|^{2}+\nu^{r}\gamma^{1}_{j}\big)+(1-\alpha_{j})\big(|\hat{r}\gamma^{0}_{j}|^{2}+\nu^{r}\gamma^{0}_{j}\big)-\big|\alpha_{j}\gamma^{1}_{j}\hat{r}+(1-\alpha_{j})\gamma^{0}_{j}\hat{r}\big|^{2},$
+(60)
+which can be simplified to yield (29).
+References
+[1]
+A. F. Molisch, Wireless Communications.
+New York: Wiley–IEEE Press, 2005.
+[2]
+H. V. Poor, An Introduction to Signal Detection and Estimation.
+New York: Springer, 2nd ed., 1994.
+[3]
+R. J.-M. Cramer, R. A. Scholtz, and M. Z. Win, “Evaluation of an
+ultra-wide-band propagation channel,” IEEE Trans. Antennas Propagat.,
+vol. 50, pp. 561–570, May 2002.
+[4]
+J. C. Preisig and G. Deane, “Surface wave focusing and acoustic communications
+in the surf zone,” J. Acoust. Soc. Am., vol. 116, pp. 2067–2080, Oct.
+2004.
+[5]
+A. F. Molisch, “Ultrawideband propagation channels—Theory, measurement,
+and modeling,” IEEE Trans. Veh. Tech., vol. 54, pp. 1528–1545, Sep.
+2005.
+[6]
+N. Czink, X. Yin, H. Ozcelik, M. Herdin, E. Bonek, and B. H. Fleury, “Cluster
+characteristics in a MIMO indoor propagation environment,” IEEE
+Trans. Wireless Commun., vol. 6, pp. 1465–1475, Apr. 2007.
+[7]
+M. Medard, “The effect upon channel capacity in wireless communication of
+perfect and imperfect knowledge of the channel,” IEEE Trans. Inform.
+Theory, vol. 46, pp. 933–946, May 2000.
+[8]
+Special Issue on, “Compressive sampling,” IEEE Signal Process. Mag.,
+vol. 25, Mar. 2008.
+[9]
+R. Tibshirani, “Regression shrinkage and selection via the lasso,” J.
+Roy. Statist. Soc. B, vol. 58, no. 1, pp. 267 – 288, 1996.
+[10]
+S. S. Chen, D. L. Donoho, and M. A. Saunders, “Atomic decomposition by basis
+pursuit,” SIAM J. Scientific Comput., vol. 20, no. 1, pp. 33–61,
+1998.
+[11]
+W. U. Bajwa, J. Haupt, A. M. Sayeed, and R. Nowak, “Compressed channel
+sensing: A new approach to estimating sparse multipath channels,” Proc. IEEE, vol. 98, pp. 1058–1076, June 2010.
+[12]
+A. P. Kannu and P. Schniter, “On communication over unknown sparse
+frequency-selective block-fading channels,” arXiv:1006.1548, June
+2010.
+[13]
+S. Rangan, “Generalized approximate message passing for estimation with random
+linear mixing,” arXiv:1010.5141, Oct. 2010.
+[14]
+D. J. C. MacKay, Information Theory, Inference, and Learning Algorithms.
+New York: Cambridge University Press, 2003.
+[15]
+P. Schniter, “Turbo reconstruction of structured sparse signals,” in Proc. Conf. Inform. Science & Syst., (Princeton, NJ), Mar. 2010.
+[16]
+A. F. Molisch, K. Balakrishnan, C.-C. Chong, S. Emami, A. Fort, J. Karedal,
+J. Kunisch, H. Schantz, U. Schuster, and K. Siwiak, “IEEE 802.15.4a
+channel model—Final report,” tech. rep., Document IEEE
+802.1504-0062-02-004a, 2005.
+[17]
+A. P. Worthen and W. E. Stark, “Unified design of iterative receivers using
+factor graphs,” IEEE Trans. Inform. Theory, vol. 47, pp. 843–849,
+Feb. 2001.
+[18]
+J. Pearl, Probabilistic Reasoning in Intelligent Systems.
+San Mateo, CA: Morgan Kaufman, 1988.
+[19]
+H.-A. Loeliger, J. Dauwels, J. Hu, S. Korl, L. Ping, and F. Kschischang, “The
+factor graph approach to model-based signal processing,” Proc. IEEE,
+vol. 95, pp. 1295–1322, June 2007.
+[20]
+F. R. Kschischang, B. J. Frey, and H.-A. Loeliger, “Factor graphs and the
+sum-product algorithm,” IEEE Trans. Inform. Theory, vol. 47,
+pp. 498–519, Feb. 2001.
+[21]
+J. Dauwels, S. Korl, and H.-A. Loeliger, “Expectation maximization as message
+passing,” in Proc. IEEE Int. Symposium Inform. Theory, (Adelaide, SA),
+pp. 425–429, Sep. 2005.
+[22]
+J. Dauwels, S. Korl, and H.-A. Loeliger, “Particle methods as message
+passing,” in Proc. IEEE Int. Symposium Inform. Theory, (Seattle, WA),
+pp. 2052–2056, Jul. 2006.
+[23]
+J. Dauwels, “On variational message passing on factor graphs,” in Proc.
+IEEE Int. Symposium Inform. Theory, (Nice, France), pp. 2546–2550, June
+2007.
+[24]
+J. Dauwels, S. Korl, and H.-A. Loeliger, “Steepest descent as message
+passing,” in Proc. Inform. Theory Workshop, (Awaji, Japan),
+pp. 42–46, Oct. 2005.
+[25]
+G. F. Cooper, “The computational complexity of probabilistic inference using
+Bayesian belief networks,” Artificial Intelligence, vol. 42, 1990.
+[26]
+C. Novak, G. Matz, and F. Hlawatsch, “Factor graph based design of an
+OFDM-IDMA receiver performing joint data detection, channel estimation, and
+channel length selection,” in Proc. IEEE Int. Conf. Acoust. Speech &
+Signal Process., (Taipei, Taiwan), pp. 2433–2436, Apr. 2009.
+[27]
+Y. Liu, L. Brunel, and J. Boutros, “Joint channel estimation and decoding
+using Gaussian approximation in a factor graph over multipath channel,” in
+Proc. IEEE Int. Symposium Pers. Indoor Mobile Radio Commun., (Tokyo,
+Japan), pp. 3164–3168, Sept. 2009.
+[28]
+C. Kneivel, Z. Shi, P. A. Hoeher, and G. Auer, “2D graph-based soft channel
+estimation for MIMO-OFDM,” in Proc. IEEE Int. Conf. Commun., (Cape
+Town), pp. 1–5, Jul. 2010.
+[29]
+G. E. Kirkelund, C. N. Manchón, L. P. B. Christensen, E. Riegler, and B. H.
+Fleury, “Variational message-passing for joint channel estimation and
+decoding in MIMO-OFDM,” in Proc. IEEE Global Telecommun. Conf.,
+(Miami, FL), Dec. 2010.
+[30]
+P. Schniter, “Joint estimation and decoding for sparse channels via relaxed
+belief propagation,” in Proc. Asilomar Conf. Signals Syst. Comput.,
+(Pacific Grove, CA), Nov. 2010.
+[31]
+P. Schniter, “Belief-propagation-based joint channel estimation and decoding
+for spectrally efficient communication over unknown sparse channels,” arXiv:1012.4519, Dec. 2010.
+[32]
+S. Rangan, “Estimation with random linear mixing, belief propagation and
+compressed sensing,” arXiv:1001.2228v2, May 2010.
+[33]
+L. J. Cimini, Jr., “Analysis and simulation of a digital mobile radio
+channel using orthogonal frequency division multiplexing,” IEEE Trans.
+Commun., vol. 33, pp. 665–765, July 1985.
+[34]
+C. M. Bishop, Pattern Recognition and Machine Learning.
+Springer, 2007.
+[35]
+H. Ishwaran and J. S. Rao, “Spike and slab variable selection: Frequentist
+and Bayesian strategies,” Annals Statist., vol. 33, pp. 730–773,
+Apr. 2005.
+[36]
+A. Saleh and R. A. Valenzuela, “A statistical model for indoor multipath
+propagation,” IEEE J. Sel. Areas Commun., vol. 5, pp. 128–137, Feb.
+1987.
+[37]
+B. J. Frey and D. J. C. MacKay, “A revolution: Belief propagation in graphs
+with cycles,” in Adv. in Neural Inform. Processing Syst. (M. Jordan,
+M. S. Kearns, and S. A. Solla, eds.), MIT Press, 1998.
+[38]
+W. T. Freeman, E. C. Pasztor, and O. T. Carmichael, “Learning low-level
+vision,” Intl. J. Computer Vision, vol. 40, pp. 25–47, Oct. 2000.
+[39]
+D. Baron, S. Sarvotham, and R. G. Baraniuk, “Bayesian compressive sensing via
+belief propagation,” IEEE Trans. Signal Process., vol. 58,
+pp. 2269–280, Jan. 2010.
+[40]
+D. L. Donoho, A. Maleki, and A. Montanari, “Message passing algorithms for
+compressed sensing,” Proc. National Academy of Sciences, vol. 106,
+pp. 18914–18919, Nov. 2009.
+[41]
+M. Bayati and A. Montanari, “The dynamics of message passing on dense graphs,
+with applications to compressed sensing,” arXiv:1001.3448, Jan. 2010.
+[42]
+D. Guo and C.-C. Wang, “Random sparse linear systems observed via arbitrary
+channels: A decoupling principle,” in Proc. IEEE Int. Symposium
+Inform. Theory, (Nice, France), pp. 946–950, June 2007.
+[43]
+T. J. Richardson and R. L. Urbanke, Modern Coding Theory.
+New York: Cambridge University Press, 2009.
+[44]
+I. Kozintsev, “Matlab programs for encoding and decoding of LDPC codes over
+GF( $2^{m}$ ).” http://www.kozintsev.net/soft.html.
+[45]
+Y. L. C. de Jong and T. J. Willink, “Iterative tree search detection for
+MIMO wireless systems,” IEEE Trans. Commun., vol. 53, pp. 930–935,
+June 2005.
+[46]
+M. Samuel, M. Barsoum, and M. P. Fitz, “On the suitability of Gray bit
+mappings to outer channel codes in iteratively decoded BICM,” in Proc. Asilomar Conf. Signals Syst. Comput., (Pacific Grove, CA),
+pp. 982–985, Nov. 2009.
+[47]
+E. van den Berg and M. P. Friedlander, “Probing the Pareto frontier for
+basis pursuit solutions,” SIAM J. Scientific Comput., vol. 31, no. 2,
+pp. 890–912, 2008.
+Experimental support, please
+view the build logs
+for errors. Generated by
+L
+A
+T
+E
+xml
+.
+Instructions for reporting errors
+We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+methods listed below:
+Click the "Report Issue" (
+) button, located in the page header.
+Tip: You can select the relevant text first, to include it in your report.
+Our team has already identified the following issues. We appreciate your time reviewing and reporting rendering errors we
+may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+all.
+Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a list of packages that need conversion, and welcome developer contributions.
+We gratefully acknowledge support from
+our major funders,
+member institutions, ,
+and all contributors.
+About
+·
+Help
+·
+Contact
+·
+Subscribe
+·
+Copyright
+·
+Privacy
+·
+Accessibility
+·
+Operational Status (opens in new tab)
+Major funding support from

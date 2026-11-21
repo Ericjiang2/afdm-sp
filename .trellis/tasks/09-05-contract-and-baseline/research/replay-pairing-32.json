@@ -1,0 +1,216 @@
+{
+  "pairing": {
+    "passed": true,
+    "frames": 32,
+    "differences": {
+      "snr": [],
+      "frame_index": [],
+      "frame_seed": [],
+      "y_source_sha256": [],
+      "H_true_sha256": [],
+      "noise_unit_sha256": [],
+      "info_bits_sha256": [],
+      "coded_bits_sha256": [],
+      "pilot_sha256": [],
+      "classical_raw_errors": [],
+      "classical_info_errors": [],
+      "receiver_sparsity": [],
+      "capacity_source": []
+    },
+    "scope": "shared exogenous source arrays; actual arm dtypes may differ"
+  },
+  "achievable_replay": {
+    "passed": true,
+    "scope": "frame seeds, integer error counts and decoder flags only",
+    "conditions": {
+      "7": {
+        "perframe_seed": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_classical_raw_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_raw_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_classical_info_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_info_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_classical_decode_ok": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_decode_ok": {
+          "equal": true,
+          "differences": []
+        }
+      }
+    }
+  },
+  "geom_replay": {
+    "passed": false,
+    "scope": "frame seeds, integer error counts and decoder flags only",
+    "conditions": {
+      "7": {
+        "perframe_seed": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_classical_raw_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_raw_errs": {
+          "equal": false,
+          "differences": [
+            {
+              "frame": 1,
+              "current": 284,
+              "historical": 285
+            },
+            {
+              "frame": 4,
+              "current": 245,
+              "historical": 246
+            },
+            {
+              "frame": 7,
+              "current": 284,
+              "historical": 288
+            },
+            {
+              "frame": 8,
+              "current": 323,
+              "historical": 319
+            },
+            {
+              "frame": 10,
+              "current": 336,
+              "historical": 338
+            },
+            {
+              "frame": 11,
+              "current": 287,
+              "historical": 288
+            },
+            {
+              "frame": 12,
+              "current": 272,
+              "historical": 271
+            },
+            {
+              "frame": 13,
+              "current": 272,
+              "historical": 267
+            },
+            {
+              "frame": 20,
+              "current": 278,
+              "historical": 279
+            },
+            {
+              "frame": 21,
+              "current": 274,
+              "historical": 275
+            },
+            {
+              "frame": 26,
+              "current": 282,
+              "historical": 281
+            },
+            {
+              "frame": 27,
+              "current": 291,
+              "historical": 290
+            },
+            {
+              "frame": 28,
+              "current": 265,
+              "historical": 275
+            }
+          ]
+        },
+        "perframe_classical_info_errs": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_info_errs": {
+          "equal": false,
+          "differences": [
+            {
+              "frame": 4,
+              "current": 44,
+              "historical": 56
+            },
+            {
+              "frame": 7,
+              "current": 105,
+              "historical": 86
+            },
+            {
+              "frame": 8,
+              "current": 132,
+              "historical": 111
+            },
+            {
+              "frame": 11,
+              "current": 112,
+              "historical": 109
+            },
+            {
+              "frame": 12,
+              "current": 83,
+              "historical": 80
+            },
+            {
+              "frame": 13,
+              "current": 78,
+              "historical": 72
+            },
+            {
+              "frame": 26,
+              "current": 102,
+              "historical": 101
+            },
+            {
+              "frame": 28,
+              "current": 67,
+              "historical": 74
+            }
+          ]
+        },
+        "perframe_classical_decode_ok": {
+          "equal": true,
+          "differences": []
+        },
+        "perframe_gateA_decode_ok": {
+          "equal": true,
+          "differences": []
+        }
+      }
+    }
+  },
+  "budget_anchor": {
+    "status": "provisional",
+    "frames": 22,
+    "warmup": 10,
+    "timing_scope": "host source y to decoded info bits, including transfers, extra OMP, final soft BP, LDPC and finite checks; excludes simulation, hashing and IO",
+    "mean_seconds": 0.6435005510905863,
+    "p95_seconds": 0.6973840472157462,
+    "B_mean_seconds": 0.707850606199645,
+    "B_p95_seconds": 0.7671224519373209,
+    "peak_gpu_allocated_bytes": 93592576,
+    "both_arm_orders_observed": true,
+    "formal_G2_passed": false,
+    "limitation": "anchor only; confirmation requires block intervals, common frozen budgets and transfer accounting"
+  },
+  "replay_and_pairing_passed": false
+}

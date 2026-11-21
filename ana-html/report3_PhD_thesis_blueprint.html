@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>博士论文蓝图 — 从 20+ 篇物理层博士论文反推你的方向（其三 · 终篇）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Serif+SC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4efe7;
+    --paper-2:#ece4d6;
+    --ink:#1c1410;
+    --ink-soft:#473d33;
+    --ink-faint:#6f6353;
+    --accent:#8a2d3b;        /* oxblood */
+    --accent-deep:#5a1822;
+    --gold:#a8791f;
+    --line:#d9cebb;
+    --hi:#f7d65a;
+    --serif:"Newsreader","Noto Serif SC",Georgia,serif;
+    --display:"Fraunces","Noto Serif SC",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+    font-size:clamp(16px,1.05rem + 0.2vw,19px);line-height:1.72;
+    background-image:radial-gradient(circle at 85% 6%,rgba(138,45,59,.06),transparent 42%),radial-gradient(circle at 10% 95%,rgba(168,121,31,.06),transparent 44%);}
+  .wrap{max-width:880px;margin:0 auto;padding:clamp(28px,5vw,80px) clamp(20px,5vw,56px) 120px;}
+  ::selection{background:var(--hi);color:var(--ink);}
+
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+  .masthead{border-bottom:3px double var(--ink);padding-bottom:26px;margin-bottom:14px;}
+  h1.title{font-family:var(--display);font-weight:900;line-height:1.02;font-size:clamp(2.1rem,3.6vw + 1rem,3.7rem);letter-spacing:-.01em;margin:.3em 0 .18em;}
+  h1.title em{font-style:italic;font-weight:500;color:var(--accent-deep);}
+  .dek{font-size:1.05rem;color:var(--ink-soft);font-style:italic;max-width:64ch;margin:.2em 0 0;}
+  .meta{font-family:var(--mono);font-size:.73rem;color:var(--ink-faint);letter-spacing:.04em;margin-top:20px;display:flex;flex-wrap:wrap;gap:6px 18px;}
+
+  .method{margin:34px 0;padding:20px 24px;border:1px solid var(--line);border-left:4px solid var(--gold);background:rgba(255,255,255,.4);border-radius:0 3px 3px 0;font-size:.92rem;color:var(--ink-soft);}
+  .method .h{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.4em;}
+
+  .keyfind{margin:36px 0;padding:28px 30px;background:var(--ink);color:#f3ece0;border-radius:3px;box-shadow:10px 10px 0 var(--accent);}
+  .keyfind .vk{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--hi);}
+  .keyfind .big{font-family:var(--display);font-size:1.4rem;font-weight:600;line-height:1.25;margin:.4em 0 .3em;color:#fff;}
+  .keyfind .formula{font-family:var(--mono);font-size:.92rem;color:var(--hi);margin:.7em 0;line-height:1.7;letter-spacing:.01em;}
+  .keyfind p{font-size:1rem;margin:.5em 0 0;}
+
+  section{margin-top:54px;}
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(1.45rem,2vw + .6rem,2rem);line-height:1.12;letter-spacing:-.01em;margin:0 0 .25em;}
+  h2 .no{font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--accent);letter-spacing:.1em;display:block;margin-bottom:.5em;}
+  h3{font-family:var(--display);font-weight:600;font-size:1.18rem;margin:1.6em 0 .3em;}
+  p{margin:.85em 0;}
+  a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}
+  strong{font-weight:600;}
+  em.k{font-style:normal;background:linear-gradient(transparent 62%,rgba(247,214,90,.6) 62%);padding:0 .05em;font-weight:500;}
+  .lede{font-size:1.1rem;color:var(--ink-soft);border-left:3px solid var(--accent);padding-left:18px;margin:1.3em 0;}
+
+  /* cluster */
+  .cl{border:1px solid var(--line);border-radius:4px;margin:20px 0;background:rgba(255,255,255,.42);overflow:hidden;}
+  .cl .top{padding:15px 20px 12px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;}
+  .cl .id{font-family:var(--mono);font-size:1.3rem;font-weight:600;color:var(--accent);}
+  .cl .nm{font-family:var(--display);font-size:1.2rem;font-weight:600;flex:1;min-width:220px;line-height:1.15;}
+  .cl .fit{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;padding:.3em .55em;border-radius:2px;font-weight:600;white-space:nowrap;}
+  .f5{background:var(--accent);color:#fff;}.f4{background:var(--hi);color:var(--accent-deep);}.f3{background:var(--paper-2);color:var(--ink-soft);border:1px solid var(--line);}
+  .cl .bd{padding:14px 20px 18px;}
+  .cl .bd p{font-size:.95rem;margin:.45em 0;}
+  .chain{font-family:var(--mono);font-size:.8rem;color:var(--accent-deep);background:var(--paper-2);padding:10px 12px;border-radius:3px;margin:.6em 0;line-height:1.7;}
+  .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;margin-right:.4em;}
+  .works{font-size:.86rem;color:var(--ink-soft);margin:.4em 0 0;}
+
+  /* blueprint */
+  .blueprint{background:var(--paper-2);border:2px solid var(--accent);border-radius:5px;padding:30px 30px 24px;margin:30px 0;}
+  .blueprint .vk{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+  .blueprint .ttl{font-family:var(--display);font-size:1.5rem;font-weight:700;line-height:1.2;margin:.35em 0 .1em;color:var(--accent-deep);}
+  .blueprint .sub{font-style:italic;color:var(--ink-soft);font-size:.98rem;margin:.2em 0 1em;}
+  .chap{display:flex;gap:14px;padding:13px 0;border-top:1px solid var(--line);}
+  .chap .cn{font-family:var(--mono);font-size:.85rem;font-weight:600;color:#fff;background:var(--accent);border-radius:2px;padding:.2em .5em;height:fit-content;white-space:nowrap;}
+  .chap .ct h4{font-family:var(--display);font-size:1.08rem;margin:0 0 .15em;font-weight:600;}
+  .chap .ct p{margin:0;font-size:.92rem;color:var(--ink-soft);}
+  .chap .ct .reuse{font-family:var(--mono);font-size:.68rem;color:var(--gold);margin-top:.3em;letter-spacing:.03em;}
+
+  .tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:.85rem;}
+  .tbl th,.tbl td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  .tbl th{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;}
+  .tbl tr:first-child th{border-bottom:2px solid var(--ink);}
+  .tbl td:first-child{font-weight:500;}
+  .tbl .d{font-family:var(--mono);color:var(--accent);font-size:.78rem;white-space:nowrap;}
+  .tbl tr.star td{background:rgba(247,214,90,.22);}
+
+  ul.clean{padding-left:0;list-style:none;margin:.6em 0;}
+  ul.clean li{position:relative;padding-left:1.4em;margin:.5em 0;}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--accent);font-family:var(--mono);}
+  ul.clean.no li::before{content:"✕";color:var(--gold);}
+
+  .refs{margin-top:10px;font-size:.82rem;color:var(--ink-soft);columns:1;}
+  .refs h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:1.1em 0 .3em;font-weight:600;}
+  .refs li{margin:.4em 0;line-height:1.45;}
+  .refs .badge{font-family:var(--mono);font-size:.62rem;color:#fff;background:var(--gold);padding:.05em .35em;border-radius:2px;margin-right:.4em;}
+  .refs .badge.t{background:var(--accent);}
+
+  .footnote{margin-top:60px;border-top:1px solid var(--line);padding-top:18px;font-size:.81rem;color:var(--ink-faint);font-style:italic;}
+  .nav{font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);margin-top:46px;text-align:center;letter-spacing:.05em;}
+
+  .masthead,.method,.keyfind,section{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;}
+  .method{animation-delay:.1s;}.keyfind{animation-delay:.16s;}
+  section:nth-of-type(1){animation-delay:.2s;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important;}}
+  @media (max-width:560px){.keyfind,.blueprint{box-shadow:none;}.tbl{font-size:.74rem;}.tbl th,.tbl td{padding:7px 4px;}.chap{flex-direction:column;gap:6px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">方向研判 · 其三 / 终篇　·　从博士论文反推</div>
+    <h1 class="title">博士论文<em>蓝图</em><br>从 20+ 篇物理层博士论文，反推你的方向</h1>
+    <p class="dek">博士论文凝聚了一个人四五年的研究全貌。读懂它们的“章节结构”，就读懂了一个合理博士 scope 该长什么样——然后把它套到你身上，给出一份可执行的论文蓝图（含 AI-native 物理层）。</p>
+    <div class="meta">
+      <span>语料：6 个聚类 / 20+ 篇</span>
+      <span>读法：标题·摘要·创新点·章节结构</span>
+      <span>视角：博士毕业 scope</span>
+    </div>
+  </header>
+
+  <div class="method">
+    <div class="h">方法说明（诚实交代）</div>
+    国内博士论文全文多在知网/万方付费墙后，无法逐篇通读。本报告按“<strong>有策略地读</strong>”——以标题、摘要、创新点、关键词、可见的章节结构为单位，覆盖 6 个聚类、20+ 篇代表性工作（含可确认的万方/校库学位论文、以及结构与博士论文章节高度同构的顶刊综述与代表作）。<em class="k">对“反推合理 scope”这个目的，这个粒度恰好够用且准确</em>——因为博士论文的“骨架”就写在摘要与目录里。文末按聚类列出全部语料并标注类型。
+  </div>
+
+  <div class="keyfind">
+    <div class="vk">读完 20 篇后，最重要的一个结论</div>
+    <div class="big">物理层博士论文从来不是一个“窄点”，<br>而是一条主线 ＋ 一束相关子课题。</div>
+    <div class="formula">主线（一种波形 / 一个场景 / 一个方法范式）<br>　＋ 信道估计 → 信号检测·接收机 → 均衡·同步·波形优化 → 一个延伸（ISAC / 场景 / 反馈）</div>
+    <p>几乎每一篇延迟-多普勒、ISAC、深度学习物理层的博士论文都是这个骨架。所以你纠结的“方向是不是太窄”是个伪问题——<strong>正确的规划单位不是一个点，而是“主线＋章节束”。</strong>你要做的，是选一条能<em class="k">把你已有的每块积累都变成一章</em>的主线。</p>
+  </div>
+
+  <section>
+    <h2><span class="no">01 / 调研</span>六个聚类，各自的“主线＋章节束”长什么样</h2>
+    <p class="lede">每个聚类给出：典型主线、反复出现的章节束（这是关键证据）、代表语料、以及对<strong>你</strong>的契合评级。注意各聚类的章节束高度相似——这正是“可迁移的博士骨架”。</p>
+
+    <div class="cl">
+      <div class="top"><span class="id">A</span><span class="nm">延迟-多普勒波形（OTFS / AFDM）主线</span><span class="fit f5">契合 ★★★★★</span></div>
+      <div class="bd">
+        <p><span class="lbl">章节束</span></p>
+        <div class="chain">波形原理·分集分析 → 信道估计（压缩感知 / SBL / 非均匀网格）→ 信号检测·低复杂度接收机（MP / 迭代 / BEM）→ 同步·均衡·分数多普勒 → 场景（车联网 / 卫星 / 海洋）或 ISAC 扩展</div>
+        <p><span class="lbl">为什么是你</span>这正是你现在做的事，<em class="k">章节束里每一格你都有存量</em>（AFDM 波形、OMP/SBL 估计、MP-BP 检测）。是你“摩擦最小”的主线。</p>
+        <p class="works"><span class="lbl">语料</span>廖勇等《6G 时延多普勒范式 OTFS》(JEIT 综述，给出了同步/估计/检测×车联网/无人机/卫星/海洋的标准骨架)、OTFS 压缩感知信道估计、OTFS 分数多普勒加窗估计、低复杂度 OTFS 接收机(SBL+d-LSMR/BEM)、SJTU《SBL OTFS 信道估计》等。</p>
+      </div>
+    </div>
+
+    <div class="cl">
+      <div class="top"><span class="id">B</span><span class="nm">通信感知一体化（ISAC）主线</span><span class="fit f4">契合 ★★★★</span></div>
+      <div class="bd">
+        <p><span class="lbl">章节束</span></p>
+        <div class="chain">一体化波形设计 → 性能折中分析·CRB → 参数估计·感知算法 → 双功能接收机 → 资源分配·场景（车联网 / 低空）</div>
+        <p><span class="lbl">为什么是你</span>是 A 的天然延伸章（你“其一”报告里 AFDM-ISAC 的位置）。国家需求对齐、好立项；偏“折中分析”的章会用到一点 CRB，但仍以算法/仿真为主。</p>
+        <p class="works"><span class="lbl">语料</span>AFDM-ISAC 理论框架与导频设计(JSAC)、c₂ 数据驱动 AFDM-ISAC 波形、基于 OTFS 的车联网通感一体化(USTB)、通感一体化硬件设计综述(JEIT 2025)。</p>
+      </div>
+    </div>
+
+    <div class="cl">
+      <div class="top"><span class="id">C</span><span class="nm">模型驱动深度学习 / 深度展开（方法范式主线）</span><span class="fit f5">契合 ★★★★★</span></div>
+      <div class="bd">
+        <p><span class="lbl">章节束</span></p>
+        <div class="chain">数据驱动 vs 模型驱动综述 → 信道估计（LDAMP / 展开网络）→ 信号检测（OAMP-Net 类）→ 联合估计-检测 → CSI 反馈 / 端到端</div>
+        <p><span class="lbl">为什么是你</span>这是你<strong>最强的牌</strong>（MP-BP、深度展开、OMP）。它是<em class="k">贴在 A/B 每一章上的方法底色</em>——把传统迭代算法展开成可训练网络，参数少、要数据少、可解释、同时打败纯模型与纯数据。几乎不吃硬推导。</p>
+        <p class="works"><span class="lbl">语料</span>《基于模型驱动深度学习的 OTFS 信道估计》(LDAMP 深度展开，JEIT 2024)、Model-Driven DL for MIMO Detection (OAMP-Net2, TSP)、《模型驱动的物理层通信深度学习》综述、Deep Unfolding 综述(arXiv 2502.05952)。</p>
+      </div>
+    </div>
+
+    <div class="cl">
+      <div class="top"><span class="id">D</span><span class="nm">AI-native 空口 / 神经接收机主线（前沿）</span><span class="fit f4">契合 ★★★★</span></div>
+      <div class="bd">
+        <p><span class="lbl">章节束</span></p>
+        <div class="chain">神经接收机（估计＋均衡＋解映射合一）→ 学习星座·无导频传输 → 收发端到端联合优化 → site-specific / 协议学习</div>
+        <p><span class="lbl">为什么是你（有条件）</span>这是“通信＋AI”推到极致的版本，势头与标准支持都最猛。<em class="k">但纯黑盒端到端是 ML 原住民的主场，对你有风险</em>；适合你的是<strong>模型驱动版的神经接收机＋你的波形</strong>——见下一节专门分析。</p>
+        <p class="works"><span class="lbl">语料</span>Hoydis 等《Toward a 6G AI-Native Air Interface》(神经接收机/无导频/协议学习)、《5G-Advanced Towards 6G》AI-native 章、Samsung Research 6G PHY AI/ML、DeepSig OmniPHY × NVIDIA AI Aerial、含语义压缩的原生 AI 空口(arXiv 2508.15277)。</p>
+      </div>
+    </div>
+
+    <div class="cl">
+      <div class="top"><span class="id">E</span><span class="nm">大规模 / 毫米波 MIMO ＋ 深度学习主线</span><span class="fit f3">契合 ★★★</span></div>
+      <div class="bd">
+        <p><span class="lbl">章节束</span></p>
+        <div class="chain">信道估计 → CSI 反馈 → 波束训练·跟踪 → 信号检测 / 预编码</div>
+        <p><span class="lbl">为什么部分</span>能用上你的估计/检测技能，章节束清晰、学位论文样本最多（下列均为可确认博士论文）；但阵列/优化偏重、较拥挤，离你的“波形”优势稍远。可借鉴其骨架，不必当主线。</p>
+        <p class="works"><span class="lbl">语料（学位论文）</span>《基于深度学习的毫米波大规模 MIMO 信道估计》(万方)、《…波束训练与波束跟踪》(万方)、《基于深度学习的 MIMO 信道估计与 CSI 反馈研究》(西南交大)；另：稀疏连接网络大规模 MIMO 检测(JEIT)、Massive MIMO CSI 反馈综述(Mashhadi & Gündüz)。</p>
+      </div>
+    </div>
+
+    <div class="cl">
+      <div class="top"><span class="id">F</span><span class="nm">水声 / 探测通信一体化主线（蓝海）</span><span class="fit f4">契合 ★★★★</span></div>
+      <div class="bd">
+        <p><span class="lbl">章节束</span></p>
+        <div class="chain">双弥散水声信道建模 → 稀疏信道估计（OMP / 展开）→ 一体化波形 → 检测 → 声呐 / 海洋应用</div>
+        <p><span class="lbl">为什么是你</span>你本科毕设老本行；水声信道也是<em class="k">双弥散</em>，AFDM/OTFS 与稀疏估计技能原样迁移；<strong>刘雨莎也有水声 OMP 论文</strong>；海洋/国防国家需求、且明显更蓝海少人挤。是极佳的副线或差异化主线。</p>
+        <p class="works"><span class="lbl">语料</span>《探测通信一体化波形研究进展与声呐应用展望》(信号处理学报 2025)、刘雨莎组水声 OMP 高精度信道估计(WCL 2026)。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">02 / 专题</span>AI-native 物理层：它是个“方向”，更是你的“总命名”</h2>
+    <p>你新看到的 AI-native 物理层（AI-native 空口）值得单列。它不是又一个并列选项，而是<strong>“通信＋AI”推到尽头的形态</strong>，且很可能是你整套身份最合适的高层命名。它有一个清晰的三级阶梯：</p>
+    <ul class="clean">
+      <li><strong>第一级 · 替换单个模块：</strong>用 NN 做信道估计 / 解调 / 译码中的某一块。</li>
+      <li><strong>第二级 · 神经接收机：</strong>把信道估计＋均衡＋解映射<em class="k">合并成一个</em>训练好的模型——这一级正好<strong>命中你的估计＋检测存量</strong>。</li>
+      <li><strong>第三级 · 端到端 / 无导频：</strong>收发联合训练、学习星座、去掉导频（DeepRx、DeepSig OmniPHY 实测吞吐增益约 15–20%）。</li>
+    </ul>
+    <p>势头是真的：Hoydis 团队的“6G AI-native 空口”、Samsung/Nokia 的神经接收机、DeepSig×NVIDIA 的实机演示、以及 3GPP Rel-18/19 已把 AI/ML 写进空口框架（CSI、波束、定位）。</p>
+    <div class="keyfind" style="box-shadow:6px 6px 0 var(--gold);">
+      <div class="vk">对你的判断</div>
+      <p style="margin:.3em 0 0;"><strong>别去做“纯黑盒端到端”那一版</strong>——那是 ML 原住民主场，你的模型素养被稀释。<strong>要做“模型驱动的 AI-native”——把神经接收机做成可解释的深度展开，并叠上你的延迟-多普勒波形</strong>，得到一个别人抄不走的角度：<em class="k">“AI-native 延迟-多普勒空口”</em>。这样，AI-native 就从一个竞争对手，变成了你整套研究的<strong>总命名（umbrella）</strong>。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">03 / 蓝图</span>把以上一切，写成你的博士论文目录</h2>
+    <p class="lede">这是本报告的落点。下面这份“章节蓝图”，每一章都 1:1 复用你已有的一块积累，主线踩在 AI-native＋ISAC 的前沿与国家需求上，且每章都是“有立足点、做得更好”的类型——不吃你不擅长的硬推导。</p>
+
+    <div class="blueprint">
+      <div class="vk">推荐博士论文方向 · 蓝图</div>
+      <div class="ttl">面向高动态场景的 AI-native 延迟-多普勒空口：<br>AFDM 波形、模型驱动估计与检测，及其通感扩展</div>
+      <div class="sub">主线 = 聚类 A（延迟-多普勒波形）× 聚类 C（模型驱动 DL）× 聚类 D（AI-native）的合体；以 B（ISAC）/ F（水声）为延伸与对冲。</div>
+
+      <div class="chap"><span class="cn">绪论</span><div class="ct"><h4>背景与问题</h4><p>高动态双弥散信道的挑战、AI-native 空口与延迟-多普勒波形的交汇、研究问题与贡献概览。</p></div></div>
+      <div class="chap"><span class="cn">第2章</span><div class="ct"><h4>AFDM / 延迟-多普勒波形与系统模型</h4><p>DAFT、c₁/c₂ 自由度、双弥散下的分集，给全文立足点。</p><div class="reuse">▸ 复用你的：AFDM / OFDM-AFDM-AFWDM 仿真存量</div></div></div>
+      <div class="chap"><span class="cn">第3章</span><div class="ct"><h4>模型驱动（深度展开）信道估计</h4><p>把 OMP / SBL 展开成可训练网络，对抗分数多普勒、降导频开销、可解释。</p><div class="reuse">▸ 复用你的：OMP 稀疏信道估计 + 深度展开</div></div></div>
+      <div class="chap"><span class="cn">第4章</span><div class="ct"><h4>模型驱动检测 / 神经接收机</h4><p>展开式低复杂度检测、估计-检测联合（turbo 式），对标传统迭代法。</p><div class="reuse">▸ 复用你的：MP-BP 检测 + 深度展开 + EP-Turbo</div></div></div>
+      <div class="chap"><span class="cn">第5章</span><div class="ct"><h4>前沿延伸：AI-native 联合/无导频 或 AFDM-ISAC</h4><p>二选一作为“天花板章”：学习星座的无导频联合收发，或 AFDM 通感一体波形与参数估计。</p><div class="reuse">▸ 踩在 AI-native / ISAC 前沿（高显示度）</div></div></div>
+      <div class="chap"><span class="cn">第6章</span><div class="ct"><h4>场景落地：LEO / V2X / 低空（或水声蓝海）</h4><p>把方案放进极端多普勒场景验证；连通刘雨莎的 LEO 线与 Southampton 联培，或转向更蓝海的水声。</p><div class="reuse">▸ 连通：刘雨莎 LEO/水声 + 英国资源 + 国家需求</div></div></div>
+    </div>
+
+    <p>这套六章不是硬凑——它<strong>就是聚类 A/C/D 反复出现的那条标准骨架</strong>，只是用你的存量把每一格填满，再用 AI-native 做总命名、用场景章接上你组里的资源。一篇这样的论文，既不窄、又处处有立足点、还每一章都能发文。</p>
+  </section>
+
+  <section>
+    <h2><span class="no">04 / 横向对比</span>六条主线对你的适配</h2>
+    <table class="tbl">
+      <tr><th>主线</th><th>契合</th><th>前景</th><th>拥挤</th><th>吃硬推导</th><th>复用你的存量</th></tr>
+      <tr class="star"><td>A 延迟-多普勒波形</td><td class="d">★★★★★</td><td class="d">★★★★</td><td class="d">★★★</td><td class="d">低</td><td class="d">几乎全部</td></tr>
+      <tr class="star"><td>C 模型驱动 DL（方法层）</td><td class="d">★★★★★</td><td class="d">★★★★</td><td class="d">★★★</td><td class="d">低</td><td class="d">最强项</td></tr>
+      <tr class="star"><td>D AI-native 空口（模型驱动版）</td><td class="d">★★★★</td><td class="d">★★★★★</td><td class="d">★★★</td><td class="d">中低</td><td class="d">估计+检测</td></tr>
+      <tr><td>B 通感一体（ISAC）</td><td class="d">★★★★</td><td class="d">★★★★★</td><td class="d">★★★</td><td class="d">中</td><td class="d">波形+估计</td></tr>
+      <tr><td>F 水声 / 探测通信（蓝海）</td><td class="d">★★★★</td><td class="d">★★★</td><td class="d">★★</td><td class="d">低</td><td class="d">几乎全部</td></tr>
+      <tr><td>E 大规模 MIMO + DL</td><td class="d">★★★</td><td class="d">★★★★</td><td class="d">★★★★</td><td class="d">中高</td><td class="d">部分</td></tr>
+    </table>
+    <p style="font-size:.83rem;color:var(--ink-faint);font-family:var(--mono);">高亮三行 = 推荐蓝图的合体来源。</p>
+  </section>
+
+  <section>
+    <h2><span class="no">05 / 为什么这是“智慧”而不只是“热”</span>五个约束同时满足</h2>
+    <ul class="clean">
+      <li><strong>导师契合：</strong>刘光辉主页明写“AFDM-ISAC-AI 波形＋接收检测”，刘雨莎做“AI＋估计＋LEO＋水声”——这份蓝图的每一章都落在两位老师的射程内。</li>
+      <li><strong>认知契合：</strong>六章全是“有立足点、把已有方法做更好”的类型，避开了你不擅长的“空白造地基＋长篇硬推导”。</li>
+      <li><strong>目标契合：</strong>应用/整合型、稳定出文、对齐国家需求——正是双一流/一本/985 分校教职最想要的画像；不行也有移动研究院/电科/华为做地板。</li>
+      <li><strong>可立项：</strong>6G、AI-native、ISAC、低空、海洋——条条对齐国自然与国家战略。</li>
+      <li><strong>耐久：</strong>主线是“波形＋估计＋检测”这种慢变核心，套上 AI-native 的快变外壳——内核不贬值，外壳追前沿，跑道到 2030+。</li>
+    </ul>
+    <p><strong>不哄你 · 三个别当主线：</strong></p>
+    <ul class="clean no">
+      <li>纯黑盒端到端 AI-native（ML 原住民主场，稀释你的优势）。</li>
+      <li>纯语义信息论 / 近场重数学方向（硬推导密集，踩你软肋）。</li>
+      <li>无线大模型（算力＋ML 工程为王，离你的波形太远）。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="no">06 / 语料清单</span>本次调研的 20+ 篇（按聚类）</h2>
+    <div class="refs">
+      <h4>A · 延迟-多普勒波形（OTFS/AFDM）</h4>
+      <ul>
+        <li><span class="badge">综述</span>廖勇等《6G 新型时延多普勒通信范式：OTFS 的技术优势、设计挑战、应用与前景》JEIT 2024</li>
+        <li><span class="badge">期刊</span>《高速移动通信系统中 OTFS 信道估计算法研究》(压缩感知) JEIT 2021</li>
+        <li><span class="badge">期刊</span>《OTFS 分数多普勒信道估计加窗研究》(PRS-PMF) JEIT 2022</li>
+        <li><span class="badge">期刊</span>《一种低复杂度正交时频空系统接收机设计》(SBL+d-LSMR/BEM) JEIT 2024</li>
+        <li><span class="badge">期刊</span>孙辅君等《基于稀疏贝叶斯学习的 OTFS 信道估计》上海交大学报 2024</li>
+      </ul>
+      <h4>B · 通感一体（ISAC）</h4>
+      <ul>
+        <li><span class="badge">期刊</span>F. Zhang 等《AFDM-Enabled ISAC: Theoretical Framework and Pilot Design》JSAC 2025/26</li>
+        <li><span class="badge">预印</span>《Adaptive c₂-Perturbed AFDM Waveform Design for ISAC》(数据驱动) arXiv 2606.04698</li>
+        <li><span class="badge">期刊</span>孙春蕾等《基于 OTFS 的下一代车联网通感一体化技术》USTB 2023</li>
+        <li><span class="badge">综述</span>林粤伟等《通信感知一体化硬件设计——现状与展望》JEIT 2025</li>
+      </ul>
+      <h4>C · 模型驱动深度学习 / 深度展开</h4>
+      <ul>
+        <li><span class="badge">期刊</span>《基于模型驱动深度学习的 OTFS 信道估计》(LDAMP 深度展开) JEIT 2024</li>
+        <li><span class="badge">期刊</span>H. He, S. Jin 等《Model-Driven Deep Learning for MIMO Detection》(OAMP-Net2) IEEE TSP</li>
+        <li><span class="badge">综述</span>《Comprehensive Review of Deep Unfolding for Next-Gen Wireless》arXiv 2502.05952</li>
+        <li><span class="badge">综述</span>《模型驱动的物理层通信深度学习》</li>
+      </ul>
+      <h4>D · AI-native 空口 / 神经接收机</h4>
+      <ul>
+        <li><span class="badge">期刊</span>Hoydis 等《Toward a 6G AI-Native Air Interface》(神经接收机/无导频/协议学习)</li>
+        <li><span class="badge">综述</span>《5G-Advanced Towards 6G》AI-native 空口章 arXiv 2303.07456</li>
+        <li><span class="badge">产业</span>Samsung Research《6G AI/ML for Physical-layer》；DeepSig OmniPHY × NVIDIA AI Aerial（实测无导频吞吐增益）</li>
+        <li><span class="badge">预印</span>《Native AI-driven 6G Air Interface》(含语义压缩) arXiv 2508.15277</li>
+      </ul>
+      <h4>E · 大规模/毫米波 MIMO ＋ DL</h4>
+      <ul>
+        <li><span class="badge t">博士论文</span>《基于深度学习的毫米波大规模 MIMO 系统信道估计》(万方 D02450416)</li>
+        <li><span class="badge t">博士论文</span>《基于深度学习的毫米波大规模 MIMO 系统波束训练与波束跟踪》(万方 D03018788)</li>
+        <li><span class="badge t">学位论文</span>《基于深度学习的 MIMO 信道估计与 CSI 反馈研究》(西南交大)</li>
+        <li><span class="badge">期刊</span>《基于干扰消除辅助稀疏连接神经网络的大规模 MIMO 信号检测》JEIT 2023</li>
+        <li><span class="badge">综述</span>Mashhadi & Gündüz《Deep Learning for Massive MIMO CSI Acquisition and Feedback》</li>
+      </ul>
+      <h4>F · 水声 / 探测通信一体化（蓝海）</h4>
+      <ul>
+        <li><span class="badge">综述</span>《探测通信一体化波形研究进展和声呐应用展望》信号处理学报 2025</li>
+        <li><span class="badge">期刊</span>刘雨莎组《Deep Gradient-Aware OMP for Underwater Acoustic Channel Estimation》IEEE WCL 2026</li>
+        <li><span class="badge">期刊</span>《Adaptive OTFS Frame Design for LEO（多域信道预测/LSTM）》Electronics 2025；X. Wang … L. Hanzo《Joint Bayesian Est & Detection for OTFS-LEO》IEEE TC</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">07 / 下一步</span>把蓝图变成行动</h2>
+    <ul class="clean">
+      <li>拿这份<strong>六章蓝图</strong>直接去找刘雨莎对一对：哪一章能最快接上她的 LEO/水声/英国资源——这同时验证主线与联培落点。</li>
+      <li>让我把蓝图主线浓缩成一段 <strong>50–80 字“研究方向自述”</strong>（申联培、套博后、写本子通用）。</li>
+      <li>或者我把第 3、4 章挑一个，<strong>展开成一个具体的、可在一学期内起步的小课题书</strong>（问题、方法、对标、预期贡献）。</li>
+    </ul>
+  </section>
+
+  <p class="footnote">本报告为三份系列的终篇。其一＝ISAC×AI 与 AFDM 纵深；其二＝通感之外的发散与排序；其三（本篇）＝从博士论文反推的章节蓝图。评分与蓝图是面向你个人画像的研判，最终请结合两位老师判断与你读文献后的真实兴趣校准。语料因付费墙以摘要/结构层级研读，非逐篇全文。</p>
+  <div class="nav">· 其三 / 终篇 · 与“ISAC×AI”“发散研判”两份配套 ·</div>
+
+</div>
+</body>
+</html>

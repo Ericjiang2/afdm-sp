@@ -35,8 +35,7 @@ from afdm_sp_joint_unrolled.afdm_baselines import (
     reconstruct_H_from_omp,
     reconstruct_H_from_omp_matlab,
 )
-from afdm_sp_joint_unrolled.verify_oamp import _make_system, _sync_l_max_cap
-from afdm_sp_joint_unrolled.prepare_teacher_sparse import AFDMSystem
+from afdm_sp_joint_unrolled.system_config import AFDMSystem, _make_system, _sync_l_max_cap
 
 
 def _make_system_variable_N(n_total: int, rho: float = 0.5):

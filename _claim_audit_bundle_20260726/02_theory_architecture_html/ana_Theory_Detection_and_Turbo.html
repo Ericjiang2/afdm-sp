@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theory — In-Class Optimal Support Refinement &amp; Turbo Realization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Spline+Sans+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], tags:'none' },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" id="MathJax-script" async></script>
+<style>
+:root{
+  --paper:#f4f2ec; --paper2:#e8e6dc; --ink:#1b201f; --ink2:#46504e;
+  --accent:#1f5560; --accent2:#3b8a7a; --line:#cdd4cf; --gold:#9a7b3f;
+  --src:#2f5e3f; --syn:#7a4a2a; --risk:#9a3a2a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Newsreader",Georgia,serif; font-size:19px; line-height:1.72; font-optical-sizing:auto;
+  background-image:radial-gradient(circle at 88% 6%, rgba(31,85,96,.06), transparent 42%),radial-gradient(circle at 8% 96%, rgba(59,138,122,.05), transparent 42%);
+}
+.wrap{max-width:880px; margin:0 auto; padding:64px 28px 120px}
+header.masthead{border-bottom:3px double var(--accent); padding-bottom:30px; margin-bottom:14px}
+.kicker{font-family:"Spline Sans Mono",monospace; font-size:12.5px; letter-spacing:.32em; text-transform:uppercase; color:var(--accent); margin:0 0 16px}
+h1{font-family:"Fraunces",serif; font-weight:800; font-size:clamp(32px,5vw,50px); line-height:1.05; letter-spacing:-.015em; margin:0 0 14px}
+h1 em{font-style:italic; color:var(--accent); font-weight:500}
+.sub{font-size:18px; color:var(--ink2); font-style:italic; max-width:64ch}
+.meta{font-family:"Spline Sans Mono",monospace; font-size:12px; color:var(--ink2); margin-top:22px; letter-spacing:.04em}
+.partband{font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.28em; text-transform:uppercase; color:#fff; background:var(--accent); display:inline-block; padding:7px 18px; border-radius:30px; margin:54px 0 8px}
+h2{font-family:"Fraunces",serif; font-weight:700; font-size:27px; letter-spacing:-.01em; margin:40px 0 6px}
+h2 .no{font-family:"Spline Sans Mono",monospace; font-size:14px; color:var(--accent); font-weight:600; margin-right:10px}
+.rule{height:1px; background:linear-gradient(90deg,var(--accent),transparent); margin:8px 0 20px}
+p{margin:13px 0}
+strong{font-weight:600; color:#0c100f}
+a{color:var(--accent)}
+.lead{font-size:20px; line-height:1.7}
+.roadmap{background:linear-gradient(135deg,#1c2624,#26332f); color:#e7eee9; border-radius:6px; padding:26px 30px; margin:24px 0; box-shadow:0 16px 38px -24px rgba(20,30,28,.7)}
+.roadmap .lbl{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--accent2); display:block; margin-bottom:10px}
+.roadmap ol{margin:6px 0 0; padding-left:22px}
+.roadmap li{margin:7px 0; font-size:17px}
+.roadmap b{color:#8fd3bf}
+/* step blocks */
+.step{border-left:3px solid var(--accent); padding:2px 0 2px 22px; margin:26px 0}
+.step h3{font-family:"Fraunces",serif; font-weight:600; font-size:20px; margin:0 0 4px; color:var(--accent)}
+.step h3 .s{font-family:"Spline Sans Mono",monospace; font-size:13px; color:var(--accent2); margin-right:9px}
+/* equation block */
+.eq{background:#fbfaf6; border:1px solid var(--line); border-radius:8px; padding:6px 18px; margin:16px 0; overflow-x:auto; box-shadow:0 6px 20px -18px rgba(20,30,28,.6)}
+.eqnum{display:flex; align-items:center; gap:14px}
+.eqnum .lab{font-family:"Spline Sans Mono",monospace; font-size:12px; color:var(--accent); font-weight:600; flex:0 0 auto}
+.eqnum .body{flex:1 1 auto; overflow-x:auto}
+/* callouts */
+.box{border-left:4px solid var(--line); background:rgba(255,255,255,.45); padding:13px 18px 13px 20px; margin:18px 0; border-radius:0 6px 6px 0; font-size:17px}
+.box .tag{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; font-weight:600; display:block; margin-bottom:5px}
+.box.src{border-color:var(--src)} .box.src .tag{color:var(--src)}
+.box.syn{border-color:var(--syn); background:rgba(122,74,42,.05)} .box.syn .tag{color:var(--syn)}
+.box.risk{border-color:var(--risk); background:rgba(154,58,42,.06)} .box.risk .tag{color:var(--risk)}
+.prop{background:rgba(31,85,96,.06); border:1px solid var(--accent); border-radius:8px; padding:16px 22px; margin:18px 0}
+.prop .pt{font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:6px}
+.prop em.name{font-family:"Fraunces",serif; font-style:italic; font-weight:600; color:var(--accent)}
+.hier{font-family:"Spline Sans Mono",monospace; font-size:15px; text-align:center; background:#fbfaf6; border:1px solid var(--line); border-radius:8px; padding:18px; margin:18px 0; line-height:2}
+ul,ol{margin:11px 0; padding-left:24px} li{margin:6px 0}
+table{width:100%; border-collapse:collapse; margin:18px 0; font-size:16px}
+th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line)}
+th{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent)}
+footer{margin-top:70px; border-top:3px double var(--accent); padding-top:20px; font-size:14px; color:var(--ink2); font-family:"Spline Sans Mono",monospace; line-height:1.7}
+@media(max-width:620px){body{font-size:17px} .eqnum{flex-direction:column; align-items:flex-start; gap:4px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="kicker">Document II · Theory</p>
+  <h1>类内最优 support 修复检测器,<br><em>及其</em> turbo 实现</h1>
+  <p class="sub">§IV In-Class Optimal Detection (the GLRT/Bayes detector $\Lambda$, bounds, mismatch floor) &nbsp;·&nbsp; §VI Turbo Realization (covariance estimation &amp; residual Gaussianization).</p>
+  <p class="meta">SOURCING · 每式标出处:[文献]=literature · [Kay]=Detection Theory Vol.II · [综合]=本文综合,待实验检验</p>
+</header>
+
+<p class="lead">本文档把第 §IV 与第 §VI 节写到可进论文的程度。关键定位先讲清:这里的"最优"是 <strong>on-grid 代理<em>内</em>的最优(in-class optimal)</strong>,不是全局最优——全局最优是连续联合接收机(见 Document I, Fig. A 顶端)。$\Lambda$ 是它在 on-grid、逐候选层的局部边缘。</p>
+
+<span class="partband">Part A · §IV  In-Class Optimal Support Refinement</span>
+
+<div class="roadmap">
+  <span class="lbl">Roadmap · 思路与方向</span>
+  <ol>
+    <li>写 AFDM-SP 参数化模型 → 分数多普勒 → <b>Dirichlet 泄漏</b> → on-grid 失配地板。</li>
+    <li>从全局联合最优<b>下降</b>到 on-grid 逐候选检测(说明 $\Lambda$ 为何是<b>类内</b>最优)。</li>
+    <li>SP 残差 = 信号 + <b>有色</b>数据干扰 + 白噪声;定干扰加噪声协方差 $\mathbf C$。</li>
+    <li>逐候选假设检验 → GLRT[Kay] → 退化为 OMP(白噪声特例)。</li>
+    <li>贝叶斯检测器 $\Lambda$(Sherman–Morrison)→ <b>因式分解</b>=白化证据 × 几何先验 → 映射到 head。</li>
+    <li>边界层级 + 判 head 是否到边界 + 自我检验。</li>
+  </ol>
+</div>
+
+<div class="step">
+<h3><span class="s">A.1</span>Parametric signal model &amp; the Dirichlet kernel</h3>
+<p>AFDM 由 IDAFT 调制,$\boldsymbol\Lambda_{c}=\mathrm{diag}(e^{-j2\pi c\,n^2})$,$\mathbf F$ 为 DFT [文献: Bemani, <em>AFDM for Next-Gen Wireless</em>, IEEE TWC 2023]。双选信道含 $P$ 径,归一化多普勒 $\nu_i=\alpha_i+a_i$($\alpha_i\in\mathbb Z$,$a_i\in(-\tfrac12,\tfrac12]$),整数时延 $l_i$。DAFT 域:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(A.1)</span><span class="body">$$\mathbf y=\mathbf H_{\mathrm{eff}}\,\mathbf x+\mathbf w,\qquad \mathbf H_{\mathrm{eff}}=\sum_{i=1}^{P} h_i\,\mathbf H_i,\qquad \mathbf w\sim\mathcal{CN}(\mathbf 0,\sigma_w^2\mathbf I).$$</span></div></div>
+<p>每径矩阵的 $(p,q)$ 元由一个 Dirichlet 核决定 [文献: Bemani; 显式核形式见 AFDM 联合分数时延–多普勒估计器, arXiv 2602.04316]:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(A.2)</span><span class="body">$$[\mathbf H_i]_{p,q}=\tfrac1N\,e^{j\theta_{p,q}}\,\mathfrak F\!\big(p-q-\mathrm{loc}_i\big),\quad \mathrm{loc}_i=(\alpha_i+2Nc_1 l_i)\bmod N,$$</span></div></div>
+<div class="eq"><div class="eqnum"><span class="lab">(A.3)</span><span class="body">$$\mathfrak F(x)=\sum_{n=0}^{N-1}e^{-j\frac{2\pi}{N}(a_i+x)n}=e^{j\phi}\,\frac{\sin\!\big(\pi(a_i+x)\big)}{N\sin\!\big(\tfrac{\pi}{N}(a_i+x)\big)}.$$</span></div></div>
+<p>整数多普勒 $a_i=0$:$\mathfrak F(x)=N\delta[x]$,单抽头(不重叠条件 $2\alpha_{\max}l_{\max}+2\alpha_{\max}+l_{\max}<N$ [文献: Bemani, arXiv 2104.11331])。分数 $a_i\neq0$:能量按 Dirichlet 旁瓣 $x=\pm1,\pm2,\dots$ 衰减——<strong>这就是泄漏</strong>。</p>
+</div>
+
+<div class="step">
+<h3><span class="s">A.2</span>On-grid dictionary &amp; the mismatch floor</h3>
+<p>建虚拟 $(l,k)$ 网格字典 $\boldsymbol\Phi\in\mathbb C^{N\times Q}$,列 $\boldsymbol\phi_{(l,k)}$ 为单位抽头的 DAFT 响应 [文献: AFDM 压缩感知信道估计]。真实分数路径在字典里<strong>不是 $P$-稀疏</strong>,而是按核展开:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(A.4)</span><span class="body">$$\text{path }i:\quad h_i\Big[\,\boldsymbol\phi_{(l_i,\alpha_i)}\,\mathfrak F(0)+\textstyle\sum_{m\neq0}\boldsymbol\phi_{(l_i,\alpha_i+m)}\,\mathfrak F(m)\Big].$$</span></div></div>
+<p>$k_{\mathrm{leak}}$ 截断保留 $|m|\le k_{\mathrm{leak}}$;其余构成<strong>不可约失配地板</strong>:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(A.5)</span><span class="body">$$\mathcal E_{\mathrm{mis}}(a_i)=\sum_{|m|>k_{\mathrm{leak}}}|\mathfrak F(m)|^2\Big/\sum_{m}|\mathfrak F(m)|^2\;\;\xrightarrow{a_i=0.5,\,k_{\mathrm{leak}}=2}\;\approx 8.3\%.$$</span></div></div>
+<div class="box src"><span class="tag">Corroboration</span>off-grid SBL 文献独立指出"一阶截断在高速下截断误差致过早饱和"[文献: Wei et al., off-grid SBL for OTFS, IEEE TWC 2022],与 (A.5) 的失配地板一致。</div>
+</div>
+
+<div class="step">
+<h3><span class="s">A.3</span>Descent: why $\Lambda$ is the <em>in-class</em> optimum</h3>
+<p>全局最优是联合后验 $p(\mathbf x_d,\boldsymbol\theta,\mathbf g\mid\mathbf y)$,其中 $\boldsymbol\theta=\{(\tau_p,\nu_p)\}$ 连续 [文献: 参数化贝叶斯框架, Liu/Yuan/Guo, IEEE TWC 2021]。对其作坐标下降(数据↔信道交替)并把 $\boldsymbol\theta$ 离散到 on-grid 字典后,"哪些原子激活"这一子决策的局部最优边缘,<strong>就是下面的 $\Lambda$</strong>。故:</p>
+<div class="box syn"><span class="tag">Synthesis · scope of "optimal"</span>$\Lambda$ = 全局联合后验中"路径存在"因子的 on-grid 局部边缘。它是 <strong>on-grid 代理类内</strong>的最优,不是全局最优(全局最优是连续参数估计,精度天花板更高、复杂度更高——Document I Fig. A 左支)。论文中所有"optimal"在 §IV 后均带此限定。</div>
+</div>
+
+<div class="step">
+<h3><span class="s">A.4</span>The detection problem under SP: colored interference</h3>
+<p>OMP-once 给初始 $\hat{\mathcal S},\hat{\mathbf h}$ 后,残差($\mathbf x=\sqrt\rho\,\mathbf x_p+\sqrt{1-\rho}\,\mathbf x_d$):</p>
+<div class="eq"><div class="eqnum"><span class="lab">(A.6)</span><span class="body">$$\mathbf r=\mathbf y-\boldsymbol\Phi_{\hat{\mathcal S}}\hat{\mathbf h}_{\hat{\mathcal S}}=\underbrace{\boldsymbol\Phi_{\mathcal S\setminus\hat{\mathcal S}}\mathbf h_{\mathrm{miss}}}_{\text{漏掉的真原子}}+\underbrace{\sqrt{1-\rho}\,\mathbf H_{\mathrm{eff}}\mathbf x_d}_{\mathbf i_d:\ \text{数据干扰}}+\,\mathbf w.$$</span></div></div>
+<p>数据干扰被信道<strong>染色</strong>,其二阶矩(精确)[文献: 数据感知阈值同时计噪声与数据干扰的协方差版, SP-MIMO-OTFS 阈值估计]:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(A.7)</span><span class="body">$$\mathbf C_d=\mathbb E[\mathbf i_d\mathbf i_d^H]=(1-\rho)\,\sigma_x^2\,\mathbf H_{\mathrm{eff}}\mathbf H_{\mathrm{eff}}^H,\qquad \mathbf C=\mathbf C_d+\sigma_w^2\mathbf I.$$</span></div></div>
+<div class="box risk"><span class="tag">Caveat · 两个独立的坑,别合并</span>① $\mathbf C_d$ 依赖待估的 $\mathbf H_{\mathrm{eff}}$ → 精确检测器是 <strong>genie 边界</strong>,不是算法(§VI 用迭代估它)。② $\mathbf x_d$ 取自离散星座 → $\mathbf i_d$ 是<strong>有限高斯混合,非高斯</strong>;协方差 (A.7) 精确,但"用该协方差的高斯分布代表 $\mathbf i_d$"是近似(下式)。</div>
+</div>
+
+<div class="step">
+<h3><span class="s">A.5</span>Exact optimum vs Gaussian approximation</h3>
+<p>精确最优检测须对数据边缘化——指数级高斯混合,不可解:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(A.8)</span><span class="body">$$p(\mathbf r\mid\mathcal H)=\sum_{\mathbf x_d\in\mathcal A^N}P(\mathbf x_d)\,p(\mathbf r\mid\mathbf x_d,\mathcal H)\quad(M^N\ \text{个高斯分量}).$$</span></div></div>
+<p>由 CLT(每残差 bin 是多个 i.i.d. 数据符经 $\mathbf H_{\mathrm{eff}}$ 的加权和),取有色高斯近似 $\mathbf z=\mathbf i_d+\mathbf w\approx\mathcal{CN}(\mathbf 0,\mathbf C)$。<strong>这是 SP 文献的标准做法</strong> [文献: SP-OFDM 近似 ML, Cui &amp; Tellambura;SP-OTFS 把数据当干扰, Mishra et al.]。(A.8) 的不可解性正是 §A.7 摊销学习与 §VI 迭代高斯化的理由。</p>
+</div>
+
+<div class="step">
+<h3><span class="s">A.6</span>GLRT and the reduction to OMP</h3>
+<p>逐候选 $\boldsymbol\phi_i$ 的检验:$\mathcal H_0:\mathbf r=\mathbf z$ vs $\mathcal H_1:\mathbf r=h_i\boldsymbol\phi_i+\mathbf z$。增益 $h_i$ 未知确定值时,GLRT 检验量 [Kay, <em>Fundamentals of Statistical Signal Processing, Vol. II: Detection Theory</em>, 1998, Ch.7]:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(★)</span><span class="body">$$T(\boldsymbol\phi_i)=\frac{\big|\boldsymbol\phi_i^H\mathbf C^{-1}\mathbf r\big|^2}{\boldsymbol\phi_i^H\mathbf C^{-1}\boldsymbol\phi_i}\ \gtrless\ \gamma\quad(\text{whitened matched filter / estimator-correlator}).$$</span></div></div>
+<div class="prop"><div class="pt">Proposition 1 — OMP is the white-noise GLRT</div>
+当 $\mathbf C\to\sigma_w^2\mathbf I$(无数据干扰)时,$(\star)$ 化为 $|\boldsymbol\phi_i^H\mathbf r|^2/(\sigma_w^2\|\boldsymbol\phi_i\|^2)\propto|\boldsymbol\phi_i^H\mathbf r|^2$,<strong>即 OMP 的贪婪选择量</strong> [文献: Cai &amp; Wang, OMP with noise, IEEE-IT 2011]。∴ OMP = 白噪声假设下的 GLRT;SP 下干扰有色,OMP 用 $\mathbf I$ 代替 $\mathbf C^{-1}$,是<em>失配</em>检测器。</div>
+</div>
+
+<div class="step">
+<h3><span class="s">A.7</span>The Bayes detector $\Lambda$ and its factorization</h3>
+<p>取增益先验 $h_i\sim\mathcal{CN}(0,\sigma_{h,i}^2)$。$\mathcal H_1$ 下 $\mathbf r\sim\mathcal{CN}(\mathbf 0,\sigma_{h,i}^2\boldsymbol\phi_i\boldsymbol\phi_i^H+\mathbf C)$。用行列式引理与 Sherman–Morrison [Kay]:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(A.9)</span><span class="body">$$\frac{\det\mathbf C}{\det(\sigma_{h,i}^2\boldsymbol\phi_i\boldsymbol\phi_i^H+\mathbf C)}=\frac{1}{1+b_i},\qquad (\sigma_{h,i}^2\boldsymbol\phi_i\boldsymbol\phi_i^H+\mathbf C)^{-1}=\mathbf C^{-1}-\frac{\sigma_{h,i}^2\,\mathbf C^{-1}\boldsymbol\phi_i\boldsymbol\phi_i^H\mathbf C^{-1}}{1+b_i},$$</span></div></div>
+<p>其中 $b_i\triangleq\sigma_{h,i}^2\,\boldsymbol\phi_i^H\mathbf C^{-1}\boldsymbol\phi_i$。代入似然比并乘先验比 $\pi_i/(1-\pi_i)$,后验比为:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(A.10)</span><span class="body">$$\Lambda(\boldsymbol\phi_i)=\frac{\pi_i}{1-\pi_i}\cdot\frac{1}{1+b_i}\,\exp\!\Big(\frac{b_i}{1+b_i}\,T(\boldsymbol\phi_i)\Big).$$</span></div></div>
+<p>取对数得<strong>因式分解</strong>:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(A.11)</span><span class="body">$$\log\Lambda(\boldsymbol\phi_i)=\underbrace{\log\frac{\pi_i}{1-\pi_i}}_{\text{先验项 = 几何}}\;+\;\underbrace{\frac{b_i}{1+b_i}\,T(\boldsymbol\phi_i)}_{\text{证据项 = 白化匹配滤波}}\;-\;\log(1+b_i).$$</span></div></div>
+<div class="prop"><div class="pt">Proposition 2 — Feature ↔ Bayes-factor correspondence <span style="font-weight:400;color:var(--syn)">[综合,待 §A.9 检验]</span></div>
+<em class="name">先验项</em> $\log\frac{\pi_i}{1-\pi_i}$:几何在此进入——$\pi_i$ 对"高增益活跃原子的 $(0,\pm1)$ Dirichlet 邻居"高、对无关候选低。↔ head 的<strong>对特征</strong>(整数偏移、Dirichlet-邻居 flag、字典相干、变长 support 的 order-invariant 池化)。<br>
+<em class="name">证据项</em> $\propto T$:白化数据幅度证据。↔ head 的<strong>自特征</strong>(增益突出度、匹配滤波幅度)。<br>
+∴ <strong>learned head $\approx$ $\log\Lambda$ 的摊销逼近</strong>:scorer logit $s_i\approx\log\Lambda(\boldsymbol\phi_i)$。因 $\mathbf C$ 未知、$\pi_i$ 跨工作点难闭式,精确 $\Lambda$ 不可实现,head 从特征摊销之。</div>
+</div>
+
+<div class="step">
+<h3><span class="s">A.8</span>The bound hierarchy</h3>
+<div class="hier">
+PCSI $\ \ge\ $ physical-oracle $\ \ge\ $ <b style="color:var(--accent)">Bayes&nbsp;$\Lambda$&nbsp;(rank)</b> $\ \ge\ $ learned&nbsp;head $\ \ge\ $ OMP&nbsp;(white&nbsp;MF)
+</div>
+<ul>
+  <li><strong>physical-oracle</strong> = genie 知真支撑 → 任何 support 修复的上界。对应 [文献: Liu et al. 的 CRLB"假设非零位置已知 → loose 界"],即 genie 假设。</li>
+  <li><strong>Bayes $\Lambda$</strong>(新的、正确的标尺):不知支撑,只从 $\mathbf r$ 按 $\Lambda$ 做最优决策。$[\text{oracle}-\Lambda]$ = 不可约决策不确定;$[\Lambda-\text{head}]$ = head 次优(架构/训练可修)。</li>
+  <li>多候选 + 预算 $K_{\mathrm{add}}$:贝叶斯最优 = 按 $\Lambda(\boldsymbol\phi_i)$ 取 top-$K_{\mathrm{add}}$。</li>
+  <li>估计地板:连续参数精度由 CRLB floor [文献: Liu et al., IEEE TWC 2021];on-grid 模型由 (A.5) 失配地板 floor。</li>
+</ul>
+<div class="box syn"><span class="tag">Synthesis · 为什么 $\Lambda$ 而非 oracle 才是标尺</span>oracle 用了任何接收机都没有的 genie 信息,太松。"head 好不好"的正确问法是"逼不逼近 $\Lambda$"。这把 FYP 的经验 oracle-headroom 升级成<strong>可达边界</strong>。</div>
+</div>
+
+<div class="step">
+<h3><span class="s">A.9</span>How to test whether the head reaches the bound</h3>
+<ol>
+  <li><strong>排序一致性:</strong> 用 genie/估计的 $\mathbf C$ 与经验 $\pi_i$ 算 $\Lambda$,测 head logits $\{s_i\}$ 与 $\{\log\Lambda\}$ 的 Kendall $\tau$ / top-$K_{\mathrm{add}}$ 重叠 / NDCG。$\tau\to1$ ⟹ head 复现贝叶斯排序。</li>
+  <li><strong>BER gap 分解:</strong> $[\text{head}-\Lambda]$ 小 ⟹ head 达可达检测边界,到 oracle 的余隙不可约;$[\text{head}-\Lambda]$ 大 ⟹ 有架构/训练空间。</li>
+  <li><strong>"为什么要学"裁决:</strong> 白MF(OMP)= $\Lambda$ 取 $\mathbf C\to\sigma^2\mathbf I$+平先验;手调规则 = 只先验项。head 应<strong>同时打过两者并逼近 genie-$\Lambda$</strong> ⟹ 学习靠"联合摊销未知 $\mathbf C$ 白化 + 工作点相关先验"挣到位置。</li>
+</ol>
+</div>
+
+<div class="step">
+<h3><span class="s">A.10</span>Self-check — corroboration / contradiction</h3>
+<table>
+<tr><th>检验</th><th>结果</th></tr>
+<tr><td>退化:$\mathbf C\to\sigma^2\mathbf I$ ⟹ $(\star)\to$ OMP 相关</td><td>✓ 含 baseline 为特例 [Cai-Wang]</td></tr>
+<tr><td>框架:参数化贝叶斯 + 因子图 + CRLB</td><td>✓ 同 [Liu et al. TWC 2021];其"genie-CRLB loose"= 本文 oracle</td></tr>
+<tr><td>协方差:$\mathbf C=\mathbf C_d+\sigma^2\mathbf I$</td><td>✓ = 数据感知阈值的协方差版 [SP-MIMO-OTFS]</td></tr>
+<tr><td>$\mathbf C_d$ 依赖未知 $\mathbf H_{\mathrm{eff}}$</td><td>⚠ ∴ 精确检测器是 genie 边界,非算法 → §VI 解决</td></tr>
+<tr><td>$\mathbf i_d$ 高斯近似</td><td>⚠ CLT 成立,少数强抽头主导时偏松,可检验</td></tr>
+<tr><td>head $\approx\log\Lambda$(Prop. 2)</td><td>⚠ 假设,非已证;由 §A.9.1 排序一致性检验</td></tr>
+</table>
+</div>
+
+<span class="partband">Part B · §VI  Turbo Realization (C3)</span>
+
+<p class="lead">§A.10 的两个 ⚠(协方差未知、分布非高斯)正是 §VI 要解的。turbo 迭代做两件事:<strong>(i) 从当前估计算出 $\mathbf C_d$,使 genie-$\Lambda$ 可计算;(ii) 软消数据把残差高斯化,使高斯近似渐近精确。</strong> 于是被摊销的检测器既<em>可实现</em>又<em>渐近最优</em>。</p>
+
+<div class="step">
+<h3><span class="s">B.1</span>The iterated detection–decoding loop</h3>
+<p>外迭代 $t=0,1,\dots,T_{\mathrm{out}}$。$t=0$ 为 Document I 描述的 single-shot(OMP-once → head → LS → MP-BP)。$t\ge1$ 引入译码反馈:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(B.1)</span><span class="body">$$\text{MP-BP}\xrightarrow{L_e^{(t)}}\text{LDPC dec}\xrightarrow{L_a^{(t)}}\ \hat{\mathbf x}_d^{(t)}=\mathbb E[\mathbf x_d\mid L_a^{(t)}],\quad v_n^{(t)}=\mathrm{Var}(x_{d,n}\mid L_a^{(t)}).$$</span></div></div>
+<p>对 QPSK,$\hat x_{d,n}^{(t)}=\tfrac{1}{\sqrt2}\big(\tanh\tfrac{L_{a,n}^{\mathrm I}}{2}+j\tanh\tfrac{L_{a,n}^{\mathrm Q}}{2}\big)$,残差符号方差 $v_n^{(t)}=1-|\hat x_{d,n}^{(t)}|^2$ [标准 turbo 软映射;EP-IDD 框架, Santos &amp; Murillo-Fuentes]。</p>
+</div>
+
+<div class="step">
+<h3><span class="s">B.2</span>Residual recomputation &amp; covariance estimate</h3>
+<p>用译码软副本消除数据干扰,重算供 head 打分的残差:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(B.2)</span><span class="body">$$\mathbf r^{(t)}=\mathbf y-\sqrt\rho\,\hat{\mathbf H}^{(t)}\mathbf x_p-\sqrt{1-\rho}\,\hat{\mathbf H}^{(t)}\hat{\mathbf x}_d^{(t)}.$$</span></div></div>
+<p>软消后<strong>残余</strong>数据干扰的协方差由残余符号方差 $\mathbf V^{(t)}=\mathrm{diag}(v_n^{(t)})$ 决定(而非满功率):</p>
+<div class="eq"><div class="eqnum"><span class="lab">(B.3)</span><span class="body">$$\mathbf C_d^{(t)}=(1-\rho)\,\hat{\mathbf H}^{(t)}\,\mathbf V^{(t)}\,\hat{\mathbf H}^{(t)H},\qquad \mathbf C^{(t)}=\mathbf C_d^{(t)}+\sigma_w^2\mathbf I.$$</span></div></div>
+<div class="prop"><div class="pt">Proposition 3 — Genie covariance becomes realizable</div>
+(A.7) 的 $\mathbf C_d$ 依赖真 $\mathbf H_{\mathrm{eff}}$(genie);(B.3) 用当前 $\hat{\mathbf H}^{(t)}$ 与软方差 $\mathbf V^{(t)}$ <strong>估计</strong>它。∴ §IV 中只作边界的 $\Lambda$,在 turbo 下变成可计算的 $\Lambda^{(t)}$:head 在 $\mathbf r^{(t)},\mathbf C^{(t)}$ 上重打分,$s_i^{(t)}\approx\log\Lambda^{(t)}(\boldsymbol\phi_i)$。</div>
+</div>
+
+<div class="step">
+<h3><span class="s">B.3</span>Residual Gaussianization &amp; asymptotic optimality</h3>
+<div class="prop"><div class="pt">Proposition 4 — Two obstacles dissolve with iteration</div>
+设译码逐步成功,$v_n^{(t)}\to0$。则由 (B.3),$\mathbf C_d^{(t)}\to\mathbf 0$,故 $\mathbf C^{(t)}\to\sigma_w^2\mathbf I$。两个后果:<br>
+<strong>(a) 去有色化:</strong> $\mathbf C^{(t)-1}\to\sigma_w^{-2}\mathbf I$,$(\star)$ 的白化匹配滤波回归普通匹配滤波——但此时干扰已被消除,故这是<em>正确</em>的极限。<br>
+<strong>(b) 高斯化:</strong> 残余数据不确定性收缩 → (A.8) 的混合分量塌缩,$\mathbf z^{(t)}$ 趋于真高斯 → §A.5 的高斯近似<strong>渐近精确</strong>,$\Lambda^{(t)}\to$ 真贝叶斯最优。</div>
+<p>∴ turbo 把问题驱往"head 的检测器渐近最优"的区间。这给了 IDD 一个<strong>超越"残差更干净"的严格理由</strong>:它同时消解了 §A 中"有色"与"非高斯"两个障碍。</p>
+<div class="box src"><span class="tag">Mechanism corroboration</span>残差里漏掉的 Dirichlet 旁瓣信噪比随 $t$ 改善、更可识别——故 head 在 $t\ge1$ 重打分更准。SP-OTFS 用解码软副本迭代消除数据干扰 [文献: SP-OTFS IDD, "Will it work"];EP-IDD 为同类成熟范式 [文献: EP4IDD, Santos &amp; Murillo-Fuentes]。</div>
+</div>
+
+<div class="step">
+<h3><span class="s">B.4</span>Iteration-aware head &amp; the full update</h3>
+<div class="box risk"><span class="tag">Design requirement</span>$t=0$ 训练的 head 不会自动迁到 $t\ge1$(特征分布随 $\mathbf C^{(t)},\mathbf V^{(t)}$ 漂移)。须<strong>迭代感知训练</strong>:把迭代指数 $t$ 或残差能量 $\|\mathbf r^{(t)}\|^2$、平均软方差 $\bar v^{(t)}$ 作为附加输入特征,across $t$ 联合训练。</div>
+<p>每个外迭代的完整更新:</p>
+<div class="eq"><div class="eqnum"><span class="lab">(B.4)</span><span class="body">$$\hat{\mathcal S}^{(t)}=\hat{\mathcal S}^{(t-1)}\cup\operatorname*{top\text{-}}_{K_{\mathrm{add}}}\{\,s_i^{(t)}=f_{\mathrm{head}}(\boldsymbol\phi_i;\mathbf r^{(t)},\mathbf C^{(t)},t)\,\},$$</span></div></div>
+<div class="eq"><div class="eqnum"><span class="lab">(B.5)</span><span class="body">$$\hat{\mathbf h}^{(t)}=\big(\boldsymbol\Phi_{\hat{\mathcal S}^{(t)}}^H\mathbf C^{(t)-1}\boldsymbol\Phi_{\hat{\mathcal S}^{(t)}}\big)^{-1}\boldsymbol\Phi_{\hat{\mathcal S}^{(t)}}^H\mathbf C^{(t)-1}\mathbf r_p^{(t)}\ \ (\text{DA-LS refit})\ \to\ \text{MP-BP}\to L_e^{(t+1)}.$$</span></div></div>
+<p>(B.5) 的 LS 用 $\mathbf C^{(t)-1}$ 加权,与 (★) 的白化一致;随 $\mathbf C^{(t)}\to\sigma_w^2\mathbf I$ 退化为普通 LS。</p>
+</div>
+
+<div class="step">
+<h3><span class="s">B.5</span>Convergence caveat &amp; complexity</h3>
+<div class="box risk"><span class="tag">Honesty · convergence</span>B.3 是<strong>不动点/turbo 论证,非全局收敛证明</strong>。严格收敛/阈值须用 EXIT 图或密度演化 [文献: turbo EXIT 分析],本文作定性论证 + 仿真验证,严格分析列为 future work。</div>
+<p><strong>复杂度:</strong> 每外迭代加一次 LDPC 译码 + 一次 $\mathbf C^{(t)}$ 相关运算。这使"low-complexity"不再适合当 headline(Document I §7);改以"检测理论可达性 + 渐近最优"为卖点。$\mathbf C^{(t)-1}$ 可借 $\hat{\mathbf H}^{(t)}$ 的准带状稀疏低成本近似 [文献: 准带状结构, AFDM EP 检测]。</p>
+</div>
+
+<footer>
+  PROVENANCE · [文献]=已查证外部出处 · [Kay]=Detection Theory Vol.II 教科书标准结果 · [综合]=本文综合,标注待检验假设(尤 Prop. 2)。<br>
+  SCOPE · §IV/§VI 的"optimal"均为 on-grid 代理类内最优;全局最优见 Document I, Fig. A 顶端。<br>
+  CITATIONS TO VERIFY · 引用前请核对 Bemani(2204.12798 / 2104.11331)、Liu-Yuan-Guo(TWC 2021, 2011.14757)、Wei et al.(TWC 2022)、Cai-Wang(IT 2011)、Kay Vol.II、EP4IDD 的精确卷号页码与陈述。<br>
+  COMPANION · Document I 给出论文整体框架、层级图与章节安排。
+</footer>
+
+</div>
+</body>
+</html>

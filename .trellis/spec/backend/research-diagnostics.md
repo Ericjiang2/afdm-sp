@@ -1,5 +1,23 @@
 # Research receiver diagnostics
 
+## Scalar-joint detector mode diagnostics
+
+`scalar_joint` has three existing controls: `fixed` freezes gain means and sets gain variance to zero; `point` updates means with zero gain variance; `joint` updates both and initializes variance to `1/P`. The latter variance already changes first-iteration symbol messages, before any gain mean has moved. A joint-minus-point contrast is a coupled mode intervention, not proof of a single variance or Gram mechanism. The detector uses its own `CN(0,I/P)` prior; upstream SBL gains are initialization, and SBL alpha/Gamma are not transported into this prior.
+
+`record_states` stores post-update states only. Preserve and score initial gains separately; require observer-on/off parity, fixed-mean invariance, and zero point variance. Score physical truth only outside the receiver. Old-outcome replays remain exploratory, and FER or Frobenius NMSE alone cannot establish support completeness, divergence, or a unique LLR-temperature explanation.
+
+Restart controls must restore the returned post-update gain and original decoder prior exactly. With a fresh state, fixed versus point first-iteration symbol messages agree before the gain update; later messages can differ. Compare reset-point against reset-fixed to vary gain adaptation under the same reset. Compare reset-point against continuous point at the same gain checkpoint to assess the reset intervention; do not attribute a reset-plus-freeze contrast to either alone.
+
+For saved trajectory diagnostics, symbol-update step `t` uses `trajectory[t-1].channel_nmse`, while `trajectory[t].channel_nmse` scores the returned post-update gain. `data_mse - symbol_variance` is an empirical moment mismatch in common symbol units, not a true conditional posterior calibration test. A ratio of pooled means differs from a mean of per-row ratios; declare which is used and reject invalid denominators. Mean time curves alone do not establish the first statistically significant onset or variance-driven causality.
+
+Uniform representation probes duplicate every atom `k` times and initialize each copy with `h0/k`. Under the native working prior `CN(0,I/P)`, the new `kP` prior has coordinate variance `1/(kP)` and preserves the aggregate prior. Partial duplication generally fails this contract. Compare physical operators and aggregate posterior quantities, not coordinate norms. For first point-update algebra, use prior symbol variance `v0`; duplicated gain pseudo-variance `q` is unchanged, and the aggregate Onsager subtraction is `q*d`, not `k*q*d`. Exact duplicates test representation sensitivity, not the actual near-duplicate mechanism or population FER.
+
+Matched soft-Gram point prototypes use `M=B^H B+Gamma(v_pre)` and `alpha=noise*P` for the existing zero-mean gain prior. Full versus diagonal controls share the right-hand side, prior and pre-symbol snapshot that formed B; apply the gain fit after the unchanged symbol update. Uniform duplication changes P and alpha together and must preserve aggregate full-surrogate mean/covariance. Validate Gamma against independent dense mixed-delay/nonuniform-variance operators. Never substitute h0 as a prior center, add a hidden ridge/pseudoinverse, or call this local expected-log fit a globally corrected AMP algorithm. Native replay precedes interpretation; full/diag covariance is diagnostic only if not propagated. Count the extra Gamma FFT per iteration and record block/covariance solve work; instrumented timings are not optimized receiver latency.
+
+When replaying both saved upstream variants with a shared persisted check prior, assert every variant/key prior hash against the restored values before any receiver call. Replaying existing baselines for timing still incurs real detector/decoder calls: count them separately from observer/gate extras, rotate arm order without outcomes, qualify every old decoded result, and retain attempted-call records on failure. A gain-update prototype's fixed source hash is a pre-call gate, not merely post-run metadata. A best control with only two failed frame clusters cannot support a negative95% percentile-bootstrap upper bound for a nonnegative-loss candidate; report the low-event contrast without an impossible significance gate or a noninferiority claim.
+
+Frozen-context source inventories may index modules by name/stem. Importing a reference experiment as generic `driver` can collide with the canonical headroom driver. Use a distinct reference alias and bind that actual file separately to its producing hash; private aliases omitted by the inventory still require explicit hash binding. Never repair a naming collision by replacing expected receiver hashes or loosening source checks.
+
 ## Saved BLAS input layout
 
 For bit-exact replay of derived scalar scores, array values/dtype/shape are not
@@ -844,6 +862,61 @@ does not establish deployable gain. Legal-input H/response improvement supports
 a subsequent receiver test, not a FER claim. True-versus-error profile ranking
 does not establish finite-list coverage. A null result constrains the frozen
 configuration, not all tail predictors or all joint codeword/channel methods.
+
+### Actual terminal H continuation
+
+#### 1. Scope / trigger
+
+Apply when carrying saved-state coefficient diagnostics into a terminal decoder.
+For a terminal experiment, use the saved receiver return H, not the pre-CE
+observer H or an undamped gain-solution reconstruction. Recompute pilot
+cancellation from the same H consumed by the detector. Before comparing new
+arms through a different source snapshot, replay the original terminal and
+verify continuous outputs, LLRs and decoded bits under the frozen controls.
+
+#### 2. Signatures
+
+Task-local `tail_terminal_v1.make_candidate(*, H, y, pilot, x_soft, delays,
+dopplers, c1, c2, arm, predictor_cache=None)` accepts observed receiver inputs.
+`decode_candidate(candidate, sigma2, constellation, prior, code)` uses the
+existing public terminal chain. Neither accepts truth or error labels.
+
+#### 3. Contracts
+
+When replacing a disjoint physical coefficient subspace T, project existing H
+onto both S and T. Apply U_T times (new_T minus existing_T); blindly adding
+new_T double-counts any existing T component. Preserve S and the orthogonal
+remainder, including distinct-delay atoms with the same row shift. Return H/z,
+core/tail coefficients, actual graph identity, and distinct construction/refit
+counts. Keep pure transformations
+and the public decoder usable without the experiment profiler; the runner
+applies the existing profiler and verifies its operator ledger before publishing.
+
+#### 4. Validation and errors
+
+Nonfinite H/signals, invalid or duplicate integer support, wrong physical stride,
+zero ridge design, changed source identity or mismatched cancellation/graph ->
+explicit error. An original-terminal parity failure stops engineering admission.
+
+#### 5. Good / base / bad cases
+
+Good: retain actual H and change only the declared physical subspace. Base:
+ORIGINAL preserves dtype, cancellation and complete terminal outputs. Bad:
+score an undamped reconstruction and label it the deployed baseline.
+
+#### 6. Required tests
+
+Check a channel already containing its predicted T; S and orthogonal-remainder
+preservation; equal-shift distinct-phase atoms; augmented least-squares agreement;
+actual public BP/LDPC H/z/prior consumption. Keep synthetic tests separate from
+target-domain engineering and independent confirmation.
+
+#### 7. Wrong versus correct
+
+Wrong: `H_new = H0 + U_T @ new_T` when H0 already contains T coefficients.
+Correct: `H_new = H0 + U_T @ (new_T - project_T(H0))`, then cancel the pilot
+with H_new and pass that same H_new to the detector.
+
 
 ## Frozen SP-AFDM evidence and complete-cost replay (2026-09-21)
 

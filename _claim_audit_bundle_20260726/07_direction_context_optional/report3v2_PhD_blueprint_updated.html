@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>博士论文蓝图 v2 · 修订版 — 纳入国外/开源博士论文后的更新</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Serif+SC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4efe7;--paper-2:#ece4d6;--ink:#1c1410;--ink-soft:#473d33;--ink-faint:#6f6353;
+    --accent:#8a2d3b;--accent-deep:#5a1822;--gold:#a8791f;--new:#0f6b58;--line:#d9cebb;--hi:#f7d65a;
+    --serif:"Newsreader","Noto Serif SC",Georgia,serif;--display:"Fraunces","Noto Serif SC",Georgia,serif;--mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:clamp(16px,1.05rem + 0.2vw,19px);line-height:1.72;
+    background-image:radial-gradient(circle at 85% 6%,rgba(138,45,59,.06),transparent 42%),radial-gradient(circle at 10% 95%,rgba(15,107,88,.05),transparent 44%);}
+  .wrap{max-width:880px;margin:0 auto;padding:clamp(28px,5vw,80px) clamp(20px,5vw,56px) 120px;}
+  ::selection{background:var(--hi);color:var(--ink);}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+  .stamp{display:inline-block;font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.12em;border:2px solid var(--accent);color:var(--accent);padding:.25em .6em;border-radius:3px;transform:rotate(-3deg);margin-left:.4em;}
+  .masthead{border-bottom:3px double var(--ink);padding-bottom:26px;margin-bottom:14px;}
+  h1.title{font-family:var(--display);font-weight:900;line-height:1.02;font-size:clamp(2rem,3.4vw + 1rem,3.5rem);letter-spacing:-.01em;margin:.3em 0 .18em;}
+  h1.title em{font-style:italic;font-weight:500;color:var(--accent-deep);}
+  .dek{font-size:1.05rem;color:var(--ink-soft);font-style:italic;max-width:64ch;margin:.2em 0 0;}
+  .meta{font-family:var(--mono);font-size:.73rem;color:var(--ink-faint);letter-spacing:.04em;margin-top:20px;display:flex;flex-wrap:wrap;gap:6px 18px;}
+
+  .method{margin:32px 0;padding:20px 24px;border:1px solid var(--line);border-left:4px solid var(--gold);background:rgba(255,255,255,.4);border-radius:0 3px 3px 0;font-size:.92rem;color:var(--ink-soft);}
+  .method .h{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.4em;}
+  .method b{color:var(--ink);}
+
+  section{margin-top:52px;}
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(1.45rem,2vw + .6rem,2rem);line-height:1.12;letter-spacing:-.01em;margin:0 0 .25em;}
+  h2 .no{font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--accent);letter-spacing:.1em;display:block;margin-bottom:.5em;}
+  p{margin:.85em 0;}a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}strong{font-weight:600;}
+  em.k{font-style:normal;background:linear-gradient(transparent 62%,rgba(247,214,90,.6) 62%);padding:0 .05em;font-weight:500;}
+  .lede{font-size:1.1rem;color:var(--ink-soft);border-left:3px solid var(--accent);padding-left:18px;margin:1.3em 0;}
+
+  /* what's new cards */
+  .new{border:1px solid var(--line);border-left:4px solid var(--new);border-radius:0 4px 4px 0;margin:18px 0;background:rgba(255,255,255,.45);padding:16px 22px;}
+  .new .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--new);font-weight:600;}
+  .new h3{font-family:var(--display);font-size:1.16rem;margin:.3em 0 .25em;font-weight:600;}
+  .new p{font-size:.95rem;margin:.4em 0;}
+  .badge-new{font-family:var(--mono);font-size:.6rem;font-weight:600;color:#fff;background:var(--new);padding:.1em .4em;border-radius:2px;letter-spacing:.05em;vertical-align:middle;margin-left:.4em;}
+
+  /* blueprint */
+  .blueprint{background:var(--paper-2);border:2px solid var(--accent);border-radius:5px;padding:30px 30px 24px;margin:30px 0;}
+  .blueprint .vk{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+  .blueprint .ttl{font-family:var(--display);font-size:1.5rem;font-weight:700;line-height:1.2;margin:.35em 0 .1em;color:var(--accent-deep);}
+  .blueprint .sub{font-style:italic;color:var(--ink-soft);font-size:.96rem;margin:.2em 0 1em;}
+  .chap{display:flex;gap:14px;padding:13px 0;border-top:1px solid var(--line);}
+  .chap.upd{background:rgba(15,107,88,.07);margin:0 -12px;padding:13px 12px;border-radius:3px;}
+  .chap .cn{font-family:var(--mono);font-size:.85rem;font-weight:600;color:#fff;background:var(--accent);border-radius:2px;padding:.2em .5em;height:fit-content;white-space:nowrap;}
+  .chap.upd .cn{background:var(--new);}
+  .chap .ct h4{font-family:var(--display);font-size:1.08rem;margin:0 0 .15em;font-weight:600;}
+  .chap .ct p{margin:0;font-size:.92rem;color:var(--ink-soft);}
+  .chap .ct .reuse{font-family:var(--mono);font-size:.68rem;color:var(--gold);margin-top:.3em;letter-spacing:.02em;}
+
+  .tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem;}
+  .tbl th,.tbl td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .tbl th{font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;}
+  .tbl tr:first-child th{border-bottom:2px solid var(--ink);}
+  .tbl td:first-child{font-weight:500;white-space:nowrap;}
+
+  ul.clean{padding-left:0;list-style:none;margin:.6em 0;}
+  ul.clean li{position:relative;padding-left:1.4em;margin:.5em 0;}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--accent);font-family:var(--mono);}
+
+  .refs{margin-top:10px;font-size:.82rem;color:var(--ink-soft);}
+  .refs h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:1em 0 .3em;font-weight:600;}
+  .refs li{margin:.4em 0;line-height:1.45;}
+  .refs .badge{font-family:var(--mono);font-size:.6rem;color:#fff;background:var(--gold);padding:.05em .35em;border-radius:2px;margin-right:.4em;}
+  .refs .badge.t{background:var(--accent);}.refs .badge.o{background:var(--new);}
+
+  .footnote{margin-top:60px;border-top:1px solid var(--line);padding-top:18px;font-size:.81rem;color:var(--ink-faint);font-style:italic;}
+  .nav{font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);margin-top:46px;text-align:center;letter-spacing:.05em;}
+
+  .masthead,.method,section{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;}
+  .method{animation-delay:.12s;}section:nth-of-type(1){animation-delay:.18s;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important;}}
+  @media (max-width:560px){.tbl{font-size:.76rem;}.tbl th,.tbl td{padding:7px 6px;}.chap{flex-direction:column;gap:6px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">方向研判 · 其三 · 修订 <span class="stamp">REV 2 · 纳入国外/开源</span></div>
+    <h1 class="title">博士论文<em>蓝图 v2</em><br>把眼光放到国外/开源论文之后，更新了什么</h1>
+    <p class="dek">国外大学仓库的博士论文多为开放全文，正好补上国内付费墙看不到的部分。看完之后，蓝图主线不用推翻——但有四个值得更新的点，其中一个是：你的主线现在有了正式的领域名字。</p>
+    <div class="meta">
+      <span>新增语料：国外/开源全文博士论文 + 顶会顶刊</span>
+      <span>结论：主线不变，四处升级</span>
+      <span>时点：2026</span>
+    </div>
+  </header>
+
+  <div class="method">
+    <div class="h">本次扩展看了什么</div>
+    把范围扩到可获取全文的海外/开源博士论文与代表作：UFC（巴西，CNAM 巴黎 Le Ruyet 共同指导）的 OTFS 估计与检测博士论文、UBC（加拿大）的“机器学习赋能 ISAC”博士论文、<b>Southampton（Hanzo 生态）</b>的延迟-多普勒 FTN-OTFS 估计与检测、<b>Imperial（Gündüz 组）</b>的端到端学习 ISAC 波形（LISAC）、以及 O’Shea–Hoydis 的自编码器端到端物理层谱系等。读法同前：标题·摘要·章节结构层级。<b>主线（DD 波形 × 模型驱动 × AI-native）经得起检验，但有四处该升级。</b>
+  </div>
+
+  <section>
+    <h2><span class="no">更新 · 四点</span>国外/开源论文带来的增量</h2>
+    <p class="lede">这四点不改变你的主线，而是给它一个更准的名字、一个更高的天花板、一条新的方法支线、和一个更宽的收尾选项。</p>
+
+    <div class="new">
+      <div class="tag">更新 ①　命名</div>
+      <h3>你的主线现在有正式领域名了：<em class="k">DD-ISAC</em>（延迟-多普勒通感一体）<span class="badge-new">NEW</span></h3>
+      <p>Yuan、Wei、Dehkordi 等 2024 年的《From OTFS to DD-ISAC》把“在延迟-多普勒域同时做通信与感知”正式确立为一个有名字的子领域。这正是你 AFDM/OTFS＋感知的合体方向——<strong>现在它不再是你拼出来的概念，而是一个国际公认、正在快速聚拢的赛道</strong>。蓝图标题应直接打这个旗号：好检索、好立项、好对话。</p>
+    </div>
+
+    <div class="new">
+      <div class="tag">更新 ②　天花板章升级</div>
+      <h3>从“手工设计+优化波形”→“端到端学习(编码)波形”<span class="badge-new">NEW</span></h3>
+      <p>海外前沿（O’Shea–Hoydis 的自编码器谱系、Imperial 的 LISAC：用 RNN 把导频与数据编码端到端联合训练做 ISAC）显示，波形设计正从“人设计、再调参”走向“<strong>端到端学出来</strong>”，配学习星座、无导频。对你：把第 5 章“天花板章”升级为<em class="k">模型驱动版的端到端学习 DD/AFDM 波形</em>——用 RTN（radio transformer network，往自编码器里注入领域知识）这条路，既追前沿、又守住你“模型驱动、可解释”的护城河，不变成纯黑盒。</p>
+    </div>
+
+    <div class="new">
+      <div class="tag">更新 ③　新增方法支线</div>
+      <h3>生成式 AI 做数据/信道增强，与“深度展开”并列<span class="badge-new">NEW</span></h3>
+      <p>海外近作把<strong>生成模型（GAN/扩散）</strong>用于“为信道估计训练合成数据”、以及生成式信道估计（如 IRS-OTFS 的注意力 GAN）。DD/ISAC 的一大瓶颈正是<em class="k">真实数据稀缺</em>。所以在你的方法工具箱里，除了深度展开，再加一条“生成式增强”支线：当训练数据不够时用它造数据/造信道，喂给你的展开式估计器与接收机。这是一个低门槛、又很新的加分项。</p>
+    </div>
+
+    <div class="new">
+      <div class="tag">更新 ④　收尾章的更宽选项</div>
+      <h3>国外 ISAC 论文更“系统/协作”味，可作第 6 章 scope 扩展<span class="badge-new">NEW</span></h3>
+      <p>UBC 那本博士论文的骨架是“感知辅助通信 → 预测波束（降信令开销）→ 通信辅助感知 → cell-free 协作 ISAC ＋ ML 端到端”。比国内更偏<strong>互助与网络协作</strong>。你不必照搬（你的强项在波形/信号处理），但可把它作为第 6 章“场景落地”的一个更有张力的选项：把 DD-ISAC 放进<em class="k">协作/预测波束</em>的系统语境，显示度更高。</p>
+    </div>
+
+    <p style="margin-top:1.2em;"><strong>另外强化一条（不算新点，但证据更硬）：</strong>Southampton/Hanzo 生态与你高度对口——Hong、Sugiura、Chao Xu、Hanzo 的延迟-多普勒 <strong>FTN-OTFS</strong> 估计与检测（2026）就是你这条线的国际版；而 <em class="k">FTN（超 Nyquist）恰好也是刘光辉拿过华为奖的方向</em>。也就是说，“国内导师线—Southampton 联培线”在 DD＋FTN 这个点上是接得上的。</p>
+  </section>
+
+  <section>
+    <h2><span class="no">对比</span>国外/开源 vs 国内：章节范式差在哪</h2>
+    <table class="tbl">
+      <tr><th>维度</th><th>国内论文（你看过的）</th><th>国外/开源论文（本次新增）</th></tr>
+      <tr><td>主线重心</td><td>波形 + 信道估计 + 检测（信号处理纵深）</td><td>更常见“端到端学习 / 互助协作 / 基本极限”的系统视角</td></tr>
+      <tr><td>波形设计</td><td>手工设计 + 参数优化（如 c₂、导频）</td><td>端到端学出波形 / 学习星座 / 无导频（autoencoder、LISAC）</td></tr>
+      <tr><td>AI 方法</td><td>深度展开、模型驱动估计/检测为主</td><td>展开 + 自编码器端到端 + <strong>生成式增强</strong>并存</td></tr>
+      <tr><td>ISAC 取向</td><td>波形/参数估计为主</td><td>感知-通信互助、cell-free 协作、预测波束</td></tr>
+      <tr><td>对你的启示</td><td>你的纵深强项在这一侧</td><td>把“端到端学习的天花板章 + 生成式支线”嫁接进来</td></tr>
+    </table>
+    <p>一句话：<strong>用国内论文的“波形/估计纵深”做你的地基（你的强项），再嫁接国外论文的“端到端学习天花板 + 生成式增强”做你的前沿章——拼出的就是一篇既扎实、又国际同步的 DD-ISAC 博士论文。</strong></p>
+  </section>
+
+  <section>
+    <h2><span class="no">蓝图 v2</span>更新后的博士论文目录（绿色＝本次升级处）</h2>
+    <div class="blueprint">
+      <div class="vk">推荐博士论文方向 · 蓝图 v2</div>
+      <div class="ttl">面向高动态场景的 AI-native <em>DD-ISAC</em>：<br>AFDM 波形、模型驱动估计与检测、端到端学习与通感扩展</div>
+      <div class="sub">地基＝国内论文的波形/估计纵深；天花板＝国外论文的端到端学习与生成式增强。主线已正式更名为 DD-ISAC。</div>
+
+      <div class="chap"><span class="cn">绪论</span><div class="ct"><h4>背景与问题</h4><p>高动态双弥散信道挑战、DD-ISAC 与 AI-native 空口的交汇、贡献概览。</p></div></div>
+      <div class="chap"><span class="cn">第2章</span><div class="ct"><h4>AFDM / 延迟-多普勒波形与系统模型</h4><p>DAFT、c₁/c₂ 自由度、双弥散下满分集；全文立足点。</p><div class="reuse">▸ 复用：AFDM/OFDM-AFDM-AFWDM 仿真存量</div></div></div>
+      <div class="chap"><span class="cn">第3章</span><div class="ct"><h4>模型驱动（深度展开）信道估计</h4><p>把 OMP/SBL 展开成可训练网络，抗分数多普勒、降导频、可解释。</p><div class="reuse">▸ 复用：OMP 稀疏估计 + 深度展开</div></div></div>
+      <div class="chap"><span class="cn">第4章</span><div class="ct"><h4>模型驱动检测 / 神经接收机</h4><p>展开式低复杂度检测、估计-检测联合（turbo 式）。</p><div class="reuse">▸ 复用：MP-BP 检测 + EP-Turbo + 深度展开</div></div></div>
+      <div class="chap upd"><span class="cn">第5章 ↑</span><div class="ct"><h4>天花板章（升级）：端到端学习的 DD/AFDM 波形 或 AFDM-ISAC<span class="badge-new">已升级</span></h4><p>用 RTN/自编码器 + 领域知识，端到端学“编码波形＋接收机”（LISAC 思路的模型驱动 DD 版，可做无导频）；或落到 AFDM 通感一体波形与参数估计。</p><div class="reuse">▸ 踩国际前沿，且仍是“模型驱动”而非纯黑盒</div></div></div>
+      <div class="chap upd"><span class="cn">支线 ＋</span><div class="ct"><h4>新增方法支线：生成式增强<span class="badge-new">新增</span></h4><p>用 GAN/扩散为 DD-ISAC 合成训练数据与信道，缓解数据稀缺，喂给第 3/4 章的展开式模型。可作为贯穿性的方法工具，或独立一节。</p><div class="reuse">▸ 低门槛、很新、补数据瓶颈</div></div></div>
+      <div class="chap upd"><span class="cn">第6章 ↑</span><div class="ct"><h4>场景落地（拓宽）：LEO / V2X / 低空，含协作-预测 ISAC<span class="badge-new">已拓宽</span></h4><p>极端多普勒场景验证；可纳入“预测波束 / cell-free 协作 ISAC”的系统视角（借鉴 UBC 路线），并连通刘雨莎 LEO 线与 Southampton（DD-FTN）联培；或转水声蓝海。</p><div class="reuse">▸ 连通：刘雨莎 + 英国 DD-FTN 线 + 国家需求</div></div></div>
+    </div>
+    <p>变化集中在三处（绿色）：主线更名 DD-ISAC、第 5 章升级为“端到端学习波形”、新增“生成式增强”支线，并把第 6 章拓宽到协作/预测 ISAC。前四章（你的地基）不动——因为国内外论文都证明那条“波形→估计→检测”的纵深骨架是稳的，而那正是你存量最厚的地方。</p>
+  </section>
+
+  <section>
+    <h2><span class="no">新增语料</span>国外 / 开源博士论文与代表作</h2>
+    <div class="refs">
+      <h4>开源 / 海外博士论文（全文可获取）</h4>
+      <ul>
+        <li><span class="badge o">海外博论</span>D. G. C. Bandeira《OTFS Modulation: Contribution to Channel Estimation and Data Detection in High-Mobility Multipath》UFC（巴西）/ CNAM 巴黎共同指导，2022（全文开放）。骨架＝低复杂度检测 + 新型 DD 信道估计。</li>
+        <li><span class="badge o">海外博论</span>UBC《Machine Learning Enabled ISAC for Next-Generation Wireless Networks》2025（开放）。骨架＝感知辅助通信 → 预测波束 → 通信辅助感知 → cell-free 协作 ISAC + ML 端到端。</li>
+        <li><span class="badge o">博论</span>《OTFS Modulation for Wireless Communications》（基于离散 Zak 变换，检测/性能/应用）。</li>
+      </ul>
+      <h4>Southampton / Hanzo 生态（你的联培对口）</h4>
+      <ul>
+        <li><span class="badge">期刊</span>Z. Hong, S. Sugiura, C. Xu, L. Hanzo《Delay-Doppler Channel Estimation & Reduced-Complexity Detection of FTN-OTFS》IEEE OJVT 2026——DD + FTN，正好接刘光辉的 FTN。</li>
+      </ul>
+      <h4>端到端 / 学习式波形（天花板章依据）</h4>
+      <ul>
+        <li><span class="badge">期刊</span>T. O’Shea, J. Hoydis《An Introduction to Deep Learning for the Physical Layer》（自编码器端到端 + RTN 注入领域知识）。</li>
+        <li><span class="badge">预印</span>C. Bian, …, D. Gündüz《LISAC: Learned Coded Waveform Design for ISAC with OFDM》arXiv 2410.10711（端到端学编码波形）。</li>
+        <li><span class="badge">综述</span>《End-to-End Deep Learning in Wireless: A Tutorial Review》arXiv 2026；《AI-Enabled Autoencoder-Based PHY for 6G》2026（含“生成式数据合成做信道估计训练”）。</li>
+      </ul>
+      <h4>DD-ISAC 命名 / 生成式 / 模型驱动 ISAC</h4>
+      <ul>
+        <li><span class="badge">期刊</span>W. Yuan, Z. Wei, S. K. Dehkordi 等《From OTFS to DD-ISAC》IEEE WCM 2024（确立 DD-ISAC 命名）。</li>
+        <li><span class="badge">期刊</span>RIS-ISAC 模型驱动学习波形与波束设计（arXiv 2502.14325）；IRS-OTFS 生成式（注意力 GAN）信道估计。</li>
+        <li><span class="badge">期刊</span>OTFS-ISAC 信息论目标检测框架（Sensors 2025，开放）；Koivunen 等《Multicarrier ISAC: Waveform, Signal Processing & Learning under Nonidealities》IEEE SPM 2024。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">下一步</span></h2>
+    <ul class="clean">
+      <li>拿这份 v2 蓝图（尤其更名后的“DD-ISAC”与第 5 章端到端升级）去和刘雨莎对：哪一章接她的 LEO/水声/Southampton DD-FTN 线最快。</li>
+      <li>让我把第 5 章（端到端学习 DD 波形）或“生成式增强”支线，<strong>展开成一份一学期可起步的小课题书</strong>（问题、方法、对标基线、预期贡献）。</li>
+      <li>或把整条主线浓缩成一段中英双语的“研究方向自述”，申联培/套博后直接用。</li>
+    </ul>
+  </section>
+
+  <p class="footnote">本篇为“其三”的修订版（v2），在原蓝图基础上纳入国外/开源博士论文的增量；主线不变，升级集中于命名、天花板章、生成式支线与收尾章。海外全文已通读结构，国内论文仍以摘要/结构层级研读。所有评分与蓝图为面向你个人画像的研判，最终请结合两位老师判断与你读文献后的真实兴趣校准。</p>
+  <div class="nav">· 其三 · 修订版 v2 · 替代原“博士论文蓝图” ·</div>
+
+</div>
+</body>
+</html>

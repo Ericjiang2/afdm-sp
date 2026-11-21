@@ -1,0 +1,3861 @@
+{
+  "_argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/aggregate_main.py",
+    "--out",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/out/main_20261119",
+    "--producing-commit",
+    "3ca53c080846e53b1ecc939cfc0468bfa0c33df8"
+  ],
+  "_config": {
+    "bootstrap_draws": 20000,
+    "bootstrap_seed": 20261120,
+    "core_hour_cap": 25,
+    "frozen_commit": "7061ad84ee9805953c09ddd11ada1c297cd2e177",
+    "frozen_sources_sha256": {
+      "PROTOCOL.md": "2616dfeed066c0c45e45fa6dfeb73762832a8d548e7f5e42963dd58f6c2bcad2",
+      "admission_gate.py": "d9f13fe2a3c6291f78cf2dcf3aee29bf36a5006bce226639cda2ac7dd763fee8",
+      "archives.py": "86258031004489ce993ba2ab717706fb5a6e9d18bc92734ce8317ecc5d3325c8",
+      "audit_frames.py": "40469e202deb18d6d5b546ef3dc1b20e8b33c259896cc8d28b8c2a93eb9c7b6e",
+      "cstate.py": "2914e7c47ea24231f8b7b5376bb9c2214bf13860db34abee7b0972af6cf914b8",
+      "launch_phase1.sh": "3a577194009c1a55f6476c399fef9cefad7cfac01dba235189db8c2498705d48",
+      "projector.py": "600da7cdd837452c8df049fd19745f9fce441b5b30a234a7364d4c908ac4b4e8",
+      "run_phase1.py": "4e71b1b9f8b80b4dd242dde76bc675b4a5f56c28537cc6ff3cea4d26b51d4998",
+      "run_phase1b.py": "dbc97f6934ece772fe88b25d4e0987159208e1899d1d366cbbfddd2cd5f03eae",
+      "sbl.py": "be8afdbb11c278b182185d21ca3e7e7e92d23adf405bd97b2beb52c8b8658b80",
+      "test_verdict.py": "e79ebd4a771a055f6488a6947c4f012309e71565c71558e0cea9e94ac364e9c7",
+      "verdict.py": "21650a67b0aca3d66d26817a80ce91c64c969f26fd5035ba4498808e0c47e5f1"
+    },
+    "glue_sources_sha256": {
+      "aggregate_main.py": "12fe2b8c4af5d0aa5653ec17916357025239dae0f592bc2ecdfeef8fb6de8a78",
+      "budget_main.py": "d371abd14788ae5961e4f5ddda43f20d030e92fe045627ab8b2b9300b140dee1",
+      "launch_main.sh": "50ccec8a018986308495f874dadfb88fdb3ffacd373ddb2196d3d0685ddd81ed",
+      "run_main.py": "4b6612fd6de91ffc2b314117c627d64a135cc7620a9c18253b530719a4736ac7"
+    },
+    "grid": {
+      "cstate": {
+        "admission": true,
+        "keys": 6800,
+        "snr_centi_db": {
+          "300": [
+            500,
+            550,
+            600,
+            700,
+            800,
+            900,
+            1000,
+            1100
+          ],
+          "500": [
+            500,
+            550,
+            600,
+            650,
+            700,
+            800,
+            900,
+            1000,
+            1100
+          ]
+        }
+      },
+      "frames_inclusive": [
+        4400,
+        4599
+      ],
+      "sbl": {
+        "iterations": 100,
+        "keys": 2400,
+        "rho_permille": 300,
+        "snr_centi_db": [
+          600,
+          700,
+          800,
+          900,
+          1000,
+          1100
+        ]
+      },
+      "scenarios": [
+        "U",
+        "G"
+      ]
+    },
+    "margin": 0.005,
+    "mode": "main",
+    "phase1b_receipt_sha256": "1118c0238e870cfef33473ba345e5396ad0b43a715fb422e17051b3f59198a44",
+    "producing_commit": "3ca53c080846e53b1ecc939cfc0468bfa0c33df8",
+    "receiver_argv": [
+      "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/run_main.py",
+      "--out",
+      "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/out/main_20261119",
+      "--producing-commit",
+      "3ca53c080846e53b1ecc939cfc0468bfa0c33df8",
+      "--manifest",
+      "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/out/unified-phase2-main-3ca53c08.json",
+      "--workers",
+      "28"
+    ],
+    "rows_manifest_md5": "3287009891aafa1a8d1b4dff752abfd2",
+    "runtime": {
+      "cpu_only": true,
+      "host": "liunxgpu",
+      "numpy": "1.26.4",
+      "python": "3.10.20",
+      "scipy": "1.10.1",
+      "threads": {
+        "BLIS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      }
+    },
+    "snapshot_sha256": "ef34570bd8cbd7012873599ec3c6bbfc97e00b2051b25b3a82157d9315f7740a",
+    "sources": {
+      "e3c_archive": {
+        "decision": "join",
+        "manifest_sha256": "6dc8f63c3b7de8de58582ab4923f3435b9c521d2edd7ca9e52be23efd3a82092",
+        "paired_keys": 1200,
+        "reference_arm_rows": 3600,
+        "shards_verified": 24
+      },
+      "manifests_sha256": {
+        "spectral_freeze": "c52292cbdabf5e57916437fd331c2529cdc94465ee3c647a8bb08ce90e4435bd",
+        "spectral_rows": "82036e8f9bde8dd3652e232f37e889f98ef44f95670c05dee55d46c55068a462",
+        "split_rows": "75ec3889a0aa24f223249e376ce771b2806b04079bed9d75940cc02aaeb9c872",
+        "split_smoke": "5075abd2c45796f8e82af9de1994e37da3e29394ef7e506aaf106e1baf934671",
+        "stage3_rows": "3457a62acbfdf10d7b3ba890d62126526bbae19bb90c400838d574fbc1e59f31"
+      },
+      "spectral_sources_sha256": {
+        "headroom_ladder_20261008/arms.py": "5f8411740ef0373fb3d540716bdaab59851d92636234aa1f4fc50ecc78b493e7",
+        "headroom_ladder_20261008/driver.py": "2b93c07e1c4c2543241101b677314762fe90bf631bfb02467c7bf932c1fb0c9b",
+        "sp_afdm_frozen_20260920/src/messages.py": "9b19937c90a6e2b15f30d4e326320a38cd2635f9c0c5b14814406991da25ec95",
+        "sp_afdm_frozen_20260920/src/physical.py": "c0398247b59d10366a0602a3bf115271e57d339e5a783691dd703e4da02348c6",
+        "sp_afdm_frozen_20260920/src/receiver.py": "44221f91a4ff510b7f21e36300d6c5657be2ec2171a866fd48efe38fa2d95562",
+        "sp_afdm_native_joint_20260921/src/native_twofft.py": "6146ccb48bb64b90c7d1fb8da93b2d0b59e84c6e8100eb2f259e9ee22114168d",
+        "sp_afdm_native_joint_20260921/src/twofft.py": "c54e832716d72530e38a9b1090ca24f8f8b3c8f4185db0914d30e5f7e2ab9ff0",
+        "tcom_channel_crb_20261016/crb.py": "30493a6361665c06c4047e6917bef353c87a6a43e7d947049de8dcc9d0202101",
+        "tcom_channel_crb_20261016/p1ctx.py": "f05d5dd59df8772002ac3d91805f7523da91d5628b73870f806ee2cc36002c04",
+        "tcom_genie_support_20261016/gs_cstate.py": "5f71d39133cc78e047190f5aebcd528bf98bf8e25935412c08bf835d6cdca771",
+        "tcom_genie_support_20261016/gs_driver.py": "783114da01b16ae470df11d2ee4a1e41824534be500b68d0400ffa0241541fab",
+        "tcom_genie_support_20261016/launch_a1.sh": "4e0fb0b9f33eadad3aaf0be05aaa311bc4d2a7cbe2387ed3f88038529ddb7d6d",
+        "tcom_reference_frame_20261015/gen_fixed.py": "26a45b0b05877e128cbd5fe44f102fdb5a677a7b2d26ca409b617c74f1a8df2a",
+        "tcom_reference_frame_20261015/p1_driver.py": "98b9d726e77325c90b31003b35fa4663e1d9c935d2d7b19c36edbe51c0beb04a",
+        "tf_covariance_audit_20261018/sampling.py": "b27b70ef42c247b4dfc81d382131880c08ca630b3b9d675f67730946be9b97a3",
+        "tf_cstate_e1_20261017/e1_agg.py": "075650111ded5561a758d7d0df6fa86ace3ac070a85dfece996313f1f8e5a4f7",
+        "tf_cstate_e1_20261017/e1_lib.py": "271d46a452d876bcee8777ad969a718ba5f388586a0d152e108825a826070f89",
+        "tf_cstate_e1_20261017/geometry_reopen_variant.py": "0e75438bdf33f1ec730c6111871b921b64cca1dee5811799474b47da18d0abb8",
+        "tf_cstate_validation_20260922/compact_state.py": "60260777c506f397057c0bbe87319ebd134707cb80dd23d1ec865815d901e962",
+        "tf_cstate_validation_20260922/geometry_validation.py": "db75b16ce3b243e0e899198690f9e4c3d896a81638ef48b78ebf94a8c4323aab",
+        "tf_cstate_validation_20260922/run_validation.py": "fe3cde76449a3fe05a06c6202684ada9410329744b29498eda4ccfc3205b87bc",
+        "tf_e3_sbl_20261017/e3_agg.py": "d34e0ebee651ca5a47edba3af718f4ca163b0153fc8b2a73565fe0fbbef1b9be",
+        "tf_e3_sbl_20261017/e3_calib.py": "0dee8ebb60f80b1d30556f6eb6e616457820612a0dcf911de3eb5c5c4c25d682",
+        "tf_e3_sbl_20261017/e3_driver.py": "7d763d7c6b7c819f96596319e5aac095b0d5ff26706c1e37faeac875ee5432f0",
+        "tf_e3_sbl_20261017/e3_lib.py": "7087260107b1eb10b700efef56ec336642c1f4a2d3c7d540b0578b696effc17a",
+        "tf_e3_sbl_20261017/sbl_rx.py": "b43d7a455c9a26b5d300246e934a1bec50f4379097ab756232d29219244ffadd",
+        "tf_e3b_offgrid_20261017/e3b_lib.py": "ed891bb7de02c1a50b8149f22bd28d9b78296198a5b552d193eaccec059cef3e",
+        "tf_e3b_offgrid_20261017/offgrid_refine.py": "419f0a56fc90bd41377e907cec963bb23c5556ea1ae48af039cb38fa808ff7e4",
+        "tf_e3c_shrink_20261018/PROTOCOL.md": "6fa1311dad064e318b9bb5b90debd4367aec66679ac329b12ce6a5237ef08408",
+        "tf_e3c_shrink_20261018/SOURCE_MD5.txt": "cc08d3a16613ba822a03f6609b18082ddc67b5364f265891371386d0703f9913",
+        "tf_e3c_shrink_20261018/e3c_agg.py": "af39c215166a83f9cb24829eafc4112fd6ae9ac06ef2f23cec795ccaf6334c4f",
+        "tf_e3c_shrink_20261018/e3c_arms.py": "c1c1f959fc7b0fccc0f4acb409f8411a930b9db3b15c80c2a1334dcabf2957a0",
+        "tf_e3c_shrink_20261018/e3c_budget.py": "6d10b92577edab4b69782e3f3a2a7971f03b4fe11aa5baebbf8fb21298a370bd",
+        "tf_e3c_shrink_20261018/e3c_driver.py": "ff393de968a0d97355d71f2002ca883f823aa3f68b0960f498294f477c88bb7e",
+        "tf_e3c_shrink_20261018/e3c_gate.py": "1ed90db08bd78d28512427b0371ce01ec96089dd20f6f60f5871bca966e2e996",
+        "tf_e3c_shrink_20261018/e3c_lib.py": "2fa6b7ccf31ff54b9cabfddd6f32c294fd5aba0a88ae729052f09efdf940e89a",
+        "tf_e3c_shrink_20261018/e3c_provenance.py": "a817194270f13380513044436a0be7cae80d045c88026554f9be6c75416a4a32",
+        "tf_e3c_shrink_20261018/launch_e3c.sh": "55aab77da528d27e4cd07ca66de33861db98b9bd30e34a5ddd3012e273b3941f",
+        "tf_e3c_shrink_20261018/test_e3c.py": "e905283843fbe7311b449d44de250cb58bff07469db215716c86859acb9219ff",
+        "tf_e3c_shrink_20261018/test_e3c_agg.py": "61034930775cf26ead58fad35aac3bf91c8b9cecdbfd4e4f6979fec0e151234f",
+        "tf_e3c_shrink_20261018/test_e3c_provenance.py": "f606700a4f9bf8c224cfdeffc8bee4852b4c21941e29488659603874f4be2536",
+        "tf_geometry_reopen_20260922/geometry_reopen.py": "ad888de73a906d4167938a3391c288db68dd7edb4ec42da0d2e4598079ecf633",
+        "tf_production_gap_audit_20260922/audit_io.py": "6919e0672d87736ad040d87a6ad6a272972278646328dd7a2db0b5fe6d0c0ac7",
+        "tf_production_gap_audit_20260922/interventions.py": "b755c88230d245e74d88a6a92960a5f880946a3f8c44f39e8ada4f80187c1ec5"
+      },
+      "stage3_producing_source_sha256": {
+        "cstate_codelay_sbl_stage3_20261118/codelay.py": "a5af12d5f0131f70793904b255d83d9db1edc8c7e9443158f150d61335b4f929",
+        "cstate_codelay_sbl_stage3_20261118/run.py": "85350a81961d8d6c8b35b4dab1827fe01fcd011fbfc670feb9764405aed06c5d",
+        "tf_cstate_e1_20261017/e1_driver.py": "b95e29ebf75361912cc03cf71701efbd38bc4c1df5ea1ac8b5b82d9c426acd12",
+        "tf_cstate_e1_20261017/geometry_validation_variant.py": "bbcd98a8fd65614d37378d7f1f6b7d65ba05cce39b1ea4ffdc9f6fc2d25187b0"
+      },
+      "stage3_sources": {
+        "headroom_ladder_20261008/arms.py": {
+          "actual": "610e73307c3b1028626ef704933b4b99",
+          "expected": "610e73307c3b1028626ef704933b4b99",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "headroom_ladder_20261008/driver.py": {
+          "actual": "ad6957338e85039e6a7cc2f1cd0225bf",
+          "expected": "ad6957338e85039e6a7cc2f1cd0225bf",
+          "status": "ok",
+          "via": "file"
+        },
+        "sp_afdm_frozen_20260920/src/messages.py": {
+          "actual": "5e29ddc722ce448229beeb437ade093b",
+          "expected": "5e29ddc722ce448229beeb437ade093b",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "sp_afdm_frozen_20260920/src/physical.py": {
+          "actual": "aa8ad5c843f82792d7d0f6e5c09ac0a3",
+          "expected": "aa8ad5c843f82792d7d0f6e5c09ac0a3",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "sp_afdm_frozen_20260920/src/receiver.py": {
+          "actual": "228411ca9751eecfca2f794ace909dfd",
+          "expected": "228411ca9751eecfca2f794ace909dfd",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "sp_afdm_native_joint_20260921/src/native_twofft.py": {
+          "actual": "d47af1373b2f0052e6de078de40711ba",
+          "expected": "d47af1373b2f0052e6de078de40711ba",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "sp_afdm_native_joint_20260921/src/twofft.py": {
+          "actual": "cdbdf40eabf43c1e02b52d25062a594d",
+          "expected": "cdbdf40eabf43c1e02b52d25062a594d",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tcom_channel_crb_20261016/crb.py": {
+          "actual": "c361e086eacaca182223c3bc589f55da",
+          "expected": "c361e086eacaca182223c3bc589f55da",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tcom_channel_crb_20261016/p1ctx.py": {
+          "actual": "e66268616035f8111aacb4910d5bc8a2",
+          "expected": "e66268616035f8111aacb4910d5bc8a2",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tcom_genie_support_20261016/gs_cstate.py": {
+          "actual": "cca750e134869c73f93fb84fc0a08127",
+          "expected": "cca750e134869c73f93fb84fc0a08127",
+          "status": "ok",
+          "via": "file"
+        },
+        "tcom_genie_support_20261016/gs_driver.py": {
+          "actual": "10611942919e1efcf2839ee5c260d22a",
+          "expected": "10611942919e1efcf2839ee5c260d22a",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tcom_genie_support_20261016/launch_a1.sh": {
+          "actual": "27676d74bda58c2e23afb1564bae6fd4",
+          "expected": "27676d74bda58c2e23afb1564bae6fd4",
+          "status": "ok",
+          "via": "file"
+        },
+        "tcom_reference_frame_20261015/gen_fixed.py": {
+          "actual": "9a3a987e0a1aaecde33018da5f38c74c",
+          "expected": "9a3a987e0a1aaecde33018da5f38c74c",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tcom_reference_frame_20261015/p1_driver.py": {
+          "actual": "e8594ebfe04f490a86fc16ebd5069cd2",
+          "expected": "e8594ebfe04f490a86fc16ebd5069cd2",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tf_cstate_validation_20260922/compact_state.py": {
+          "actual": "f53731554196e52b75332db564ef1b02",
+          "expected": "f53731554196e52b75332db564ef1b02",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tf_cstate_validation_20260922/geometry_validation.py": {
+          "actual": "b576a04dea5cbfc10cc61d748ebe8fbc",
+          "expected": "b576a04dea5cbfc10cc61d748ebe8fbc",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tf_cstate_validation_20260922/run_validation.py": {
+          "actual": "3bf475ab8e15d855e7bfbefd387bfdac",
+          "expected": "3bf475ab8e15d855e7bfbefd387bfdac",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tf_geometry_reopen_20260922/geometry_reopen.py": {
+          "actual": "a6de0ff1238faeff21d767dd10b084de",
+          "expected": "a6de0ff1238faeff21d767dd10b084de",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tf_production_gap_audit_20260922/audit_io.py": {
+          "actual": "0892e7d699f6910ffea22e57a52fed28",
+          "expected": "0892e7d699f6910ffea22e57a52fed28",
+          "status": "ok",
+          "via": "loaded-module"
+        },
+        "tf_production_gap_audit_20260922/interventions.py": {
+          "actual": "82d47057b3e18b631cae01c3b9b17291",
+          "expected": "82d47057b3e18b631cae01c3b9b17291",
+          "status": "ok",
+          "via": "loaded-module"
+        }
+      }
+    },
+    "v5_primary": "fer",
+    "workers": 28
+  },
+  "admission_preferences": {
+    "A2": {
+      "ci_hi": 1.0,
+      "ci_lo": 1.0,
+      "ci_width": 0.0,
+      "contains_0": false,
+      "point": 1.0
+    },
+    "C-hi": {
+      "ci_hi": 0.0,
+      "ci_lo": 0.0,
+      "ci_width": 0.0,
+      "contains_0": true,
+      "point": 0.0
+    },
+    "C-lo": {
+      "ci_hi": 1.0,
+      "ci_lo": 1.0,
+      "ci_width": 0.0,
+      "contains_0": false,
+      "point": 1.0
+    },
+    "CD": {
+      "ci_hi": 0.0,
+      "ci_lo": 0.0,
+      "ci_width": 0.0,
+      "contains_0": true,
+      "point": 0.0
+    },
+    "U": {
+      "ci_hi": 0.0,
+      "ci_lo": 0.0,
+      "ci_width": 0.0,
+      "contains_0": true,
+      "point": 0.0
+    }
+  },
+  "bootstrap": {
+    "draws": 20000,
+    "seed": 20261120
+  },
+  "common_grid": {
+    "A2_minus_CD": {
+      "interval95": [
+        0.0008333333333333334,
+        0.005416666666666667
+      ],
+      "point": 0.002916666666666667,
+      "sign": "positive"
+    },
+    "G_B": {
+      "interval95": [
+        0.13333333333333333,
+        0.16583333333333333
+      ],
+      "point": 0.14916666666666667,
+      "sign": "positive"
+    }
+  },
+  "core_hours_used": 18.17799732356972,
+  "cstate_cells": {
+    "G_300": {
+      "by_snr": {
+        "1000": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "1100": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "500": {
+          "A2": {
+            "failures": 44,
+            "interval95": [
+              0.165,
+              0.28
+            ],
+            "keys": 200,
+            "point": 0.22
+          },
+          "C-hi": {
+            "failures": 5,
+            "interval95": [
+              0.005,
+              0.05
+            ],
+            "keys": 200,
+            "point": 0.025
+          },
+          "C-lo": {
+            "failures": 44,
+            "interval95": [
+              0.165,
+              0.28
+            ],
+            "keys": 200,
+            "point": 0.22
+          },
+          "CD": {
+            "failures": 5,
+            "interval95": [
+              0.005,
+              0.05
+            ],
+            "keys": 200,
+            "point": 0.025
+          },
+          "F0": {
+            "failures": 58,
+            "interval95": [
+              0.23,
+              0.355
+            ],
+            "keys": 200,
+            "point": 0.29
+          },
+          "U": {
+            "failures": 5,
+            "interval95": [
+              0.005,
+              0.05
+            ],
+            "keys": 200,
+            "point": 0.025
+          }
+        },
+        "550": {
+          "A2": {
+            "failures": 16,
+            "interval95": [
+              0.045,
+              0.12
+            ],
+            "keys": 200,
+            "point": 0.08
+          },
+          "C-hi": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "C-lo": {
+            "failures": 16,
+            "interval95": [
+              0.045,
+              0.12
+            ],
+            "keys": 200,
+            "point": 0.08
+          },
+          "CD": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "F0": {
+            "failures": 21,
+            "interval95": [
+              0.065,
+              0.15
+            ],
+            "keys": 200,
+            "point": 0.105
+          },
+          "U": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          }
+        },
+        "600": {
+          "A2": {
+            "failures": 4,
+            "interval95": [
+              0.005,
+              0.04
+            ],
+            "keys": 200,
+            "point": 0.02
+          },
+          "C-hi": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "C-lo": {
+            "failures": 4,
+            "interval95": [
+              0.005,
+              0.04
+            ],
+            "keys": 200,
+            "point": 0.02
+          },
+          "CD": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "F0": {
+            "failures": 11,
+            "interval95": [
+              0.025,
+              0.09
+            ],
+            "keys": 200,
+            "point": 0.055
+          },
+          "U": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          }
+        },
+        "700": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 2,
+            "interval95": [
+              0.0,
+              0.025
+            ],
+            "keys": 200,
+            "point": 0.01
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "800": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 2,
+            "interval95": [
+              0.0,
+              0.025
+            ],
+            "keys": 200,
+            "point": 0.01
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "900": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        }
+      },
+      "crossings": {
+        "A2": {
+          "interval95": [
+            5.842267561607136,
+            6.5
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.333333333333333,
+            6.333333333333333
+          ],
+          "right_censored_draws": 0
+        },
+        "C-hi": {
+          "interval95": [
+            "-inf",
+            6.226294385530917
+          ],
+          "left_censored_draws": 2370,
+          "point": [
+            5.284661720963303,
+            5.284661720963303
+          ],
+          "right_censored_draws": 0
+        },
+        "C-lo": {
+          "interval95": [
+            5.842267561607136,
+            6.5
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.333333333333333,
+            6.333333333333333
+          ],
+          "right_censored_draws": 0
+        },
+        "CD": {
+          "interval95": [
+            "-inf",
+            6.226294385530917
+          ],
+          "left_censored_draws": 2370,
+          "point": [
+            5.284661720963303,
+            5.284661720963303
+          ],
+          "right_censored_draws": 0
+        },
+        "F0": {
+          "interval95": [
+            6.442114108697741,
+            8.397940008672037
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            7.0,
+            7.0
+          ],
+          "right_censored_draws": 0
+        },
+        "U": {
+          "interval95": [
+            "-inf",
+            6.226294385530917
+          ],
+          "left_censored_draws": 2370,
+          "point": [
+            5.284661720963303,
+            5.284661720963303
+          ],
+          "right_censored_draws": 0
+        }
+      },
+      "pooled": {
+        "A2": {
+          "failures": 64,
+          "interval95": [
+            0.028749999999999998,
+            0.051875000000000004
+          ],
+          "keys": 1600,
+          "point": 0.04
+        },
+        "C-hi": {
+          "failures": 7,
+          "interval95": [
+            0.000625,
+            0.009375
+          ],
+          "keys": 1600,
+          "point": 0.004375
+        },
+        "C-lo": {
+          "failures": 64,
+          "interval95": [
+            0.028749999999999998,
+            0.051875000000000004
+          ],
+          "keys": 1600,
+          "point": 0.04
+        },
+        "CD": {
+          "failures": 7,
+          "interval95": [
+            0.000625,
+            0.009375
+          ],
+          "keys": 1600,
+          "point": 0.004375
+        },
+        "F0": {
+          "failures": 94,
+          "interval95": [
+            0.04375,
+            0.075
+          ],
+          "keys": 1600,
+          "point": 0.05875
+        },
+        "U": {
+          "failures": 7,
+          "interval95": [
+            0.000625,
+            0.009375
+          ],
+          "keys": 1600,
+          "point": 0.004375
+        }
+      }
+    },
+    "G_500": {
+      "by_snr": {
+        "1000": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "1100": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "500": {
+          "A2": {
+            "failures": 199,
+            "interval95": [
+              0.985,
+              1.0
+            ],
+            "keys": 200,
+            "point": 0.995
+          },
+          "C-hi": {
+            "failures": 198,
+            "interval95": [
+              0.975,
+              1.0
+            ],
+            "keys": 200,
+            "point": 0.99
+          },
+          "C-lo": {
+            "failures": 199,
+            "interval95": [
+              0.985,
+              1.0
+            ],
+            "keys": 200,
+            "point": 0.995
+          },
+          "CD": {
+            "failures": 198,
+            "interval95": [
+              0.975,
+              1.0
+            ],
+            "keys": 200,
+            "point": 0.99
+          },
+          "F0": {
+            "failures": 199,
+            "interval95": [
+              0.985,
+              1.0
+            ],
+            "keys": 200,
+            "point": 0.995
+          },
+          "U": {
+            "failures": 198,
+            "interval95": [
+              0.975,
+              1.0
+            ],
+            "keys": 200,
+            "point": 0.99
+          }
+        },
+        "550": {
+          "A2": {
+            "failures": 149,
+            "interval95": [
+              0.685,
+              0.805
+            ],
+            "keys": 200,
+            "point": 0.745
+          },
+          "C-hi": {
+            "failures": 120,
+            "interval95": [
+              0.53,
+              0.665
+            ],
+            "keys": 200,
+            "point": 0.6
+          },
+          "C-lo": {
+            "failures": 150,
+            "interval95": [
+              0.69,
+              0.81
+            ],
+            "keys": 200,
+            "point": 0.75
+          },
+          "CD": {
+            "failures": 120,
+            "interval95": [
+              0.53,
+              0.665
+            ],
+            "keys": 200,
+            "point": 0.6
+          },
+          "F0": {
+            "failures": 166,
+            "interval95": [
+              0.775,
+              0.88
+            ],
+            "keys": 200,
+            "point": 0.83
+          },
+          "U": {
+            "failures": 120,
+            "interval95": [
+              0.53,
+              0.665
+            ],
+            "keys": 200,
+            "point": 0.6
+          }
+        },
+        "600": {
+          "A2": {
+            "failures": 33,
+            "interval95": [
+              0.115,
+              0.215
+            ],
+            "keys": 200,
+            "point": 0.165
+          },
+          "C-hi": {
+            "failures": 18,
+            "interval95": [
+              0.05,
+              0.13
+            ],
+            "keys": 200,
+            "point": 0.09
+          },
+          "C-lo": {
+            "failures": 33,
+            "interval95": [
+              0.115,
+              0.215
+            ],
+            "keys": 200,
+            "point": 0.165
+          },
+          "CD": {
+            "failures": 18,
+            "interval95": [
+              0.05,
+              0.13
+            ],
+            "keys": 200,
+            "point": 0.09
+          },
+          "F0": {
+            "failures": 60,
+            "interval95": [
+              0.235,
+              0.365
+            ],
+            "keys": 200,
+            "point": 0.3
+          },
+          "U": {
+            "failures": 18,
+            "interval95": [
+              0.05,
+              0.13
+            ],
+            "keys": 200,
+            "point": 0.09
+          }
+        },
+        "650": {
+          "A2": {
+            "failures": 5,
+            "interval95": [
+              0.005,
+              0.05
+            ],
+            "keys": 200,
+            "point": 0.025
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 5,
+            "interval95": [
+              0.005,
+              0.05
+            ],
+            "keys": 200,
+            "point": 0.025
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 13,
+            "interval95": [
+              0.035,
+              0.1
+            ],
+            "keys": 200,
+            "point": 0.065
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "700": {
+          "A2": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 2,
+            "interval95": [
+              0.0,
+              0.025
+            ],
+            "keys": 200,
+            "point": 0.01
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "800": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "900": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        }
+      },
+      "crossings": {
+        "A2": {
+          "interval95": [
+            6.39907545670895,
+            7.226294385530917
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.784661720963303,
+            6.784661720963303
+          ],
+          "right_censored_draws": 0
+        },
+        "C-hi": {
+          "interval95": [
+            6.2686217868402405,
+            6.3245749364180455
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.306573596382729,
+            6.306573596382729
+          ],
+          "right_censored_draws": 0
+        },
+        "C-lo": {
+          "interval95": [
+            6.39907545670895,
+            7.226294385530917
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.784661720963303,
+            6.784661720963303
+          ],
+          "right_censored_draws": 0
+        },
+        "CD": {
+          "interval95": [
+            6.2686217868402405,
+            6.3245749364180455
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.306573596382729,
+            6.306573596382729
+          ],
+          "right_censored_draws": 0
+        },
+        "F0": {
+          "interval95": [
+            6.75,
+            7.3979400086720375
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            7.0,
+            7.0
+          ],
+          "right_censored_draws": 0
+        },
+        "U": {
+          "interval95": [
+            6.2686217868402405,
+            6.3245749364180455
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.306573596382729,
+            6.306573596382729
+          ],
+          "right_censored_draws": 0
+        }
+      },
+      "pooled": {
+        "A2": {
+          "failures": 387,
+          "interval95": [
+            0.2038888888888889,
+            0.22611111111111112
+          ],
+          "keys": 1800,
+          "point": 0.21499999999999997
+        },
+        "C-hi": {
+          "failures": 336,
+          "interval95": [
+            0.17666666666666667,
+            0.19666666666666666
+          ],
+          "keys": 1800,
+          "point": 0.18666666666666665
+        },
+        "C-lo": {
+          "failures": 388,
+          "interval95": [
+            0.20444444444444443,
+            0.22666666666666668
+          ],
+          "keys": 1800,
+          "point": 0.21555555555555556
+        },
+        "CD": {
+          "failures": 336,
+          "interval95": [
+            0.17666666666666667,
+            0.19666666666666666
+          ],
+          "keys": 1800,
+          "point": 0.18666666666666665
+        },
+        "F0": {
+          "failures": 440,
+          "interval95": [
+            0.23166666666666666,
+            0.25722222222222224
+          ],
+          "keys": 1800,
+          "point": 0.2444444444444444
+        },
+        "U": {
+          "failures": 336,
+          "interval95": [
+            0.17666666666666667,
+            0.19666666666666666
+          ],
+          "keys": 1800,
+          "point": 0.18666666666666665
+        }
+      }
+    },
+    "U_300": {
+      "by_snr": {
+        "1000": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "1100": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "500": {
+          "A2": {
+            "failures": 42,
+            "interval95": [
+              0.155,
+              0.27
+            ],
+            "keys": 200,
+            "point": 0.21
+          },
+          "C-hi": {
+            "failures": 4,
+            "interval95": [
+              0.005,
+              0.04
+            ],
+            "keys": 200,
+            "point": 0.02
+          },
+          "C-lo": {
+            "failures": 40,
+            "interval95": [
+              0.145,
+              0.255
+            ],
+            "keys": 200,
+            "point": 0.2
+          },
+          "CD": {
+            "failures": 4,
+            "interval95": [
+              0.005,
+              0.04
+            ],
+            "keys": 200,
+            "point": 0.02
+          },
+          "F0": {
+            "failures": 56,
+            "interval95": [
+              0.22,
+              0.345
+            ],
+            "keys": 200,
+            "point": 0.28
+          },
+          "U": {
+            "failures": 4,
+            "interval95": [
+              0.005,
+              0.04
+            ],
+            "keys": 200,
+            "point": 0.02
+          }
+        },
+        "550": {
+          "A2": {
+            "failures": 13,
+            "interval95": [
+              0.035,
+              0.1
+            ],
+            "keys": 200,
+            "point": 0.065
+          },
+          "C-hi": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "C-lo": {
+            "failures": 13,
+            "interval95": [
+              0.035,
+              0.1
+            ],
+            "keys": 200,
+            "point": 0.065
+          },
+          "CD": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "F0": {
+            "failures": 21,
+            "interval95": [
+              0.065,
+              0.15
+            ],
+            "keys": 200,
+            "point": 0.105
+          },
+          "U": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          }
+        },
+        "600": {
+          "A2": {
+            "failures": 4,
+            "interval95": [
+              0.005,
+              0.04
+            ],
+            "keys": 200,
+            "point": 0.02
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 5,
+            "interval95": [
+              0.005,
+              0.05
+            ],
+            "keys": 200,
+            "point": 0.025
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 8,
+            "interval95": [
+              0.015,
+              0.07
+            ],
+            "keys": 200,
+            "point": 0.04
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "700": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "800": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "900": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        }
+      },
+      "crossings": {
+        "A2": {
+          "interval95": [
+            5.821896406445989,
+            6.5
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.333333333333333,
+            6.333333333333333
+          ],
+          "right_censored_draws": 0
+        },
+        "C-hi": {
+          "interval95": [
+            "-inf",
+            5.613147192765458
+          ],
+          "left_censored_draws": 4687,
+          "point": [
+            5.25,
+            5.25
+          ],
+          "right_censored_draws": 0
+        },
+        "C-lo": {
+          "interval95": [
+            5.849485002168009,
+            6.537243573680482
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.3979400086720375,
+            6.3979400086720375
+          ],
+          "right_censored_draws": 0
+        },
+        "CD": {
+          "interval95": [
+            "-inf",
+            5.613147192765458
+          ],
+          "left_censored_draws": 4687,
+          "point": [
+            5.25,
+            5.25
+          ],
+          "right_censored_draws": 0
+        },
+        "F0": {
+          "interval95": [
+            6.226294385530917,
+            6.583970804646981
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.5,
+            6.5
+          ],
+          "right_censored_draws": 0
+        },
+        "U": {
+          "interval95": [
+            "-inf",
+            5.613147192765458
+          ],
+          "left_censored_draws": 4687,
+          "point": [
+            5.25,
+            5.25
+          ],
+          "right_censored_draws": 0
+        }
+      },
+      "pooled": {
+        "A2": {
+          "failures": 59,
+          "interval95": [
+            0.026250000000000002,
+            0.04875
+          ],
+          "keys": 1600,
+          "point": 0.036875000000000005
+        },
+        "C-hi": {
+          "failures": 5,
+          "interval95": [
+            0.000625,
+            0.006875
+          ],
+          "keys": 1600,
+          "point": 0.003125
+        },
+        "C-lo": {
+          "failures": 58,
+          "interval95": [
+            0.025625,
+            0.048125
+          ],
+          "keys": 1600,
+          "point": 0.036250000000000004
+        },
+        "CD": {
+          "failures": 5,
+          "interval95": [
+            0.000625,
+            0.006875
+          ],
+          "keys": 1600,
+          "point": 0.003125
+        },
+        "F0": {
+          "failures": 85,
+          "interval95": [
+            0.04,
+            0.0675
+          ],
+          "keys": 1600,
+          "point": 0.053125
+        },
+        "U": {
+          "failures": 5,
+          "interval95": [
+            0.000625,
+            0.006875
+          ],
+          "keys": 1600,
+          "point": 0.003125
+        }
+      }
+    },
+    "U_500": {
+      "by_snr": {
+        "1000": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "1100": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "500": {
+          "A2": {
+            "failures": 196,
+            "interval95": [
+              0.96,
+              0.995
+            ],
+            "keys": 200,
+            "point": 0.98
+          },
+          "C-hi": {
+            "failures": 194,
+            "interval95": [
+              0.945,
+              0.99
+            ],
+            "keys": 200,
+            "point": 0.97
+          },
+          "C-lo": {
+            "failures": 196,
+            "interval95": [
+              0.96,
+              0.995
+            ],
+            "keys": 200,
+            "point": 0.98
+          },
+          "CD": {
+            "failures": 194,
+            "interval95": [
+              0.945,
+              0.99
+            ],
+            "keys": 200,
+            "point": 0.97
+          },
+          "F0": {
+            "failures": 197,
+            "interval95": [
+              0.965,
+              1.0
+            ],
+            "keys": 200,
+            "point": 0.985
+          },
+          "U": {
+            "failures": 194,
+            "interval95": [
+              0.945,
+              0.99
+            ],
+            "keys": 200,
+            "point": 0.97
+          }
+        },
+        "550": {
+          "A2": {
+            "failures": 143,
+            "interval95": [
+              0.65,
+              0.775
+            ],
+            "keys": 200,
+            "point": 0.715
+          },
+          "C-hi": {
+            "failures": 106,
+            "interval95": [
+              0.46,
+              0.6
+            ],
+            "keys": 200,
+            "point": 0.53
+          },
+          "C-lo": {
+            "failures": 143,
+            "interval95": [
+              0.65,
+              0.775
+            ],
+            "keys": 200,
+            "point": 0.715
+          },
+          "CD": {
+            "failures": 106,
+            "interval95": [
+              0.46,
+              0.6
+            ],
+            "keys": 200,
+            "point": 0.53
+          },
+          "F0": {
+            "failures": 158,
+            "interval95": [
+              0.735,
+              0.845
+            ],
+            "keys": 200,
+            "point": 0.79
+          },
+          "U": {
+            "failures": 106,
+            "interval95": [
+              0.46,
+              0.6
+            ],
+            "keys": 200,
+            "point": 0.53
+          }
+        },
+        "600": {
+          "A2": {
+            "failures": 30,
+            "interval95": [
+              0.1,
+              0.2
+            ],
+            "keys": 200,
+            "point": 0.15
+          },
+          "C-hi": {
+            "failures": 13,
+            "interval95": [
+              0.035,
+              0.1
+            ],
+            "keys": 200,
+            "point": 0.065
+          },
+          "C-lo": {
+            "failures": 31,
+            "interval95": [
+              0.105,
+              0.205
+            ],
+            "keys": 200,
+            "point": 0.155
+          },
+          "CD": {
+            "failures": 13,
+            "interval95": [
+              0.035,
+              0.1
+            ],
+            "keys": 200,
+            "point": 0.065
+          },
+          "F0": {
+            "failures": 44,
+            "interval95": [
+              0.165,
+              0.28
+            ],
+            "keys": 200,
+            "point": 0.22
+          },
+          "U": {
+            "failures": 13,
+            "interval95": [
+              0.035,
+              0.1
+            ],
+            "keys": 200,
+            "point": 0.065
+          }
+        },
+        "650": {
+          "A2": {
+            "failures": 5,
+            "interval95": [
+              0.005,
+              0.05
+            ],
+            "keys": 200,
+            "point": 0.025
+          },
+          "C-hi": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "C-lo": {
+            "failures": 5,
+            "interval95": [
+              0.005,
+              0.05
+            ],
+            "keys": 200,
+            "point": 0.025
+          },
+          "CD": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "F0": {
+            "failures": 8,
+            "interval95": [
+              0.015,
+              0.07
+            ],
+            "keys": 200,
+            "point": 0.04
+          },
+          "U": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          }
+        },
+        "700": {
+          "A2": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 1,
+            "interval95": [
+              0.0,
+              0.015
+            ],
+            "keys": 200,
+            "point": 0.005
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 2,
+            "interval95": [
+              0.0,
+              0.025
+            ],
+            "keys": 200,
+            "point": 0.01
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "800": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        },
+        "900": {
+          "A2": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-hi": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "C-lo": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "CD": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "F0": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          },
+          "U": {
+            "failures": 0,
+            "interval95": [
+              0.0,
+              0.0
+            ],
+            "keys": 200,
+            "point": 0.0
+          }
+        }
+      },
+      "crossings": {
+        "A2": {
+          "interval95": [
+            6.395992701161745,
+            7.226294385530917
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.784661720963303,
+            6.784661720963303
+          ],
+          "right_censored_draws": 0
+        },
+        "C-hi": {
+          "interval95": [
+            6.237350464962806,
+            6.613147192765458
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.36488092278634,
+            6.36488092278634
+          ],
+          "right_censored_draws": 0
+        },
+        "C-lo": {
+          "interval95": [
+            6.397076583769783,
+            7.226294385530917
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.784661720963303,
+            6.784661720963303
+          ],
+          "right_censored_draws": 0
+        },
+        "CD": {
+          "interval95": [
+            6.237350464962806,
+            6.613147192765458
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.36488092278634,
+            6.36488092278634
+          ],
+          "right_censored_draws": 0
+        },
+        "F0": {
+          "interval95": [
+            6.666666666666667,
+            7.3979400086720375
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            7.0,
+            7.0
+          ],
+          "right_censored_draws": 0
+        },
+        "U": {
+          "interval95": [
+            6.237350464962806,
+            6.613147192765458
+          ],
+          "left_censored_draws": 0,
+          "point": [
+            6.36488092278634,
+            6.36488092278634
+          ],
+          "right_censored_draws": 0
+        }
+      },
+      "pooled": {
+        "A2": {
+          "failures": 375,
+          "interval95": [
+            0.19666666666666666,
+            0.22055555555555553
+          ],
+          "keys": 1800,
+          "point": 0.20833333333333331
+        },
+        "C-hi": {
+          "failures": 314,
+          "interval95": [
+            0.1638888888888889,
+            0.185
+          ],
+          "keys": 1800,
+          "point": 0.17444444444444446
+        },
+        "C-lo": {
+          "failures": 376,
+          "interval95": [
+            0.19722222222222222,
+            0.22055555555555556
+          ],
+          "keys": 1800,
+          "point": 0.20888888888888885
+        },
+        "CD": {
+          "failures": 314,
+          "interval95": [
+            0.1638888888888889,
+            0.185
+          ],
+          "keys": 1800,
+          "point": 0.17444444444444446
+        },
+        "F0": {
+          "failures": 409,
+          "interval95": [
+            0.21499999999999997,
+            0.23944444444444446
+          ],
+          "keys": 1800,
+          "point": 0.22722222222222221
+        },
+        "U": {
+          "failures": 314,
+          "interval95": [
+            0.1638888888888889,
+            0.185
+          ],
+          "keys": 1800,
+          "point": 0.17444444444444446
+        }
+      }
+    }
+  },
+  "cstate_clusters": 200,
+  "cstate_fer": {
+    "A2": 0.13014705882352942,
+    "C-hi": 0.09735294117647059,
+    "C-lo": 0.1302941176470588,
+    "CD": 0.09735294117647059,
+    "F0": 0.1511764705882353,
+    "U": 0.09735294117647059
+  },
+  "diagnostics": {
+    "cstate_support": {
+      "A2": {
+        "atom_count": {
+          "ci_hi": 8.0,
+          "ci_lo": 8.0,
+          "ci_width": 0.0,
+          "contains_0": false,
+          "point": 8.0
+        },
+        "co_delay_pairs": {
+          "ci_hi": 0.26838235294117646,
+          "ci_lo": 0.22544117647058823,
+          "ci_width": 0.04294117647058823,
+          "contains_0": false,
+          "point": 0.24661764705882352
+        }
+      },
+      "C-hi": {
+        "atom_count": {
+          "ci_hi": 8.0,
+          "ci_lo": 8.0,
+          "ci_width": 0.0,
+          "contains_0": false,
+          "point": 8.0
+        },
+        "co_delay_pairs": {
+          "ci_hi": 0.005294117647058823,
+          "ci_lo": 0.0014705882352941176,
+          "ci_width": 0.0038235294117647057,
+          "contains_0": false,
+          "point": 0.003235294117647059
+        }
+      },
+      "C-lo": {
+        "atom_count": {
+          "ci_hi": 8.0,
+          "ci_lo": 8.0,
+          "ci_width": 0.0,
+          "contains_0": false,
+          "point": 8.0
+        },
+        "co_delay_pairs": {
+          "ci_hi": 0.2676507352941173,
+          "ci_lo": 0.22588235294117648,
+          "ci_width": 0.041768382352940836,
+          "contains_0": false,
+          "point": 0.24661764705882352
+        }
+      },
+      "CD": {
+        "atom_count": {
+          "ci_hi": 8.0,
+          "ci_lo": 8.0,
+          "ci_width": 0.0,
+          "contains_0": false,
+          "point": 8.0
+        },
+        "co_delay_pairs": {
+          "ci_hi": 0.005294117647058823,
+          "ci_lo": 0.0014705882352941176,
+          "ci_width": 0.0038235294117647057,
+          "contains_0": false,
+          "point": 0.003235294117647059
+        }
+      },
+      "F0": {
+        "atom_count": {
+          "ci_hi": 8.0,
+          "ci_lo": 8.0,
+          "ci_width": 0.0,
+          "contains_0": false,
+          "point": 8.0
+        },
+        "co_delay_pairs": {
+          "ci_hi": 0.0,
+          "ci_lo": 0.0,
+          "ci_width": 0.0,
+          "contains_0": true,
+          "point": 0.0
+        }
+      },
+      "U": {
+        "atom_count": {
+          "ci_hi": 8.0,
+          "ci_lo": 8.0,
+          "ci_width": 0.0,
+          "contains_0": false,
+          "point": 8.0
+        },
+        "co_delay_pairs": {
+          "ci_hi": 0.005294117647058823,
+          "ci_lo": 0.0014705882352941176,
+          "ci_width": 0.0038235294117647057,
+          "contains_0": false,
+          "point": 0.003235294117647059
+        }
+      }
+    },
+    "first_edit": {
+      "A2": {
+        "P_among_triggers": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.9384309831181727,
+          "ci_lo": 0.8822947327884219,
+          "ci_width": 0.05613625032975089,
+          "contains_0": false,
+          "denominator": 1028,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.1511764705882353,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 937,
+          "point": 0.9114785992217898
+        },
+        "existing": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.9568347216963271,
+          "ci_lo": 0.9147058823529413,
+          "ci_width": 0.04212883934338585,
+          "contains_0": false,
+          "denominator": 1000,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.14705882352941177,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 937,
+          "point": 0.9369999999999999
+        },
+        "new": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.08529411764705883,
+          "ci_lo": 0.043165278303672845,
+          "ci_width": 0.04212883934338598,
+          "contains_0": false,
+          "denominator": 1000,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.14705882352941177,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 63,
+          "point": 0.06299999999999999
+        },
+        "triggered_without_accepted_edit": 28
+      },
+      "C-hi": {
+        "P_among_triggers": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.04114832535885168,
+          "ci_lo": 0.010100500977517106,
+          "ci_width": 0.03104782438133457,
+          "contains_0": false,
+          "denominator": 1028,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.1511764705882353,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 25,
+          "point": 0.02431906614785992
+        },
+        "existing": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.04835164835164835,
+          "ci_lo": 0.012062693109432206,
+          "ci_width": 0.03628895524221615,
+          "contains_0": false,
+          "denominator": 871,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.12808823529411764,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 25,
+          "point": 0.02870264064293915
+        },
+        "new": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.9879373068905677,
+          "ci_lo": 0.9516483516483516,
+          "ci_width": 0.03628895524221609,
+          "contains_0": false,
+          "denominator": 871,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.12808823529411764,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 846,
+          "point": 0.9712973593570609
+        },
+        "triggered_without_accepted_edit": 157
+      },
+      "C-lo": {
+        "P_among_triggers": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.9469551854497825,
+          "ci_lo": 0.8929245924102763,
+          "ci_width": 0.05403059303950619,
+          "contains_0": false,
+          "denominator": 1028,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.1511764705882353,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 947,
+          "point": 0.9212062256809337
+        },
+        "existing": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.9623040443129219,
+          "ci_lo": 0.9219367588932805,
+          "ci_width": 0.04036728541964141,
+          "contains_0": false,
+          "denominator": 1004,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.1476470588235294,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 947,
+          "point": 0.9432270916334661
+        },
+        "new": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.07806324110671936,
+          "ci_lo": 0.037695955687077926,
+          "ci_width": 0.040367285419641435,
+          "contains_0": false,
+          "denominator": 1004,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.1476470588235294,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 57,
+          "point": 0.05677290836653387
+        },
+        "triggered_without_accepted_edit": 24
+      },
+      "CD": {
+        "P_among_triggers": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.04114832535885168,
+          "ci_lo": 0.010100500977517106,
+          "ci_width": 0.03104782438133457,
+          "contains_0": false,
+          "denominator": 1028,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.1511764705882353,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 25,
+          "point": 0.02431906614785992
+        },
+        "existing": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.04835164835164835,
+          "ci_lo": 0.012062693109432206,
+          "ci_width": 0.03628895524221615,
+          "contains_0": false,
+          "denominator": 871,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.12808823529411764,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 25,
+          "point": 0.02870264064293915
+        },
+        "new": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.9879373068905677,
+          "ci_lo": 0.9516483516483516,
+          "ci_width": 0.03628895524221609,
+          "contains_0": false,
+          "denominator": 871,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.12808823529411764,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 846,
+          "point": 0.9712973593570609
+        },
+        "triggered_without_accepted_edit": 157
+      },
+      "U": {
+        "P_among_triggers": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.04114832535885168,
+          "ci_lo": 0.010100500977517106,
+          "ci_width": 0.03104782438133457,
+          "contains_0": false,
+          "denominator": 1028,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.1511764705882353,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 25,
+          "point": 0.02431906614785992
+        },
+        "existing": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.04835164835164835,
+          "ci_lo": 0.012062693109432206,
+          "ci_width": 0.03628895524221615,
+          "contains_0": false,
+          "denominator": 871,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.12808823529411764,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 25,
+          "point": 0.02870264064293915
+        },
+        "new": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.9879373068905677,
+          "ci_lo": 0.9516483516483516,
+          "ci_width": 0.03628895524221609,
+          "contains_0": false,
+          "denominator": 871,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 0.12808823529411764,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "numerator": 846,
+          "point": 0.9712973593570609
+        },
+        "triggered_without_accepted_edit": 157
+      }
+    },
+    "projector_census": {
+      "C-hi/scored": {
+        "ci_condition": "bootstrap denominator > 0",
+        "ci_hi": 0.013156381399460456,
+        "ci_lo": 0.013084267032941884,
+        "ci_width": 7.21143665185723e-05,
+        "contains_0": false,
+        "denominator": 39119400,
+        "denominator_nonpositive_fraction": 0.0,
+        "denominator_point": 5752.85294117647,
+        "evaluable": true,
+        "failure_limit": 0.01,
+        "numerator": 513271,
+        "point": 0.013120625571966851
+      },
+      "C-hi/valid": {
+        "ci_condition": "bootstrap denominator > 0",
+        "ci_hi": 0.0130025884543091,
+        "ci_lo": 0.012930366856707827,
+        "ci_width": 7.222159760127307e-05,
+        "contains_0": false,
+        "denominator": 39113303,
+        "denominator_nonpositive_fraction": 0.0,
+        "denominator_point": 5751.956323529412,
+        "evaluable": true,
+        "failure_limit": 0.01,
+        "numerator": 507174,
+        "point": 0.012966790352632708
+      },
+      "C-lo/scored": {
+        "ci_condition": "bootstrap denominator > 0",
+        "ci_hi": 0.3658222323321298,
+        "ci_lo": 0.3486856108082444,
+        "ci_width": 0.017136621523885398,
+        "contains_0": false,
+        "denominator": 41859200,
+        "denominator_nonpositive_fraction": 0.0,
+        "denominator_point": 6155.764705882353,
+        "evaluable": true,
+        "failure_limit": 0.01,
+        "numerator": 14972787,
+        "point": 0.3576940553092271
+      },
+      "C-lo/valid": {
+        "ci_condition": "bootstrap denominator > 0",
+        "ci_hi": 0.3657152095519777,
+        "ci_lo": 0.3485763859207593,
+        "ci_width": 0.017138823631218436,
+        "contains_0": false,
+        "denominator": 41852172,
+        "denominator_nonpositive_fraction": 0.0,
+        "denominator_point": 6154.731176470588,
+        "evaluable": true,
+        "failure_limit": 0.01,
+        "numerator": 14965759,
+        "point": 0.357586196482228
+      },
+      "U/scored": {
+        "ci_condition": "bootstrap denominator > 0",
+        "ci_hi": 0.013156381399460456,
+        "ci_lo": 0.013084267032941884,
+        "ci_width": 7.21143665185723e-05,
+        "contains_0": false,
+        "denominator": 39119400,
+        "denominator_nonpositive_fraction": 0.0,
+        "denominator_point": 5752.85294117647,
+        "evaluable": true,
+        "failure_limit": 0.01,
+        "numerator": 513271,
+        "point": 0.013120625571966851
+      },
+      "U/valid": {
+        "ci_condition": "bootstrap denominator > 0",
+        "ci_hi": 0.0130025884543091,
+        "ci_lo": 0.012930366856707827,
+        "ci_width": 7.222159760127307e-05,
+        "contains_0": false,
+        "denominator": 39113303,
+        "denominator_nonpositive_fraction": 0.0,
+        "denominator_point": 5751.956323529412,
+        "evaluable": true,
+        "failure_limit": 0.01,
+        "numerator": 507174,
+        "point": 0.012966790352632708
+      },
+      "U_CD_different": {
+        "ci_condition": "bootstrap denominator > 0",
+        "ci_hi": 0.0,
+        "ci_lo": 0.0,
+        "ci_width": 0.0,
+        "contains_0": true,
+        "denominator": 6800,
+        "denominator_nonpositive_fraction": 0.0,
+        "denominator_point": 1.0,
+        "evaluable": true,
+        "failure_limit": 0.01,
+        "numerator": 0,
+        "point": 0.0
+      },
+      "true_close_among_U_CD_different": {
+        "ci_condition": "bootstrap denominator > 0",
+        "ci_hi": null,
+        "ci_lo": null,
+        "ci_width": null,
+        "contains_0": null,
+        "denominator": 0,
+        "denominator_nonpositive_fraction": 1.0,
+        "denominator_point": 0.0,
+        "evaluable": false,
+        "failure_limit": 0.01,
+        "numerator": 0,
+        "point": null
+      }
+    },
+    "sbl": {
+      "R0": {
+        "beta": {
+          "ci_hi": 5.8857638164429815,
+          "ci_lo": 5.677976949320194,
+          "ci_width": 0.20778686712278738,
+          "contains_0": false,
+          "point": 5.7782747885597265
+        },
+        "converged": {
+          "ci_hi": 0.39416666666666667,
+          "ci_lo": 0.3545833333333333,
+          "ci_width": 0.03958333333333336,
+          "contains_0": false,
+          "point": 0.37416666666666665
+        },
+        "iterations": {
+          "ci_hi": 96.12459375,
+          "ci_lo": 95.38416666666667,
+          "ci_width": 0.74042708333333,
+          "contains_0": false,
+          "point": 95.76416666666667
+        },
+        "n_atoms": {
+          "ci_hi": 23.785833333333333,
+          "ci_lo": 23.551666666666666,
+          "ci_width": 0.23416666666666686,
+          "contains_0": false,
+          "point": 23.675
+        },
+        "n_pair": {
+          "ci_hi": 28.442916666666665,
+          "ci_lo": 27.616656250000002,
+          "ci_width": 0.8262604166666634,
+          "contains_0": false,
+          "point": 28.02125
+        },
+        "nmse": {
+          "ci_hi": 0.04098471589054723,
+          "ci_lo": 0.037206480275476794,
+          "ci_width": 0.003778235615070437,
+          "contains_0": false,
+          "point": 0.039074692737587305
+        }
+      },
+      "R1": {
+        "beta": {
+          "ci_hi": 4.756811566532441,
+          "ci_lo": 4.531558518709953,
+          "ci_width": 0.22525304782248856,
+          "contains_0": false,
+          "point": 4.639912294966589
+        },
+        "converged": {
+          "ci_hi": 0.06791666666666667,
+          "ci_lo": 0.03666666666666667,
+          "ci_width": 0.03125,
+          "contains_0": false,
+          "point": 0.051666666666666666
+        },
+        "iterations": {
+          "ci_hi": 99.65375,
+          "ci_lo": 99.24332291666667,
+          "ci_width": 0.41042708333333167,
+          "contains_0": false,
+          "point": 99.4625
+        },
+        "n_atoms": {
+          "ci_hi": 22.90041666666667,
+          "ci_lo": 22.48875,
+          "ci_width": 0.41166666666666885,
+          "contains_0": false,
+          "point": 22.699166666666667
+        },
+        "n_pair": {
+          "ci_hi": 5.2275,
+          "ci_lo": 4.94625,
+          "ci_width": 0.28125,
+          "contains_0": false,
+          "point": 5.084583333333334
+        },
+        "nmse": {
+          "ci_hi": 0.0810265200143103,
+          "ci_lo": 0.07563442449728171,
+          "ci_width": 0.005392095517028586,
+          "contains_0": false,
+          "point": 0.07832005803469844
+        }
+      },
+      "S-hi": {
+        "beta": {
+          "ci_hi": 4.442647984883437,
+          "ci_lo": 4.212255850531379,
+          "ci_width": 0.23039213435205763,
+          "contains_0": false,
+          "point": 4.323092045083119
+        },
+        "converged": {
+          "ci_hi": 0.058333333333333334,
+          "ci_lo": 0.030416666666666668,
+          "ci_width": 0.027916666666666666,
+          "contains_0": false,
+          "point": 0.04375
+        },
+        "iterations": {
+          "ci_hi": 99.7475,
+          "ci_lo": 99.41833333333334,
+          "ci_width": 0.3291666666666657,
+          "contains_0": false,
+          "point": 99.59458333333333
+        },
+        "n_atoms": {
+          "ci_hi": 22.62125,
+          "ci_lo": 22.191666666666666,
+          "ci_width": 0.42958333333333343,
+          "contains_0": false,
+          "point": 22.41
+        },
+        "n_pair": {
+          "ci_hi": 5.182916666666666,
+          "ci_lo": 4.902083333333334,
+          "ci_width": 0.2808333333333328,
+          "contains_0": false,
+          "point": 5.040416666666666
+        },
+        "nmse": {
+          "ci_hi": 0.08048180226167118,
+          "ci_lo": 0.07510084418576624,
+          "ci_width": 0.00538095807590494,
+          "contains_0": false,
+          "point": 0.07778007124876157
+        }
+      },
+      "S-isolo": {
+        "beta": {
+          "ci_hi": 4.384175675518549,
+          "ci_lo": 4.152626807614313,
+          "ci_width": 0.23154886790423568,
+          "contains_0": false,
+          "point": 4.263773752545952
+        },
+        "converged": {
+          "ci_hi": 0.009583333333333333,
+          "ci_lo": 0.0020833333333333333,
+          "ci_width": 0.0075,
+          "contains_0": false,
+          "point": 0.005416666666666667
+        },
+        "iterations": {
+          "ci_hi": 99.99458333333334,
+          "ci_lo": 99.93833333333333,
+          "ci_width": 0.056250000000005684,
+          "contains_0": false,
+          "point": 99.97083333333333
+        },
+        "n_atoms": {
+          "ci_hi": 23.782916666666665,
+          "ci_lo": 23.54875,
+          "ci_width": 0.23416666666666686,
+          "contains_0": false,
+          "point": 23.672083333333333
+        },
+        "n_pair": {
+          "ci_hi": 20.135427083333333,
+          "ci_lo": 19.54875,
+          "ci_width": 0.5866770833333348,
+          "contains_0": false,
+          "point": 19.843333333333334
+        },
+        "nmse": {
+          "ci_hi": 0.06560371478260278,
+          "ci_lo": 0.060842886554202405,
+          "ci_width": 0.004760828228400377,
+          "contains_0": false,
+          "point": 0.06320344733993467
+        }
+      },
+      "S-lo": {
+        "beta": {
+          "ci_hi": 4.556769128430285,
+          "ci_lo": 4.327631162199989,
+          "ci_width": 0.22913796623029636,
+          "contains_0": false,
+          "point": 4.43786621488626
+        },
+        "converged": {
+          "ci_hi": 0.03666666666666667,
+          "ci_lo": 0.014583333333333334,
+          "ci_width": 0.022083333333333333,
+          "contains_0": false,
+          "point": 0.025
+        },
+        "iterations": {
+          "ci_hi": 99.94666666666667,
+          "ci_lo": 99.83,
+          "ci_width": 0.11666666666667425,
+          "contains_0": false,
+          "point": 99.89416666666666
+        },
+        "n_atoms": {
+          "ci_hi": 23.785833333333333,
+          "ci_lo": 23.551666666666666,
+          "ci_width": 0.23416666666666686,
+          "contains_0": false,
+          "point": 23.675
+        },
+        "n_pair": {
+          "ci_hi": 24.094593749999998,
+          "ci_lo": 23.37875,
+          "ci_width": 0.7158437499999977,
+          "contains_0": false,
+          "point": 23.73375
+        },
+        "nmse": {
+          "ci_hi": 0.06254024237157667,
+          "ci_lo": 0.05786599703375309,
+          "ci_width": 0.004674245337823575,
+          "contains_0": false,
+          "point": 0.0601733938023902
+        }
+      },
+      "U2": {
+        "beta": {
+          "ci_hi": 4.556769128430285,
+          "ci_lo": 4.327631162199989,
+          "ci_width": 0.22913796623029636,
+          "contains_0": false,
+          "point": 4.43786621488626
+        },
+        "converged": {
+          "ci_hi": 0.03666666666666667,
+          "ci_lo": 0.014583333333333334,
+          "ci_width": 0.022083333333333333,
+          "contains_0": false,
+          "point": 0.025
+        },
+        "iterations": {
+          "ci_hi": 99.94666666666667,
+          "ci_lo": 99.83,
+          "ci_width": 0.11666666666667425,
+          "contains_0": false,
+          "point": 99.89416666666666
+        },
+        "n_atoms": {
+          "ci_hi": 23.785833333333333,
+          "ci_lo": 23.551666666666666,
+          "ci_width": 0.23416666666666686,
+          "contains_0": false,
+          "point": 23.675
+        },
+        "n_pair": {
+          "ci_hi": 24.094593749999998,
+          "ci_lo": 23.37875,
+          "ci_width": 0.7158437499999977,
+          "contains_0": false,
+          "point": 23.73375
+        },
+        "nmse": {
+          "ci_hi": 0.05985981559380606,
+          "ci_lo": 0.055207513313459605,
+          "ci_width": 0.0046523022803464514,
+          "contains_0": false,
+          "point": 0.05750206838317098
+        }
+      }
+    },
+    "triggered_keys": 1028
+  },
+  "keys": {
+    "cstate": 6800,
+    "sbl": 2400
+  },
+  "margin": 0.005,
+  "metrics": {
+    "A2_minus_CD": {
+      "ci_hi": 0.037352941176470575,
+      "ci_lo": 0.028382352941176484,
+      "ci_width": 0.008970588235294091,
+      "contains_0": false,
+      "point": 0.032794117647058835
+    },
+    "G_B": {
+      "ci_hi": 0.16583333333333333,
+      "ci_lo": 0.13333333333333333,
+      "ci_width": 0.0325,
+      "contains_0": false,
+      "point": 0.14916666666666667
+    },
+    "H": {
+      "ci_hi": -0.0037500000000000033,
+      "ci_lo": -0.014583333333333337,
+      "ci_width": 0.010833333333333334,
+      "contains_0": false,
+      "point": -0.00916666666666667
+    },
+    "admission": {
+      "evaluable": true,
+      "gap": {
+        "ci_hi": 1.0,
+        "ci_lo": 1.0,
+        "ci_width": 0.0,
+        "contains_0": false,
+        "point": 1.0
+      },
+      "n_frame_clusters": 196,
+      "n_units": 936,
+      "pi": {
+        "C-hi": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 1.0,
+          "ci_lo": 1.0,
+          "ci_width": 0.0,
+          "contains_0": false,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 1.0,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "point": 1.0
+        },
+        "C-lo": {
+          "ci_condition": "bootstrap denominator > 0",
+          "ci_hi": 0.0,
+          "ci_lo": 0.0,
+          "ci_width": 0.0,
+          "contains_0": true,
+          "denominator_nonpositive_fraction": 0.0,
+          "denominator_point": 1.0,
+          "evaluable": true,
+          "failure_limit": 0.01,
+          "point": 0.0
+        }
+      },
+      "preference_rates": {
+        "A2": 1.0,
+        "C-hi": 0.0,
+        "C-lo": 1.0,
+        "CD": 0.0,
+        "U": 0.0
+      }
+    },
+    "delta_C_hi_CD": {
+      "candidate_only_failure_clusters": 0,
+      "ci_hi": 0.0004372658597432805,
+      "ci_lo": null,
+      "ci_width": null,
+      "contains_0": null,
+      "cp95_upper": 0.014867039231271539,
+      "discordant_frame_clusters": 0,
+      "keys_per_frame": 34,
+      "max_harm_keys_per_frame_assumed": 1,
+      "method": "one-sided 95% Clopper\u2013Pearson upper bound",
+      "n_frame_clusters": 200,
+      "point": 0.0,
+      "reference_only_failure_clusters": 0
+    },
+    "delta_UA": {
+      "ci_hi": -0.028382352941176484,
+      "ci_lo": -0.037352941176470575,
+      "ci_width": 0.008970588235294091,
+      "contains_0": false,
+      "point": -0.032794117647058835
+    },
+    "delta_UC": {
+      "candidate_only_failure_clusters": 0,
+      "ci_hi": 0.0004372658597432805,
+      "ci_lo": null,
+      "ci_width": null,
+      "contains_0": null,
+      "cp95_upper": 0.014867039231271539,
+      "discordant_frame_clusters": 0,
+      "keys_per_frame": 34,
+      "max_harm_keys_per_frame_assumed": 1,
+      "method": "one-sided 95% Clopper\u2013Pearson upper bound",
+      "n_frame_clusters": 200,
+      "point": 0.0,
+      "reference_only_failure_clusters": 0
+    },
+    "delta_lo": {
+      "ci_hi": 0.0175,
+      "ci_lo": 0.0050000000000000044,
+      "ci_width": 0.012499999999999997,
+      "contains_0": false,
+      "point": 0.011249999999999996
+    },
+    "phi_U2": {
+      "ci_condition": "bootstrap denominator > 0",
+      "ci_hi": 0.8749999999999999,
+      "ci_lo": 0.7746022570878064,
+      "ci_width": 0.1003977429121935,
+      "contains_0": false,
+      "denominator_nonpositive_fraction": 0.0,
+      "denominator_point": 0.14916666666666667,
+      "evaluable": true,
+      "failure_limit": 0.01,
+      "point": 0.8240223463687151
+    },
+    "phi_hi": {
+      "ci_condition": "bootstrap denominator > 0",
+      "ci_hi": 0.07670454545454533,
+      "ci_lo": 0.008064516129032265,
+      "ci_width": 0.06864002932551307,
+      "contains_0": false,
+      "denominator_nonpositive_fraction": 0.0,
+      "denominator_point": 0.14916666666666667,
+      "evaluable": true,
+      "failure_limit": 0.01,
+      "point": 0.04189944134078216
+    },
+    "phi_lo": {
+      "ci_condition": "bootstrap denominator > 0",
+      "ci_hi": 0.8158657737446687,
+      "ci_lo": 0.7105245519966135,
+      "ci_width": 0.10534122174805527,
+      "contains_0": false,
+      "denominator_nonpositive_fraction": 0.0,
+      "denominator_point": 0.14916666666666667,
+      "evaluable": true,
+      "failure_limit": 0.01,
+      "point": 0.7625698324022346
+    },
+    "psi": {
+      "C-hi": {
+        "ci_condition": "bootstrap denominator > 0",
+        "ci_hi": 1.0,
+        "ci_lo": 1.0,
+        "ci_width": 0.0,
+        "contains_0": false,
+        "denominator_nonpositive_fraction": 0.0,
+        "denominator_point": 0.032794117647058835,
+        "evaluable": true,
+        "failure_limit": 0.01,
+        "point": 1.0
+      },
+      "C-lo": {
+        "ci_condition": "bootstrap denominator > 0",
+        "ci_hi": 0.01877934272300445,
+        "ci_lo": -0.028227708460134077,
+        "ci_width": 0.047007051183138526,
+        "contains_0": true,
+        "denominator_nonpositive_fraction": 0.0,
+        "denominator_point": 0.032794117647058835,
+        "evaluable": true,
+        "failure_limit": 0.01,
+        "point": -0.004484304932734731
+      }
+    }
+  },
+  "sbl_clusters": 200,
+  "sbl_fer": {
+    "R0": 0.04083333333333333,
+    "R1": 0.19,
+    "S-hi": 0.18375,
+    "S-isolo": 0.0875,
+    "S-lo": 0.07625,
+    "U2": 0.06708333333333333
+  },
+  "secondary": {
+    "S-lo_minus_R0": {
+      "ci_hi": 0.04499999999999999,
+      "ci_lo": 0.026250000000000002,
+      "ci_width": 0.01874999999999999,
+      "contains_0": false,
+      "point": 0.035416666666666666
+    },
+    "U2_minus_R0": {
+      "ci_hi": 0.034999999999999996,
+      "ci_lo": 0.017916666666666664,
+      "ci_width": 0.017083333333333332,
+      "contains_0": false,
+      "point": 0.026249999999999996
+    },
+    "U2_minus_S-lo": {
+      "ci_hi": -0.0037500000000000033,
+      "ci_lo": -0.014583333333333337,
+      "ci_width": 0.010833333333333334,
+      "contains_0": false,
+      "point": -0.00916666666666667
+    }
+  },
+  "verdicts": {
+    "C_hi_vs_CD": "non-inferior",
+    "H": "beneficial",
+    "V1": "prospective intervention-level support",
+    "V2": "recovers",
+    "V3": "non-inferior",
+    "V4": "superior",
+    "V5": {
+      "C-hi": "carries",
+      "C-lo": "insufficient alone",
+      "verdict": "mirror supports"
+    },
+    "V5_adm": {
+      "C-hi": "carries",
+      "C-lo": "insufficient alone",
+      "verdict": "mirror supports"
+    },
+    "hi": "insufficient alone",
+    "layers": {
+      "joint_claim": "supported",
+      "operational_compatibility": "supported",
+      "spectral_mechanism": "supported"
+    },
+    "lo": "carries",
+    "prerequisites": {
+      "A2_minus_CD": "established",
+      "G_B": "established"
+    },
+    "shape": "projector superior",
+    "v5_primary": "fer",
+    "v5_primary_verdict": "mirror supports"
+  },
+  "whole_grid_fer_ci": {
+    "cstate": {
+      "A2": {
+        "ci_hi": 0.1375,
+        "ci_lo": 0.12308823529411765,
+        "ci_width": 0.01441176470588236,
+        "contains_0": false,
+        "point": 0.13014705882352942
+      },
+      "C-hi": {
+        "ci_hi": 0.10220588235294117,
+        "ci_lo": 0.09264705882352942,
+        "ci_width": 0.009558823529411759,
+        "contains_0": false,
+        "point": 0.09735294117647059
+      },
+      "C-lo": {
+        "ci_hi": 0.13779411764705882,
+        "ci_lo": 0.12308823529411765,
+        "ci_width": 0.014705882352941166,
+        "contains_0": false,
+        "point": 0.1302941176470588
+      },
+      "CD": {
+        "ci_hi": 0.10220588235294117,
+        "ci_lo": 0.09264705882352942,
+        "ci_width": 0.009558823529411759,
+        "contains_0": false,
+        "point": 0.09735294117647059
+      },
+      "F0": {
+        "ci_hi": 0.1598529411764706,
+        "ci_lo": 0.14279411764705882,
+        "ci_width": 0.017058823529411765,
+        "contains_0": false,
+        "point": 0.1511764705882353
+      },
+      "U": {
+        "ci_hi": 0.10220588235294117,
+        "ci_lo": 0.09264705882352942,
+        "ci_width": 0.009558823529411759,
+        "contains_0": false,
+        "point": 0.09735294117647059
+      }
+    },
+    "sbl": {
+      "R0": {
+        "ci_hi": 0.052083333333333336,
+        "ci_lo": 0.030416666666666668,
+        "ci_width": 0.021666666666666667,
+        "contains_0": false,
+        "point": 0.04083333333333333
+      },
+      "R1": {
+        "ci_hi": 0.21125,
+        "ci_lo": 0.16958333333333334,
+        "ci_width": 0.04166666666666666,
+        "contains_0": false,
+        "point": 0.19
+      },
+      "S-hi": {
+        "ci_hi": 0.20416666666666666,
+        "ci_lo": 0.16375,
+        "ci_width": 0.040416666666666656,
+        "contains_0": false,
+        "point": 0.18375
+      },
+      "S-isolo": {
+        "ci_hi": 0.10291666666666667,
+        "ci_lo": 0.07291666666666667,
+        "ci_width": 0.03,
+        "contains_0": false,
+        "point": 0.0875
+      },
+      "S-lo": {
+        "ci_hi": 0.09,
+        "ci_lo": 0.06333333333333334,
+        "ci_width": 0.026666666666666658,
+        "contains_0": false,
+        "point": 0.07625
+      },
+      "U2": {
+        "ci_hi": 0.08,
+        "ci_lo": 0.055,
+        "ci_width": 0.025,
+        "contains_0": false,
+        "point": 0.06708333333333333
+      }
+    }
+  }
+}

@@ -133,13 +133,36 @@ def main():
                     help='Seed of the shared LDPC code AND of the per-frame '
                          'info-bit RNG stream (mixed with seed_fi).')
     ap.add_argument('--out', required=True)
+    ap.add_argument('--require-cuda', action='store_true',
+                    help='Fail instead of using CPU when CUDA is unavailable.')
+    ap.add_argument('--trace-jsonl', action='store_true',
+                    help='Record source-frame hashes and complete per-arm coded receiver timings.')
+    ap.add_argument('--arm-order-seed', type=int, default=None,
+                    help='Randomize arm order independently of frame generation.')
     args = ap.parse_args()
 
+    if args.require_cuda and not torch.cuda.is_available():
+        raise RuntimeError('--require-cuda requested but CUDA is unavailable')
     if args.max_frames is not None:
         args.frames_per_snr = int(args.max_frames)
 
     out = pathlib.Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
+    trace_path = out / 'frames.jsonl'
+    if args.trace_jsonl:
+        trace_path.touch(exist_ok=False)
+
+    def _synchronize():
+        if args.trace_jsonl and torch.cuda.is_available():
+            torch.cuda.synchronize()
+
+    def _hash_array(value):
+        array = np.ascontiguousarray(value)
+        digest = hashlib.sha256()
+        digest.update(str(array.dtype).encode())
+        digest.update(str(array.shape).encode())
+        digest.update(array.tobytes())
+        return digest.hexdigest()
 
     # ---- system setup (copied from paired_learned_eval.py:377-398) ---------
     sys_obj = _make_system_variable_N(args.n_total, rho=0.5)
@@ -218,14 +241,12 @@ def main():
     # ---- restricted to the geom / achievable scorers used by E1) -----------
     from afdm_sp_joint_unrolled.afdm_baselines import construct_sensing_matrix as _csm
     from afdm_sp_joint_unrolled.afdm_baselines import omp_sparse as _omp
-    from afdm_sp_joint_unrolled.decision_harvest import harvest_frame as _hf
-    from afdm_sp_joint_unrolled.decision_bound import build_fine_prior as _bfp
     from afdm_sp_joint_unrolled.decision_gateA import (
-        make_pure_geom as _mk_geom, make_genie_lambda as _mk_genie, _NEG_INF)
+        make_pure_geom as _mk_geom, make_genie_lambda as _mk_genie, _NEG_INF,
+        calibrate_fine_prior)
     _Kpl = 2 * sys_obj.k_max_cap + 1
     _Phi_calib = _csm(args.n_total, pilot_scaled, sys_obj.c1, sys_obj.c2,
                       sys_obj.l_max_cap, sys_obj.k_max_cap)
-    _coln = np.linalg.norm(_Phi_calib, axis=0)
     _gateA_M = int(args.cand_topm or 96)
     _gateA_tau = _NEG_INF   # topk mode — all arms apples-to-apples
     print(f'[gateA] scorer={args.gateA_scorer} tau=topk({_gateA_tau}) '
@@ -233,20 +254,9 @@ def main():
 
     def _gateA_lookup_for(snr):
         sig2 = 1.0 / (10 ** (snr / 10.0))
-        rngc = np.random.default_rng(args.seed + 7000 + int(snr))
-        DL, DK, G, Y, GG = [], [], [], [], []
-        got = 0
-        while got < args.gateA_calib_frames:
-            rr = _hf(sys_obj, args.n_total, sig2, _Phi_calib, _coln, _Kpl,
-                     _gateA_M, int(rngc.integers(0, 2**31)), rho)
-            if rr is None:
-                continue
-            DL.append(rr['dl_nn']); DK.append(rr['dk_nn']); G.append(rr['g_nn'])
-            Y.append(rr['y']); GG.append(rr['genie_gain_sq']); got += 1
-        DL = np.concatenate(DL); DK = np.concatenate(DK); G = np.concatenate(G)
-        Y = np.concatenate(Y); GG = np.concatenate(GG)
-        ge = np.quantile(G, [1 / 3, 2 / 3])
-        lk, _ = _bfp(DL, DK, G, Y, GG, ge, min_count=30)
+        lk, _ = calibrate_fine_prior(
+            sys_obj, args.n_total, _Phi_calib, _Kpl, _gateA_M, sig2,
+            args.seed + 7000 + int(snr), args.gateA_calib_frames)
         return lk
 
     print(f"[E1_CONFIG] variant={args.variant} scorer={args.gateA_scorer} "
@@ -325,6 +335,9 @@ def main():
         ldpc_cache=str(code['cache_path']),
         llr_amp=float(amp), llr_clip=20.0,
         with_pcsi=bool(args.with_pcsi),
+        trace_jsonl=bool(args.trace_jsonl),
+        arm_order_seed=args.arm_order_seed,
+        require_cuda=bool(args.require_cuda),
         _detector_binding=detector_binding,
         _git=git_fp,
     )
@@ -436,65 +449,124 @@ def main():
                      + 1j * rng.standard_normal(args.n_total)) / np.sqrt(2.0)
             y_daft = y + np.sqrt(sigma2) * noise
 
-            # -- arm 1: classical (paired_learned_eval.py:624-632) + soft
-            # posteriors via return_soft=True (afdm_baselines.py:805-828;
-            # the extra final BP pass leaves x/H unchanged, so raw errors
-            # keep the original counting convention). --
-            x_c, H_c, mu_c, var_c = joint_omp_mp_iterative(
-                y_daft, pilot_scaled, args.n_total, sys_obj.c1, sys_obj.c2,
-                sys_obj.l_max_cap, sys_obj.k_max_cap,
-                sigma2, const_data, n_paths=sparsity,
-                n_outer_iter=int(args.n_outer_iter), rho=rho,
-                pic_iter=20, pic_damp=args.pic_damp, mp_mode=args.mp_mode,
-                gamma_h=0.7, gamma_x=0.6, lambda_ls_factor=1e-3,
-                tau_h_factor=0.01, tau_h_sigma_factor=0.1, threshold_mp=1e-4,
-                k_leak=2, update_sigma2=True, phase_convention='python',
-                eps_stop_rel=-1.0, return_soft=True)
-            b_c = _bits_of_symbol(x_c / np.sqrt(P_d), args.n_total)
-            ec = int((b_c != bits_true).sum())
-            llr_c = demap_llr(np.asarray(mu_c), np.asarray(var_c), amp)
-            dec_c, ok_c = decode_llr(code, llr_c, maxiter=_LDPC_MAXITER)
-            e_info_c = int((extract_info(code, dec_c) != info_bits).sum())
+            def run_classical():
+                # -- arm 1: classical (paired_learned_eval.py:624-632) + soft
+                # posteriors via return_soft=True (afdm_baselines.py:805-828;
+                # the extra final BP pass leaves x/H unchanged, so raw errors
+                # keep the original counting convention). --
+                x_c, H_c, mu_c, var_c = joint_omp_mp_iterative(
+                    y_daft, pilot_scaled, args.n_total, sys_obj.c1, sys_obj.c2,
+                    sys_obj.l_max_cap, sys_obj.k_max_cap,
+                    sigma2, const_data, n_paths=sparsity,
+                    n_outer_iter=int(args.n_outer_iter), rho=rho,
+                    pic_iter=20, pic_damp=args.pic_damp, mp_mode=args.mp_mode,
+                    gamma_h=0.7, gamma_x=0.6, lambda_ls_factor=1e-3,
+                    tau_h_factor=0.01, tau_h_sigma_factor=0.1, threshold_mp=1e-4,
+                    k_leak=2, update_sigma2=True, phase_convention='python',
+                    eps_stop_rel=-1.0, return_soft=True)
+                b_c = _bits_of_symbol(x_c / np.sqrt(P_d), args.n_total)
+                ec = int((b_c != bits_true).sum())
+                llr_c = demap_llr(np.asarray(mu_c), np.asarray(var_c), amp)
+                dec_c, ok_c = decode_llr(code, llr_c, maxiter=_LDPC_MAXITER)
+                e_info_c = int((extract_info(code, dec_c) != info_bits).sum())
+                if args.trace_jsonl:
+                    for name, value in [('x', x_c), ('H', H_c), ('mu', mu_c), ('var', var_c)]:
+                        if not np.isfinite(value).all():
+                            raise FloatingPointError(f'classical {name} is nonfinite')
+                return ec, e_info_c, bool(ok_c)
 
-            # -- arm 2: F2-P + Gate-A manual scorer (per-frame scorer install
-            # copied from paired_learned_eval.py:645-675, geom/achievable). --
-            y_t = torch.tensor(y_daft, dtype=cdtype, device=cfg.device)
-            sigma2_t = torch.tensor(sigma2, dtype=rdtype, device=cfg.device)
-            module.cfg.n_paths = sparsity
-            if args.gateA_scorer == 'geom':
-                _fsc = _snr_geom
-            else:  # achievable: genie-Lambda on the OMP-once estimate H^0
-                _so, _sup = _omp(y_daft, _Phi_calib, sparsity)
-                _sup = np.asarray(_sup, dtype=int)
-                _gls = np.linalg.lstsq(_Phi_calib[:, _sup], y_daft,
-                                       rcond=None)[0]
-                _lk_ = _sup // _Kpl
-                _kk_ = (_sup % _Kpl) - sys_obj.k_max_cap
-                _Hhat0 = sys_obj.gen_h_daft(_gls, _lk_, _kk_)
-                _fsc = _mk_genie(_Hhat0, rho, _snr_lk,
-                                 sys_obj.k_max_cap, _Kpl)
-            module.cand_active_rel._gateA_scorer = _fsc
-            module.cand_active_rel._gateA_tau = _gateA_tau
-            with torch.no_grad():
-                out_g = module(y_t, x_pil_t, sigma2_t, const_t)
-            x_g = out_g['x_soft'].cpu().numpy()
-            H_g = out_g['H_est'].cpu().numpy()
-            sigma2_fin = float(out_g['sigma2_final'].detach().cpu().item())
-            b_g = _bits_of_symbol(x_g / np.sqrt(P_d), args.n_total)
-            eg = int((b_g != bits_true).sum())
-            # design.md fallback: the wrapper does not expose posteriors
-            # (classical_joint_unrolled.py:1928-1943) -> one extra BP pass
-            # with return_soft=True on this arm's final H_est/sigma2_final,
-            # mirroring the classical arm's soft extraction
-            # (afdm_baselines.py:807-813). Cost: +1 BP pass; no wrapper edit.
-            y_data_g = y_daft - H_g @ pilot_scaled
-            _, mu_g, var_g = _afb.mp_detect_bp(
-                y_data_g, H_g, sigma2_fin, const_data,
-                n_iter=cfg.pic_iter, threshold=cfg.bp_threshold,
-                damp=args.pic_damp, return_soft=True)
-            llr_g = demap_llr(np.asarray(mu_g), np.asarray(var_g), amp)
-            dec_g, ok_g = decode_llr(code, llr_g, maxiter=_LDPC_MAXITER)
-            e_info_g = int((extract_info(code, dec_g) != info_bits).sum())
+            def run_gate():
+                # -- arm 2: F2-P + Gate-A manual scorer (per-frame scorer install
+                # copied from paired_learned_eval.py:645-675, geom/achievable). --
+                y_t = torch.tensor(y_daft, dtype=cdtype, device=cfg.device)
+                sigma2_t = torch.tensor(sigma2, dtype=rdtype, device=cfg.device)
+                module.cfg.n_paths = sparsity
+                if args.gateA_scorer == 'geom':
+                    _fsc = _snr_geom
+                else:  # achievable: genie-Lambda on the OMP-once estimate H^0
+                    _so, _sup = _omp(y_daft, _Phi_calib, sparsity)
+                    _sup = np.asarray(_sup, dtype=int)
+                    _gls = np.linalg.lstsq(_Phi_calib[:, _sup], y_daft,
+                                           rcond=None)[0]
+                    _lk_ = _sup // _Kpl
+                    _kk_ = (_sup % _Kpl) - sys_obj.k_max_cap
+                    _Hhat0 = sys_obj.gen_h_daft(_gls, _lk_, _kk_)
+                    _fsc = _mk_genie(_Hhat0, rho, _snr_lk,
+                                     sys_obj.k_max_cap, _Kpl)
+                module.cand_active_rel._gateA_scorer = _fsc
+                module.cand_active_rel._gateA_tau = _gateA_tau
+                with torch.no_grad():
+                    out_g = module(y_t, x_pil_t, sigma2_t, const_t)
+                x_g = out_g['x_soft'].cpu().numpy()
+                H_g = out_g['H_est'].cpu().numpy()
+                sigma2_fin = float(out_g['sigma2_final'].detach().cpu().item())
+                b_g = _bits_of_symbol(x_g / np.sqrt(P_d), args.n_total)
+                eg = int((b_g != bits_true).sum())
+                # design.md fallback: the wrapper does not expose posteriors
+                # (classical_joint_unrolled.py:1928-1943) -> one extra BP pass
+                # with return_soft=True on this arm's final H_est/sigma2_final,
+                # mirroring the classical arm's soft extraction
+                # (afdm_baselines.py:807-813). Cost: +1 BP pass; no wrapper edit.
+                y_data_g = y_daft - H_g @ pilot_scaled
+                _, mu_g, var_g = _afb.mp_detect_bp(
+                    y_data_g, H_g, sigma2_fin, const_data,
+                    n_iter=cfg.pic_iter, threshold=cfg.bp_threshold,
+                    damp=args.pic_damp, return_soft=True)
+                llr_g = demap_llr(np.asarray(mu_g), np.asarray(var_g), amp)
+                dec_g, ok_g = decode_llr(code, llr_g, maxiter=_LDPC_MAXITER)
+                e_info_g = int((extract_info(code, dec_g) != info_bits).sum())
+                if args.trace_jsonl:
+                    for name, value in [('x', x_g), ('H', H_g), ('mu', mu_g), ('var', var_g)]:
+                        if not np.isfinite(value).all():
+                            raise FloatingPointError(f'gate {name} is nonfinite')
+                return eg, e_info_g, bool(ok_g)
+
+            arm_order = ['classical', 'gate']
+            if args.arm_order_seed is not None:
+                # This private RNG cannot consume the channel/data/noise streams.
+                order_rng = np.random.default_rng([args.arm_order_seed, int(snr), fi])
+                order_rng.shuffle(arm_order)
+            arm_results, arm_seconds, arm_memory = {}, {}, {}
+            receivers = {'classical': run_classical, 'gate': run_gate}
+            for arm in arm_order:
+                _synchronize()
+                if args.trace_jsonl and torch.cuda.is_available():
+                    torch.cuda.reset_peak_memory_stats()
+                started = time.perf_counter() if args.trace_jsonl else None
+                arm_results[arm] = receivers[arm]()
+                _synchronize()
+                if args.trace_jsonl:
+                    arm_seconds[arm] = time.perf_counter() - started
+                    arm_memory[arm] = (torch.cuda.max_memory_allocated()
+                                       if torch.cuda.is_available() else None)
+            ec, e_info_c, ok_c = arm_results['classical']
+            eg, e_info_g, ok_g = arm_results['gate']
+
+            if args.trace_jsonl:
+                trace = dict(
+                    snr=int(snr), frame_index=int(fi), frame_seed=int(seed_fi),
+                    y_source_sha256=_hash_array(y_daft),
+                    H_true_sha256=_hash_array(H_true),
+                    noise_unit_sha256=_hash_array(noise),
+                    info_bits_sha256=_hash_array(info_bits),
+                    coded_bits_sha256=_hash_array(coded),
+                    pilot_sha256=_hash_array(pilot_scaled),
+                    nominal_physical_paths=int(sys_obj.P_paths),
+                    receiver_sparsity=int(sparsity),
+                    capacity_source='simulator_expanded_tap_count',
+                    gate_scorer=args.gateA_scorer, arm_order=arm_order,
+                    classical_seconds=arm_seconds['classical'],
+                    gate_seconds=arm_seconds['gate'],
+                    timing_scope='host source y to decoded info bits, including transfers, extra OMP, final soft BP, LDPC and finite checks; excludes simulation, hashing and IO',
+                    gate_device=str(cfg.device), gate_dtype=str(cdtype),
+                    classical_input_dtype=str(y_daft.dtype),
+                    classical_raw_errors=ec, gate_raw_errors=eg,
+                    classical_info_errors=e_info_c, gate_info_errors=e_info_g,
+                    all_receiver_outputs_finite=True,
+                    peak_gpu_allocated_bytes=arm_memory,
+                )
+                with trace_path.open('a') as trace_file:
+                    trace_file.write(json.dumps(trace) + '\n')
 
             # -- arm 3 (optional): PCSI-BP upper bound. Detection mirrors
             # paired_learned_eval.py:696-703 exactly: pilot-cancel with the

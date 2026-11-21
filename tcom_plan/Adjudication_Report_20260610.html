@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"为什么要学" 裁决实验报告 — AFDM Learned Head</title>
+<style>
+  :root{
+    --bg:#0f1117; --panel:#181b24; --panel2:#1f2330; --ink:#e6e8ee; --mut:#9aa0ad;
+    --acc:#5b9dff; --good:#37d399; --warn:#ffb454; --bad:#ff6b6b; --line:#2b3040;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.65 -apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:960px;margin:0 auto;padding:48px 28px 80px;}
+  h1{font-size:28px;margin:0 0 6px;letter-spacing:.2px}
+  .sub{color:var(--mut);font-size:14px;margin-bottom:32px}
+  h2{font-size:20px;margin:40px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:16px;margin:24px 0 8px;color:var(--acc)}
+  p{margin:10px 0}
+  code{background:var(--panel2);padding:2px 6px;border-radius:4px;font-size:13px;
+    font-family:"SF Mono",Menlo,Consolas,monospace;color:#cfe3ff}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:20px 22px;margin:16px 0}
+  .verdict{background:linear-gradient(135deg,#16271d,#15202c);border-color:#2e6b4e}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:16px 0}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .kpi .n{font-size:26px;font-weight:700;letter-spacing:.5px}
+  .kpi .l{color:var(--mut);font-size:12px;margin-top:2px}
+  .good{color:var(--good)} .warn{color:var(--warn)} .bad{color:var(--bad)} .acc{color:var(--acc)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line)}
+  th{color:var(--mut);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+  td.num{font-family:"SF Mono",Menlo,monospace;text-align:right}
+  .tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;
+    background:var(--panel2);border:1px solid var(--line);color:var(--mut);margin-right:6px}
+  .tag.pass{background:#16271d;border-color:#2e6b4e;color:var(--good)}
+  ul.chain{list-style:none;padding:0;margin:8px 0;counter-reset:step}
+  ul.chain li{position:relative;padding:12px 12px 12px 46px;margin:8px 0;
+    background:var(--panel2);border:1px solid var(--line);border-radius:10px;counter-increment:step}
+  ul.chain li::before{content:counter(step);position:absolute;left:12px;top:12px;
+    width:24px;height:24px;border-radius:50%;background:var(--acc);color:#0f1117;
+    font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .foot{color:var(--mut);font-size:12px;margin-top:48px;border-top:1px solid var(--line);padding-top:16px}
+  .note{font-size:13px;color:var(--mut)}
+  .pill{font-family:"SF Mono",Menlo,monospace;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>"为什么要学" 裁决实验报告</h1>
+<div class="sub">AFDM 1041-参数 learned head · 2×2 探测器消融 (Phase 0–6) · 全程 t=0 冻结、无 turbo<br>
+2026-06-10 · commit <span class="pill">78bcd7e</span> (QA #46)</div>
+
+<div class="card verdict">
+  <h3 style="margin-top:0;color:var(--good)">裁决结论</h3>
+  <p>learned head <strong>真凭"学习"挣到位置</strong>（显著优于强几何先验、跨训练 seed 稳定），
+  但其 BER 增益由 <strong>F2-P 部署机制兑现</strong>、而非 one-shot 检测的 recall 边际 ——
+  这是论文叙事的核心张力：<span class="acc">C1 理论解释 recall，F2-P engineering 兑现 BER</span>。</p>
+</div>
+
+<h2>核心数字 (3-seed F2-P firm)</h2>
+<div class="grid">
+  <div class="kpi"><div class="n good">−35.7%</div><div class="l">SNR=15 dB BER 降幅<br>(spread ±0.1pp)</div></div>
+  <div class="kpi"><div class="n good">−28.9%</div><div class="l">SNR=20 dB BER 降幅<br>CI 完全分离</div></div>
+  <div class="kpi"><div class="n acc">≤5.5e-17</div><div class="l">McNemar p (×3 seed)<br>bit-level 配对</div></div>
+  <div class="kpi"><div class="n">±0.005</div><div class="l">rec@1 跨训练 seed<br>spread (极稳)</div></div>
+</div>
+
+<h2>问题设定</h2>
+<p>判定 1041 参数的 <code>CandidateActiveRelationHead</code> 是真凭"学习"挣到位置（hero 版叙事，
+适合 TWC/JSAC），还是 ≈ 手调规则（理论版叙事，适合 TSP）。手段是一个
+<strong>2×2 探测器消融</strong>：先验轴（几何 vs 学习）× 证据轴（白 MF vs 白化 GLRT）。</p>
+
+<div class="card">
+<h3 style="margin-top:0">Λ 因式分解 (理论骨架)</h3>
+<p class="pill">logΛ(φ_i) = log(π_i/(1−π_i)) &nbsp;+&nbsp; (b_i/(1+b_i))·T(φ_i) &nbsp;−&nbsp; log(1+b_i)</p>
+<p class="note">其中 <code>b_i = σ²_h·φᴴC⁻¹φ</code>，<code>T = |φᴴC⁻¹r|²/(φᴴC⁻¹φ)</code>。
+第一项=几何先验，第二项=白化证据。Prop.1: OMP = 白噪声 GLRT（C→σ²I 时白化统计 ≡ 白 MF）；
+Prop.2: head 自特征 ↔ 证据项、对特征 ↔ 几何先验。</p>
+</div>
+
+<h3>探测器阶梯</h3>
+<table>
+<tr><th>探测器</th><th>先验</th><th>证据</th><th>角色</th></tr>
+<tr><td>OMP</td><td>—</td><td>白 MF</td><td>floor (无 adds)</td></tr>
+<tr><td>white_mf</td><td>—</td><td>白 MF</td><td>纯证据基线</td></tr>
+<tr><td>pure_geom_FINE</td><td>层次几何</td><td>—</td><td>纯先验基线</td></tr>
+<tr><td>genie_Λ_FINE</td><td>层次几何</td><td>白化 GLRT</td><td>理论上界 (genie C)</td></tr>
+<tr><td class="acc">head (3-seed)</td><td colspan="2">学习 (u 7-dim + v 6-dim pair)</td><td>待裁决对象</td></tr>
+<tr><td>oracle</td><td colspan="2">真实 missed atoms</td><td>headroom 上界</td></tr>
+</table>
+<p class="note">主指标 <strong>rec@1</strong>（rec@4 被几何饱和：positives/帧 ≈1.86，dk±1 候选/帧 ≈3.92 ≈ K_add=4）。
+校准红线：π_bin/σ²_h 必须 held-out、按几何 bin、禁用本帧真实 |h_i|²。</p>
+
+<h2>结论链 (Phase 0–6)</h2>
+<ul class="chain">
+<li><strong>head 跨 3 训练 seed 极稳</strong> — rec spread .005，BER 增益非 seed 运气。</li>
+<li><strong>head 显著 &gt; 强几何先验</strong> — rec@1 +.05~.06，p&lt;1e-3。学习真的有内容。</li>
+<li><strong>C1 白化价值 regime-dependent</strong> — mid-SNR(10–15) Δ_evid +.07~.10 为真；
+SNR=20 是病态角 artifact（C≈(1−ρ)HHᴴ），由 ρ×SNR 12-cell sweep 证实，非证据冗余。</li>
+<li><strong>single-pass recall 边际对 BER 冗余</strong> — 91% missed atoms 落在接收机
+cluster-expand <code>±k_leak=2</code> 确定性覆盖内，所以 one-shot recall 提升被下游吞掉。</li>
+<li><strong>BER 增益由 F2-P deployment 兑现</strong> — <code>refine-rounds 2</code> +
+<code>cand-topm 96</code> + <code>defer-prune</code> + <code>protect-added 2</code>，
+fresh-data + 3-seed + CI-firm 可复现。</li>
+</ul>
+
+<h2>3-seed F2-P firm 结果</h2>
+<p class="note">三个训练 seed (s07/s08/s09 = canonical_grid s20260507/08/09 ckpt)，同 data seed
+<code>20260601</code> → classical 完全配对 (errs identical)。每 SNR target-errors 120 / min 200 frames
+/ n_outer 10 / fs=4B / P=8。</p>
+
+<table>
+<tr><th>SNR</th><th>探测器</th><th class="num">BER</th><th class="num">errs (×3 seed)</th>
+    <th class="num">Δ pooled</th><th>显著性</th></tr>
+<tr><td rowspan="2">15 dB</td><td>classical</td><td class="num">1.585e-2</td><td class="num">6491</td>
+    <td class="num">—</td><td>—</td></tr>
+<tr><td class="acc">learned</td><td class="num good">1.018e-2</td><td class="num">4180/4166/4168</td>
+    <td class="num good">−35.7%</td><td><span class="tag pass">McNemar p≈0</span></td></tr>
+<tr><td rowspan="2">20 dB</td><td>classical</td><td class="num">6.67e-4</td><td class="num">273</td>
+    <td class="num">—</td><td>—</td></tr>
+<tr><td class="acc">learned</td><td class="num good">4.74e-4</td><td class="num">196/194/192</td>
+    <td class="num good">−28.9%</td><td><span class="tag pass">p≤5.5e-17</span></td></tr>
+</table>
+
+<div class="card">
+<h3 style="margin-top:0">Clopper-Pearson CI (n=409600 bits)</h3>
+<table>
+<tr><th>SNR</th><th>classical CI</th><th>learned CI</th><th>分离?</th></tr>
+<tr><td>15 dB</td><td class="pill">[1.55, 1.62]e-2</td><td class="pill">[0.99, 1.05]e-2</td>
+    <td class="good">✓ 完全分离</td></tr>
+<tr><td>20 dB</td><td class="pill">[5.90, 7.50]e-4</td><td class="pill">[4.09, 5.45]e-4</td>
+    <td class="good">✓ 端点对端点仍 ≥7.6%</td></tr>
+</table>
+<p class="note">SNR=20 点估计被一个<strong>共享深衰落灾难帧</strong>（n11=188，与 head 无关）拖累；
+剔除该帧后 77 vs 39 = <span class="good">−49.4%</span>。frame-level t 不显著 (1.68) 正是该帧方差所致，
+但 bit-level McNemar 对 burst 稳健，结论不动。</p>
+</div>
+
+<h2>Headline 定稿与诚实声明</h2>
+<div class="card">
+<p>✅ <strong>论文 headline:</strong> <span class="good">SNR=20 dB −29%（CI-separated, 3-seed）</span>，
+SNR=15 dB <span class="good">−35.7%</span>（6491 errors，无 burst 依赖，最干净）。</p>
+<p>❌ <strong>弃用旧 headline −55~76%</strong> — 那是 3-seed F2P_iter10 旧跑、每跑仅 12–49 errors 的
+噪声点估计；新区间与其 CI 相容但不再引用其点值。</p>
+</div>
+
+<h2>论文叙事张力 (待重写)</h2>
+<p>裁决实验暴露出 framing 必须分两层叙述，不能混为一谈：</p>
+<table>
+<tr><th>层</th><th>负责解释</th><th>证据</th></tr>
+<tr><td>C1 理论 (Λ 因式分解)</td><td>为什么 recall 能涨 / 学了什么</td>
+    <td>head &gt; geom prior，白化在 mid-SNR 有真价值</td></tr>
+<tr><td>F2-P engineering</td><td>为什么 BER 真的降</td>
+    <td>refine + protect-prune；single-pass recall 边际对 BER 冗余</td></tr>
+</table>
+
+<h2>复现与产物</h2>
+<table>
+<tr><th>项</th><th>位置</th></tr>
+<tr><td>探测器套件</td><td class="pill">afdm_sp_joint_unrolled/decision_{harvest,metrics,review,bound,c1_sweep,firmup,ber}.py</td></tr>
+<tr><td>3-seed firm 结果</td><td class="pill">afdm_sp_joint_unrolled/outputs_f2p_firm_s{07,08,09}/results.json</td></tr>
+<tr><td>复现指纹</td><td>每个 results.json 的 <code>_argv</code> / <code>_config</code> 字段</td></tr>
+<tr><td>规划三件套</td><td class="pill">task_plan.md · findings.md · progress.md</td></tr>
+<tr><td>QA 记录</td><td>_QA_Index.md #46 · _Log.meta.json (entries=46)</td></tr>
+</table>
+
+<div class="foot">
+AFDM End-to-End Learning · afdm-e2e-main · L3 · commit 78bcd7e · 2026-06-10<br>
+裁决实验全链闭合。下一步候选（待定）：framing 重写 / F2-P 部件拆解（refine vs protect-prune 谁给 BER）。
+</div>
+
+</div>
+</body>
+</html>

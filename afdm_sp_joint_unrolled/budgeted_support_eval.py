@@ -35,7 +35,7 @@ from afdm_sp_joint_unrolled.budgeted_support_diagnostics import (
 
 
 ARMS = ('baseline', 'keep', 'unprotected', 'oracle_gains', 'oracle_data', 'wide_pool')
-POSITION_ARMS = ('position_true', 'position_rounded')
+POSITION_ARMS = ('position_true', 'position_rounded', 'position_local')
 EXTRA_ARMS = ('conservative', 'temperature_mean', 'jsoft', 'covariance', 'a0')
 MECHANISM_ARMS = {
     'r00': ('legacy_stats_prior', False, None),
@@ -296,10 +296,21 @@ def run_frame(model, system, code, frame, lookup, arms, replicate, index, snr, o
             kwargs['diagnostic_data_override'] = lambda current,t: true_data
         elif arm in POSITION_ARMS:
             prep_start = time.perf_counter()
-            fixed_H,position_metadata = fit_physical_cluster(
-                system,frame['params'],Phi,y,rounded=arm=='position_rounded')
+            if arm=='position_local':
+                from afdm_sp_joint_unrolled.budgeted_support_diagnostics import fit_local_physical_cluster
+                fixed_H,position_metadata=fit_local_physical_cluster(system,frame['params']['l_i'],
+                    np.round(frame['params']['k_real']),Phi,y)
+            else:
+                fixed_H,position_metadata = fit_physical_cluster(
+                    system,frame['params'],Phi,y,rounded=arm=='position_rounded')
+                position_metadata['fit_count']=1
             fixed_H_t = torch.tensor(fixed_H,dtype=cfg.dtype,device=cfg.device)
-            kwargs['diagnostic_channel_override'] = lambda current,dl,dk,t: fixed_H_t
+            position_metadata['injected_H_sha256']=array_hash(fixed_H_t.cpu().numpy())
+            position_metadata['override_outer_calls']=[]
+            def fixed_position_channel(current,dl,dk,t):
+                position_metadata['override_outer_calls'].append(t)
+                return fixed_H_t
+            kwargs['diagnostic_channel_override'] = fixed_position_channel
             intervention_prep_seconds = time.perf_counter()-prep_start
         if cfg.device == 'cuda':
             torch.cuda.synchronize()

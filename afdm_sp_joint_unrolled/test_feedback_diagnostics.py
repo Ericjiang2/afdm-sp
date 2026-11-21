@@ -41,6 +41,8 @@ class FeedbackDiagnosticsTests(unittest.TestCase):
         self.assertEqual(result['high_confidence_errors'],1)
         self.assertEqual(result['high_confidence_error_rate'],1)
         self.assertEqual(result['high_confidence_error_frequency'],.5)
+        self.assertEqual(result['high_confidence_wrong_sum_variance'],0.)
+        self.assertEqual(result['high_confidence_wrong_sum_actual_squared_error'],1.)
         self.assertEqual(result['bins'][-1]['count'],1)
         self.assertEqual(result['bins'][0]['count'],1)
         self.assertEqual(result['out_of_range_count'],0)

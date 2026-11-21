@@ -1,0 +1,594 @@
+{
+  "audit_scope": "Persisted job execution windows only; no hardware GPU active-time counters. Incomplete ledger; not exact remaining budget.",
+  "stages": {
+    "s0s1_20260906": {
+      "rows": [
+        {
+          "name": "geom-cpu-replay-8",
+          "evidence": "geom-cpu-batch.json",
+          "started_at": 1788653824.5510836,
+          "elapsed_seconds": 122.83214592933655,
+          "device": "cpu",
+          "kind": "launcher_child"
+        },
+        {
+          "name": "geom-omp16-blas4",
+          "evidence": "thread-probe-batch.json",
+          "started_at": 1788652859.9349532,
+          "elapsed_seconds": 65.35693907737732,
+          "device": "cuda",
+          "kind": "launcher_child"
+        },
+        {
+          "name": "geom-omp4-blas16",
+          "evidence": "thread-probe-batch.json",
+          "started_at": 1788652925.2928054,
+          "elapsed_seconds": 66.06889033317566,
+          "device": "cuda",
+          "kind": "launcher_child"
+        },
+        {
+          "name": "budget-1024-achievable-snr8",
+          "evidence": "budget-1024-batch.json",
+          "started_at": 1788653337.4988124,
+          "elapsed_seconds": 1369.013608455658,
+          "device": "cuda",
+          "kind": "launcher_child"
+        }
+      ],
+      "union_machine_job_windows": {
+        "seconds": 1500.439437866211,
+        "intervals": [
+          [
+            1788652859.9349532,
+            1788652925.2918923
+          ],
+          [
+            1788652925.2928054,
+            1788652991.3616958
+          ],
+          [
+            1788653337.4988124,
+            1788654706.512421
+          ]
+        ]
+      },
+      "union_gpu_job_windows": {
+        "seconds": 1500.439437866211,
+        "intervals": [
+          [
+            1788652859.9349532,
+            1788652925.2918923
+          ],
+          [
+            1788652925.2928054,
+            1788652991.3616958
+          ],
+          [
+            1788653337.4988124,
+            1788654706.512421
+          ]
+        ]
+      },
+      "sum_child_job_seconds": 1623.2715837955475,
+      "cap_seconds": 3600,
+      "exact_remaining_seconds": null,
+      "nominal_cap_minus_accounted_machine_window_seconds": 2099.560562133789,
+      "nominal_cap_minus_accounted_gpu_window_seconds": 2099.560562133789
+    },
+    "s2_20260906": {
+      "rows": [
+        {
+          "name": "dev-snr8-rep1",
+          "evidence": "dev-snr8-rep1/status.json",
+          "started_at": 1788655619.8796306,
+          "elapsed_seconds": 373.0684425830841,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "i5-smoke-cpu",
+          "evidence": "i5-smoke-cpu/status.json",
+          "started_at": 1788655841.7153964,
+          "elapsed_seconds": 6.486663103103638,
+          "device": "cpu",
+          "kind": "inner_status"
+        },
+        {
+          "name": "soft-smoke-control",
+          "evidence": "soft-smoke-control/status.json",
+          "started_at": 1788657056.2181592,
+          "elapsed_seconds": 3.8123457431793213,
+          "device": "cpu",
+          "kind": "inner_status"
+        },
+        {
+          "name": "soft-cuda-dev-rep1",
+          "evidence": "soft-cuda-dev-rep1/status.json",
+          "started_at": 1788657493.2965703,
+          "elapsed_seconds": 83.19423747062683,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "i5-rep2",
+          "evidence": "i5-rep2/status.json",
+          "started_at": 1788656372.547629,
+          "elapsed_seconds": 17.373828887939453,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "uncoded-snr20-rep0",
+          "evidence": "uncoded-snr20-rep0/status.json",
+          "started_at": 1788659506.6301355,
+          "elapsed_seconds": 429.9566776752472,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "dev-snr8-rep0",
+          "evidence": "dev-snr8-rep0/status.json",
+          "started_at": 1788655613.8520813,
+          "elapsed_seconds": 375.8709352016449,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "uncoded-smoke",
+          "evidence": "uncoded-smoke/status.json",
+          "started_at": 1788658935.6987324,
+          "elapsed_seconds": 10.835718154907227,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "dev-snr7-rep0",
+          "evidence": "dev-snr7-rep0/status.json",
+          "started_at": 1788655237.7821414,
+          "elapsed_seconds": 380.95086693763733,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "dev-snr7-rep1",
+          "evidence": "dev-snr7-rep1/status.json",
+          "started_at": 1788655237.751866,
+          "elapsed_seconds": 379.23554825782776,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "soft-smoke-observed",
+          "evidence": "soft-smoke-observed/status.json",
+          "started_at": 1788657050.6510978,
+          "elapsed_seconds": 3.940920352935791,
+          "device": "cpu",
+          "kind": "inner_status"
+        },
+        {
+          "name": "dev-snr9-rep2",
+          "evidence": "dev-snr9-rep2/status.json",
+          "started_at": 1788655996.3364344,
+          "elapsed_seconds": 366.8400218486786,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "soft-cuda-dev-rep0",
+          "evidence": "soft-cuda-dev-rep0/status.json",
+          "started_at": 1788657493.1022031,
+          "elapsed_seconds": 83.22066950798035,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "uncoded-snr15-rep2",
+          "evidence": "uncoded-snr15-rep2/status.json",
+          "started_at": 1788659136.2046738,
+          "elapsed_seconds": 367.2129499912262,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "i5-rep0",
+          "evidence": "i5-rep0/status.json",
+          "started_at": 1788656373.0484843,
+          "elapsed_seconds": 17.97971773147583,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "uncoded-snr15-rep1",
+          "evidence": "uncoded-snr15-rep1/status.json",
+          "started_at": 1788659133.2322848,
+          "elapsed_seconds": 369.9384343624115,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "conservative-rep2",
+          "evidence": "conservative-rep2/status.json",
+          "started_at": 1788658999.3335252,
+          "elapsed_seconds": 129.40307068824768,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "dev-snr7-rep2",
+          "evidence": "dev-snr7-rep2/status.json",
+          "started_at": 1788655237.7719302,
+          "elapsed_seconds": 372.6735095977783,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "i3-smoke-cpu",
+          "evidence": "i3-smoke-cpu/status.json",
+          "started_at": 1788655841.9563062,
+          "elapsed_seconds": 127.3577778339386,
+          "device": "cpu",
+          "kind": "inner_status"
+        },
+        {
+          "name": "conservative-smoke",
+          "evidence": "conservative-smoke/status.json",
+          "started_at": 1788658941.4402063,
+          "elapsed_seconds": 5.407020330429077,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "soft-cuda-smoke-observed",
+          "evidence": "soft-cuda-smoke-observed/status.json",
+          "started_at": 1788657483.1995466,
+          "elapsed_seconds": 3.2516982555389404,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "dev-snr9-rep1",
+          "evidence": "dev-snr9-rep1/status.json",
+          "started_at": 1788655993.3234727,
+          "elapsed_seconds": 375.44430232048035,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "smoke-no-observer",
+          "evidence": "smoke-no-observer/status.json",
+          "started_at": 1788655059.1545346,
+          "elapsed_seconds": 3.092726707458496,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "conservative-rep0",
+          "evidence": "conservative-rep0/status.json",
+          "started_at": 1788658999.2545643,
+          "elapsed_seconds": 133.690523147583,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "uncoded-snr15-rep0",
+          "evidence": "uncoded-snr15-rep0/status.json",
+          "started_at": 1788659132.2484353,
+          "elapsed_seconds": 374.1922926902771,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "uncoded-snr20-rep2",
+          "evidence": "uncoded-snr20-rep2/status.json",
+          "started_at": 1788659509.6257775,
+          "elapsed_seconds": 418.3602237701416,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "i3-rep2",
+          "evidence": "i3-rep2/status.json",
+          "started_at": 1788656394.545869,
+          "elapsed_seconds": 727.8397941589355,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "i3-rep0",
+          "evidence": "i3-rep0/status.json",
+          "started_at": 1788656393.5483515,
+          "elapsed_seconds": 754.2142174243927,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "i5-rep1",
+          "evidence": "i5-rep1/status.json",
+          "started_at": 1788656372.5741804,
+          "elapsed_seconds": 17.72248888015747,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "soft-cuda-reference-v3",
+          "evidence": "soft-cuda-reference-v3/status.json",
+          "started_at": 1788657479.0658069,
+          "elapsed_seconds": 2.3878378868103027,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "dev-snr8-rep2",
+          "evidence": "dev-snr8-rep2/status.json",
+          "started_at": 1788655621.8878984,
+          "elapsed_seconds": 366.1402196884155,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "soft-cuda-dev-rep2",
+          "evidence": "soft-cuda-dev-rep2/status.json",
+          "started_at": 1788657493.1622815,
+          "elapsed_seconds": 82.42664742469788,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "i3-rep1",
+          "evidence": "i3-rep1/status.json",
+          "started_at": 1788656393.549902,
+          "elapsed_seconds": 749.4304134845734,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "smoke-observed",
+          "evidence": "smoke-observed/status.json",
+          "started_at": 1788655046.4133053,
+          "elapsed_seconds": 9.596415519714355,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "soft-cuda-smoke-control",
+          "evidence": "soft-cuda-smoke-control/status.json",
+          "started_at": 1788657488.1826425,
+          "elapsed_seconds": 3.1348557472229004,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "dev-snr9-rep0",
+          "evidence": "dev-snr9-rep0/status.json",
+          "started_at": 1788655991.3201716,
+          "elapsed_seconds": 375.58255434036255,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "conservative-rep1",
+          "evidence": "conservative-rep1/status.json",
+          "started_at": 1788658999.2532551,
+          "elapsed_seconds": 130.80645203590393,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "controls-baseline",
+          "evidence": "controls-baseline/status.json",
+          "started_at": 1788658935.7051146,
+          "elapsed_seconds": 2.8156135082244873,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "uncoded-snr20-rep1",
+          "evidence": "uncoded-snr20-rep1/status.json",
+          "started_at": 1788659506.5996294,
+          "elapsed_seconds": 427.56660413742065,
+          "device": "cuda",
+          "kind": "inner_status"
+        },
+        {
+          "name": "e1-parity-8",
+          "evidence": "smoke-batch.json",
+          "started_at": 1788655044.7700667,
+          "elapsed_seconds": 116.1317036151886,
+          "device": "cuda",
+          "kind": "launcher_child"
+        },
+        {
+          "name": "calibration-snr7",
+          "evidence": "calibration-status.json",
+          "started_at": 1788653687.309573,
+          "elapsed_seconds": 114.12240719795227,
+          "device": "cpu",
+          "kind": "launcher_child"
+        },
+        {
+          "name": "calibration-snr8",
+          "evidence": "calibration-status.json",
+          "started_at": 1788653687.310172,
+          "elapsed_seconds": 110.11698603630066,
+          "device": "cpu",
+          "kind": "launcher_child"
+        },
+        {
+          "name": "calibration-snr9",
+          "evidence": "calibration-status.json",
+          "started_at": 1788653687.3106515,
+          "elapsed_seconds": 108.1136863231659,
+          "device": "cpu",
+          "kind": "launcher_child"
+        },
+        {
+          "name": "calibration-snr15",
+          "evidence": "highsnr-calibration-status.json",
+          "started_at": 1788657570.2233257,
+          "elapsed_seconds": 104.11032462120056,
+          "device": "cpu",
+          "kind": "launcher_child"
+        },
+        {
+          "name": "calibration-snr20",
+          "evidence": "highsnr-calibration-status.json",
+          "started_at": 1788657570.2239103,
+          "elapsed_seconds": 104.11078405380249,
+          "device": "cpu",
+          "kind": "launcher_child"
+        }
+      ],
+      "union_machine_job_windows": {
+        "seconds": 3272.294844150543,
+        "intervals": [
+          [
+            1788653687.309573,
+            1788653801.4319801
+          ],
+          [
+            1788655044.7700667,
+            1788655160.9017704
+          ],
+          [
+            1788655237.751866,
+            1788656368.767775
+          ],
+          [
+            1788656372.547629,
+            1788656391.028202
+          ],
+          [
+            1788656393.5483515,
+            1788657147.762569
+          ],
+          [
+            1788657479.0658069,
+            1788657481.4536448
+          ],
+          [
+            1788657483.1995466,
+            1788657486.4512448
+          ],
+          [
+            1788657488.1826425,
+            1788657491.3174982
+          ],
+          [
+            1788657493.1022031,
+            1788657674.3346944
+          ],
+          [
+            1788658935.6987324,
+            1788658946.8472266
+          ],
+          [
+            1788658999.2532551,
+            1788659506.440728
+          ],
+          [
+            1788659506.5996294,
+            1788659936.5868132
+          ]
+        ]
+      },
+      "union_gpu_job_windows": {
+        "seconds": 3060.328550338745,
+        "intervals": [
+          [
+            1788655044.7700667,
+            1788655160.9017704
+          ],
+          [
+            1788655237.751866,
+            1788656368.767775
+          ],
+          [
+            1788656372.547629,
+            1788656391.028202
+          ],
+          [
+            1788656393.5483515,
+            1788657147.762569
+          ],
+          [
+            1788657479.0658069,
+            1788657481.4536448
+          ],
+          [
+            1788657483.1995466,
+            1788657486.4512448
+          ],
+          [
+            1788657488.1826425,
+            1788657491.3174982
+          ],
+          [
+            1788657493.1022031,
+            1788657576.4908078
+          ],
+          [
+            1788658935.6987324,
+            1788658946.8472266
+          ],
+          [
+            1788658999.2532551,
+            1788659506.440728
+          ],
+          [
+            1788659506.5996294,
+            1788659936.5868132
+          ]
+        ]
+      },
+      "sum_child_job_seconds": 9519.161129236221,
+      "cap_seconds": 14400,
+      "exact_remaining_seconds": null,
+      "nominal_cap_minus_accounted_machine_window_seconds": 11127.705155849457,
+      "nominal_cap_minus_accounted_gpu_window_seconds": 11339.671449661255
+    }
+  },
+  "audited_at_utc": "2026-09-06 02:06:04 UTC",
+  "atemporal_s1_time_files": [
+    {
+      "name": "smoke-geom.time",
+      "elapsed_seconds": 79.28,
+      "device": "unknown_no_require_cuda"
+    },
+    {
+      "name": "trace-32-achievable.time",
+      "elapsed_seconds": 114.16,
+      "device": "cuda_required"
+    },
+    {
+      "name": "trace-32-geom.time",
+      "elapsed_seconds": 108.56,
+      "device": "cuda_required"
+    },
+    {
+      "name": "trace-8-achievable.time",
+      "elapsed_seconds": 80.45,
+      "device": "cuda_required"
+    },
+    {
+      "name": "trace-8-geom-repeat.time",
+      "elapsed_seconds": 79.55,
+      "device": "cuda_required"
+    },
+    {
+      "name": "trace-8-geom.time",
+      "elapsed_seconds": 79.73,
+      "device": "cuda_required"
+    }
+  ],
+  "atemporal_s1_sum_seconds": 541.73,
+  "atemporal_s1_cuda_sum_seconds": 462.45000000000005,
+  "missing_timing": [
+    "S1 cuda-preflight.json has start only",
+    "S1 smoke-ach has results/log but no elapsed/start ledger",
+    "S1 six .time files have elapsed only, no trustworthy absolute start timestamps",
+    "S2 soft-cpu-repeat-investigation.json has neither start nor duration",
+    "S2 CPU lstsq probes have report durations 2.596331263 and 1.475438621 s but no absolute timestamps",
+    "Local smoke fixtures, tests, deployment/preparation, and any failed pre-status attempts are outside this server metadata inventory"
+  ]
+}

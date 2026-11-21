@@ -1,0 +1,97 @@
+{
+  "_argv": [
+    "qualify.py",
+    "--out",
+    "out/phase1/qualification3"
+  ],
+  "_config": {
+    "archive": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/out/main_20261119",
+    "rows_manifest_sha256": "75912eae581034d22878e68b68a0f84aff0d6414f62b332058307bc86663307e",
+    "archive_config_sha256": "62eb3602a39217bcda4ff89f0241c6ea14227d3c051837e0d366f247dd395c9b",
+    "readout_rhos": [
+      150,
+      200,
+      300
+    ],
+    "readout_snr": [
+      300,
+      400,
+      450,
+      500,
+      550,
+      600,
+      650,
+      700,
+      800,
+      1000
+    ],
+    "arms": {
+      "CD2": [
+        "A1",
+        2
+      ],
+      "CD4": [
+        "A1",
+        4
+      ],
+      "CD6": [
+        "A1",
+        6
+      ],
+      "A2-2": [
+        "A2",
+        2
+      ],
+      "A2-6": [
+        "A2",
+        6
+      ]
+    },
+    "threads": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "CUDA_VISIBLE_DEVICES": ""
+    },
+    "archive_frames": [
+      5400,
+      5799
+    ],
+    "code_sha256": {
+      "budget_receiver.py": "e23c06f11a4389343f2eb1b7c90f87b5ec63dee6a5c965dda7ea7277b24d6467",
+      "qualify.py": "59549e81dee8075e1c6ed7ab3eb25806854691e3bfbf6d5cffef337fc818af35"
+    }
+  },
+  "by_rho": {
+    "150": {
+      "triggered": 795,
+      "cd2_failed": 154,
+      "exactly_identified": 2,
+      "definitely_eligible": 6,
+      "possibly_eligible": 130,
+      "missed_delay_bounds": {
+        "1:1": 2,
+        "1:2": 20,
+        "1:3": 38,
+        "2:3": 13,
+        "2:4": 45,
+        "3:4": 6,
+        "3:5": 23,
+        "4:5": 2,
+        "4:6": 3,
+        "5:6": 2
+      }
+    },
+    "300": {
+      "triggered": 42,
+      "cd2_failed": 0,
+      "exactly_identified": 0,
+      "definitely_eligible": 0,
+      "possibly_eligible": 0,
+      "missed_delay_bounds": {}
+    }
+  }
+}

@@ -1,0 +1,50 @@
+
+[receiver] /home/guoyikun/.conda/envs/AFDM/bin/python -B -u launch_main.py --manifest gap_main_manifest.json --freeze-commit a428be325869e1bac6d733084627db530a016e52 --producing-commit 3c9a2c556d0bd8455ceaf33e4ebd2a2e68adc79d --prior-attempt out/main_20261119_attempt01_stopped --receiver-stage
+Process SpawnProcess-6:
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/run_main.py", line 66, in _write_shard
+    row = main_key(ctx, e3c.e3d.PilotCache(), grid, key)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/run_main.py", line 56, in main_key
+    return _qualified_key(ctx, cache, grid, key, cap=cap, verify_controls=verify_controls)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/gap_receiver.py", line 286, in process_key
+    row = FunctionType(run.__code__, scope)(ctx, cache, grid, key)
+  File "<qualified spectral_receiver.py with Phase 2 schedule>", line 51, in process_main_key
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/gap_receiver.py", line 212, in settings
+    matrices['K'], removed, census_k, check, psd_k = _cap_covariance(
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/gap_receiver.py", line 110, in _cap_covariance
+    psd = require_k_psd(capped, u, key)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/gap_receiver.py", line 87, in require_k_psd
+    raise KCovariancePSDViolation(
+gap_receiver.KCovariancePSDViolation: K full initial EM covariance fails PSD on ('U', 300, 900, 4605): lambda_min=-0.16022867825439147, minimum_allowed=-1.4857809397518235e-11, u=0.14857809397518235
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/run_main.py", line 71, in _write_shard
+    raise RuntimeError(f'Shard {index:03d} failed on key {key}: {exc}') from exc
+RuntimeError: Shard 005 failed on key ('U', 300, 900, 4605): K full initial EM covariance fails PSD on ('U', 300, 900, 4605): lambda_min=-0.16022867825439147, minimum_allowed=-1.4857809397518235e-11, u=0.14857809397518235
+AFDM System initialized: N_total=1024 subcarriers (from 32x32)
+  Chirp parameters: c1=0.002441, c2=0.000000
+  Caps: l_max=15, k_max=2, delta_max=77 < N=1024: OK
+  UWA params: fc=12.0 kHz, B=4.0 kHz, fs=8.0 kHz, Ts=125.0 us
+  UWA channel: P=10, tau_spread=10.0 ms, v_mean=2.00 m/s, v_std=0.50 m/s
+  Supported AFDM delay window: 1.0 ms
+  Backward-compat speed cap: 12.6 km/h
+  Channel matrix size: 1024x1024
+[_make_system_variable_N] N_total=1024  l_max=102  k_max=4  δ_max=922  < N: True  c1=0.004395  c2=1.98e-07
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/launch_main.py", line 260, in <module>
+    raise SystemExit(main())
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/launch_main.py", line 254, in main
+    receiver_stage(args, qualification=args.qualify)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/launch_main.py", line 179, in receiver_stage
+    run_main.run_shards(OUT, WORKERS, cfg)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sbl_residual_gap_20261119/run_main.py", line 105, in run_shards
+    run(out, jobs, snapshot, provenance)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/unified_cov_prospective_20261119/run_main.py", line 215, in run_pending
+    raise RuntimeError(f'Shard {index:03d} exited with status {exit_code}; see traceback')
+RuntimeError: Shard 005 exited with status 1; see traceback

@@ -1,0 +1,36 @@
+主命题可证明，但当前草稿尚不能冻结。只读一轮，未改文件；下列行号均指[当前草稿](/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/.trellis/tasks/10-08-doppler-cluster/research/info-budget-screen-20261014.md)。
+
+- **OK｜形式化，§1、L65–69：** 对任意有限 \(N,L\)、固定已知延迟、酉变换、单位模 CP、\(R_l\succeq0\)、固定 \(p\in\mathbb C^N\)，取 \(0\le\rho<1,\ a=1-\rho,\ \sigma^2>0\)；高斯 taps、均匀独立 QPSK、噪声相互独立。
+- **OK｜精确命题：** 定义 \(f(d)=\log_2\det(I+C_s(d)/\sigma^2)\)、\(J=\log_2\det(I+Q^{-1}C_p)\)，则 \(\mathbb E_{h,d}[A(h)-f(d)+J]\le I(d;y)\)，不是逐帧不等式。
+- **OK｜Prover line：** 链式恒等式，加上 \(\mathbb EA\le I(d;y\mid h)\)、\(\mathbb Ef=I(h;y\mid d)\)、\(J\le I(h;y)\)，即得结论。
+- **OK｜Disprover line：** 检查小维度、零导频、极端 SNR、奇异协方差；未发现满足假设而违反主命题的反例，发现下述证明和决策缺口。
+- **OK｜§2 L21、P1：** 两种展开 \(I(d,h;y)\) 给出恒等式；正噪声和有限协方差保证所用 MI 有限。[链式法则与 DPI](https://ocw.mit.edu/courses/6-441-information-theory-spring-2016/5d8f16adc3385c9ff2975b121bd620e4_MIT6_441S16_course_notes.pdf)
+- **OK｜L23–25、P2：** 独立输入允许符号 MI 求和下界；LMMSE 数据处理成立，但 MMSE 数值不能直接当作 QPSK 高斯残差 MI。
+- **GAP｜L26–27、P3：** 仍说主 T1 是 empirical GMI，与 L51–55 冲突；最小修正：统一为 QR 主项、GMI 仅报告，且经验估计本身没有下界保证。
+- **GAP｜L28–30、L37、L67：** 样本 \(f(d)\) 与常数 \(\mathbb E_df(d)\) 混用；统一逐帧得分 \(\ell(h,d)=A(h)-f(d)+J\)，仅其期望称信息下界。
+- **OK｜L28–35：** T2 对高斯 taps 精确；同协方差非高斯输入由最大熵给出上界。T3 则需要高斯源，不能外推到 RAY。
+- **GAP｜P4、L46、L77：** 奇异源不能直接使用全空间微分熵或未证明的 \(\varepsilon\) 极限；最小修正：写 \(h=Bg,\ g\sim\mathcal{CN}(0,I_r)\)，在支撑空间证明。
+- **OK｜T3 引用事实：** 干扰虽依赖 \(g\)，仍有 \(\mathbb E[gv^H]=0\)；LMMSE 误差协方差为 \((I+F^HQ^{-1}F)^{-1}\)，误差熵上界给出 J，无需干扰独立或高斯。
+- **GAP｜L51–54：** 上三角 QR 必须按 \(i=N,\ldots,1\) 展开，条件化并消去 \(j>i\)；补明逆序后，逐行 AWGN MI 下界成立，允许零对角元。
+- **OK｜L52、L56–61：** 排序仅依赖 h，保持条件输入独立；population GMI≤MI，因为差值是到 metric posterior 的平均 KL。[GMI 定义](https://arxiv.org/html/2003.11694v2)
+- **OK｜P5–P7、L65–82：** 已知延迟/协方差、Gaussian 与 iid 输入范围已交代；无循环论证。白性只指协方差，MODEL 干扰对角项、bits 单位及 \(I^*\)/\(2I^*\) 区别正确。
+- **OK｜L77–80：** Sylvester/行列式引理适用于 identity form，不要求 \(R^{-1}\)；交叉项由零均值数据和独立 taps 消失。
+- **GAP｜U4 L84–90：** 混合高斯密度及配对期望正确，但 Δ 向上无界；Bonferroni 不能补足单区间覆盖率。须指定适用的尾界，或用带误差界的确定性积分。
+- **OK｜U4 反例尝试：** \(N=L=1,\rho=.5,\sigma^2=.1\) 时两类条件方差为 .392893、1.807107；较小方差分量的信息密度沿尾部趋于 \(-\infty\)，故 \(\Delta\to+\infty\)，反驳“Δ 有界”。
+- **OK｜§3 L94–95：** MODEL 的 \(M^HM=NI_8,\ K=8L\) 给出每 tap 平均功率 \(1/L\)；其协方差允许低秩。
+- **OK｜L96–100：** \(R/(LR)\times\mathbb E e^{j4\pi(n-n')\cos\theta/N}=J_0(4\pi(n-n')/N)/L\)；与本地生成器吻合，ray count 消去，非高斯限制正确。[J0 积分公式](https://dlmf.nist.gov/10.9.E1)
+- **OK｜§4 L104、L110–111：** τ=1 支撑独立帧随机编码的渐近可达性；不证明当前 LDPC 的 FER，1.154 仅作侧表符合范围。
+- **GAP｜L106–107：** T2max 尚未给出证明；可取 \(\beta=\sum_l\max_nR_l[n,n]\)、\(B=N\log_2[1+\beta(\sqrt\rho+\sqrt a)^2/\sigma^2]\)。依据能量守恒，不能假定 IDAFT 后仍恒模。
+- **GAP｜L106–109：** 固定总 α、全部单侧端点的 \(\delta_i\) 且 \(\sum\delta_i\le\alpha\)，要求帧 iid、\(n\ge2\)；采用 \(e=\sqrt{2S^2\ln(2/\delta_i)/n}+7b\ln(2/\delta_i)/[3(n-1)]\)，再算 \(\bar A-e_A-\bar f-e_f+J\)。[适用定理](https://www.cs.mcgill.ca/~colt2009/papers/012.pdf)
+- **GAP｜L109–110：** 明确定位阶段无通过点时的确认范围；若确认末点仍通过，只得到保守认证端点，不能称全冻结网格的最大值。最小修正：标右删失，或扩展确认。
+- **OK｜§5 L117–122：** 六行数值/config 与原输出一致；分母是固定历史点估计，因此 H_low 只认证分子，不是含 \(K_c\) 不确定性的联合比值下界。
+- **CRITICAL｜§6 L130–132：** \((1.30,1.30,1.30,1.15,1.15)\) 被判 UNINFORMATIVE；改善一个弱工况竟可撤销 WEAK。最小修正：先判 INFO，否则至少 4/5 个 \(H_{\rm low}\ge1.10\) 判 WEAK。
+- **OK｜L127–129、L131–134：** 每参考独立标签、无同码 FER/因果承诺、低下界不否定余量，以及 censored/report-only 项的限制正确。
+- **GAP｜§7 L138–140：** 命题固定延迟，但 C1 每帧随机抽延迟；明确固定 D，或改目标为 \(I(d;y\mid D)\)，逐帧计算 J(D) 并覆盖其随机性。
+- **GAP｜L139–140：** MODEL 的 \(I+Q^{-1}C_p\) 通常非 Hermitian；Cholesky 应作用于 \(I+Q^{-1/2}C_pQ^{-1/2}\)，或使用 \(\log\det(Q+C_p)-\log\det Q\)。
+- **OK｜L141–144：** U1 的 N/K 阶恒等式、U2 的 identity-channel 公式正确；U3 是待执行的数值检查。本轮未运行 \(10^5\) rays 或接收机。
+- **OK｜数值 toy：** \(N=L=1,\rho=.5,\sigma^2=(10,1,.1)\)，确定性求积得 \((LB,MI)\approx(.00142,.00298),(.01812,.08711),(-.67701,.28870)\)，均未违反下界。
+- **OK｜边界 toy：** \(R=0\) 时各项与 MI 全零；ρ=1 的退化扩展中 T2=T3、LB=MI=0；ρ=0 的标量 MI=0。非零 \(C_s\) 下高 SNR 松界可趋负无穷。
+- **OK｜奇异 toy：** \(N=2,L=1,R=\mathbf1\mathbf1^H\) 秩为 1；ρ=.5、σ²=.1 时 T3 两种行列式形式均为 1.415037 bits，无需逆 R。
+- **GAP｜Structure/detail checker：** 核心三项链条、维度、符号方向和奇异边界通过；QR 顺序、样本/期望层级、区间覆盖率与分类/最大值语义尚需修正。
+- **NOT READY-TO-FREEZE：** 阻塞是上述统计覆盖率缺口、WEAK 分类错误及实施定义歧义；主互信息下界本身未被推翻。

@@ -1,0 +1,83 @@
+{
+ "audit_skill": "kill-argument",
+ "verdict": "FAIL",
+ "reason_code": "unresolved_critical",
+ "summary": "Attribution of the system gain to uncertainty scoring unsupported; three framing points partial",
+ "audited_input_hashes": {
+  ".trellis/tasks/11-20-gamma0-exchange/research/kill-argument/CLAIMS.md": "sha256:36ed1d91ab22884087850b4eb5fec90323f60982128f3e145c6ab4f820bccd28",
+  "research-assets/res-20261119-06.md": "sha256:2e6a2afc77f786b01d88e3e0df2800a0905064f94e56f1e7a359d4ac757d978c",
+  "research-assets/res-20261118-03.md": "sha256:eba079a2cd5039f833c31803e31d1ff6cc2a468e063b19cd25f516d5d3f380af",
+  "research-assets/res-20261017-01.md": "sha256:094bbe59976f1c9ccf5603729c76e9b1c89d450d8e32057cc255d7fdc286a4b8",
+  "research-assets/res-20261120-01.md": "sha256:0732e8762ab5bf04a9930a298dded62882a0db250bbdbda56eb384f834aec181",
+  "research-assets/res-20261118-06.md": "sha256:2c08a9a01a6469ba33ecaa9e8ec259b7aced01fbc3299dd13e98ec52afc83c1e",
+  "research-assets/res-20261120-02.md": "sha256:b51ac096e47a7fb6b1e27b0dcbf8cba5f8f2c2f1cb92c7ca7525ccc4805b2d3b",
+  "research-assets/res-20261120-03.md": "sha256:959e1b424321a7dc5036544dec96a3ddd16c009936fa64b989dcf6ba0651db96",
+  "research-assets/res-20261119-02.md": "sha256:b1d1f8b1870e868a76c23b39b5346b274e8799ffcf9d6868bbeb4c085411a543",
+  "research-assets/res-20261119-03.md": "sha256:1eaaa36be3597a17b858542c26ae683b8a9a6c90d253ec639ae55a67aa1b1c40",
+  "research-assets/res-20261017-03.md": "sha256:79ef8f566dfa4c12ceaebf4356d2babb8f98876a8d8ea9db5814f65fde021d60",
+  "research-assets/res-20261118-05.md": "sha256:a7f1a4f537bd4d1eaf91178e86c27bc8f263d00689873f96183741fd95c323e6",
+  ".trellis/tasks/09-22-tf-production-gap-audit/research/proofs-20261119/theory-astra-v2.tex": "sha256:529c838b552456f05812dbf997484db582856873883ce6a3348fcf947dcf6756",
+  ".trellis/tasks/09-22-tf-production-gap-audit/research/zero-cost-readouts-20261119.md": "sha256:f35ffc1a95a85ad5768fd37e1fea244aeed5a56d32f7ebfca5271fb05f7a1510",
+  ".trellis/tasks/11-20-gamma0-exchange/research/lit-diag-soft-variance-20261120.md": "sha256:ccc6f3cccbd10c18ab16b9b8c939a6da870c1c0b3caaa17e880c92cbe5d8475a"
+ },
+ "trace_path": ".trellis/tasks/11-20-gamma0-exchange/research/kill-argument",
+ "thread_id": "01a1f7fa-2c1b-7581-bfa7-d53b67379d5f",
+ "reviewer_model": "gpt-6.2-astra",
+ "reviewer_reasoning": "xhigh",
+ "generated_at": "2026-11-20T08:05:25+00:00",
+ "details": {
+  "attack_thread_id": "01a1f7f8-6b75-7ee0-9c66-87b4e579d152",
+  "defense_thread_id": "01a1f7fa-2c1b-7581-bfa7-d53b67379d5f",
+  "attack_memo": "The submission does not establish that its treatment of soft-symbol uncertainty contributes to the advertised 1.14 dB gain at a 1% frame error rate. The pilot-power sweep compares a receiver that searches again for missing paths after decoding fails with one that stops. It omits the decisive control at that operating point: the same search scored using soft-symbol means alone. [res-20261119-06.md, lines 15–34](/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/research-assets/res-20261119-06.md:15)\n\nWhere the authors run that control, it reproduces the central result. On 1,952 triggered cases, omitting the uncertainty penalty rescues 653 cases against 659 with the exact co-delay block. Both produce exactly 36 phantom first edits. Even on 2,400 frames constructed with genuine close path pairs, the frame-error difference is 0.54 percentage points, with a 95% interval of −0.03 to +1.13, inside the authors’ equivalence margin. [Distinct-delay experiment](/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/research-assets/res-20261120-01.md:31) · [Close-pair experiment](/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/research-assets/res-20261120-03.md:20)\n\nThe striking 89.1% phantom rate arises from assigning an independent uncertainty penalty to each candidate path. The authors’ literature search identifies no published fractional-Doppler support estimator that uses this penalty. The closest receiver, Luo et al., feeds back hard decisions. The diagnosis therefore explains the failure of an approximation introduced by the authors, while the headline gain establishes the value of reopening the path search. Neither result identifies a decoding gain attributable to the proposed criterion. [Literature comparison, §2](/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/.trellis/tasks/11-20-gamma0-exchange/research/lit-diag-soft-variance-20261120.md:60)",
+  "decomposed_points": [
+   {
+    "id": "P_1",
+    "label": "Attribution of the 1.14 dB gain",
+    "verdict": "still_unresolved",
+    "severity_if_unresolved": "critical",
+    "attack_claim": "The pilot sweep lacks a means-only crossing, so no share of the 1.14 dB can be credited to uncertainty scoring.",
+    "evidence": "res-20261119-06.md:15-34; CLAIMS.md:15-19",
+    "recommended_fix": "Run means-only scoring on the same frames and pilot grid and report the paired best-tested 1% FER crossing against CODELAY; or claim the gain for the architecture only."
+   },
+   {
+    "id": "P_2",
+    "label": "Means-only reproduces the distinct-delay result",
+    "verdict": "partially_answered",
+    "severity_if_unresolved": "major",
+    "attack_claim": "Means-only scoring reproduces rescue and the low phantom count on P1.",
+    "evidence": "res-20261120-01.md:26-41, 64-75; CLAIMS.md:26-30",
+    "recommended_fix": "Reframing: correct the earlier covariance attribution (E-1) and state equivalence on P1."
+   },
+   {
+    "id": "P_3",
+    "label": "Close pairs: occupancy advantage only",
+    "verdict": "partially_answered",
+    "severity_if_unresolved": "major",
+    "attack_claim": "On genuine close pairs FER is equivalent; no decoding superiority for CODELAY.",
+    "evidence": "res-20261120-03.md:15-30; res-20261120-02.md:56-58; CLAIMS.md:31-35",
+    "recommended_fix": "Reframing: say \"places two atoms at the true doublet delay\" and report the FER equivalence alongside."
+   },
+   {
+    "id": "P_4",
+    "label": "Diagonal penalty has no published counterpart",
+    "verdict": "partially_answered",
+    "severity_if_unresolved": "major",
+    "attack_claim": "The 89.1% phantom rate comes from an author-constructed penalty no published estimator uses.",
+    "evidence": "lit-diag-soft-variance-20261120.md:60-66; res-20261120-01.md:31-37",
+    "recommended_fix": "Reframing: identify the diagonal arm as the authors' extrapolation of the orthogonal-grid rule and explain the split mechanism directly."
+   }
+  ],
+  "counts": {
+   "answered_by_current_text": 0,
+   "partially_answered": 3,
+   "still_unresolved": 1
+  },
+  "net_assessment": "Architecture result and the diagonal-penalty diagnosis survive; the attribution objection stands: no incremental decoding gain from uncertainty scoring over means-only search is established.",
+  "top_action_items": [
+   "Add the paired means-only 1% FER crossing if any part of the 1.14 dB is credited to uncertainty scoring; otherwise credit the architecture only.",
+   "Reconcile the earlier rescue attribution with the prospective means-only control; label the diagonal penalty as an author-constructed comparison wherever 89.1% appears.",
+   "Justify the CODELAY default with the measured close-pair occupancy difference, with the paired FER interval in the same passage."
+  ],
+  "note": "Codex MCP is retired; both threads ran as separate fresh `codex exec --sandbox read-only` sessions. No manuscript exists; CLAIMS.md stands in."
+ }
+}

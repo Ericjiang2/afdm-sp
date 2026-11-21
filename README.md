@@ -3,6 +3,7 @@
 项目：AFDM Deep-Unfolded Joint Channel Estimation and Detection（SP-AFDM，`afdm-e2e-main`）。
 本仓库是本地研究 vault 中 `00_Inbox/AFDM-channel-estimation/` 的**已提交快照**，由 `.sync/sync.sh` 生成；
 每个 commit 消息记录对应的 vault commit hash。不要在此仓库直接修改。
+例外（Eric 2026-11-21）：`funnel/*` 分支由 idea 漏斗的云端 runner 写入，只改 `ideas/`；`main` 只由 `.sync/sync.sh` 更新。漏斗协议与脚本的生成副本在 `.sync/idea-funnel/`。
 
 ## 阅读顺序
 

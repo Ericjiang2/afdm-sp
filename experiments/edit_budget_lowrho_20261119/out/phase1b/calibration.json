@@ -1,0 +1,166 @@
+{
+  "_argv": [
+    "phase1b.py",
+    "--out",
+    "out/phase1b"
+  ],
+  "_config": {
+    "archive": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/rho_sweep_20261119/out/main_20261119",
+    "rows_manifest_sha256": "75912eae581034d22878e68b68a0f84aff0d6414f62b332058307bc86663307e",
+    "archive_config_sha256": "62eb3602a39217bcda4ff89f0241c6ea14227d3c051837e0d366f247dd395c9b",
+    "readout_rhos": [
+      150,
+      200,
+      300
+    ],
+    "readout_snr": [
+      300,
+      400,
+      450,
+      500,
+      550,
+      600,
+      650,
+      700,
+      800,
+      1000
+    ],
+    "arms": {
+      "CD2": [
+        "A1",
+        2
+      ],
+      "CD4": [
+        "A1",
+        4
+      ],
+      "CD6": [
+        "A1",
+        6
+      ],
+      "A2-2": [
+        "A2",
+        2
+      ],
+      "A2-6": [
+        "A2",
+        6
+      ]
+    },
+    "threads": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "CUDA_VISIBLE_DEVICES": ""
+    },
+    "archive_frames": [
+      5400,
+      5799
+    ],
+    "code_sha256": {
+      "budget_receiver.py": "657febf84b814d9e229d066413a2b9eb59d83bd81fda92a567517f334f2dfd32",
+      "qualify.py": "4f66358b31833ca814cfa2c958dafe0417e454e5ae9f81663c079d6658184cdc",
+      "phase1b.py": "bff7cb9fc80109ab5d5bdbea72a7eff6efc7477b11ec7c58942a06a9e650b067",
+      "primary.py": "cfa8c87e04c532297a95adbd8cb5e34da2634ed5444c66083a6237f4be41eb96"
+    },
+    "phase": "1b",
+    "phase1_gates": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/edit_budget_lowrho_20261119/out/phase1/qualification3/gates.json",
+    "phase1_gates_sha256": "655c8cb783523923029f4bec58bf7abbc07aaa7acf4d1a2220713e73abd04b1a",
+    "primary_snr_centi_db": {
+      "150": [
+        600,
+        650,
+        700,
+        800
+      ],
+      "300": [
+        450,
+        500
+      ]
+    },
+    "caps": [
+      2,
+      4,
+      6
+    ]
+  },
+  "half_width_model": "95% normal, archive CD2 clustered ratio residuals, equal uncorrelated arm influences",
+  "by_rho": {
+    "150": {
+      "snr_centi_db": [
+        600,
+        650,
+        700,
+        800
+      ],
+      "physical_frames": 400,
+      "triggered_keys": 795,
+      "distinct_triggered_frames": 223,
+      "cd2_rescued": 641,
+      "cd2_failed": 154,
+      "cd2_rescue_rate": 0.8062893081761007,
+      "cd2_marginal_se": 0.021851947313342432,
+      "projected_95_half_width": 0.060569394702097885,
+      "astra_subgroup": {
+        "eligible_keys": [
+          6,
+          130
+        ],
+        "eligible_frames": [
+          6,
+          56
+        ],
+        "missed_delay_bounds": {
+          "1:1": 2,
+          "1:2": 20,
+          "1:3": 38,
+          "2:3": 13,
+          "2:4": 45,
+          "3:4": 6,
+          "3:5": 23,
+          "4:5": 2,
+          "4:6": 3,
+          "5:6": 2
+        }
+      }
+    },
+    "300": {
+      "snr_centi_db": [
+        450,
+        500
+      ],
+      "physical_frames": 400,
+      "triggered_keys": 689,
+      "distinct_triggered_frames": 324,
+      "cd2_rescued": 510,
+      "cd2_failed": 179,
+      "cd2_rescue_rate": 0.7402031930333817,
+      "cd2_marginal_se": 0.016045627809560325,
+      "projected_95_half_width": 0.04447539389072239,
+      "astra_subgroup": {
+        "eligible_keys": [
+          3,
+          61
+        ],
+        "eligible_frames": [
+          3,
+          50
+        ],
+        "missed_delay_bounds": {
+          "0:0": 6,
+          "1:1": 25,
+          "1:2": 82,
+          "1:3": 27,
+          "2:2": 5,
+          "2:3": 17,
+          "2:4": 11,
+          "3:4": 3,
+          "3:5": 3
+        }
+      }
+    }
+  }
+}

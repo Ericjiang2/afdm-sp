@@ -1,0 +1,17 @@
+{"RUN_START": {"_argv": ["/home/guoyikun/.conda/envs/AFDM/bin/python", "-B", "c1apb_stage1.py", "--shuffle-anchor-dir", "/data/guoyikun/tmp/c1apb_smoke", "--manifest-md5", "ca422d9cb7dd249e1a3fb370c40f321f", "--protocol-md5", "b8153136fb7f00a1aeb4b8787f9f6be7", "--out", "out/c1apb/seal"], "_config": {"kind": "REAL_S1", "base_commit_attestation": "c5c86f9b", "amendments": ["A1", "A2"], "manifest_md5": "ca422d9cb7dd249e1a3fb370c40f321f", "protocol_md5": "b8153136fb7f00a1aeb4b8787f9f6be7", "no_TEST": true}, "input_md5s": {"/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_lib.py": "6a958a71031d6a94ac288267e052b27e", "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_stage1.py": "5e344c405d9e29b6bb8d2d8f12b0096f", "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_stage2.py": "edbbe5f9cc80578a993347408361aa61", "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/unit_check_c1apb.py": "49a14af6fc0917e6feeb79df942b1677"}, "code_md5s": {"/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_lib.py": "6a958a71031d6a94ac288267e052b27e", "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_stage1.py": "5e344c405d9e29b6bb8d2d8f12b0096f", "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_stage2.py": "edbbe5f9cc80578a993347408361aa61", "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/unit_check_c1apb.py": "49a14af6fc0917e6feeb79df942b1677"}, "analysis_environment": {"python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]", "numpy": "1.26.4", "hostname": "liunxgpu", "thread_environment": {"OPENBLAS_NUM_THREADS": "1", "OMP_NUM_THREADS": "1", "MKL_NUM_THREADS": "1"}}}, "utc": "2026-10-13T06:58:25.620131+00:00"}
+SEALED_CAL: G0 pass; fit pooled/full/generic/rescue + LOCO + per-cell
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_stage1.py", line 172, in <module>
+    main()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_stage1.py", line 122, in main
+    models = L.fit_models(train)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_lib.py", line 412, in fit_models
+    out["loco"][cell] = {name: fit_cv(dataset(others, full))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_lib.py", line 412, in <dictcomp>
+    out["loco"][cell] = {name: fit_cv(dataset(others, full))
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_lib.py", line 392, in fit_cv
+    model = fit_logistic(ds["x"][~val], ds["y"][~val], ds["w"][~val], ridge)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/headroom_ladder_20261008/c1apb_lib.py", line 375, in fit_logistic
+    raise RuntimeError(f"logistic optimizer failed: {result.message}")
+RuntimeError: logistic optimizer failed: ABNORMAL_TERMINATION_IN_LNSRCH
+{"RUN_EXIT": 1, "utc": "2026-10-13T06:59:25.814696+00:00"}

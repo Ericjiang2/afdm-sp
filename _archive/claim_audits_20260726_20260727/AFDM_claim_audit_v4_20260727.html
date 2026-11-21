@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFDM 终裁审计 v4 — 终值入账 · 白化第三结局 · serial 原点校正 · 含金量终评（2026-07-27）</title>
+<style>
+:root{
+  --ink:#2C2C2B; --ink2:#7D7A75; --canvas:#FFFFFF; --soft:#F9F8F7; --soft2:#F0EFED; --line:#E6E5E3;
+  --blue:#2783DE; --blue-soft:#E5F2FC; --green:#46A171; --green-soft:#E8F1EC;
+  --orange:#D5803B; --orange-soft:#FBEBDE; --red:#E56458; --red-soft:#FCE9E7;
+  --mono:Menlo,Consolas,"SF Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;color:var(--ink);background:var(--canvas);font-size:16px;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 32px 96px}
+header.doc{border-bottom:1px solid var(--line);padding-bottom:32px;margin-bottom:48px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:12px}
+h1{font-size:34px;line-height:1.25;font-weight:700;margin-bottom:16px}
+.sub{color:var(--ink2);font-size:15px;max-width:780px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:3px 10px;background:var(--soft);color:var(--ink2)}
+.chip b{color:var(--ink);font-weight:600}
+section{margin-bottom:64px}
+h2{font-size:24px;font-weight:700;margin-bottom:8px;padding-top:8px;border-top:1px solid var(--line);padding-top:24px}
+h2 .sn{color:var(--blue);font-variant-numeric:tabular-nums;margin-right:10px}
+h3{font-size:18.5px;font-weight:650;margin:32px 0 12px}
+h4{font-size:16px;font-weight:650;margin:20px 0 8px}
+p{margin-bottom:12px}
+.aum{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0 24px}
+.aum .cell{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:14px 16px;font-size:14px}
+.aum .cell .lbl{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.aum .asked .lbl{color:var(--blue)} .aum .unasked .lbl{color:var(--orange)} .aum .mech .lbl{color:var(--green)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0 24px}
+th{background:var(--soft2);text-align:left;font-weight:650;padding:9px 12px;border:1px solid var(--line);font-size:13px}
+td{padding:9px 12px;border:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tscroll{overflow-x:auto}
+.mono{font-family:var(--mono);font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:650;border-radius:5px;padding:1px 8px;white-space:nowrap}
+.tag.firm,.tag.hit,.tag.g{background:var(--green-soft);color:#2E7A52}
+.tag.split,.tag.y{background:var(--orange-soft);color:#A8611F}
+.tag.fail,.tag.r{background:var(--red-soft);color:#C43D30}
+.tag.info{background:var(--blue-soft);color:#1B6AB8}
+.verdictbar{border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 8px 8px 0;padding:16px 20px;margin:20px 0;font-size:15px}
+.verdictbar.warn{border-color:var(--orange);background:var(--orange-soft)}
+.verdictbar.bad{border-color:var(--red);background:var(--red-soft)}
+.verdictbar.good{border-color:var(--green);background:var(--green-soft)}
+.claim{border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin-bottom:10px;font-size:14.5px}
+.claim .en{display:block;margin-bottom:6px}
+.claim .zh{display:block;color:var(--ink2);font-size:13.5px}
+.claim.g{border-left:4px solid var(--green)}
+.claim.y{border-left:4px solid var(--orange)}
+.claim.r{border-left:4px solid var(--red)}
+.claim .cid{font-family:var(--mono);font-size:12px;color:var(--ink2);margin-right:8px}
+.ladder{display:flex;align-items:stretch;gap:0;margin:24px 0;flex-wrap:wrap}
+.rung{flex:1;min-width:150px;border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:14px;text-align:center}
+.rung .nm{font-size:13px;font-weight:650;margin-bottom:4px}
+.rung .val{font-family:var(--mono);font-size:16px;font-weight:600}
+.rung .cap{font-size:12px;color:var(--ink2);margin-top:4px}
+.arrow{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 6px;min-width:86px}
+.arrow .fac{font-family:var(--mono);font-size:13px;font-weight:650;color:var(--blue)}
+.arrow .gl{font-size:20px;color:var(--ink2);line-height:1}
+.arrow .lb{font-size:11px;color:var(--ink2);text-align:center}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.panel{border:1px solid var(--line);border-radius:8px;padding:16px 18px;background:var(--soft)}
+.panel h4{margin-top:0}
+ul,ol{margin:0 0 14px 22px}
+li{margin-bottom:6px}
+.score{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.score .dim{width:300px;font-size:14px;font-weight:600;flex-shrink:0}
+.score .bar{flex:1;height:10px;background:var(--soft2);border-radius:5px;overflow:hidden}
+.score .bar i{display:block;height:100%;background:var(--blue);border-radius:5px}
+.score .v{font-family:var(--mono);font-size:14px;font-weight:650;width:44px;text-align:right;flex-shrink:0}
+.goldbox{border:1px solid var(--line);border-radius:12px;padding:24px 28px;background:var(--soft);margin:24px 0;display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.goldbox .big{font-size:44px;font-weight:750;font-variant-numeric:tabular-nums}
+.goldbox .big span{font-size:20px;color:var(--ink2);font-weight:500}
+.formula{font-family:var(--mono);font-size:13.5px;background:var(--soft2);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:12px 0;overflow-x:auto;white-space:pre}
+blockquote{border-left:3px solid var(--line);padding:8px 16px;color:var(--ink2);margin:12px 0;font-size:14.5px}
+.small{font-size:13px;color:var(--ink2)}
+footer{border-top:1px solid var(--line);margin-top:48px;padding-top:20px;font-size:13px;color:var(--ink2)}
+@media (max-width:760px){
+  .wrap{padding:32px 18px 64px}
+  h1{font-size:26px}
+  .aum{grid-template-columns:1fr}
+  .twocol{grid-template-columns:1fr}
+  .ladder{flex-direction:column}
+  .arrow{flex-direction:row;gap:8px;padding:6px 0;min-width:0}
+  .arrow .gl{transform:rotate(90deg)}
+  .score .dim{width:150px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+<div class="kicker">Hostile-but-fair Referee Audit · v4 · Final Settlement</div>
+<h1>AFDM SP 联合迭代接收机 — 终裁审计 v4</h1>
+<p class="sub">终值入账 + 两处 v3 预言落空改判 + 机制梯子定稿 + 项目含金量冷酷打分。本报告承接 v1–v3 的证据纪律：终值 &gt; v3 趋势句 &gt; 更早 interim；货币不一致禁止合成假统一结论；学习 / 白化 / 部署三者不得偷换。v3 的 superseded-interim 机制在本报告全部结清，<b>不再有 pre-final</b>。</p>
+<div class="meta">
+<span class="chip">数据源 <b>e1_e2_20260727_analysis.json</b>（schema afdm-e1e2-analysis/1）</span>
+<span class="chip">bootstrap <b>B=20000</b> frame-block · percentile 2.5/97.5 · seed 20260727</span>
+<span class="chip">E1 <b>800 帧/点 × 5 SNR × 4 臂</b></span>
+<span class="chip">E2 <b>800 帧/点 · SNR 15/20 · +serial floor</b></span>
+<span class="chip">diff 结论 <b>附件与结算表零冲突（见 §1 注）</b></span>
+</div>
+</header>
+
+<!-- ============ §0 ============ -->
+<section id="s0">
+<h2 style="border-top:none;padding-top:8px"><span class="sn">§0</span>Latent Questions</h2>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div><b>A.</b> 终值已全部落盘，claim / contribution / green-red 句子如何定稿。<br><b>B.</b> 这个项目现在到底有多少含金量——不许包装。</div>
+<div class="cell unasked"><div class="lbl">Unasked（优先）</div>① 白化二选一被第三结局打破后，主贡献对象是部署壳、联合迭代，还是协方差打分；② 68% 与 32% 的原点之争，论文用哪条才不自欺；③ 含金量真实瓶颈在 novelty、evidence 还是叙事口径。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>一切判定走同一条链：intervention → controls（同帧/同 harness/同 seed）→ internal variable → metric delta → CI/n。凡链上断一环，句子降级或封禁。</div>
+</div>
+
+<h4>三个 Unasked 的先行裁定（正文详证）</h4>
+<ol>
+<li><b>主贡献对象 = 部署壳（OMP-once + scored-exchange 系统接收机，含联合迭代结构）。</b>第三结局恰恰帮了作者：白化被证明是「真实但 sub-cliff」的次级效应，悬崖平移的 1.09 / 1.47 dB 几乎全部由部署壳承担。Λ/achievable 降为机制解释器 + 已测次级效应（§2.1、§5）。</li>
+<li><b>两条原点都必须写，且必须同段并列。</b>origin-serial 回答「整套栈值多少」（68.1%，其中迭代独占 52.9 个百分点）；origin-classical 回答「本文新增结构值多少」（32.2%）。单独引用任何一条都是自欺——只写 68% 把迭代的功劳记给交换，只写 32% 把栈的系统价值藏起来。规则写死于 §3。</li>
+<li><b>真实瓶颈按序：叙事口径 &gt; evidence 广度 &gt; novelty。</b>证据在其所测范围内异常硬（配对帧、CI、外锚、双端点梯子俱全），novelty 中等但可辩护；最大死法是口径事故——68% 不写原点、白化写进 cliff、information-saturated 留在句子里，任意一条都够审稿人把整篇可信度拆掉（§8）。</li>
+</ol>
+</section>
+<!-- ============ §1 ============ -->
+<section id="s1">
+<h2><span class="sn">§1</span>Final Settlement Board — v3 pending → firm / failed</h2>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div>v3 留白的每一行按终值改判：命中写命中，落空写落空机制，不护短。</div>
+<div class="cell unasked"><div class="lbl">Unasked</div>附件 JSON 是否与结算表冲突（协议：冲突则开 diff 节）；以及哪些「命中」其实带着口径地雷入账。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>逐字段核对 cliff_shift_db、coded_ber_ratio、whitening_incremental_shift_db、pcsi_ladder_snr15、e2.table、verification.*。结论：<b>14/14 行与附件零冲突，无需 diff 节</b>。五份 results.json 指纹（md5）：geom c79d9c09… / ach 865aaa0e… / pcsi 95574039… / main 1095d1a3… / serial e5a7d957…；detector 绑定 sha256 51708dc6…。</div>
+</div>
+
+<div class="verdictbar">附件内建裁定与本板一致：<b>primary_pre_registered = PASS</b>（悬崖平移两 FER 锚点 CI 均排除 0，0.2 dB 摘要线被跨越 5.44× / 7.36×）；<b>secondary_whitening = SPLIT</b>（两货币判定分裂，v3 预注册二选一两支均不成立 → §2.1 改判）。</div>
+
+<div class="tscroll"><table>
+<tr><th>条目</th><th>v3 状态</th><th>终值（800f，95% CI）</th><th>命中 / 落空</th><th>机制影响</th><th>可写句级别</th></tr>
+<tr><td>悬崖平移 @FER=10⁻¹（geom vs classical）</td><td>pending</td><td class="mono">1.088 dB [0.978, 1.201]</td><td><span class="tag firm">firm 命中</span></td><td>部署效应在 coded 悬崖货币上首次成 firm；同帧配对 + frame bootstrap B=20000</td><td><span class="tag g">Green</span></td></tr>
+<tr><td>悬崖平移 @FER=10⁻²</td><td>pending</td><td class="mono">1.471 dB [1.132, 1.864]</td><td><span class="tag firm">firm 命中</span></td><td>更深 FER 处平移更大；CI 变宽是稀疏事件的诚实代价，不得美化</td><td><span class="tag g">Green</span></td></tr>
+<tr><td>0.2 dB 摘要门槛</td><td>趋势句</td><td class="mono">跨越 5.44× / 7.36×</td><td><span class="tag hit">趋势命中</span></td><td>预注册摘要线从门槛变地板；摘要直接引 dB 实值</td><td><span class="tag g">Green</span></td></tr>
+<tr><td>dB-gap @FER=10⁻² → PCSI</td><td>pending</td><td class="mono">1.012 dB [0.678, 1.318]（ach 侧 0.953）</td><td><span class="tag firm">firm</span></td><td>「距完美 CSI 还有 1 dB」成为实测数——同时永久封禁 near-optimal（§4 R1）</td><td><span class="tag g">Green</span>（措辞受限）</td></tr>
+<tr><td>SNR8 coded 倍率</td><td>interim 4.8×@260f</td><td class="mono">4.89× @800f（ratio 0.204 [0.169, 0.238]）</td><td><span class="tag firm">未翻转，收敛</span></td><td>interim→final 无翻转，为「260f 强信号可信」提供一次校准样本</td><td><span class="tag y">Yellow</span>（单工作点，禁作代表值）</td></tr>
+<tr><td>SNR7 旧 −34%</td><td>superseded-pending（禁引）</td><td class="mono">−34.2%（ratio 0.658 [0.634, 0.681]）</td><td><span class="tag hit">事后准确，解禁</span></td><td>旧 interim 被终值追认；引用必须指向 800f 终值而非旧 interim</td><td><span class="tag g">Green</span></td></tr>
+<tr><td>SNR9–11 geom FER</td><td>在跑</td><td class="mono">0.0075 / 0 / 0</td><td><span class="tag firm">完成</span></td><td>SNR≥10 双臂零错 ⇒ 白化比率在高 SNR 无功效（0/0）；§2.1 的功效边界由此而来</td><td><span class="tag g">Green</span>（描述性）</td></tr>
+<tr><td>E2 classical 锚</td><td>pending（零漂移预言）</td><td class="mono">1.66376e-2（漂移 −0.37%）</td><td><span class="tag hit">零漂移命中</span></td><td>跨跑复现锚成立；与 C3 容差基线共同构成 §6 L3 的定量地基</td><td><span class="tag g">Green</span></td></tr>
+<tr><td>Cao 基线</td><td>interim 3.02×</td><td class="mono">2.987×（vs classical 臂）</td><td><span class="tag hit">「约 3×」成立</span></td><td><b>口径地雷入账</b>：2.99× 的配对臂是 classical（Cao 4.969e-2 / classical 1.664e-2）；对完整 scored-exchange 臂是 4.74×。且 cao_basis='ours'（我方基重实现）。臂标注规则写死于 §3/§4</td><td><span class="tag y">Yellow</span>（必须标臂 + 重实现限定）</td></tr>
+<tr><td>LMMSE-SP</td><td>interim 0.444</td><td class="mono">0.4449</td><td><span class="tag hit">塌缩确认</span></td><td>一步线性 CE 在 SP 叠加下 ≈ 掷硬币：problem severity 的最硬外锚</td><td><span class="tag g">Green</span></td></tr>
+<tr><td>PCSI uncoded（SNR15）</td><td>pending</td><td class="mono">3.961e-3；gap 4.201×；残差 2.645×</td><td><span class="tag hit">命中</span></td><td>「残差住在 CE/不可达侧」从 v3 推论升级为实测；uncoded 梯子闭合</td><td><span class="tag g">Green</span></td></tr>
+<tr><td>「关掉对数 gap 的 ≈32%」</td><td>pending（origin=classical）</td><td class="mono">32.2%</td><td><span class="tag hit">精确命中</span></td><td>命中但成为原点纪律的引爆点：与 C1 的 68.1% 分母不同，强制双原点并列（§3）</td><td><span class="tag y">Yellow</span>（必须带原点）</td></tr>
+<tr><td>serial floor</td><td>pending（v3 禁止预填 ~4e-2）</td><td class="mono">8.345e-2</td><td><span class="tag split">落地 + 预期偏差 2.09×</span></td><td>v3 不预填纪律被数据追认为救命纪律；旧 ~4e-2 若被用会把迭代段少算约一半（§2.2）</td><td><span class="tag g">Green</span>（仅限本 harness 实测端点）</td></tr>
+<tr><td>白化二选一（v3 §4 预注册）</td><td>pending（互斥两支）</td><td class="mono">BER 比率分离 0.979 / 0.884；cliff-δ 不分离 +0.031 / +0.059 dB</td><td><span class="tag fail">两支均落空 → 第三结局</span></td><td>隐含假设「两货币同向同量」被推翻；claim 重写见 §2.1</td><td><span class="tag y">Yellow</span>（仅第三支句式合法）</td></tr>
+<tr><td>E2 SNR20（新跑）</td><td>不 gate</td><td class="mono">110 vs 99；McNemar p=0.104；配对差 CI 含 0</td><td><span class="tag split">无功效</span></td><td>既未复现也未推翻旧 −28.9%；C4 又显示该区间 NumPy↔torch 锚同时退化 → SNR20 整体降级为「引旧 firm + 声明未再检验」</td><td><span class="tag r">Red</span>（新数据禁作主句）</td></tr>
+</table></div>
+<p class="small">diff 义务履行记录：逐字段复核后无冲突——悬崖 1.0882/1.4713；比率 0.9790/0.8842；δ +0.0313 [−0.0018, +0.0720] / +0.0591 [0.0000, +0.1851]；梯子 52.908% / 68.087% / 32.233%；Cao 2.9868；LMMSE 0.4449；serial 8.3446e-2；重跑分歧 4/759,397 = 5.27e-6（受影响 3/4000 帧）；SNR20 锚翻转 1 / 9 bit。全部与输入 A–E 一致（四舍五入内），故以本注代替 diff 节。</p>
+</section>
+<!-- ============ §2 ============ -->
+<section id="s2">
+<h2><span class="sn">§2</span>Broken Predictions — 两处落空的正式改判</h2>
+
+<h3>2.1 白化二选一失败 → 第三结局</h3>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div>v3 预注册的互斥两支（支1：白化再贡献 δ dB 悬崖平移；支2：悬崖上部署主导，白化只是 uncoded 机制效应）到底哪支成立。</div>
+<div class="cell unasked"><div class="lbl">Unasked</div>两支共享的隐含假设是什么；它被推翻后，Λ/achievable 这条理论线还剩什么可辜护的价值。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>同帧配对 ach vs geom，同一干预在两种货币上分别结算：coded-BER 比率（帧内错比特汇池，功效高） vs cliff-dB（FER 插值，功效低且受悬崖斜率压缩）。</div>
+</div>
+
+<div class="verdictbar bad"><b>宣判：v3 二选一的隐含假设——「白化效应在 coded-BER 比率与 cliff-dB 两种货币上同向同量、判定必然一致」——被实测推翻。</b>符号一致（都指向白化有益），但分离性跨货币不一致：比率货币分离（SNR7 0.979 [0.965, 0.993]；SNR8 0.884 [0.801, 0.968]），dB 货币不分离（δ = +0.031 [−0.002, +0.072] / +0.059 [0.000, +0.185]）。按认识论第 4 条，禁止合成假统一结论——必须分列两句。预注册二分法本身是好纪律，但它的世界观少了一个格子；第三结局从此正式入典。</div>
+
+<h4>第三支正式 claim（定稿，EN + ZH）</h4>
+<div class="claim g"><span class="cid">W3-G</span><span class="en">"The whitened (achievable-Λ) score yields a statistically separable reduction in paired coded BER at SNR 7–8 (ratios 0.979 [0.965, 0.993] and 0.884 [0.801, 0.968], CIs excluding 1), but no resolvable additional shift of the coded FER cliff (δ = 0.03–0.06 dB, CIs including 0). Its coded-domain effect is real but sub-cliff."</span><span class="zh">白化的编码域效应存在且在配对 coded-BER 比率上统计可分离，但不构成可分辨的悬崖平移贡献——真实但 sub-cliff。（作者提议句审定通过；上形为加强版，把数字、CI、两货币分列全部写进句内，不给断章取义留缝。）</span></div>
+<div class="claim y"><span class="cid">W3-Y</span><span class="en">"At the coded working point the whitening effect manifests mainly as error redistribution within failing frames rather than frame rescue (SNR 8: raw BER −0.25%, FER 0.125 → 0.115)."</span><span class="zh">黄级：仅限 discussion，不建理论、不进 contribution bullets（输入 D 纪律）。</span></div>
+<div class="claim r"><span class="cid">W3-R</span><span class="en">"whitening contributes a further δ dB of cliff shift" / "the whitened score is information-saturated given the estimate" — both forbidden.</span><span class="zh">红级：前句把比率分离偷换成 cliff 贡献；后句双重死亡——saturation 预言零效应，与已分离的 BER 比率矛盾；若改口「几乎饱和」又与支1 无法区分。整个词组退出论文。</span></div>
+
+<h4>机制解释：为什么会「BER 比率分离而 cliff-dB 不分离」（有约束，不造大理论）</h4>
+<ol>
+<li><b>效应位置：改错误分布多于改错误数量。</b>SNR8 实测：白化仅降 raw BER 0.25%，FER 从 0.125 到 0.115（配对 FER 差 1.0 pp，CI [−0.1, +2.2] 含 0）。即白化主要减少<i>仍然译码失败的帧内</i>的残留错比特数，只把极少数帧从失败拉回成功。coded-BER 同时计入两类改善，FER（从而 cliff-dB）只计后者。</li>
+<li><b>货币换算：cliff-δ ≈ FER 差 ÷ 悬崖斜率。</b>悬崖段斜率量级 ≈40 pp/dB。δ ≈ 1.0 pp ÷ 40 pp/dB ≈ 0.025 dB——与实测点估计 0.031 dB 同量级。两个测量完全自洽：不是悖论，而是同一个小效应在两把分辨率不同的尺子上的读数。</li>
+<li><b>统计功效：配对比率汇池帧内计数，方差被配对大幅抵消；cliff-dB 继承 FER 二项噪声 + 对数插值误差，在 δ≈0.03 dB 量级上 800 帧无力分离。</b>功效边界同样实测：SNR9 比率 0.810 [0.448, 1.046] 已不分离，SNR10/11 双臂 0/0 无功效——分离结论严格限 SNR 7–8。</li>
+</ol>
+
+<h4>Λ / achievable 重定位（裁定）</h4>
+<table>
+<tr><th>候选定位</th><th>裁定</th><th>理由</th></tr>
+<tr><td>主贡献（矛）</td><td><span class="tag fail">否决</span></td><td>在论文主货币（coded cliff）上无可分辨贡献；把矛交给它等于把论文押在 0.03 dB 上。</td></tr>
+<tr><td>机制解释器 + 已测次级效应（甲）</td><td><span class="tag firm">采纳</span></td><td>它仍持有两项硬资产：uncoded 域机制链（v1-firm）+ coded-BER 比率分离（本轮 firm）。作为打分设计动机 + 第三结局的定量刻画，进 §5 的 B 级。</td></tr>
+<tr><td>纯附录</td><td><span class="tag split">部分</span></td><td>Λ 因式分解的理论推导、achievable 白化的构造细节 → 附录；但第三结局的实测表（两货币分列）必须留在正文，否则审稿人会问「为什么要白化」。</td></tr>
+</table>
+
+<h3>2.2 serial floor 量级预期错 2.09× → 回收叙事原点规则固化</h3>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div>实测 8.345e-2 vs 旧预期 ~4e-2，差 2.09×；重算并固定唯一允许的原点规则。</div>
+<div class="cell unasked"><div class="lbl">Unasked</div>落空的真正假设不是「serial 大概多少」，而是「量级可以跨 config/seed/harness 迁移」——这条假设死了，它还连带影响哪些句子。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>旧 ~4e-2 来自 v1 旧 seed/旧配置；本轮 serial 与 main 同 harness、同 seed 20260601、同 800 帧、仅 n_outer 10→1——这才是合格的单变量端点。</div>
+</div>
+
+<div class="verdictbar warn"><b>落空机制：</b>失败的不是测量而是迁移假设。若误用 4e-2 作原点：serial→classical 段的对数距离从 ln(8.345e-2/1.664e-2)=1.612 nats 被缩成 ln(4e-2/1.664e-2)=0.877 nats（少算 1.84× ≈ 一半），整栈回收从 68.1% 被写成 57.9%，迭代段从 52.9% 被写成 37.9%。v3 的「不得预填」禁令是本轮审计中唯一阻止了事故的那道闸。</div>
+
+<h4>唯一允许的回收叙事原点规则（写死，不得再议）</h4>
+<ul>
+<li><b>R-1（端点资格）：</b>回收百分比的一切端点（serial、classical、F2P+ach、PCSI）必须来自<b>同 harness、同 seed、同帧数、同夜批次</b>的实测值。任何历史 seed、任何记忆中的量级、任何跨配置外推，一律无端点资格。</li>
+<li><b>R-2（双原点强制并列）：</b>origin-serial 与 origin-classical 两句必须同段出现，各自带分母；只写其一即视为误导（§4 R2）。</li>
+<li><b>R-3（公式写死）：</b>见下式；分子分母都是自然对数 BER 差，禁止换底、禁止用线性 BER 差假冗余。</li>
+<li><b>R-4（E2 配对注记）：</b>serial 与 main 同 harness、同 seed，但 E2 不落 per-frame 数组，帧级配对是构造上断言而非逐帧证明 → 按 v3 §6.4 作 horizontal comparison 入账，梯子百分比不得附 CI（附了就是伪精度）。</li>
+</ul>
+<div class="formula">Rec(x; O) = [ ln BER(O) − ln BER(x) ] / [ ln BER(O) − ln BER(PCSI) ]
+
+origin-serial   : O = serial(n_outer=1, 同夜实测 8.345e-2)
+                  Rec(classical) = 52.9%   Rec(F2P+ach) = 68.1%   残差 = 31.9%
+origin-classical: O = classical(iter-10, 1.664e-2)
+                  Rec(F2P+ach) = 32.2%
+全部 @ SNR15, uncoded, E2 harness, seed 20260601, 800 frames</div>
+</section>
+<!-- ============ §3 ============ -->
+<section id="s3">
+<h2><span class="sn">§3</span>Canonical Mechanism Ladder（定稿）</h2>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div>机制梯子定稿：双原点对数回收、coded 悬崖、白化双货币、PCSI 残差、外锚。</div>
+<div class="cell unasked"><div class="lbl">Unasked</div>哪些箭头有书写资格（同帧/同 harness/同夜），哪些箭头永久禁止；Cao 2.99× 的配对臂到底是谁。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>uncoded 梯子回答「gap 住在哪一层」；coded 悬崖回答「系统价值多少 dB」；两者货币不同，各自成句，禁止合成。</div>
+</div>
+
+<h4>Uncoded PCSI 梯子（E2，SNR 15，800 帧，同 harness，seed 20260601）</h4>
+<div class="ladder">
+<div class="rung"><div class="nm">serial（n_outer=1）</div><div class="val">8.345e-2</div><div class="cap">一次性串行接收机地板</div></div>
+<div class="arrow"><span class="fac">÷5.02</span><span class="gl">→</span><span class="lb">联合迭代（iter 10）<br>回收 52.9%</span></div>
+<div class="rung"><div class="nm">classical（iter-10）</div><div class="val">1.664e-2</div><div class="cap">经典打分联合迭代臂</div></div>
+<div class="arrow"><span class="fac">÷1.59</span><span class="gl">→</span><span class="lb">F2P 打分交换<br>累计 68.1%（+15.2 pt）</span></div>
+<div class="rung"><div class="nm">F2P + ach（本文系统）</div><div class="val">1.048e-2</div><div class="cap">origin-classical 口径：关掉 32.2%</div></div>
+<div class="arrow"><span class="fac">÷2.645</span><span class="gl">→</span><span class="lb">残差在 CE/不可达侧<br>31.9% 未回收</span></div>
+<div class="rung"><div class="nm">PCSI（完美 CSI）</div><div class="val">3.961e-3</div><div class="cap">gap（classical→PCSI）= 4.201×</div></div>
+</div>
+<p class="small">对数 gap 总长 ln(8.345e-2 / 3.961e-3) = 3.048 nats。E2 无 per-frame 数组，梯子百分比为 horizontal comparison（§2.2 R-4），不附伪 CI。</p>
+
+<h4>论文必须并列的两句（强制，禁止只写其一）</h4>
+<div class="claim g"><span class="cid">L-serial</span><span class="en">"Measured from a one-shot serial receiver, the full stack recovers 68.1% of the log-BER gap to perfect CSI at SNR 15 — 52.9 points from joint iteration alone, and a further 15.2 points from the scored exchange."</span><span class="zh">origin = serial：回答「整套系统值多少」，必须拆出迭代 52.9 / 交换 15.2 的内部分账。</span></div>
+<div class="claim g"><span class="cid">L-classical</span><span class="en">"Measured from the iterative classical-scored baseline, the scored exchange closes 32.2% of the remaining log-BER gap to perfect CSI."</span><span class="zh">origin = classical：回答「本文新增结构自身值多少」。两句同段并列，分母各自写明。</span></div>
+
+<h4>Coded 悬崖面板（E1，部署总效果）与白化双货币面板</h4>
+<div class="twocol">
+<div class="panel"><h4>部署总效果（geom vs classical，同帧）</h4>
+<ul>
+<li>cliff shift @FER=10⁻¹：<b>1.088 dB</b> [0.978, 1.201]</li>
+<li>cliff shift @FER=10⁻²：<b>1.471 dB</b> [1.132, 1.864]</li>
+<li>距 PCSI @FER=10⁻²：<b>1.012 dB</b> [0.678, 1.318]（ach 侧 0.953）</li>
+<li>PCSI vs classical @10⁻²：2.483 dB — 部署关掉其中约六成（dB 货币，仅描述）</li>
+</ul></div>
+<div class="panel"><h4>白化增量（ach vs geom，同帧，两货币分列）</h4>
+<ul>
+<li>coded-BER 比率：SNR7 <b>0.979</b> [0.965, 0.993]；SNR8 <b>0.884</b> [0.801, 0.968] — 分离</li>
+<li>cliff-δ：@10⁻¹ <b>+0.031 dB</b> [−0.002, +0.072]；@10⁻² <b>+0.059 dB</b> [0.000, +0.185] — 不分离</li>
+<li>功效边界：SNR9 比率不分离；SNR10/11 双臂 0/0 无功效</li>
+</ul></div>
+</div>
+
+<h4>外锚（E2，SNR 15，同帧同器）</h4>
+<table>
+<tr><th>锚</th><th class="num">BER</th><th>相对位置（必须标臂）</th><th>句式约束</th></tr>
+<tr><td>LMMSE-SP（一步线性 CE）</td><td class="num mono">0.4449</td><td>≈ 掷硬币；塌缩</td><td>problem severity 锚；可直接引用</td></tr>
+<tr><td>Cao 式 re-OMP（cao_basis='ours' 重实现）</td><td class="num mono">4.969e-2</td><td><b>2.99×</b> 劣于 classical 臂；<b>4.74×</b> 劣于 F2P+ach 臂</td><td>引用必须标明配对臂与重实现限定；两个倍数禁止互换</td></tr>
+<tr><td>ours-reOMP</td><td class="num mono">1.544e-2（SNR15）</td><td>SNR20 处 3.66e-5 反超部署臂 6.04e-5（单 seed，未解释）</td><td>异常登记在案（§7）；SNR20 无功效区间内不得裁判</td></tr>
+</table>
+
+<h4>允许箭头 / 禁止箭头</h4>
+<div class="twocol">
+<div class="panel" style="border-left:4px solid var(--green)"><h4>允许（实线，有书写资格）</h4>
+<ul>
+<li>serial → classical → F2P+ach → PCSI（同 harness/seed/夜，horizontal）</li>
+<li>classical ↔ geom ↔ ach ↔ pcsi（E1 同帧配对，可标 delta + CI）</li>
+<li>白化增量：仅 ach vs geom 同帧，两货币分列</li>
+<li>外锚：Cao/LMMSE → 标明臂的同帧比较</li>
+</ul></div>
+<div class="panel" style="border-left:4px solid var(--red)"><h4>禁止（永久）</h4>
+<ul>
+<li>旧 seed serial ~4e-2 → 任何端点（已被 2.09× 偏差处决）</li>
+<li>uncoded 倍率 → coded 悬崖句（货币偷换）</li>
+<li>coded-BER 比率分离 → cliff-dB 白化贡献（§2.1）</li>
+<li>跨 harness / 跨 seed / 跨帧集配对；E2 梯子百分比附 CI</li>
+<li>Cao 2.99× 挂到 F2P+ach 臂（正确值 4.74×）或反之</li>
+</ul></div>
+</div>
+</section>
+
+<!-- ============ §4 ============ -->
+<section id="s4">
+<h2><span class="sn">§4</span>Claim Language Constitution（定稿）</h2>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div>Green / Yellow / Red 各 ≥8 句，英文主体 + 中文附注，覆盖全部指定主题。</div>
+<div class="cell unasked"><div class="lbl">Unasked</div>每句 Yellow 的解锁条件是什么；每句 Red 杀死的机制理由是什么（不是品味问题，是证据问题）。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>Green = 机制链完整且终值 firm；Yellow = 链完整但缺一样证据/限定；Red = 链断裂或与实测矛盾。</div>
+</div>
+
+<h3>Green — 可直接写进正文/摘要</h3>
+<div class="claim g"><span class="cid">G1</span><span class="en">"Relative to a same-complexity classical-scored joint iterative baseline under bitwise-identical frames, the scored-exchange receiver shifts the coded FER cliff left by 1.09 dB at FER=10⁻¹ (95% CI [0.98, 1.20]) and 1.47 dB at FER=10⁻² (CI [1.13, 1.86]); 800 paired frames per point."</span><span class="zh">悬崖主句；四舍五入 1.088→1.09、1.471→1.47 合规。</span></div>
+<div class="claim g"><span class="cid">G2</span><span class="en">"Measured from a one-shot serial receiver at SNR 15, the full stack recovers 68.1% of the log-BER gap to perfect CSI — 52.9 points from joint iteration, 15.2 from the scored exchange; measured from the iterative baseline, the exchange closes 32.2% of the remaining gap."</span><span class="zh">68/32 双原点合体句——唯一合法的 68% 写法。</span></div>
+<div class="claim g"><span class="cid">G3</span><span class="en">"At FER=10⁻² the receiver operates 1.01 dB from the perfect-CSI reference (CI [0.68, 1.32])."</span><span class="zh">距离句；不得加 near-optimal 修饰（R1）。</span></div>
+<div class="claim g"><span class="cid">G4</span><span class="en">"The whitened score yields a statistically separable paired coded-BER reduction at SNR 7–8 (ratios 0.979 [0.965, 0.993]; 0.884 [0.801, 0.968]) but no resolvable additional cliff shift (δ ≤ 0.06 dB, CIs including 0)."</span><span class="zh">白化第三结局定稿句（= §2.1 W3-G）。</span></div>
+<div class="claim g"><span class="cid">G5</span><span class="en">"One-shot LMMSE channel estimation under superimposed pilots collapses to BER 0.445 — statistically indistinguishable from coin flipping — motivating structured sparse estimation."</span><span class="zh">LMMSE coin-flip 锚。</span></div>
+<div class="claim g"><span class="cid">G6</span><span class="en">"Under bitwise-identical frames, a Cao-style re-OMP baseline re-implemented in our basis incurs 2.99× the uncoded BER of the classical-scored iterative arm (4.74× versus the full scored-exchange receiver) at SNR 15."</span><span class="zh">Cao 约 3× 主句——必须带臂标注 + 重实现限定才升 Green。</span></div>
+<div class="claim g"><span class="cid">G7</span><span class="en">"At SNR 7 the deployment reduces paired coded BER by 34.2% (ratio 0.658 [0.634, 0.681])."</span><span class="zh">旧 −34% 解禁后的终值写法。</span></div>
+<div class="claim g"><span class="cid">G8</span><span class="en">"The classical arm reproduces across independent runs with −0.37% drift; an independent same-device re-run of the geometric arm diverged in 4 of 759,397 error bits (5.3×10⁻⁶, 3 of 4,000 frames)."</span><span class="zh">复现性双锚（零漂移 + 容差基线）。</span></div>
+<div class="claim g"><span class="cid">G9</span><span class="en">"At SNR 15 the uncoded BER gap to perfect CSI is 4.20× for the iterative baseline and 2.65× after the scored exchange; the residual lives on the estimation side."</span><span class="zh">uncoded 梯子句（不得与 coded 悬崖句合成）。</span></div>
+
+<h3>Yellow — 限定句：附解锁条件后可写</h3>
+<div class="claim y"><span class="cid">Y1</span><span class="en">"complexity-preserving / OMP-once adds no per-iteration re-OMP cost"</span><span class="zh">解锁：正文附操作数/复杂度表（含 F2P 打分交换的额外开销）。无表则降为 "OMP-once" 结构描述。</span></div>
+<div class="claim y"><span class="cid">Y2</span><span class="en">"At SNR 20 a prior firm run showed −28.9%; the present 800-frame run is underpowered (110 vs 99 errors, McNemar p=0.10) and neither reproduces nor contradicts it."</span><span class="zh">SNR20 唯一合法句式；任何新 SNR20 主句解锁条件 = E3 target-error 跑。</span></div>
+<div class="claim y"><span class="cid">Y3</span><span class="en">"The decoder amplifies both effects at the same working point (deployment 1.12×→4.89×; whitening 1.0025×→1.13×)"</span><span class="zh">仅限 discussion（输入 D 纪律）；不建理论、不进 contribution bullets。</span></div>
+<div class="claim y"><span class="cid">Y4</span><span class="en">"the closest published SP-AFDM baseline"</span><span class="zh">解锁：系统性文献审计 + Cao 双协议（原基/我基）附录。否则写 "a Cao-style re-OMP baseline"。</span></div>
+<div class="claim y"><span class="cid">Y5</span><span class="en">"the gains generalize across channel geometries / seeds"</span><span class="zh">解锁：第二 data seed + 第二几何。当前只能写 "under the evaluated geometry (N=1024, P=8, …)"。</span></div>
+<div class="claim y"><span class="cid">Y6</span><span class="en">"all three E1 runs provably share the same detector binding (sha256-fingerprinted via the bitwise-identical classical arm)"</span><span class="zh">解锁：bundle-v2 按契约落地 + git/归档哈希补齐（§6）。</span></div>
+<div class="claim y"><span class="cid">Y7</span><span class="en">"whitening acts mainly by redistributing residual errors within failing frames"</span><span class="zh">机制推测，discussion 可写；升 Green 需逐帧错误分布证据。</span></div>
+<div class="claim y"><span class="cid">Y8</span><span class="en">"a learned (offline-trained, frozen) scorer inside a classical iterative loop"</span><span class="zh">学习句唯一合法形态：离线训练、推理时冻结。禁止 online/adaptive/learning-based receiver 一类措辞（R6）。</span></div>
+<div class="claim y"><span class="cid">Y9</span><span class="en">Abstract may lead with "recovers 68.1% … from a serial receiver" only if the same sentence names the origin and the 32.2% classical-origin figure appears in the same paragraph.</span><span class="zh">摘要版 68% 的唯一解锁方式。</span></div>
+
+<h3>Red — 禁句（每条附杀死理由）</h3>
+<div class="claim r"><span class="cid">R1</span><span class="en">"near-optimal" / "approaches perfect-CSI performance"</span><span class="zh">1.01 dB 是实测距离；在悬崖斜率 ~40pp/dB 上 1 dB ≈ 整条悬崖。永久禁句。</span></div>
+<div class="claim r"><span class="cid">R2</span><span class="en">"recovers 68% of the gap" (or 32%) without naming the origin</span><span class="zh">原点不同分母不同；单报即误导（§3）。</span></div>
+<div class="claim r"><span class="cid">R3</span><span class="en">"whitening contributes δ dB of cliff shift"</span><span class="zh">δ CI 含 0；把比率分离偷换成 dB 贡献是货币偷换（§2.1）。</span></div>
+<div class="claim r"><span class="cid">R4</span><span class="en">"the whitened score is information-saturated given the estimate"</span><span class="zh">双重死亡：预言零效应却实测到分离的 BER 比率；且无任何信息论证据。退出论文。</span></div>
+<div class="claim r"><span class="cid">R5</span><span class="en">"the SNR 20 result confirms/refutes the earlier −28.9%"</span><span class="zh">p=0.104、CI 含 0：无功效结果两者都不能干（输入 E 纪律）。</span></div>
+<div class="claim r"><span class="cid">R6</span><span class="en">"the receiver learns / adapts to the channel online"</span><span class="zh">学习/白化/部署三者偷换；scorer 离线训练且冻结。</span></div>
+<div class="claim r"><span class="cid">R7</span><span class="en">Attaching 2.99× to the scored-exchange arm, or quoting 4.89× as a typical/uncoded gain</span><span class="zh">臂错配：2.99× 属 classical 臂（对应 4.74×）；4.89× 是 SNR8 单工作点 coded 倍率，受悬崖斜率放大。</span></div>
+<div class="claim r"><span class="cid">R8</span><span class="en">Any recovery percentage computed from the legacy ~4×10⁻² serial figure, or any cross-harness pairing</span><span class="zh">2.09× 偏差已实锤；跨 harness 配对无帧对齐资格。</span></div>
+<div class="claim r"><span class="cid">R9</span><span class="en">"bit-exact reproducible" as a blanket property</span><span class="zh">C3/C4 实测：同器重跑 5.3e-6 分歧；SNR20 锚翻 9 bit。只能写分层句（§6）。</span></div>
+<div class="claim r"><span class="cid">R10</span><span class="en">"outperforms all existing SP-AFDM receivers"</span><span class="zh">只有一个重实现外锚，无全域比较资格。</span></div>
+</section>
+<!-- ============ §5 ============ -->
+<section id="s5">
+<h2><span class="sn">§5</span>Contribution Triage Final（A / B / C / D）</h2>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div>第一名只能有一个；Λ/achievable、learning、negative results、reproducibility methods 各归位；裁决「第一名切换开关」是否真可扳动。</div>
+<div class="cell unasked"><div class="lbl">Unasked</div>Unasked #1 在此结案：白化二选一被第三结局打破后，主贡献对象既不是协方差打分（cliff 上无可分辨贡献），也不是联合迭代本身（文献已有、只是分母的一部分），而是<b>部署壳：OMP-once + 打分交换结构本身，以 coded 悬崖为主证据</b>。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>v3 预注册的切换条件：①悬崖终值 firm（已成：1.088/1.471 dB CI 排零）；②梯子终值落地（已成：双原点梯子闭合）；③bundle-v2 按契约落地（未成）。</div>
+</div>
+<div class="verdictbar warn"><b>第一名切换裁决：批准，附条件。</b>前两项开关已由终值扳动，第三项（bundle-v2 契约）仍欠——半小时工作量，但它是 v3 白纸黑字的开关条件，不得赖账。在 bundle-v2 按契约落地之前，第一名切换处于「已批准、未生效」状态。生效后：矛 = systems 接收机，Λ 退居甲。</div>
+<table>
+<tr><th>级</th><th>贡献</th><th>Mechanism chain</th><th>最小证据指针</th></tr>
+<tr><td><b>A（第一名，唯一）</b></td><td>Complexity-matched <b>OMP-once + scored-exchange SP-AFDM systems 接收机</b>，以 coded FER 悬崖为主证据</td><td>干预：把 per-iteration re-OMP 换成一次 OMP + 迭代内打分交换 → 控制：同帧同码同器配对，classical 臂同复杂度 → 内部变量：支撑集/峰值保留质量 → 指标：cliff 1.088/1.471 dB，CI 排零，800 帧/点</td><td class="mono">e1.cliff_shift_db；geom md5 c79d9c09…</td></tr>
+<tr><td><b>B</b></td><td>双原点 PCSI 梯子分解（迭代 52.9 / 交换 15.2 / 残差 31.9）+ 白化第三结局定量刻画（Λ 作为机制解释器）</td><td>同夜同 harness 四端点 → 对数 gap 分账 → 回答「gap 住在哪层」；白化：两货币分列，BER 比率分离 / cliff-δ 不分离</td><td class="mono">e2.pcsi_ladder_snr15；e1.coded_ber_ratio；e1.whitening_incremental_shift_db</td></tr>
+<tr><td><b>C</b></td><td>Reproducibility methods（同帧兄弟跑绑定传递、容差基线 5.3e-6、SNR 区间依赖的锚有效性）+ negative-results 登记（SNR20 无功效、reOMP 异常、LMMSE 塌缩）</td><td>pcsi 的 classical 臂逐位等同 → 绑定哈希传递三跑 → 分层可复现体系（§6）；独立重跑 → 容差地板</td><td class="mono">verification._detector_binding sha256 51708dc6…；gateA 分歧 4/759,397</td></tr>
+<tr><td><b>D（附录/不入正文主线）</b></td><td>Λ 因式分解理论推导；译码器放大观察（输入 D，discussion-only）；learning 句式只以 Y8 形态存在，不回潮</td><td>理论不再承担主 claim 荷重；观察无机制链闭合</td><td class="mono">ckpt c2rel.pt.force_topk（离线训练、冻结）</td></tr>
+</table>
+</section>
+
+<!-- ============ §6 ============ -->
+<section id="s6">
+<h2><span class="sn">§6</span>Reproducibility Doctrine v4（分层）</h2>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div>把二元「有/无指纹」改成分层体系，写清目前达到哪层、缺什么。</div>
+<div class="cell unasked"><div class="lbl">Unasked</div>C3/C4 的真正产出不是「又一个检查项」，而是把「可复现」从哲学变成了带实测判据的测量：容差阈值、适用 SNR 区间、逐位相等的现实边界。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>绑定传递：pcsi 跑记录 detector 指纹；其 classical 臂与 geom/ach 跑逐位相等 ⇒ 三跑共享同一 detector 被证明，无需 GPU 回放。仅限同帧同夜兄弟跑。</div>
+</div>
+<table>
+<tr><th>层</th><th>定义</th><th>本项目状态</th><th>缺什么</th></tr>
+<tr><td><b>L0</b> 散文</td><td>方法节文字描述 + 参数表</td><td><span class="tag firm">达成</span></td><td>—</td></tr>
+<tr><td><b>L1</b> 同帧兄弟跑绑定传递</td><td>无指纹的历史跑通过与带指纹兄弟跑的逐位相等臂获得绑定证明</td><td><span class="tag firm">达成（本轮新证）</span>：geom/ach 经 pcsi 的 classical 臂传递，binding_status = proven</td><td>仅限同帧同夜；不可外推到历史 GPU 跑</td></tr>
+<tr><td><b>L2</b> JSON fingerprint</td><td>qualname + sha256 写进 results.json</td><td><span class="tag firm">达成（pcsi 起）</span>：loop9_cache_features._fast_bp，sha256 51708dc6…</td><td><b>_git 捕获失败 {sha:null}</b>（远程 checkout 非 git 仓库）——需归档哈希或修复捕获</td></tr>
+<tr><td><b>L3</b> device-matched replay</td><td>同器回放 SNR15 子集，判据：相对分歧 &lt; 容差（≥ ~1e-5，由 C3 实测 5.27e-6 定标）</td><td><span class="tag split">判据已实例化，未执行为正式回放</span>：gateA(geom) 臂 = 免费得到的一次同器重跑，4/759,397</td><td>把回放脚本 + 容差判据写进 recipes/；SNR20 永久除外（C4：bit-exact 在 SNR20 退化，锚翻 9 bit）；gateA_s15firm 子集从「方便」升级为<b>必要条件</b></td></tr>
+<tr><td><b>L4</b> full C1 historical GPU firm</td><td>历史 GPU 跑全量回放确认</td><td><span class="tag fail">未达成</span></td><td>需 GPU 回放预算；在 gateA_s15firm 条件下范围可收窄到 SNR15 子集</td></tr>
+</table>
+<div class="verdictbar">论文可写的复现性句式上限 = L2（全域）+ L1（E1 三跑）+ L3-判据（已定标未执行）。禁止笼统 "bit-exact reproducible"（§4 R9）；合法写法是：“classical-path results are bitwise reproducible at SNR≤15; stochastic-path results reproduce within a measured 10⁻⁵ bit-level tolerance.”</div>
+</section>
+
+<!-- ============ §7 ============ -->
+<section id="s7">
+<h2><span class="sn">§7</span>Venue &amp; Write/Submit Gate</h2>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div>现在可否 lock 正文；哪些图表必须进主文；三个遗留项是否 blocker；venue 短名单。</div>
+<div class="cell unasked"><div class="lbl">Unasked</div>真正的 gating 风险不在数据而在口径：如果正文任一处溢出 §4 宪法，审稿人撤销的不是一句话而是对全文的信任。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>blocker 判定标准：是否影响主 claim 的可辩护性，而非是否好看。</div>
+</div>
+<h4>Lock 裁定</h4>
+<ul>
+<li><b>正文可以现在 lock</b>，例外仅一处：所有 SNR20 句子必须先降级为 Y2 句式（引旧 firm + 声明本轮无功效）。</li>
+<li>实际 submit 前置条件：bundle-v2 按契约落地（见下）。</li>
+</ul>
+<h4>必须进主文的图表</h4>
+<ol>
+<li><b>Fig. 1</b>：coded FER vs SNR 四曲线（classical / geom / ach / PCSI）+ 悬崖平移 CI 标注——主 claim 的全部证据在此一图。</li>
+<li><b>Fig. 2</b>：双原点对数梯子条形图（serial→classical→F2P+ach→PCSI，标 52.9/15.2/31.9）——把 68/32 口径争议一图杀死。</li>
+<li><b>Table 1</b>：外锚表（LMMSE-SP / Cao（标臂，双倍数）/ ours-reOMP）+ 重实现限定脚注。</li>
+<li><b>Table 2</b>：白化双货币表（BER 比率 vs cliff-δ 分列，含功效边界）——第三结局的正式展示面。</li>
+</ol>
+<h4>三个遗留项的 blocker 裁定</h4>
+<table>
+<tr><th>项</th><th>裁定</th><th>理由</th></tr>
+<tr><td>bundle-v2 目录契约（扁平 + MANIFEST.md5 vs 嵌套 + sha256 + recipes/）</td><td><span class="tag fail">submit blocker（非 cosmetic）</span></td><td>它同时是：①v3 第一名切换的第三开关；②§6 L3 的 recipes/ 载体；③Y6 绑定传递句的解锁条件。半小时工作量不改变定性：不落地不投。</td></tr>
+<tr><td>SNR20 无功效</td><td><span class="tag split">非 blocker（降级后）</span></td><td>只要正文无任何 SNR20 新主句即可。若想保留任何 SNR20 主句，E3 target-error 跑升级为必需（输入 E 纪律）。</td></tr>
+<tr><td>ours-reOMP @SNR20 反超（3.66e-5 vs 6.04e-5，单 seed）</td><td><span class="tag split">非 blocker，但强制披露</span></td><td>登记在案、附录披露未解释异常；隐瞒被发现的代价远大于披露。SNR20 本就在无功效区，不伤主 claim。</td></tr>
+</table>
+<h4>Venue 短名单 + 被拒主因预判</h4>
+<table>
+<tr><th>Venue</th><th>匹配理由</th><th>被拒主因预判</th></tr>
+<tr><td><b>IEEE TWC（首选）</b></td><td>systems 接收机 + coded 链路级证据 + 硬配对方法学，正中 TWC 口味</td><td>“assembly of known parts”（OMP/SP/迭代均有文献）+ 单几何单 seed 仿真。防御：把 novelty 钉在部署结构+证据纪律，不吹算法新。</td></tr>
+<tr><td><b>IEEE TCOM（次选）</b></td><td>接收机设计 + 基线硬度叙事同样成立</td><td>同上；另预判“why AFDM / why not OTFS or known pilots”——需在 intro 用 LMMSE 塌缩锚正面回答。</td></tr>
+<tr><td><b>IEEE WCL（压缩信件）</b></td><td>若只保留 Fig.1 + Fig.2 两主证据，信件体量可行</td><td>丢失方法学贡献（§5 C 级全砍），含金量自降一档。</td></tr>
+<tr><td><b>ICC / Globecom（保底）</b></td><td>周期快，可作期刊前哨</td><td>基本不会因证据被拒；代价是新鲜度消耗。</td></tr>
+<tr><td>IEEE TSP</td><td><span class="tag fail">不匹配</span>：无理论核（Λ 已退居解释器），TSP 会要定理</td><td>—</td></tr>
+</table>
+</section>
+<!-- ============ §8 ============ -->
+<section id="s8">
+<h2><span class="sn">§8</span>项目含金量评估（冷酷打分，无鸡汤）</h2>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div>这个项目现在到底有多少含金量？六维打分 + Gold Index + 分类账本。</div>
+<div class="cell unasked"><div class="lbl">Unasked</div>Unasked #3 在此结案：真正瓶颈不是 novelty（够用但不惊艳，改不动），也不主要是 evidence（已经很硬，只缺广度），而是<b>叙事口径的单点脆弱性</b>：68% 不带原点、Cao 不标臂、information-saturated 任一溢出，审稿人就会用你自己的数据拆你的房子。evidence 的缺口（第二 seed/几何）排第二。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>打分只用 §1–§7 已结算的证据底座；每一分的扣分理由必须指向具体实测或具体缺口，不得用形容词。</div>
+</div>
+
+<h3>8.1 六维打分（0–5）</h3>
+<div class="score">
+<div class="dim"><div class="dn">1. Problem severity</div><div class="bar"><div class="v" style="width:80%">4/5</div></div><div class="why">真痛：SP 叠加下一步 LMMSE 塌缩到 0.445（≈掷硬币）是实测硬锚，不是稻草人。<b>扣 1</b>：SP-AFDM 本身是年轻小生态，“为什么不用已知导频/OTFS”的外部质疑永远存在，痛点的普适性打折。</div></div>
+<div class="dim"><div class="dn">2. Mechanism novelty</div><div class="bar"><div class="v" style="width:60%">3/5</div></div><div class="why">新在部署结构（OMP-once + 迭代内打分交换）而非方程；OMP、SP、联合迭代、learned scorer 各自有文献。<b>扣 2</b>：最近 prior 的 delta 是“组装方式 + 证据纪律”，审稿人可合理写出 assembly-of-known-parts；Λ 理论退居解释器后无理论新性兑付。</div></div>
+<div class="dim"><div class="dn">3. Effect size &amp; robustness</div><div class="bar"><div class="v" style="width:60%">3/5</div></div><div class="why">效应量大且带 CI（1.47 dB、双原点梯子、多锚交叉验证）。<b>扣 2</b>：单 data seed、单信道几何、纯仿真；高 SNR 区（SNR20）无功效且留有未解释的 reOMP 反超；out-of-sample 为零。</div></div>
+<div class="dim"><div class="dn">4. Baselines hardness</div><div class="bar"><div class="v" style="width:80%">4/5</div></div><div class="why">同帧逐位配对 + PCSI/serial 双端点 + LMMSE 塌缩锚 + 同复杂度 classical 臂，配对硬度高于领域常见做法。<b>扣 1</b>：唯一已发表外锚 Cao 是 cao_basis='ours' 重实现，无原基双协议；另有 reOMP 异常在案。</div></div>
+<div class="dim"><div class="dn">5. Reproducibility &amp; auditability</div><div class="bar"><div class="v" style="width:80%">4/5</div></div><div class="why">L2 指纹 + L1 绑定传递证明 + 实测容差地板（5.3e-6）+ 预注册审计链 v1→v4，远超领域均值。<b>扣 1</b>：_git {sha:null}、bundle-v2 契约未落地、L4 未达成。</div></div>
+<div class="dim"><div class="dn">6. Story integrity</div><div class="bar"><div class="v" style="width:80%">4/5</div></div><div class="why">主句（cliff dB）不依赖白化、不依赖学习叙事、不依赖原点选择——三个历史地雷已在 §2–§4 拆除。<b>扣 1</b>：残留单点风险：68% 不带原点、Cao 不标臂、information-saturated 任一回潮即被自己的数据反杀；完全依赖作者自律。</div></div>
+</div>
+
+<div class="goldbox">
+<div class="gi">Gold Index = 4+3+3+4+4+4 = <b>22 / 30</b></div>
+<table>
+<tr><th>分段</th><th>档位</th></tr>
+<tr><td class="mono">0–10</td><td>课设级 / 还不够独立成文</td></tr>
+<tr><td class="mono">11–15</td><td>硕士毕业章级 / 好会议 poster-workshop</td></tr>
+<tr><td class="mono">16–21</td><td>好会议正文 → 系统期刊边缘</td></tr>
+<tr><td class="mono"><b>22–25</b></td><td><b>扎实系统信通期刊可投（TWC/TCOM 正常录用区）← 本项目，位于本档下沿</b></td></tr>
+<tr><td class="mono">26–30</td><td>顶刊主文潜力（需理论核或实测/多场景鲁棒性）</td></tr>
+</table>
+<p class="small">定位读法：22 分在「可投」档内但贴着 21/22 分界；把它托在档内的是证据纪律（维4、5），而不是新颖性（维2）。维2 基本不可改善；维3 可花钱改善（见 8.6）。</p>
+</div>
+
+<h3>8.2 审稿人会认可的最小宝石（仅三块）</h3>
+<ol>
+<li><b>同帧配对的 coded 悬崖证据：</b>1.47 dB @FER=10⁻²，CI [1.13, 1.86]，800 配对帧/点——把接收机改进翻译成链路预算货币，且配对设计把方差压到 CI 排零。</li>
+<li><b>双原点梯子分解：</b>同夜四端点把「收益住在哪层」拆成迭代 52.9 / 交换 15.2 / 残差 31.9——大多数同类论文根本不做这个分账。</li>
+<li><b>绑定传递 + 容差地板的复现方法学：</b>用逐位相等兄弟臂传递 detector 指纹、用免费重跑实测 5.3e-6 容差——可直接被同行拿去用的方法节贡献。</li>
+</ol>
+
+<h3>8.3 看起来亮、实为镀金的部分（点名）</h3>
+<table>
+<tr><th>句子</th><th>镀金成分</th></tr>
+<tr><td>“recovers 68% of the gap”</td><td>原点依赖；其中 52.9 点来自联合迭代（文献已有机制），本文新结构自身只占 15.2 点（= classical 原点的 32.2%）。不带分账就是借迭代的光。</td></tr>
+<tr><td>“4.89× coded gain”</td><td>SNR8 单工作点、悬崖肩部斜率放大的读数（uncoded 仅 1.12×）；诚实货币是 dB 平移，不是倍率。</td></tr>
+<tr><td>“2.99× ahead of the closest published baseline”</td><td>臂错配（属 classical 臂）+ 重实现基（cao_basis='ours'）+ “closest published”无文献审计支撑。</td></tr>
+<tr><td>“information-saturated”</td><td>纯镀金：无信息论证据，且被已分离的 coded-BER 比率直接矛盾。</td></tr>
+<tr><td>“complexity-preserving”</td><td>方向可信但无操作数表；在出表前只是形容词。</td></tr>
+</table>
+
+<h3>8.4 与同领域典型论文的相对位置</h3>
+<table>
+<tr><th>比较轴</th><th>相对位置</th></tr>
+<tr><td>纯 AFDM-CE 论文</td><td>本作证据纪律明显更强（同帧配对、CI、coded 链路）；但 CE 算法本身新颖性低于典型 CE 论文的主张。</td></tr>
+<tr><td>SP joint iterative receiver 论文</td><td>最近亲缘。差异化靠两点：复杂度匹配的部署壳 + 拆账梯子；弱在场景广度（单几何）。</td></tr>
+<tr><td>deep unfolding / learned scorer 论文</td><td>有 learned frozen scorer（ckpt c2rel）但不是 unfolding 论文；学习叙事已主动降级（Y8），避开了该赛道内卷，也拿不到该赛道的 novelty 分。</td></tr>
+<tr><td>coded FER 系统接收机论文</td><td><b>本作实际所属类目。</b>在该类中证据硬度中上，新颖性中等，可复现性前列。</td></tr>
+</table>
+
+<h3>8.5 职业 / 学位论文含金量（三套分，不混）</h3>
+<table>
+<tr><th>账本</th><th>分</th><th>理由</th></tr>
+<tr><td>作为单篇投稿论文</td><td><b>7/10</b></td><td>证据链达 TWC 可投水平；失分在单 seed/单几何/仿真-only 与 novelty 可攻面。前提：全文严格执行 §4 宪法。</td></tr>
+<tr><td>作为硕士/博士论文一章</td><td><b>9/10</b></td><td>预注册→终值→推翻自己预言的完整审计链，是答辩委员会最喜欢的那种章；方法学本身就是章节产出。</td></tr>
+<tr><td>作为后续 DD-ISAC / LEO 线的地基砖</td><td><b>8/10</b></td><td>harness、配对方法学、梯子分账、复现分层全部可直接复用；扣分因结论绑定单一几何，换信道模型后数值结论需重测。</td></tr>
+</table>
+
+<h3>8.6 提升一个档位的最小加注（按信息增益排序）</h3>
+<ol>
+<li><b>第二 data seed + 第二信道几何（最高增益）：</b>维3 从 3→4，Gold Index 22→23–24，并一次性封死「单点仿真」这个最大可攻面。工作量 ≈ 2–4 GPU 天（复用现成 harness）。不做：停留 22，审稿人一句 “results are for a single realization” 就能压低录用概率。</li>
+<li><b>Cao dual-protocol（原基 + 我基并报）：</b>维4 从 4→5；工作量 ≈ 1–2 天。不做：基线句永远带“重实现”限定，“closest published baseline”不可写。</li>
+<li><b>SNR20 E3 target-error 跑：</b>维3/维6 小幅加固（消除无功效区 + 可能顺带解释 reOMP 异常）；工作量 ≈ 1 CPU 天。不做：SNR20 永久降级为引旧，不阻止投稿。</li>
+</ol>
+<p class="small">注：真实 UWA/实测数据能把项目推向 26+，但工作量是另一个量级，不属于「最小加注」。</p>
+
+<h3>8.7 最终含金量判决（格式强制）</h3>
+<div class="verdictbar"><b>含金量判决：</b>Gold Index 22/30，扎实系统信通期刊可投档下沿——证据纪律是真金，novelty 是合金，叙事口径一旦溢出就是镀金；<b>适宜定位：</b>TWC/TCOM 的 systems 接收机论文（矛 = coded 悬崖 1.09/1.47 dB，Λ 退居机制解释器），同时是学位论文里一等的一章；<b>最大风险：</b>不是数据而是口径—“68% 不带原点 / Cao 不标臂 / information-saturated”任一回潮，审稿人就用你自己的 JSON 拆你的房子，其次是单 seed 单几何；<b>值不值得继续砼：</b>值—但只值「收割 + 最小加注」的砼法：先按 §7 投出去，同期只加 8.6 的①②，不要再往理论或新特性里加筹码。</div>
+</section>
+
+<!-- ============ §9 ============ -->
+<section id="s9">
+<h2><span class="sn">§9</span>Knife-edit the Contribution Sentence</h2>
+<div class="aum">
+<div class="cell asked"><div class="lbl">Asked</div>逐子句 audit 作者草稿，给 max-safe / recommended / aggressive 三版 + 禁词表。</div>
+<div class="cell unasked"><div class="lbl">Unasked</div>草稿真正的致命伤只有一处（information-saturated）；其余都是可修的限定词问题——但正因如此，作者容易舍不得删那个短语。</div>
+<div class="cell mech"><div class="lbl">Mechanism</div>每子句对照 §1 终值 + §4 宪法逐一定罪。</div>
+</div>
+<h4>逐子句 audit</h4>
+<table>
+<tr><th>子句</th><th>裁定</th><th>理由</th></tr>
+<tr><td>"complexity-preserving"</td><td><span class="tag y">Yellow</span></td><td>无操作数表（Y1）。改 "complexity-matched"（对 classical 臂为真）或附表。</td></tr>
+<tr><td>"recovers 68% … from a serial receiver to perfect CSI"</td><td><span class="tag y">Yellow</span></td><td>数值对（68.087%）且已带原点——但缺分账：52.9 点是迭代的，本文结构只占 15.2 点；且缺 SNR15/uncoded/E2 限定。必须同句带 32.2% 双原点（Y9）。</td></tr>
+<tr><td>"1.09 dB @10⁻¹ and 1.47 dB @10⁻² (800 paired frames, CI excluding 0)"</td><td><span class="tag g">Green</span></td><td>1.088→1.09、1.471→1.47 四舍五入合规；CI 排零属实。原样保留。</td></tr>
+<tr><td>"sits 1.01 dB from the perfect-CSI reference at FER=10⁻²"</td><td><span class="tag g">Green</span></td><td>1.012 实测；只要不接 near-optimal（R1）即合法。</td></tr>
+<tr><td>"2.99× ahead of the closest published SP-AFDM baseline"</td><td><span class="tag r">Red→Yellow</span></td><td>三重问题：臂错配（2.99× 是 classical 臂；对本文完整接收机是 4.74×）；"closest published" 无审计（Y4）；cao_basis='ours' 限定缺失。</td></tr>
+<tr><td>"with a whitened score that is information-saturated given the estimate"</td><td><span class="tag r">Red，删</span></td><td>R4：无证据且被已分离的 coded-BER 比率直接矛盾。整短语退出论文。</td></tr>
+</table>
+
+<h4>三版可投稿句</h4>
+<div class="claim g"><span class="cid">max-safe</span><span class="en">"An OMP-once + scored-exchange SP-AFDM receiver that, under bitwise-identical frames and a complexity-matched iterative baseline, shifts the coded FER cliff left by 1.09 dB at FER=10⁻¹ and 1.47 dB at 10⁻² (800 paired frames/point, 95% CIs excluding 0), and operates 1.01 dB from the perfect-CSI reference at FER=10⁻²."</span><span class="zh">只留两块硬证据；无任何可攻面。代价：丢掉梯子和外锚的卖点。</span></div>
+<div class="claim g"><span class="cid">recommended</span><span class="en">"A complexity-matched OMP-once + scored-exchange SP-AFDM receiver that, at SNR 15, recovers 68.1% of the log-BER gap from a one-shot serial receiver to perfect CSI — 52.9 points from joint iteration and 15.2 points from the scored exchange (32.2% of the remaining gap from the iterative baseline) — shifts the coded FER cliff left by 1.09 dB at FER=10⁻¹ and 1.47 dB at 10⁻² (800 paired frames/point, CIs excluding 0), operates 1.01 dB from perfect CSI at FER=10⁻², and under bitwise-identical frames achieves 2.99× lower uncoded BER than a Cao-style re-OMP baseline for its classical-scored arm (4.74× for the full receiver); the whitened score adds a statistically separable coded-BER reduction but no resolvable additional cliff shift."</span><span class="zh">满足 §4 全部宪法：双原点、分账、标臂、白化第三结局入句。推荐投稿版。</span></div>
+<div class="claim r"><span class="cid">aggressive</span><span class="en">Author draft minus "information-saturated" (kept: "recovers 68% …", "2.99× ahead of the closest published SP-AFDM baseline").</span><span class="zh">风险点：无分账的 68%（借迭代之力）、无臂标注的 2.99×、无审计的 closest published——三处都能被拿本文自己的数据反杀。不推荐。</span></div>
+
+<h4>禁词表（随句附带）</h4>
+<p><code>near-optimal</code>、<code>approaches perfect CSI</code>、<code>information-saturated</code>、不带原点的 <code>recovers 68%/32%</code>、<code>whitening contributes … dB</code>、<code>learns/adapts online</code>、<code>bit-exact reproducible</code>（笼统）、<code>outperforms all existing</code>、不标臂的 <code>2.99×</code>、作为代表值的 <code>4.89×</code>、SNR20 的 <code>confirms/refutes</code>。完整机制理由见 §4 Red 区。</p>
+
+<div class="verdictbar warn"><b>第一名切换终裁（重申 §5）：</b>批准——systems 接收机上位为矛，Λ 退居甲——但生效以 bundle-v2 按契约落地为前置（v3 预注册的第三开关，不得赖账）。</div>
+</section>
+
+<!-- ============ §10 ============ -->
+<section id="s10">
+<h2><span class="sn">§10</span>Final Advisor Memo</h2>
+<ol start="0">
+<li><b>Unasked：</b>①主贡献对象结案：部署壳（不是白化打分——cliff 上无可分辨贡献；也不是联合迭代——那是分母的一部分）；②原点问题的答案是「不选择，并列」：单报任一都是自欺；③含金量瓶颈排序：叙事口径脆弱性 &gt; 证据广度（单 seed/几何）&gt; novelty（不可改，接受它）。</li>
+<li><b>One-sentence contribution（推荐版）：</b>见 §9 recommended——双原点分账 + cliff dB + 1.01 dB + 标臂 Cao + 白化第三结局，一句内全部自洽。</li>
+<li><b>What this is not：</b>不是理论论文（Λ 已退居解释器）；不是学习接收机论文（scorer 离线冻结）；不是 near-optimal 接收机（距 PCSI 实测 1.01 dB）；不是多场景鲁棒性论文（单 seed 单几何）。</li>
+<li><b>Three hardest evidences：</b>①cliff 1.471 dB @10⁻²，CI [1.13, 1.86]，800 配对帧；②同夜四端点梯子 52.9/15.2/31.9 分账；③复现双锚：classical 跨跑漂移 −0.37% + 独立重跑分歧 5.3e-6。</li>
+<li><b>Most dangerous overclaim still alive：</b>不带分账/原点的 68% 与不标臂的 2.99×——两者都是“数字本身正确、归因错误”型 overclaim，比 information-saturated（已判死、易删）更危险，因为它们看起来合法。</li>
+<li><b>Write/submit now? 条件：</b>可以写、可以 lock；submit 前置三件：①bundle-v2 按契约落地（半小时，blocker）；②全文 SNR20 句降级为 Y2 句式；③reOMP 异常附录披露。强烈建议同期启动 8.6①（第二 seed/几何）作为 rebuttal 弹药。</li>
+<li><b>Single surviving innovation：</b>复杂度匹配的 OMP-once + 打分交换部署壳，以同帧配对 coded 悬崖证据背书——其余一切（Λ、白化、学习）都是它的解释器或零件。</li>
+<li><b>Gold Index：</b>22/30，扎实系统信通期刊可投档下沿；学位论文账本 9/10；地基砖账本 8/10。</li>
+<li><b>推翻的 v3 预注册中最关键一条：</b>白化二选一。它的隐含假设「两种货币同向同量」被第三结局推翻——这不是事故，而是预注册机制正确工作的证明：它把一个本会被写成模糊胜利的结果，强制拆成了两货币分列的诚实句。serial floor 2.09× 偏差同理：v3 的「不得预填」禁令是本轮避免把部署壳贡献少算一半的唯一闸门。</li>
+</ol>
+</section>
+
+<footer>
+AFDM claim audit v4 · 终值入账 + 白化第三结局 + serial 原点校正 + 含金量冷酷打分 · 证据底座：e1_e2_20260727_analysis.json（验证与输入 A–E 零冲突）· 上游：v1→v2→v3 pre-final · 本报告为完全体，无 pending 项
+</footer>
+</div>
+</body>
+</html>

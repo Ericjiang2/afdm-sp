@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-detector-run-v1/afdm_sp_joint_unrolled/supplement_detector_run.py", line 268, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-detector-run-v1/afdm_sp_joint_unrolled/supplement_detector_run.py", line 265, in main
+    return execute(parser.parse_args())
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/source-detector-run-v1/afdm_sp_joint_unrolled/supplement_detector_run.py", line 171, in execute
+    device=torch.device('cuda');torch.cuda.set_per_process_memory_fraction(.25,device)
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/site-packages/torch/cuda/memory.py", line 171, in set_per_process_memory_fraction
+    device = _get_device_index(device)
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/site-packages/torch/cuda/_utils.py", line 38, in _get_device_index
+    return _torch_get_device_index(device, optional, allow_cpu)
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/site-packages/torch/_utils.py", line 814, in _get_device_index
+    raise ValueError(
+ValueError: Expected a torch.device with a specified index or an integer, but got:cuda

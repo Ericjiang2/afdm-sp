@@ -1,0 +1,7 @@
+## Phase 1 — 2026-11-18
+
+Qualified the draft replay on deinlab, restricted to 32 historical N-family archive keys, synthetic fixtures and 12 older pilot keys. G1 matched all saved F0/A1c/A2 fields and the first-only logs and accepted edits on all 14 triggered N keys. G2 maximum absolute errors were 1.37e-16 for the modeled reward and 4.86e-17 for measured Schur gain. G3 matched all checks in five passing and five failing cases. The historical smoke logged eight triggered keys and projects 1.345 core-hours for the 8,106 target keys, or 1.749 with 30% allowance. Suggested cap is 2 core-hours, pending Eric's decision. The first launch stopped because the ordinary checkout lacked the producing main driver. The rerun used the hash-matched frozen snapshot. It exposed an import-order defect in the new launcher, where the runtime source inventory included the early-imported logging modules. Loading the frozen context before the logger restored complete inventory parity on attempt 3. The qualification receipts and failure logs are in [gate_20261118](../../../experiments/admission_law_20261118/out/gate_20261118). The historical gzip remains at `/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/admission_law_20261118/out/gate_20261118/attempt3/smoke_historical.jsonl.gz` (MD5 `8905d0b71d93bbfe7618847f660a69fc`). Protocol freeze and target replay remain pending. No target-family per-unit outcomes were inspected.
+
+
+## 关闭说明（2026-11-19，Eric 在收官时接受）
+结果见 res-20261118-06；"窗口外 78%"由 res-20261119-01 部分解释；无未了结项。

@@ -1,0 +1,109 @@
+{
+  "_argv": [
+    "run_main.py",
+    "--commit",
+    "dc8784dc9c77de3bd1a4c86664d7d50c4fd1efa3",
+    "--script-sha256",
+    "83bef4d8c1079839b7c3535b987cdfa62ae24f7cea13389c43b0a03b4dc500a1"
+  ],
+  "_config": {
+    "freeze_commit": "b6046c543b365de6588ec6a0cb89cbb0d67f16cf",
+    "freeze_manifest_sha256": "7fbac93533e13d9a400aa86116b55ccfa3578ab0e8fa9b4b4615e337e280edd4",
+    "host": "liunxgpu",
+    "launch_commit": "dc8784dc9c77de3bd1a4c86664d7d50c4fd1efa3",
+    "launch_script_sha256": "83bef4d8c1079839b7c3535b987cdfa62ae24f7cea13389c43b0a03b4dc500a1",
+    "process_limit": 15,
+    "python": "3.10.20",
+    "raw_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/grid_eta_dual_20261119/out/main_20261119",
+    "schedule": {
+      "S": {
+        "arms": [
+          "R0",
+          "R1",
+          "S-lo"
+        ],
+        "cap_core_hours": 15,
+        "eta": [
+          2,
+          4,
+          8
+        ],
+        "first_round_eta": 4,
+        "frame_block": [
+          6800,
+          6999
+        ],
+        "iterations": 100,
+        "rho_permille": 300,
+        "scenarios": [
+          "U",
+          "G"
+        ],
+        "snr_centi_db": 600
+      },
+      "X": {
+        "R": 128,
+        "arms": [
+          "A2",
+          "CODELAY"
+        ],
+        "cap_core_hours": 3,
+        "frame_block": [
+          56000,
+          56999
+        ],
+        "offsets": [
+          0.25,
+          0.125,
+          0.0625
+        ],
+        "rho": 0.3,
+        "snr_db": 4.5
+      }
+    },
+    "thread_limits": {
+      "BLIS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    },
+    "workers": 13
+  },
+  "error": null,
+  "legs": {
+    "S": {
+      "cap_core_hours": 15.0,
+      "core_hours": 6.199913175040834,
+      "stages": [
+        {
+          "cpu_seconds": 22242.635738,
+          "exit_code": 0,
+          "os_reaped_cpu_seconds": 22242.635738,
+          "peak_processes": 15,
+          "sampled_peak_cpu_seconds": 22241.87,
+          "stage": "S",
+          "wall_seconds": 1829.885718501173
+        }
+      ],
+      "status": "DONE"
+    },
+    "X": {
+      "cap_core_hours": 3.0,
+      "core_hours": 0.1529668220447222,
+      "stages": [
+        {
+          "cpu_seconds": 548.831829,
+          "exit_code": 0,
+          "os_reaped_cpu_seconds": 548.831829,
+          "peak_processes": 15,
+          "sampled_peak_cpu_seconds": 548.77,
+          "stage": "X",
+          "wall_seconds": 45.89566358271986
+        }
+      ],
+      "status": "DONE"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+**S1 passes the frozen screen.** The gate floored 0/398 true 0.35-bin doublets and 0/398 controls at 0.75 bins. Both exact frame-level 95% intervals were **0.00%–0.92%**. All 398 entering supports matched byte for byte.  
+**S2:** On 200 archived keys sampled with a fixed seed by SNR, the median gate/S-lo rank ratio and median overlap were both **33.3%, 33.3%, 33.3%, 25.0%, 0%, 0%** at 6–11 dB, respectively. Full 25-atom blocks had median ranks of **15 vs 18** at every SNR.  
+CPU cost was **0.101 core-hours**. Six macOS transfer metadata files appear in the result inventory. All executable source hashes matched.  
+Commits `bb5ad661` (code) and `a818bf99` (results). [SCREEN.md](/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/gate_screen_20261119/SCREEN.md) · [screen.json](/Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/experiments/gate_screen_20261119/out/screen.json)  
+model: `gpt-6.2-sol`

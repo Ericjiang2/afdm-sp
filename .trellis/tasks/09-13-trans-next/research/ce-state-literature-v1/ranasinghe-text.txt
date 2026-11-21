@@ -1,0 +1,1061 @@
+Joint Channel, Data and Radar Parameter Estimation for AFDM Systems in Doubly-Dispersive Channels
+Report GitHub Issue
+×
+Title:
+Content selection saved. Describe the issue below:
+Description:
+Submit without GitHub
+Submit in GitHub
+arXiv is now an independent nonprofit!
+Learn more
+×
+Back to arXiv
+Why HTML?
+Report Issue
+Back to Abstract
+Download PDF
+Abstract
+I Introduction
+II System Model
+II-A Generalized Doubly-Dispersive Channel Model
+II-B OFDM Signal Model
+II-C OTFS Signal Model
+II-D AFDM Signal Model
+III Joint Channel and Data Estimation
+III-A JCDE via Parametric Bilinear Gaussian Belief Propagation
+III-A1 Soft IC
+III-A2 Belief Generation
+III-A3 Soft RG
+III-B Complexity Analysis
+III-C Performance Analysis
+IV Radar Parameter Estimation in Doubly Dispersive Channels
+IV-A Reference SotA Method: SBL via Expectation Maximization
+IV-B Proposed Method: PDA-based Message Passing Estimator
+IV-B1 Soft IC
+IV-B2 Belief Generation
+IV-B3 Soft RG
+IV-B4 Parameter Update via EM
+IV-C Complexity Analysis
+IV-D Performance Assessment
+V Conclusion
+References
+License: arXiv.org perpetual non-exclusive license
+arXiv:2405.16945v3 [eess.SP] 12 Sep 2024
+Joint Channel, Data and Radar Parameter Estimation for AFDM Systems in Doubly-Dispersive Channels
+Kuranage Roche Rayan Ranasinghe
+Hyeon Seok Rou
+Giuseppe Thadeu Freitas de Abreu
+Takumi Takahashi
+Kenta Ito
+††thanks: Kuranage Roche Rayan Ranasinghe, Hyeon Seok Rou and Giuseppe Thadeu Freitas de Abreu are with the School of Computer Science and Engineering, Constructor University (previously Jacobs University Bremen), Campus Ring 1, 28759 Bremen, Germany (emails: [kranasinghe, hrou, gabreu]@constructor.university).
+Takumi Takahashi and Kenta Ito are with the Graduate School of Engineering, Osaka University, Suita 565-0871, Japan (emails: [takahashi@, k-ito@wcs.]comm.eng.osaka-u.ac.jp).
+Part of this work was presented at the 2024 IEEE 21st Consumer Communications & Networking Conference (CCNC) [1].
+Abstract
+We propose new schemes for joint channel and data estimation (JCDE) and radar parameter estimation (RPE) in doubly-dispersive channels, such that integrated sensing and communications (ISAC) is enabled by user equipment (UE) independently performing JCDE, and base stations (BSs) performing RPE.
+The contributed JCDE and RPE schemes are designed for waveforms known to perform well in doubly-dispersive channels, under a unified model that captures the features of either legacy orthogonal frequency division multiplexing (OFDM), state-of-the-art (SotA) orthogonal time frequency space (OTFS), and next-generation affine frequency division multiplexing (AFDM) systems.
+The proposed JCDE algorithm is based on a Bayesian parametric bilinear Gaussian belief propagation (PBiGaBP) framework first proposed for OTFS and here shown to apply to all aforementioned waveforms, while the RPE scheme is based on a new probabilistic data association (PDA) approach incorporating a Bernoulli-Gaussian denoising, optimized via expectation maximization (EM).
+Simulation results demonstrate that JCDE in AFDM systems utilizing a single pilot per block significantly outperforms the SotA alternative even if the latter is granted a substantial power advantage.
+Similarly, the AFDM-based RPE scheme is found to outperform the OTFS-based approach, as well as the sparse Bayesian learning (SBL) technique, regardless of the waveform used.
+Index Terms: ISAC, AFDM, OTFS, JCDE, PBiGaBP, PDA, EM, RPE, Bayesian Inference.
+I Introduction
+The building blocks of communications and radar systems have been traditionally designed separately and assumed to utilize orthogonal resources.
+Integrated sensing and communications (ISAC) 11
+1
+Also commonly referred to as joint communication and sensing (JCAS) or joint communications and radar (JCR). [2, 3, 4, 5], a recently-emerged technology seen by many as a key driver of future mobile communication systems, challenges that established concept by considering the simultaneous provision of radar and communications functionalities under the same architecture, having the advantages of more efficient use of resources, lower power consumption, decreased hardware costs and the potential for wide market penetration [6, 7, 8].
+While different perspectives on ISAC exists, each with a particular paradigm – $e.g.$ co-existence of communications and radar systems [9] or dual-function approaches [10] – the focus of this manuscript is on enabling sensing functionalities under wireless communications systems, also referred to as communication-centric ISAC.
+Staying true to the integrative aspect of the proposition, earlier contributions to ISAC focused on schemes employing existing communications waveforms.
+In particular, many methods found in current literature seek to take advantage of certain features of channel estimation – especially in higher frequency bands where less scattering, higher resolution and domain-specific sparsity enable the estimation of individual channel paths – to incorporate radar-like functionalities, such as the estimation of radar parameters from echoes of the transmit signal [11, 12, 13, 14, 15].
+Examples of the latter are techniques based on the orthogonal frequency division multiplexing (OFDM) waveform [13, 14] which, however, indicated that the high inter-carrier interference (ICI) can be a bottleneck that reduces robustness to high Doppler shifts present in doubly-dispersive environments, leading to severe degradation of performance.
+This factor alone, introduced by the channel diagonals spreading into a decaying band [16], severely hinders the use of OFDM in high mobility scenarios [17], as envisioned for 6G systems.
+Another potential candidate for the ISAC paradigm is the orthogonal time frequency space (OTFS) waveform, which was originally proposed in [18] as a novel two-dimensional (2D) modulation scheme that embeds information directly on the delay-Doppler (DD) domain.
+Since the DD domain has a direct parallel to common radar processing framework, OTFS was quite popular at its inception, attracting much work that demonstrated its effectiveness for ISAC [11, 12, 13, 15, 14].
+However, besides the significantly higher implementation complexity compared to OFDM, which is inherent to its 2D modulation approach, another limitation of OTFS is that it does not achieve the optimal diversity order in doubly-dispersive channels [19].
+In response to the above, affine frequency division multiplexing (AFDM) has recently emerged as a strong candidate for ISAC [20, 21, 22, 23], gaining much attention thanks to its robust communications performance in high mobility scenarios and its ability to achieve optimal diversity order in doubly-dispersive channels.
+The key idea of AFDM is to employ the discrete affine Fourier transform (DAFT) to generate multiple orthogonal chirps that are then used to modulate the transmit signal.
+Since AFDM is otherwise similar to OFDM in structure, it does not suffer from the high modulation complexity of OTFS, and since the chirp parameters of AFDM can be optimized to match the maximum Doppler shift of the doubly-dispersive channel, a full DD representation of the channel can be achieved, giving the approach remarkable robustness to high mobility and/or frequency.
+It has been in fact demonstrated that AFDM has a superior bit error rate (BER) performance compared to OFDM, achieving also BERs comparable to OTFS while requiring lower overhead for channel estimation [22] as a result of the one-dimensional (1D) null-guard band required, as opposed to that of OTFS, which is 2D.
+In turn, evidence that AFDM can be effectively utilized for ISAC has also been given, for instance in [21] where a simple matched-filter (MF) approach was suggested.
+Building on the latter, an improved AFDM-based monostatic ISAC system with inherent adaptation to self-interference mitigation was also designed in [23], albeit at the expense of a significant increase in computational complexity due to the exhaustive maximum likelihood (ML) grid search required for the radar parameter estimation (RPE) procedure.
+One aspect of the ISAC concept that was often overlooked, and which recently has been addressed more frontally, however, is the impact of pilot overhead onto the overall approach, when designing the appropriate frame structure for optimum data decoding at a user equipment (UE) being served.
+It has been shown in [22], for instance, that a major advantage of AFDM over OFDM and OTFS is the lighter requirement in the number of pilots, which in turn can be taken advantage of by enabling the base station (BS) to perform RPE without expensive self-interference cancellation (SIC) techniques.
+The trend to reduce pilot overhead suggests, therefore, the adoption of joint channel and data estimation (JCDE) technology, which has been shown to be very effective in allowing efficient channel estimation with very few pilots22
+2
+The embedded channel estimation method proposed in [22] requires a single pilot, but surrounded by a null-guard interval, such that the fraction of the AFDM frame dedicated to payload is affected not just by the sole pilot but also the additional power that can be allocated to it. and under strenuous conditions [24, 25, 26, 27, 28, 1, 29], significantly reduce the overhead of coherent wireless systems.
+One example of the latter is the Bayesian bilinear inference (BBI) JCDE scheme for OFDM systems proposed in [28], which was shown to have the ability of handling channel aging and to entirely remove the need of pilots in favor of adequate coding at an equivalent rate.
+Another is the work in [1], where a Bayesian parametric bilinear Gaussian belief propagation (PBiGaBP) JCDE scheme for OTFS systems was proposed, which was shown to asymptotically approach the idealized scheme where perfect channel state information (CSI) knowledge is available.
+In view of all the above, we propose in this paper a combined and generalized JCDE-enabled ISAC solution for systems utilizing signals known to cope well with doubly-dispersive channels, including OFDM, OTFS and AFDM.
+The proposed solution comprises of two main contributions.
+The first is a new JCDEmechanism, designed with basis on the Bayesian PBiGaBP originally proposed for OTFS waveforms in [1], which is shown to function also for the other modulation schemes under the general doubly-dispersive channel model developed in [16].
+Comparisons of the state-of-the-art (SotA) OTFS and the contributed AFDM methods against a genie-aided linear Gaussian belief propagation (GaBP) benchmark scheme, in which perfect CSI is assumed, demonstrate that the proposed solution under AFDM achieves the same performance of the OTFS SotA, both of which also closely approach the idealistic benchmark, indicating that there is no penalty for the reduced modulation complexity advantage obtained when utilizing AFDM instead of OTFS, and that the proposed scheme is effective in reducing pilot overhead.
+The second contribution is a new RPE scheme based on the vectorized probabilistic data association (PDA) approach [25, 28] incorporating a Bernoulli-Gaussian denoiser tuned via expectation maximization (EM) [30] which quickly converges to the appropriate distribution parameters.
+Compared to the SotA alternative adapted from [31], which is designed around the sparse Bayesian learning (SBL) algorithm, the contributed method is shown to outperform the latter over any of the relevant waveforms, namely, OFDM, OTFS in [31] and AFDM.
+The technique also has an inherent and substantial computational cost advantage over ML-based SotA alternatives such as those in [22] and [23].
+The contributions of the article are summarized as follows:
+•
+In Section II, we concisely revise the unified OFDM, OTFS and AFDMdoubly-dispersive channel model from [16], such that message-passing receivers for such waveforms can be designed under a common structure.
+•
+Taking advantage of the former, we propose in Section III a PBiGaBP-based scheme for JCDE, which applies to all the aforementioned waveforms.
+•
+We show that even if a single pilot per block is used, the proposed JCDE-AFDM system significantly outperforms both the OFDM and OTFS alternatives [1], as well as the AFDM method in[23], even when the latter is granted a substantial power advantage.
+•
+Finally, in Section IV-B, a novel PDA-based technique for RPE in doubly-dispersive channels is proposed, which in addition to enabling monostatic implementation for AFDM systems without requiring full-duplex (FD) technology, is shown to outperform the SotA of [31] for both OTFS and AFDM waveforms.
+II System Model
+We follow [23] and consider an ISAC scenario composed of a single-antenna33
+3
+Both proposed algorithms can be extended straightforwardly to a single-input multiple-output (SIMO) case, with some modifications due to spatial filtering/interference cancellation for which isotropic beamforming as done in [32] could be used. Generalization to the multiple-input multiple-output (MIMO) case is also possible, but requires the formulation and solution of a non-trivial transmit (TX) and receive (RX) beamforming optimization problem. Such contribution falls outside the scope of this article and will be offered in a follow-up work. BS transmitting in downlink and taking advantage of first-order reflected (echo) signals to perform RPE in order to detect the ranges and velocities of objects (targets) in its surroundings, while the UE performs JCDE as illustrated in Figure 4.
+As depicted in the figure, it is assumed that a total of $P_{\mathrm{B}}$ target-originated echo signals reach the BS, which might be either from UE or other objects in the ambient.
+In turn, each UE is assumed to receive the signal transmitted by the BS scattered onto $P_{\mathrm{U}}+1$ paths, with $p_{\mathrm{U}}=0$ denoting the line-of-sight (LoS), without loss of generality (wlg), and the remaining $P_{\mathrm{U}}\leq P_{\mathrm{B}}$ paths being non-LoS (NLoS) components of the multi-path channel.
+For the sake of simplicity and again wlg, we shall hereafter attain to a single user, since the multi-user (MU) case has no impact onto the JCDE procedure performed independently at each user, and is transparent to the RPE algorithm, as long as the radar receiver has sufficient degrees-of-freedom (DoF) to resolve all $P_{\mathrm{B}}$ echoed signals it receives.
+Also for simplicity, although we differentiate $P_{\mathrm{B}}$ and $P_{\mathrm{U}}$ in Figure 4, in the equations that follow, the number of paths/targets will be denoted by $P$ , with the distinction between the two cases left to context.
+[S2.E5]
+$\mathbf{\Phi}_{p}\triangleq\text{diag}\bigg([\overbrace{e^{-j2\pi{\phi_{\mathrm{CP}}(\ell_{p})}},e^{-j2\pi{\phi_{\mathrm{CP}}(\ell_{p}-1)}},\dots,e^{-j2\pi{\phi_{\mathrm{CP}}(2)}},e^{-j2\pi{\phi_{\mathrm{CP}}(1)}}}^{\ell_{p}\;\text{terms}},\overbrace{1,1,\dots,1,1}^{N-\ell_{p}\;\text{ones}}]\bigg)\in\mathbb{C}^{N\times N}.\vskip-8.61108pt$
+(5)
+[S2.E6]
+$\bm{\Omega}\triangleq\text{diag}\bigg([1,e^{-j2\pi/N},\dots,e^{-j2\pi(N-2)/N},e^{-j2\pi(N-1)/N}]\bigg)\in\mathbb{C}^{N\times N}.$
+(6)
+Fig. 1: Illustration of an ISAC system with $P_{\mathrm{B}}$ target echoes received by a single antenna44
+4
+Although it is possible to achieve $360^{\circ}$ coverage even in millimeter-wave (mmWave) bands with antenna arrays or omnidirectional antennas [33, 34, 35], for which Figure 4 would apply as is, this illustration is not meant to be restricted to any specific band nor should it be interpreted as exclusive to the omnidirectional scenario, but rather can also be envisioned for sectorized scenarios as well [11]. BS, and $P_{\mathrm{U}}$ resolvable paths seen at the UE.
+Finally, for the sake of enabling direct comparison with legacy (OFDM) and SotA (OTFS) approaches, it shall be assumed that the BS is capable of performing perfect SIC 55
+5
+The problem of SIC mitigation for the purpose of RPE in AFDM has already been addressed in [23], and solutions for the related problems of interference cancellation in orthogonal chirp division multiplexing (OCDM), or more generally for in-band interference cancellation in single antenna systems have also been proposed $e.g.$ in [36] and [37], respectively, which support the feasibility of the assumption. prior to RPE, to the advantage of the OFDM and OTFS approaches, since it has been shown [23] that SIC is more challenging and has higher computational complexity under those waveforms than under AFDM.
+II-A Generalized Doubly-Dispersive Channel Model
+Consider a general doubly-dispersive wireless channel model [16] characterized by $1$ LoS and $P$ NLoS propagation paths, with each $p$ -th path comprising an uncorrelated complex fading gain $h_{p}\in\mathbb{C}$ , a path delay $\tau_{p}\in[0,\tau_{\text{max}}]$ and a Doppler shift $\nu_{p}\in[-\nu_{\text{max}},\nu_{\text{max}}]$ , respectively.
+The delays and Doppler shifts of the doubly-dispersive channel are assumed to be bounded by a maximum delay $\tau_{\text{max}}$ [s] and a maximum Doppler shift $\nu_{\text{max}}$ [Hz], respectively, such that the time domain (TD) channel impulse response can be described by [38]
+[S2.E1]
+$h(t,\tau)\triangleq\sum_{p=0}^{P}h_{p}\cdot e^{j2\pi\nu_{p}t}\cdot\delta(\tau-\tau_{p}),$
+(1)
+where $t$ and $\tau$ are the continuous time and delays, respectively.
+Leveraging equation (1), the input-output relationship of the channel in the TD can be obtained via the linear convolution of the transmit signal $s(t)$ and channel impulse response as described in [38, eq. (10.69)], which added with noise yields
+$\displaystyle r(t)=s(t)*h(t,\tau)+w(t)$
+(2)
+$\displaystyle\hskip-117.5413pt\triangleq\int\limits_{-\infty}^{+\infty}s(t-\tau)\bigg(\sum_{p=0}^{P}h_{p}\cdot e^{j2\pi\nu_{p}t}\cdot\delta(\tau-\tau_{p})\bigg)d\tau+w(t),$
+where $r(t)$ and $w(t)$ are the received signal and additive white Gaussian noise (AWGN), respectively.
+Defining $r[n]$ and $s[n]$ , with $n\in\{0,\dots,N-1\}$ , to be the sampled sequences of $r(t)$ and $s(t)$ , respectively, with samples taken at a sufficiently high sampling rate $f_{\mathrm{S}}\triangleq\frac{1}{T_{\mathrm{S}}}$ [Hz], the following discrete equivalent of equation (2) can be obtained
+[S2.E3]
+$r[n]=\sum_{\ell=0}^{\infty}s[n-\ell]\bigg(\sum_{p=0}^{P}h_{p}\cdot e^{j2\pi\frac{\nu_{p}}{f_{\mathrm{S}}}n}\cdot\delta\Big(\ell-\frac{\tau_{p}}{T_{\mathrm{S}}}\Big)\bigg)+w[n],\vskip-4.30554pt$
+(3)
+where $\ell$ is the normalized discrete delay index, and $T_{\mathrm{S}}$ the delay resolution as well as the sampling interval, such that $\tau=\ell\cdot T_{\mathrm{S}}$ .
+Finally, defining the normalized digital Doppler shift and the normalized discrete delay of the $p$ -th path respectively as $f_{p}\triangleq\frac{N\nu_{p}}{f_{\mathrm{S}}}$ and $\ell_{p}\triangleq\frac{\tau_{p}}{T_{\mathrm{S}}}$ , where the sampling rate $f_{\mathrm{S}}$ is chosen sufficiently high (via oversampling [16] if necessary) to ensure that $\ell_{p}-\lfloor\frac{\tau_{p}}{T_{\mathrm{S}}}\rceil\approx 0$ , the discrete convolution described in equation (3) can be rewritten in terms of the circular convolution
+[S2.E4]
+$\mathbf{r}=\bigg(\sum_{p=0}^{P}h_{p}\cdot\mathbf{\Phi}_{p}\cdot\bm{\Omega}^{f_{p}}\cdot\mathbf{\Pi}^{\ell_{p}}\bigg)\cdot\mathbf{s}+\mathbf{w}=\mathbf{H}\cdot\mathbf{s}+\mathbf{w},\vskip-4.30554pt$
+(4)
+where the inclusion and posterior removal of a cyclic prefix (CP) of length $N_{\text{CP}}$ to the sequence $s[n]$ is already taken into account [16].
+In equation (4), $\mathbf{r}\triangleq[r[0],\cdots,r[N-1]]\in\mathbb{C}^{N\times 1}$ and $\mathbf{s}\triangleq[s[0],\cdots,s[N-1]]\in\mathbb{C}^{N\times 1}$ are the transmit and received signal sample vectors; $\mathbf{w}\in\mathbb{C}^{N\times 1}$ denotes AWGN; $\mathbf{H}\in\mathbb{C}^{N\times N}$ is the effective channel matrix; $\mathbf{\Phi}_{p}\in\mathbb{C}^{N\times N}$ described in equation (5) is a diagonal matrix which captures the effect of the CP onto the $p$ -th channel path, where $\phi_{\mathrm{CP}}(n)$ denotes a phase function on the sample index $n\in\{0,\cdots,N-1\}$ [16] depending on the specific waveform used; $\bm{\Omega}\in\mathbb{C}^{N\times N}$ , described in equation (6), is a diagonal matrix containing the $N$ complex roots of one and $\mathbf{\Pi}\in\{0,1\}^{N\times N}$ is the forward cyclic shift matrix66
+6
+To clarify, the matrix $\mathbf{\Pi}$ is such that $\bm{A}\cdot\mathbf{\Pi}^{\ell_{p}}$ , with $\ell_{p}\in\mathbb{N}_{0}$ , is a cyclic left-shifted version of the matrix $\bm{A}$ , such that the first $\ell_{p}$ columns of $\bm{A}$ are moved to the positions of the last $\ell_{p}$ columns. Notice also that $\mathbf{\Pi}^{0}$ is the $N\times N$ identity matrix, such that $\bm{A}\cdot\mathbf{\Pi}^{0}=\bm{A}$ ., with elements given by
+[S2.E7]
+$\pi_{i,j}=\delta_{i,j+1}+\delta_{i,j-(N-1)}\;\;\text{where}\;\;\delta_{ij}\triangleq\begin{cases}0&\text{if }i\neq j,\\
+1&\text{if }i=j.\end{cases}\vskip-1.07639pt$
+(7)
+Notice that the channel $\mathbf{H}$ implicitly defined in (4) is a general representation of a doubly-dispersive channel [38], which shall be exploited in the sequel to formulate estimation and detection models over various waveforms.
+To that end, we consider the OFDM, OTFS and AFDM waveforms, which are known to perform well in doubly-dispersive channels.
+Since a thorough comparison of the different individual features of each of them has been done in [16], we limit ourselves here to briefly revise the models introduced thereby with the objective of obtaining a general mathematical formulation for the design of receivers/estimators for these waveforms under a common framework.
+II-B OFDM Signal Model
+Let $\mathcal{C}\in\mathbb{C}^{Q\times 1}$ denote an arbitrary complex constellation of cardinality $Q$ and average energy $E_{\mathrm{S}}$ , associated with a given digital modulation scheme.
+In OFDM, an input information vector $\mathbf{x}\in\mathcal{C}^{N\times 1}$ containing $N$ symbols taken from $\mathcal{C}$ are modulated into the transmit signal
+[S2.E8]
+$\mathbf{s}_{\text{OFDM}}=\mathbf{F}_{N}^{\mathsf{H}}\cdot\mathbf{x}\in\mathbb{C}^{N\times 1},$
+(8)
+where $\mathbf{F}_{N}$ denotes the $N$ -point normalized discrete Fourier transform (DFT) matrix.
+After undergoing the circular convolution with the doubly-dispersive channel, the corresponding OFDM receive signal can be written in a form similar to that of equation (4), namely
+[S2.E9]
+$\mathbf{r}_{\text{OFDM}}\triangleq\mathbf{H}\cdot\mathbf{s}_{\text{OFDM}}+\mathbf{w}\in\mathbb{C}^{N\times 1},\vskip-2.15277pt$
+(9)
+which can be demodulated into
+[S2.E10]
+$\mathbf{y}_{\text{OFDM}}=\mathbf{F}_{N}\cdot\mathbf{r}_{\text{OFDM}}\in\mathbb{C}^{N\times 1}.\vskip-2.15277pt$
+(10)
+From equations (9) and (10), one obtains a straightforward input-output relationship for OFDM modulation, namely
+[S2.E11]
+$\mathbf{y}_{\text{OFDM}}=\mathbf{G}_{\text{OFDM}}\cdot\mathbf{x}+\tilde{\mathbf{w}}\in\mathbb{C}^{N\times 1},\vskip-2.15277pt$
+(11)
+where $\tilde{\mathbf{w}}\triangleq\mathbf{F}_{N}\mathbf{w}\in\mathbb{C}^{N\times 1}$ is an equivalent AWGN vector with the same statistics as $\mathbf{w}$ , while $\mathbf{G}_{\text{OFDM}}$ is the effective OFDM channel, defined by
+[S2.E12]
+$\mathbf{G}_{\text{OFDM}}\triangleq\sum_{p=0}^{P}h_{p}\cdot\mathbf{F}_{N}\cdot(\bm{\Omega}^{f_{p}}\cdot\mathbf{\Pi}^{\ell_{p}})\cdot\mathbf{F}_{N}^{\mathsf{H}},$
+(12)
+with the CP phase matrices $\mathbf{\Phi}_{p}$ appearing in equation (4) reduced to identity matrices [16]; $i.e.,$ $\phi_{\mathrm{CP}}(n)=0$ in equation (5) since there is no phase offset in the CP of OFDM signals.
+II-C OTFS Signal Model
+Consider an OTFS system in which an input information matrix $\mathbf{X}\in\mathcal{C}^{K\times M}$ , containing $K\times M$ complex symbols taken from an arbitrary constellation $\mathcal{C}$ , is modulated into the transmit signal77
+7
+For simplicity, we assume that all pulse-shaping operations utilize rectangular waveforms, such that the corresponding sample matrices can be reduced to identity matrices.
+[S2.E13]
+$\mathbf{s}_{\text{OTFS}}\triangleq\text{vec}(\mathbf{S})=(\mathbf{F}_{M}^{\mathsf{H}}\otimes\mathbf{I}_{K})\cdot\mathbf{x}\in\mathbb{C}^{KM\times 1},$
+(13)
+where $\text{vec}(\cdot)$ denotes the vectorization of a matrix, obtained by stacking the columns; the symbol $\otimes$ denotes Kronecker product; and $\mathbf{S}$ is a TD symbol matrix obtained88
+8
+Equivalently, $\mathbf{S}$ can be obtained as the Heisenberg transform of the inverse symplectic finite Fourier transform (ISFFT) of $\mathbf{X}$ , $i.e.$ $\mathbf{S}=\mathbf{F}_{K}^{\mathsf{H}}\mathbf{X}_{\text{FT}}$ with $\mathbf{X}_{\text{FT}}\triangleq\mathbf{F}_{K}\mathbf{X}\mathbf{F}_{M}^{\mathsf{H}}\in\mathbb{C}^{K\times M}$ . from the inverse discrete Zak transform (IDZT) of $\mathbf{X}$ , $i.e.$ [18]
+[S2.E14]
+$\mathbf{S}=\mathbf{X}\mathbf{F}_{M}^{\mathsf{H}}\in\mathbb{C}^{K\times M}.$
+(14)
+We highlight that the notation in equation (13) is in line with the strategy described $e.g.$ in [39], whereby the OTFS signals are first vectorized and then appended with a CP of length $N_{CP}$ in order to eliminate inter-frame interference, in similarity with OFDM.
+Taking advantage of such similarity, and in order to allow for direct comparisons between the two waveforms, we shall hereafter set $K\times M=N$ .
+After transmission over the doubly-dispersive channel $\mathbf{H}$ , the OTFS receive signal can be modeled as
+[S2.E15]
+$\mathbf{r}_{\text{OTFS}}\triangleq\mathbf{H}\cdot\mathbf{s}_{\text{OTFS}}+\mathbf{w}\in\mathbb{C}^{N\times 1},$
+(15)
+which is analogous to the OFDM model of equation (11).
+Unlike OFDM, however, the detection of the information symbols in $\mathbf{x}$ from $\mathbf{r}_{\text{OTFS}}$ requires reversing the vectorization and the IDZT operations employed in the construction of $\mathbf{s}_{\text{OTFS}}$ , resulting in a distinct effective channel.
+In particular, let $\mathbf{R}\triangleq\text{vec}^{-1}(\mathbf{r}_{\text{OTFS}})\in\mathbb{C}^{K\times M}$ , where $\text{vec}^{-1}(\cdot)$ denotes the de-vectorization operation whereby a vector of size $KM\times 1$ is reshaped into a matrix of size $K\times M$ , and consider the corresponding discrete Zak transform (DZT) 99
+9
+Equivalently, $\mathbf{Y}$ can be obtained as the symplectic finite Fourier transform (SFFT) of the Wigner transform $\mathbf{Y}_{\text{FT}}\triangleq\mathbf{F}_{K}\mathbf{R}$ of the matrix $\mathbf{R}$ , which yields $\mathbf{Y}=\mathbf{F}_{K}^{\mathsf{H}}\mathbf{Y}_{\text{FT}}\mathbf{F}_{M}\in\mathbb{C}^{K\times M}$ .
+[S2.E16]
+$\mathbf{Y}=\mathbf{R}\mathbf{F}_{M}\in\mathbb{C}^{K\times M}.$
+(16)
+The corresponding demodulated OTFS signal is given by
+[S2.E17]
+$\mathbf{y}_{\text{OTFS}}\triangleq\text{vec}(\mathbf{Y})=(\mathbf{F}_{M}\otimes\mathbf{I}_{K})\cdot\mathbf{r}_{\text{OTFS}}\in\mathbb{C}^{N\times 1},$
+(17)
+which in turn can be rewritten in the form of the direct input-output relation
+[S2.E18]
+$\mathbf{y}_{\text{OTFS}}=\mathbf{G}_{\text{OTFS}}\cdot\mathbf{x}+\tilde{\mathbf{w}}_{\text{OTFS}}\in\mathbb{C}^{N\times 1},$
+(18)
+where $\tilde{\mathbf{w}}_{\text{OTFS}}\triangleq(\mathbf{F}_{M}\otimes\mathbf{I}_{K})\cdot\mathbf{w}\in\mathbb{C}^{N\times 1}$ is an equivalent AWGN vector with the same statistics as $\mathbf{w}$ , while $\mathbf{G}_{\text{OTFS}}\in\mathbb{C}^{N\times N}$ is the effective OTFS channel in the DD domain, defined by
+[S2.E19]
+$\mathbf{G}_{\text{OTFS}}\triangleq\sum_{p=0}^{P}h_{p}\cdot(\mathbf{F}_{M}\otimes\mathbf{I}_{K})\cdot(\bm{\Omega}^{f_{p}}\cdot\mathbf{\Pi}^{\ell_{p}})\cdot(\mathbf{F}_{M}^{\mathsf{H}}\otimes\mathbf{I}_{K}),$
+(19)
+in which, similar to the OFDM waveform, the CP phase matrices $\mathbf{\Phi}_{p}$ have been reduced to identity matrices [16].
+Comparing equations (12) and (19), one can appreciate how the channel modeling approach of [16] elucidates both the similarity in form, and the distinction in effect between the OFDM and OTFS waveforms in doubly-dispersive channels.
+II-D AFDM Signal Model
+Finally, let us describe the input-output relationship of the AFDM waveform associated with a doubly-dispersive channel.
+Similarly to the above, letting $\mathbf{x}$ denote the information vector with symbols taken from the constellation $\mathcal{C}$ , the corresponding AFDM modulated transmit signal is given by its inverse discrete affine Fourier transform (IDAFT), $i.e.$
+[S2.E20]
+$\mathbf{s}_{\text{AFDM}}=(\mathbf{\Lambda}_{1}^{\mathsf{H}}\mathbf{F}_{N}^{\mathsf{H}}\mathbf{\Lambda}_{2}^{\mathsf{H}})\cdot\mathbf{x}\in\mathbb{C}^{N\times 1},$
+(20)
+with the matrices $\mathbf{\Lambda}_{i}$ defined as
+[S2.E22]
+$\bm{\varPhi}_{p}\triangleq\text{diag}\bigg([\overbrace{e^{-j2\pi{c_{1}}(N^{2}-2N\ell_{p})},e^{-j2\pi{c_{1}}(N^{2}-2N(\ell_{p}-1))},\dots,e^{-j2\pi{c_{1}}(N^{2}-2N)}}^{\ell_{p}\;\text{terms}},\overbrace{1,1,\dots,1,1}^{N-\ell_{p}\;\text{ones}}]\bigg)\in\mathbb{C}^{N\times N}.\vskip-4.30554pt$
+(22)
+[S2.E21]
+$\mathbf{\Lambda}_{i}\triangleq\text{diag}\big(\big[1,\cdots,e^{-j2\pi c_{i}n^{2}},\cdots,e^{-j2\pi c_{i}(N-1)^{2}}\big]\big)\in\mathbb{C}^{N\times N},$
+(21)
+where the constants $c_{1}$ and $c_{2}$ are chosen appropriately to match the maximum Doppler of the channel, and include the insertion of a chirp-periodic prefix (CPP) to mitigate the effects of multipath propagation [22].
+It was shown in [16] that after going through a doubly-dispersive channel, an AFDM modulated symbol vector as given in equation (20) with the inclusion of a CPP as described in [22], can be modeled similarly to equation (4), only with the CP matrix $\bm{\Phi}_{p}$ of equation (5) replaced by the corresponding CPP matrix $\bm{\varPhi}_{p}$ as explicitly given in equation (22) ( $i.e.,$ $\phi_{\mathrm{CP}}(n)=c_{1}(N^{2}-2Nn)$ in equation (5)), such that the corresponding received signal is given by
+[S2.E23]
+$\mathbf{r}_{\text{AFDM}}\triangleq\mathbf{H}\cdot\mathbf{s}_{\text{AFDM}}+\mathbf{w}\in\mathbb{C}^{N\times 1}.$
+(23)
+Demodulating the signal in equation (23) yields
+[S2.E24]
+$\mathbf{y}_{\text{AFDM}}=(\mathbf{\Lambda}_{2}\mathbf{F}_{N}\mathbf{\Lambda}_{1})\cdot\mathbf{r}_{\text{AFDM}}\in\mathbb{C}^{N\times 1},$
+(24)
+which in turn can be expressed as
+[S2.E25]
+$\mathbf{y}_{\text{AFDM}}=\mathbf{G}_{\text{AFDM}}\cdot\mathbf{x}+\tilde{\mathbf{w}}_{\text{AFDM}}\in\mathbb{C}^{N\times 1},$
+(25)
+where $\tilde{\mathbf{w}}_{\text{AFDM}}\triangleq(\mathbf{\Lambda}_{2}\mathbf{F}_{N}\mathbf{\Lambda}_{1})\cdot\mathbf{w}\in\mathbb{C}^{N\times 1}$ is an equivalent AWGN vector with the same statistics as $\mathbf{w}$ , and $\mathbf{G}_{\text{AFDM}}\in\mathbb{C}^{N\times N}$ in the effective AFDM channel matrix, given by
+[S2.E26]
+$\mathbf{G}_{\text{AFDM}}\triangleq\sum_{p=0}^{P}h_{p}\cdot(\mathbf{\Lambda}_{2}\mathbf{F}_{N}\mathbf{\Lambda}_{1})\cdot(\bm{\varPhi}_{p}\cdot\bm{\Omega}^{f_{p}}\cdot\mathbf{\Pi}^{\ell_{p}})\cdot(\mathbf{\Lambda}_{1}^{\mathsf{H}}\mathbf{F}_{N}^{\mathsf{H}}\mathbf{\Lambda}_{2}^{\mathsf{H}}),$
+(26)
+where we emphasize that $\bm{\varPhi}_{p}$ is as in equation (22).
+Once again, it is clear that equations (12), (19) and (26) have the same structure, as do the input-output relationships described by equations (11), (18) and (25), such that the JCDE and RPE techniques proposed in the sequel are applicable to OFDM, OTFS and AFDM waveforms alike.
+III Joint Channel and Data Estimation
+In this section, we introduce the proposed JCDE method for OFDM, OTFS and AFDM systems, under the general system model described in the previous section, and compare their relative performances.
+For the sake of convenience, we shall express the effective channels for the three waveforms given in equations (12), (19) and (26) in the form
+[S3.E27]
+$\mathbf{y}=\sum_{p=0}^{P}h_{p}\cdot\mathbf{\Gamma}_{p}\cdot\mathbf{x}+\tilde{\mathbf{w}}\in\mathbb{C}^{N\times 1},$
+(27)
+where the matrices $\mathbf{\Gamma}_{p}$ captures the long-term delay-Doppler statistics of the channel, which are assumed to be known1010
+10
+According to [40, 41, 42], the delay and Doppler shifts can be assumed constant during multiple frame transmissions, enabling sporadic estimation of $\mathbf{\Gamma}_{p},\forall p$ via RPE schemes utilizing pilots such as the method described in the latter part of Section IV-B. However, the addition of this procedure into the JCDE scheme transforms this into an RPE-aided JCDE method ( $i.e.,$ user-centric RPE) which while consolidating and combining the seperate aspects of ISAC, deserves further attention and will be addressed in a follow-up article..
+From equation (27), it is evident that each received signal in $\mathbf{y}$ can be described by
+[S3.E28]
+$y_{n}=\sum_{p=0}^{P}\sum_{m=0}^{N-1}h_{p}\cdot\gamma_{p:n,m}\cdot x_{m}+\tilde{w}_{n},$
+(28)
+where we slightly deviate from the notation employed earlier in equation (3) by denoting the $m$ -th information symbol as $x_{m}$ instead of $x[m]$ , and accordingly the $n$ -th receive signal sample by $y_{n}$ instead of $y[n]$ , for future convenience.
+III-A JCDE via Parametric Bilinear Gaussian Belief Propagation
+We have first proposed the PBiGaBP framework for JCDE under OTFS signaling in [1].
+Thanks to the generalized channel model described above, however, it is obvious that the same technique applies to OFDM and AFDM as well.
+We therefore proceed to succinctly describe the approach, referring the reader to [1] for further details.
+For starters, referring to Figure 2, it is initially assumed1111
+11
+Later we shall adopt the strategy proposed in [22] and consider, for the AFDM case, the alternative of utilizing only one pilot followed by a null-guard interval of length $B-1$ among the $N$ symbols in $\mathbf{x}$ , for the purpose of enabling the RPE scheme of Section IV-B. that in any of the three systems compared, a block of $B$ pilots1212
+12
+We use the first column of the $B\times B$ Zadoff-Chu sequence [1] as our pilot column. is embedded in the $N\times 1$ symbol vector
+$\mathbf{x}$ .
+We shall also clarify that although the placement of pilots amidst payload (data) symbols can be optimized under various criteria [43], in the context of our discussion where issues such as distortions due hardware imperfection [44], pilot contamination [45], and channel aging [28] are not considered, the location of pilots has no effect on the performance of the JCDE.
+Suffice it therefore, to consider the amount of power allocated to pilots, relative to that allocated to data symbols.
+With these issues addressed, the PBiGaBP framework for JCDE introduced here can be summarized as follows:
+•
+Soft interference cancellation (soft IC), which consists of removing the inter-symbol interference from $\mathbf{y}$ , by using temporary estimates (soft replicas) of $\mathbf{h}$ and $\mathbf{x}$ generated in the previous iteration;
+Fig. 2: Illustration of pilot allocation schemes in OFDM, OTFS and AFDM.
+•
+Belief generation (BG), whereby the likelihood (beliefs) of the estimates of $\mathbf{h}$ and $\mathbf{x}$ are obtained from $\mathbf{y}$ after soft IC and under scalar Gaussian approximation (SGA);
+•
+Soft replica generation (soft RG), whereby soft replicas are generated from the beliefs via conditional expectations.
+The signal processing operations corresponding to each of these steps are described below.
+III-A1 Soft IC
+Let us consider the $i$ -th iteration of the algorithm, and denote the soft replicas of the $m$ -th symbol and the $p$ -th channel gain associated with the $n$ -th receive signal $y_{n}$ , at the previous iteration respectively by $\hat{x}_{n,m}^{(i-1)}$ and $\hat{h}_{n,p}^{(i-1)}$ .
+Then, the mean-squared-errors (MSEs) of these estimates computed for the $i$ -th iteration are given by
+[S3.E29]
+[S3.E29.1]
+$\hat{\sigma}^{2(i)}_{x:{n,m}}\triangleq\mathbb{E}_{x}\big[|x-\hat{x}_{n,m}^{(i-1)}|^{2}\big]=E_{\mathrm{S}}-|\hat{x}_{n,m}^{(i-1)}|^{2},\forall(n,m),$
+(29a)
+[S3.E29.2]
+$\hat{\sigma}^{2(i)}_{h:{n,p}}\triangleq\mathbb{E}_{h}\big[|h-\hat{h}_{n,p}^{(i-1)}|^{2}\big]=\sigma_{h}^{2}-|\hat{h}_{n,p}^{(i-1)}|^{2},\forall(n,p),$
+(29b)
+where $\mathbb{E}_{x}$ refers to expectation over the all possible symbols $x$ in the constellation $\mathcal{C}$ , while $\mathbb{E}_{h}$ refers to expectation over all possible outcomes of $h\sim\mathcal{CN}(0,\sigma^{2}_{h})$ , respectively1313
+13
+Although the average power of each channel path may be generally different, especially in sub-6GHz channels where the propagation lengths of different paths can vary from meters to kilometers, it is commonly assumed in high-frequency (mmWave and TeraHz) channels, where ranges are much shorter, that the gains of all paths follow the same distribution [21, 22, 23]..
+At a given $i$ -th iteration, the objective of the soft IC step is to compute the symbol- and channel-centric replicas $\tilde{y}_{x:{m,n}}^{(i)}$ and $\tilde{y}_{h:{p,n}}^{(i)}$ and the corresponding variances $\tilde{\sigma}^{2(i)}_{x:{m,n}}$ and $\tilde{\sigma}^{2(i)}_{h:{p,n}}$ , using the soft estimates $\hat{x}_{n,m}^{(i-1)}$ and $\hat{h}_{n,p}^{(i-1)}$ and their variances $\hat{\sigma}_{x:{n,m}}^{2(i-1)}$ and $\hat{\sigma}^{2(i-1)}_{h:{n,p}}$ obtained in the previous iteration.
+In view of equation (28), we straightforwardly have
+[S3.E30]
+$\tilde{y}_{x:{m,n}}^{(i)}=y_{n}-\sum_{p=0}^{P}\sum_{q\neq m}^{N-1}\hat{h}_{n,p}^{(i-1)}\cdot\gamma_{p:n,q}\cdot\hat{x}_{n,q}^{(i-1)}.$
+(30)
+These soft IC receive signal replicas follow Gaussian probability density functions (PDFs), namely
+[S3.E31]
+$\tilde{y}_{x:{m,n}}^{(i)}\sim p_{\text{y}_{n}|x_{m}}(\text{y}_{n}|x_{m})\propto\text{exp}\bigg(\!-\frac{|\text{y}_{n}\!-\!\tilde{\gamma}_{x:{m,n}}^{(i)}x_{m}|^{2}}{\tilde{\sigma}^{2(i)}_{x:{m,n}}}\bigg),$
+(31)
+where $\text{y}_{n}$ is an auxiliary variable and $\tilde{\gamma}_{x:{m,n}}^{(i)}$ are the corresponding soft IC effective channel gains, defined as
+[S3.E32]
+$\tilde{\gamma}_{x:{m,n}}^{(i)}\triangleq\sum_{p=0}^{P}\hat{h}_{n,p}^{(i-1)}\gamma_{p:n,m},$
+(32)
+while $\tilde{\sigma}^{2(i)}_{x:{m,n}}$ are the soft IC conditional variances approximated by replacing the instantaneous values with the long-term statistics [46, 47] as
+$\displaystyle\hskip-2.15277pt\tilde{\sigma}^{2(i)}_{x:{m,n}}\triangleq\mathbb{E}_{{x},h}\big[|\tilde{y}_{x:{m,n}}^{(i)}-\tilde{\gamma}_{x:{m,n}}^{(i)}x_{m}|^{2}\big]$
+(33)
+$\displaystyle\hskip-169.63832pt\approx\sum_{p=0}^{P}\hat{\sigma}^{2(i-1)}_{h:{n,p}}|\hat{y}^{(i)}_{x_{m}:n,p}|^{2}+\sum_{q\neq m}^{N-1}\hat{\sigma}_{x:{n,q}}^{2(i-1)}|\tilde{\gamma}_{x:q,n}^{(i)}|^{2}+N_{0}+$
+$\displaystyle\hskip-159.30505pt\sum_{p=0}^{P}\hat{\sigma}^{2(i-1)}_{h:{n,p}}\sum_{q\neq m}^{N-1}\hat{\sigma}_{x:{n,q}}^{2(i-1)}|\gamma_{p:n,q}|^{2}\!+\!E_{\mathrm{S}}\sum_{p=0}^{P}\hat{\sigma}^{2(i-1)}_{h:{n,p}}|\gamma_{p:n,m}|^{2},$
+with $\hat{y}^{(i)}_{x_{m}:n,p}$ denoting the received signal estimate after cancellation of the $m$ -th soft symbol estimate, which is given by
+[S3.E34]
+$\hat{y}^{(i)}_{x_{m}:n,p}\triangleq\sum_{q\neq m}^{N-1}\gamma_{p:n,q}\hat{x}_{n,q}^{(i-1)}.$
+(34)
+Similarly, the channel-centric replica can be computed as
+[S3.E35]
+$\tilde{y}_{h:{p,n}}^{(i)}=y_{n}-\sum_{q\neq p}^{P}\hat{h}_{n,q}^{(i)}\cdot\hat{y}_{h:{n,q}}^{(i)},$
+(35)
+with the corresponding variance given by
+$\displaystyle\tilde{\sigma}^{2(i)}_{h:{p,n}}\!\triangleq\!\sum_{q\neq p}^{P}\!\hat{\sigma}_{h:{n,q}}^{2(i-1)}|\hat{y}_{h:{n,q}}^{(i)}|^{2}\!+\!\!\!\sum_{m=0}^{N-1}\!\!\hat{\sigma}^{2(i-1)}_{x:{n,m}}|\tilde{\gamma}_{h_{p}:{m,n}}^{(i)}|^{2}\!+\!N_{0}+\!\!$
+(36)
+$\displaystyle\hskip-206.66602pt\sum_{q\neq p}^{P}\!\!\hat{\sigma}_{h:{n,q}}^{2(i)}\!\!\sum_{m=0}^{N-1}\!\!\hat{\sigma}^{2(i)}_{x:{n,m}}|\gamma_{q,nm}|^{2}\!+\!\sigma^{2}_{h}\sum_{m=0}^{N-1}\hat{\sigma}^{2(i)}_{x:{n,m}}|\gamma_{p:n,m}|^{2}\!,$
+where $\hat{y}_{h:{n,p}}^{(i)}$ is the channel-centric soft channel estimate and $\tilde{\gamma}_{h_{p}:{m,n}}^{(i)}$ is the corresponding soft IC effective channel gain of the $p$ -th path, respectively given by
+[S3.E37]
+$\hat{y}_{h:{n,p}}^{(i)}\triangleq\sum_{m=0}^{N-1}\gamma_{p:n,m}\hat{x}_{n,m}^{(i-1)}\;\,\text{and}\;\,\tilde{\gamma}_{h_{p}:{m,n}}^{(i)}\triangleq\sum_{q\neq p}^{P}\hat{h}_{n,q}^{(i-1)}\gamma_{q,nm}.$
+(37)
+III-A2 Belief Generation
+In order to generate the beliefs of all symbols, consider the effect of substituting equation (28) into (30) such that the SGA holds under the assumption that $N\times P$ is a sufficiently large number, and that the individual estimation errors in $\hat{h}_{n,p}^{(i-1)}$ and $\hat{x}_{n,q}^{(i-1)}$ are independent.
+Then, as a result of SGA, the belief corresponding to the $m$ -th symbol $x_{m}$ at the $n$ -th factor node is obtained by combining the contributions of all signals in $\mathbf{y}$ , excluding $y_{n}$ , under the PDF
+[S3.E38]
+$\!\!\!\!p_{\text{x}|x_{m}}(\text{x}|x_{m})\!=\!\prod_{q\neq n}^{N}\!p_{\text{y}_{q}|\text{x}_{m}}(\text{y}_{q}|x_{m})\propto\text{exp}\bigg(\!\!\!-\!\frac{|\text{x}\!-\!\tilde{x}_{n,m}^{(i)}|^{2}}{\tilde{\sigma}_{\tilde{x}:{n,m}}^{2(i)}}\!\bigg),\!$
+(38)
+such that the desired beliefs and their variances are given by
+[S3.E39]
+$\tilde{x}_{n,m}^{(i)}\!\!\triangleq\!\tilde{\sigma}_{\tilde{x}:{n,m}}^{2(i)}\!\sum_{q\neq n}^{N}\!\!\frac{\tilde{\gamma}_{x:{m,q}}^{*(i)}\tilde{y}_{x:{m,q}}^{(i)}}{\tilde{\sigma}_{x:{m,q}}^{2(i)}}\;\,\text{and}\;\,\tilde{\sigma}_{\tilde{x}:{n,m}}^{2(i)}\!\!\triangleq\!\!\bigg(\!\sum_{q\neq n}^{N}\!\!\frac{|\tilde{\gamma}_{x:{m,q}}^{(i)}|^{2}}{\tilde{\sigma}_{x:{m,q}}^{2(i)}}\bigg)^{\!\!\!-1}\!\!\!\!.$
+(39)
+Similarly, under SGA, the extrinsic beliefs of the channel gains can be shown to follow the approximate distribution
+[S3.E40]
+$p_{\text{h}|h_{p}}(\text{h}|h_{p})\propto\text{exp}\bigg(-\frac{|\text{h}-\!\tilde{\;\mathrm{h}}_{n,p}^{(i)}|^{2}}{\tilde{\sigma}_{\!\tilde{\;\mathrm{h}}:{n,p}}^{2(i)}}\bigg),$
+(40)
+with corresponding beliefs and variances given by
+[S3.E41]
+$\!\tilde{\;\mathrm{h}}_{n,p}^{(i)}\!\triangleq\!\tilde{\sigma}_{\!\tilde{\;\mathrm{h}}:{n,p}}^{2(i)}\sum_{q\neq n}^{N}\frac{\hat{y}_{h:{qp}}^{*(i)}\tilde{y}_{h:{p,q}}^{(i)}}{\tilde{\sigma}_{h:{p,q}}^{2(i)}}\;\,\text{and}\;\,\tilde{\sigma}_{\!\tilde{\;\mathrm{h}}:{n,p}}^{2(i)}\!\triangleq\!\!\bigg(\!\sum_{q\neq n}^{N}\frac{|\hat{y}_{h:{qp}}^{(i)}|^{2}}{\tilde{\sigma}_{h:{p,q}}^{2(i)}}\bigg)^{\!\!-1}\!\!\!\!\!.$
+(41)
+III-A3 Soft RG
+Finally, the soft replicas of $x_{m}$ and $h_{p}$ can be obtained from the conditional expectation given the extrinsic beliefs, again thanks to the SGA and under the assumption that the effective noise components in $\hat{x}_{n,m}^{(i)},\forall(n,m)$ and $\hat{h}_{n,p}^{(i)},\forall(n,p)$ are uncorrelated.
+In particular, we have
+[S3.E42]
+$\hat{x}_{n,m}^{(i)}=\frac{\sum\limits_{x\in\mathcal{C}}x\cdot p_{\text{x}|x}\big(\text{x}|x;\tilde{x}_{n,m}^{(i)},\tilde{\sigma}_{\tilde{x}:{n,m}}^{2(i)}\big)\cdot p_{x}(x)}{\sum\limits_{x^{\prime}\in\mathcal{C}}p_{\text{x}|x^{\prime}}\big(\text{x}|x^{\prime};\tilde{x}_{n,m}^{(i)},\tilde{\sigma}_{\tilde{x}:{n,m}}^{2(i)}\big)\cdot p_{x^{\prime}}(x^{\prime})},$
+(42)
+[S3.E43]
+$\hat{h}_{n,p}^{(i)}=\frac{\int h\cdot p_{\text{h}|h}\big(\text{h}|h;\tilde{h}_{n,p}^{(i)},\tilde{\sigma}_{\tilde{h}:{n,p}}^{2(i)}\big)\cdot p_{h}(h)}{\int p_{\text{h}|h^{\prime}}\big(\text{h}|h^{\prime};\tilde{h}_{n,p}^{(i)},\tilde{\sigma}_{\tilde{h}:{n,p}}^{2(i)}\big)\cdot p_{h^{\prime}}(h^{\prime})},$
+(43)
+where $p_{\text{x}|x}\big(\text{x}|x;\tilde{x}_{n,m}^{(i)},\tilde{\sigma}_{\tilde{x}:{n,m}}^{2(i)}\big)$ and $p_{\text{h}|h}\big(\text{h}|h;\tilde{h}_{n,p}^{(i)},\tilde{\sigma}_{\tilde{h}:{n,p}}^{2(i)}\big)$ are the likelihood functions of the data and channel beliefs given in equations (38) and (40), respectively, only with the notation extended to explicitly show the parameters (means and variances) computed above.
+In order to compute the beliefs $\hat{x}_{n,m}^{(i)}$ with basis on equation (42), suffice it to notice that under the assumption that each element $x$ of the data vector is independently drawn with equal probability out of the $Q$ -points of the constellation $\mathcal{C}$ , the likelihood $p_{x}(x)$ is a Multinomial distribution of the $Q$ -th order, such that for quadrature phase-shift keying (QPSK) modulation, we have
+[S3.E44]
+$\hat{x}_{n,m}^{(i)}\!=\!c_{x}\!\cdot\!\bigg(\!\text{tanh}\!\bigg[2c_{x}\frac{\Re\{{\tilde{x}_{n,m}^{(i)}}\}}{\tilde{\sigma}_{\tilde{x}:{n,m}}^{2(i)}}\bigg]\!\!+\!j\text{tanh}\!\bigg[2c_{x}\frac{\Im\{{\tilde{x}_{n,m}^{(i)}}\}}{\tilde{\sigma}_{\tilde{x}:{n,m}}^{2(i)}}\bigg]\!\bigg),\!\!$
+(44)
+where $c_{x}\triangleq\sqrt{E_{\mathrm{S}}/2}$ represents the magnitude of the real and imaginary components of the QPSK symbols.
+After obtaining $\hat{x}_{n,m}^{(i)}$ as per equation (44), the final output is computed by damping the result with a damping factor $0<\beta_{x}<1$ in order to improve convergence [48], yielding
+[S3.E45]
+$\hat{x}_{n,m}^{(i)}=\beta_{x}\hat{x}_{n,m}^{(i)}+(1-\beta_{x})\hat{x}_{n,m}^{(i-1)}.$
+(45)
+In turn, the corresponding variance $\hat{\sigma}^{2(i)}_{x:{n,m}}$ is first updated following equation (29a), but with the updated symbol estimate, $i.e.$ , $\hat{\sigma}^{2(i)}_{x:{n,m}}=E_{\mathrm{S}}-|\hat{x}_{n,m}^{(i)}|^{2}$ , and then damped via
+[S3.E46]
+$\hat{\sigma}^{2(i)}_{x:{n,m}}=\beta_{x}\hat{\sigma}_{x:{n,m}}^{2(i)}+(1-\beta_{x})\hat{\sigma}_{x:{n,m}}^{2(i-1)}.$
+(46)
+Similarly to the above, in order to obtain the channel estimate belief, observe that the likelihood in equation (43) is a Gaussian-product distribution, with the mean of $p_{h}(h)$ equal to zero, which straightforwardly yields [49, 50]
+[S3.E47]
+$\hat{h}_{n,p}^{(i)}=\frac{\sigma^{2}_{h}\tilde{h}_{n,p}^{(i)}}{\tilde{\sigma}_{\tilde{h}:{n,p}}^{2(i)}+\sigma^{2}_{h}},$
+(47)
+and
+[S3.E48]
+$\hat{\sigma}^{2(i)}_{h:{n,p}}=\frac{\sigma^{2}_{h}\tilde{\sigma}_{\tilde{h}:{n,p}}^{2(i)}}{\tilde{\sigma}_{\tilde{h}:{n,p}}^{2(i)}+\sigma^{2}_{h}},$
+(48)
+which are then damped with a damping factor $0<\beta_{h}<1$ as
+Algorithm 1 Proposed PBiGaBP-based JCDE Method
+Input: receive signal vector $\mathbf{y}$ , pilot symbol vector $\mathbf{x}_{p}$ , delay-Doppler matrices $\mathbf{\Gamma}_{p}$ , maximum number of iterations $i_{\text{max}}$ , total constellation energy $E_{\mathrm{S}}$ , noise power $N_{0}$ , average channel power per path $\sigma^{2}_{h}$ , and damping factors $\beta_{x}$ and $\beta_{h}$ .
+Output: decoded symbols $\mathbf{x}_{d}$ and channel estimates $\hat{h}_{p},\forall p$ .
+1:
+2:
+Initialization
+3:
+- Set iteration counter to $i=0$ and amplitudes $c_{x}=\sqrt{E_{\mathrm{S}}/2}$
+4:
+- Fix pilots to $\hat{x}_{n,m}^{(i)}=[\mathbf{x}_{p}]_{m}$ and set corresponding variances
+5:
+to $\hat{\sigma}^{2(i)}_{x:{n,m}}=0,\forall n,m\in\mathcal{M}_{p}$
+6:
+- Set initial data estimates to $\hat{x}_{n,m}^{(0)}=0$ and corresponding
+7:
+variances to $\hat{\sigma}^{2(0)}_{x:{n,m}}=E_{\mathrm{S}},\forall n,m\in\mathcal{M}_{d}$
+8:
+- Set initial channel estimates to $\hat{h}_{n,p}^{(0)}=0$ and corresponding
+9:
+variances to $\hat{\sigma}^{2(0)}_{h:{n,p}}=\sigma_{h}^{2},\forall n,p$
+10:
+11:
+for $i=1$ to $i_{\text{max}}$ do
+12:
+Channel Estimation: $\forall n,p$
+13:
+Compute the variables $\hat{y}_{h:{n,p}}^{(i)}$ and $\tilde{\gamma}_{h_{p}:{m,n}}^{(i)}$ from eq. (37).
+14:
+Compute soft signal $\tilde{y}_{h:{p,n}}^{(i)}$ from equation (35).
+15:
+Compute soft signal variance $\tilde{\sigma}^{2(i)}_{h:{p,n}}$ from equation (36).
+16:
+Compute extrinsic channel belief $\tilde{h}_{n,p}^{(i)}$ and its variance $\tilde{\sigma}_{\tilde{h}:{n,p}}^{2(i)}$ from equation (41).
+17:
+Compute denoised and damped channel estimate $\hat{h}_{n,p}^{(i)}$ from equations (47) and (49).
+18:
+Compute denoised and damped channel variance $\hat{\sigma}_{h:{n,p}}^{2(i)}$ from equations (48) and (50).
+19:
+Data Estimation: $\forall n,m$
+20:
+Compute auxiliary variables $\tilde{\gamma}_{x:{m,n}}^{(i)}$ and $\hat{y}^{(i)}_{x_{m}:n,p}$ from eqs. (32) and (34), respectively.
+21:
+Compute soft signal $\tilde{y}_{x:{m,n}}^{(i)}$ from equation (30).
+22:
+Compute soft signal variance $\tilde{\sigma}^{2(i)}_{x:{m,n}}$ from equation (33).
+23:
+Compute extrinsic data belief $\tilde{x}_{n,m}^{(i)}$ and its variance $\tilde{\sigma}_{\tilde{x}:{n,m}}^{2(i)}$ from equation (39).
+24:
+Compute denoised and damped data estimates $\hat{x}_{n,m}^{(i)}$ from equations (44) and (45).
+25:
+Compute denoised and damped data estimate variances $\sigma_{x:{n,m}}^{2(i)}$ from equations (29a) and (46).
+26:
+end for
+[S3.E49]
+$\hat{h}_{n,p}^{(i)}=\beta_{h}\hat{h}_{n,p}^{(i)}+(1-\beta_{h})\hat{h}_{n,p}^{(i-1)},$
+(49)
+and
+[S3.E50]
+$\hat{\sigma}_{h:{n,p}}^{2(i)}=\beta_{h}\hat{\sigma}_{h:{n,p}}^{2(i)}+(1-\beta_{h})\hat{\sigma}_{h:{n,p}}^{2(i-1)}.$
+(50)
+The proposed PBiGaBP-based JCDE algorithm is summarized as a pseudocode in Algorithm 1.
+Remark 1: Although the proposed PBiGaBP-based JCDE algorithm is designed based on the Bayes-optimal GaBP framework, to the best of our knowledge, there exists no asymptotic analysis of the large-system limit for iterative convergence analysis of Bayesian parametric bilinear inference algorithms.
+While semi-analytical methods have been proposed for the prediction of the number of iterations required for fixed-point convergence in large scale systems [29, 51], they cannot be used under correlated observations.
+Therefore, for the performance analysis detailed in Section III-C, rigorous numerical simulations are provided to demonstrate the superiority of the proposed technique.
+III-B Complexity Analysis
+Since there are no high-complexity matrix inversions in the proposed PBiGaBP-based JCDE scheme detailed in Algorithm 1, the order of complexity strictly depends on the scalar operations executed.
+Therefore, the computational complexity of the proposed method is $\mathcal{O}(N^{2}(P+1))$ per iteration, which is linear in terms of the operations performed, and of a much lower complexity than SotA methods based on linear minimum mean square error (LMMSE) filtering, which incur a cost of $\mathcal{O}(N^{3})$ due to a computation of LMMSE filter involving a matrix inversion operation.
+The proposed method also has comparable complexity to the SotA parametric bilinear generalized approximate message passing (PBiGAMP) scheme given in [1], which also is of order $\mathcal{O}(N^{2}(P+1))$ , but far outperforms the latter method in terms of performance, therefore offering an excellent performance-complexity tradeoff.
+III-C Performance Analysis
+In this subsection, we evaluate the performance of the proposed PBiGaBP algorithm at the UE, under OFDM, OTFS and AFDM waveforms.
+To that end, we consider the scenario depicted in Figure 4 with $1$ LoS path and $4$ NLoS paths ( $i.e.,$ $P_{\mathrm{U}}=4$ ) seen at the UE; and assume a mmWave system1414
+14
+Although the proposed scheme can be used for arbitrary frequencies and bandwidths, our focus here is on mmWave systems due to the trend towards moving to higher frequencies in 6G and beyond [7]. operating at $70\,\text{GHz}$ with a bandwidth of $20\,\text{MHz}$ 1515
+15
+With $f_{\mathrm{S}}$ set to twice the bandwidth according to the Nyquist rate. and employing QPSK symbols.
+For the channel model, we consider a maximum normalized delay index of $20$ and a maximum normalized digital Doppler shift index of $0.25$ (i.e., $\ell_{\text{max}}{\triangleq\tau_{\text{max}}f_{\mathrm{S}}}=20$ and $f_{\text{max}}{\triangleq\frac{N\nu_{\text{max}}}{f_{\mathrm{S}}}}=0.25$ ), which allows for a maximum unambiguous range of $75\,\text{m}$ and a maximum unambiguous velocity of $602\,\text{km/h}$ , respectively.
+This allows for the random generation of the path delays $\tau_{p}$ using a uniform distribution across $[0,\tau_{\text{max}}]$ and the use of Jakes Doppler spectrum [22] for the path Doppler shifts as $\nu_{p}=\nu_{\text{max}}\cos(\theta_{p})$ , where $\theta_{p}$ is uniformly distributed over $[-\pi,\pi]$ at each Monte Carlo iteration.
+As for frame parameters, we consider $K=B=32$ and $M=4$ for OTFS, and in order to sustain a fair comparison, $N=128$ for OFDM and AFDM.
+Finally, regarding the PBiGaBP algorithm, we set $\beta_{x},\beta_{h}=0.3$ , the maximum number of iterations $i_{\text{max}}=40$ , the constellation power $E_{\mathrm{S}}=1$ and the average channel power per path $\sigma_{h}^{2}=1$ .
+First, using the Linear GaBP 1616
+16
+Linear GaBP is a technique that uses GaBP for both channel estimation (under full knowledge of the frame) and data decoding (under full knowledge of the channel coefficients), combined with the use of an LMMSE filtering-based initialization for channel estimation. The approach provides a lower bound on the performance for the proposed method in exchange for a large computational cost. as a baseline, we compare in Figure 3 the communications and channel estimation performances, in terms of BER and normalized mean square error (NMSE), respectively, achieved by PBiGaBP employed over OTFS, OFDM and AFDM waveforms.
+In this comparison, all systems
+employ an equal number $N_{p}$ of pilot symbols, although each system has its own structure (see Section II and Figure 2).
+(a) BER Performance.
+(b) NMSE Performance.
+Fig. 3: Performance of OFDM, OTFS and AFDM at the UE via the proposed PBiGaBP algorithm compared to the SotA methods.
+The results show that PBiGaBP-based JCDE with AFDM and OTFS outperforms a system employing the same proposed technique but employing a legacy OFDM waveform, both in terms of BER and NMSE, with a slight advantage of AFDM over the OTFS alternative.
+We highlight that a comparison between the proposed JCDE algorithm and other techniques from related literature is not offered in Figure 3, as we are unaware of any alternative JCDE solution for AFDM systems.
+Therefore, Figure 4 compares the proposed PBiGaBP-based JCDEboth in terms of BER and NMSE performance against the GaBP alternative to the ML-based AFDM channel estimation method from [23], where channel estimation is done solely based on the single pilot via GaBP with an accompanying GaBP-based data decoding.
+We emphasize, however, that the technique in [23] is not a JCDE scheme, being rather strictly pilot-based like traditional channel estimation, such that the latter SotA method enjoys, in this comparison, the advantage of not dealing with the additional burden of performing data detection, which the proposed algorithm does.
+In addition, as indicated in the legend of the figure, the comparison awards the SotA approach a power advantage, by means of allowing the latter to employ pilot signals with higher power than that used in the proposed method.
+(a) BER Performance.
+(b) NMSE Performance.
+Fig. 4: Performance of the single pilot QPSK-AFDM system at the UE via the proposed PBiGaBP algorithm compared to the SotA methods.
+The results show that the proposed PBiGaBP-based JCDE scheme outperforms the traditional pilot-only GaBP-based method for the single pilot AFDM frame structure proposed in [23] and illustrated in Figure 2 even when the latter employs a pilot with 10 times as higher power, which is a consequence of the fact that the proposed scheme takes advantage not only of the pilot, but also payload symbols ( $i.e.,$ soft pilots) to estimate the channel.
+The results also motivates us hereafter to no longer consider OFDM, as it is clear that this waveform is outperformed by OTFS and AFDM in doubly-dispersive channels.
+IV Radar Parameter Estimation in Doubly Dispersive Channels
+Having demonstrated the effectiveness of our proposed PBiGaBP-based JCDE scheme for AFDM, we next consider the radar parameter estimation problem1717
+17
+For the sake of simplicity, we concentrate here on the parameter estimation – as opposed to target acquisition/detection – part of the radar problem, such that the total number of targets is assumed to be known [52], and the target association problem is assumed to be solvable [53]. It is easy to perceive from the approach introduced, however, that an extension of the work here presented to joint detection and parameter estimation, such as performed in [52], is possible. That will, however, be pursued in a follow-up work., also referred to as DD domain channel estimation problem [54].
+To that end, a typical DD channel [31] is hereafter assumed, characterized by a maximum normalized delay spread $\text{max}(\ell_{p})$ and a corresponding digital normalized Doppler spread $\text{max}(f_{p})$ , satisfying the relations $\text{max}(\ell_{p})<<N$ and $\text{max}(f_{p})<<N$ .
+Let us start by pointing out that the channel impulse response given in equation (1) can also be represented in the DD domain [16] as
+[S4.E51]
+$h(\tau,\nu)=\sum_{p=0}^{P}h_{p}\delta(\tau-\tau_{p})\delta(\nu-\nu_{p}),\vskip-2.15277pt$
+(51)
+which for a finite number $P$ of paths, and under the aforementioned bounding assumption on delay and Doppler parameters, can be rewritten as
+[S4.E52]
+$h(\tau,\nu)=\sum_{k=0}^{K_{\tau}-1}\sum_{d=0}^{D_{\nu}-1}h_{k,d}\delta(\tau-\tau_{k})\delta(\nu-\nu_{d}),$
+(52)
+where $K_{\tau}$ and $D_{\nu}$ are numbers large enough to define a sufficiently fine grid discretizing the region determined by the maximum delay and Doppler values.
+Notice that if the resolution of such a grid is sufficiently fine, the only non-zero terms of the sum in equation (52) are those where both $\tau_{k}\approx\tau_{p}$ and $\nu_{d}\approx\nu_{p}$ , which in turn implies that estimating these radar parameters amounts to estimating the $P$ channel gains such that $h_{k,d}\neq 0$ .
+This suggests that the radar parameter estimation problem can be formulated as a canonical sparse signal recovery problem [55] as follows.
+First, rewriting the time-continuous model of equation (52) in terms of the sampled equivalent in matrix form yields
+[S4.E53]
+$\mathbf{\bar{H}}\triangleq\sum_{k=0}^{K_{\tau}-1}\sum_{d=0}^{D_{\nu}-1}h_{k,d}\cdot\mathbf{\Phi}_{k}\cdot\bm{\Omega}^{f_{d}}\cdot\mathbf{\Pi}^{\ell_{k}}\in\mathbb{C}^{N\times N},$
+(53)
+where we highlight that the model described by equation (53) is identical to the equivalent channel implicitly defined in equation (4), only with the summation rewritten over the DD grid, as opposed to the channel paths.
+[S4.E54]
+Then, the generalized receive signal model given in equation (27) can be rewritten as
+[S4.E54.1]
+$\mathbf{y}\!=\!\!\sum_{k=0}^{K_{\tau}\!-\!1}\sum_{d=0}^{D_{\nu}-1}\!\!\underbrace{\mathbf{\Gamma}_{k,d}\cdot\mathbf{x}}_{\mathbf{e}_{k,d}\in\mathbb{C}^{N\times 1}}\!\!\!\cdot h_{k,d}+\tilde{\mathbf{w}}=\mathbf{E}\cdot\mathbf{h}+\tilde{\mathbf{w}}\in\mathbb{C}^{N\times 1},\vskip-6.45831pt$
+(54a)
+where we implicitly defined the vectors $\mathbf{e}_{k,d}\triangleq\mathbf{\Gamma}_{k,d}\cdot\mathbf{x}$ , and explicitly identified the dictionary matrix $\mathbf{E}\in\mathbb{C}^{N\times K_{\tau}D_{\nu}}$ , and sparse channel vector $\mathbf{h}\in\mathbb{C}^{K_{\tau}D_{\nu}\times 1}$ , respectively defined as
+[S4.E54.2]
+$\mathbf{E}\!\triangleq\![\mathbf{e}_{0,0},\dots,\mathbf{e}_{0,D_{\nu}\!-\!1},\dots,\mathbf{e}_{K_{\tau}\!-\!1,0},\dots,\mathbf{e}_{K_{\tau}\!-\!1,D_{\nu}\!-\!1}],\vskip-4.30554pt$
+(54b)
+[S4.E54.3]
+$\mathbf{h}\!\triangleq\![h_{0,0},\dots,h_{0,D_{\nu}\!-\!1},\dots,h_{K_{\tau}\!-\!1,0},\dots,h_{K_{\tau}\!-\!1,D_{\nu}\!-\!1}]^{\mathsf{T}}\!\!\!.$
+(54c)
+In summary, the problem of estimating the set of radar parameters $\{\tau_{p},\nu_{p}\},\forall p$ reduces to estimating the sparse channel vector $\mathbf{h}$ , with the delays and Doppler shifts obtained from the corresponding indices $(k,d)$ where $h_{k,d}\neq 0$ , given the received signal $\mathbf{y}$ and the dictionary matrix $\mathbf{E}$ .
+As a consequence of the approach, the assumption that $P$ is known is relaxed into the assumption that the channel paths are orthogonal in the delay-Doppler grid, such that $P$ can be unambiguously inferred from $\mathbf{h}$ .
+Finally, the method also implies the assumption that the transmit vector $\mathbf{x}$ is known at the radar receiver, which in turn translates to a number of possible scenarios [16], including those described below.
+Monostatic RPE : A first scenario is the classic monostatic case, in which the BS processes round-trip signals reflected by surrounding scatters (targets) in order to extract their distances and velocities.
+Here, a main practical challenge is the self-interference caused by signals transmitted by the BS at the same time when reflected signals return.
+The issue is often ignored in related literature on OFDM- and OTFS-based monostatic RPE [11, 21], implying a strong and not entirely practical assumption that self-interference is perfectly avoided by FD technologies.
+To emphasize this point, it has been shown that AFDM has an advantage over OFDM and OTFS as it allows for the concentration of a single pilot symbol within a transmission block1818
+18
+Observe from equations (25) and (26) that unlike OFDM and OTFS, the AFDM receive signal occupies the entire time-frequency span even when a single entry in the transmit vector $\mathbf{x}$ is non-zero, such that concentrating piloting to a single symbol does not sacrifice the DoF of the estimator., as illustrated in Figure 2, with the corresponding self-interference mitigated via a simple analog dechirping and filtering operation [23].
+We will therefore focus on this case.
+User-centric RPE : In this case, the BS first transmits a pilot symbol vector used by the UE to perform RPE, and subsequently transmits data from which the UE proceeds to perform JCDE as described in Section III in order to track the channel and decode the information.
+Under the assumption that delay and Doppler shifts change at a rate slower than $h_{p}$ [56], the alternation of JCDE and RPE stages would enable the system to minimize the overhead associated with frequent pilot transmissions.
+Due to the lack of space, this scenario will not be further developed here, but we have shown in [28] that a well-designed JCDE algorithm is capable of tracking time-varying channels even without periodic pilot transmissions, as long as the BER of the system is maintained sufficiently low, $e.g.$ via adequate channel coding.
+It is not difficult to envision that by combining the contribution of this article with the one in [28], the user-centric RPE scenario can be addressed.
+Bistatic RPE : This refers to the case when passive receivers – could be BSs or UEs– which are placed at different locations with respect to the actively transmitting BS perform RPE using the received signals from the active BS [57, 58, 59, 60].
+The scenario can be similar either to the latter user-centric case, if the passive receiver have no knowledge of the transmit vector $\mathbf{x}$ [60], or to the monostatic case, if $\mathbf{x}$ can be assumed known via pilot symbols, a preamble or a reference signal [57, 58, 59] to all the passive receivers.
+It is clear, therefore, that this scenario is a generalization of both, which is best addressed in a dedicated follow-up article, especially since the latter assumption – if BSs are considered – requires them to be interconnected via a fronthaul network, which in turn might be subjected to impairments such as delays, noise, capacity limitations etc.
+For the rest of this manuscript, wlg and due to space limitations, we will focus on monostatic RPE.
+IV-A Reference SotA Method: SBL via Expectation Maximization
+Before we introduce our contribution, let us briefly review an effective SotA channel estimation approach, which is here adapted to solve the RPE problem, and which will be used as a reference for performance assessment.
+The technique, which is based on the SBL framework, was proposed in [31] for OTFS systems, but can also be employed to AFDM thanks to the unified model of Section II and the resulting sparse linear representation of equation (54).
+To see this, recall that the SBL approach models the sparse channel vector $\mathbf{h}$ as a parameterized Gaussian distribution of the form
+[S4.E55]
+$f(\mathbf{h};\mathbf{\Xi})=\prod_{m=0}^{K_{\tau}D_{\nu}-1}\frac{1}{\pi\xi_{m}}\text{exp}\bigg(-\frac{|h_{m}|^{2}}{\xi_{m}}\bigg),$
+(55)
+where $\xi_{m}$ denotes the unknown hyperparameter corresponding to the $m$ -th component of the vector $\mathbf{h}$ , collected into the matrix $\mathbf{\Xi}\triangleq\text{diag}\big(\{\xi_{m}\}_{m=0}^{K_{\tau}D_{\nu}-1}\big)\in\mathbb{R}_{+}^{K_{\tau}D_{\nu}\times K_{\tau}D_{\nu}}$ .
+Then, estimates $\mathbf{\!\hat{\;h}}$ of the sparse vector and its corresponding hyperparameter matrix $\hat{\mathbf{\Xi}}$ are computed iteratively leveraging the EM method, which requires knowledge of the noise covariance matrix associated with the received signal model.
+For the case of OTFS, from the definition of $\tilde{\mathbf{w}}_{\text{OTFS}}$ given just after equation (18) and under the assumption of rectangular pulse-shaping, we readily have
+$\displaystyle\mathbf{R_{w}}\!\triangleq\!\mathbb{E}\Big[\tilde{\mathbf{w}}_{\text{OTFS}}\!\cdot\!\tilde{\mathbf{w}}_{\text{OTFS}}^{\mathsf{H}}\Big]\!\!=\!\mathbb{E}\Big[\big[(\mathbf{F}_{M}\!\otimes\!\mathbf{I}_{K})\mathbf{w}\big]\!\!\cdot\!\!\big[(\mathbf{F}_{M}\!\otimes\!\mathbf{I}_{K})\mathbf{w}\big]^{\mathsf{H}}\Big]$
+$\displaystyle\hskip-249.72144pt=(\mathbf{F}_{M}\!\otimes\!\mathbf{I}_{K})\!\cdot\!{N_{0}}\mathbf{I}_{N}\!\cdot\!(\mathbf{F}_{M}\!\otimes\!\mathbf{I}_{K})^{\mathsf{H}}\!=\!{N_{0}}\Big[\mathbf{F}_{M}\mathbf{F}_{M}^{\mathsf{H}}\!\otimes\!\mathbf{I}_{K}\mathbf{I}_{K}^{\mathsf{H}}\Big]$
+[S4.E56]
+$\hskip-65.8748pt={N_{0}}\Big[\mathbf{I}_{M}\otimes\mathbf{I}_{K}\mathbf{I}_{K}^{\mathsf{H}}\Big]={N_{0}}\mathbf{I}_{N}\in\mathbb{C}^{N\times N}.$
+(56)
+Algorithm 2 SBL-based Radar Parameter Estimation [31]
+Input: Receive signal $\mathbf{y}$ , dictionary matrix $\mathbf{E}$ , noise covariance matrix $\mathbf{R_{w}}$ , and stopping criteria parameters $\epsilon$ and $i_{\text{max}}$ .
+Output: Sparse channel estimate vector $\mathbf{\!\hat{\;h}}$ .
+Initialization: Set counter to $i=0$ , and initial hyperparameters to $\hat{\mathbf{\Xi}}^{(0)}=\mathbf{I}_{K_{\tau}D_{\nu}}$ and $\hat{\mathbf{\Xi}}^{(-1)}=\mathbf{0},$
+1:
+while $||\hat{\mathbf{\Xi}}^{(i)}-\hat{\mathbf{\Xi}}^{(i-1)}||^{2}_{F}>\epsilon$ and $i<i_{\text{max}}$ do
+2:
+$i\leftarrow i+1$
+3:
+E-step: Compute aposteriori covariance and estimate vector
+4:
+$\bm{\Sigma}^{(i)}=\big[\mathbf{E}^{\mathsf{H}}\mathbf{R}^{-1}_{\mathbf{w}}\mathbf{E}+(\hat{\mathbf{\Xi}}^{(i-1)})^{-1}\big]^{-1}$ ,
+5:
+$\mathbf{\!\hat{\;h}}^{\!(i)}=\bm{\Sigma}^{(i)}\mathbf{E}^{\mathsf{H}}\mathbf{R}_{\mathbf{w}}^{-1}\mathbf{y}$ .
+6:
+M-step: Update the hyperparameters $\hat{\mathbf{\Xi}}^{(i)}$ , with
+7:
+$\hat{\xi}_{m}^{(i)}=\sigma_{m,m}^{(i)}+\big|\hat{h}_{m}^{(i)}\big|^{2}\!\!,\;\forall\,m$ .
+8:
+end while
+In turn, taking into account the definition of $\tilde{\mathbf{w}}_{\text{AFDM}}$ given after equation (25), we have for the AFDM case
+$\displaystyle\mathbf{R_{w}}\!\triangleq\!\mathbb{E}\Big[\tilde{\mathbf{w}}_{\text{AFDM}}\!\cdot\!\tilde{\mathbf{w}}_{\text{AFDM}}^{\mathsf{H}}\Big]\!\!=\!\mathbb{E}\Big[\!\big[(\!\mathbf{\Lambda}_{2}\mathbf{F}_{\!N}\mathbf{\Lambda}_{1}\!)\mathbf{w}\big]\!\!\cdot\!\!\big[(\!\mathbf{\Lambda}_{2}\mathbf{F}_{\!N}\mathbf{\Lambda}_{1}\!)\mathbf{w}\big]^{\mathsf{H}}\!\Big]$
+$\displaystyle\hskip-249.72144pt=\mathbb{E}\Big[\big[(\!\mathbf{\Lambda}_{2}\mathbf{F}_{\!N}\mathbf{\Lambda}_{1}\!)\mathbf{w}\big]\!\cdot\!\big[\mathbf{w}^{\mathsf{H}}(\!\mathbf{\Lambda}_{2}\mathbf{F}_{\!N}\mathbf{\Lambda}_{1}\!)^{\mathsf{H}}\big]\Big]$
+$\displaystyle\hskip-249.72144pt=(\!\mathbf{\Lambda}_{2}\mathbf{F}_{\!N}\mathbf{\Lambda}_{1}\!)\!\cdot\!{N_{0}}\mathbf{I}_{N}\!\cdot\!(\!\mathbf{\Lambda}_{2}\mathbf{F}_{\!N}\mathbf{\Lambda}_{1}\!)^{\mathsf{H}}\!=\!{N_{0}}\mathbf{I}_{N}\in\mathbb{C}^{N\times N}.$
+[S4.E57]
+(57)
+A pseudocode summary of the SBL-based RPE scheme is offered in Algorithm 2.
+IV-B Proposed Method: PDA-based Message Passing Estimator
+In this section, we propose a novel PDA-based RPE scheme designed under the assumption that the prior distributions of the elements $\hat{h}_{m}$ of the sparse channel vector estimates $\mathbf{\!\hat{\;h}}$ are of Bernoulli-Gaussian type.
+In other words, we model the unknown channel to be estimated at the $i$ -th iteration of the proposed scheme as
+[S4.E58]
+$\hat{h}_{m}^{(i)}\sim p_{\,\text{h}_{m}}(\text{h}_{m};\bm{\theta}^{(i)}),\vskip-8.61108pt$
+(58)
+with
+[S4.E59]
+$\!\!p_{\,\text{h}_{m}}(\text{h}_{m};\bm{\theta}^{(i)})\triangleq\!(1\!-\!{\rho}^{(i)})\delta(h_{m})\!+\!{\rho}^{(i)}\mathcal{CN}\big(h_{m};{\bar{h}}^{(i)},{\bar{\sigma}}^{(i)}\big),\!\!\vskip-2.15277pt$
+(59)
+where $\bm{\theta}^{(i)}\triangleq[{\rho}^{(i)},{\bar{h}}^{(i)},{\bar{\sigma}}^{(i)}]$ carries all three parameters of the distribution, namely, sparsity rate, mean and variance.
+As implied by the notation, the parameter vector $\bm{\theta}^{(i)}$ must be updated iteratively, which in similarity to the SBL approach of [31] can be accomplished via the EM algorithm.
+Unlike the aforementioned SotA method, however, the estimates of $\mathbf{h}$ in the proposed scheme are obtained via a message-passing algorithm, which is described in the sequel.
+For later convenience, we define the soft replica (i.e., tentative estimate) of $h_{m}$ as $\big\{\hat{h}_{m}^{(i)}\big\}$ such that its MSE can be expressed as
+[S4.E60]
+$\hat{\sigma}_{h:m}^{2(i)}\triangleq\mathbb{E}_{\text{h}_{m}}\big[|h_{m}-\hat{h}_{m}^{(i)}|^{2}\big].$
+(60)
+Following steps similar to those in Section III-A, we have
+IV-B1 Soft IC
+The soft IC expression corresponding to an estimate of $h_{m}$ , is given by
+[S4.E61]
+$\tilde{\mathbf{y}}_{h:m}^{(i)}\!=\mathbf{y}\!-\!\!\!\sum_{q\neq m}\!\!\mathbf{e}_{q}\hat{h}_{q}^{(i)}\!=\!\mathbf{e}_{m}h_{m}\!+\!\!\!\!\!\!\!\overbrace{\sum_{q\neq m}^{K_{\tau}D_{\nu}}(\mathbf{e}_{q}h_{q}\!-\!\mathbf{e}_{q}\hat{h}_{q}^{(i)})\!+\!\tilde{\mathbf{w}}}^{\text{residual interference+noise component}}\!\!\!,\!\!$
+(61)
+where $\mathbf{e}_{m}$ is the $m$ -th column of the dictionary matrix $\mathbf{E}$ .
+It follows from the central limit theorem (CLT) that, under large-system conditions, the residual interference-plus-noise component can be approximated by a multivariate complex Gaussian variate.
+In other words, the vector Gaussian approximation (VGA) can be applied such that the conditional PDF of the beliefs $\tilde{\mathbf{y}}_{h:m}^{(i)}$ , given $h_{m}$ , can be expressed as
+[S4.E62]
+$\!\!\tilde{\mathbf{y}}_{h:m}^{(i)}\!\!\sim\!p_{\textbf{y}|\text{h}_{m}}\!(\textbf{y}|h_{m}\!)\!\propto\!\text{exp}\!\Big[\!-\!\big(\!\textbf{y}\!-\!\mathbf{e}_{m}h_{m}\!\big)^{\mathsf{H}}\mathbf{\Sigma}^{-1(i)}_{m}\!\big(\!\textbf{y}\!-\!\mathbf{e}_{m}h_{m}\!\big)\!\Big]\!,\!\!\!$
+(62)
+where y is an auxiliary variable, and the conditional covariance matrix $\mathbf{\Sigma}_{m}^{(i)}$ is given by
+$\displaystyle\mathbf{\Sigma}_{m}^{(i)}$
+$\displaystyle\triangleq\mathbb{E}_{\textbf{h,$\tilde{\mathbf{w}}$}|\hat{h}_{m}\neq h_{m}}\bigg[\big(\tilde{\mathbf{y}}_{h:m}^{(i)}-\mathbf{e}_{m}h_{m}\big)\big(\tilde{\mathbf{y}}_{h:m}^{(i)}-\mathbf{e}_{m}h_{m}\big)^{\mathsf{H}}\bigg]$
+[S4.E63]
+$\displaystyle=\sum_{q\neq m}^{K_{\tau}D_{\nu}}\hat{\sigma}_{h:q}^{2(i)}\mathbf{e}_{q}\mathbf{e}_{q}^{\mathsf{H}}+N_{0}\mathbf{I}_{N},$
+(63)
+with $N_{0}$ denoting the noise power.
+IV-B2 Belief Generation
+The beliefs associated with the estimate of the $m$ -th channel entry $h_{m}$ can be obtained by combining the contributions of all soft IC beliefs $\tilde{\mathbf{y}}_{h:m}^{(i)}$ , under the PDF
+[S4.E64]
+$p_{\text{h}|h_{m}}(\text{h}|h_{m})\propto\text{exp}\Big[-\tfrac{|\text{h}-\tilde{h}_{m}^{(i)}|^{2}}{\tilde{\sigma}_{\tilde{h}:m}^{2(i)}}\Big],$
+(64)
+which yields
+[S4.E65]
+[S4.E65.1]
+$\tilde{h}_{m}^{(i)}\triangleq\frac{1}{\eta_{m}^{(i)}}\mathbf{e}_{m}^{\mathsf{H}}\mathbf{\Sigma}^{-1(i)}\tilde{\mathbf{y}}_{h:m}^{(i)}\;\;\text{and}\;\;\tilde{\sigma}_{\tilde{h}:m}^{2(i)}\triangleq\frac{1-\eta_{m}^{(i)}\hat{\sigma}_{h:m}^{2(i)}}{\eta_{m}^{(i)}},$
+(65a)
+where $\eta_{m}^{(i)}$ is a normalization factor defined as
+[S4.E65.2]
+$\eta_{m}^{(i)}\triangleq\mathbf{e}_{m}^{\mathsf{H}}\mathbf{\Sigma}^{-1(i)}\mathbf{e}_{m},$
+(65b)
+and the common conditional covariance matrix1919
+19
+The matrix inversion lemma [25] is used in the derivation of equation (65) and by consequence (65b), such that the same inverse matrix $\mathbf{\Sigma}^{(i)}$ can be used instead of $\mathbf{\Sigma}_{m}^{(i)}$ .
+is given by
+[S4.E65.3]
+$\mathbf{\Sigma}^{(i)}\triangleq\sum_{m=1}^{K_{\tau}D_{\nu}}\hat{\sigma}_{h:m}^{2(i)}\mathbf{e}_{m}\mathbf{e}_{m}^{\mathsf{H}}+N_{0}\mathbf{I}_{N}.$
+(65c)
+IV-B3 Soft RG
+Similarly to Section III, except that approximations hold under VGA as opposed to SGA, the soft replicas of $h_{m}$ can be inferred from the conditional expectation given the extrinsic beliefs and that the effective noise components in $\hat{h}_{m}^{(i)},\forall m$ are uncorrelated, which yields
+[S4.E66]
+$p_{h_{m}\!|\text{h}}(h_{m}|\text{h};\bm{\theta}^{(i)})\!=\!\frac{p_{\text{h}|h_{m}}\!(\text{h}|h_{m};\!\tilde{h}_{m}^{(i)}\!,\tilde{\sigma}_{\tilde{h}:m}^{2(i)})\;p_{h_{m}}\!(h_{m};\bm{\theta}^{(i)})}{\!\int_{h^{\prime}_{m}}\!p_{\text{h}|h_{m}}\!(\text{h}|h^{\prime}_{m};\!\tilde{h}_{m}^{(i)},\tilde{\sigma}_{\tilde{h}:m}^{2(i)})\;p_{h_{m}}\!(h^{\prime}_{m};\!\bm{\theta}^{(i)})}.$
+(66)
+Next, leveraging the assumption that $h_{m}$ follows a Bernoulli-Gaussian distribution, and using the Gaussian-PDF multiplication rule [50], equation (66) can be rewritten as [61]
+[S4.E67]
+$p_{h_{m}|\text{h}}(h_{m}|\text{h};\bm{\theta}^{(i)})\!=\!(1\!-\!\hat{\rho}_{m}^{(i)})\delta(h_{m})\!+\!\hat{\rho}_{m}^{(i)}\mathcal{CN}(h_{m};\hat{h}_{m}^{(i)},\hat{\sigma}_{h:m}^{2(i)}),$
+(67)
+where
+[S4.E68]
+$\vskip-4.30554pt\hat{\rho}_{m}^{(i)}\triangleq\Bigg(\frac{1\!-\!{\rho}^{(i)}}{{\rho}^{(i)}}\frac{\tilde{\sigma}_{\tilde{h}:m}^{2(i)}\!+\!{\bar{\sigma}}^{(i)}}{\tilde{\sigma}_{\tilde{h}:m}^{2(i)}}\>e^{-\frac{|\tilde{h}_{m}^{(i)}|^{2}}{\tilde{\sigma}_{\tilde{h}:m}^{2(i)}}+\frac{|\tilde{h}_{m}^{(i)}-{\bar{h}}^{(i)}|^{2}}{\tilde{\sigma}_{\tilde{h}:m}^{2(i)}+{\bar{\sigma}}^{(i)}}}\!\!+1\Bigg)^{\!\!-1}\!\!\!\!,$
+(68)
+with
+[S4.E69]
+$\hat{h}_{m}^{(i)}\triangleq\frac{{\bar{\sigma}}^{(i)}\tilde{h}_{m}^{(i)}+\tilde{\sigma}_{\tilde{h}:m}^{2(i)}{\bar{h}}^{(i)}}{\tilde{\sigma}_{\tilde{h}:m}^{2(i)}+{\bar{\sigma}}^{(i)}}\;\;\text{and}\;\;\hat{\sigma}_{h:m}^{2(i)}\triangleq\frac{{\bar{\sigma}}^{(i)}\tilde{\sigma}_{\tilde{h}:m}^{2(i)}}{\tilde{\sigma}_{\tilde{h}:m}^{2(i)}+{\bar{\sigma}}^{(i)}}.$
+(69)
+Finally, adhering to the prior defined for the channel coefficient $h_{p}$ , we choose wlg, a denoiser without the mean parameter, namely, ${\bar{h}}^{(i)}=0$ in equation (59) and consequently, in equation (69)2020
+20
+For completeness, the EM parameter update detailed in the consequent section will be derived for all the parameters..
+From (67), the soft replica $\hat{h}_{m}^{(i)}$ and its MSE $\hat{\sigma}_{h:m}^{2(i)}$ can be in general obtained from the conditional expectation as2121
+21
+Note the already incorporated damping procedure as also done in Section III to prevent convergence to local minima due to incorrect hard-decision replicas.
+[S4.E70]
+[S4.E70.1]
+$\hat{h}_{m}^{(i)}=\tilde{\beta}_{h}\hat{\rho}_{m}^{(i)}\hat{h}_{m}^{(i)}+(1-\tilde{\beta}_{h})\hat{h}_{m}^{(i-1)},$
+(70a)
+[S4.E70.2]
+$\hat{\sigma}_{h:m}^{2(i)}=\tilde{\beta}_{h}\big[(1-\hat{\rho}_{m}^{(i)})\hat{\rho}_{m}^{(i)}|\hat{h}_{m}^{(i)}|^{2}+\hat{\rho}_{m}^{(i)}\hat{\sigma}_{h:m}^{2(i)}\big]+(1-\tilde{\beta}_{h})\big[\hat{\sigma}_{h:m}^{2(i-1)}\big].$
+(70b)
+IV-B4 Parameter Update via EM
+In order to update the parameter set $\bm{\theta}$ of the Bernoulli-Gaussian distribution at each iteration, the EM algorithm is utilized.
+In particular, we employ EM as an iterative parameter tuning technique to obtain the parameter vector $\bm{\theta}$ that maximizes the likelihood function $p_{\mathbf{y}|\bm{\theta}}(\mathbf{y}|\bm{\theta})$ , where $\mathbf{y}$ is defined in equation (54a), with $\bm{\theta}$ as given in equation (59).
+To this end, we follow [62] and first convert $p_{\mathbf{y}|\bm{\theta}}(\mathbf{y}|\bm{\theta})$ to a tractable form by utilizing latent variables, marginalizing over an arbitrary PDF $\hat{p}_{\mathbf{{h}}}(\mathbf{h})$ and using the log-likelihood function $\text{ln}\big[p_{\mathbf{y}|\bm{\theta}}(\mathbf{y}|\bm{\theta})\big]$ , reformulated so as to highlight the differential entropy and Kullback-Leibler (KL) divergence terms $\psi(\mathbf{h})$ and $\mathrm{D}_{\text{KL}}\big(\hat{p}_{\mathbf{{h}}}(\mathbf{h})||p_{\mathbf{h}|\mathbf{y},\bm{\theta}}(\mathbf{h}|\mathbf{y},\bm{\theta})\big)$ , respectively, namely
+[S4.E71]
+$\displaystyle\text{ln}\big[p_{\mathbf{y}|\bm{\theta}}(\mathbf{y}|\bm{\theta})\big]\propto\int_{\mathbf{h}}\Big[\hat{p}_{\mathbf{{h}}}(\mathbf{h})\,\text{ln}\,p_{\mathbf{{h}},\mathbf{y},\bm{\theta}}(\mathbf{h},\mathbf{y},\bm{\theta})+\psi(\mathbf{h})$
+(71)
+$\displaystyle\hskip-142.08289pt+\mathrm{D}_{\text{KL}}\big(\hat{p}_{\mathbf{{h}}}(\mathbf{h})||p_{\mathbf{h}|\mathbf{y},\bm{\theta}}(\mathbf{h}|\mathbf{y},\bm{\theta})\big)\Big].$
+Next, let us define the auxiliary function
+[S4.E72]
+$\mathrm{J}\big(\hat{p}_{\mathbf{{h}}}(\mathbf{h}),\bm{\theta}\big)\triangleq\int_{\mathbf{h}}\Big[\hat{p}_{\mathbf{{h}}}(\mathbf{h})\,\text{ln}\,p_{\mathbf{{h}},\mathbf{y},\bm{\theta}}(\mathbf{h},\mathbf{y},\bm{\theta})+\psi(\mathbf{h})\Big].$
+(72)
+Then, taking advantage of the non-negativity of the KL divergence, the following lower bound on the latter log-likelihood function, can be obtained as
+[S4.E73]
+$\text{ln}\big[p_{\mathbf{y}|\bm{\theta}}(\mathbf{y}|\bm{\theta})\big]\geq\mathrm{J}\big(\hat{p}_{\mathbf{{h}}}(\mathbf{h}),\bm{\theta}\big).$
+(73)
+The EM algorithm summarized above allows us to maximize the log-likelihood function in a cost-effective manner by alternating between the E-step minimizing KL divergence in equation (71) and the M-step maximizing the lower bound of the log-likelihood in equation (73), given by
+[S4.E74]
+[S4.E74.1]
+$\displaystyle\hskip-21.52771pt\text{E-step:}\quad\hat{p}_{\mathbf{{h}}}(\mathbf{h})=\underset{\hat{p}^{\prime}_{\mathbf{{h}}}(\mathbf{h})}{\mathrm{arg\;min}}\;J\big(\hat{p}^{\prime}_{\mathbf{{h}}}(\mathbf{h}),\bm{\theta}\big),$
+(74a)
+[S4.E74.2]
+$\displaystyle\hskip-21.52771pt\text{M-step:}\quad\bm{\theta}=\underset{\bm{\theta}^{\prime}}{\mathrm{arg\;max}}\;J\big(\hat{p}_{\mathbf{{h}}}(\mathbf{h}),\bm{\theta}^{\prime}\big).$
+(74b)
+Regarding the E-step, notice that solving equation (74a) is equivalent to minimizing of $\hat{p}_{\mathbf{{h}}}(\mathbf{h})$ given a fixed $\bm{\theta}$ , but equation (67) already computes the solution to this problem.
+In other words, the Bernoulli-Gaussian distribution in equation (67) is the closed-form solution of problem (74a).
+In turn, the focus of the M-step is to maximize $\bm{\theta}$ for a given distribution $\hat{p}_{\mathbf{{h}}}(\mathbf{h})$ . Using (67), the maximization problem in (74b) can be reformulated as
+[S4.E75]
+$\bm{\theta}=\underset{\bm{\theta}^{\prime}}{\mathrm{arg\;max}}\;\mathbb{E}_{\mathbf{h}|\text{h}}\Big\{\text{ln}\big[p_{\mathbf{{h}},\mathbf{y},\bm{\theta}}(\mathbf{h},\mathbf{y},\bm{\theta}^{\prime})\big]|\;\text{h};\bm{\theta}^{(i)}\Big\},$
+(75)
+and solved efficiently via a Lagrange method, yielding the update rules
+[S4.E76]
+[S4.E76.1]
+${\rho}^{(i)}=\frac{1}{K_{\tau}D_{\nu}}\sum_{m=1}^{K_{\tau}D_{\nu}}\hat{\rho}_{m}^{(i)},\vskip-3.22916pt$
+(76a)
+[S4.E76.2]
+${\bar{h}}^{(i)}=\frac{1}{{K_{\tau}D_{\nu}}\cdot{\rho}^{(i)}}\sum_{m=1}^{K_{\tau}D_{\nu}}\hat{\rho}_{m}^{(i)}\hat{h}_{m}^{(i)},\vskip-3.22916pt$
+(76b)
+[S4.E76.3]
+${\bar{\sigma}}^{(i)}=\frac{1}{{K_{\tau}D_{\nu}}\cdot{\rho}^{(i)}}\sum_{m=1}^{K_{\tau}D_{\nu}}\hat{\rho}_{m}^{(i)}\bigg(\big|\hat{h}_{m}^{(i)}-{\bar{h}}^{(i)}\big|^{2}+\hat{\sigma}_{h:m}^{2(i)}\bigg).\vskip-2.15277pt$
+(76c)
+Algorithm 3 PDA-based Radar Parameter Estimation (Prop.)
+Input: Receive signal $\mathbf{y}$ , dictionary matrix $\mathbf{E}$ , noise power $N_{0}$ , number of paths $P$ , average channel power per path $\sigma_{h}^{2}$ , maximum number of iterations $i_{\text{max}}$ and damping factor $\tilde{\beta}_{h}$ .
+Output: Estimates $\hat{\tau}_{p}$ and $\hat{\nu}_{p}$ extracted from the non-zero indices of the sparse channel estimate vector $\!\hat{\;\mathbf{h}}$ .
+Initialization: Set counter to $i=0$ , set initial distribution parameters ${\rho}^{(0)}=P/(K_{\tau}D_{\nu})$ and ${\bar{\sigma}}^{(0)}=1/P$ , set average channel power per path $\sigma_{h}^{2}=1/(K_{\tau}D_{\nu})$ , and set initial estimates $\hat{h}_{m}^{(0)}=0$ and ${\hat{\sigma}}_{h:m}^{(0)}=\sigma_{h}^{2},\forall m$ .
+1:
+for $i=1$ to $i_{\text{max}}$ do $\forall m$
+2:
+Compute soft signal vectors $\tilde{\mathbf{y}}_{h:m}^{(i)}$ from equation (61).
+3:
+Compute soft extrinsic channel beliefs $\tilde{h}_{m}^{(i)}$ and their
+variances $\tilde{\sigma}_{\tilde{h}:m}^{2(i)}$ from equation (65).
+4:
+Compute denoised sparsity rates $\hat{\rho}_{m}^{(i)}$ from eq. (68).
+5:
+Compute denoised channel estimates $\hat{h}_{m}^{(i)}$ and their variances $\hat{\sigma}_{h:m}^{2(i)}$ from equation (69).
+6:
+Compute damped channel estimates $\hat{h}_{m}^{(i)}$ and variances $\hat{\sigma}_{h:m}^{2(i)}$ from equation (70).
+7:
+Update distribution parameters ${\rho}^{(i)}$ and ${\bar{\sigma}}^{(i)}$ from eq. (76c).
+8:
+end for
+Compute the estimates $\hat{\tau}_{p}$ and $\hat{\nu}_{p}$ corresponding to the indices $m$ of the non-zero entries of $\!\hat{\;\mathbf{h}}$ in accordance to equation (54c).
+A complete and compact description of the proposed PDA-based RPE scheme is given in the form of a pseudocode in Algorithm (3).
+Upon convergence of the above procedure, the estimate of the sparse vector $\mathbf{h}$ is known. Finally, the $(i,j)$ indices of $\mathbf{h}$ can be used to obtain the corresponding delay and Doppler shifts, and hence the corresponding ranges and velocities of the objects in the vicinity.
+Remark 2: Due to the nature of the RPE formulation, a state evolution analysis [63, 64] is no longer possible since the equivalent observation matrix is not independent and identically distributed (i.i.d.) sub-Gaussian distributed and/or right-unitary invariant with a finite system size.
+In addition, in order to handle the quite strong correlation amongst the elements of the equivalent observation matrix, the proposed RPE algorithm is designed based on the PDA framework [65], which while robust against such observation correlations, does not guarantee Bayesian optimality in the large-system limit.
+If the algorithm was designed via a Bayes-optimal technique such as generalized approximate message passing (GAMP) [66] or expectation propagation (EP) [67], the Onsager correction term will behave in an unstable manner and the estimation performance will deteriorate significantly.
+Given the above, it is difficult to perform a theoretical convergence analysis; hence, we have verified the number of iterations required for convergence via a thorough numerical analysis as shown below (Figure 7).
+IV-C Complexity Analysis
+The computational complexity for both the proposed PDA-based RPE scheme detailed in Algorithm 3, and the SotA SBL-based RPE scheme given in Algorithm 2, are dominated by the matrix inversion on line 2 of both algorithms, required at every iteration of the corresponding algorithms, albeit of different sizes in each.
+While the SotA method has a computational complexity of order $\mathcal{O}((K_{\tau}D_{\nu})^{3})$ , the complexity order of the proposed method is $\mathcal{O}(N^{3})$ .
+In most cases, since $N\approx K_{\tau}\cdot D_{\nu}$ , the overall computational complexity is very similar.
+It is also noteworthy that this translates to the proposed PDA-based RPE technique being almost completely independent of the grid size based on the values of $K_{\tau}$ and $D_{\nu}$ , which means that much larger grids (even over multiple iterations as in [15]) for high accuracy can be used with the proposed method as opposed to the SotA which incurs a heavy computational burden due to the matrix inversion dependent on $K_{\tau}\cdot D_{\nu}$ .
+Finally, we emphasize that in addition to the performance gain and the similar complexity of the proposed method, we also show that the proposed method converges much faster, as shown in Figure 7.
+IV-D Performance Assessment
+In order to evaluate the performance of the proposed PDA-based RPE algorithm, we consider the monostatic scenario depicted in Figure 4.
+Under such a scenario, and in light of the results of Figure 3 – as well as related literature, $e.g.$ [11]
+(a) Range Estimation Performance (FD system, single target).
+(b) Velocity Estimation Performance (FD system, single target).
+Fig. 5: RMSE versus SNR 2222
+22
+While many formulations for the SNR exist in literature, including radar-centric metrics as used in [11, 15], we use the typical definition hinging on $h_{p}$ as used in [23], which already incorporates the effect of the radar cross-section parameter $\sigma_{\text{rcs}}=1$ denoting that no power is lost due to the reflection.performance of SotA SBL and proposed PDA monostatic RPE schemes over OTFS and AFDM waveforms in a FD (interference-free) scenario with a single LoS signal from a single target.
+– which demonstrate that OFDM is outperformed by OTFS and AFDM in doubly-dispersive channels, we consider hereafter only OTFS and AFDM systems.
+Our first set of results, shown in Figure 22, are obtained for a single LoS reflected signal, from a single target, positioned at $15$ m and traveling at a velocity of $151$ km/h towards the BS, with the remark that since both the SotA SBL and the proposed PDA RPE algorithms are based on the sparse model described by the set of equations (54), the estimation algorithm themselves have no hard restrictions on the number of paths or targets to be estimated, as long as the grid modeled by the dictionary matrix $\mathbf{E}$ in equation (54b) is fine enough to ensure a sufficient sparsity of the vector $\mathbf{y}$ in equation (54a).
+With that clarified, the motivation of assessing the performance of these algorithms under a single path/target case is to grant an advantage to the OTFS approach, where a larger number of targets only increases the weight of the assumption of no self-interference (not required in the AFDM case).
+The remaining system parameters for the results shown in Figure 22 are in line with those used when assessing JCDE schemes in Subsection III-C, namely, $70\,\text{GHz}$ band, with bandwidth of $20\,\text{MHz}$ , QPSK modulation, and maximum normalized delay and digital Doppler shift indices $\ell_{\text{max}}=20$ and $f_{\text{max}}=0.25$ , respectively.
+In order to reduce complexity, we reduce the system size to $K=B=M=12$ for OTFS, and $N=144$ for AFDM, which results in an unambiguous maximum range of $75$ m and velocity of $535$ km/h.
+Finally, the proposed PDA-based RPE algorithm employs a damping factor $\tilde{\beta}_{h}=0.5$ and is run up to $i_{\text{max}}=40$ iterations, while the SBL scheme is run up to $i_{\text{max}}=80$ iterations, due to its slower convergence (see Figure 7).
+The performance metric adopted is the normalized RMSE, averaged over all targets and realizations, which is defined as
+[S4.E77]
+$\Upsilon\triangleq\mathbb{E}\Big[\frac{1}{P+1}\sum_{p=0}^{P}\frac{||\hat{\vartheta}_{p}-\vartheta_{p}||^{2}_{2}}{|\vartheta_{p}|}\Big],\vskip-2.15277pt$
+(77)
+where $\vartheta_{p}$ denotes a given radar parameter (range or velocity), $\hat{\vartheta}_{p}$ its estimate, and the expectation is taken over the number of realizations of the algorithm.
+Finally, Figure 22 also includes plots of the resolution limit2323
+23
+In this case, the resolution limit defines how fine the search grid is; $i.e.,$ it measures the estimation accuracy for the range and velocity if the estimate for $\!\hat{\;\mathbf{h}}$ , obtained as the output of the SotA and proposed algorithms, is perfect. [15] and the MF bound [68], obtained by executing Algorithm 3 for a single iteration, initialized with the true radar parameter values.
+The results clearly indicate that the proposed PDA method outperforms the SotA SBL approach both for range and velocity estimation, both under OTFS and AFDM waveforms, with the proposed method reaching the MF bound in the case of range estimates.
+It is also found, moreover, that AFDM yields slightly better performance than OTFS, and that all algorithms reach the resolution bound under a sufficiently large SNR, indicating that both methods converge absolutely.
+Fig. 6: Convergence of SotA SBL and proposed PDA monostatic RPE schemes over OTFS and AFDM.
+(a) Range Estimation Performance (SIC-enabled system, multiple targets).
+(b) Velocity Estimation Performance (SIC-enabled system, multiple targets).
+Fig. 7: RMSE versus SNR performance of SotA SBL and proposed PDA monostatic RPE schemes over AFDM waveform, executed using only the single pilot and null-guard interval enabling SIC via a simple low-complexity analog dechirping and filtering[23], in a scenario with multiple targets.
+In order to clarify that convergence is also not an issue at low SNR, we offer in Figure 7 plots of the range and velocity normalized RMSE.
+It can be seen from those results that the proposed PDA-based method is advantageous compared to the SotA SBL approach also in terms of convergence speed.
+Having established the overall advantage of AFDM over OTFSin FD scenarios, and of the proposed PDA-based RPE algorithm over the SBL-based SotA alternative, we finally confront the two critical issues left unaddressed in the performance assessment so far, namely, the impact of self-interference and a larger number of targets to be estimated.
+To that end, we offer in Figure 7 plots equivalent to those shown in Figure 22, but this time exclusively for SIC-enabled AFDM systems, and in scenarios with multiple targets using only the single pilot and null-guard interval for RPE.
+Notice that this only requires minimal modification to equation (54) such that it becomes $\mathbf{y}_{p}=\mathbf{E}_{p}\cdot\mathbf{h}+\tilde{\mathbf{w}_{p}}\in\mathbb{C}^{B\times 1}$ with $\mathbf{y}_{p}\in\mathbb{C}^{B\times 1}$ and $\mathbf{E}_{p}\in\mathbb{C}^{B\times K_{\tau}D_{\nu}}$ being the parts of the received signal $\mathbf{y}\in\mathbb{C}^{N\times 1}$ and dictionary matrix $\mathbf{E}\in\mathbb{C}^{N\times K_{\tau}D_{\nu}}$ , respectively, corresponding to the single pilot and the null-guard interval $\mathbf{x}_{p}\in\mathbb{C}^{B\times 1}$ of the original transmit symbol vector $\mathbf{x}\in\mathbb{C}^{N\times 1}$ .
+Consequently, both the SotA and proposed algorithms apply to monostatic RPE, such that the inherent self-interference from the LoS path can be cancelled via a simple low-complexity analog dechirping and filtering[23] as opposed to the costly solutions required for OFDM and OTFS systems.
+V Conclusion
+We offered two new ISAC-enabling contributions for the emerging AFDM waveform, namely, a PBiGaBP-based JCDE algorithm, which enables channel estimation with low pilot overhead, and a PDA-based RPE algorithm, which enables the BS to act as a monostatic radar, estimating the delay and Doppler parameters of multiple paths simultaneously.
+Using a generalized channel model under which OFDM, OTFS and AFDM can be directly compared, it was shown that the proposed algorithms outperform SotA alternatives and that AFDM is advantageous over OTFS and OFDM both for communications and sensing functionalities in doubly-dispersive channels.
+References
+[1]
+K. Furuta, K. Ito, T. Takahashi, and S. Ibi, “Joint Channel and Data
+Estimation via Bayesian Parametric Bilinear Inference for OTFS
+Transmission,” in IEEE 20th Consum. Commun. Net. Conf. (CCNC),
+2024.
+[2]
+T. Wild et. al, “Joint Design of Communication and
+Sensing for Beyond 5G and 6G Systems,” IEEE Access, vol. 9, 2021.
+[3]
+F. Liu et. al,
+“Integrated Sensing and Communications: Toward Dual-Functional
+Wireless Networks for 6G and Beyond,” IEEE Journal on Selected
+Areas in Communications, vol. 40, no. 6, 2022.
+[4]
+C.-X. Wang et. al, “On the Road to 6G:
+Visions, Requirements, Key Technologies, and Testbeds,” IEEE
+Communications Surveys & Tutorials, vol. 25, no. 2, 2023.
+[5]
+N. González-Prelcic et. al, “The Integrated Sensing and Communication Revolution for 6G: Vision, Techniques, and Applications,” Proceedings of the IEEE, 2024.
+[6]
+F. Liu, C. Masouros, A. P. Petropulu, H. Griffiths, and L. Hanzo, “Joint
+Radar and Communication Design: Applications, State-of-the-Art,
+and the Road Ahead,” IEEE Transactions on Comm.,
+vol. 68, no. 6, 2020.
+[7]
+H. Wymeersch et. al, “Integration of
+Communication and Sensing in 6G: a Joint Industrial and Academic
+Perspective,” in IEEE 32nd Ann. Intern. Symp. on
+Pers., Indoor and Mobile Radio Comm. (PIMRC), 2021.
+[8]
+Z. Wei et. al,
+“Integrated Sensing and Communication Signals Toward 5G-A and
+6G: A Survey,” IEEE Internet of Things Journal, vol. 10,
+​no. 13, 2023.
+[9]
+L. Zheng et. al, “Radar and Communication
+Coexistence: An Overview: A Review of Recent Methods,”
+​​IEEE Signal Processing Magazine, vol. 36, no. 5, 2019.
+[10]
+D. Tagliaferri et. al, “Integrated Sensing and Communication
+System via Dual-Domain Waveform Superposition,” IEEE Transactions on Wireless Communications, 2023.
+[11]
+L. Gaudio, M. Kobayashi, G. Caire, and G. Colavolpe, “On the Effectiveness
+of OTFS for Joint Radar Parameter Estimation and Communication,”
+IEEE Transactions on Wireless Comm., vol. 19, no. 9, 2020.
+[12]
+S. K. Mohammed et. al, “OTFS—A
+Mathematical Foundation for Communication and Radar Sensing in the
+Delay-Doppler Domain,” IEEE BITS the Information Theory
+Magazine, vol. 2, no. 2, 2022.
+[13]
+Y. Geng, “A Novel Waveform Design for OFDM-Based Joint Sensing and Communication System,” in IEEE 3rd International Symposium on Joint Communications & Sensing (JC&S), Seefeld, Austria, 2023.
+[14]
+A. Gupta et. al, “An
+Affine Precoded Superimposed Pilot Based mmWave MIMO-OFDM
+ISAC System,” IEEE Open Journal of the Communications Society, vol. 5, 2024.
+[15]
+K. Ranasinghe et. al, “Fast and Efficient
+Sequential Radar Parameter Estimation in MIMO-OTFS Systems,”
+in IEEE International Conference on Acoustics,
+Speech and Signal Processing (ICASSP), 2024.
+[16]
+H. S. Rou et. al, “From OTFS to AFDM: A Comparative Study of
+Next-Generation Waveforms for ISAC in Doubly-Dispersive
+Channels,” arXiv:2401.07700, 2024. (to appear in IEEE SPM)
+[17]
+L. Gaudio et. al, “OTFS vs. OFDM in the Presence of
+Sparsity: A Fair Comparison,” IEEE Trans. on Wireless
+Comm., vol. 21, no. 6, 2022.
+[18]
+R. Hadani et. al, “Orthogonal Time Frequency Space Modulation,” in
+IEEE Wireless Comm. and Networking Conference (WCNC),
+2017.
+[19]
+G. Surabhi et. al, “On the Diversity of
+Uncoded OTFS Modulation in Doubly-Dispersive Channels,”
+IEEE Transactions on Wireless Communications, vol. 18, no. 6, 2019.
+[20]
+A. Bemani, N. Ksairi, and M. Kountouris, “AFDM: A Full Diversity
+Next Generation Waveform for High Mobility Communications,” in
+IEEE International Conf. on Comm. Workshops (ICC
+Workshops), 2021.
+[21]
+Y. Ni et. al, “An AFDM-Based Integrated
+Sensing and Communications,” in Intern. Symp. on
+Wireless Comm. Systems (ISWCS), 2022.
+[22]
+A. Bemani, N. Ksairi, and M. Kountouris, “Affine Frequency Division
+Multiplexing for Next Generation Wireless Communications,”
+IEEE Transactions on Wireless Communications, vol. 22, no. 11, 2023.
+[23]
+——, “Integrated Sensing and Communications with Affine Frequency
+Division Multiplexing,” IEEE Wireless Comm. Let., vol. 13, no. 5, 2024.
+[24]
+K. Ito et. al, “Bilinear Gaussian Belief
+Propagation for Large MIMO Channel and Data Estimation,” in
+IEEE Global Comm. Conf., 2020.
+[25]
+——, “Bayesian Joint Channel and Data Estimation for Correlated
+Large MIMO with Non-orthogonal Pilots,” in IEEE
+Int. Conf. Comm., 2021.
+[26]
+H. Iimori et. al, “Joint Activity and Channel Estimation for
+Extra-Large MIMO Systems,” IEEE Trans. on Wireless
+Comm., vol. 21, no. 9, 2022.
+[27]
+K. Ito et. al, “AoA
+Estimation-Aided Bayesian Receiver Design via Bilinear
+Inference for mmWave Massive MIMO,” in IEEE
+International Conference on Communications (ICC), 2023.
+[28]
+T. Takahashi et. al,
+“Bayesian Bilinear Inference for Joint Channel Tracking and Data
+Detection in Millimeter-Wave MIMO Systems,” IEEE
+Transactions on Wireless Communications, vol. 23, no. 9, 2024.
+[29]
+M. Akrout, A. Housseini, F. Bellili, and A. Mezghani, “BiG-VAMP: The
+Bilinear Generalized Vector Approximate Message Algorithm,” in
+56th Asilomar Conference on Signals, Systems, and Computers,
+2022.
+[30]
+J. Vila et. al, ​​​“Expectation-Maximization ​Bernoulli-Gaussian
+​Approximate Message Passing,” ​in 45th Asilomar Conf. ​on Sig., ​Sys. ​and ​Comp.,
+2011.
+[31]
+A. Mehrotra et. al, “Data-Aided
+CSI Estimation Using Affine-Precoded Superimposed Pilots in
+Orthogonal Time Frequency Space Modulated MIMO Systems,”
+IEEE Transactions on Comm., vol. 71, no. 8, 2023.
+[32]
+S. K. Dehkordi et. al, “Beam-Space MIMO Radar for Joint Communication and Sensing with OTFS Modulation,”
+IEEE Transactions on Wireless Communications, vol. 22, no. 10, 2023.
+[33]
+W. Hong et. al, “Multibeam Antenna Technologies for 5G Wireless Communications,” IEEE Trans. Ant. and Propag., vol. 65, no. 12, 2017.
+[34]
+C. Deng et. al, “Series-Fed Beam-Steerable Millimeter-Wave Antenna Design With Wide Spatial Coverage for 5G Mobile Terminals,” IEEE Transactions on Antennas and Propagation, vol. 68, no. 5, 2020.
+[35]
+O. Jo et. al, “Achieving 360∘ Coverage Dynamic and Switchable Beamforming Through Resource-Efficient Switchable Antennas for Future mmWave IoT Devices,” IEEE Trans. on Ind. Elect., vol. 68, no. 9, 2021.
+[36]
+R. Bomfin et. al, “Low-Complexity Iterative
+Receiver for Orthogonal Chirp Division Multiplexing,” ​in
+IEEE W. C. and Net. Conf. Work., 2019.
+[37]
+S. Khaledian et. al, “Inherent
+Self-Interference Cancellation for In-Band Full-Duplex
+Single-Antenna Systems,” IEEE Transactions on Microwave Theory
+and Techniques, vol. 66, no. 6, 2018.
+[38]
+D. W. Bliss and S. Govindasamy, Dispersive and Doubly Dispersive
+Channels, Cambridge University Press,
+2013.
+[39]
+P. Raviteja, K. T. Phan, Y. Hong, and E. Viterbo, “Interference Cancellation
+and Iterative Detection for Orthogonal Time Frequency Space
+Modulation,” IEEE Trans. on Wireless Comm., vol. 17,
+no. 10, 2018.
+[40]
+G. Matz, “On non-WSSUS wireless fading channels,” IEEE
+Transactions on Wireless Communications, vol. 4, no. 5, 2018.
+[41]
+H. B. Mishra, “OTFS Channel Estimation and Data Detection Designs With Superimposed Pilots,” IEEE Transactions Wireless Communications, vol. 21, no. 4, 2022.
+[42]
+X. Yang, “Sensing Aided Uplink Transmission in OTFS ISAC With Joint Parameter Association,” IEEE Transactions on Vehicular Technology, vol. 73, no. 6, 2024.
+[43]
+B. R. Hamilton et. al, “OFDM Pilot
+Design for Channel Estimation with Null Edge Subcarriers,”
+IEEE Trans. on W. Comm., vol. 10, no. 10, 2011.
+[44]
+L. He et. al, “Pilot-Aided IQ
+Imbalance Compensation for OFDM Systems Operating Over Doubly
+Selective Channels,” IEEE Transactions on Signal Processing,
+vol. 59, no. 5, 2011.
+[45]
+F. Yang et. al, “Pilot Contamination in Massive
+MIMO Induced by Timing and Frequency Errors,” ​IEEE
+Tr. on W. Com., ​​vol. 17, ​​no. 7, 2018.
+[46]
+J. T. Parker and P. Schniter, “Parametric Bilinear Generalized Approximate Message Passing,” ​IEEE Journal of Selected Topics in Signal Processing, ​​vol. 10, no. 4, 2016.
+[47]
+K. Ito et. al, “Bilinear Gaussian Belief Propagation for Massive MIMO Detection With Non-Orthogonal Pilots,” ​IEEE Transactions on Communications, vol. 72, no. 2, 2024.
+[48]
+Q. Su and Y.-C. Wu, “On Convergence Conditions of Gaussian Belief
+Propagation,” IEEE Transactions on Signal Proc., vol. 63,
+no. 5, 2015.
+[49]
+J. O. Smith, Spectral Audio Signal Processing, 2011.
+[50]
+J. T. Parker et. al, “Bilinear Generalized
+Approximate Message Passing—Part I: Derivation,” ​​IEEE
+Trans. on Sig.​ Proc., vol. 62, no. 22, 2014.
+[51]
+Z. Yuan et. al, “Approximate message passing with unitary transformation for robust bilinear recovery,” ​IEEE
+Trans. Sig. Proc., vol. 69, 2021.
+[52]
+L. Gaudio et. al, “Joint Radar Target
+Detection and Parameter Estimation with MIMO OTFS,” in IEEE Radar Conf. (RadarConf20), 2020.
+[53]
+Y. Bar-Shalom, F. Daum, and J. Huang, “The Probabilistic Data Association
+Filter,” IEEE Control Systems Magazine, vol. 29, no. 6, 2009.
+[54]
+A. Fish et. al, “Delay-Doppler
+Channel Estimation in Almost Linear Complexity,” IEEE Transactions on
+Inf. Theory, vol. 59, no. 11, 2013.
+[55]
+X. Gong and J. Zheng, “Two-Stage On-Grid Radar Parameter
+Estimation in OTFS based Dual-Function Radar-Communications,” in
+IEEE 24th Intern. Work. on Signal Proc. Adv. in
+Wireless Comm. (SPAWC), 2023.
+[56]
+K. R. Murali and A. Chockalingam, “On OTFS Modulation for High-Doppler
+Fading Channels,” in Inf. Theory and App.
+Work. (ITA), 2018.
+[57]
+O. Kanhere et. al, “Target Localization using Bistatic and Multistatic Radar with 5G NR Waveform,” in IEEE 93rd Vehicular Technology Conference (VTC2021-Spring), Helsinki, Finland, 2021.
+[58]
+L. Leyva et. al, “Two-stage estimation algorithm based on interleaved OFDM for a cooperative bistatic ISAC scenario,” in IEEE 95th Vehicular Technology Conference (VTC2022-Spring), Helsinki, Finland, 2022.
+[59]
+J. Zhu et. al, “AFDM-Based Bistatic Integrated Sensing and Communication in Static Scatterer Environments,” IEEE Wireless Communications Letters, vol. 13, no. 8, 2024.
+[60]
+K. Ranasinghe et. al, “Blind Bistatic Radar Parameter Estimation for AFDM Systems in Doubly-Dispersive Channels,” arXiv:2407.05328, 2024.
+[61]
+J. P. Vila et. al, “Expectation-Maximization Gaussian-Mixture
+Approximate Message Passing,” IEEE Trans. on Sig. Proc.,
+​vol. 61, ​no. 19, 2013.
+[62]
+C. M. Bishop, Pattern Recognition and Machine Learning (Information
+Science and Statistics), Berlin,
+Heidelberg: Springer-Verlag, 2006.
+[63]
+D. L. Donoho et. al, “Message passing algorithms for compressed sensing: I. motivation and construction,” IEEE Information Theory Workshop (ITW 2010, Cairo), 2010.
+[64]
+H. Liu et. al, “Rigorous State Evolution Analysis for Approximate Message Passing With Side Information,” IEEE Transactions on Information Theory, vol. 69, no. 6, 2023.
+[65]
+T. Takahashi et. al, “Low-Complexity Large MIMO Detection via Layered Belief Propagation in Beam Domain,” IEEE Transactions on Wireless Communications,
+vol. 21, no. 1, 2022.
+[66]
+S. Rangan, “Generalized approximate message passing for estimation with random linear mixing,” in IEEE Int. Symp. on Inf. Theory, 2011.
+[67]
+K. Takeuchi, “Rigorous Dynamics of Expectation-Propagation-Based Signal Recovery from Unitarily Invariant Measurements,” IEEE Transactions on Information Theory,
+​vol. 66, ​no. 1, 2020.
+[68]
+X. He et. al, “Auxiliary Variable-Aided
+Hybrid Message Passing for Joint Channel, Phase Noise Estimation and
+Detection for Multi-User MIMO Systems,” IEEE Open Journal of the
+Comm. Soc., vol. 4, 2023.
+Appendices/Illustrations
+Fig. 8: Diagram of the Proposed PBiGaBP-based JCDE in Algorithm 1.
+Fig. 9: Diagram of the Proposed PDA-based RPE in Algorithm 3.
+Experimental support, please
+view the build logs
+for errors. Generated by
+L
+A
+T
+E
+xml
+.
+Instructions for reporting errors
+We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+methods listed below:
+Click the "Report Issue" (
+) button, located in the page header.
+Tip: You can select the relevant text first, to include it in your report.
+Our team has already identified the following issues. We appreciate your time reviewing and reporting rendering errors we
+may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+all.
+Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a list of packages that need conversion, and welcome developer contributions.
+We gratefully acknowledge support from
+our major funders,
+member institutions, ,
+and all contributors.
+About
+·
+Help
+·
+Contact
+·
+Subscribe
+·
+Copyright
+·
+Privacy
+·
+Accessibility
+·
+Operational Status (opens in new tab)
+Major funding support from

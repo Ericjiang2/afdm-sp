@@ -1,0 +1,34 @@
+# E-3b (task 10-17-offgrid-sbl-e3b) frozen-source provenance, recorded 2026-10-18 BEFORE any E-3b code ran on data.
+# Format: md5  path-relative-to-experiments/   (md5 on local vault == md5sum on deinlab; verified identical for every file below, see e3b_driver.check_frozen_md5).
+# Block 1 = tf_e3_sbl_20261017/SOURCE_MD5.txt (22 files, copied verbatim): the frozen math/pipeline sources E-3 imports (geometry_reopen.py, messages.py, physical.py, twofft.py, ...).
+# Block 2 = the E-3 code frozen by commit 54eb0437 (md5 == tf_e3_sbl_20261017/CODE_MD5.txt) that E-3b imports read-only: sbl_rx.py (SBL, screen, union, select_output, codelay_pairs, hard_decision),
+#   e3_driver.py (PilotCache, detect_decode, make_channel, observe_key, ... via import), e3_lib.py, e3_calib.py, e3_agg.py (mcnemar, crossing, primitives).
+# Block 3 = the E-1 variant kernel whose objective _system / Path is the E-3b refinement objective (frozen E-1; imported read-only).
+a6de0ff1238faeff21d767dd10b084de  tf_geometry_reopen_20260922/geometry_reopen.py
+b576a04dea5cbfc10cc61d748ebe8fbc  tf_cstate_validation_20260922/geometry_validation.py
+f53731554196e52b75332db564ef1b02  tf_cstate_validation_20260922/compact_state.py
+3bf475ab8e15d855e7bfbefd387bfdac  tf_cstate_validation_20260922/run_validation.py
+cdbdf40eabf43c1e02b52d25062a594d  sp_afdm_native_joint_20260921/src/twofft.py
+d47af1373b2f0052e6de078de40711ba  sp_afdm_native_joint_20260921/src/native_twofft.py
+aa8ad5c843f82792d7d0f6e5c09ac0a3  sp_afdm_frozen_20260920/src/physical.py
+5e29ddc722ce448229beeb437ade093b  sp_afdm_frozen_20260920/src/messages.py
+228411ca9751eecfca2f794ace909dfd  sp_afdm_frozen_20260920/src/receiver.py
+82d47057b3e18b631cae01c3b9b17291  tf_production_gap_audit_20260922/interventions.py
+0892e7d699f6910ffea22e57a52fed28  tf_production_gap_audit_20260922/audit_io.py
+ad6957338e85039e6a7cc2f1cd0225bf  headroom_ladder_20261008/driver.py
+610e73307c3b1028626ef704933b4b99  headroom_ladder_20261008/arms.py
+e8594ebfe04f490a86fc16ebd5069cd2  tcom_reference_frame_20261015/p1_driver.py
+9a3a987e0a1aaecde33018da5f38c74c  tcom_reference_frame_20261015/gen_fixed.py
+e66268616035f8111aacb4910d5bc8a2  tcom_channel_crb_20261016/p1ctx.py
+c361e086eacaca182223c3bc589f55da  tcom_channel_crb_20261016/crb.py
+cca750e134869c73f93fb84fc0a08127  tcom_genie_support_20261016/gs_cstate.py
+10611942919e1efcf2839ee5c260d22a  tcom_genie_support_20261016/gs_driver.py
+27676d74bda58c2e23afb1564bae6fd4  tcom_genie_support_20261016/launch_a1.sh
+80e0dae8f1cb503d76b737475f72cb85  tf_cstate_e1_20261017/e1_lib.py
+dfb8e178be8c4aa9d3a34e8ace568162  tf_cstate_e1_20261017/e1_agg.py
+7509783b3fbe80e596b642dcd098f89b  tf_e3_sbl_20261017/sbl_rx.py
+4d9154d30bd8160f7a84dda0886cd82a  tf_e3_sbl_20261017/e3_driver.py
+a42fadbfa2d53cabcc209b2bc00ef557  tf_e3_sbl_20261017/e3_lib.py
+d438bdfa87aa85e7f620fe381c5de59c  tf_e3_sbl_20261017/e3_calib.py
+b57663242a62da63544caa3fc687c896  tf_e3_sbl_20261017/e3_agg.py
+f513f8d3decf529e741298462eeaef1d  tf_cstate_e1_20261017/geometry_reopen_variant.py

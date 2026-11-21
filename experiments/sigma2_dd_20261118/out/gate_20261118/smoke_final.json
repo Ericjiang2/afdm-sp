@@ -1,0 +1,3109 @@
+{
+  "_argv": [
+    "/data/guoyikun/tmp/sigma2-dd-phase1-881ddfc8/experiments/sigma2_dd_20261118/qualify.py",
+    "smoke",
+    "--frozen-slot",
+    "/data/guoyikun/tmp/slotmm-9b633ce9df02/experiments/slot_mismatch_20261019",
+    "--archive",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/slot_mismatch_20261019/out/main_20261118",
+    "--out",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sigma2_dd_20261118/out/gate_20261118/smoke_final.json"
+  ],
+  "_config": {
+    "host": "liunxgpu",
+    "mode": "smoke",
+    "frozen_slot": "/data/guoyikun/tmp/slotmm-9b633ce9df02/experiments/slot_mismatch_20261019",
+    "archive": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/slot_mismatch_20261019/out/main_20261118",
+    "scenario": "G",
+    "rho": 0.3,
+    "cap": 8,
+    "snr_centi_db": [
+      450,
+      500,
+      550,
+      600,
+      650,
+      700,
+      750,
+      800
+    ],
+    "frames": [
+      7832,
+      7833,
+      7834,
+      7835,
+      7836,
+      7837,
+      7838,
+      7839,
+      7840,
+      7841,
+      7842,
+      7843,
+      7844,
+      7845,
+      7846,
+      7847
+    ],
+    "own_sha256": {
+      "receipts.py": "feefa1a1a13325db6002d4e5fff4848b78fdf6354535280933c216e3e0d5784f",
+      "dd_estimator.py": "fd930062e062003a01444a6c48cf7657973ac5f5f601644a0bede66fb03c4b1e",
+      "native_dd.py": "9c8511dbec948508c600425102334913ecf5b09ff77a9f914b09665f9838fd5d",
+      "freshness.py": "5e2e6751d0ead99f82ba06264b1ca32281bc597296fa9246522b2111d2c3e9ca",
+      "receiver_study.py": "7fd02fb7640ed36f0211c480334f54858a606403784dc9f0d70a51531b76d4b2",
+      "qualify.py": "2bfa8e749d87b58f4a964fb249c7e194d73020ce3e968307d6fa4c0857254a92"
+    },
+    "environment": {
+      "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]",
+      "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+      "hostname": "liunxgpu",
+      "machine": "x86_64",
+      "numpy": "1.26.4",
+      "scipy": "1.10.1",
+      "torch": "2.5.1+cu121",
+      "matplotlib": "3.7.1",
+      "cuda_visible_devices": "",
+      "torch_cuda_available": false,
+      "torch_num_threads": 1,
+      "torch_num_interop_threads": 1,
+      "torch_pre_context_num_threads": 1,
+      "torch_pre_context_num_interop_threads": 64,
+      "torch_binding_authority": "receiver context build; verified before first receiver run",
+      "thread_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1"
+      }
+    },
+    "source_md5": {
+      "afdm_sp_joint_unrolled.afdm_baselines": "a63a4c0668633c3bfc5f1543f7d49449",
+      "afdm_sp_joint_unrolled.afdm_env": "7e8da04165de5ee0c2e85230d485d32d",
+      "afdm_sp_joint_unrolled.afdm_layers": "d5494f60a5049dfcb4a62555933c70f9",
+      "afdm_sp_joint_unrolled.afdm_models": "b4bfb56226c5fe4070b4e6e23d8f708b",
+      "afdm_sp_joint_unrolled.afdm_trainer": "9da66875462f174b6cc90f708540f276",
+      "afdm_sp_joint_unrolled.budgeted_frame_store": "e1602e697ac49291fcc1a96c0efe4dd7",
+      "afdm_sp_joint_unrolled.budgeted_job_queue": "37590acdf663dbf5d8c754a87cad23e0",
+      "afdm_sp_joint_unrolled.budgeted_support_diagnostics": "c1f4b976a2f6a9aea10e6f13d56f0489",
+      "afdm_sp_joint_unrolled.budgeted_support_eval": "5f1a77ccad9a02a7d6ecbd257c776e1c",
+      "afdm_sp_joint_unrolled.cao_baseline.cao_isp_receiver": "a5c38382b9cb5e842df8c94032a4be94",
+      "afdm_sp_joint_unrolled.classical_joint_unrolled": "6e0f1097e67a2f1d9bb58b98e9b0b310",
+      "afdm_sp_joint_unrolled.decision_bound": "0ca02c25d20c654be62841856557c3c4",
+      "afdm_sp_joint_unrolled.decision_gateA": "5792ae90c60ee9e1dbc9df39c29b8f93",
+      "afdm_sp_joint_unrolled.decision_harvest": "d233368f13ef76a447ce6dff6f44fb0f",
+      "afdm_sp_joint_unrolled.decision_metrics": "4a32dad597e34bf7169378aac65c8bf1",
+      "afdm_sp_joint_unrolled.decision_review": "e82db37d132ef4ceb5d1ae3020096521",
+      "afdm_sp_joint_unrolled.direction_data": "8e75c0e4a6c1efcb3d8cd0944b500724",
+      "afdm_sp_joint_unrolled.direction_physical": "d04369d03551ac17d837feca70f185f5",
+      "afdm_sp_joint_unrolled.direction_physical_receiver": "2ac879e4dd28b115d0865bf09cf50363",
+      "afdm_sp_joint_unrolled.direction_receiver": "58b5da6ee67a008b0e6bf61172442ae3",
+      "afdm_sp_joint_unrolled.direction_structure": "73bd874a6df948111ae1584e15cbf2af",
+      "afdm_sp_joint_unrolled.drce_baseline.drce_receiver": "6bb4fb50aa2635a2db558f4ec390ea39",
+      "afdm_sp_joint_unrolled.e1_ldpc": "5a44682768d2285cbbd8c5d24563022a",
+      "afdm_sp_joint_unrolled.e1_ldpc_coded_eval": "255e0970d24cfbb832475724d2e3890a",
+      "afdm_sp_joint_unrolled.eval_classical_joint_unrolled": "4e8e778bd64f62554a20c00c45dd739d",
+      "afdm_sp_joint_unrolled.lmmse_baseline.lmmse_receiver": "98b4aea2d6c5a03020d5e3c6955f0392",
+      "afdm_sp_joint_unrolled.loop9_cache_features": "8dcefb486914eb0cff786689af36e5c6",
+      "afdm_sp_joint_unrolled.mp_detect_bp_torch": "701bc5b730bc616f1f66917ba20b9ae5",
+      "afdm_sp_joint_unrolled.paired_learned_eval": "2f8d6574bae3cdc677d888640612298d",
+      "afdm_sp_joint_unrolled.pbigabp_baseline.pbigabp_receiver": "aa863751c868c3f9f9b150f64f2d9021",
+      "afdm_sp_joint_unrolled.pbigabp_baseline.pbigabp_receiver_v2": "bd8840eced9787e43c645a7e49984c9d",
+      "afdm_sp_joint_unrolled.physical_stride": "f2eb41ffb1ce897309c6febb5f3d133d",
+      "afdm_sp_joint_unrolled.run_classical_baselines_python": "e4ba5ebe8d40d0bd5726091fc66a055d",
+      "afdm_sp_joint_unrolled.supplement_baselines": "b76afa0c10647f29cdeaf9fd999613b3",
+      "afdm_sp_joint_unrolled.supplement_feedback": "620feae6afe7b5b968b1df4fda2cc0d4",
+      "afdm_sp_joint_unrolled.supplement_feedback_schedule": "db0e591c812a525434e2e44567fba157",
+      "afdm_sp_joint_unrolled.supplement_g1": "5965bb0eeadad2bccc4e41b82c9291a4",
+      "afdm_sp_joint_unrolled.supplement_messages": "0faa9467458dfbf5c43c68e04ef7ea63",
+      "afdm_sp_joint_unrolled.supplement_pilots": "f2c9a6cb50e1139e58a696dda1ec8c35",
+      "afdm_sp_joint_unrolled.system_config": "a93487aa0219b3a63b1c0250501af46f",
+      "afdm_sp_joint_unrolled.v3_initial": "b0e020b6e5491316ef925de914c2fbe2",
+      "arms": "610e73307c3b1028626ef704933b4b99",
+      "audit_io": "0892e7d699f6910ffea22e57a52fed28",
+      "bilinear": "5392061840bcc94064142366bbe1261d",
+      "codelay_guard": "2a1926cbb20f4c21584fa5f9d72c2a01",
+      "compact_state": "f53731554196e52b75332db564ef1b02",
+      "crb": "c361e086eacaca182223c3bc589f55da",
+      "e1_driver": "01c0701b0291a7c04d222007175ad8ec",
+      "e1_lib": "80e0dae8f1cb503d76b737475f72cb85",
+      "e2_calib": "76498f3d4c453fbe32771bf9c3748d41",
+      "e2_channels": "ccef36136693aa137f429e4b184314f1",
+      "e2_driver": "e74a763577a417fd1f74ee5ff7b9e4b7",
+      "e2_lib": "8a1a345e6f86ed1654695bd11526bdc2",
+      "evidence": "346694ed3c52082f3825494a5fb43a6f",
+      "f1": "1459e8a2e9f68ff0ceab7cc4239b52f2",
+      "gen_fixed": "9a3a987e0a1aaecde33018da5f38c74c",
+      "geometry_reopen": "a6de0ff1238faeff21d767dd10b084de",
+      "geometry_validation": "b576a04dea5cbfc10cc61d748ebe8fbc",
+      "gs_driver": "10611942919e1efcf2839ee5c260d22a",
+      "interventions": "82d47057b3e18b631cae01c3b9b17291",
+      "keep_slots": "e0bb1e7fa036384dd6dc304f756ab24d",
+      "messages": "5e29ddc722ce448229beeb437ade093b",
+      "native_f1": "e1f8b0f857b1580fa4e03f5e8f3e1799",
+      "native_twofft": "d47af1373b2f0052e6de078de40711ba",
+      "offgrid": "147e04762f6aaf341ac23c5c03b60056",
+      "p1_driver": "e8594ebfe04f490a86fc16ebd5069cd2",
+      "p1ctx": "e66268616035f8111aacb4910d5bc8a2",
+      "physical": "aa8ad5c843f82792d7d0f6e5c09ac0a3",
+      "receiver": "228411ca9751eecfca2f794ace909dfd",
+      "run_frozen_i1_smoke": "1c300f23e57f8acece8446dd55fa2ef7",
+      "run_reopening": "3e35d03080ce21e50c13e1b4326f973d",
+      "run_validation": "3bf475ab8e15d855e7bfbefd387bfdac",
+      "structured_ep": "19194ff3dbd3ddda4923cf247ba92c9a",
+      "twofft": "cdbdf40eabf43c1e02b52d25062a594d"
+    },
+    "source_paths": {
+      "afdm_sp_joint_unrolled.afdm_baselines": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_baselines.py",
+      "afdm_sp_joint_unrolled.afdm_env": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_env.py",
+      "afdm_sp_joint_unrolled.afdm_layers": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_layers.py",
+      "afdm_sp_joint_unrolled.afdm_models": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_models.py",
+      "afdm_sp_joint_unrolled.afdm_trainer": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/afdm_trainer.py",
+      "afdm_sp_joint_unrolled.budgeted_frame_store": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_frame_store.py",
+      "afdm_sp_joint_unrolled.budgeted_job_queue": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_job_queue.py",
+      "afdm_sp_joint_unrolled.budgeted_support_diagnostics": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_diagnostics.py",
+      "afdm_sp_joint_unrolled.budgeted_support_eval": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/budgeted_support_eval.py",
+      "afdm_sp_joint_unrolled.cao_baseline.cao_isp_receiver": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/cao_baseline/cao_isp_receiver.py",
+      "afdm_sp_joint_unrolled.classical_joint_unrolled": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/classical_joint_unrolled.py",
+      "afdm_sp_joint_unrolled.decision_bound": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_bound.py",
+      "afdm_sp_joint_unrolled.decision_gateA": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_gateA.py",
+      "afdm_sp_joint_unrolled.decision_harvest": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_harvest.py",
+      "afdm_sp_joint_unrolled.decision_metrics": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_metrics.py",
+      "afdm_sp_joint_unrolled.decision_review": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/decision_review.py",
+      "afdm_sp_joint_unrolled.direction_data": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_data.py",
+      "afdm_sp_joint_unrolled.direction_physical": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_physical.py",
+      "afdm_sp_joint_unrolled.direction_physical_receiver": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_physical_receiver.py",
+      "afdm_sp_joint_unrolled.direction_receiver": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_receiver.py",
+      "afdm_sp_joint_unrolled.direction_structure": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/direction_structure.py",
+      "afdm_sp_joint_unrolled.drce_baseline.drce_receiver": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/drce_baseline/drce_receiver.py",
+      "afdm_sp_joint_unrolled.e1_ldpc": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc.py",
+      "afdm_sp_joint_unrolled.e1_ldpc_coded_eval": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc_coded_eval.py",
+      "afdm_sp_joint_unrolled.eval_classical_joint_unrolled": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/eval_classical_joint_unrolled.py",
+      "afdm_sp_joint_unrolled.lmmse_baseline.lmmse_receiver": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/lmmse_baseline/lmmse_receiver.py",
+      "afdm_sp_joint_unrolled.loop9_cache_features": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/loop9_cache_features.py",
+      "afdm_sp_joint_unrolled.mp_detect_bp_torch": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/mp_detect_bp_torch.py",
+      "afdm_sp_joint_unrolled.paired_learned_eval": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/paired_learned_eval.py",
+      "afdm_sp_joint_unrolled.pbigabp_baseline.pbigabp_receiver": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/pbigabp_baseline/pbigabp_receiver.py",
+      "afdm_sp_joint_unrolled.pbigabp_baseline.pbigabp_receiver_v2": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/pbigabp_baseline/pbigabp_receiver_v2.py",
+      "afdm_sp_joint_unrolled.physical_stride": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/physical_stride.py",
+      "afdm_sp_joint_unrolled.run_classical_baselines_python": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/run_classical_baselines_python.py",
+      "afdm_sp_joint_unrolled.supplement_baselines": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_baselines.py",
+      "afdm_sp_joint_unrolled.supplement_feedback": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback.py",
+      "afdm_sp_joint_unrolled.supplement_feedback_schedule": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_feedback_schedule.py",
+      "afdm_sp_joint_unrolled.supplement_g1": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_g1.py",
+      "afdm_sp_joint_unrolled.supplement_messages": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_messages.py",
+      "afdm_sp_joint_unrolled.supplement_pilots": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/supplement_pilots.py",
+      "afdm_sp_joint_unrolled.system_config": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/system_config.py",
+      "afdm_sp_joint_unrolled.v3_initial": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/v3_initial.py",
+      "arms": "experiments/headroom_ladder_20261008/arms.py",
+      "audit_io": "experiments/tf_production_gap_audit_20260922/audit_io.py",
+      "bilinear": "experiments/sp_afdm_frozen_reviewed_20260921/src/bilinear.py",
+      "codelay_guard": "experiments/tf_cstate_e2_20261017/codelay_guard.py",
+      "compact_state": "experiments/tf_cstate_validation_20260922/compact_state.py",
+      "crb": "experiments/tcom_channel_crb_20261016/crb.py",
+      "e1_driver": "experiments/tf_cstate_e1_20261017/e1_driver.py",
+      "e1_lib": "experiments/tf_cstate_e1_20261017/e1_lib.py",
+      "e2_calib": "experiments/tf_cstate_e2_20261017/e2_calib.py",
+      "e2_channels": "experiments/tf_cstate_e2_20261017/e2_channels.py",
+      "e2_driver": "experiments/tf_cstate_e2_20261017/e2_driver.py",
+      "e2_lib": "experiments/tf_cstate_e2_20261017/e2_lib.py",
+      "evidence": "experiments/sp_afdm_frozen_reviewed_20260921/src/evidence.py",
+      "f1": "experiments/cstate_necessity_stageA_20260928/f1.py",
+      "gen_fixed": "experiments/tcom_reference_frame_20261015/gen_fixed.py",
+      "geometry_reopen": "experiments/tf_geometry_reopen_20260922/geometry_reopen.py",
+      "geometry_validation": "experiments/tf_cstate_validation_20260922/geometry_validation.py",
+      "gs_driver": "experiments/tcom_genie_support_20261016/gs_driver.py",
+      "interventions": "experiments/tf_production_gap_audit_20260922/interventions.py",
+      "keep_slots": "experiments/cstate_necessity_stageA_20260928/keep_slots.py",
+      "messages": "experiments/sp_afdm_frozen_reviewed_20260921/src/messages.py",
+      "native_f1": "experiments/cstate_necessity_stageA_20260928/native_f1.py",
+      "native_twofft": "experiments/sp_afdm_native_joint_reviewed_20260921/src/native_twofft.py",
+      "offgrid": "experiments/sp_afdm_frozen_reviewed_20260921/src/offgrid.py",
+      "p1_driver": "experiments/tcom_reference_frame_20261015/p1_driver.py",
+      "p1ctx": "experiments/tcom_channel_crb_20261016/p1ctx.py",
+      "physical": "experiments/sp_afdm_frozen_reviewed_20260921/src/physical.py",
+      "receiver": "experiments/sp_afdm_frozen_reviewed_20260921/src/receiver.py",
+      "run_frozen_i1_smoke": "experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/run_frozen_i1_smoke.py",
+      "run_reopening": "experiments/tf_geometry_reopen_20260922/run_reopening.py",
+      "run_validation": "experiments/tf_cstate_validation_20260922/run_validation.py",
+      "structured_ep": "experiments/sp_afdm_frozen_reviewed_20260921/src/structured_ep.py",
+      "twofft": "experiments/sp_afdm_native_joint_reviewed_20260921/src/twofft.py"
+    },
+    "codelay_sha256": "a5af12d5f0131f70793904b255d83d9db1edc8c7e9443158f150d61335b4f929",
+    "workers": 8
+  },
+  "status": "PASS",
+  "historical_keys_per_arm": 128,
+  "first_round_parity_keys": 128,
+  "total_cpu_seconds": 179.74883097599994,
+  "shared_cpu_seconds": 2.598092977999973,
+  "per_arm": {
+    "known": {
+      "b_cpu": 36.66841939,
+      "a3_cpu": 19.898831615999995,
+      "triggered": 24
+    },
+    "SF": {
+      "b_cpu": 38.137078058999975,
+      "a3_cpu": 19.92398432600001,
+      "triggered": 33
+    },
+    "DD": {
+      "b_cpu": 42.28044079599999,
+      "a3_cpu": 20.241983810999987,
+      "triggered": 54
+    }
+  },
+  "measured_wall_seconds": 29.24232580885291,
+  "dd_noise_routing": {
+    "frame": 7832,
+    "snr_centi_db": 450,
+    "updates": 1,
+    "sf": 0.2622756140772804,
+    "dd": 0.001,
+    "supplied": {
+      "pilot_front": [
+        0.2622756140772804
+      ],
+      "ce": [
+        0.2622756140772804,
+        0.001
+      ],
+      "f0_detector": [
+        0.2622756140772804,
+        0.001
+      ],
+      "cstate_ridge": [
+        0.001
+      ],
+      "cstate_and_a3_detectors": [
+        0.001,
+        0.001,
+        0.001
+      ]
+    }
+  },
+  "full_design_observations": 8000,
+  "core_hours": 3.1206394266666657,
+  "core_hours_plus_30pct": 4.056831254666665,
+  "suggested_core_hour_cap": 5,
+  "projected_wall_minutes_at_16_workers": 15.213117204999996,
+  "cap_wall_minutes_at_16_workers": 18.75,
+  "rows": [
+    {
+      "frame": 7832,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.00026983000000058155,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.45602435599999946,
+          "a3_cpu": 0.1759179460000002,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.42870352200000017,
+          "a3_cpu": 0.17240598999999968,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.42242666699999987,
+          "a3_cpu": 0.1728297990000005,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7832,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.0002837710000003213,
+      "paths": {
+        "known": {
+          "b_cpu": 0.26231470599999973,
+          "a3_cpu": 0.1582933569999998,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.3474259000000002,
+          "a3_cpu": 0.22822462799999954,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.5075284819999997,
+          "a3_cpu": 0.17083494800000043,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7832,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.00033233100000007454,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.25485646000000006,
+          "a3_cpu": 0.15227153000000015,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2535506769999998,
+          "a3_cpu": 0.15236155900000092,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2537361520000001,
+          "a3_cpu": 0.1549879479999987,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7832,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.0003397980000006129,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.24822898999999943,
+          "a3_cpu": 0.15373166500000046,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24970106999999864,
+          "a3_cpu": 0.15229116799999964,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2459468090000012,
+          "a3_cpu": 0.15563695700000046,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7832,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.00031577500000068426,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2501818509999989,
+          "a3_cpu": 0.15275018100000004,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24959940600000152,
+          "a3_cpu": 0.1542051450000006,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24978964900000022,
+          "a3_cpu": 0.15373205199999873,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7832,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.00028451300000043034,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.24842989900000134,
+          "a3_cpu": 0.1523103799999994,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2524873880000005,
+          "a3_cpu": 0.15193054499999903,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2480238039999989,
+          "a3_cpu": 0.1533476570000012,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7832,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.000283342000001241,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.24968557200000063,
+          "a3_cpu": 0.1543177,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2465505919999984,
+          "a3_cpu": 0.15369038199999885,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2483142049999998,
+          "a3_cpu": 0.1529391449999995,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7832,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.00030726600000008375,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2494497020000015,
+          "a3_cpu": 0.15919590899999925,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2487714719999996,
+          "a3_cpu": 0.15241000500000013,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25126476099999984,
+          "a3_cpu": 0.15635442099999963,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7833,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.00027253200000032507,
+      "paths": {
+        "known": {
+          "b_cpu": 0.4321999710000002,
+          "a3_cpu": 0.17226232099999983,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.42433658899999926,
+          "a3_cpu": 0.16730504199999974,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.4285744959999995,
+          "a3_cpu": 0.17301395999999958,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7833,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.00027475700000056946,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.4225987130000002,
+          "a3_cpu": 0.1617499209999993,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.4209169250000002,
+          "a3_cpu": 0.17074653500000014,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.6711658749999998,
+          "a3_cpu": 0.2325573349999992,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7833,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.0003554820000015724,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.5966475550000006,
+          "a3_cpu": 0.17061943299999882,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.4198008220000009,
+          "a3_cpu": 0.1571040410000002,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.4465850430000007,
+          "a3_cpu": 0.1709159299999996,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7833,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.000435182000000367,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25637452800000027,
+          "a3_cpu": 0.15378028399999977,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.26344092799999963,
+          "a3_cpu": 0.15446771000000048,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.4237655130000011,
+          "a3_cpu": 0.1550926609999994,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7833,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.00030948799999919174,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2546617050000002,
+          "a3_cpu": 0.15225825999999998,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.4263108320000004,
+          "a3_cpu": 0.1520346340000014,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.2560909389999999,
+          "a3_cpu": 0.15106017600000143,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7833,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.00034854099999925836,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.25988330799999915,
+          "a3_cpu": 0.15304371900000113,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24888064900000018,
+          "a3_cpu": 0.15323284800000003,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2617503069999998,
+          "a3_cpu": 0.1515556750000009,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7833,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.00029251700000010317,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25309131499999893,
+          "a3_cpu": 0.15258104199999956,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2540335200000001,
+          "a3_cpu": 0.1514511419999991,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2573310849999988,
+          "a3_cpu": 0.15157496399999992,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7833,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.0003320479999988635,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2539382519999993,
+          "a3_cpu": 0.15107622700000078,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2581443229999998,
+          "a3_cpu": 0.15388214100000042,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24758537299999972,
+          "a3_cpu": 0.15163611100000196,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7834,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.00024906300000004933,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.42440425699999995,
+          "a3_cpu": 0.16955734999999983,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.4185128659999995,
+          "a3_cpu": 0.17394945699999997,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.41669449199999953,
+          "a3_cpu": 0.1658222819999997,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7834,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.0002928930000001273,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.4269222309999998,
+          "a3_cpu": 0.17675760700000076,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.40714488899999957,
+          "a3_cpu": 0.155152309,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.46037833299999953,
+          "a3_cpu": 0.15617217199999978,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7834,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.00028549499999996897,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2507520620000001,
+          "a3_cpu": 0.15328059399999994,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2494526490000002,
+          "a3_cpu": 0.15345798799999955,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.42165228499999863,
+          "a3_cpu": 0.16835566900000032,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7834,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.00028232100000025184,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2550393140000011,
+          "a3_cpu": 0.15234124199999854,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.42753209199999986,
+          "a3_cpu": 0.15963082100000037,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.25035027900000095,
+          "a3_cpu": 0.15461084900000088,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7834,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.00028039900000109697,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.25318289500000013,
+          "a3_cpu": 0.15392185900000044,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.25022715999999967,
+          "a3_cpu": 0.15575495300000064,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24808459399999983,
+          "a3_cpu": 0.15437017399999853,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7834,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.0002670059999996255,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2462404309999986,
+          "a3_cpu": 0.154028091999999,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2403254920000002,
+          "a3_cpu": 0.15600459000000022,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24457337899999843,
+          "a3_cpu": 0.15469175899999854,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7834,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.00032113699999847256,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.24222177000000045,
+          "a3_cpu": 0.15432752200000088,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2436761530000009,
+          "a3_cpu": 0.15375299499999961,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24551462700000037,
+          "a3_cpu": 0.15647694399999956,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7834,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.0002832059999988701,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.24275261699999895,
+          "a3_cpu": 0.1519936780000002,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24571347900000085,
+          "a3_cpu": 0.15664410900000014,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24231642500000028,
+          "a3_cpu": 0.15693404399999977,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7835,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.0002487459999995778,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.4497696369999993,
+          "a3_cpu": 0.17371248300000008,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.4171351399999992,
+          "a3_cpu": 0.16384312899999998,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.4195801800000005,
+          "a3_cpu": 0.1638961280000002,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7835,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.0002861830000000509,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25891546700000045,
+          "a3_cpu": 0.15551294199999965,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.4262391939999999,
+          "a3_cpu": 0.15380715799999933,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.45624390100000056,
+          "a3_cpu": 0.16020431000000013,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7835,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.0002785049999998179,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2604153070000006,
+          "a3_cpu": 0.15640647900000015,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.49435073099999993,
+          "a3_cpu": 0.15413438000000035,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.2578651050000005,
+          "a3_cpu": 0.1520507019999986,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7835,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.00027557899999841595,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.4231203370000003,
+          "a3_cpu": 0.16628669099999982,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.2567414020000012,
+          "a3_cpu": 0.1563864430000006,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25619740800000024,
+          "a3_cpu": 0.1588788870000002,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7835,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.0003279160000015935,
+      "paths": {
+        "known": {
+          "b_cpu": 0.24783191300000063,
+          "a3_cpu": 0.15627041100000127,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2473504430000002,
+          "a3_cpu": 0.1574695840000011,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.247983489000001,
+          "a3_cpu": 0.15556747099999946,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7835,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.0003093359999990497,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.24787681500000147,
+          "a3_cpu": 0.15458894500000042,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24639494700000064,
+          "a3_cpu": 0.1559218530000006,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24693353600000023,
+          "a3_cpu": 0.15455971599999963,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7835,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.0003323609999998922,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.24587657800000073,
+          "a3_cpu": 0.1550806739999988,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24367476299999957,
+          "a3_cpu": 0.15886481799999963,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24559671499999958,
+          "a3_cpu": 0.158323793000001,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7835,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.0003141309999996622,
+      "paths": {
+        "known": {
+          "b_cpu": 0.24337888099999994,
+          "a3_cpu": 0.15747429999999873,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24638242500000018,
+          "a3_cpu": 0.15880128200000065,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24927956099999982,
+          "a3_cpu": 0.15309846399999927,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7836,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.0002517530000005763,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2625566560000001,
+          "a3_cpu": 0.15141433199999987,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2573134719999999,
+          "a3_cpu": 0.15181057499999984,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.42032138099999994,
+          "a3_cpu": 0.16744257299999976,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7836,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.0002763379999999316,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2437677530000002,
+          "a3_cpu": 0.15437676100000086,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2486373620000002,
+          "a3_cpu": 0.1524911840000005,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2491559729999997,
+          "a3_cpu": 0.15077492600000042,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7836,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.0002583420000004111,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.24493144600000072,
+          "a3_cpu": 0.1511211879999994,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24236723299999952,
+          "a3_cpu": 0.15439795300000014,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24392183099999976,
+          "a3_cpu": 0.15312802300000072,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7836,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.0002892889999994708,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2437209849999995,
+          "a3_cpu": 0.1503013580000001,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24351413499999985,
+          "a3_cpu": 0.1504134060000002,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24397732799999972,
+          "a3_cpu": 0.1510844450000004,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7836,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.00028338999999988346,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.24288081099999914,
+          "a3_cpu": 0.14948407400000008,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24400583100000084,
+          "a3_cpu": 0.15472603199999924,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24440772200000005,
+          "a3_cpu": 0.15038954399999938,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7836,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.00031111899999913817,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.24669114499999978,
+          "a3_cpu": 0.15112138799999997,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24740371199999878,
+          "a3_cpu": 0.15049333099999984,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24638559999999998,
+          "a3_cpu": 0.1503381140000002,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7836,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.0002617919999998719,
+      "paths": {
+        "known": {
+          "b_cpu": 0.24636891599999977,
+          "a3_cpu": 0.14999121800000026,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24516310399999952,
+          "a3_cpu": 0.14886017400000107,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2481961119999987,
+          "a3_cpu": 0.14949440600000052,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7836,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.00030127299999982426,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.24472884999999955,
+          "a3_cpu": 0.14900628599999877,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24543656200000008,
+          "a3_cpu": 0.14822047299999852,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2442485510000001,
+          "a3_cpu": 0.14717753000000044,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7837,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.0002400540000007112,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.4279457210000004,
+          "a3_cpu": 0.1672943739999999,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.43303004599999984,
+          "a3_cpu": 0.1706857020000001,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.419705521,
+          "a3_cpu": 0.16483300300000003,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7837,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.0002997210000001971,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.43198229799999943,
+          "a3_cpu": 0.16931573899999997,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.2555035179999994,
+          "a3_cpu": 0.1542909159999999,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25725030500000035,
+          "a3_cpu": 0.15395231500000062,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7837,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.00027872499999936906,
+      "paths": {
+        "known": {
+          "b_cpu": 0.26166672300000116,
+          "a3_cpu": 0.15319517000000005,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.26207291100000063,
+          "a3_cpu": 0.1522846359999992,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.4292531569999998,
+          "a3_cpu": 0.16971421699999922,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7837,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.0002718919999988856,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.258889323,
+          "a3_cpu": 0.15312514900000096,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.4825403090000009,
+          "a3_cpu": 0.16274750099999835,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.256698729,
+          "a3_cpu": 0.15208490799999907,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7837,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.0002888460000001203,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.2617377300000001,
+          "a3_cpu": 0.15225259399999835,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2545245110000014,
+          "a3_cpu": 0.15109988200000046,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25962180999999873,
+          "a3_cpu": 0.15223045599999985,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7837,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.0002711780000002051,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2524803949999992,
+          "a3_cpu": 0.15221893900000083,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25427241100000053,
+          "a3_cpu": 0.15186140099999967,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25842792999999986,
+          "a3_cpu": 0.1517538500000004,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7837,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.00032080899999975543,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.24751592700000025,
+          "a3_cpu": 0.15166977900000056,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24976182800000046,
+          "a3_cpu": 0.15158400500000013,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2468662540000004,
+          "a3_cpu": 0.1512290200000006,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7837,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.0003019630000000717,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.25249847400000114,
+          "a3_cpu": 0.15119818400000007,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24813434500000042,
+          "a3_cpu": 0.15117661699999907,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25209423600000136,
+          "a3_cpu": 0.15090522400000062,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7838,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.0002219679999999613,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.41892666500000075,
+          "a3_cpu": 0.17096863699999965,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.40740538099999934,
+          "a3_cpu": 0.16267228300000003,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.40742819199999936,
+          "a3_cpu": 0.16887568699999989,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7838,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.00031177800000037337,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25125119999999956,
+          "a3_cpu": 0.16011181699999977,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25152089899999996,
+          "a3_cpu": 0.1571593250000003,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.4153580220000004,
+          "a3_cpu": 0.16583585299999903,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7838,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.0002675269999983243,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.25267248900000006,
+          "a3_cpu": 0.1514655549999997,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.4105066019999999,
+          "a3_cpu": 0.16789290500000043,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.250040061,
+          "a3_cpu": 0.15449256600000005,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7838,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.00027899200000014446,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.24148425899999992,
+          "a3_cpu": 0.15283165099999962,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24164449100000063,
+          "a3_cpu": 0.15210325199999986,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2430224179999989,
+          "a3_cpu": 0.1534017520000006,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7838,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.00029261799999957816,
+      "paths": {
+        "known": {
+          "b_cpu": 0.24178535899999964,
+          "a3_cpu": 0.15042434699999951,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24202112300000067,
+          "a3_cpu": 0.15058037500000054,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24328986200000102,
+          "a3_cpu": 0.15092171400000076,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7838,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.00029574599999904194,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2435087720000002,
+          "a3_cpu": 0.1508472910000016,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24277829700000098,
+          "a3_cpu": 0.1497619119999989,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24387194500000042,
+          "a3_cpu": 0.15055528799999962,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7838,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.0002674809999998473,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.2452347830000008,
+          "a3_cpu": 0.14984825900000054,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24360042400000026,
+          "a3_cpu": 0.14904566900000127,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24299818999999978,
+          "a3_cpu": 0.1495574289999997,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7838,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.0003234420000008953,
+      "paths": {
+        "known": {
+          "b_cpu": 0.24324189900000093,
+          "a3_cpu": 0.14832740499999986,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24770978799999988,
+          "a3_cpu": 0.14618392199999874,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24152566400000097,
+          "a3_cpu": 0.1492047680000006,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7839,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.00032116400000070655,
+      "paths": {
+        "known": {
+          "b_cpu": 0.46038133899999956,
+          "a3_cpu": 0.17360825599999963,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.42268295499999997,
+          "a3_cpu": 0.1700122749999995,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.4206530690000001,
+          "a3_cpu": 0.1693129029999998,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7839,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.00035321800000076564,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.42701968300000015,
+          "a3_cpu": 0.16735721700000017,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.44398259699999976,
+          "a3_cpu": 0.17007004199999898,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.5272308209999998,
+          "a3_cpu": 0.16340996399999952,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7839,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.0002640399999993548,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.43056002299999996,
+          "a3_cpu": 0.169819253,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.42034009600000033,
+          "a3_cpu": 0.15609449699999978,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.4270111589999992,
+          "a3_cpu": 0.15902602199999905,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7839,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.0002783869999998245,
+      "paths": {
+        "known": {
+          "b_cpu": 0.42222639200000067,
+          "a3_cpu": 0.156165553000001,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.4199946600000004,
+          "a3_cpu": 0.15435946400000056,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.428879706,
+          "a3_cpu": 0.17302707600000033,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7839,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.0002958209999999184,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.4212642259999999,
+          "a3_cpu": 0.15663215300000033,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.4240177240000005,
+          "a3_cpu": 0.16582348400000058,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.4197920590000006,
+          "a3_cpu": 0.156346537000001,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7839,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.00032557599999982756,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.42827075800000003,
+          "a3_cpu": 0.15317632500000045,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.4288235630000017,
+          "a3_cpu": 0.15508252500000097,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.4220974680000005,
+          "a3_cpu": 0.15262322800000128,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7839,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.0002727550000010126,
+      "paths": {
+        "known": {
+          "b_cpu": 0.4237746109999989,
+          "a3_cpu": 0.15885479599999996,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.4265092769999974,
+          "a3_cpu": 0.15814049999999824,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.42822624899999795,
+          "a3_cpu": 0.15524298800000125,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7839,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.0002760259999980974,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.4211874729999998,
+          "a3_cpu": 0.15569875299999936,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.4191516359999987,
+          "a3_cpu": 0.15667638100000048,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.26266610200000073,
+          "a3_cpu": 0.15319501600000152,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7840,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.0002206959999995206,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.42277619400000077,
+          "a3_cpu": 0.15782112099999956,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.4275465040000004,
+          "a3_cpu": 0.167718614,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.42662308499999924,
+          "a3_cpu": 0.15655238699999785,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7840,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.0002857930000033093,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.42335996899999984,
+          "a3_cpu": 0.1523310930000008,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.25387862199999844,
+          "a3_cpu": 0.15556390700000122,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25231291899999775,
+          "a3_cpu": 0.15213461700000153,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7840,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.00027876099999701864,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25224859999999794,
+          "a3_cpu": 0.15114737600000083,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2547331530000001,
+          "a3_cpu": 0.1496124590000001,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.4909042609999972,
+          "a3_cpu": 0.15191381600000042,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7840,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.0002607260000004885,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2539728540000006,
+          "a3_cpu": 0.15422282400000142,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.4259229590000011,
+          "a3_cpu": 0.15031965600000063,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.2517651830000034,
+          "a3_cpu": 0.15251434600000024,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7840,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.0003064560000005656,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.24785128999999984,
+          "a3_cpu": 0.15281734799999924,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2500051449999994,
+          "a3_cpu": 0.15278832600000314,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2500029310000009,
+          "a3_cpu": 0.15637912500000084,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7840,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.00028688000000087754,
+      "paths": {
+        "known": {
+          "b_cpu": 0.267365968,
+          "a3_cpu": 0.15041543199999907,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25399015599999686,
+          "a3_cpu": 0.15067260600000054,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25352665999999857,
+          "a3_cpu": 0.14996835899999894,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7840,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.00027143799999862495,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.251710721000002,
+          "a3_cpu": 0.15142929900000013,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25814059800000067,
+          "a3_cpu": 0.1500676580000011,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.25152313200000265,
+          "a3_cpu": 0.15488846299999892,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7840,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.0002904669999992393,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.2512512489999992,
+          "a3_cpu": 0.1513733429999995,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24850663599999834,
+          "a3_cpu": 0.15181248799999736,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24940673800000113,
+          "a3_cpu": 0.1509610290000012,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7841,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.00022998399999885066,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.5055722630000012,
+          "a3_cpu": 0.17225021700000198,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.42215303300000073,
+          "a3_cpu": 0.16891685699999925,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.4212790709999972,
+          "a3_cpu": 0.16539830700000024,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7841,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.0002890539999995667,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25963947099999984,
+          "a3_cpu": 0.15903580699999864,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.42286157199999863,
+          "a3_cpu": 0.15906080099999897,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.4248033100000015,
+          "a3_cpu": 0.16713724799999952,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7841,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.00026363599999967846,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.42270289100000014,
+          "a3_cpu": 0.15047871100000165,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.4253636329999999,
+          "a3_cpu": 0.15359588900000176,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.25435074600000007,
+          "a3_cpu": 0.15181281299999938,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7841,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.0002925810000000695,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.413824616000003,
+          "a3_cpu": 0.15343989399999813,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.25574252399999864,
+          "a3_cpu": 0.15147152699999822,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.4210810859999974,
+          "a3_cpu": 0.16357576300000076,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7841,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.0003055690000017819,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25426102399999806,
+          "a3_cpu": 0.15145816899999787,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.4097182929999974,
+          "a3_cpu": 0.1510818950000008,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.2575617319999992,
+          "a3_cpu": 0.15247835899999984,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7841,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.00025886899999960633,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2539289680000003,
+          "a3_cpu": 0.15218635000000091,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2538344679999973,
+          "a3_cpu": 0.1515794459999995,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24822127100000202,
+          "a3_cpu": 0.15060108000000128,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7841,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.00029113700000138465,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.2527581969999986,
+          "a3_cpu": 0.15016454599999918,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24208079599999976,
+          "a3_cpu": 0.1497823579999995,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2500983539999986,
+          "a3_cpu": 0.15031434499999818,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7841,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.0002923969999990561,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2409509639999996,
+          "a3_cpu": 0.15035134600000077,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25188723899999843,
+          "a3_cpu": 0.14921672899999905,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25020131699999837,
+          "a3_cpu": 0.14808463800000027,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7842,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.00023070599999996944,
+      "paths": {
+        "known": {
+          "b_cpu": 0.42723317699999974,
+          "a3_cpu": 0.15731623599999978,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.48250051299999797,
+          "a3_cpu": 0.16020856399999772,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.42543920199999974,
+          "a3_cpu": 0.17234631800000244,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7842,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.00029277299999819206,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.41474055800000187,
+          "a3_cpu": 0.1509771079999993,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.43436743399999855,
+          "a3_cpu": 0.1679782050000007,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.2538883560000009,
+          "a3_cpu": 0.1555742120000012,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7842,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.0003122879999999384,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.4236940120000021,
+          "a3_cpu": 0.1694929260000002,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.2535679629999983,
+          "a3_cpu": 0.15274447300000205,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2553687459999985,
+          "a3_cpu": 0.15570510899999945,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7842,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.00026500900000314687,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2552202819999998,
+          "a3_cpu": 0.14974351499999727,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25664704599999766,
+          "a3_cpu": 0.15398248800000047,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25751518999999945,
+          "a3_cpu": 0.1506036249999987,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7842,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.00027563500000127306,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2664568030000005,
+          "a3_cpu": 0.1566855779999976,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25260462900000036,
+          "a3_cpu": 0.15080151499999772,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2540598840000001,
+          "a3_cpu": 0.1510689230000004,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7842,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.00026863200000093457,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.25091734399999766,
+          "a3_cpu": 0.15320485499999847,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.25185192800000067,
+          "a3_cpu": 0.15068487899999994,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25405227599999947,
+          "a3_cpu": 0.15338369500000226,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7842,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.0003439149999984181,
+      "paths": {
+        "known": {
+          "b_cpu": 0.24902720799999756,
+          "a3_cpu": 0.15087778400000218,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2481756819999994,
+          "a3_cpu": 0.15042298599999882,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24891918299999816,
+          "a3_cpu": 0.15026760900000014,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7842,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.00027768200000011234,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.24977197600000167,
+          "a3_cpu": 0.15030061999999944,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25084830000000125,
+          "a3_cpu": 0.15349275699999865,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2510323620000001,
+          "a3_cpu": 0.15003683899999842,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7843,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.00023234200000032956,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.42608177199999986,
+          "a3_cpu": 0.1677629490000001,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.42030585399999865,
+          "a3_cpu": 0.16944113699999974,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.42226029299999723,
+          "a3_cpu": 0.1653402899999996,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7843,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.0002754039999999236,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.42871339200000236,
+          "a3_cpu": 0.16919067599999948,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.416332023999999,
+          "a3_cpu": 0.1603599349999989,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.4197930670000005,
+          "a3_cpu": 0.160839395,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7843,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.00026275199999759025,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2618482769999986,
+          "a3_cpu": 0.1540656190000007,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.41849893099999846,
+          "a3_cpu": 0.15492288499999773,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.42975728200000063,
+          "a3_cpu": 0.17135158500000003,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7843,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.000305529999998555,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2594388880000018,
+          "a3_cpu": 0.15342800900000242,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.4401028440000019,
+          "a3_cpu": 0.17560688699999716,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.2570743180000008,
+          "a3_cpu": 0.15270797800000224,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7843,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.0002641009999990729,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.2592177950000014,
+          "a3_cpu": 0.15316046999999955,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.25331760800000325,
+          "a3_cpu": 0.1524642810000003,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25708125899999956,
+          "a3_cpu": 0.1521206630000016,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7843,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.00026151399999818636,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25329087500000114,
+          "a3_cpu": 0.15154100400000203,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.26104417999999896,
+          "a3_cpu": 0.15097057699999894,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2559702229999985,
+          "a3_cpu": 0.15164382300000057,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7843,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.0002806950000007191,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2548358829999984,
+          "a3_cpu": 0.15216248699999824,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25555620400000123,
+          "a3_cpu": 0.1517927770000007,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2506530060000003,
+          "a3_cpu": 0.1518477770000004,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7843,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.00028332699999822353,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.25309105200000204,
+          "a3_cpu": 0.15007105999999837,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2489718510000003,
+          "a3_cpu": 0.1482065540000015,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2478659109999981,
+          "a3_cpu": 0.14563211100000117,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7844,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.00023948699999998269,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.4324765450000001,
+          "a3_cpu": 0.17526292700000212,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.26395668299999997,
+          "a3_cpu": 0.16123988200000028,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.4347641280000012,
+          "a3_cpu": 0.16314600299999782,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7844,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.00030745100000117986,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25320479799999873,
+          "a3_cpu": 0.15320029900000165,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2609237240000013,
+          "a3_cpu": 0.15528193400000134,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.42259385099999847,
+          "a3_cpu": 0.15902167799999845,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7844,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.0002808469999990848,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.26740828599999844,
+          "a3_cpu": 0.15222752100000037,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2632936800000003,
+          "a3_cpu": 0.1530409129999981,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.250870398,
+          "a3_cpu": 0.15277167400000025,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7844,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.00028854500000008443,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.2604349740000025,
+          "a3_cpu": 0.15235236000000185,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24866614900000172,
+          "a3_cpu": 0.15202685499999902,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25544693699999854,
+          "a3_cpu": 0.1530010329999989,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7844,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.00031188500000212116,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2513294980000005,
+          "a3_cpu": 0.1660049970000017,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2613948410000013,
+          "a3_cpu": 0.15208518600000076,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2588865929999997,
+          "a3_cpu": 0.15226364699999806,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7844,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.00027559999999837714,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2664640620000007,
+          "a3_cpu": 0.15607271900000086,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2619948430000001,
+          "a3_cpu": 0.15258337199999872,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.25253662999999804,
+          "a3_cpu": 0.15258246699999845,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7844,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.0002997600000007594,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.26056230500000055,
+          "a3_cpu": 0.15254928000000234,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.25025305800000197,
+          "a3_cpu": 0.15281842399999945,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2595919809999998,
+          "a3_cpu": 0.15295021400000053,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7844,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.0003190839999973605,
+      "paths": {
+        "known": {
+          "b_cpu": 0.24791250100000184,
+          "a3_cpu": 0.15084984399999968,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24890479000000099,
+          "a3_cpu": 0.15157488600000235,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2514559520000006,
+          "a3_cpu": 0.15087263999999934,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7845,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.0002401679999977091,
+      "paths": {
+        "known": {
+          "b_cpu": 0.42060190499999806,
+          "a3_cpu": 0.16601025199999953,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.4193208730000002,
+          "a3_cpu": 0.16220152,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.4350560459999997,
+          "a3_cpu": 0.17058989599999919,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7845,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.0002942140000001814,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2572858920000023,
+          "a3_cpu": 0.1577863230000034,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.42759779200000025,
+          "a3_cpu": 0.16705098699999965,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.2579255219999972,
+          "a3_cpu": 0.15607208999999855,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7845,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.00027232699999757415,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.2617530039999991,
+          "a3_cpu": 0.15560388599999797,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.25745808599999975,
+          "a3_cpu": 0.155586962000001,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25925712900000164,
+          "a3_cpu": 0.15508058200000008,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7845,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.0003280950000004168,
+      "paths": {
+        "known": {
+          "b_cpu": 0.24990436899999935,
+          "a3_cpu": 0.1526574029999992,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2510335589999997,
+          "a3_cpu": 0.15254983999999894,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25447064700000155,
+          "a3_cpu": 0.15412460699999997,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7845,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.0002753959999992617,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.26919926800000127,
+          "a3_cpu": 0.15530990000000244,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2520345709999994,
+          "a3_cpu": 0.1537472529999988,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24757047599999993,
+          "a3_cpu": 0.15601120699999882,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7845,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.000289246000001242,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.2516473270000006,
+          "a3_cpu": 0.15311066500000337,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24800171400000082,
+          "a3_cpu": 0.15347873900000053,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.24971387600000128,
+          "a3_cpu": 0.15319318199999898,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7845,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.0002783250000000237,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2522489340000007,
+          "a3_cpu": 0.1547447109999993,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25079912400000026,
+          "a3_cpu": 0.15431062100000048,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2526304580000023,
+          "a3_cpu": 0.1520283400000011,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7845,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.00030420299999889266,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.25032648999999907,
+          "a3_cpu": 0.15251908099999767,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2512504230000019,
+          "a3_cpu": 0.15361435100000165,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24837811800000154,
+          "a3_cpu": 0.15158824499999923,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7846,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.00025244300000082376,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.43615512599999917,
+          "a3_cpu": 0.1633317699999992,
+          "triggered": true
+        },
+        "DD": {
+          "b_cpu": 0.42970214500000026,
+          "a3_cpu": 0.17034571299999968,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.42977798200000095,
+          "a3_cpu": 0.1622806919999995,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7846,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.00034390000000072973,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.43662690899999745,
+          "a3_cpu": 0.1736054830000029,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.42507306799999967,
+          "a3_cpu": 0.15515061400000008,
+          "triggered": true
+        },
+        "SF": {
+          "b_cpu": 0.42251216400000047,
+          "a3_cpu": 0.15292822500000014,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7846,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.0003019190000017602,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2594548730000028,
+          "a3_cpu": 0.153629059,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.258691982000002,
+          "a3_cpu": 0.1523319239999985,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.43268325300000043,
+          "a3_cpu": 0.1557265369999996,
+          "triggered": true
+        }
+      }
+    },
+    {
+      "frame": 7846,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.00030244499999909635,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.25526780899999935,
+          "a3_cpu": 0.15372888299999943,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2626262050000001,
+          "a3_cpu": 0.15410783400000128,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2644539169999973,
+          "a3_cpu": 0.1525009379999993,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7846,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.00030824199999912594,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.26447794700000316,
+          "a3_cpu": 0.1524818859999968,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2564593160000008,
+          "a3_cpu": 0.15281919199999905,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2583043709999977,
+          "a3_cpu": 0.1530183220000012,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7846,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.0002712840000000938,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25637258400000107,
+          "a3_cpu": 0.15215460800000002,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25338531099999884,
+          "a3_cpu": 0.15325381499999935,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.257371427999999,
+          "a3_cpu": 0.15056668199999734,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7846,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.00032364199999790344,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2507525159999986,
+          "a3_cpu": 0.15204601699999998,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.252245343000002,
+          "a3_cpu": 0.15163895399999916,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2510987740000026,
+          "a3_cpu": 0.1528251030000014,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7846,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.0002812159999976416,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.2507264350000007,
+          "a3_cpu": 0.1505760070000015,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.25786374099999776,
+          "a3_cpu": 0.1540594939999984,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25259713599999856,
+          "a3_cpu": 0.15213427699999826,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7847,
+      "snr_centi_db": 450,
+      "shared_cpu": 0.00022921199999714759,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.43464655100000016,
+          "a3_cpu": 0.17243144700000101,
+          "triggered": true
+        },
+        "known": {
+          "b_cpu": 0.25638331899999756,
+          "a3_cpu": 0.1567682760000011,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2573854699999991,
+          "a3_cpu": 0.15381168600000095,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7847,
+      "snr_centi_db": 500,
+      "shared_cpu": 0.0002814529999994875,
+      "paths": {
+        "known": {
+          "b_cpu": 0.25255891499999805,
+          "a3_cpu": 0.15408700799999764,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2534560940000006,
+          "a3_cpu": 0.15596456000000103,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25487291199999973,
+          "a3_cpu": 0.15417213799999985,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7847,
+      "snr_centi_db": 550,
+      "shared_cpu": 0.00025855799999874307,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2520592050000019,
+          "a3_cpu": 0.15478187200000093,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2529040459999976,
+          "a3_cpu": 0.15467850599999977,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2515589310000017,
+          "a3_cpu": 0.15489870300000064,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7847,
+      "snr_centi_db": 600,
+      "shared_cpu": 0.00028866599999943787,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.251648411999998,
+          "a3_cpu": 0.1548504659999992,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.2500959719999969,
+          "a3_cpu": 0.15773951699999955,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.25316129199999793,
+          "a3_cpu": 0.15632444099999887,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7847,
+      "snr_centi_db": 650,
+      "shared_cpu": 0.00029596299999923303,
+      "paths": {
+        "known": {
+          "b_cpu": 0.2510472930000027,
+          "a3_cpu": 0.15347536300000186,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2507216399999983,
+          "a3_cpu": 0.1551020759999986,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.25108792199999996,
+          "a3_cpu": 0.1543204970000005,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7847,
+      "snr_centi_db": 700,
+      "shared_cpu": 0.0002730099999972424,
+      "paths": {
+        "SF": {
+          "b_cpu": 0.2511800710000003,
+          "a3_cpu": 0.15521683600000102,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.24903787699999924,
+          "a3_cpu": 0.15401781099999923,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.24790603299999958,
+          "a3_cpu": 0.15462080499999686,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7847,
+      "snr_centi_db": 750,
+      "shared_cpu": 0.0002879679999985285,
+      "paths": {
+        "DD": {
+          "b_cpu": 0.24901395500000234,
+          "a3_cpu": 0.1537115180000015,
+          "triggered": false
+        },
+        "known": {
+          "b_cpu": 0.25068352699999963,
+          "a3_cpu": 0.1540462340000026,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2470538960000006,
+          "a3_cpu": 0.1550200239999988,
+          "triggered": false
+        }
+      }
+    },
+    {
+      "frame": 7847,
+      "snr_centi_db": 800,
+      "shared_cpu": 0.00027517500000229234,
+      "paths": {
+        "known": {
+          "b_cpu": 0.24501671000000158,
+          "a3_cpu": 0.15297121700000105,
+          "triggered": false
+        },
+        "SF": {
+          "b_cpu": 0.2427782169999979,
+          "a3_cpu": 0.15204131900000206,
+          "triggered": false
+        },
+        "DD": {
+          "b_cpu": 0.2469550130000009,
+          "a3_cpu": 0.14963249499999876,
+          "triggered": false
+        }
+      }
+    }
+  ]
+}

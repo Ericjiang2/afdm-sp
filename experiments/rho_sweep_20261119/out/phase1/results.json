@@ -1,0 +1,766 @@
+{
+  "_argv": [
+    "phase1.py",
+    "--out",
+    "out/phase1",
+    "--workers",
+    "18"
+  ],
+  "_config": {
+    "out": "out/phase1",
+    "workers": 18,
+    "thread_environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "CUDA_VISIBLE_DEVICES": ""
+    },
+    "smoke_frames": [
+      8600,
+      8601
+    ],
+    "cost_frames": [
+      4000,
+      4001,
+      4002,
+      4003,
+      4004,
+      4005,
+      4006,
+      4007
+    ],
+    "scenarios": [
+      "U",
+      "G"
+    ],
+    "rho_permille": [
+      150,
+      200,
+      250,
+      300,
+      400,
+      500
+    ],
+    "snrs_centi_db": [
+      300,
+      400,
+      450,
+      500,
+      550,
+      600,
+      650,
+      700,
+      800,
+      900,
+      1000,
+      1100,
+      1200
+    ],
+    "arms": [
+      "F0",
+      "A2",
+      "CD"
+    ],
+    "start_method": "spawn",
+    "phase1_sha256": "9c6b06109325fcc961dd75694e66f4aeab5c9d137cc71a739d6ccef4334d4fee"
+  },
+  "gates": {
+    "G1": true,
+    "G2": true,
+    "G3": true
+  },
+  "leverage_rows": {
+    "keys": 13600,
+    "a2_replayed": 1976,
+    "sha256": "043e57d4dfc67996c6f291c6cf88d99a51714765ccd0a1a492c70461bbf165ad"
+  },
+  "cost": {
+    "keys_timed": 1248,
+    "frames": [
+      4000,
+      4001,
+      4002,
+      4003,
+      4004,
+      4005,
+      4006,
+      4007
+    ],
+    "by_cell": {
+      "U/150/300": {
+        "cpu_seconds_per_key": 0.6096009262499997,
+        "triggered": 8
+      },
+      "U/150/400": {
+        "cpu_seconds_per_key": 0.5321967176249984,
+        "triggered": 6
+      },
+      "U/150/450": {
+        "cpu_seconds_per_key": 0.437962971624998,
+        "triggered": 4
+      },
+      "U/150/500": {
+        "cpu_seconds_per_key": 0.3909118335000006,
+        "triggered": 3
+      },
+      "U/150/550": {
+        "cpu_seconds_per_key": 0.3966817097499966,
+        "triggered": 3
+      },
+      "U/150/600": {
+        "cpu_seconds_per_key": 0.34502559437500047,
+        "triggered": 2
+      },
+      "U/150/650": {
+        "cpu_seconds_per_key": 0.3413580108749983,
+        "triggered": 2
+      },
+      "U/150/700": {
+        "cpu_seconds_per_key": 0.34054442525000184,
+        "triggered": 2
+      },
+      "U/150/800": {
+        "cpu_seconds_per_key": 0.2989068698750028,
+        "triggered": 1
+      },
+      "U/150/900": {
+        "cpu_seconds_per_key": 0.25568386262500375,
+        "triggered": 0
+      },
+      "U/150/1000": {
+        "cpu_seconds_per_key": 0.2570793529999982,
+        "triggered": 0
+      },
+      "U/150/1100": {
+        "cpu_seconds_per_key": 0.2543642656250036,
+        "triggered": 0
+      },
+      "U/150/1200": {
+        "cpu_seconds_per_key": 0.25349355462500256,
+        "triggered": 0
+      },
+      "U/200/300": {
+        "cpu_seconds_per_key": 0.6148020277500024,
+        "triggered": 8
+      },
+      "U/200/400": {
+        "cpu_seconds_per_key": 0.48101933887499904,
+        "triggered": 5
+      },
+      "U/200/450": {
+        "cpu_seconds_per_key": 0.43747452325000147,
+        "triggered": 4
+      },
+      "U/200/500": {
+        "cpu_seconds_per_key": 0.3440492004999989,
+        "triggered": 2
+      },
+      "U/200/550": {
+        "cpu_seconds_per_key": 0.3016346929999969,
+        "triggered": 1
+      },
+      "U/200/600": {
+        "cpu_seconds_per_key": 0.30119129887500407,
+        "triggered": 1
+      },
+      "U/200/650": {
+        "cpu_seconds_per_key": 0.2950299838750041,
+        "triggered": 1
+      },
+      "U/200/700": {
+        "cpu_seconds_per_key": 0.2961648619999977,
+        "triggered": 1
+      },
+      "U/200/800": {
+        "cpu_seconds_per_key": 0.29736456800000255,
+        "triggered": 1
+      },
+      "U/200/900": {
+        "cpu_seconds_per_key": 0.2965455392499994,
+        "triggered": 1
+      },
+      "U/200/1000": {
+        "cpu_seconds_per_key": 0.25822663974999926,
+        "triggered": 0
+      },
+      "U/200/1100": {
+        "cpu_seconds_per_key": 0.25443571249999763,
+        "triggered": 0
+      },
+      "U/200/1200": {
+        "cpu_seconds_per_key": 0.2552092228750027,
+        "triggered": 0
+      },
+      "U/250/300": {
+        "cpu_seconds_per_key": 0.6086377541250023,
+        "triggered": 8
+      },
+      "U/250/400": {
+        "cpu_seconds_per_key": 0.5688270343749995,
+        "triggered": 7
+      },
+      "U/250/450": {
+        "cpu_seconds_per_key": 0.40286073812500156,
+        "triggered": 3
+      },
+      "U/250/500": {
+        "cpu_seconds_per_key": 0.3048011232500034,
+        "triggered": 1
+      },
+      "U/250/550": {
+        "cpu_seconds_per_key": 0.302906646624999,
+        "triggered": 1
+      },
+      "U/250/600": {
+        "cpu_seconds_per_key": 0.29884179212499973,
+        "triggered": 1
+      },
+      "U/250/650": {
+        "cpu_seconds_per_key": 0.29793135337500054,
+        "triggered": 1
+      },
+      "U/250/700": {
+        "cpu_seconds_per_key": 0.3000376596249996,
+        "triggered": 1
+      },
+      "U/250/800": {
+        "cpu_seconds_per_key": 0.2953151388750008,
+        "triggered": 1
+      },
+      "U/250/900": {
+        "cpu_seconds_per_key": 0.2561061503749986,
+        "triggered": 0
+      },
+      "U/250/1000": {
+        "cpu_seconds_per_key": 0.25692086362500355,
+        "triggered": 0
+      },
+      "U/250/1100": {
+        "cpu_seconds_per_key": 0.2549043953749983,
+        "triggered": 0
+      },
+      "U/250/1200": {
+        "cpu_seconds_per_key": 0.25300769750000107,
+        "triggered": 0
+      },
+      "U/300/300": {
+        "cpu_seconds_per_key": 0.6043989239999998,
+        "triggered": 8
+      },
+      "U/300/400": {
+        "cpu_seconds_per_key": 0.6049490098750017,
+        "triggered": 8
+      },
+      "U/300/450": {
+        "cpu_seconds_per_key": 0.3566368216250009,
+        "triggered": 2
+      },
+      "U/300/500": {
+        "cpu_seconds_per_key": 0.30072238374999927,
+        "triggered": 1
+      },
+      "U/300/550": {
+        "cpu_seconds_per_key": 0.25780886499999944,
+        "triggered": 0
+      },
+      "U/300/600": {
+        "cpu_seconds_per_key": 0.2561012263750033,
+        "triggered": 0
+      },
+      "U/300/650": {
+        "cpu_seconds_per_key": 0.2563094782500013,
+        "triggered": 0
+      },
+      "U/300/700": {
+        "cpu_seconds_per_key": 0.253918839874995,
+        "triggered": 0
+      },
+      "U/300/800": {
+        "cpu_seconds_per_key": 0.25434981925000066,
+        "triggered": 0
+      },
+      "U/300/900": {
+        "cpu_seconds_per_key": 0.252288249874999,
+        "triggered": 0
+      },
+      "U/300/1000": {
+        "cpu_seconds_per_key": 0.25494299774999973,
+        "triggered": 0
+      },
+      "U/300/1100": {
+        "cpu_seconds_per_key": 0.2526689144999992,
+        "triggered": 0
+      },
+      "U/300/1200": {
+        "cpu_seconds_per_key": 0.25304345787499827,
+        "triggered": 0
+      },
+      "U/400/300": {
+        "cpu_seconds_per_key": 0.5990923283749972,
+        "triggered": 8
+      },
+      "U/400/400": {
+        "cpu_seconds_per_key": 0.6030563813749996,
+        "triggered": 8
+      },
+      "U/400/450": {
+        "cpu_seconds_per_key": 0.6118102557500009,
+        "triggered": 8
+      },
+      "U/400/500": {
+        "cpu_seconds_per_key": 0.440207732124998,
+        "triggered": 4
+      },
+      "U/400/550": {
+        "cpu_seconds_per_key": 0.2598810586249982,
+        "triggered": 0
+      },
+      "U/400/600": {
+        "cpu_seconds_per_key": 0.2593221734999993,
+        "triggered": 0
+      },
+      "U/400/650": {
+        "cpu_seconds_per_key": 0.2558738131250031,
+        "triggered": 0
+      },
+      "U/400/700": {
+        "cpu_seconds_per_key": 0.2546403248749982,
+        "triggered": 0
+      },
+      "U/400/800": {
+        "cpu_seconds_per_key": 0.2534833155000058,
+        "triggered": 0
+      },
+      "U/400/900": {
+        "cpu_seconds_per_key": 0.25281194762499837,
+        "triggered": 0
+      },
+      "U/400/1000": {
+        "cpu_seconds_per_key": 0.2513373272500026,
+        "triggered": 0
+      },
+      "U/400/1100": {
+        "cpu_seconds_per_key": 0.24998900849999828,
+        "triggered": 0
+      },
+      "U/400/1200": {
+        "cpu_seconds_per_key": 0.250026115999999,
+        "triggered": 0
+      },
+      "U/500/300": {
+        "cpu_seconds_per_key": 0.5949442969999961,
+        "triggered": 8
+      },
+      "U/500/400": {
+        "cpu_seconds_per_key": 0.5947550233750007,
+        "triggered": 8
+      },
+      "U/500/450": {
+        "cpu_seconds_per_key": 0.5928782977500049,
+        "triggered": 8
+      },
+      "U/500/500": {
+        "cpu_seconds_per_key": 0.5914528103750012,
+        "triggered": 8
+      },
+      "U/500/550": {
+        "cpu_seconds_per_key": 0.4662738415000014,
+        "triggered": 5
+      },
+      "U/500/600": {
+        "cpu_seconds_per_key": 0.2943499144999997,
+        "triggered": 1
+      },
+      "U/500/650": {
+        "cpu_seconds_per_key": 0.2535172385000024,
+        "triggered": 0
+      },
+      "U/500/700": {
+        "cpu_seconds_per_key": 0.2493981936250016,
+        "triggered": 0
+      },
+      "U/500/800": {
+        "cpu_seconds_per_key": 0.25031896850000024,
+        "triggered": 0
+      },
+      "U/500/900": {
+        "cpu_seconds_per_key": 0.24850894575000204,
+        "triggered": 0
+      },
+      "U/500/1000": {
+        "cpu_seconds_per_key": 0.24805869287500215,
+        "triggered": 0
+      },
+      "U/500/1100": {
+        "cpu_seconds_per_key": 0.24835742474999734,
+        "triggered": 0
+      },
+      "U/500/1200": {
+        "cpu_seconds_per_key": 0.24553854112499884,
+        "triggered": 0
+      },
+      "G/150/300": {
+        "cpu_seconds_per_key": 0.6624045654999984,
+        "triggered": 8
+      },
+      "G/150/400": {
+        "cpu_seconds_per_key": 0.6209893021250013,
+        "triggered": 8
+      },
+      "G/150/450": {
+        "cpu_seconds_per_key": 0.5778008203749989,
+        "triggered": 7
+      },
+      "G/150/500": {
+        "cpu_seconds_per_key": 0.5212929136250013,
+        "triggered": 6
+      },
+      "G/150/550": {
+        "cpu_seconds_per_key": 0.47581695574999827,
+        "triggered": 5
+      },
+      "G/150/600": {
+        "cpu_seconds_per_key": 0.43680918562500004,
+        "triggered": 4
+      },
+      "G/150/650": {
+        "cpu_seconds_per_key": 0.3893478166249995,
+        "triggered": 3
+      },
+      "G/150/700": {
+        "cpu_seconds_per_key": 0.34798300062500065,
+        "triggered": 2
+      },
+      "G/150/800": {
+        "cpu_seconds_per_key": 0.3067335193750047,
+        "triggered": 1
+      },
+      "G/150/900": {
+        "cpu_seconds_per_key": 0.30675712287499923,
+        "triggered": 1
+      },
+      "G/150/1000": {
+        "cpu_seconds_per_key": 0.2983914116249977,
+        "triggered": 1
+      },
+      "G/150/1100": {
+        "cpu_seconds_per_key": 0.34301564262499795,
+        "triggered": 2
+      },
+      "G/150/1200": {
+        "cpu_seconds_per_key": 0.34317996425000175,
+        "triggered": 2
+      },
+      "G/200/300": {
+        "cpu_seconds_per_key": 0.6364101967499973,
+        "triggered": 8
+      },
+      "G/200/400": {
+        "cpu_seconds_per_key": 0.5813637548750012,
+        "triggered": 7
+      },
+      "G/200/450": {
+        "cpu_seconds_per_key": 0.44121765987499906,
+        "triggered": 4
+      },
+      "G/200/500": {
+        "cpu_seconds_per_key": 0.39068907962499644,
+        "triggered": 3
+      },
+      "G/200/550": {
+        "cpu_seconds_per_key": 0.34320062199999946,
+        "triggered": 2
+      },
+      "G/200/600": {
+        "cpu_seconds_per_key": 0.34226914924999896,
+        "triggered": 2
+      },
+      "G/200/650": {
+        "cpu_seconds_per_key": 0.3009859411250062,
+        "triggered": 1
+      },
+      "G/200/700": {
+        "cpu_seconds_per_key": 0.29911964200000085,
+        "triggered": 1
+      },
+      "G/200/800": {
+        "cpu_seconds_per_key": 0.2956447467499981,
+        "triggered": 1
+      },
+      "G/200/900": {
+        "cpu_seconds_per_key": 0.2991221781250015,
+        "triggered": 1
+      },
+      "G/200/1000": {
+        "cpu_seconds_per_key": 0.2532090912499996,
+        "triggered": 0
+      },
+      "G/200/1100": {
+        "cpu_seconds_per_key": 0.25408438524999966,
+        "triggered": 0
+      },
+      "G/200/1200": {
+        "cpu_seconds_per_key": 0.25347074062499786,
+        "triggered": 0
+      },
+      "G/250/300": {
+        "cpu_seconds_per_key": 0.621605533624999,
+        "triggered": 8
+      },
+      "G/250/400": {
+        "cpu_seconds_per_key": 0.5675144565000014,
+        "triggered": 7
+      },
+      "G/250/450": {
+        "cpu_seconds_per_key": 0.4363440691250009,
+        "triggered": 4
+      },
+      "G/250/500": {
+        "cpu_seconds_per_key": 0.26340636512500026,
+        "triggered": 0
+      },
+      "G/250/550": {
+        "cpu_seconds_per_key": 0.2587865798749984,
+        "triggered": 0
+      },
+      "G/250/600": {
+        "cpu_seconds_per_key": 0.25525404712500155,
+        "triggered": 0
+      },
+      "G/250/650": {
+        "cpu_seconds_per_key": 0.2558738404999996,
+        "triggered": 0
+      },
+      "G/250/700": {
+        "cpu_seconds_per_key": 0.25416291962499926,
+        "triggered": 0
+      },
+      "G/250/800": {
+        "cpu_seconds_per_key": 0.2535770783749989,
+        "triggered": 0
+      },
+      "G/250/900": {
+        "cpu_seconds_per_key": 0.2535466922499996,
+        "triggered": 0
+      },
+      "G/250/1000": {
+        "cpu_seconds_per_key": 0.2540282331250001,
+        "triggered": 0
+      },
+      "G/250/1100": {
+        "cpu_seconds_per_key": 0.2538437152499995,
+        "triggered": 0
+      },
+      "G/250/1200": {
+        "cpu_seconds_per_key": 0.2543457595000014,
+        "triggered": 0
+      },
+      "G/300/300": {
+        "cpu_seconds_per_key": 0.602357752375001,
+        "triggered": 8
+      },
+      "G/300/400": {
+        "cpu_seconds_per_key": 0.6011908083749979,
+        "triggered": 8
+      },
+      "G/300/450": {
+        "cpu_seconds_per_key": 0.5188948521250047,
+        "triggered": 6
+      },
+      "G/300/500": {
+        "cpu_seconds_per_key": 0.30600784362499844,
+        "triggered": 1
+      },
+      "G/300/550": {
+        "cpu_seconds_per_key": 0.2602911918750017,
+        "triggered": 0
+      },
+      "G/300/600": {
+        "cpu_seconds_per_key": 0.2605433761249998,
+        "triggered": 0
+      },
+      "G/300/650": {
+        "cpu_seconds_per_key": 0.2574942984999993,
+        "triggered": 0
+      },
+      "G/300/700": {
+        "cpu_seconds_per_key": 0.2552918848749979,
+        "triggered": 0
+      },
+      "G/300/800": {
+        "cpu_seconds_per_key": 0.2574488626250009,
+        "triggered": 0
+      },
+      "G/300/900": {
+        "cpu_seconds_per_key": 0.25647141824999586,
+        "triggered": 0
+      },
+      "G/300/1000": {
+        "cpu_seconds_per_key": 0.2554277992499969,
+        "triggered": 0
+      },
+      "G/300/1100": {
+        "cpu_seconds_per_key": 0.251857341124996,
+        "triggered": 0
+      },
+      "G/300/1200": {
+        "cpu_seconds_per_key": 0.2562302354999968,
+        "triggered": 0
+      },
+      "G/400/300": {
+        "cpu_seconds_per_key": 0.6033834281249977,
+        "triggered": 8
+      },
+      "G/400/400": {
+        "cpu_seconds_per_key": 0.6004267753750003,
+        "triggered": 8
+      },
+      "G/400/450": {
+        "cpu_seconds_per_key": 0.5987197389999999,
+        "triggered": 8
+      },
+      "G/400/500": {
+        "cpu_seconds_per_key": 0.5122302150000007,
+        "triggered": 6
+      },
+      "G/400/550": {
+        "cpu_seconds_per_key": 0.29985776287500165,
+        "triggered": 1
+      },
+      "G/400/600": {
+        "cpu_seconds_per_key": 0.2577642318749973,
+        "triggered": 0
+      },
+      "G/400/650": {
+        "cpu_seconds_per_key": 0.25605404699999745,
+        "triggered": 0
+      },
+      "G/400/700": {
+        "cpu_seconds_per_key": 0.25379067987500115,
+        "triggered": 0
+      },
+      "G/400/800": {
+        "cpu_seconds_per_key": 0.25171297024999717,
+        "triggered": 0
+      },
+      "G/400/900": {
+        "cpu_seconds_per_key": 0.2521358659999997,
+        "triggered": 0
+      },
+      "G/400/1000": {
+        "cpu_seconds_per_key": 0.25167464349999946,
+        "triggered": 0
+      },
+      "G/400/1100": {
+        "cpu_seconds_per_key": 0.25062984825,
+        "triggered": 0
+      },
+      "G/400/1200": {
+        "cpu_seconds_per_key": 0.2520607456250037,
+        "triggered": 0
+      },
+      "G/500/300": {
+        "cpu_seconds_per_key": 0.5912273337500018,
+        "triggered": 8
+      },
+      "G/500/400": {
+        "cpu_seconds_per_key": 0.5934199633750019,
+        "triggered": 8
+      },
+      "G/500/450": {
+        "cpu_seconds_per_key": 0.5899575486249997,
+        "triggered": 8
+      },
+      "G/500/500": {
+        "cpu_seconds_per_key": 0.5897315837500035,
+        "triggered": 8
+      },
+      "G/500/550": {
+        "cpu_seconds_per_key": 0.5947379978750007,
+        "triggered": 8
+      },
+      "G/500/600": {
+        "cpu_seconds_per_key": 0.25913166237500107,
+        "triggered": 0
+      },
+      "G/500/650": {
+        "cpu_seconds_per_key": 0.260150616999999,
+        "triggered": 0
+      },
+      "G/500/700": {
+        "cpu_seconds_per_key": 0.25624382925000333,
+        "triggered": 0
+      },
+      "G/500/800": {
+        "cpu_seconds_per_key": 0.254554310749997,
+        "triggered": 0
+      },
+      "G/500/900": {
+        "cpu_seconds_per_key": 0.2516023757500001,
+        "triggered": 0
+      },
+      "G/500/1000": {
+        "cpu_seconds_per_key": 0.25111180812500145,
+        "triggered": 0
+      },
+      "G/500/1100": {
+        "cpu_seconds_per_key": 0.25181808387499593,
+        "triggered": 0
+      },
+      "G/500/1200": {
+        "cpu_seconds_per_key": 0.249762356499998,
+        "triggered": 0
+      }
+    },
+    "base_cpu_seconds_per_frame": 2.342835599624993,
+    "multiplier": 1.3,
+    "options": [
+      {
+        "snrs_centi_db": [
+          300,
+          400,
+          450,
+          500,
+          550,
+          600,
+          650,
+          700,
+          800,
+          900,
+          1000,
+          1100,
+          1200
+        ],
+        "frames": 400,
+        "keys": 62400,
+        "core_hours_with_margin": 8.369964979945829
+      }
+    ],
+    "selection": {
+      "snrs_centi_db": [
+        300,
+        400,
+        450,
+        500,
+        550,
+        600,
+        650,
+        700,
+        800,
+        900,
+        1000,
+        1100,
+        1200
+      ],
+      "frames": 400,
+      "keys": 62400,
+      "core_hours_with_margin": 8.369964979945829
+    }
+  },
+  "phase1_cpu_seconds": 1676.152123557,
+  "workers_cpu_seconds": 1669.276303,
+  "wall_seconds": 103.80397379770875
+}

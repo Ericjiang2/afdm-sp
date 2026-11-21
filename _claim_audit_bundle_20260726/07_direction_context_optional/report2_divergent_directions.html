@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>跳出通感：还有哪些方向适合你 — 方向研判（其二）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Serif+SC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3f1ea;
+    --paper-2:#e8e7dc;
+    --ink:#15171a;
+    --ink-soft:#3f4540;
+    --ink-faint:#6c7168;
+    --accent:#0f6b58;       /* pine / signal green */
+    --accent-deep:#073f33;
+    --copper:#b3551f;
+    --line:#d3d2c2;
+    --hi:#b9f24d;
+    --serif:"Newsreader","Noto Serif SC",Georgia,serif;
+    --display:"Fraunces","Noto Serif SC",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(16px,1.05rem + 0.2vw,19px);line-height:1.72;
+    background-image:radial-gradient(circle at 88% 6%,rgba(15,107,88,.06),transparent 40%),radial-gradient(circle at 8% 96%,rgba(179,85,31,.05),transparent 42%);
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:clamp(28px,5vw,80px) clamp(20px,5vw,56px) 120px;}
+  ::selection{background:var(--hi);color:var(--ink);}
+
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+  .masthead{border-bottom:3px double var(--ink);padding-bottom:26px;margin-bottom:14px;}
+  h1.title{font-family:var(--display);font-weight:900;line-height:1.02;font-size:clamp(2.2rem,4vw + 1rem,3.9rem);letter-spacing:-.01em;margin:.32em 0 .18em;}
+  h1.title em{font-style:italic;font-weight:500;color:var(--accent-deep);}
+  .dek{font-size:1.06rem;color:var(--ink-soft);font-style:italic;max-width:62ch;margin:.2em 0 0;}
+  .meta{font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);letter-spacing:.04em;margin-top:20px;display:flex;flex-wrap:wrap;gap:6px 20px;}
+
+  .crit{margin:38px 0;padding:24px 26px;background:var(--ink);color:#eef0e6;border-radius:3px;box-shadow:10px 10px 0 var(--accent);}
+  .crit .vk{font-family:var(--mono);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--hi);}
+  .crit ul{margin:.7em 0 0;padding-left:0;list-style:none;}
+  .crit li{padding-left:1.5em;position:relative;margin:.4em 0;font-size:.98rem;}
+  .crit li::before{content:"▸";position:absolute;left:0;color:var(--hi);}
+  .crit b{color:#fff;}
+
+  section{margin-top:52px;}
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(1.45rem,2vw + .6rem,2rem);line-height:1.12;letter-spacing:-.01em;margin:0 0 .25em;}
+  h2 .no{font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--accent);letter-spacing:.1em;display:block;margin-bottom:.5em;}
+  p{margin:.85em 0;}
+  a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}
+  strong{font-weight:600;}
+  em.k{font-style:normal;background:linear-gradient(transparent 62%,rgba(185,242,77,.6) 62%);padding:0 .05em;font-weight:500;}
+  .lede{font-size:1.1rem;color:var(--ink-soft);border-left:3px solid var(--accent);padding-left:18px;margin:1.3em 0;}
+
+  /* direction cards */
+  .dir{border:1px solid var(--line);border-radius:4px;margin:20px 0;background:rgba(255,255,255,.45);overflow:hidden;}
+  .dir .head{display:flex;align-items:baseline;gap:12px;padding:16px 20px 10px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .dir .rank{font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--accent);line-height:1;}
+  .dir .nm{font-family:var(--display);font-size:1.24rem;font-weight:600;line-height:1.15;flex:1;min-width:200px;}
+  .dir .verdict-pill{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:.3em .6em;border-radius:2px;font-weight:600;white-space:nowrap;}
+  .pill-core{background:var(--accent);color:#fff;}
+  .pill-strong{background:var(--hi);color:var(--accent-deep);}
+  .pill-adj{background:var(--paper-2);color:var(--ink-soft);border:1px solid var(--line);}
+  .pill-watch{background:#f2e4d6;color:var(--copper);}
+  .dir .body{padding:14px 20px 18px;}
+  .dir .body p{margin:.5em 0;font-size:.97rem;}
+  .dir .lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;margin-right:.5em;}
+  .ratings{display:flex;flex-wrap:wrap;gap:6px 22px;margin:12px 0 4px;padding:12px 0 0;border-top:1px dashed var(--line);font-family:var(--mono);font-size:.74rem;color:var(--ink-soft);}
+  .ratings .r b{color:var(--ink);font-weight:500;}
+  .dots{color:var(--accent);letter-spacing:1px;}
+  .dots .o{color:var(--line);}
+
+  .tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem;}
+  .tbl th,.tbl td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  .tbl th{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;}
+  .tbl tr:first-child th{border-bottom:2px solid var(--ink);}
+  .tbl td:first-child{font-weight:500;}
+  .tbl .d{font-family:var(--mono);color:var(--accent);font-size:.8rem;white-space:nowrap;}
+
+  .sweet{background:var(--paper-2);border:2px solid var(--accent);border-radius:4px;padding:26px 28px;margin:30px 0;}
+  .sweet .vk{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+  .sweet .big{font-family:var(--display);font-size:1.45rem;font-weight:600;line-height:1.22;margin:.3em 0 .4em;color:var(--accent-deep);}
+
+  ul.clean{padding-left:0;list-style:none;margin:.6em 0;}
+  ul.clean li{position:relative;padding-left:1.4em;margin:.5em 0;}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--accent);font-family:var(--mono);}
+  ul.clean.no li::before{content:"✕";color:var(--copper);}
+
+  .refs{margin-top:14px;font-size:.84rem;color:var(--ink-soft);}
+  .refs li{margin:.55em 0;line-height:1.45;}
+  .refs .v{font-family:var(--mono);font-size:.74rem;color:var(--accent);}
+
+  .footnote{margin-top:60px;border-top:1px solid var(--line);padding-top:18px;font-size:.82rem;color:var(--ink-faint);font-style:italic;}
+  .nav{font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);margin-top:46px;text-align:center;letter-spacing:.05em;}
+
+  .masthead,.crit,section{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;}
+  .crit{animation-delay:.12s;}
+  section:nth-of-type(1){animation-delay:.18s;}section:nth-of-type(2){animation-delay:.22s;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important;}}
+  @media (max-width:560px){.crit{box-shadow:6px 6px 0 var(--accent);}.tbl{font-size:.76rem;}.tbl th,.tbl td{padding:7px 5px;}.dir .rank{font-size:1.2rem;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">方向研判 · 其二 / 共二　·　发散：通感之外</div>
+    <h1 class="title">跳出通感，<br>还有哪些方向<em>适合你</em>？</h1>
+    <p class="dek">把视野放到整张 6G 物理层版图，逐一筛出与你的牌（AFDM、估计、深度展开）和你的目标（中档教职＋央国企保底）真正契合的方向，给出横向对比和最终排序。</p>
+    <div class="meta">
+      <span>范围：物理层全景</span>
+      <span>方法：按“契合×前景×拥挤×硬推导”四轴打分</span>
+      <span>时点：2026</span>
+    </div>
+  </header>
+
+  <div class="crit">
+    <div class="vk">评分用的尺子（始终对着你这个人，不是对着热度）</div>
+    <ul>
+      <li><b>你的存量优势：</b>AFDM/波形、信道估计、检测、深度展开（MP-BP、OMP）——能复用就加分。</li>
+      <li><b>你的认知风格：</b>喜欢“有立足点、做得更好”的应用/整合题，反感“空白里造地基”的纯理论；不擅长又长又硬的符号推导。</li>
+      <li><b>你的目标：</b>双一流/一本/985 分校教职，央国企（移动研究院/电科/华为）做硬地板。</li>
+      <li><b>你的资源：</b>UESTC（A+）；刘光辉（AFDM-ISAC-AI 在产）；刘雨莎（Southampton 博士、LEO＋估计＋深度学习、英国线）；家里可供出国。</li>
+    </ul>
+  </div>
+
+  <section>
+    <h2><span class="no">候选清单 / 8 个方向</span>逐一研判（已按契合度排序）</h2>
+    <p class="lede">每个方向标了一个定位徽章：<b>核心</b>＝该当主线；<b>蓝海备选</b>＝同样复用你的牌但更不拥挤；<b>可加挂</b>＝适合作为主线的延伸；<b>了解即可</b>＝知道、可合作，但别当核心（多半更吃硬推导或离你的优势远）。</p>
+
+    <div class="dir">
+      <div class="head"><span class="rank">01</span><span class="nm">延迟-多普勒调制（OTFS / AFDM）→ LEO 卫星 / 高动态（V2X、无人机）</span><span class="verdict-pill pill-core">核心</span></div>
+      <div class="body">
+        <p><span class="lbl">是什么</span>把你的 AFDM/OTFS 直接搬到“极端多普勒”的场景：低轨卫星、车联网、无人机。用 AI 做信道预测（LSTM 预测多普勒/时延）、信道估计（CNN/物理引导元学习）、以及贝叶斯/SBL 联合估计与检测。</p>
+        <p><span class="lbl">为什么是你</span>几乎零摩擦地延伸你现在的 AFDM 工作；LEO 是 6G 明确热点；<em class="k">直接对接刘雨莎（她做 LEO＋估计）和 Southampton（Hanzo 组的 OTFS-LEO 是经典工作）——这是你联培的天然桥</em>。</p>
+        <div class="ratings">
+          <span class="r"><b>契合</b> <span class="dots">●●●●●</span></span>
+          <span class="r"><b>5–10年前景</b> <span class="dots">●●●●<span class="o">●</span></span></span>
+          <span class="r"><b>拥挤</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+          <span class="r"><b>吃硬推导</b> <span class="dots">●●<span class="o">●●●</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dir">
+      <div class="head"><span class="rank">02</span><span class="nm">模型驱动深度学习 / 深度展开（你的“签名方法”，不是某个题）</span><span class="verdict-pill pill-core">核心</span></div>
+      <div class="body">
+        <p><span class="lbl">是什么</span>把迭代算法展开成可训练网络（OAMP-Net2 一类），注入领域知识——参数少、要数据少、可解释，<em class="k">同时打败纯模型法和纯数据法</em>。它不是一个方向，是你<strong>带着走</strong>的方法：检测、信道估计、波束成形、译码、感知，处处能用。</p>
+        <p><span class="lbl">为什么是你</span>这是你<strong>最强的那张牌</strong>（你已经做过 MP-BP、深度展开、OMP）。立足点足、几乎不吃硬推导，且是“模型＋ML 双语”者的专属地盘——纯 ML 出身的人做不好。把它当作你贴在所有课题上的底色。</p>
+        <div class="ratings">
+          <span class="r"><b>契合</b> <span class="dots">●●●●●</span></span>
+          <span class="r"><b>5–10年前景</b> <span class="dots">●●●●<span class="o">●</span></span></span>
+          <span class="r"><b>拥挤</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+          <span class="r"><b>吃硬推导</b> <span class="dots">●●<span class="o">●●●</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dir">
+      <div class="head"><span class="rank">03</span><span class="nm">水声通信 ＋ 深度学习（你的本科毕设老本行）</span><span class="verdict-pill pill-strong">蓝海备选</span></div>
+      <div class="body">
+        <p><span class="lbl">是什么</span>水声信道是典型的<strong>双弥散</strong>（强多径＋多普勒）——你的 AFDM/OTFS 与稀疏估计技能<strong>原样迁移</strong>。模型驱动的信道估计（OMP/展开）与检测正是主线。</p>
+        <p><span class="lbl">为什么是你</span>你本科就做过（SP-AFDM、OMP、MP-BP）；<em class="k">刘雨莎也有一篇水声 OMP 的论文</em>，组里有抓手。海洋/国防是国家需求，<strong>而且明显更蓝海、不拥挤</strong>——一条“用同样的牌、却少很多人挤”的赛道。前景偏 niche，但作为主线之一或副线都稳。</p>
+        <div class="ratings">
+          <span class="r"><b>契合</b> <span class="dots">●●●●<span class="o">●</span></span></span>
+          <span class="r"><b>5–10年前景</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+          <span class="r"><b>拥挤</b> <span class="dots">●●<span class="o">●●●</span></span></span>
+          <span class="r"><b>吃硬推导</b> <span class="dots">●●<span class="o">●●●</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dir">
+      <div class="head"><span class="rank">04</span><span class="nm">低空经济 / 无人机 通感（ISAC 的应用垂直）</span><span class="verdict-pill pill-adj">可加挂</span></div>
+      <div class="body">
+        <p><span class="lbl">是什么</span>ISAC 的具体落地场景，3GPP Rel-20 单站感知的<strong>首攻用例就是无人机</strong>。在中国“低空经济”是明确的国家级战略风口。</p>
+        <p><span class="lbl">为什么是你</span>可以作为你 AFDM-ISAC 主线的“场景外衣”，<em class="k">国家需求对齐度极高、基金与央国企需求都旺</em>。本身不是独立方法，更适合加挂在主线上提升立项与就业。</p>
+        <div class="ratings">
+          <span class="r"><b>契合</b> <span class="dots">●●●●<span class="o">●</span></span></span>
+          <span class="r"><b>5–10年前景</b> <span class="dots">●●●●<span class="o">●</span></span></span>
+          <span class="r"><b>拥挤</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+          <span class="r"><b>吃硬推导</b> <span class="dots">●●<span class="o">●●●</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dir">
+      <div class="head"><span class="rank">05</span><span class="nm">可移动 / 流体天线（MA / FAS）</span><span class="verdict-pill pill-adj">可加挂</span></div>
+      <div class="body">
+        <p><span class="lbl">是什么</span>2024–2026 最热的新方向之一：天线位置/形态可重构，带来电磁域的新自由度。和 ISAC 交叉（MA 增强 ISAC），也大量用 AI（学习式“波束＋天线位置”联合设计）。</p>
+        <p><span class="lbl">为什么是你（部分）</span><em class="k">UESTC 有人在做（梅卫东、赵宜哲一线）</em>，热度高、还算新。但它偏阵列/优化，离你的“波形＋估计”稍远，优化味也重一些。适合作为加挂或合作，不必硬当主线。</p>
+        <div class="ratings">
+          <span class="r"><b>契合</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+          <span class="r"><b>5–10年前景</b> <span class="dots">●●●●<span class="o">●</span></span></span>
+          <span class="r"><b>拥挤</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+          <span class="r"><b>吃硬推导</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dir">
+      <div class="head"><span class="rank">06</span><span class="nm">面向任务 / 语义通信（应用侧 DeepJSCC，非纯理论）</span><span class="verdict-pill pill-watch">看情况</span></div>
+      <div class="body">
+        <p><span class="lbl">是什么</span>注意：是<strong>应用侧</strong>（设计 JSCC 编解码器做图像/感知数据传输、与边缘 AI 整合），<strong>不是</strong>你反感的语义信息论那套硬推导。</p>
+        <p><span class="lbl">为什么要小心</span>整合型、对你风格友好；但<em class="k">评价标准模糊（“语义保真”难客观度量）、尚未标准化</em>，方差大。可作为副线探一探，别压成全部。</p>
+        <div class="ratings">
+          <span class="r"><b>契合</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+          <span class="r"><b>5–10年前景</b> <span class="dots">●●●●<span class="o">●</span></span></span>
+          <span class="r"><b>拥挤</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+          <span class="r"><b>吃硬推导</b> <span class="dots">●●<span class="o">●●●</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dir">
+      <div class="head"><span class="rank">07</span><span class="nm">近场通信 / 超大规模 MIMO（XL-MIMO）</span><span class="verdict-pill pill-watch">了解即可</span></div>
+      <div class="body">
+        <p><span class="lbl">是什么</span>6G 热点：超大孔径阵列把工作区推到近场，球面波建模带来新的信道估计/波束成形问题。</p>
+        <p><span class="lbl">为什么不当核心</span>能用上你的估计技能，但<em class="k">阵列信号处理与优化偏重、数学更硬</em>，且已相当拥挤。知道、能合作，但不是你优势最大化的地方。</p>
+        <div class="ratings">
+          <span class="r"><b>契合</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+          <span class="r"><b>5–10年前景</b> <span class="dots">●●●●<span class="o">●</span></span></span>
+          <span class="r"><b>拥挤</b> <span class="dots">●●●●<span class="o">●</span></span></span>
+          <span class="r"><b>吃硬推导</b> <span class="dots">●●●●<span class="o">●</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dir">
+      <div class="head"><span class="rank">08</span><span class="nm">无线大模型 / 生成式 AI for 信道（LWM 等）</span><span class="verdict-pill pill-watch">了解即可</span></div>
+      <div class="body">
+        <p><span class="lbl">是什么</span>最前沿：用大模型/基础模型做通用无线表征、用生成模型造信道与回波数据。天花板很高。</p>
+        <p><span class="lbl">为什么不当核心</span><em class="k">ML 工程与算力很重、离波形远</em>，你会在纯 ML 原住民的主场竞争，你的模型素养不再是护城河。除非你带着“通信特有的约束/先验”切进去（比如生成式 ISAC 信道），否则别当主线。</p>
+        <div class="ratings">
+          <span class="r"><b>契合</b> <span class="dots">●●<span class="o">●●●</span></span></span>
+          <span class="r"><b>5–10年前景</b> <span class="dots">●●●●●</span></span>
+          <span class="r"><b>拥挤</b> <span class="dots">●●●<span class="o">●●</span></span></span>
+          <span class="r"><b>吃硬推导</b> <span class="dots">●●<span class="o">●●●</span></span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">横向对比</span>一张表看全</h2>
+    <table class="tbl">
+      <tr><th>方向</th><th>契合</th><th>前景</th><th>拥挤</th><th>硬推导</th><th>定位</th></tr>
+      <tr><td>AFDM/OTFS → LEO·高动态</td><td class="d">●●●●●</td><td class="d">●●●●</td><td class="d">●●●</td><td class="d">●●</td><td>核心</td></tr>
+      <tr><td>模型驱动 DL / 深度展开</td><td class="d">●●●●●</td><td class="d">●●●●</td><td class="d">●●●</td><td class="d">●●</td><td>核心(方法层)</td></tr>
+      <tr><td>水声通信 ＋ DL</td><td class="d">●●●●</td><td class="d">●●●</td><td class="d">●●</td><td class="d">●●</td><td>蓝海备选</td></tr>
+      <tr><td>低空 / 无人机通感</td><td class="d">●●●●</td><td class="d">●●●●</td><td class="d">●●●</td><td class="d">●●</td><td>可加挂</td></tr>
+      <tr><td>可移动 / 流体天线</td><td class="d">●●●</td><td class="d">●●●●</td><td class="d">●●●</td><td class="d">●●●</td><td>可加挂</td></tr>
+      <tr><td>任务 / 语义（应用侧）</td><td class="d">●●●</td><td class="d">●●●●</td><td class="d">●●●</td><td class="d">●●</td><td>看情况</td></tr>
+      <tr><td>近场 / XL-MIMO</td><td class="d">●●●</td><td class="d">●●●●</td><td class="d">●●●●</td><td class="d">●●●●</td><td>了解即可</td></tr>
+      <tr><td>无线大模型 / 生成式</td><td class="d">●●</td><td class="d">●●●●●</td><td class="d">●●●</td><td class="d">●●</td><td>了解即可</td></tr>
+    </table>
+    <p style="font-size:.84rem;color:var(--ink-faint);font-family:var(--mono);">注：●越多＝程度越高。“硬推导”越少对你越友好；“拥挤”越少越好。</p>
+  </section>
+
+  <section>
+    <h2><span class="no">最终排序</span>其实不是 8 选 1——最好的几个会合成一个</h2>
+    <p class="lede">发散调研最容易给人“选项太多”的焦虑。但把你的牌摊开看，排名最高的三条<strong>不是互相竞争，而是能拼成同一个研究身份</strong>。</p>
+
+    <div class="sweet">
+      <div class="vk">把 No.1 ＋ No.2 ＋（其一里的 ISAC）合起来</div>
+      <div class="big">面向高动态 / LEO / 通感场景的<br>“模型驱动 AI × 延迟-多普勒（AFDM/OTFS）传输与感知”</div>
+      <p style="margin:.2em 0 0;">这一个身份，<strong>用上了你的每一张牌</strong>：AFDM 波形优势、深度展开方法、刘光辉的 AFDM-ISAC-AI 线、刘雨莎的 LEO＋估计＋Southampton 桥、6G 的国家需求与耐久度。它窄到可防御、又宽到能发很多文、还能加挂“低空/无人机”这层国家需求外衣。</p>
+    </div>
+
+    <p><strong>第二梯队（同样复用你的牌，作为对冲或副线）：</strong></p>
+    <ul class="clean">
+      <li><strong>水声通信＋DL</strong>——如果你想要一条<em class="k">更蓝海、少人挤</em>的路，它用同一套技能、还连着国家海洋/国防需求，是很好的“安静赛道”备选或副线。</li>
+      <li><strong>低空 / 无人机通感、可移动天线</strong>——作为主线的<strong>加挂</strong>，提升立项与就业，不必单独立身。</li>
+    </ul>
+
+    <p><strong>建议别当核心的（不哄你）：</strong></p>
+    <ul class="clean no">
+      <li><strong>纯语义信息论</strong>——硬推导密集、空白造地基，正踩你两个软肋。</li>
+      <li><strong>无线大模型 / 近场理论</strong>——要么是 ML 原住民主场、要么数学更硬，你的优势在这里被稀释。了解、合作即可。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="no">下一步</span>把研判变成行动</h2>
+    <ul class="clean">
+      <li>拿“其一”里的<strong>三个起步课题</strong>去找刘雨莎对一对，问哪个最能接上她手里的 LEO/英国资源——这一步同时验证主线方向和联培落点。</li>
+      <li>让我把这个合成身份写成一段<strong>50–80 字的“研究方向自述”</strong>，你以后申联培、找博后、写本子都能直接用。</li>
+      <li>或者我按这个身份，给你列国内＋英国（含 Southampton/Hanzo 生态）<strong>对口且对你画像友好的课题组清单</strong>，做导师/联培尽调。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="no">按图索骥</span>关键文献</h2>
+    <ul class="refs">
+      <li><span class="v">arXiv 2502.05952</span> 《Comprehensive Review of Deep Unfolding for Next-Gen Wireless》——深度展开总览（你的方法层）。</li>
+      <li><span class="v">IEEE TSP</span> H. He, S. Jin 等《Model-Driven Deep Learning for MIMO Detection》（OAMP-Net2）——展开式检测的代表作。</li>
+      <li><span class="v">IEEE WCL/TC</span> X. Wang … L. Hanzo《Joint Bayesian Channel Estimation & Detection for OTFS in LEO》——Southampton 生态的 OTFS-LEO，联培对口。</li>
+      <li><span class="v">Electronics 2025</span> 自适应 OTFS 帧设计＋多域信道预测（LSTM）——LEO 高动态的 AI 方案样例。</li>
+      <li><span class="v">npj Wireless Tech. 2026 / arXiv 2412.03839</span> 可移动与可重构天线、FAS for 6G——MA/FAS 入门综述。</li>
+      <li><span class="v">IEEE WLetters/TWC</span> 刘雨莎组水声 OMP 信道估计、LEO Transformer 信道估计——你组里的直接抓手。</li>
+    </ul>
+  </section>
+
+  <p class="footnote">本报告为“两份”中的其二。其一聚焦 ISAC×AI 与 AFDM 的纵深；本份做横向发散与排序。评分是面向你个人画像的相对研判，非绝对标准；最终方向请结合两位老师的判断与你自己读文献后的真实兴趣。</p>
+
+  <div class="nav">· 其二 / 共二 ·　与“ISAC×AI 专题”配套阅读 ·</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+AFDM System initialized: N_total=1024 subcarriers (from 32x32)
+  Chirp parameters: c1=0.002441, c2=0.000000
+  Caps: l_max=15, k_max=2, delta_max=77 < N=1024: OK
+  UWA params: fc=12.0 kHz, B=4.0 kHz, fs=8.0 kHz, Ts=125.0 us
+  UWA channel: P=10, tau_spread=10.0 ms, v_mean=2.00 m/s, v_std=0.50 m/s
+  Supported AFDM delay window: 1.0 ms
+  Backward-compat speed cap: 12.6 km/h
+  Channel matrix size: 1024x1024
+[_make_system_variable_N] N_total=1024  l_max=102  k_max=4  δ_max=922  < N: True  c1=0.004395  c2=1.98e-07
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3c_shrink_20261018/e3c_driver.py", line 337, in <module>
+    run(args, sys.argv[1:])
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3c_shrink_20261018/e3c_driver.py", line 264, in run
+    identity = source_identity()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_e3c_shrink_20261018/e3c_driver.py", line 228, in source_identity
+    if lib.md5_file(path) != digest:
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_e1_20261017/e1_lib.py", line 40, in md5_file
+    return hashlib.md5(Path(path).read_bytes()).hexdigest()
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/pathlib.py", line 1126, in read_bytes
+    with self.open(mode='rb') as f:
+  File "/home/guoyikun/.conda/envs/AFDM/lib/python3.10/pathlib.py", line 1119, in open
+    return self._accessor.open(self, mode, buffering, encoding, errors,
+FileNotFoundError: [Errno 2] No such file or directory: '/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/sp_afdm_native_joint_20260921/src/twofft.py'

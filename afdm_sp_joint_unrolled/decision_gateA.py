@@ -47,6 +47,34 @@ from afdm_sp_joint_unrolled.decision_metrics import load_heads
 _NEG_INF = -1.0e9
 
 
+def calibrate_fine_prior(sys_obj, N, Phi, K_per_l, top_m, sigma2, seed, n_frames):
+    """Shared E1 calibration path; labels stay in this offline calibration pass."""
+    if n_frames <= 0:
+        raise ValueError('calibration requires a positive frame count')
+    rng = np.random.default_rng(seed)
+    col_norms = np.linalg.norm(Phi, axis=0)
+    fields = {key: [] for key in ('dl_nn', 'dk_nn', 'g_nn', 'y', 'genie_gain_sq')}
+    accepted = attempts = 0
+    while accepted < n_frames:
+        if attempts >= 20 * n_frames:
+            raise RuntimeError('too many invalid calibration frames')
+        frame = harvest_frame(sys_obj, N, sigma2, Phi, col_norms, K_per_l,
+                              top_m, int(rng.integers(0, 2**31)), float(sys_obj.rho))
+        attempts += 1
+        if frame is None:
+            continue
+        for key in fields:
+            fields[key].append(frame[key])
+        accepted += 1
+    fields = {key: np.concatenate(value) for key, value in fields.items()}
+    edges = np.quantile(fields['g_nn'], [1/3, 2/3])
+    lookup, metadata = build_fine_prior(
+        fields['dl_nn'], fields['dk_nn'], fields['g_nn'], fields['y'],
+        fields['genie_gain_sq'], edges, min_count=30)
+    metadata.update(seed=int(seed), frames=accepted, attempts=attempts)
+    return lookup, metadata
+
+
 def qpsk_bits(x):
     return np.concatenate([(x.real < 0), (x.imag < 0)]).astype(np.int8)
 

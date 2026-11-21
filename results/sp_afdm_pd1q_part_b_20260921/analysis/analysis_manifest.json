@@ -1,0 +1,60 @@
+{
+  "schema": "spafdm-pd1q-partb-analysis/1",
+  "status": "pass",
+  "verdict": "supported",
+  "source_commit": "2d130b4d",
+  "run_identity_sha256": "de969f94ae1a7e5f345e865411a68e969ddb0373eecc80ce9b5f36351004767a",
+  "attempts": 9696,
+  "frames": 3072,
+  "recount_receipt": "/data/guoyikun/00inbox/AFDM-channel-estimation/results/sp_afdm_pd1q_part_b_20260921/recount_receipt.json",
+  "e1_ep2_median_seconds": {
+    "600": 0.5012613709841389,
+    "650": 0.5018063815077767,
+    "700": 0.5031164799584076
+  },
+  "deadline_fractions": [
+    0.6,
+    0.8,
+    1,
+    1.5,
+    2
+  ],
+  "bootstrap": {
+    "kind": "paired circular moving block per SNR in actual frame order",
+    "block_frames": 32,
+    "replicates": 2000,
+    "seed": 941002,
+    "two_sided_percentiles": [
+      2.5,
+      97.5
+    ],
+    "one_sided_upper_percentile": 95,
+    "one_sided_lower_percentile": 5,
+    "scope": "pointwise bootstrap uncertainty, not familywise; whole paired frames resampled; all finite attempt costs retained",
+    "subset_block_frames": {
+      "primary_1024": 32,
+      "POINT_128": 16,
+      "PBi_32": 4
+    },
+    "block_rule": "min(32,max(1,registered_paired_frame_count//8)); fixed by prospective subset size, not outcomes. Primary block32, POINT16, PBi4. Avoid full-sample circular blocks producing degenerate control intervals."
+  },
+  "reliability_supported": true,
+  "speed_supported": true,
+  "adverse_reliability_bound": false,
+  "speed_lower_bound_falsified": false,
+  "sha256": {
+    "script": "111fe3650f9cfa4c815b35696637a6423b705ce4bfce543ba86755eb561a40d4",
+    "statistical_contract": "1c45ed62b7349a72e3472e6d772476fdda0ffc971875c0cda5265b1aac1b11a7",
+    "plan": "8672a4fbf43e54ec83e523b3c9a31f776832f9b8e8c7ea3618ab221061f0eb0d",
+    "manifest": "de69da6d945cd56f84eb69cc5df814088885c9d28b9375015599c99abefab7d9",
+    "prior_qualification_reference": "42160fe1223a37115fa704822dd4a45c8e50e91276b588c4112291dec7a18657",
+    "ledger": "6962eb9e80eb32b36e5abee39a16f80ed3e66fe061143bc4957982a055a95b14",
+    "recount_receipt": "9c7d2dbfed2d5d2470aa4a2321b17aa05eaeda8a985614b0e39a6c6bce399d54",
+    "e1_manifest": "80290ac246a06ca680461f043684aee6353a4915d3b63f881da43711dd214d5e",
+    "e1_ledger": "253c04220047278ebd8e5c3b2f59d9e058938e6d8a14f72d47fe6621932f2209",
+    "cells": "135aabef4c8ea9b5526dc2f78765f1f4dfb7ce9079aadc1a605f2eb987729595",
+    "paired_counts": "db68f19109e4dce95233b684b20c5228b8d4d9d8053fb90f76ce92a1242de4af",
+    "latency_uncertainty": "ba946d89ddae155fbbef79cf9c21de824fd816669c3122a5bd6fecff36932890",
+    "latency_stage_summary": "f03e9d7a0e0d90adbbb20edb502ebc0a78a19da8f837efb46308ae409a6edbff"
+  }
+}

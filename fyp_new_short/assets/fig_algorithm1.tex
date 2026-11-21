@@ -1,0 +1,29 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\newcolumntype{L}{>{\raggedright\arraybackslash}p{0.93\textwidth}}
+\begin{document}
+\begin{minipage}{\textwidth}
+{\rule{\textwidth}{1pt}}\\[2pt]
+{\bfseries Algorithm 1}\quad Classical joint OMP-once + iterative LS/MP-BP receiver.\\[2pt]
+{\rule{\textwidth}{0.4pt}}\\[3pt]
+\textbf{Input:} $\mathbf{y}$ (received frame), $\boldsymbol{\Phi}$ (OMP dictionary), known $\mathbf{x}_p$, pilot power $\rho_p$.\quad\textbf{Output:} bits $\hat{\mathbf{x}}_d$.\\[1.5pt]
+\textbf{Param:} $T_{\mathrm{out}}{=}5$, $T_{\mathrm{mp}}{=}20$, damping $\gamma_h{=}0.7$, prune $\tau_h{=}10^{-2}\max|\hat h|$.\\[3pt]
+{\rule{\textwidth}{0.4pt}}\\[3pt]
+\begin{tabular}{@{}r@{\hspace{0.7em}}L@{}}
+1: & \textbf{OMP-once:} run OMP on $\boldsymbol{\Phi}$ to sparsity $P$; get support $\hat S^{(0)}$, gains $\hat{\mathbf{h}}^{(0)}$; init $\hat{\mathbf{x}}_d^{(0)}$ by LMMSE on $\hat S^{(0)}$. \\[3pt]
+2: & \textbf{for} $t = 1$ \textbf{to} $T_{\mathrm{out}}$ \textbf{do} \\[2pt]
+3: & \quad residual $\;\mathbf{r}^{(t)} = \mathbf{y} - \sqrt{1-\rho_p}\,\mathbf{H}_{\mathrm{eff}}(\hat{\mathbf{h}}^{(t-1)})\,\hat{\mathbf{x}}_d^{(t-1)}$ \\[2pt]
+4: & \quad DA-LS refit $\;\hat{\mathbf{h}}^{(t)} = (1-\gamma_h)\,\hat{\mathbf{h}}^{(t-1)} + \gamma_h\,\boldsymbol{\Phi}_{\hat S^{(t-1)}}^{\dagger}\,\mathbf{r}^{(t)}$ \\[2pt]
+5: & \quad MP-BP ($T_{\mathrm{mp}}$ iters) on $\tilde y_j = y_j - \sqrt{\rho_p}\,[\mathbf{H}_{\mathrm{eff}}(\hat{\mathbf{h}}^{(t)})\,\mathbf{x}_p]_j$; update $\hat{\mathbf{x}}_d^{(t)}$, variances \\[2pt]
+6: & \quad adaptive $\sigma^2$; prune atoms $|\hat h_s^{(t)}| < \tau_h$ (keep top-$P$)\qquad \textbf{end for} \\[3pt]
+7: & \textbf{hard-decide} $\hat{\mathbf{x}}_d = \mathrm{QPSK\text{-}demap}\big(\hat{\mathbf{x}}_d^{(T_{\mathrm{out}})}\big)$. \\
+\end{tabular}\\[3pt]
+{\rule{\textwidth}{1pt}}
+\end{minipage}
+\end{document}

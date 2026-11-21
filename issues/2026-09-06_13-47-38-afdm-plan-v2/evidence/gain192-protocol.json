@@ -1,0 +1,23 @@
+{
+  "reference": "frozen RUN03 A2 fit192",
+  "frame_ids": "D_cal rep30/31/32 frame0..63",
+  "intervention": "terminal H only; same final S and estimated sigma; no upstream rerun",
+  "count_limit": 192,
+  "projection_dtype": "complex128 then complex64 at actual BP boundary",
+  "BP": {
+    "n_iter": 20,
+    "threshold": 0.0001,
+    "damp": 0.5
+  },
+  "LDPC": {
+    "maxiter": 50
+  },
+  "paired_endpoint": "information-bit errors and FER; old raw BER is a different stage",
+  "gain_metric": "effective channel excess error derived under verified coordinate-support invariant; raw gain vector not available",
+  "selection": "none; diagnostic only",
+  "bootstrap": {
+    "seed": 2026090613,
+    "samples": 20000,
+    "strata": "paired within each of three fixed streams"
+  }
+}

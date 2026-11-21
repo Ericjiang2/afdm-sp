@@ -1,0 +1,15 @@
+- **X1 AGREE** — 恒等式成立，统一条件于已知 delay 集合即可。
+- **X2 DISAGREE** — 精确 \(E_d\log\det\) 的 MC 可作主项，但估计值不是保证；改为减去 T2 的同时 UCB，且 \(U\ge E[T2]\) 不要求 \(U\ge\widehat{T2}\) 每次成立。
+- **X3 AGREE** — Gaussian 先验及正确干扰协方差足以保障 T3；MODEL 的非白对角项必须保留。
+- **X4 DISAGREE** — 固定 \(h\)、由 \(H\) 确定的 \(\mu_m,v_m>0\) 下，\(s=1\) 的**总体期望**有效；但 \(\max(\widehat G_h,A_h)\) 有选择偏差。改为 \(\max(E[\widehat G_h\mid h],A_h)\)，或独立样本选分支、另用新样本评估，禁止对评估值再取 max。[GMI依据](https://arxiv.org/html/2003.11694v2#S2.SS5)
+- **X5 AGREE** — 保留 i.i.d. QPSK 范围，不能转称现有 LDPC 码本的结论。
+- **X6 AGREE** — \(\tau=1\) 支持跨独立帧随机编码筛查；1.154 仅作经验附表。
+- **X7 DISAGREE** — GMI 样本虽不超过 2，却向下无界；改用 QR/T2 的已证有限范围做帧级 Bernstein，GMI 路径须另证尾界；64 帧定位后用独立 512 帧确认，并同时覆盖全网格、条件、参考及阶段，不能跨越未通过点。[Bernstein条件](https://www.cs.mcgill.ca/~colt2009/papers/012.pdf)
+- **X8 AGREE** — 删除 NEAR-LIMIT；下界无法认证接近上限。
+- **X9 DISAGREE** — 同意分别标注、无需两个参考都通过；但 PHYS-only 不能推出“必须换模型”。改称“MODEL/PHYS Gaussian 参考下的信息余量”，删除算法／模型／bootstrap 的因果归因。
+- **X10 AGREE** — 原射线律下保留 \(U\)，以确实 Gaussian 的 \(z=(a_l[0])_l\) 构造 \(J_z\)，该弱版有效。
+- **X11 AGREE** — 冻结全部五个未删失条件即可；9.5 dB 不参与正余量认证。
+- **X12 DISAGREE** — \(N\in\{4,6\}\)、精确 \(4^N\) 混合密度合理，但 MI 仍是 MC；改用配对差值 \(\Delta=T1-T2+T3-\log_2[p(y\mid d)/p(y)]\) 的全案例校正区间，计入全部误差；通过仅表示未检出违反，单次超界不证明代码错误。
+- **NEW：P6** — 未知信道的 \(I(d;y)\to2N\) 没有保证；改为 \(I(d;y)\le2N\)，等号需另证零噪声可辨识性。
+- **NEW：§2.1 样本计数** — 每个 \(m\) 每帧只有一个观测；改为“N 个可能相关、非同分布的符号得分”，统计单位用独立帧。
+- **NEW：U2** — 单次 empirical GMI 不会精确等于 AWGN MI；改为总体恒等式检查，数值估计按置信区间验证。

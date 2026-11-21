@@ -1,0 +1,39 @@
+{
+ "_argv": [
+  "read_tail.py",
+  "../data_pilot_fer_20261121/out/stageA",
+  "out/result.json"
+ ],
+ "rules": "RULES.md",
+ "T1": {
+  "fer_rho100_12dB": {
+   "U": 0.0125,
+   "G": 0.02,
+   "mean": 0.01625
+  },
+  "verdict": "PASS"
+ },
+ "T2": {
+  "n_high_fail": 13,
+  "overlap": 1.0,
+  "verdict": "PASS",
+  "note": "non-discriminating: shared noise vector"
+ },
+ "tail": {
+  "n": 4701,
+  "by_rho": {
+   "50": 4332,
+   "100": 320,
+   "150": 42,
+   "200": 7
+  },
+  "r0_missed_path": 0.9925547755796639,
+  "delay_arm_fixes": 0.2916400765794512,
+  "by_rho_delay_fixes": {
+   "50": 0.23384118190212372,
+   "100": 0.96875,
+   "150": 0.9761904761904762,
+   "200": 1.0
+  }
+ }
+}

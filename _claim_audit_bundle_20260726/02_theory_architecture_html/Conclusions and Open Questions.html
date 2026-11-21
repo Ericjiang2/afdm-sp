@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conclusions &amp; Open Questions — SP-AFDM Support Refinement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Spline+Sans+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>
+window.MathJax = { tex:{inlineMath:[['$','$']], displayMath:[['$$','$$']]}, svg:{fontCache:'global'} };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" id="MathJax-script" async></script>
+<style>
+:root{
+  --paper:#f4f3ee; --paper2:#e9e7dd; --ink:#1b1c22; --ink2:#494b56;
+  --accent:#2e3a70; --accent2:#6b6f9c; --line:#d2d3cb;
+  --done:#2f6e4e; --corr:#9a4a1f; --open:#8a2d52; --disc:#5a5320;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Newsreader",Georgia,serif; font-size:18px; line-height:1.68; font-optical-sizing:auto;
+  background-image:radial-gradient(circle at 10% 6%, rgba(46,58,112,.06), transparent 40%),radial-gradient(circle at 92% 96%, rgba(107,111,156,.05), transparent 44%);}
+.wrap{max-width:900px; margin:0 auto; padding:60px 26px 110px}
+header.masthead{border-bottom:3px double var(--accent); padding-bottom:26px; margin-bottom:10px}
+.kicker{font-family:"Spline Sans Mono",monospace; font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--accent); margin:0 0 14px}
+h1{font-family:"Fraunces",serif; font-weight:800; font-size:clamp(30px,4.8vw,46px); line-height:1.06; letter-spacing:-.015em; margin:0 0 12px}
+h1 em{font-style:italic; color:var(--accent); font-weight:500}
+.sub{font-size:17px; color:var(--ink2); font-style:italic; max-width:64ch}
+.meta{font-family:"Spline Sans Mono",monospace; font-size:11.5px; color:var(--ink2); margin-top:20px; letter-spacing:.03em; line-height:1.7}
+h2{font-family:"Fraunces",serif; font-weight:700; font-size:25px; letter-spacing:-.01em; margin:50px 0 4px}
+h2 .no{font-family:"Spline Sans Mono",monospace; font-size:13px; color:var(--accent); font-weight:600; margin-right:10px}
+.rule{height:1px; background:linear-gradient(90deg,var(--accent),transparent); margin:6px 0 18px}
+p{margin:11px 0} strong{font-weight:600; color:#0c0d12}
+a{color:var(--accent)}
+.lead{font-size:19px}
+.thesis{background:linear-gradient(135deg,#22253a,#2e3550); color:#e9eaf3; border-radius:5px; padding:28px 32px; margin:26px 0 8px; box-shadow:0 16px 38px -24px rgba(20,22,40,.7)}
+.thesis .lbl{font-family:"Spline Sans Mono",monospace; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--accent2); display:block; margin-bottom:10px}
+.thesis p{font-family:"Fraunces",serif; font-size:20px; line-height:1.5; margin:0}
+.thesis b{color:#b9c0ee; font-weight:600}
+/* conclusion item */
+.item{background:rgba(255,255,255,.5); border:1px solid var(--line); border-left-width:4px; border-radius:0 8px 8px 0; padding:14px 20px; margin:14px 0}
+.item .tag{font-family:"Spline Sans Mono",monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; padding:2px 9px; border-radius:20px; display:inline-block; margin-bottom:7px}
+.item h4{margin:0 0 6px; font-family:"Fraunces",serif; font-size:18px; font-weight:600}
+.item p{margin:7px 0; font-size:16.5px}
+.item.done{border-left-color:var(--done)} .item.done .tag{background:#e3efe7; color:var(--done)}
+.item.corr{border-left-color:var(--corr); background:rgba(154,74,31,.05)} .item.corr .tag{background:#f3e4d8; color:var(--corr)}
+.item.open{border-left-color:var(--open)} .item.open .tag{background:#f3e0e8; color:var(--open)}
+.item.disc{border-left-color:var(--disc)} .item.disc .tag{background:#eeecd6; color:var(--disc)}
+.eq{background:#fbfaf6; border:1px solid var(--line); border-radius:7px; padding:4px 16px; margin:12px 0; overflow-x:auto; font-size:16px}
+.hier{font-family:"Spline Sans Mono",monospace; font-size:13.5px; text-align:center; background:#fbfaf6; border:1px solid var(--line); border-radius:7px; padding:14px; margin:12px 0; line-height:1.9}
+ul,ol{margin:9px 0; padding-left:22px} li{margin:6px 0; font-size:16.5px}
+table{width:100%; border-collapse:collapse; margin:12px 0; font-size:15.5px}
+th,td{text-align:left; padding:8px 11px; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-family:"Spline Sans Mono",monospace; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--accent)}
+.legend{display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 0}
+.legend span{font-family:"Spline Sans Mono",monospace; font-size:11px; padding:3px 11px; border-radius:20px}
+.lg-done{background:#e3efe7; color:var(--done)} .lg-corr{background:#f3e4d8; color:var(--corr)} .lg-open{background:#f3e0e8; color:var(--open)} .lg-disc{background:#eeecd6; color:var(--disc)}
+footer{margin-top:64px; border-top:3px double var(--accent); padding-top:18px; font-size:13.5px; color:var(--ink2); font-family:"Spline Sans Mono",monospace; line-height:1.7}
+@media(max-width:620px){body{font-size:16.5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="kicker">Document III · Conclusions &amp; Open Questions</p>
+  <h1>结论与待办 <em>—— 一份决策日志</em></h1>
+  <p class="sub">本次讨论沉淀下来的关键结论、对早前文档的修正、以及承重的开放实验。可放进项目文件,作为继续推进的索引。</p>
+  <div class="legend">
+    <span class="lg-done">CONCLUSION 已定论</span>
+    <span class="lg-corr">CORRECTION 修正早前</span>
+    <span class="lg-open">OPEN / GATE 待实验</span>
+    <span class="lg-disc">DISCIPLINE 写作纪律</span>
+  </div>
+  <p class="meta">COMPANION · Paper_Architecture.html(框架)· Theory_Detection_and_Turbo.html(推导)<br>NOTE · 本文 §3 修正 Theory 文档对"迭代"的过度强调。</p>
+</header>
+
+<div class="thesis">
+  <span class="lbl">The spine · 主线(不变)</span>
+  <p>SP-AFDM 最优接收机是联合贝叶斯/ML(不可解);低复杂度 on-grid 代理把分数多普勒变成 <b>Dirichlet support 泄漏</b>;代理内残余 support 模糊有<b>类内最优检测器 $\Lambda$</b>,OMP(白噪声匹配滤波)因 SP <b>有色非高斯</b>干扰而失配;learned head <b>摊销 $\Lambda$</b>。</p>
+</div>
+
+<h2><span class="no">§1</span>What the work is — 它到底是什么</h2>
+<div class="rule"></div>
+<div class="item done"><span class="tag">Conclusion</span>
+  <h4>核心不是"修 OMP 小毛病",而是结构化 support 恢复的检测理论刻画</h4>
+  <p>把启发式("补几个原子")提升为<strong>有刻画、有边界的检测决策</strong>。泄漏<em>生成</em>对象(要补什么),SP <em>制造</em>难度(为何难、为何 OMP 失配)。</p></div>
+<div class="item done"><span class="tag">Conclusion · 诚实估值</span>
+  <h4>是"好的增量科学"——一块刻画清晰的砖,不是纪念碑</h4>
+  <p>学术理解:真实但适度(窄现象的清晰刻画)。实用:niche、高 SNR ~2dB、Pareto 一点而非支配。发表:理论 + gate 通过则可达扎实 Trans。<strong>价值部分悬在裁决实验上</strong>(见 §11)。抬值杠杆:理论非平凡、ISAC 双用、可迁移性。</p></div>
+
+<h2><span class="no">§2</span>Detection-theoretic core (C1) — $\Lambda$</h2>
+<div class="rule"></div>
+<div class="item done"><span class="tag">Conclusion</span>
+  <h4>OMP 的选择量 = 白噪声 GLRT;SP 下失配</h4>
+  <p>SP 数据干扰被信道染色,$\mathbf C_d=(1-\rho)\sigma_x^2\mathbf H_{\mathrm{eff}}\mathbf H_{\mathrm{eff}}^H$,$\mathbf C=\mathbf C_d+\sigma_w^2\mathbf I$。OMP 用 $\mathbf I$ 代替 $\mathbf C^{-1}$,是失配检测器。[Kay; Cai-Wang IT 2011]</p></div>
+<div class="item done"><span class="tag">Conclusion</span>
+  <h4>类内最优检测器 $\Lambda$ 因式分解 = 几何先验 × 白化证据</h4>
+  <div class="eq">$$\log\Lambda(\boldsymbol\phi_i)=\underbrace{\log\tfrac{\pi_i}{1-\pi_i}}_{\text{几何先验(干扰不变)}}+\underbrace{\tfrac{b_i}{1+b_i}\,T(\boldsymbol\phi_i)}_{\text{白化证据}},\quad T=\tfrac{|\boldsymbol\phi_i^H\mathbf C^{-1}\mathbf r|^2}{\boldsymbol\phi_i^H\mathbf C^{-1}\boldsymbol\phi_i}.$$</div>
+  <p>head 两组特征一一对应:对特征 ↔ 几何先验,自特征 ↔ 白化证据。<strong>head ≈ $\log\Lambda$ 的摊销逼近</strong>(待 §11 排序一致性检验)。</p></div>
+<div class="item done"><span class="tag">Conclusion · 边界层级</span>
+  <div class="hier">PCSI $\ge$ oracle $\ge$ <b style="color:var(--accent)">Bayes&nbsp;$\Lambda$</b> $\ge$ head $\ge$ OMP</div>
+  <p><strong>Bayes $\Lambda$ 是正确标尺,不是 oracle</strong>(oracle 用 genie 信息太松)。$[\text{oracle}-\Lambda]$ 不可约,$[\Lambda-\text{head}]$ 可修。</p></div>
+
+<h2><span class="no">§3</span>关键澄清:这是<em>两个</em>问题</h2>
+<div class="rule"></div>
+<div class="item corr"><span class="tag">Correction · 修正 Theory 文档</span>
+  <h4>head 不需要迭代;早前把迭代摆得太中心了</h4>
+  <p>你的 head 在 <strong>$t=0$、进迭代环之前、一次性</strong>打分——且 work。Theory 文档 Part B 把迭代当核是 over-reach。一次性 $\Lambda^{(0)}$ 才是核。</p></div>
+<table>
+<tr><th>区分</th><th>问题一 · 一次性 support 检测</th><th>问题二 · 迭代清干扰</th></tr>
+<tr><td>何时</td><td>$t=0$,环之前</td><td>外环 $t\ge1$</td></tr>
+<tr><td>干扰</td><td>满功率有色(没消过)</td><td>$\mathbf C_d$ 逐迭代缩小</td></tr>
+<tr><td>你做的</td><td><strong>是,head 就是这个</strong></td><td>否(IDD 是扩展)</td></tr>
+<tr><td>需迭代?</td><td><strong>不需要</strong></td><td>它本身即迭代</td></tr>
+</table>
+<div class="item done"><span class="tag">Conclusion · 为何一次性能 work</span>
+  <h4>判别信号是几何的、对干扰不变的</h4>
+  <p>漏掉的旁瓣在已检高增益主瓣的 $(0,\pm1)$ 处——这个偏移确定、数据干扰搬不动。满 $\mathbf C_d$ 污染的是<strong>证据项</strong>,但 head 瞄准的原子由<strong>先验项</strong>主导,所以一次性就够。</p></div>
+<div class="item done"><span class="tag">Conclusion · 优雅和解</span>
+  <h4>head = 迭代最优的"一次性捷径"</h4>
+  <p>全局最优 = 迭代变分接收机(数据-信道耦合成环,<em>对全局</em>需迭代);head 把它在 $t=0$ 的 support 消息一次性摊销出来,<strong>抄近路绕过迭代</strong>。迭代是你绕过的东西,不是你需要的东西。</p></div>
+<div class="item corr"><span class="tag">Correction · 别高估迭代</span>
+  <h4>turbo/IDD 对 support 增益有限</h4>
+  <p>高 SNR 你一次性已关闭大部分 support gap;低 SNR 清干扰也露不出次噪声原子。<strong>IDD 主价值在数据检测 BER,不是重打 support。</strong> 早前(第 9 轮)把 IDD 当"靠 re-scoring 升深度"是乐观过头。</p></div>
+
+<h2><span class="no">§4</span>Colored ≠ non-Gaussian(精确区分)</h2>
+<div class="rule"></div>
+<div class="item done"><span class="tag">Conclusion</span>
+  <h4>两个正交的轴,别混</h4>
+  <p>白/有色 = 协方差结构;高斯/非高斯 = 分布族。$\mathbf C^{-1}$ 白化已处理<strong>有色</strong>;真正待近似的是<strong>非高斯</strong>(离散星座 → $\mathbf i_d$ 是高斯混合)。$\mathbf C_d$ 协方差精确,"用高斯代表 $\mathbf i_d$"是近似。精确最优 = 指数级高斯混合(不可解)→ 这正是摊销学习与迭代高斯化的理由。</p></div>
+
+<h2><span class="no">§5</span>OMP-once 估计:用了一半</h2>
+<div class="rule"></div>
+<div class="item done"><span class="tag">Conclusion</span>
+  <h4>用于特征,<strong>没</strong>用于白化</h4>
+  <p>所有特征都从 $\hat{\mathbf h}^{(0)},\hat{\mathcal S}^{(0)},\mathbf r^{(0)}$ 算出(用了)。但 head 用裸匹配滤波 $\boldsymbol\phi_i^H\mathbf r$(白版),没用 $\mathbf C_d^{(0)}=(1-\rho)\sigma^2\hat{\mathbf H}^{(0)}\hat{\mathbf H}^{(0)H}$ 去白化。对几何可预测原子不需要;对更难原子是漏用的价值。</p></div>
+<div class="item open"><span class="tag">Open · 可测增强</span>
+  <h4>加白化匹配滤波特征 $\boldsymbol\phi_i^H\mathbf C_d^{(0)-1}\mathbf r$</h4>
+  <p>即 $\Lambda$ 的证据项 $T$。涨 → 之前漏用了协方差;不涨 → head 已隐式摊销。代价:形成/求逆 $\mathbf C_d^{(0)}$ 增复杂度,且 $\hat{\mathbf h}^{(0)}$ 不完美使白化近似。</p></div>
+
+<h2><span class="no">§6</span>分数多普勒的三种处理(你在哪)</h2>
+<div class="rule"></div>
+<table>
+<tr><th>策略</th><th>估什么</th><th>对泄漏</th><th>角色</th></tr>
+<tr><td>① 连续参数(off-grid/超分辨)</td><td>$\{g_p,\tau_p,\nu_p\}$</td><td>消除</td><td>精度天花板 · 引用+1 baseline</td></tr>
+<tr><td>② 基扩展(BEM/GCE-BEM)</td><td>基系数</td><td>吸收</td><td>中间档 · 引用+可选 baseline</td></tr>
+<tr><td>③ 离散 on-grid + 修正</td><td>离散支撑</td><td>建成离散抽头</td><td><strong>本文发展</strong></td></tr>
+</table>
+<div class="item disc"><span class="tag">Discipline</span><p>三种按"表征轴"并列出现<strong>一次</strong>(下降图 + 相关工作);发展③,以①为必做精度天花板、③自身经典 OMP 为地板。</p></div>
+
+<h2><span class="no">§7</span>为什么是 gap(堵"增量"质疑)</h2>
+<div class="rule"></div>
+<div class="item done"><span class="tag">Conclusion · 三视角交点</span>
+  <h4>这是被"表征承诺"制造的盲区</h4>
+  <p>off-grid 阵营逃离网格 → 泄漏不存在;on-grid CS 阵营把泄漏当可容忍的估计误差 → 不优化它。要看见它须同时:① 留 on-grid ② 把 support 选择看成<em>检测</em> ③ 有 SP(干扰才有色、OMP 才失配)。<strong>SP 制造 gap,EP 无 gap</strong>(白噪声下 OMP 近最优,无可修)。</p></div>
+<div class="item disc"><span class="tag">Discipline · §I gap statement(英文,可直接用)</span>
+  <p style="font-style:italic; font-size:15.5px">This is not an incremental patch to OMP: the off-grid literature dissolves the grid (so leakage, and the question, never arises), while on-grid sparse recovery treats leakage as tolerable model error rather than an optimizable decision; the problem becomes well-posed and non-trivial only under superimposed pilots, where the data-induced interference is colored and OMP is exposed as a mismatched white-noise detector — an effect that disappears under embedded pilots, where the matched filter is already near-optimal.</p>
+  <p>注意:这段押在 head 确优于白MF + 手调规则上 → 由 §11 裁决支撑,实验出来前是"目标陈述"。</p></div>
+
+<h2><span class="no">§8</span>End-to-end 不是"更深"</h2>
+<div class="rule"></div>
+<div class="item done"><span class="tag">Conclusion</span>
+  <h4>容量 ≠ 洞见</h4>
+  <p>端到端规模/表征力更大,但把结构藏进权重、无刻画无边界 → 科学深度上更<strong>浅</strong>。对你这个 niche、低数据、要分析含量的设定,端到端<strong>会剥掉你论文价值的来源</strong>(检测理论+边界)。深度来自附着的理论,不来自学习本身。</p></div>
+
+<h2><span class="no">§9</span>The fork — 诚实分叉</h2>
+<div class="rule"></div>
+<div class="item open"><span class="tag">Gate · 决定结构</span>
+  <p><strong>裁决通过</strong>(head 打过手调规则、逼近 $\Lambda$)→ 完整 C1–C3(+C4),head 是英雄,目标 TWC/JSAC。<br>
+  <strong>裁决失败</strong>(head $\approx$ 手调规则)→ 收缩为偏理论论文,§IV 的 $\Lambda$/边界为主角,head 降为旁证,TSP 风格。<br>
+  结构对结果鲁棒,因为理论 §IV 能独立站住。</p></div>
+
+<h2><span class="no">§10</span>写作纪律</h2>
+<div class="rule"></div>
+<div class="item disc"><span class="tag">Discipline</span>
+  <ul>
+    <li>别用 "low-complexity" 当 headline(同复杂度类,经不起审;IDD 更让它弱)→ 用 "detection-theoretic / achievable-bound"。</li>
+    <li>"optimal" 一律带限定 <strong>"in-class / on-grid surrogate"</strong>;全局最优是连续联合接收机。</li>
+    <li>"deep unfolding" → <strong>"DNN-aided hybrid / physics-informed"</strong>(Shlezinger 分类)。</li>
+    <li>全局最优只在下降楼梯 + 层级图出现<strong>一次</strong>,之后不作为工作线重现。</li>
+    <li>贡献写成单论点的后果,不是并列功能清单。</li>
+  </ul></div>
+
+<h2><span class="no">§11</span>承重开放实验(优先级)</h2>
+<div class="rule"></div>
+<div class="item open"><span class="tag">Gate · 最高优先 · 承重</span>
+  <h4>裁决:head vs 手调几何规则 vs 白匹配滤波,逼近 genie-$\Lambda$</h4>
+  <p>用 genie/估计 $\mathbf C$ 与经验 $\pi_i$ 算 $\Lambda$;测 (a) head logits 与 $\log\Lambda$ 的 Kendall $\tau$ / top-$K$ 重叠;(b) BER gap 分解 $[\text{head}-\Lambda]$。<strong>一票决定"学习"是否真贡献、文章是英雄版还是理论版。</strong> 先跑这个。</p></div>
+<div class="item open"><span class="tag">Gate</span>
+  <h4>感知双用探针</h4>
+  <p>head 是否改善延迟–多普勒估计(RMSE / CRB-gap)。决定 C4(ISAC)柱是否成立。</p></div>
+<div class="item open"><span class="tag">Open</span>
+  <h4>白化匹配滤波特征测试</h4>
+  <p>加 $\boldsymbol\phi_i^H\mathbf C_d^{(0)-1}\mathbf r$(§5),看是否涨 → 是否漏用 OMP-once 协方差。</p></div>
+<div class="item open"><span class="tag">Open</span>
+  <h4>off-grid baseline 上复杂度–精度平面</h4>
+  <p>以 off-grid(OGSBL/atomic-norm)为精度天花板、经典 OMP 为地板,坐实 Pareto 站位。BEM 为可选第二点。</p></div>
+<div class="item open"><span class="tag">Open · 可选(若要 §IV-0 严格)</span>
+  <h4>把接收机写成变分/自由能优化</h4>
+  <p>最低:陈述联合推断目标 + 引 Fleury 线([Kirkelund-Manchón-Fleury VMP 2010])+ 证你的环是其实例。最高:全 VMP 消息推导,$\Lambda$ 作支撑节点消息。</p></div>
+
+<h2><span class="no">§12</span>待核实引用</h2>
+<div class="rule"></div>
+<div class="item disc"><span class="tag">Discipline · 引用前逐一核对</span>
+  <p>Bemani(AFDM, arXiv 2204.12798 / 2104.11331)· Liu-Yuan-Guo(参数化贝叶斯+CRLB, TWC 2021, 2011.14757)· Wei et al.(off-grid SBL, TWC 2022)· Cai-Wang(OMP with noise, IEEE-IT 2011)· Kay(<em>Detection Theory</em> Vol. II, 1998)· EP4IDD(Santos &amp; Murillo-Fuentes)· Kirkelund-Manchón-Fleury(VMP joint CE/decoding, GLOBECOM 2010)· AFDM 联合分数时延–多普勒估计器(arXiv 2602.04316,核形式)· SP-OTFS(Mishra et al.; "Will it work" IDD)。<strong>卷号、页码、以及它们是否确说了归纳的那些话,都要确认。</strong></p></div>
+
+<footer>
+  STATUS · 主线稳定;§3 为最重要的近期修正(一次性 $\Lambda^{(0)}$ 为核,迭代为可选扩展)。<br>
+  PROVENANCE · 本文为本次讨论的结论沉淀;[文献]/[Kay]/[综合] 的细分见 Theory 文档。<br>
+  USE · 放进项目文件;新对话(同 Project)开头粘贴交接 brief 即可续接。<br>
+  NEXT · 先跑 §11 第一个承重裁决实验——它决定后面一切怎么写。
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+{
+ "A2": {
+  "R1": {
+   "ci": [
+    0.9977628703413066,
+    0.999833382740448
+   ],
+   "n": 6220,
+   "n_boot": 2000,
+   "point": 0.9988745980707395
+  },
+  "R1_by_rho": {
+   "0.3": 0.9970777323202805,
+   "0.5": 0.9995564426702152
+  },
+  "R1_grid_loss": {
+   "ci": [
+    0.9976999085468782,
+    0.9998345308840002
+   ],
+   "n": 6220,
+   "n_boot": 2000,
+   "point": 0.9988745980707395
+  },
+  "R3": {
+   "ci": [
+    -958.6230882320061,
+    743.310268139267
+   ],
+   "hri_value_db": 5.141048209728324,
+   "n": 6372,
+   "n_boot": 2000,
+   "point": -76.5343691670015
+  },
+  "power_check_nonphantom_z0_gt1": {
+   "n": 152,
+   "share": 1.0
+  },
+  "strata": {
+   "classes": {
+    "new_delay": 148,
+    "phantom": 7460,
+    "same_slot": 235
+   },
+   "n_ok": 8052,
+   "no_missed_delay": 1680,
+   "no_missed_delay_phantom": 1240,
+   "no_true_delay_in_r1": 0,
+   "phantom_occupant_spurious": 0,
+   "with_edit": 7843
+  }
+ },
+ "A2n": {
+  "R1": {
+   "ci": [
+    0.9462941933329032,
+    0.9710565015346394
+   ],
+   "n": 2807,
+   "n_boot": 20000,
+   "point": 0.9593872461702886
+  },
+  "R1_by_rho": {
+   "0.3": 0.8566978193146417,
+   "0.5": 0.9726468222043443
+  },
+  "R1_grid_loss": {
+   "ci": [
+    0.9476989319968758,
+    0.9721042492488121
+   ],
+   "n": 2807,
+   "n_boot": 2000,
+   "point": 0.9600997506234414
+  },
+  "R2": {
+   "auc_a": {
+    "ci": [
+     0.7709029014640846,
+     0.8032944887637339
+    ],
+    "point": 0.787494048640147
+   },
+   "auc_ri": {
+    "ci": [
+     0.7026981230413349,
+     0.7384803062199443
+    ],
+    "point": 0.720783973208634
+   },
+   "delta_auc": {
+    "ci": [
+     -0.07835902961048855,
+     -0.05538440923299975
+    ],
+    "point": -0.06671007543151308
+   },
+   "n": 6136,
+   "n_boot": 20000,
+   "n_phantom": 2807
+  },
+  "R4": {
+   "ci": [
+    0.2941352969561961,
+    1.3877385243031441
+   ],
+   "hri_value": 2.388429752066115,
+   "n_boot": 2000,
+   "n_hi": 2232,
+   "n_lo": 519,
+   "point": 0.7515620155480177
+  },
+  "power_check_nonphantom_z0_gt1": {
+   "n": 3329,
+   "share": 0.9987984379693602
+  },
+  "strata": {
+   "classes": {
+    "new_delay": 2930,
+    "phantom": 2845,
+    "same_slot": 1313
+   },
+   "guard_violations": 0,
+   "n_ok": 8052,
+   "no_missed_delay": 1680,
+   "no_missed_delay_phantom": 38,
+   "no_true_delay_in_r1": 0,
+   "phantom_occupant_spurious": 0,
+   "with_edit": 7088
+  }
+ },
+ "_argv": [
+  "ri_analysis.py",
+  "--rows",
+  "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_e2_20261017/out/main_R/rows_shard*.jsonl.gz",
+  "--md5",
+  "R_ROWS_MD5.txt",
+  "--out",
+  "out"
+ ],
+ "_config": {
+  "N": 1024,
+  "arms": [
+   "A2n",
+   "A2"
+  ],
+  "b_primary": 20000,
+  "b_report": 2000,
+  "label": "exploratory, post hoc",
+  "n_files": 56,
+  "n_rows": 32000,
+  "n_triggered": 8052,
+  "protocol": "PROTOCOL.md frozen 2026-10-19",
+  "seed": 20261019
+ },
+ "verdict": "PARTIAL"
+}

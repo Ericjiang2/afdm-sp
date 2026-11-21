@@ -1,0 +1,916 @@
+Superimposed Pilot-Based OTFS: Will it Work?
+Report GitHub Issue
+×
+Title:
+Content selection saved. Describe the issue below:
+Description:
+Submit without GitHub
+Submit in GitHub
+arXiv is now an independent nonprofit!
+Learn more
+×
+Back to arXiv
+Why HTML?
+Report Issue
+Back to Abstract
+Download PDF
+Abstract
+I Introduction
+II Overview of an OTFS System
+II-A OTFS Modulation [8]
+II-B OTFS Demodulation [8]
+II-C Channel Model [8]
+II-D System Model [17]
+III OTFS Channel Estimation Schemes
+III-A EP-based Scheme
+III-B SP-based Scheme
+III-C Common Channel Estimator
+IV Proposed Algorithm for Coded Scenarios
+IV-A Symbol Detection
+IV-B Channel Coding
+IV-C Proposed Iterative Algorithm
+IV-D Computational Complexity
+V Simulation Results
+V-A SNR Definition
+V-B Performance Metrics
+V-C Effects of the Switching Parameters $(r_{\mathrm{unc.}},r_{\mathrm{cod.}},r_{\mathrm{end}})$
+V-D Performance Comparison
+V-E Effects of the Increased Modulation Order
+VI Conclusions
+References
+License: CC BY-NC-ND 4.0
+arXiv:2501.15935v3 [eess.SP] 24 Feb 2026
+Superimposed Pilot-Based OTFS: Will it Work?Thanks: Y. Kanazawa and N. Ishikawa are with the Faculty of Engineering, Yokohama National University, 240-8501 Kanagawa, Japan (e-mail: ishikawa-naoki-fr@ynu.ac.jp). H. Iimori, C. Pradhan, and S. Malomsoky are with Ericsson Research, Ericsson Japan K.K., 220-0012 Kanagawa, Japan.
+A part of this paper was presented at the IEEE 98th Vehicular Technology Conference [10].
+Yuta Kanazawa
+Hiroki Iimori
+Chandan Pradhan
+Affiliation: Szabolcs Malomsoky,
+and Naoki Ishikawa, .
+Abstract
+Orthogonal time frequency space (OTFS) modulation is a promising solution to handle doubly-selective fading, but its channel estimation is a nontrivial task in terms of maximizing spectral efficiency. Conventional pilot assignment approaches face challenges: the standard embedded pilot-based scheme suffers from low transmission rates, and the single superimposed pilot (SP)-based scheme experiences inevitable data-pilot interference, leading to coarse channel estimation. To cope with this issue, focusing on the SP-based OTFS system in channel coded scenarios, we propose a novel pilot assignment scheme and an iterative algorithm. The proposed scheme allocates multiple SPs per frame to estimate channel coefficients accurately. Furthermore, the proposed algorithm performs refined interference cancellation, utilizing a replica of data symbols generated from soft-decision outputs provided by a decoder. Assuming fair and unified conditions, we evaluate each pilot assignment scheme in terms of reliability, channel estimation accuracy, effective throughput, and computational complexity. Our numerical simulations demonstrate that the multiple SP-based scheme, which balances the transmission rate and the interference cancellation performance, has the best throughput at the expense of slightly increased complexity. In addition, we confirm that the multiple SP-based scheme achieves further improved throughput due to the proposed interference cancellation algorithm.
+Index Terms: OTFS modulation, superimposed pilot, interference cancellation, throughput analysis, channel coding.
+I Introduction
+Orthogonal time frequency space (OTFS) modulation [5] and its related technique [21, 25, 24] offer a promising solution for high-mobility communication scenarios, including high-speed trains and unmanned aerial vehicles.
+OTFS modulates the information symbols on the delay-Doppler (DD) domain providing robust equalization for doubly-selective (time and frequency) fading caused by serious Doppler shifts.
+However, OTFS modulation processes large information blocks across time and frequency resources, increasing latency and complexity [1].
+Several detectors have been proposed for OTFS, such as message passing (MP) [18], linear minimum mean square error [28, 26], and maximal ratio combining [27], each designed to exploit the sparsity and block circulant property of channel matrices, thereby offering low-complexity detection.
+More recent approaches, such as variational Bayes [33], unitary approximate message passing [34], and deep learning-based detection methods [31, 3, 15], aim to enhance detection accuracy and computational efficiency.
+While these studies assume perfect knowledge of channel state information (CSI), practical OTFS systems require effective channel estimation to account for real-world uncertainties.
+Prior studies [19, 14, 23, 16] assume channel estimation using known pilot symbols between the transmitter and the receiver, resulting in reduced throughput.11
+1
+There existing another attractive approach that dispenses with channel estimation [30].
+In particular, the most typically considered embedded pilot (EP)-based scheme [19] realizes low-complexity accurate channel estimation using a single pilot symbol surrounded by sufficient guard space [29].
+In high-mobility scenarios, the EP-based scheme requires large guard space depending on a maximum Doppler shift to avoid data-pilot interference, which results in further decreased spectral efficiency.
+An alternative approach to improve spectral efficiency is the superimposed pilot (SP) [7], which overlays data and pilot symbols without requiring guard space, thereby maximizing transmission capacity.
+Therefore the SP-based channel estimation scheme achieves high transmission rate at the cost of potentially lower channel estimation accuracy.
+For example, a data-aided channel estimation algorithm is proposed in [32], which places a single SP symbol in the frame in the DD domain.
+The single SP-based scheme realizes accurate channel estimation using an iterative detection process.
+In order to improve reliability, channel estimation accuracy, and peak-to-average power ratio (PAPR), a number of SP-based OTFS channel estimation schemes [32, 13, 9, 11, 2, 12] have been proposed.
+To introduce a few examples, in [9], Jesbin et al. proposed the SP-based scheme with sparsely arranged pilot symbols in the DD domain, which realized better reliability and channel estimation accuracy compared to the single SP-based scheme.
+In [11], Liu et al. proposed a novel pilot assignment scheme with several SP symbols on the different delay axis in the DD domain, which realized PAPR reduction.
+Furthermore, in [2], Chen et al. proposed another SP-based scheme which arranged one pilot for each delay tap to reduce PAPR.
+These studies [32, 9, 11, 2] focused on evaluating each pilot assignment scheme in terms of bit error rate (BER) and normalized mean squared error (NMSE) of the estimated channel matrices, thus the advantage of the SP-based scheme in terms of spectral efficiency has not been clarified.
+Exceptions can be found in [13, 12].
+In [13], Mishra et al. evaluated the SP-based scheme in terms of the spectral efficiency, but it assumed uncoded scenarios.
+In [12], considering coded scenarios, Liu et al. proposed a sophisticated channel estimation algorithm with the Turbo equalization concept, which achieved better BER and spectral efficiency compared to benchmark schemes [16, 13], at the cost of computational complexity due to matrix operations for pilot cancellation and signal detection.
+These prior studies [13, 12] derived the spectral efficiency by signal-to-interference-and-noise ratio (SINR), assuming ideal continuous input signals which follows Gaussian distribution.
+The fundamental limitation of SP-based schemes is the residual data-pilot interference in the high SNR region [32, 13, 12].
+This interference limits the achievable accuracy of channel estimation and system reliability, especially under strong channel conditions.
+In addition, some SP-based schemes such as those in [13, 9] require prior knowledge of the delay-Doppler shifts of the channel paths.
+This requirement can be satisfied by adopting an EP-based scheme in the initial transmission frame, which reduces overall spectral efficiency.
+To address this limitation, simultaneous estimation of the channel gain and the delay-Doppler shifts using threshold-based techniques, as suggested in [19, 32], becomes essential.
+Given this background, we propose an SP-based channel estimation scheme suitable for coded scenarios, which consists of a novel pilot assignment approach and an iterative algorithm for improved data-pilot interference cancellation and estimation of the delay-Doppler shifts.
+Furthermore, we demonstrate the advantage of our proposed scheme, through numerical simulations in terms of effective throughput, which is a practical spectral efficiency metric for discrete input signals such as quadrature amplitude modulation (QAM).
+The major contributions are summarized as follows.
+1.
+We propose a novel frame structure with multiple superimposed pilots, which provides sufficient guard space among each pilot to avoid interference.
+Averaging the estimated channel coefficients given by multiple pilot symbols, we can realize the channel estimation and interference cancellation simultaneously.
+2.
+Focusing on a property that the quality of interference cancellation depends on estimated data symbols, we propose an iterative algorithm for the SP-based OTFS, which utilizes the capability of the channel coding.
+In our proposed algorithm, log likelihood ratios (LLRs) corresponding to the information bits are obtained from the channel decoder and used to generate soft-decision replicas of data symbols.
+The error-corrected data symbols contribute to accurate channel estimation.
+While our proposed algorithm requires additional operations, we can alleviate the increased complexity by switching two iterative processes: uncoded and coded iterations.
+3.
+Assuming a practical scenario with 5G compliant low density parity check (LDPC) codes, we show the advantage of the SP-based scheme in terms of BER, NMSE, and throughput.
+Through the complexity analysis, we confirm that the impact on the increased computational complexity is negligible compared to the conventional scheme.
+We conduct fair comparisons for the EP-based and SP-based schemes under a proper SNR definition which offers unified signal power.
+The rest of this paper is organized as follows.
+The overview of the OTFS system is summarized in Section II, and the OTFS channel estimation schemes are reviewed in Section III.
+Section IV introduces the proposed iterative algorithm for coded scenarios, including its computational complexity analysis.
+The simulation results are shown in Section V.
+Finally, we conclude this paper in Section VI.
+Notations:
+Throughout this paper, $(\cdot)^{*}$ , $(\cdot)^{\mathrm{T}}$ , and $(\cdot)^{\mathrm{H}}$ denote the complex conjugation, transposition, and Hermitian transposition, respectively.
+The notation $\mathrm{E}[\cdot]$ denotes the expectation operator.
+The operation $\otimes$ represents the matrix Kronecker product and $\mathbf{a}=\mathrm{vec}(\mathbf{A})$ is the column-wise vectorization of a matrix $\mathbf{A}$ to a vector $\mathbf{a}$ .
+Contrary, $\mathbf{A}=\mathrm{vec}^{-1}(\mathbf{a})$ denotes the inverse vectorization of a vector $\mathbf{a}$ to form a matrix $\mathbf{A}$ .
+The notations $\mathrm{diag}[\cdot]$ , $\delta(\cdot)$ , $[\cdot]_{n}$ , and $\|\cdot\|_{\mathrm{F}}$ express the diagonal matrix, the Dirac delta function, the modulo by an integer $n$ , and the Frobenius norm of a matrix, respectively.
+Finally, let $\mathbb{R,C}$ , and $\mathbb{Z}$ be sets of real, complex, and integer numbers, respectively.
+II Overview of an OTFS System
+Fig. 1: Block diagram of the SP-based OTFS system in coded scenarios.
+In this section, prior to summarize the overview of an OTFS system, we introduce some notations about the time-frequency (TF) and DD domain with reference to [8].
+Fig. 1 illustrates the block diagram of the SP-based OTFS system in coded scenarios.
+Assuming the OTFS system with $N$ timeslots and $M$ subcarriers, the discrete TF domain is defined as the $M\times N$ array of points on
+$\Lambda=\{(l\Delta f,kT),l=0,\cdots,M-1,k=0,\cdots,N-1\}$
+, where $T$ denotes the duration per one time slot and $\Delta f$ denotes the subcarrier spacing.
+The discrete TF samples at points on $\Lambda$ are collected as the matrix $\mathbf{X}_{\mathrm{tf}}[l,k]\in\mathbb{C}^{M\times N}$ .
+By contrast, the discrete DD domain is defined as
+$\Gamma=\{(\frac{m}{M\Delta f},\frac{n}{NT}),m=0,\cdots,M-1,n=0,\cdots,N-1\}$ ,
+where $\frac{1}{M\Delta f}$ and $\frac{1}{NT}$ are the resolutions of the path delays and the Doppler shifts, respectively.
+We define the discrete DD samples of the OTFS waveform at the points on $\Gamma$ as the matrix $\mathbf{X}[m,n]\in\mathbb{C}^{M\times N}$ .
+II-A OTFS Modulation [8]
+The DD domain data matrix $\mathbf{X}[m,n]$ is mapped to the TF domain matrix $\mathbf{X}_{\mathrm{tf}}[l,k]$ on $\Lambda$ via inverse symplectic fast Fourier transform (ISFFT), i.e., [8]
+[S2.E1]
+$\displaystyle\mathbf{X}_{\mathrm{tf}}[l,k]=\frac{1}{\sqrt{NM}}\sum_{n=0}^{N-1}\sum_{m=0}^{M-1}\mathbf{X}[m,n]e^{j2\pi(\frac{nk}{N}-\frac{ml}{M})}.$
+(1)
+Next, the TF domain matrix $\mathbf{X}_{\mathrm{tf}}[l,k]$ is converted to the continuous-time signal $s(t)$ using the transmitter pulse-shaping waveform $g_{\mathrm{tx}}(t)$ as [8]
+[S2.E2]
+$\displaystyle s(t)=\sum_{k=0}^{N-1}\sum_{l=0}^{M-1}\mathbf{X}_{\mathrm{tf}}[l,k]g_{\mathrm{tx}}(t-kT)e^{j2\pi l\Delta f(t-kT)},$
+(2)
+which is referred to as the Heisenberg transform.
+Here, regarding the ISFFT as a combination of the $M$ -point discrete Fourier transformation (DFT) of the columns and the $N$ -point inverse DFT (IDFT) of the rows, the discrete time domain vector $\mathbf{s}\in\mathbb{C}^{NM\times 1}$ is obtained from (1) and (2) as [8]22
+2
+We use the property given by $\mathrm{vec}(\mathbf{ABC})=(\mathbf{C}\otimes\mathbf{A})\cdot\mathrm{vec}(\mathbf{B})$ when $\mathbf{C}$ is a symmetric matrix.
+[S2.E3]
+$\displaystyle\mathbf{s}=\mathrm{vec}(\mathbf{G}_{\mathrm{tx}}\mathbf{F}_{\mathrm{M}}^{\mathrm{H}}\mathbf{F}_{\mathrm{M}}\mathbf{X}\mathbf{F}_{\mathrm{N}}^{\mathrm{H}})=(\mathbf{F}_{\mathrm{N}}^{\mathrm{H}}\otimes\mathbf{G}_{\mathrm{tx}})\mathbf{x},$
+(3)
+where $\mathbf{F}_{\mathrm{N}}\in\mathbb{C}^{N\times N}$ represent the $N$ -point DFT matrix, the diagonal matrix $\mathbf{G}_{\mathrm{tx}}\in\mathbb{C}^{M\times M}$ has the samples of $g_{\mathrm{tx}}(t)$ as its entries, and $\mathbf{x}\in\mathbb{C}^{NM\times 1}$ is the vectorized form of $\mathbf{X}$ .
+II-B OTFS Demodulation [8]
+The continuous-time received signal $r(t)$ is converted to the TF domain received matrix $\mathbf{Y}_{\mathrm{tf}}[l,k]\in\mathbb{C}^{M\times N}$ with the Wigner transform, which is given by [8]
+[S2.E4]
+$\displaystyle\mathbf{Y}_{\mathrm{tf}}[l,k]=\int r(t^{\prime})g_{\mathrm{rx}}^{*}(t^{\prime}-t)e^{-j2\pi f(t^{\prime}-t)}dt^{\prime}|_{f=l\Delta f,t=kT},$
+(4)
+where $g_{\mathrm{rx}}(t)$ is the receiver pulse-shaping waveform.
+The DD domain received matrix $\mathbf{Y}[m,n]\in\mathbb{C}^{M\times N}$ is obtained from the TF domain received matrix $\mathbf{Y}_{\mathrm{tf}}[l,k]$ via SFFT as [8]
+[S2.E5]
+$\displaystyle\mathbf{Y}[m,n]=\frac{1}{\sqrt{NM}}\sum_{n=0}^{N-1}\sum_{m=0}^{M-1}\mathbf{Y}_{\mathrm{tf}}[l,k]e^{-j2\pi(\frac{nk}{N}-\frac{ml}{M})}.$
+(5)
+As with (3), the relation between the DD domain received vector $\mathbf{y}\in\mathbb{C}^{NM\times 1}$ and the discrete time domain vector $\mathbf{r}\in\mathbb{C}^{NM\times 1}$ can be expressed by [8]
+[S2.E6]
+$\displaystyle\mathbf{y}=\mathbf{F}_{\mathrm{M}}^{\mathrm{H}}\mathbf{F}_{\mathrm{M}}\mathbf{G}_{\mathrm{rx}}\mathrm{vec}^{-1}(\mathbf{r})\mathbf{F}_{\mathrm{N}}=(\mathbf{F}_{\mathrm{N}}\otimes\mathbf{G}_{\mathrm{rx}})\mathbf{r},$
+(6)
+where the diagonal matrix $\mathbf{G}_{\mathrm{rx}}\in\mathbb{C}^{M\times M}$ has the samples of $g_{\mathrm{rx}}(t)$ as its entries, and $\mathbf{y}$ is the vectorized form of $\mathbf{Y}$ .
+II-C Channel Model [8]
+Practically, a wireless channel with small-scale fading (also known as multipath fading) has a limited number of propagation paths with distinct delay and Doppler shift parameters, which makes the DD channel response sparsely, i.e., [8]
+[S2.E7]
+$\displaystyle h(\tau,\nu)=\sum_{i=1}^{P}h_{i}\delta(\tau-\tau_{i})\delta(\nu-\nu_{i}),$
+(7)
+where $P$ denotes the number of propagation paths and $h_{i}\in\mathbb{C},\tau_{i}\in\mathbb{R}_{\geq 0},\nu_{i}\in\mathbb{R}\ (i=1,2,\cdots,P)$ are the path gain, the delay shift, and the Doppler shift corresponding to the $i$ -th path, respectively.
+Assuming the actual delay shift $\tau_{i}$ and the Doppler shift $\nu_{i}$ as the integer multiples of the resolution $(\frac{1}{M\Delta f},\frac{1}{NT})$ on the DD domain grid $\Gamma$ , the normalized delay and Doppler shift $l_{i}\in\mathbb{Z}_{\geq 0},k_{i}\in\mathbb{Z}$ are given by [8]
+[S2.E8]
+$\displaystyle\tau_{i}$
+$\displaystyle=\frac{l_{i}}{M\Delta f}\leq\tau_{\mathrm{max}}=\frac{l_{\mathrm{max}}}{M\Delta f}\hskip 10.00002pt\mathrm{and}$
+(8)
+[S2.E9]
+$\displaystyle\nu_{i}$
+$\displaystyle=\frac{k_{i}}{NT}\ \mathrm{with}\ |\nu_{i}|\leq\nu_{\mathrm{max}}=\frac{k_{\mathrm{max}}}{NT},$
+(9)
+where $l_{\mathrm{max}},k_{\mathrm{max}}\in\mathbb{Z}_{\geq 0}$ are the normalized taps associated with the delay-Doppler spread $\tau_{\mathrm{max}},\nu_{\mathrm{max}}\in\mathbb{R}_{\geq 0}$ , which correspond to the propagation distance and relative velocity of the reflectors.
+II-D System Model [17]
+The time domain input-output relation between the continuous signals $s(t)$ and $r(t)$ can be expressed by [17]
+[S2.E10]
+$\displaystyle r(t)=\iint h(\tau,\nu)s(t-\tau)e^{j2\pi\nu(t-\tau)}d\tau d\nu+w(t),$
+(10)
+where $w(t)$ denotes the additive white Gaussian noise (AWGN) term.
+From (7) and (10), after the cyclic prefix (CP) removal, the discrete received signal $\mathbf{r}=\{r(n)\}_{n=0}^{NM-1}$ is sampled at the rate $f_{s}=M\Delta f$ as [17]
+[S2.E11]
+$\displaystyle r(n)=\sum_{i=1}^{P}h_{i}e^{j2\pi\frac{k_{i}(n-l_{i})}{NM}}s([n-l_{i}]_{NM})+w(n).$
+(11)
+We can rewritten (11) in the vectorized form, i.e., [17]
+[S2.E12]
+$\displaystyle\mathbf{r}=\mathbf{Gs}+\mathbf{w}.$
+(12)
+The time domain channel matrix $\mathbf{G}\in\mathbb{C}^{NM\times NM}$ is generated from three parameters $h_{i},l_{i}$ and $k_{i}$ as [17]
+[S2.E13]
+$\displaystyle\mathbf{G}=\sum_{i=1}^{P}h_{i}\mathbf{\Pi}^{l_{i}}\mathbf{\Delta}^{k_{i}},$
+(13)
+where $\mathbf{\Pi}$ is the permutation matrix to perform a forward cyclic shift, given by [17]
+[S2.E14]
+$\displaystyle\mathbf{\Pi}=\begin{bmatrix}0&\cdots&0&1\\
+1&\ddots&0&0\\
+\vdots&\ddots&\ddots&\vdots\\
+0&\cdots&1&0\end{bmatrix}\in\{0,1\}^{NM\times NM}$
+(14)
+and $\mathbf{\Delta}\in\mathbb{C}^{NM\times NM}$ is the diagonal matrix with the phase shift term $z=e^{\frac{j2\pi}{NM}}$ , given by [17]
+[S2.E15]
+$\displaystyle\mathbf{\Delta}=\mathrm{diag}[z^{0},z^{1},\cdots,z^{NM-1}].$
+(15)
+The matrices $\mathbf{\Pi}^{l_{i}}$ and $\mathbf{\Delta}^{k_{i}}$ model the delay-Doppler shifts associated with $i$ -th path.
+Substituting (3) and (6) into (12), the DD domain input-output relation in vectorized form is given by [17]
+[S2.E16]
+$\displaystyle\mathbf{y}$
+$\displaystyle=\underbrace{(\mathbf{F}_{\mathrm{N}}\otimes\mathbf{G}_{\mathrm{rx}})\mathbf{G}(\mathbf{F}_{\mathrm{N}}^{\mathrm{H}}\otimes\mathbf{G}_{\mathrm{tx}})}_{\mathbf{H}}\mathbf{x}+\underbrace{(\mathbf{F}_{\mathrm{N}}\otimes\mathbf{G}_{\mathrm{rx}})\mathbf{w}}_{\tilde{\mathbf{w}}}.$
+(16)
+where $\mathbf{H}$ denotes the DD domain channel matrix and $\tilde{\mathbf{w}}$ is the effective noise vector.33
+3
+Since we have the same assumption as [17], the rectangular waveforms, the diagonal matrices $\mathbf{G}_{\mathrm{tx}}$ and $\mathbf{G}_{\mathrm{rx}}$ are equivalent to an $M\times M$ identity matrix $\mathbf{I}_{\mathrm{M}}$ , resulting in the same statistical properties of $\mathbf{w}$ and $\tilde{\mathbf{w}}$ .
+III OTFS Channel Estimation Schemes
+(a) EP-based scheme [19].
+(b) single SP-based scheme [32].
+(c) multiple SP-based scheme.
+Fig. 2: Transmission frame structures for the three OTFS channel estimation schemes considered in this paper.
+In this section, three OTFS channel estimation schemes: EP-based [19], single SP-based [32], and our proposed multiple SP-based schemes, are reviewed and compared in a fair manner.
+Each frame structure is exemplified in Fig. 2.
+Note that each has a common approach using a threshold to distinguish data and pilot symbols.
+There exists other SP-based approaches, such as the SP-full [13], SP-sparse [9], SP-scattered [11], SP delay-wise (SP-DW) [2] schemes.
+But, the SP-full scheme [13] is unable to estimate delay and Doppler shifts $(l_{i},k_{i})$ , and has to be used together with the EP-based scheme.
+The others [9, 11, 2] mainly focus on improving PAPR and rely on different channel estimators, resulting in unfair comparisons in terms of the effective transmission power.
+Thus, in order to evaluate the effects of increased number of SPs, we consider the multiple SP-based scheme of Fig. 2(c) that can maximize the number of SPs.
+III-A EP-based Scheme
+In the EP-based scheme, the DD domain samples matrix $\mathbf{X}_{\mathrm{EP}}\in\mathbb{C}^{M\times N}$ consists of data symbols $x_{d}[m,n]\in\mathbb{C}$ , one pilot symbol $x_{p}\in\mathbb{C}$ , and a guard space, which is given by
+[S3.E17]
+$\displaystyle\mathbf{X}_{\mathrm{EP}}[m,n]=\begin{cases}x_{p}&m=m_{p},\ n=n_{p},\\
+0&\begin{cases}m_{p}-l_{\mathrm{max}}\leq m\leq m_{p}+l_{\mathrm{max}},\\
+n_{p}-2k_{\mathrm{max}}\leq n\leq n_{p}+2k_{\mathrm{max}},\end{cases}\\
+x_{d}[m,n]&\mathrm{otherwise}.\end{cases}$
+(17)
+As given in (17) and Fig. 2(a), $(2l_{\mathrm{max}}+1)(4k_{\mathrm{max}}+1)$ symbols are allocated for the guard space to avoid the data-pilot interference in the EP-based scheme, which realizes high channel estimation accuracy at the cost of low transmission rate.
+Since the amount of the guard space depends on the delay-Doppler shift parameters $l_{\mathrm{max}}$ and $k_{\mathrm{max}}$ , the transmission rate decreases correspondingly, which becomes a serious issue in high-mobility scenarios.
+III-B SP-based Scheme
+Since the SP-based scheme superimposes data and pilot symbols in the same slot to increase the transmission rate, the DD domain samples matrix $\mathbf{X}_{\mathrm{SP}}\in\mathbb{C}^{M\times N}$ is given by
+[S3.E18]
+$\displaystyle\mathbf{X}_{\mathrm{SP}}[m,n]$
+$\displaystyle=\begin{cases}x_{p}+x_{d}[m,n]&\begin{cases}m=m_{p_{j}},\ n=n_{p_{j}},\\
+j=1,2,\cdots,N_{p},\end{cases}\\
+x_{d}[m,n]&\mathrm{otherwise},\end{cases}$
+(18)
+where $m_{p_{j}},n_{p_{j}}$ denote the indices of the $j$ -th pilot symbol on the DD domain and $N_{p}$ is the number of pilot symbols per frame.
+In (18), the case with $N_{p}=1$ corresponds to the single SP-based scheme [32] and the case with $N_{p}\neq 1$ corresponds to proposed multiple SP-based scheme.
+The multiple SP-based scheme has the constraint on the pilot placement to avoid inter-pilot interference, which determines the maximum number of assignable SPs.
+Specifically, multiple SPs have to be apart from each other at least $2k_{\mathrm{max}}+1$ slots on the $N$ axis and $l_{\mathrm{max}}+1$ slots on the $M$ axis.
+For example, assuming $(N,M)=(9,9)$ and $(l_{\mathrm{max}},k_{\mathrm{max}})=(2,1)$ , the maximum number of SPs is $9$ with a pilot arrangement given by $(l_{p},k_{p})=\{(0,1),(0,4),(0,7),(3,1),(3,4),(3,7),(6,1),(6,4),(6,7)\}$ , which is illustrated in Fig. 2(c).
+III-C Common Channel Estimator
+Each scheme has almost the same channel estimation process despite of the different frame structures.
+Ignoring the noise term, we focus on the input-output relation between the data symbols $\mathbf{X}$ and received symbols $\mathbf{Y}$ given by [8]
+[S3.E19]
+$\displaystyle\mathbf{Y}[m,n]=\sum_{i=1}^{P}h_{i}z^{k_{i}(m-l_{i})}\mathbf{X}[[m-l_{i}]_{M},[n-k_{i}]_{N}].$
+(19)
+Substituting the indices $m=m_{p_{j}}+l_{i},~n=n_{p_{j}}+k_{i}$ into (19), the received pilot symbol associated with the $i$ -th path and $j$ -th pilot symbol can be rewritten as
+$\displaystyle\mathbf{Y}[m_{p_{j}}+l_{i},n_{p_{j}}+k_{i}]\approx h_{i}z^{k_{i}m_{p_{j}}}\mathbf{X}[m_{p_{j}},n_{p_{j}}]$
+[S3.E20]
+$\displaystyle=\begin{cases}h_{i}z^{k_{i}m_{p_{j}}}x_{p},&\textrm{(EP)}\\
+h_{i}z^{k_{i}m_{p_{j}}}(x_{p}+x_{d}[m_{p_{j}},n_{p_{j}}]).&\textrm{(SP)}\end{cases}$
+(20)
+The received pilot symbols $\mathbf{Y}[m_{p_{j}}+l_{i},n_{p_{j}}+k_{i}]$ are disturbed by the noise and data-pilot interference terms, causing channel estimation errors.
+From (20), the estimated channel gain $\hat{h}_{i}\in\mathbb{C}$ can be obtained by
+[S3.E21]
+$\displaystyle\hat{h}_{i}=\frac{1}{N_{p}}\bigg(\sum_{j=1}^{N_{p}}\frac{\mathbf{Y}[m_{p_{j}}+\hat{l}_{i},n_{p_{j}}+\hat{k}_{i}]}{z^{\hat{k}_{i}m_{p_{j}}}}\bigg)/x_{p},$
+(21)
+where $\hat{l}_{i}\in\mathbb{Z}_{\geq 0},\hat{k}_{i}\in\mathbb{Z}$ denote the estimated delay shift and Doppler shift, respectively.
+In (21), an average of the received SPs is calculated, which realizes the channel estimation and interference cancellation simultaneously, resulting in accurate estimation of $h_{i}$ .
+Next, we describe how to estimate the normalized delay-Doppler shifts $\hat{l}_{i},\hat{k}_{i}$ used in (21).
+Let $b[l,k]\in\{0,1\}$ denote whether a path with delay shift $l$ and Doppler shift $k$ exists or not, the presence of each path can be distinguished by comparing the received signal power to the specific threshold $\gamma$ , i.e.,
+[S3.E22]
+$\displaystyle b[l,k]=\begin{cases}1,&\sum_{j=1}^{N_{p}}|\mathbf{Y}[m_{p_{j}}+l,n_{p_{j}}+k]|\geq\gamma,\\
+0,&\mathrm{otherwise}.\end{cases}$
+(22)
+In (22), the estimated delay-Doppler shifts $\hat{l}_{i}$ and $\hat{k}_{i}$ are obtained when we find the indices $(l,k)$ which satisfies $b[l,k]=1$ , and the number of paths is $\hat{P}=\sum_{l}\sum_{k}b[l,k]$ .
+The threshold $\gamma$ of (22) depends on the specific frame structure.
+When using an inappropriate threshold, it becomes difficult to accurately estimate the delay-Doppler shifts $\hat{l}_{i}$ and $\hat{k}_{i}$ , leading to channel estimation errors.
+The causes of such errors are classified into two cases:
+1.
+A smaller threshold makes the power of the received interference terms more likely to exceed the threshold, resulting in the detection of non-existing paths. In (21), the channel gain $\hat{h}_{i}$ is estimated by dividing the received symbol $\mathbf{Y}[m_{p_{j}}+\hat{l}_{i},n_{p_{j}}+\hat{k}_{i}]$ by the pilot symbol $x_{p}$ . Since the received symbol $\mathbf{Y}$ composed of interference and noise has lower power than the pilot symbol $x_{p}$ , its impact on the channel estimation accuracy is negligible.
+2.
+A larger threshold makes the power of the received pilot symbols more likely to fall below the threshold, resulting in the failure to detect existing paths. Assuming a channel with a uniform power profile, missing even one path causes a more serious performance degradation in terms of channel estimation accuracy compared to the first case.
+Based on these characteristics, we need to determine a proper threshold.
+The EP-based scheme has a noise-dependent threshold given by [19]
+[S3.E23]
+$\displaystyle\gamma_{\mathrm{EP}}$
+$\displaystyle=3\sqrt{\sigma^{2}},$
+(23)
+where $\sigma^{2}$ is the noise variance.
+Similarly, the SP-based scheme has a threshold depending on the noise and interference terms, i.e.,
+[S3.E24]
+$\displaystyle\gamma_{\mathrm{SP}}^{(0)}$
+$\displaystyle=3\sqrt{N_{p}(\sigma^{2}+\sigma_{d}^{2})},$
+(24)
+where $\sigma_{d}^{2}$ is the average power of data symbols.
+The SP-based scheme employs the threshold $\gamma_{\mathrm{SP}}^{(0)}$ in the initial stage of an iterative interference cancellation algorithm, which is composed of channel estimation and symbol detection.
+In the subsequent iteration stages, the threshold should be updated to a smaller value according to the remaining interference terms.
+But, deriving the optimal updated threshold is a challenging task, as the progress of the interference cancellation depends on the accuracy of the estimated data symbols and channel matrices for each trial.
+Thus, after the initial stage of the algorithm, the threshold $\gamma_{\mathrm{SP}}^{(0)}$ is given by
+[S3.E25]
+$\displaystyle\gamma_{\mathrm{SP}}^{(r)}$
+$\displaystyle=3\sqrt{N_{p}\cdot\sigma^{2}}$
+(25)
+for $r\geq 1$ , where $r$ is an iteration index.
+The estimated channel matrix $\hat{\mathbf{H}}\in\mathbb{C}^{NM\times NM}$ is finally generated from these channel parameters $\hat{h}_{i},\hat{l}_{i},\hat{k}_{i}$ and $\hat{P}$ .
+IV Proposed Algorithm for Coded Scenarios
+In this section, we propose the iterative algorithm which eliminates data-pilot interference precisely, utilizing the error correction capability of the channel coding.
+We also describe key techniques used in the proposed algorithm: symbol detection, channel coding, and interference cancellation process.
+In addition, the computational complexity analysis is performed for the EP-based and SP-based schemes.
+IV-A Symbol Detection
+We apply the MP detection algorithm [18], which offers better performance and lower complexity than the linear minimum mean square error detection due to the sparsity of channel matrix.
+Although outputs of the MP detection $\hat{\mathbf{x}}\in\mathbb{C}^{NM\times 1}$ are typically given by hard decisions on the received symbols, the channel decoder requires the LLRs for every bit.
+Therefore, we focus on the probability mass function (PMF) $\mathbf{P}\in\mathbb{R}^{NM\times L}$ , corresponding to the probability of the information symbols on the constellation points of size $L$ , which is updated in the process of the MP detection.
+In order to obtain the LLR information, the matrix $\mathbf{Z}\in\mathbb{R}^{NM\times L}$ , which denotes the logits for every symbol, is calculated by
+[S4.E26]
+$\displaystyle\mathbf{Z}[i,j]=\mathrm{logit}(\mathbf{P}[i,j])=\log\bigg(\frac{\mathbf{P}[i,j]}{1-\mathbf{P}[i,j]}\bigg)$
+(26)
+for $i=0,1,\cdots,NM-1$ and $j=0,1,\cdots,L-1$ .
+The LLR vector $\mathbf{L}\in\mathbb{R}^{R_{c}}$ is obtained from the matrix $\mathbf{Z}$ as
+[S4.E27]
+$\displaystyle\mathbf{L}[k]=\log\bigg(\frac{\mathrm{Pr}(\mathbf{c}[k]=0|\mathbf{Z})}{\mathrm{Pr}(\mathbf{c}[k]=1|\mathbf{Z})}\bigg)$
+(27)
+for $k=0,1,\cdots,R_{c}-1$ , where $R_{c}$ denotes the number of coded bits and $\mathbf{c}\in\{0,1\}^{R_{c}}$ is the coded bit sequence.
+From (26) and (27), the LLR vector $\mathbf{L}$ for every bit is passed to the decoder as input information.
+IV-B Channel Coding
+The channel encoder has the number of the coded bits $R_{c}$ and information bits $R_{b}$ as input parameters, and the coding rate $r_{c}$ is defined as $r_{c}=R_{b}/R_{c}$ .
+Then, the information bit sequence $\mathbf{b}\in\{0,1\}^{R_{b}}$ is encoded to the coded bit sequence $\mathbf{c}$ via the encoder.
+By contrast, the channel decoder is designed with the iterative belief propagation (BP) algorithm, which requires the number of iterations $I_{\mathrm{LDPC}}$ as an input parameter.
+The BP decoder performs error correction using the input LLR vector $\mathbf{L}$ , and provides the estimated bit sequence $\hat{\mathbf{b}}\in{\{0,1\}^{R_{b}}}$ and the updated LLR vector $\hat{\mathbf{L}}\in\mathbb{R}^{R_{c}}$ as outputs.
+At the end of the iterative algorithm, the hard-decided bit sequence $\hat{\mathbf{b}}$ is provided.
+Considering the interference cancellation process, the decoder provides the soft-decision output, i.e., the updated LLR vector $\hat{\mathbf{L}}$ .
+Note that we implement 5G compliant LDPC codes based on Sionna44
+4
+https://nvlabs.github.io/sionna/, which is an open source library for simulating the physical layer of wireless and optical communication systems.
+IV-C Proposed Iterative Algorithm
+Fig. 3: Proposed iterative algorithm with channel coding.
+Algorithm 1 Proposed iterative algorithm.
+0:
+Received symbols $\mathbf{y}$ and known pilot symbols $\mathbf{x}_{p}$
+1:
+Initialization: Iteration index is set to $r=1$ .
+2:
+repeat
+3:
+Channel estimation: Channel parameters $\hat{P},\hat{h}_{i},\hat{l}_{i},$ and $\hat{k}_{i}$ are estimated by (21) and (22). The estimated channel matrix $\hat{\mathbf{H}}$ is obtained by (13)–(16).
+4:
+Pilot symbol cancellation: The received data symbols $\tilde{\mathbf{y}}_{d}$ are extracted by (29).
+5:
+MP detection: The MP detection is performed to obtain the estimated data symbols $\hat{\mathbf{x}}_{d}$ and LLR vector $\mathbf{L}$ by (26) and (27).
+6:
+if $r\leq r_{\mathrm{unc.}}$ then
+7:
+The uncoded iteration is applied and the estimated data symbols $\hat{\mathbf{x}}_{d}$ are obtained as outputs of the MP detector.
+8:
+else
+9:
+The coded iteration is applied and the LLR vector $\mathbf{L}$ is obtained as an output of the MP detector.
+10:
+LDPC decoder: The LDPC decoder performs error correction to obtain the estimated bit sequence $\hat{\mathbf{b}}$ and updated LLR vector $\hat{\mathbf{L}}$ .
+11:
+LLR to logits: The LLR vector $\hat{\mathbf{L}}$ is converted to the updated logits matrix $\hat{\mathbf{Z}}$ by (30).
+12:
+Logits to PMF: The logits matrix $\hat{\mathbf{Z}}$ is converted to the updated PMF matrix $\hat{\mathbf{P}}$ by (31).
+13:
+Symbol replica generation: As described in (32), the soft-decision symbol replicas $\hat{\mathbf{x}}_{d}$ are generated from the PMF matrix $\hat{\mathbf{P}}$ .
+14:
+end if
+15:
+Data symbol cancellation: The received pilot symbols $\tilde{\mathbf{y}}_{p}$ are extracted by (28), which is utilized for the next channel estimation instead of $\mathbf{y}$ .
+16:
+$r\leftarrow r+1$ .
+17:
+until A stopping criteria is satisfied.
+17:
+Estimated bit sequence $\hat{\mathbf{b}}$ obtained in Line 10
+In the SP-based scheme, the received symbols contain inevitable data-pilot interference, resulting in poor channel estimation accuracy.
+Thus, the most of SP-based schemes perform the interference cancellation for the iterative channel estimation, using the estimated channel $\hat{\mathbf{H}}$ and data symbols $\hat{\mathbf{x}}_{d}\in\mathbb{C}^{NM\times 1}$ , i.e.,
+[S4.E28]
+$\displaystyle\tilde{\mathbf{y}}_{p}=\mathbf{y}-\hat{\mathbf{H}}\hat{\mathbf{x}}_{d},$
+(28)
+which extracts the received pilot symbols $\tilde{\mathbf{y}}_{p}\in\mathbb{C}^{NM\times 1}$ from the received symbols $\mathbf{y}$ .
+By contrary to (28), to perform the iterative symbol detection, the received data symbols $\tilde{\mathbf{y}}_{d}\in\mathbb{C}^{NM\times 1}$ are extracted from the received symbols $\mathbf{y}$ as
+[S4.E29]
+$\displaystyle\tilde{\mathbf{y}}_{d}=\mathbf{y}-\hat{\mathbf{H}}\mathbf{x}_{p},$
+(29)
+where $\mathbf{x}_{p}\in\mathbb{C}^{NM\times 1}$ denotes the pilot symbols known a priori.
+Although the refined symbols $\tilde{\mathbf{y}}_{p}$ and $\tilde{\mathbf{y}}_{d}$ are used for the iterative channel estimation and symbol detection, remained interference induces the error floor in the high SNR region, which is an open issue in the SP-based scheme.
+Against this challenge, to further improve channel estimation accuracy, we propose the iterative algorithm illustrated in Fig. 3.
+It is also summarized in Algorithm 1.
+The proposed algorithm utilizes the LLR information to generate replicas of the data symbols, which is motivated by a prior study in a physical layer security [6].
+As opposed to the conventional algorithm in [32], the proposed one receives the LLR vector $\mathbf{L}$ from the MP detector through (26) and (27), instead of the estimated data symbols $\hat{\mathbf{x}}_{d}$ .
+The updated LLR vector $\hat{\mathbf{L}}$ is obtained through the LDPC decoder, and it is converted to the updated logits matrix $\hat{\mathbf{Z}}\in\mathbb{R}^{NM\times L}$ .
+Here, the logit $\hat{\mathbf{Z}}[i,j]$ is given by a log probability for $j$ -th symbol point $x_{j}\in\mathbb{C}$ on a constellation set $\mathcal{X}$ of size $L$ , i.e.,
+$\displaystyle\hat{\mathbf{Z}}[i,j]$
+$\displaystyle=\log(\mathrm{Pr}(x_{j}\in\mathcal{X}|\hat{\mathbf{L}}_{i}))$
+[S4.E30]
+$\displaystyle=\sum_{k=0}^{K-1}\log\bigg(\frac{1}{1+\exp{(-\hat{\mathbf{L}}_{i}[k]b(x_{j})_{k})}}\bigg),$
+(30)
+for $k=0,1,\cdots,\log_{2}{L}-1$ , where $\hat{\mathbf{L}}_{i}\in\mathbb{R}^{\log_{2}{L}}$ is the LLR information vector corresponding to each symbol, and $b(x_{j})_{k}$ represents the $k$ -th bit label of $x_{j}$ , with $0$ replaced by $-1$ .
+The logits matrix $\hat{\mathbf{Z}}$ is converted to the updated PMF matrix $\hat{\mathbf{P}}\in\mathbb{R}^{NM\times L}$ , which can be calculated by
+[S4.E31]
+$\displaystyle\hat{\mathbf{P}}[i,j]=\frac{1}{1+\exp{(-\hat{\mathbf{Z}}[i,j])}}.$
+(31)
+The soft-decision symbol replicas $\hat{\mathbf{x}}_{d}$ are generated by computing a sum of the weighted constellation points $x_{j}$ according to its probability distribution, i.e.,
+[S4.E32]
+$\displaystyle\hat{\mathbf{x}}_{d}[i]=\sum_{j=0}^{L-1}\hat{\mathbf{P}}[i,j]\cdot x_{j},$
+(32)
+which are finally utilized to the data symbol cancellation given by (28).
+As described in Algorithm 1, there exist two iterative processes, uncoded and coded iterations.
+On one hand, the uncoded iteration process, which is identical to the conventinal algorithm in [32], has low computational complexity but it suffers remained interference in the high SNR region.
+On the other hand, the coded iteration process eliminates data-pilot interference precisely, but it has increased computational complexity because of additional operations such as the decoding and symbol replica generation.
+Here, let $r_{\mathrm{unc.}}$ and $r_{\mathrm{cod.}}$ be the number of uncoded and coded iterations, respectively, which are thresholds for switching two processes.
+The total number of iterations is given by $r_{\mathrm{end}}=r_{\mathrm{unc.}}+r_{\mathrm{cod.}}$ and is a stopping criteria for the iterative algorithm.
+Considering a trade-off between the channel estimation accuracy and computational complexity, we can adjust these parameters $r_{\mathrm{unc.}}$ , $r_{\mathrm{cod.}}$ , and $r_{\mathrm{end}}$ so as to implement the proposed algorithm in a flexible manner.
+Details are discussed in Section V.
+IV-D Computational Complexity
+The computational complexities of the EP-based [19], single SP-based [32], and multiple SP-based schemes are summarized in Table I.
+Here, since wall-clock runtime is highly dependent on hardware and software implementations, we evaluated the overall computational complexity by counting the number of real-valued multiplications.
+Here, $I_{\mathrm{MP}}$ denotes the number of iteration for the MP detection.
+From (21) and (22), channel estimation processes have the complexity depending on the channel parameters $P,l_{\mathrm{max}},k_{\mathrm{max}}$ , and the number of pilots $N_{p}$ .
+From (28) and (29), the interference cancellation processes are expected to have quadratic complexities due to matrix multiplications, but actual complexities are alleviated because the channel matrix $\mathbf{H}$ and pilot symbols $\mathbf{x}_{p}$ have only $P$ and $N_{p}$ nonzero elements in each column, respectively.
+According to [18], the MP detector has a linear complexity in $N$ and $M$ .
+The BP-based LDPC decoder has a complexity of $\mathcal{O}(JR_{c}I_{\mathrm{LDPC}})\approx\mathcal{O}(R_{c}I_{\mathrm{LDPC}})$ , assuming a sparse parity-check matrix which contains $J$ ones in each column, i.e., $R_{c}\gg J$ [4].
+From (30), the LLR information for $\log_{2}{L}$ bits is converted to the logits information for $L$ constellation points, resulting in a complexity of $O(NML\log_{2}{L})$ .
+From (31) and (32), the conversion of the logits to PMF and the symbol replica generation have complexities of $\mathcal{O}(NML)$ .
+TABLE I: Computational complexities associated with the EP-based [19], single SP-based [32], and multiple SP-based schemes.
+EP-based scheme
+Single SP-based scheme
+Multiple SP-based scheme
+Channel estimation
+$6P+(l_{\mathrm{max}}+1)(2k_{\mathrm{max}}+1)=\mathcal{O}(P+l_{\mathrm{max}}k_{\mathrm{max}})$
+$\mathcal{O}(r_{\mathrm{end}}(P+l_{\mathrm{max}}k_{\mathrm{max}}))$
+$\mathcal{O}(r_{\mathrm{end}}N_{p}(P+l_{\mathrm{max}}k_{\mathrm{max}}))$
+Pilot symbol cancellation
+$\mathcal{O}(P+NM)$
+$\mathcal{O}(r_{\mathrm{end}}(P+NM))$
+$\mathcal{O}(r_{\mathrm{end}}(PN_{p}+NM))$
+MP detection
+$\mathcal{O}(I_{\mathrm{MP}}NMPL)$ [18]
+$\mathcal{O}(r_{\mathrm{end}}I_{\mathrm{MP}}NMPL)$
+LDPC decoder
+$\mathcal{O}(R_{c}I_{\mathrm{LDPC}})$ [4]
+$\mathcal{O}(r_{\mathrm{cod.}}R_{c}I_{\mathrm{LDPC}})$
+LLR to logits
+–
+$(r_{\mathrm{cod.}}-1)\mathcal{O}(NML\log_{2}L)=\mathcal{O}(r_{\mathrm{cod.}}NML\log_{2}L)$
+Logits to PMF
+–
+$(r_{\mathrm{cod.}}-1)\mathcal{O}(NML)=\mathcal{O}(r_{\mathrm{cod.}}NML)$
+Symbol replica generation
+–
+$(r_{\mathrm{cod.}}-1)\mathcal{O}(NML)=\mathcal{O}(r_{\mathrm{cod.}}NML)$
+Data symbol cancellation
+–
+$(r_{\mathrm{end}}-1)NM(P+1)=\mathcal{O}(r_{\mathrm{end}}NMP)$
+As shown in Table I, the SP-based schemes have high complexities compared to the EP-based scheme, because of the iterative processes such as the interference cancellation and symbol replica generation.
+By contrary, the computational complexities of the single SP-based and multiple SP-based schemes are almost identical because the number of pilots $N_{p}$ only affects the channel estimation and pilot symbol cancellation processes, which are not dominant factors in the practical assumption, i.e., $N,M,R_{c}\gg P,l_{\mathrm{max}},$ and $k_{\mathrm{max}}$ .
+V Simulation Results
+In this section, we compare the EP-based [19], single SP-based [32], and proposed multiple SP-based schemes.
+As a reference, the perfect CSI (PCSI) case is considered for the SP-based arrangement in order to investigate the optimality of the proposed algorithm.
+In addition, we demonstrate the advantage of the proposed algorithm through numerical simulations.
+Unless otherwise specified, we consider an LDPC-coded OTFS system with QPSK signaling ( $L=4$ ) and the coding rate of $r_{c}=0.75$ where the number of timeslots and subcarriers are $N=M=15$ , the carrier frequency is $f_{c}=4~\mathrm{GHz}$ , and the subcarrier spacing is $\Delta f=15~\mathrm{KHz}$ .
+We apply the doubly-selective fading channel with the number of paths $P=4$ , where each channel gain follows i.i.d complex Gaussian distribution with uniform power profile $h_{i}\in\mathcal{CN}(0,1/P)$ , which follows [20].
+The normalized integer delay shift $l_{i}$ and integer Doppler shift $k_{i}$ are randomly generated in the intervals $[0,l_{\mathrm{max}}]$ and $[-k_{\mathrm{max}},k_{\mathrm{max}}]$ , similar to [32], which are idealized assumptions.
+Note that we set fixed maximum delay shift $l_{\mathrm{max}}=4$ and Doppler shift $k_{\mathrm{max}}=2$ , which correspond to delay spread $\tau_{\mathrm{max}}=l_{\mathrm{max}}/(M\Delta f)=17.8~\mathrm{\mu s}$ and Doppler spread $\nu_{\mathrm{max}}=k_{\mathrm{max}}/(NT)=2.0~\mathrm{kHz}$ , respectively.
+Given these parameters, the maximum number of pilots is $N_{p}=9$ for the multiple-SP scheme, in accordance with the constraint of the pilot assignment scheme described in Section III.
+TABLE II: Code lengths used for the EP and SP-based schemes.
+Pilot assignment scheme
+Code length [bit]
+EP with QPSK
+8064
+EP with 8-PSK
+8208
+EP with 16-QAM
+8064
+SP with QPSK
+8100
+SP with 16-QAM
+8100
+The code lengths used for EP and SP-based schemes are listed in Table II. As shown in the table, the code lengths differ slightly due to variations in the number of data symbols and information bits per frame, but this difference is negligible and does not affect the relative performance among the pilot assignment schemes.
+V-A SNR Definition
+In the prior studies [19, 32], symbol-by-symbol data and pilot SNRs are defined individually.
+Since the EP and SP-based schemes have different number of data symbols per frame, the conventional definition causes unfair comparisons in terms of the effective transmission power.
+Thus, we apply a proper SNR definition to perform fair comparisons between each scheme.
+Firstly, an effective SNR, which considers the power of data and pilot signals together, is defined by $\mathrm{SNR}=E_{s}/N_{0}$ , where $E_{s}$ denotes the total transmission power per frame and $N_{0}=\sigma^{2}\cdot NM$ is the noise variance associated with $NM$ symbols.
+The total power $E_{s}$ is distributed to data and pilot power denoted as $E_{d}$ and $E_{p}$ , which satisfies $E_{s}=E_{p}+E_{d}$ .
+Using a parameter $\alpha\in[0,1]$ , the superimposed pilot power ratio is given by $E_{p}/E_{d}=\alpha/(1-\alpha)$ .
+Next, the average power of data and pilot symbols are defined by $\sigma_{d}^{2}=E_{d}/N_{d}$ and $\sigma_{p}^{2}=E_{p}/N_{p}$ , where $N_{d}$ and $N_{p}$ denote the number of data and pilot symbols per frame.
+That is, the total pilot energy $E_{p}$ is kept constant for all the considered schemes with different numbers of superimposed pilots $N_{p}$ .
+Finally, assuming the normalized noise variance $\sigma^{2}=1$ , data and pilot symbols are generated as $|x_{d}[m,n]|^{2}=\sigma_{d}^{2}$ and $|x_{p}|^{2}=\sigma_{p}^{2}$ .
+Setting the pilot power ratio $\alpha$ is a nontrivial task.
+A low $\alpha$ induces poor channel estimation accuracy due to data-pilot interference, whereas a high $\alpha$ worsens reliability because of insufficient data power. The optimal $\alpha$ depends on multiple factors, such as SNR, modulation order, and the specific pilot assignment scheme, making it challenging to derive a closed-form solution. Therefore, in this paper, $\alpha$ is explored through preliminary simulations to minimize the uncoded BER performance. The parameter search is conducted separately for the EP and SP-based schemes, as the optimal $\alpha$ differs between the two. The search range is set from $\alpha=0.1$ to $\alpha=0.9$ , with a step size of 0.1. By adaptively determining $\alpha$ for each SNR, the data and pilot power can be allocated in such a way that each scheme achieves near-optimal throughput performance.
+These simulations only need to be computed once offline, and both the time and space complexities are negligible.
+V-B Performance Metrics
+To characterize the performance of each scheme in a comprehensive manner, we apply three metrics; reliability, channel estimation accuracy, and spectral efficiency.
+Following prior studies, reliability and channel estimation accuracy are evaluated by BER and NMSE, respectively.
+The NMSE of the channel matrices is defined as
+[S5.E33]
+$\displaystyle\mathrm{NMSE}=\frac{\mathrm{E}[\|\hat{\mathbf{H}}-\mathbf{H}\|_{\mathrm{F}}^{2}]}{\mathrm{E}[\|\mathbf{H}\|_{\mathrm{F}}^{2}]}.$
+(33)
+As a performance metric for spectral efficiency, we focus on the effective throughput which depends on the block error rate (BLER), defined as [22]
+[S5.E34]
+$\displaystyle\bar{T}_{u}\triangleq\frac{(1-\mathrm{BLER})N_{d}r_{c}\log_{2}{L}}{NM}.$
+(34)
+This metric is suitable to evaluate system performance, taking into account multiple factors such as the modulation order, the coding rate, and the pilot overhead.
+V-C Effects of the Switching Parameters $(r_{\mathrm{unc.}},r_{\mathrm{cod.}},r_{\mathrm{end}})$
+To confirm the advantage of the proposed algorithm, we investigated the relation between the channel estimation accuracy and iteration parameters such as $r_{\mathrm{unc.}},r_{\mathrm{cod.}}$ , and $r_{\mathrm{end}}$ .
+In this section, we consider the multiple SP-based scheme with the maximum number of SPs, i.e., $N_{p}=9$ .
+(a) $\mathrm{SNR}=10~\mathrm{dB}$ .
+(b) $\mathrm{SNR}=12.5~\mathrm{dB}$ .
+(c) $\mathrm{SNR}=15~\mathrm{dB}$ .
+Fig. 4: NMSE comparison upon increasing the number of iterations $r$ , where the stopping criteria was $r_{\mathrm{end}}=5$ .
+Fig. 4 shows NMSE comparisons upon increasing the number of iteration with a fixed stopping criteria $r_{\mathrm{end}}=5$ and SNR values $10$ , $12.5$ , and $15~\mathrm{dB}$ .
+Since the parameter $r_{\mathrm{unc.}}$ denotes the number of the uncoded iterations, the case of $r_{\mathrm{unc.}}=0$ corresponds to the proposed algorithm composed only of the coded iterations.
+Contrary, in the case of $r_{\mathrm{unc.}}=4$ , it is composed of the uncoded iterations, except for the last stage of the algorithm.
+As can be seen in Fig. 4, a smaller value of $r_{\mathrm{unc.}}$ , i.e., a larger number of coded iterations, resulted in better channel estimation accuracy.
+This characteristic was significant at the high SNR.
+It was also found that the proposed algorithm improved channel estimation accuracy by increasing the number of iterations $r$ , but it tended to converge after a few trials.
+Based on these results, a stopping criteria is set to $r_{\mathrm{end}}=4$ in following simulations.
+Fig. 5: NMSE comparison for the multiple SP-based scheme with the number of pilots $N_{p}=9$ , where we set iteration parameters $0\leq r_{\mathrm{unc.}}\leq 3$ and a fixed stopping criteria $r_{\mathrm{end}}=4$ .
+Fig. 5 shows an NMSE comparison for the number of uncoded iteration $0\leq r_{\mathrm{unc.}}\leq 3$ .
+In Fig. 5, the superimposed pilot power ratio is fixed at $\alpha=0.5$ .55
+5
+Since the channel estimation accuracy depends on the pilot power, employing an adaptive $\alpha$ leads to fluctuations in NMSE performance as SNR increases.
+In order to investigate the effects of the parameters $(r_{\mathrm{unc.}},r_{\mathrm{cod.}},r_{\mathrm{end}})$ , a fixed $\alpha$ is appropriate for NMSE comparisons.
+Note that in the case of $r_{\mathrm{unc.}}=3$ , the LLR information is not used for symbol replica generation, which is equivalent to the conventional algorithm [32] in coded scenarios.
+It can be observed from Fig. 5 that the coded iteration process improved the channel estimation accuracy and its advantage was clear in the high SNR region.
+For $r_{\mathrm{unc.}}=0,1,$ and $2$ , the NMSE characteristics changed depending on a specific SNR, because the accuracy of the symbol replicas depends on the error correction capability of the decoder.
+These results indicate that $r_{\mathrm{unc.}}=0$ is the best parameter setting in terms of the channel estimation accuracy.
+Fig. 6: Computational complexity comparison upon increasing the number of uncoded iteration $r_{\mathrm{unc.}}$ , based on the complexity orders summarized in Table I.
+In addition, Fig. 6 shows computational complexity comparison as a function of the number of iterations $r$ , which is calculated from the complexity orders summarized in Table I.
+As expected, computational complexity increased depending on the number of iterations.
+The coded iteration requires additional processes such as decoding and symbol replica generation, which result in increased complexity.
+From Figs. 4–6, we observed the trade-off between the channel estimation accuracy and computational complexity.
+Since the iterative parameters are mutable under the condition $r_{\mathrm{unc.}}+r_{\mathrm{cod.}}=r_{\mathrm{end}}$ , the proposed algorithm can be adjusted to achieve the desirable performance while minimizing computational complexity.
+V-D Performance Comparison
+Through performance comparisons among the EP-based, single SP-based, and multiple SP-based schemes, we confirmed the advantage of our proposed approaches.
+Before a detailed discussion, we describe the parameter settings for following simulations.
+The multiple SP-based scheme allocates $N_{p}=3,6$ , and $9$ pilots per frame.
+For the single and multiple SP-based schemes, we employed the iterative parameters $r_{\mathrm{unc.}}=3$ and $r_{\mathrm{end}}=4$ , corresponding to the conventional algorithm [32].
+In addition, we employed $r_{\mathrm{unc.}}=0$ and $r_{\mathrm{end}}=4$ for the SP-based scheme with $N_{p}=9$ , which is labeled as Iter. alg. in the following figures.
+As clarified in the previous section, these parameters realize the best interference cancellation performance with a high computational complexity trade-off.
+Fig. 7: Coded BER comparison for the EP-based [19], single SP-based [32], and multiple SP-based schemes with the number of pilots $N_{p}=3,6$ , and $9$ .
+First, Fig. 7 shows a coded BER comparison.
+It can be seen from Fig. 7 that the EP-based scheme achieved the best BER performance at the cost of guard space, resulting in a lower transmission rate.
+Comparing the SP-based schemes with the conventional algorithm, the BER performance was improved by increasing the number of pilots $N_{p}$ .
+In addition, the BER performance was further enhanced by applying the proposed algorithm for the multiple SP-based scheme with $N_{p}=9$ .
+These results demonstrated the advantage of the proposed pilot assignment scheme and iterative algorithm.
+Fig. 8: NMSE comparison for the EP-based [19], single SP-based [32], and multiple SP-based schemes, where the parameters were the same as those used in Fig. 7, except for the superimposed pilot power ratio $\alpha$ .
+Next, Fig. 8 shows an NMSE comparison for each scheme.
+As in Fig. 5, the superimposed pilot power ratio is fixed at $\alpha=0.5$ .
+As with the case of the BER comparison in Fig. 7, it can be seen from Fig. 8 that the EP-based scheme achieved the best NMSE performance and the multiple SP-based scheme outperformed the single SP-based scheme.
+Due to the refined symbol replicas based on the LLR information, the proposed algorithm achieved comparable NMSE performance to that of the EP-based scheme in the intermediate-to-high SNR region.
+(a) Throughput comparison with the equal coding rate $r_{c}=0.75$ .
+(b) Throughput comparison with the equal transmission rate $1.5~\mathrm{bit/sym}$ .
+Fig. 9: Normalized effective throughput comparisons where we considered the EP-based scheme with QPSK, 8-PSK, and 16-QAM.
+Thirdly, Fig. 9 compared the normalized effective throughput given by (34), where we considered the EP-based scheme with QPSK, 8-PSK, and 16-QAM.
+The effective throughput performance under the PCSI assumption was also plotted as a reference.
+In Fig. 9(a), we considered the equal coding rate $r_{c}=0.75$ , and the different transmission rate between the EP-based and SP-based schemes.
+The number of data symbols $N_{d}$ for each scheme is given by
+[S5.E35]
+$\displaystyle\begin{cases}N_{d,\,\mathrm{EP}}&=NM-(2l_{\mathrm{max}}+1)(4k_{\mathrm{max}}+1),\\
+N_{d,\,\mathrm{SP}}&=NM.\end{cases}$
+(35)
+Then, the SP-based schemes improved the transmission rate by $56\%$ in our simulation parameters.
+As a result, except for the result assuming PCSI, the EP-based scheme with QPSK showed the throughput gain in the low SNR region, while the multiple SP-based scheme with the coded iteration process achieved the best performance in the intermediate SNR region.
+Given a specific target rate for each scheme, which one achieves the largest gain?
+To investigate the best scheme in terms of throughput, Fig. 9(b) compared the normalized effective throughput, where we adjusted the coding rates among the EP-based and SP-based schemes to match the transmission rate to almost $1.5~\mathrm{bit/sym}$ .
+Through the transmission rate matching, the coding rates of the EP-based scheme with 8-PSK and 16-QAM were determined as $r_{c}\approx 0.78$ and $r_{c}\approx 0.59$ , respectively.
+The EP-based scheme with QPSK was also evaluated in Fig. 9(b) as a benchmark, but it exceptionally assumed the uncoded scenario because the transmission rate in that case was less than $1.5~\mathrm{bit/sym}$ despite $r_{c}=1$ .
+Under the equal transmission rate assumption, the multiple SP-based scheme with $N_{p}=9$ achieved the best throughput performance in entire SNR region.
+In terms of the effective throughput, it can be seen from Fig. 9(b) that maximizing the number of pilots $N_{p}$ for the multiple SP-based scheme is the best solution, compared to adjust the modulation order and coding rate for the EP-based scheme.
+We also found that the effective throughput is further enhanced by employing the proposed algorithm under the optimal parameter setting demonstrated in Fig. 5.
+V-E Effects of the Increased Modulation Order
+Fig. 10: Normalized effective throughput comparison with 16-QAM signaling.
+Through a performance comparison with 16-QAM signaling $(L=16)$ , we investigated the effects of the increased modulation order. To compensate for the reduced reliability caused by the higher modulation order, we set the coding rate $r_{c}=0.5$ for the SP-based schemes. As for the EP-based scheme, we set $r_{c}=0.5$ as well, and in order to match the transmission rates among all schemes, we also set $r_{c}\approx 0.78$ .
+Finally, Fig. 10 compared the normalized effective throughput with 16-QAM signaling.
+To match the transmission rates among all schemes, we set the coding rate $r_{c}\approx 0.78$ for the EP-based scheme.
+As shown in Fig. 10, the SP-based schemes achieved better throughput compared to the EP-based scheme, even in the case of 16-QAM signaling.
+Focusing on the SP-based schemes with the conventional algorithm, the case of single SP showed the best throughput, which indicates that the multiple SP-based schemes reduce interference cancellation performance due to the increased modulation order.
+Contrary, the SP-based scheme achieved throughput improvement by employing the iterative algorithm with symbol replica generation.
+This result demonstrated that the advantage of the proposed algorithm is independent of the modulation order.
+VI Conclusions
+In this paper, we proposed the novel pilot assignment scheme with multiple SPs and iterative algorithm suitable for coded OTFS systems.
+While the conventional single SP-based scheme suffered serious data-pilot interference in the high SNR region, the proposed scheme with multiple SPs realized the channel estimation and interference cancellation simultaneously, resulting in the improved throughput.
+Contrary to the EP-based scheme, the multiple SP-based scheme did not require the guard space, which also contributed to the increased throughput.
+Focusing on the property that the quality of the interference cancellation relies on the accuracy of data symbols, we incorporated the channel decoder into the iterative algorithm.
+As a result, utilizing the refined symbol replicas based on the LLR information, the proposed algorithm further enhanced the throughput performance.
+In addition, based on the unified transmission rate and fair SNR definition, we demonstrated the advantage of the proposed pilot assignment scheme and iterative algorithm in terms of the effective throughput, compared with the conventional EP-based and single SP-based schemes, with QPSK and 16-QAM signaling.
+A key advantage of the proposed system is its support for a tunable complexity-performance trade-off via the iteration parameters $\{r_{\text{unc.}},,r_{\text{cod.}},,r_{\text{end}}\}$ .
+This flexibility allows the receiver to balance complexity and throughput.
+As a promising direction for future work, an adaptive stopping criterion can be developed to select these parameters dynamically.
+For example, early termination based on LLR variance or residual interference power could enable the receiver to allocate computational effort only when justified by the channel conditions or SNR level.
+Another open problem is threshold design for the EP- and SP-based estimators in fractional-Doppler scenarios. Non-integer Doppler shifts spread energy across delay-Doppler bins, and a fixed threshold can fail in some cases. Although we have verified that reducing the modulation order alleviates this issue thanks to the iterative decoding algorithm, it is common to all current schemes, and another strategy remains an important target for future research.
+Acknowledgment
+The authors would like to thank Dr. Yuto Hama from Ericsson Research, Japan, for providing valuable comments.
+References
+[1]
+M. Aldababsa, S. Özyurt, G. K. Kurt, and O. Kucur (2024)
+A survey on orthogonal time frequency space modulation.
+IEEE Open Journal of the Communications Society 5, pp. 4483–4518.
+External Links: Document
+Cited by: §I.
+[2]
+Z. Chen, X. Zheng, and X. Chen (2023)
+Delay-wise superimposed pilot based compressed sensing channel estimation for OTFS systems.
+In IEEE Vehicular Technology Conference, Hong Kong, Hong Kong,
+External Links: Document
+Cited by: §I,
+§III.
+[3]
+Y. K. Enku, B. Bai, F. Wan, C. U. Guyo, I. N. Tiba, C. Zhang, and S. Li (2021)
+Two-dimensional convolutional neural network-based signal detection for OTFS systems.
+IEEE Wireless Communications Letters 10 (11), pp. 2514–2518.
+External Links: Document
+Cited by: §I.
+[4]
+M.P.C. Fossorier, M. Mihaljevic, and H. Imai (1999)
+Reduced complexity iterative decoding of low-density parity check codes based on belief propagation.
+IEEE Transactions on Communications 47 (5), pp. 673–680.
+External Links: Document
+Cited by: §IV-D,
+TABLE I.
+[5]
+R. Hadani, S. Rakib, M. Tsatsanis, A. Monk, A. J. Goldsmith, A. F. Molisch, and R. Calderbank (2017)
+Orthogonal time frequency space modulation.
+In IEEE Wireless Communications and Networking Conference, San Francisco, CA, USA,
+External Links: ISSN 1558-2612,
+Document
+Cited by: §I.
+[6]
+Y. Hama and H. Ochiai (2023)
+Serially concatenated systematic coding for wireless steganography with OFDM signaling.
+In IEEE Global Communications Conference, Kuala Lumpur, Malaysia,
+External Links: Document
+Cited by: §IV-C.
+[7]
+P. Hoeher and F. Tufvesson (1999)
+Channel estimation with superimposed pilot sequence.
+In IEEE Global Telecommunications Conference, Rio de Janeireo, Brazil,
+External Links: Document,
+ISBN 978-0-7803-5796-9
+Cited by: §I.
+[8]
+Y. Hong, T. Thaj, and E. Viterbo (Eds.) (2022)
+Delay-Doppler Communications.
+Academic Press.
+External Links: Document,
+ISBN 978-0-323-85028-5
+Cited by: §II-A,
+§II-A,
+§II-A,
+§II-A,
+§II-B,
+§II-B,
+§II-B,
+§II-B,
+§II-C,
+§II-C,
+§II-C,
+§II,
+§III-C.
+[9]
+F. Jesbin, S. Rao Mattu, and A. Chockalingam (2023)
+Sparse superimposed pilot based channel estimation in OTFS systems.
+In IEEE Wireless Communications and Networking Conference, Glasgow, United Kingdom,
+External Links: Document,
+ISBN 978-1-66549-122-8
+Cited by: §I,
+§I,
+§III.
+[10]
+Y. Kanazawa, H. Iimori, C. Pradhan, S. Malomsoky, and N. Ishikawa (2023)
+Multiple superimposed pilots for accurate channel estimation in orthogonal time frequency space modulation.
+In IEEE Vehicular Technology Conference, Hong Kong, Hong Kong,
+External Links: Document
+Cited by: Superimposed Pilot-Based OTFS: Will it Work?.
+[11]
+W. Liu, L. Zou, B. Bai, and T. Sun (2023)
+Low PAPR channel estimation for OTFS with scattered superimposed pilots.
+China Communications 20 (1), pp. 79–87.
+External Links: ISSN 1673-5447,
+Document
+Cited by: §I,
+§III.
+[12]
+Y. Liu, Y. L. Guan, and D. González (2024)
+Turbo BEM OTFS receiver with optimized superimposed pilot power.
+IEEE Transactions on Communications 72 (1), pp. 601–617.
+External Links: Document
+Cited by: §I,
+§I.
+[13]
+H. B. Mishra, P. Singh, A. K. Prasad, and R. Budhiraja (2022)
+OTFS channel estimation and data detection designs with superimposed pilots.
+IEEE Transactions on Wireless Communications 21 (4), pp. 2258–2274.
+External Links: ISSN 1536-1276, 1558-2248,
+Document
+Cited by: §I,
+§I,
+§III.
+[14]
+K. R. Murali and A. Chockalingam (2018)
+On OTFS modulation for high-Doppler fading channels.
+In Information Theory and Applications Workshop,
+San Diego, CA, USA.
+External Links: Document
+Cited by: §I.
+[15]
+A. Naikoti and A. Chockalingam (2021)
+Low-complexity delay-Doppler symbol DNN for OTFS signal detection.
+In IEEE Vehicular Technology Conference, Helsinki, Finland,
+External Links: Document
+Cited by: §I.
+[16]
+H. Qu, G. Liu, L. Zhang, M. A. Imran, and S. Wen (2021)
+Low-dimensional subspace estimation of continuous-Doppler-spread channel in OTFS systems.
+IEEE Transactions on Communications 69 (7), pp. 4717–4731.
+External Links: Document
+Cited by: §I,
+§I.
+[17]
+P. Raviteja, Y. Hong, E. Viterbo, and E. Biglieri (2019)
+Practical pulse-shaping waveforms for reduced-cyclic-prefix OTFS.
+IEEE Transactions on Vehicular Technology 68 (1), pp. 957–961.
+External Links: ISSN 0018-9545, 1939-9359,
+Document
+Cited by: §II-D,
+§II-D,
+§II-D,
+§II-D,
+§II-D,
+§II-D,
+§II-D,
+§II-D,
+footnote 3.
+[18]
+P. Raviteja, K. T. Phan, Y. Hong, and E. Viterbo (2018)
+Interference cancellation and iterative detection for orthogonal time frequency space modulation.
+IEEE Transactions on Wireless Communications 17 (10), pp. 6501–6515.
+External Links: ISSN 1536-1276, 1558-2248,
+Document
+Cited by: §I,
+§IV-A,
+§IV-D,
+TABLE I.
+[19]
+P. Raviteja, K. T. Phan, and Y. Hong (2019)
+Embedded pilot-aided channel estimation for OTFS in Delay–Doppler channels.
+IEEE Transactions on Vehicular Technology 68 (5), pp. 4906–4917.
+External Links: ISSN 0018-9545, 1939-9359,
+Document
+Cited by: §I,
+§I,
+2(a),
+2(a),
+§III-C,
+§III,
+§IV-D,
+TABLE I,
+Fig. 7,
+Fig. 8,
+§V-A,
+§V.
+[20]
+P. Raviteja, E. Viterbo, and Y. Hong (2019)
+OTFS performance on static multipath channels.
+IEEE Wireless Communications Letters 8 (3), pp. 745–748.
+External Links: ISSN 2162-2337, 2162-2345,
+Document
+Cited by: §V.
+[21]
+H. S. Rou, G. T. F. de Abreu, J. Choi, D. González G., M. Kountouris, Y. L. Guan, and O. Gonsa (2024)
+From orthogonal time–frequency space to affine frequency-division multiplexing: a comparative study of next-generation waveforms for integrated sensing and communications in doubly dispersive channels.
+IEEE Signal Processing Magazine 41 (5), pp. 71–86.
+External Links: Document
+Cited by: §I.
+[22]
+D. Shen, Z. Pan, K. Wong, and V.O.K. Li (2003)
+Effective throughput: a unified benchmark for pilot-aided OFDM/SDMA wireless communication systems.
+In IEEE INFOCOM, San Francisco, CA, USA,
+External Links: Document,
+ISBN 978-0-7803-7752-3
+Cited by: §V-B.
+[23]
+W. Shen, L. Dai, J. An, P. Fan, and R. W. Heath (2019)
+Channel estimation for orthogonal time frequency space (OTFS) massive MIMO.
+IEEE Transactions on Signal Processing 67 (16), pp. 4204–4217.
+External Links: ISSN 1053-587X, 1941-0476,
+Document
+Cited by: §I.
+[24]
+Z. Sui, H. Zhang, S. Sun, L. Yang, and L. Hanzo (2023)
+Space-time shift keying aided OTFS modulation for orthogonal multiple access.
+IEEE Transactions on Communications 71 (12), pp. 7393–7408.
+Cited by: §I.
+[25]
+Z. Sui, H. Zhang, Y. Xin, T. Bao, L. Yang, and L. Hanzo (2023)
+Low complexity detection of spatial modulation aided OTFS in doubly-selective channels.
+IEEE Transactions on Vehicular Technology 72 (10), pp. 13746–13751.
+External Links: Document
+Cited by: §I.
+[26]
+G. D. Surabhi and A. Chockalingam (2020)
+Low-complexity linear equalization for OTFS modulation.
+IEEE Communications Letters 24 (2), pp. 330–334.
+External Links: Document
+Cited by: §I.
+[27]
+T. Thaj and E. Viterbo (2020)
+Low complexity iterative rake decision feedback equalizer for zero-padded OTFS systems.
+IEEE Transactions on Vehicular Technology 69 (12), pp. 15606–15622.
+External Links: ISSN 0018-9545, 1939-9359,
+Document
+Cited by: §I.
+[28]
+S. Tiwari, S. S. Das, and V. Rangamgari (2019)
+Low complexity LMMSE receiver for OTFS.
+IEEE Communications Letters 23 (12), pp. 2205–2209.
+External Links: Document
+Cited by: §I.
+[29]
+Z. Wei, W. Yuan, S. Li, J. Yuan, G. Bharatula, R. Hadani, and L. Hanzo (2021)
+Orthogonal time-frequency space modulation: A promising next-generation waveform.
+IEEE Wireless Communications 28 (4), pp. 136–144.
+External Links: Document
+Cited by: §I.
+[30]
+C. Xu, L. Xiang, S. Sugiura, R. G. Maunder, L. Yang, D. Niyato, G. Y. Li, R. Schober, and L. Hanzo (2024)
+Noncoherent orthogonal time frequency space modulation.
+IEEE Transactions on Wireless Communications 23 (8), pp. 10072–10090.
+External Links: Document
+Cited by: footnote 1.
+[31]
+X. Xu, M. Zhao, M. Lei, and M. Zhao (2020)
+A damped GAMP detection algorithm for OTFS system based on deep learning.
+In IEEE Vehicular Technology Conference, Victoria, BC, Canada,
+External Links: Document
+Cited by: §I.
+[32]
+W. Yuan, S. Li, Z. Wei, J. Yuan, and D. W. K. Ng (2021)
+Data-aided channel estimation for OTFS systems with a superimposed pilot and data transmission scheme.
+IEEE Wireless Communications Letters 10 (9), pp. 1954–1958.
+External Links: ISSN 2162-2337, 2162-2345,
+Document
+Cited by: §I,
+§I,
+§I,
+2(b),
+2(b),
+§III-B,
+§III,
+§IV-C,
+§IV-C,
+§IV-D,
+TABLE I,
+Fig. 7,
+Fig. 8,
+§V-A,
+§V-C,
+§V-D,
+§V.
+[33]
+W. Yuan, Z. Wei, J. Yuan, and D. W. K. Ng (2020)
+A simple variational Bayes detector for orthogonal time frequency space (OTFS) modulation.
+IEEE Transactions on Vehicular Technology 69 (7), pp. 7976–7980.
+External Links: Document
+Cited by: §I.
+[34]
+Z. Yuan, F. Liu, W. Yuan, Q. Guo, Z. Wang, and J. Yuan (2022)
+Iterative detection for orthogonal time frequency space modulation with unitary approximate message passing.
+IEEE Transactions on Wireless Communications 21 (2), pp. 714–725.
+External Links: ISSN 1536-1276, 1558-2248,
+Document
+Cited by: §I.
+Yuta Kanazawa
+received the B.E. and M.E. degrees from Yokohama National University, Kanagawa, Japan, in 2023 and 2025, respectively. He received the IEEE VTS Tokyo/Japan Chapter Young Researcher’s Encouragement Award in 2023. He is currently working at Ericsson Japan. His research interests include OTFS and channel estimation.
+Hiroki Iimori (S’18–M’22) is a Senior Researcher at Ericsson Research. He earned his Ph.D. with special distinction (summa cum laude) from Jacobs University Bremen, Germany, in 2022, during which he worked as a Research Associate on a collaborative project with Continental AG (2019–2022). He was also a Guest Researcher at the University of Electro-Communications, Japan, and a Visiting Student at the University of Toronto, Canada, in 2020. He holds B.Eng. and M.Eng. (Hons.) degrees in Electrical and Electronic Engineering from Ritsumeikan University, Kyoto, Japan, awarded in 2017 and 2019. His research interests include optimization theory, wireless communications, and signal processing. His honors include the Ericsson Key Contributor Award (2025), the IEICE Young Researcher of the Year Award (2020), and the Yoshida Scholarship Foundation Doctoral Fellowship (2019–2022), among others.
+Chandan Pradhan received the B.Tech. degree from IIIT Bhubaneswar, India, in 2013, and the M.S. degree from IIIT Hyderabad, India, in 2016, and the Ph.D. degree form The University of Sydney, Sydney, NSW, Australia, in 2021. He has worked as Research Engineer in CEWiT, India, in 2016. He is currently working as Senior Researcher in Ericsson research, Japan. His research interests include beamforming techniques in MIMO systems and application of deep-learning in wireless networks.
+Szabolcs Malomsoky is the head of Ericsson Research Japan. Earlier he was leading research units in Hungary, Sweden and the US. He received a Ph.D. degree from the Budapest University of Technology and Economics in 2003. Szabolcs worked with strategy setting and technical leadership in research areas including wireless technologies, network analytics, cloud computing, network management and programmable networks.
+Naoki Ishikawa
+(S’13–M’17–SM’22) is an Associate Professor with the Faculty of Engineering, Yokohama National University, Kanagawa, Japan. He received the B.E., M.E., and Ph.D. degrees from the Tokyo University of Agriculture and Technology, Tokyo, Japan, in 2014, 2015, and 2017, respectively. In 2015, he was an Academic Visitor with the School of Electronics and Computer Science, University of Southampton, UK. From 2016 to 2017, he was a research fellow of the Japan Society for the Promotion of Science. From 2017 to 2020, he was an assistant professor in the Graduate School of Information Sciences, Hiroshima City University, Japan. Since 2025, he has been a Research Scholar with the Electrical and Computer Engineering, University of California, San Diego, US. He was certified as an Exemplary Reviewer of IEEE Transactions on Communications in 2017 and 2021. He has served as Associate Editor of IEEE Transactions on Vehicular Technology since 2025. His research interests include quantum algorithms and wireless communications.
+Experimental support, please
+view the build logs
+for errors. Generated by
+L
+A
+T
+E
+xml
+.
+Instructions for reporting errors
+We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+methods listed below:
+Click the "Report Issue" (
+) button, located in the page header.
+Tip: You can select the relevant text first, to include it in your report.
+Our team has already identified the following issues. We appreciate your time reviewing and reporting rendering errors we
+may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+all.
+Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a list of packages that need conversion, and welcome developer contributions.
+We gratefully acknowledge support from
+our major funders,
+member institutions, ,
+and all contributors.
+About
+·
+Help
+·
+Contact
+·
+Subscribe
+·
+Copyright
+·
+Privacy
+·
+Accessibility
+·
+Operational Status (opens in new tab)
+Major funding support from

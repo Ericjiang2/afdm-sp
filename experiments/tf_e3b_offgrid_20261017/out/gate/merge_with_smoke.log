@@ -1,0 +1,54 @@
+{
+ "n_keys": 20,
+ "G1": {
+  "keys": 20,
+  "identical": 20,
+  "failures": [],
+  "note": "stage-1 atoms, round-1 decoded sha, stage-2 candidate count and, per variant, the on-grid SBL output atoms, the on-grid round-2 decoded sha and info-error count equal the E-3 row of the same key",
+  "pass_": true
+ },
+ "G2": {
+  "real": {
+   "keys": 20,
+   "ok": 20,
+   "failures": [],
+   "total_coordinates": 5145,
+   "accepted_coordinates": 4788,
+   "cond_Q_max": 7076.2384970525345
+  },
+  "synthetic": {
+   "pass_": true,
+   "single_path_worst_error": 0.00010334941526224384,
+   "tolerance": 0.001,
+   "zero_v_gamma_abs_max": 0.0,
+   "monotone_checked": true,
+   "evals_cap_checked": true
+  },
+  "pass_": true
+ },
+ "G3": {
+  "real_identical": 20,
+  "keys": 20,
+  "mismatches": [],
+  "synthetic": {
+   "pass_": true,
+   "identical_modes": [
+    "diag",
+    "full"
+   ]
+  },
+  "pass_": true
+ },
+ "G4": {
+  "smoke_rows": 16,
+  "smoke_good_rows": 16,
+  "mean_seconds_per_key": 15.55262903138646,
+  "core_hours_estimate_raw": 10.36841935425764,
+  "core_hours_estimate_contended": 13.478945160534932,
+  "contention_factor": 1.3,
+  "limit_core_hours": 30.0,
+  "rule": "estimate = mean smoke seconds per key (pipeline + frame generation, on-grid check excluded) x 2400 / 3600; gate uses the x1.3 contention-adjusted value (design section 4)",
+  "pass_": true
+ },
+ "all_pass": true
+}

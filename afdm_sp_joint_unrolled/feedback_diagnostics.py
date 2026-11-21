@@ -47,6 +47,8 @@ def reliability_statistics(probabilities, constellation, truth, data_power, logi
         brier=float(((p-onehot)**2).sum(1).mean()),high_confidence_count=high_count,
         high_confidence_errors=high_errors,high_confidence_error_rate=high_errors/high_count if high_count else None,
         high_confidence_error_frequency=high_errors/len(p),
+        high_confidence_wrong_sum_variance=float(variance[confident&wrong].sum()),
+        high_confidence_wrong_sum_actual_squared_error=float(error[confident&wrong].sum()),
         first_high_confidence_error_symbols=np.flatnonzero(confident&wrong)[:3].tolist(),
         variance_unit='already-scaled symbols; bins use v/data_power')
 

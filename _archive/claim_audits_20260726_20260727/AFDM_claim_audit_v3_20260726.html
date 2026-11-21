@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AFDM-SP Claim Reconstruction v3 — 纠错·扩样·卫生机制化后的续判 (2026-07-26)</title>
+<style>
+:root{--ink:#1a1d23;--mut:#5b6472;--bg:#fbfaf7;--card:#ffffff;--line:#e3e0d8;--acc:#8a3324;--acc2:#1f5e50;--warn:#8a6d00;--dead:#7a1f1f;--live:#1e5e2e;--code:#f2efe8;}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Source Han Serif SC","Noto Serif CJK SC",Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg);line-height:1.62;font-size:15.5px}
+main{max-width:1080px;margin:0 auto;padding:0 26px 120px}
+h1{font-size:27px;margin:34px 0 6px;line-height:1.3}
+h2{font-size:21px;margin:52px 0 12px;padding-top:10px;border-top:3px solid var(--ink)}
+h3{font-size:17px;margin:28px 0 8px;color:var(--acc2)}
+h4{font-size:15.5px;margin:20px 0 6px}
+p{margin:9px 0}
+em.en{font-style:normal;font-family:Georgia,serif}
+.sub{color:var(--mut);font-size:13.5px}
+.toc{position:sticky;top:0;background:rgba(251,250,247,.97);border-bottom:1px solid var(--line);z-index:50;padding:8px 26px;font-size:12.6px;backdrop-filter:blur(3px)}
+.toc a{color:var(--acc2);text-decoration:none;margin-right:13px;white-space:nowrap}
+.toc a:hover{text-decoration:underline}
+.box3{border:1.5px solid var(--ink);background:var(--card);padding:11px 15px;margin:14px 0 18px;font-size:14px}
+.box3 b.k{display:inline-block;min-width:118px;color:var(--acc)}
+.verdict{border:2.5px solid var(--acc);background:#fff6f2;padding:16px 20px;margin:18px 0}
+.mech{background:#eef5f2;border-left:4px solid var(--acc2);padding:9px 14px;margin:12px 0;font-size:14.2px}
+.warnbox{background:#fdf6df;border-left:4px solid var(--warn);padding:9px 14px;margin:12px 0;font-size:14.2px}
+.deadbox{background:#fbeeee;border-left:4px solid var(--dead);padding:9px 14px;margin:12px 0;font-size:14.2px}
+table{border-collapse:collapse;width:100%;margin:13px 0;font-size:13.2px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+th{background:#efece4;font-weight:700}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;font-family:Georgia,serif}
+tr.hl td{background:#f2f8f4}
+tr.bad td{background:#fbf0ee}
+.eq{background:var(--code);border:1px solid var(--line);padding:10px 16px;margin:12px 0;font-family:Georgia,"STIX Two Math",serif;font-size:15.2px;overflow-x:auto}
+code,.mono{font-family:"JetBrains Mono",Consolas,monospace;font-size:12.6px;background:var(--code);padding:1px 5px;border-radius:3px}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:9px;font-family:Consolas,monospace;margin-right:4px;vertical-align:1px}
+.tA{background:#dff0e2;color:#1e5e2e;border:1px solid #1e5e2e}
+.tB{background:#fdf3d7;color:#8a6d00;border:1px solid #8a6d00}
+.tC{background:#e8ecf5;color:#33518a;border:1px solid #33518a}
+.tD{background:#f7dede;color:#7a1f1f;border:1px solid #7a1f1f}
+.tE{background:#eee;color:#444;border:1px solid #888}
+.tI{background:#efe6f7;color:#5b3a8a;border:1px solid #5b3a8a}
+.small{font-size:12.8px;color:var(--mut)}
+.kill{color:var(--dead);font-weight:700}
+.keep{color:var(--live);font-weight:700}
+ul{margin:7px 0 7px 22px;padding:0}
+li{margin:4px 0}
+.ref{font-size:13px;margin:4px 0}
+sup a{text-decoration:none;color:var(--acc2)}
+.pill{border:1px solid var(--line);border-radius:6px;background:var(--card);padding:10px 14px;margin:10px 0}
+hr{border:none;border-top:1px dashed var(--line);margin:26px 0}
+.filecite{font-family:Consolas,monospace;font-size:11.5px;color:#6a6152;background:#f4f1ea;padding:0 4px;border-radius:3px}
+</style>
+</head>
+<body>
+<nav class="toc">
+<a href="#s0">§0 潜问题</a><a href="#s1">§1 判决 Delta</a><a href="#s2">§2 简报误差 vs 科学误差</a><a href="#s3">§3 归因引擎重跑</a><a href="#s4">§4 Coded 句式</a><a href="#s5">§5 Systems·文献</a><a href="#s6">§6 卫生 v3</a><a href="#s7">§7 贡献 triage</a><a href="#s8">§8 写作/投稿 Gate</a><a href="#s9">§9 简报协议</a><a href="#s10">§10 备忘</a>
+</nav>
+<main>
+
+<h1>AFDM-SP Claim Reconstruction <span style="color:var(--acc)">v3</span> — 纠错 · 扩样 · 卫生机制化之后</h1>
+<p class="sub">同一位敌意但公正的 IEEE TWC/TCOM/TSP 审稿人 · 基线 = v1（npz 级重算）+ v2（续判）· 本轮输入 = 作者 v3 简报：两项 v2 事实纠错（M1/M2）、四项 v2 要求的闭环状态、扩样新数据（PCSI uncoded、SNR8 coded 260f、E2 500/800）、剩余缺口精确清单 · 2026-07-26（同日第三轮）。</p>
+
+<div class="deadbox"><b>v3-pre-final 声明</b>：本消息<b>未附</b> coded 800f 终表、E2 800f+serial 终值、PCSI-coded 数值。所有相关行停在 <span class="tag tI">interim</span> / <span class="tag tE">protocol-complete-value-pending</span>，并预留 <em class="en">superseded-interim</em> 机制：今晚/明晨终值落盘后，凡与本报告 interim 数字冲突者，<b>以终值为准</b>，相应行改判 firm 或 failed-to-confirm。本报告不预填任何终值。</div>
+
+<div class="warnbox"><b>证据级声明（沿 v2，不放松）</b>：v3 新数字（4.04e-3 / 4.49e-2 / 9.4e-3 / 1.670e-2 / 3.02× / 0.444）仍为 author-reported，无 npz 可重算；一切「升级」判定的转 firm 条件 = 原始件入 bundle-v2 + 按 v1 协议逐帧重算。与 v2 的不同：本轮多数条目已具备<b>转 firm 的轨道与到期日</b>（今晚自动落盘），这改变的是排期确定性，不是当下证据等级。</div>
+
+<!-- ============================ §0 ============================ -->
+<h2 id="s0">§0 · Latent Question — 你没问、但先于一切的问题</h2>
+
+<div class="box3">
+<b class="k">Asked</b> v2 之后，claim / MVP / venue / 还差什么实验，要怎么改？<br>
+<b class="k">Unasked</b> v2 认定的「证据缺口」里，哪些其实是<b>简报缺口</b>（实验早就在跑，只是没写进简报）而非<b>实验缺口</b>？哪些数字已从 anecdote/interim 走上可转 firm 的轨道？在 800f 终值落盘前，论文<b>允许写死</b>什么、<b>仍然冻结</b>什么？<br>
+<b class="k">Mechanism</b> 缺口的两种成因对应两种修复：简报缺口 → 修简报协议（§9），零实验成本，风险即刻消失；实验缺口 → 只能等数据。把两者混在一张风险表里，会同时高估工作量与低估当下可写死的范围——v2 恰好犯了这个错的两个实例（M1/M2）。
+</div>
+
+<p><b>对 latent question 的直接回答</b>：(1) v2 的三大「不确定」中，<b>两个是简报缺口</b>——coded 归因臂（M1：geom+achievable 双臂自始同帧并行、全五点在跑、scorer 身份已登记）与 serial 臂（M2：未砍，排队今晚 ~23:00 落地）；只有第三个（运行时绑定不可证）是真缺口，且已被指纹机制<b>前瞻性</b>闭合（历史文件除外，见 §6）。(2) 走上转 firm 轨道的：E2 全量级 500/800 零漂移（classical 1.670e-2、Cao 3.02×、LMMSE 0.444——v1 预言收敛无异常）、SNR8 coded 分离从 4 帧 → 260 帧且随 n 收紧（4.8×）、SNR7 段 n=800 协议完成（值待表）、PCSI uncoded 出数（4.04e-3，oracle 地板 gap 4.1×）。(3) 现在允许写死的：全部协议性事实（coded 双臂设计+配对锚证明、五点网格、预注册判读、指纹 schema）与 v1-firm 的 uncoded 机制章节；仍冻结的：<b>一切 coded 数字句</b>（今晚）、<b>coded 白化差值</b>（臂在、<b>差值未报</b>——冻结原因从 v2 的「缺臂」改判为「identity-known, contrast-value pending」）、PCSI-coded dB-gap（今晚/明晨）、"near-optimal" 一类句子（<b>永久</b>：4.1× gap 现在是实测数，不是修辞）。</p>
+
+<!-- ============================ §1 ============================ -->
+<h2 id="s1">§1 · Verdict Delta from v2 — 含 M1/M2 纠错</h2>
+
+<div class="box3">
+<b class="k">Asked</b> 逐条对照 v2。<br>
+<b class="k">Unasked</b> 每行「变更类型」必须区分<b>纠错</b>（v2 判错了，且要写明错因是简报还是科学）与<b>升级/维持/仍冻结</b>（v2 判对了，数据在动）；并给出每行转 firm 依赖的<b>原始件路径/字段</b>——没有路径的升级不算升级。<br>
+<b class="k">Mechanism</b> 判定规则：简报纠错 ⇒ 改判定但不改证据等级；扩样零漂移 ⇒ 等级沿轨道前移；值未报 ⇒ 无论臂在不在，claim 冻结不动。
+</div>
+
+<table>
+<tr><th>条目</th><th>v2 判定</th><th>v3 判定</th><th>变更类型</th><th>机制一句话</th><th>证据状态</th><th>转 firm 依赖的原始件路径/字段</th></tr>
+<tr class="bad"><td><b>M1：coded 域 geom/ach 双臂</b></td><td>「白化在 coded 域完全未测，需最小补臂」（v2 §3.6）</td><td><span class="kill">v2 factual error（briefing-incomplete）</span>：E1 自始为 geom+achievable <b>双臂同帧并行</b>，配对由 classical 向量逐位相等证明（smoke 已验），双臂已跑<b>全五点</b>；SNR7 锚点身份已登记 = <b>geom 臂</b>。但 claim 层<b>仍冻结</b>：简报未给 achievable 任何 coded 数 ⇒ 差值不可读</td><td><b>纠错</b>（工具层）+ <b>仍冻结</b>（价值层）</td><td>臂的存在性与差值的可读性是两回事：前者是简报缺口（已消），后者要两列终表</td><td><span class="tag tE">identity-known, contrast-value pending</span></td><td>bundle-v2 契约：<span class="filecite">e1_coded/&lt;snr&gt;/{geom,ach}/results.json</span> 的 per-frame errs + FER + <span class="mono">scorer_id</span> + classical 锚 hash（两列、同帧、带 n）</td></tr>
+<tr class="bad"><td><b>M2：serial 臂</b></td><td>「被 torch-ref/PCSI 换掉，仍在缺口清单」（v2 §2 负空间）</td><td><span class="kill">v2 factual error（briefing-incomplete）</span>：serial 未砍，为 E2 排队第二段 <span class="filecite">outputs_e2_serial_floor_cpu</span>，预计当晚 ~23:00 落地。落地前 = <span class="tag tI">protocol-scheduled</span>；落地后才可作 estimation-limited floor 的 firm 复述。<b>新增注意</b>：目录名带 <span class="mono">_cpu</span>，而 E2 六臂 firm 原始件为 GPU 产出 ⇒ 与 GPU 臂的<b>配对</b>统计需段内 CPU classical 锚验证，否则 serial 只作水平对照（§6 设备规则前向适用）</td><td><b>纠错</b> + 排期</td><td>v2 负空间两缺口实际只剩 <b>OMP-(P+K)</b> 一个（systems 臂侧）；E2-uncoded 的 scorer 臂缺席（geom/head/covhead）不变、由 v1 gateA 覆盖</td><td><span class="tag tI">protocol-scheduled（今晚）</span></td><td><span class="filecite">outputs_e2_serial_floor_cpu/results.json</span>：BER、n=800、device/dtype、段内锚字段</td></tr>
+<tr><td>学习三级 null（head≡geom；covhead 追平不超；无摊运理由）</td><td>维持，零新证据</td><td><b>维持，仍零新证据</b>——coded 双臂是 geom/ach（都非学习臂），E2-uncoded 无 head/covhead 臂 ⇒ 本轮学习叙事无任何输入；M1 纠错不改变这一行</td><td>维持</td><td>学习 null 站在 v1 gateA；唯一复活通道仍是 v1 §13-E8</td><td>v1-firm</td><td>—（无新依赖）</td></tr>
+<tr class="hl"><td>F2P+achievable uncoded 复合复制</td><td>−36.2% @370f，interim</td><td><b>维持+加固</b>：E2 至 500/800 全量级零漂移（classical 1.654→<b>1.670e-2</b>，与 v1 1.664e-2 相对差 0.4%；简报称各臂同批零漂移，复合降幅未单列重述）</td><td>升级（轨道前移）</td><td>水平与复合是 ensemble 性质，n↑ 只收紧不移动</td><td><span class="tag tI">interim 500/800</span> <span class="tag tE">firm-track</span></td><td><span class="filecite">e2/results.json</span> 六臂 per-frame errs @800f + npz</td></tr>
+<tr class="hl"><td>LMMSE-SP / Cao re-OMP</td><td>0.446 / 3.06×，interim-decisive</td><td><b>维持+加固</b>：500/800 处 0.444 / <b>3.02×</b>（≈5.04e-2）。注意 3.06→3.02 是<b>同一次跑在两个 n 的快照收敛</b>，不是两次测量——论文只报终值一列，不报"复现两次"</td><td>升级</td><td>塌缩与 3× 都是大效应，n↑ 无翻转空间；Cao hard 化仍差公平性附录</td><td><span class="tag tI">interim-decisive</span></td><td>同上 + Cao 臂配置 dump；公平性附录见 §5/§8</td></tr>
+<tr class="hl"><td><b>PCSI uncoded（v2-R6 value-pending）</b></td><td>臂完成、数值未报、引用冻结</td><td><b>出数</b>：SNR15 uncoded PCSI <b>4.04e-3</b> vs classical 1.670e-2 ⇒ oracle 地板 gap <b>4.13×</b>；F2P+ach（≈1.07e-2，由 −36.2% 推）距地板仍 <b>2.6×</b> ⇒ 部署+白化只关掉对数 gap 的 ≈32%。<b>叙事改判</b>：v1「ach 贴 genie」只说明 <b>scorer 在给定估计下已信息饱和</b>；接收机离 oracle 还有 2.6×，残差在支撑/增益估计侧（§3）。<span class="kill">"near-optimal" 永久 RED</span></td><td>升级 + 改口（叙事精确化）</td><td>PCSI 用同一 MP-BP 检测器达 4e-3 ⇒ 检测器不是瓶颈；genie-scorer 平价（v1）⇒ 打分不是瓶颈 ⇒ 残差 = CE（支撑漏检+LS 增益误差）</td><td><span class="tag tI">interim 500/800</span></td><td><span class="filecite">e2/pcsi/results.json</span> per-frame errs @800f</td></tr>
+<tr><td>coded FER/BER 主张（分点）</td><td>整体 interim；SNR7 锚点 −34%（“部署臂”）；SNR8 仅 4 帧</td><td><b>分点改判</b>：SNR7 = <span class="tag tE">n=800 complete, values-pending</span>（终表未附；旧 −34% 标 superseded-pending，不得再引）；SNR8 = <b>260f 稳定</b> classical coded 4.49e-2 vs geom 9.4e-3 ≈ <b>4.8×</b>，随 n 收紧——interim 强信号；SNR9–11 = 在跑。v2 预注册的 0.2 dB 摘要线按趋势将被大幅跨越——<b>趋势句，不得写死 dB firm 句</b></td><td>升级（仍冻结 firm 句）</td><td>悬崖上纵向比值不稳定（微小横移 ⇒ 巨大比值）⇒ headline 货币仍是横向 dB 平移@FER 10⁻¹/10⁻²，4.8× 只作纵向佐证</td><td><span class="tag tI">interim（260f/SNR8）</span> + <span class="tag tE">值待表（SNR7）</span></td><td><span class="filecite">e1_coded/&lt;snr&gt;/*/results.json</span> 全五点终表（FER+codedBER+per-frame）</td></tr>
+<tr><td>coded 白化（geom→ach@悬崖）</td><td>RED，理由=「缺臂」</td><td><b>RED 维持，理由改判</b>：臂在（M1）、差值未报 ⇒ <span class="tag tE">identity-known, contrast-value pending</span>。回升条件（预注册不变）：同点两列终表 → paired ach/geom（FER 与 coded BER）+ 帧 bootstrap CI；两种结果都可发表（分离→coded 白化句转绿；不分离→白化保持 uncoded-region 机制 claim）</td><td>纠错（理由）+ 仍冻结（结论）</td><td>v2 冻结过度之处只在「要补实验」；冻结本身是对的——今天仍读不到差值</td><td>pending（今晚）</td><td>同上两列 + 锚 hash</td></tr>
+<tr class="hl"><td>运行时检测器指纹（v2 §4-C3-②）</td><td>要求（checklist）</td><td><b>已机制化</b>：新 <span class="filecite">results.json</span> 记录实际绑定 qualname + 源文件 sha256 ⇒「code wins」的运行时修正从要求变机制。<b>限定</b>：前瞻性——历史无指纹 runs 的绑定仍是 asserted+旁证，补救靠 C1 回放（§6）</td><td>升级</td><td>有指纹 ≠ 历史文件自动具备指纹</td><td><span class="tag tA">机制化（前瞻）</span></td><td>新跑批 <span class="filecite">results.json</span> 的 <span class="mono">detector_qualname/detector_sha256</span> 字段抽查</td></tr>
+<tr class="bad"><td>C1 bit-exact 回放</td><td>行动3：repo-only 回放（隐含 CPU 亦可）</td><td><b>方法论改口</b>：原始 firm 为 <b>GPU 产出</b>，朴素 CPU 回放会因浮点差异<b>误报失败</b> ⇒ 验收标准改写为 <b>device-matched bit-exact</b>（GPU↔GPU，登记 dtype/kernel/determinism 设置）；CPU-only 不得作唯一 gate；<span class="kill">禁止把 CPU 逐位失败解读为算法不可复现</span>（device 未控时无信息）。与 E6 同批，等 GPU ~1 天</td><td>改口（v2 行动清单的方法论补丁）</td><td>逐位相等只在同算子实现族内有定义；跨设备要么匹配设备、要么改用带对照的容差协议</td><td><span class="tag tB">open（外部依赖 GPU）</span></td><td>GPU 修复后：归档 shard（建议 <span class="filecite">gateA_s15firm</span> 子集）× repo checkout × device/dtype 登记 × 逐帧误差向量 diff</td></tr>
+<tr><td>venue / 可否开写正文</td><td>TCOM；写 §II–V + uncoded §VI，coded 冻结</td><td><b>维持 + 扩大可写面</b>：coded §VI 的<b>协议散文</b>现在可写死（双臂设计、配对锚证明、五点网格、预注册判读——全是 M1 后的协议事实）；数字仍冻结。venue 不动</td><td>维持+补丁</td><td>协议事实与数值事实解耦：前者今天为真且不随终值变</td><td>—</td><td>—</td></tr>
+<tr><td>初投 gate 清单</td><td>coded 网格 + E2 800f + C1 回放（约两周）</td><td><b>清单重排</b>：coded 800f×三组(geom/ach/PCSI) 与 E2 800f+serial = <b>今晚自动闭合</b>；C1(device-matched)+E6 = 等 GPU ~1 天；Cao dual-protocol + 翻转率 dump = 明天机器空可排；<b>新增实质 gate</b>：bundle-v2 落地后的审计重算过（数小时）。OMP-(P+K)/E3/E4/E5 不 gate 初投</td><td>改口（排期压缩：两周 → 终值后 ~2–3 天）</td><td>v2 清单里最贵的一项（补 ach 臂）因 M1 纠错归零</td><td>—</td><td>见 §8 两表</td></tr>
+</table>
+
+<p class="small">读表规则不变：任何「升级」在原始件入 bundle-v2 并通过 v1 协议重算前停在 firm-track。本表新增列「原始件路径/字段」即转 firm 的验收接口——路径以 bundle-v2 目录契约（§6）为准，<span class="filecite">outputs_e2_serial_floor_cpu</span> 为作者给定实名，其余为契约要求名。</p>
+<!-- ============================ §2 ============================ -->
+<h2 id="s2">§2 · 简报误差 vs 科学误差 — v2 的错分两类，修法完全不同</h2>
+
+<div class="box3">
+<b class="k">Asked</b> v2 哪里错了。<br>
+<b class="k">Unasked</b> 错因是什么——同样一句误判，若因简报不全，修简报协议即可、零实验成本；若因科学保守，则大概率<b>不该修</b>。混淆两者会把「过程改进」误当「结论翻案」。<br>
+<b class="k">Mechanism</b> 判别式：把 v2 的每条判断替换为「在当时简报下的最优推断」重演一遍——重演后仍会犯的 = 简报误差；重演后仍会坚持的 = 科学保守。
+</div>
+
+<h3>2A · 信息不全导致的误判（v2 之错，源头在简报通道，修复见 §9）</h3>
+<table>
+<tr><th>#</th><th>v2 误判</th><th>事实</th><th>该误判的传导损害</th></tr>
+<tr class="bad"><td>A1（=M1）</td><td>「coded 域无 geom/ach 分离臂 ⇒ 白化 coded 归因需<b>补实验</b>」</td><td>双臂自始同帧并行、全五点、锚已 smoke</td><td>行动清单多算一项最贵实验（约数天）；§3.6/行动1 的「补臂」指令空转；RED 句挂错理由（该挂「差值未报」）</td></tr>
+<tr class="bad"><td>A2（=M2）</td><td>「serial 臂被换掉 = 缺口」</td><td>排队第二段，今晚落地</td><td>负空间清单虚增一项；systems baseline 完整度被低估</td></tr>
+<tr><td>A3</td><td>「SNR7 锚点 scorer 未注明 ⇒ 按不明部署臂处理」</td><td>身份已登记 = geom 臂</td><td>损害最小（v2 的处理是保守正确的），但暴露同一简报通道问题</td></tr>
+</table>
+<p><b>对简报流程的三条硬约束</b>（完整 schema 见 §9）：① <b>臂清单完整性</b>——每次简报必须列出「在跑的全部臂」（含未出数的），"没有数字" 与 "没有臂" 是两个字段；② <b>scorer 身份必填</b>——任何臂的任何数字，无 <span class="mono">scorer_id</span> 不得入表；③ <b>n 与完成标志必填</b>——每个数字带 <span class="mono">n_frames / complete?</span>，interim 数字自动携带 supersede 指针。<b>审计侧的对偶规则</b>（v2 自己的推理修正，同等重要）：<em class="en">not-in-briefing ≠ not-run</em>——简报里的缺席只允许生成<b>问句</b>（"该臂是否存在？"），不允许生成<b>判定</b>（"该臂缺失"）。v2 在 A3 上做对了（标 unidentified、要身份），在 A1/A2 上做错了（从缺席直接推缺失）。</p>
+
+<h3>2B · 科学上仍成立的保守（v2 之对，v3 不翻案）</h3>
+<ul>
+<li><b>coded 白化 claim 冻结</b>——臂在不改变「差值今天不可读」；冻结依旧，只换理由。</li>
+<li><b>"survives channel coding" RED</b>——直到五点终表+正确臂引用。</li>
+<li><b>interim 禁引 / 4 帧禁引 / SNR15 coded 永久禁</b>——全部维持；SNR8 从 4 帧到 260 帧改变的是信号强度，不是引用资格（800f 才是资格线）。</li>
+<li><b>"near-optimal" 禁令</b>——v2 时是预防性措辞纪律，v3 起是<b>实测事实</b>（PCSI gap 2.6× 就摆在那）。保守被数据追认，这是审计最希望发生的事。</li>
+<li><b>学习 null 不回潮 / 跨 harness 禁配对</b>——维持。</li>
+</ul>
+
+<!-- ============================ §3 ============================ -->
+<h2 id="s3">§3 · 归因引擎重跑 — 当前协议下的两架梯子（最重要的机制节）</h2>
+
+<div class="box3">
+<b class="k">Asked</b> 归因图怎么画。<br>
+<b class="k">Unasked</b> 每个箭头的<b>书写资格</b>——只有「同帧、同 harness、scorer 身份已知」的箭头允许标 delta；不合格箭头必须画虚线并写明 <span class="mono">blocked by X</span>。以及：PCSI 出数后，「残差住在哪一层」第一次可以用数字回答。<br>
+<b class="k">Mechanism</b> 箭头代数：classical→geom = 部署壳+几何打分（<b>不含白化</b>，geom 本来就是未白化先验）；geom→ach = 白化净增量；ach→PCSI = 全部剩余估计误差（支撑+增益）；PCSI = 检测器+信道本身的地板。
+</div>
+
+<h3>3.1 UNCODED · SNR15（E2 六臂，seed 20260601，interim 500/800）</h3>
+<div class="eq" style="font-family:Consolas,monospace;font-size:13px;line-height:1.75">serial ─ ─ ─▶ classical ────────▶ F2P+ach ────────▶ PCSI<br>&nbsp;(blocked by:&nbsp;&nbsp;1.670e-2&nbsp;&nbsp;&nbsp;&nbsp;−36.2% paired&nbsp;&nbsp;≈1.07e-2&nbsp;&nbsp;÷2.6&nbsp;&nbsp;4.04e-3<br>&nbsp;&nbsp;今晚落地+CPU段&nbsp;&nbsp;&nbsp;&nbsp;├─ ─ ─▶ F2P+geom（blocked by: geom 臂不在 E2；v1 gateA 参考 −35.8%，跨 harness 只水平对照）<br>&nbsp;&nbsp;配对政策 §6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└ geom─ ─▶ ach（blocked by: 同上；v1 gateA 0.980 [0.968, 0.992]）<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├──────▶ LMMSE-SP 0.444（同帧，塌缩）<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└──────▶ Cao re-OMP ≈5.04e-2 = 3.02×（同帧）</div>
+<table>
+<tr><th>箭头</th><th>资格</th><th>数值</th><th>n</th><th>解读</th></tr>
+<tr class="hl"><td>classical → F2P+ach</td><td>实线（同帧同 harness，scorer=ach 登记）</td><td class="n">−36.2%</td><td class="n">500/800</td><td>部署壳 + achievable 打分的<b>复合</b>；三层分解仍由 v1 gateA 持有（96.6/3.4/0），本序列未再分解</td></tr>
+<tr class="hl"><td>F2P+ach → PCSI</td><td>实线（同帧）</td><td class="n">÷2.64</td><td class="n">500/800</td><td><b>本轮最重要的新箭头</b>：全部剩余估计误差的价格</td></tr>
+<tr><td>classical → PCSI</td><td>实线</td><td class="n">÷4.13</td><td class="n">500/800</td><td>估计链总价；对数尺度下部署+白化关掉 ≈32%，<b>≈68% 残留在 CE 侧</b></td></tr>
+<tr><td>serial → classical</td><td>虚线：blocked by 今晚落地 + <span class="mono">_cpu</span> 段配对政策（§6）</td><td>—</td><td>—</td><td>落地后解锁 floor 句（§5）；跨设备默认只水平对照</td></tr>
+<tr><td>classical → geom、geom → ach（本帧序列）</td><td>虚线：blocked by E2 无 geom 臂</td><td>—</td><td>—</td><td>uncoded 分解不在本轮任务内；v1 gateA 数据继续持有，引用时标 v1</td></tr>
+</table>
+
+<div class="mech"><b>残差住在哪一层（PCSI 出数后的三段排除法）</b>：① 检测器不是瓶颈——PCSI 用<b>同一</b> MP-BP 检测器在同帧达 4.04e-3；② 打分不是瓶颈——v1 genie-scorer 平价（genie/ach 0.988，CI 跨 1）说明在<b>给定 OMP-once 估计</b>下 achievable-Λ 已把可用信息用尽；③ ⇒ F2P+ach 与 PCSI 之间的 2.6× 全部住在<b>信道估计侧</b>：支撑漏检/错检（exchange 修不动的那部分）+ LS 增益误差 + ρ/P 预算。<b>对旧叙事的修正（必须写进论文措辞纪律）</b>：v1 的「ach 贴 genie」是 <em class="en">scorer-saturation</em> 陈述，不是 <em class="en">receiver-near-optimality</em> 陈述——两种 oracle（genie 打分 vs 完美 CSI）差一整个 CE 层。由此得到两个免费的论文资产：对 "why not learning to close the gap" 的预防性回答（打分已饱和，gap 在估计侧，学习打分头无从下手——与学习 null 互证）；以及诚实的 future-work 矢量（支撑搜索/候选预算/ρ 优化，而非更好的分数）。</div>
+
+<h3>3.2 CODED · SNR7–11（E1 双臂 + PCSI 接力，v3-pre-final）</h3>
+<div class="eq" style="font-family:Consolas,monospace;font-size:13px;line-height:1.75">classical ────────▶ F2P+geom ─ ─ ─ ─▶ F2P+ach ─ ─ ─ ─▶ PCSI(coded)<br>SNR8: 4.49e-2 ──▶ 9.4e-3（÷4.8，260f，收紧中）&nbsp;&nbsp;(blocked by: 差值未报——&nbsp;&nbsp;(blocked by: 接力今晚/明晨；<br>SNR7: n=800 complete，values-pending（终表）&nbsp;&nbsp;&nbsp;臂在、锚在，等两列终表)&nbsp;&nbsp;&nbsp;读数=dB-gap@FER 1e-2，预注册)<br>SNR9–11: running</div>
+<table>
+<tr><th>箭头</th><th>资格</th><th>数值</th><th>n</th><th>解读</th></tr>
+<tr class="hl"><td>classical → F2P+geom @SNR8</td><td>实线-interim（同帧、锚 smoke、scorer=geom 登记）</td><td class="n">coded BER 4.49e-2 → 9.4e-3（÷4.8）</td><td class="n">260</td><td><b>按箭头代数，这 4.8× 是部署壳+geom 打分的效应，白化含量为零</b>（geom 即未白化先验）。它不需要、也不允许借白化解释</td></tr>
+<tr><td>classical → F2P+geom @SNR7</td><td>协议完成、值待表</td><td>values see final table</td><td class="n">800</td><td>旧 interim −34% 标 <span class="tag tE">superseded-pending</span>，不得再引；等终值</td></tr>
+<tr class="bad"><td>F2P+geom → F2P+ach（全五点）</td><td>虚线：<span class="mono">blocked by contrast-value unreported</span>（M1 后唯一剩余障碍）</td><td>—</td><td>—</td><td>白化的 coded 价值 = 且仅 = 这个箭头。作者必须贴出的两列数：<b>每点 geom 与 ach 的 {FER, coded BER, per-frame err 计数}</b>（同帧、同段、附 classical 锚 hash 与 n）→ 审计端算 paired ratio + 帧 bootstrap CI。在此之前，<span class="kill">任何把 4.8× 或其一部分记到白化头上的句子都是禁句</span>；反向同禁（不得因未见差值就宣称白化在悬崖无效）——<span class="tag tE">entangled-at-message-level 仅指白化问题，不指 4.8× 本身（后者归因干净）</span></td></tr>
+<tr><td>F2P+ach → PCSI(coded)</td><td>虚线：接力今晚/明晨</td><td>—</td><td>—</td><td>可加性 smoke 已过（开臂后 classical/gateA 每帧误差逐位不变）⇒ 协议合格；数值出前只允许结构预注册：<b>dB-gap@FER=10⁻²</b> 为 coded 摘要量</td></tr>
+</table>
+
+<div class="warnbox"><b>货币规则（悬崖上的度量纪律）</b>：coded BER/FER 的<b>纵向比值</b>在悬崖上不稳定——横移零点几 dB 即可造出一个数量级的比值；4.8× 因此只作纵向佐证与趋势信号。论文的 headline 货币是<b>横向读数</b>：FER=10⁻¹ 与 10⁻² 两条水平线上的 dB 平移（帧 bootstrap CI），加 dB-gap-to-PCSI。附带一个方向性观察（只观察，不建理论——v2 §9-7 的拒绝继续有效）：uncoded SNR15 部署效应 ≈1.57×，SNR8 悬崖上同型对比 ≈4.8×，方向与「译码器阈值附近对 raw-BER 差的非线性放大」一致；定量刻画等全网格终值，且不进本文 claim。</div>
+
+<!-- ============================ §4 ============================ -->
+<h2 id="s4">§4 · Coded 域 claim 语言重写（green / yellow / red）</h2>
+
+<div class="box3">
+<b class="k">Asked</b> 给可直接进/不可进论文的英文句。<br>
+<b class="k">Unasked</b> 哪些句子的资格<b>今天</b>就有（协议事实，不随终值变），哪些要等今晚终表，哪些永久禁——三档必须分开，否则明早填数时会把「趋势」写成「结果」。<br>
+<b class="k">Mechanism</b> 资格判据 = §3 箭头资格的措辞投影：实线箭头 → 可写；虚线箭头 → 只可写协议与预注册；比值/平移货币规则贯穿。
+</div>
+
+<h4 style="color:var(--live)">GREEN-now（今天可写死——协议事实，不随终值变）</h4>
+<ul>
+<li><em class="en">"All coded comparisons are made on the decoding cliff (SNR 7–11): with rate-1/2 soft-decision LDPC, the coded waterfall lies ≈5 dB below the uncoded one, and at the uncoded operating point the decoder drives all receivers to zero errors."</em></li>
+<li><em class="en">"Both scorer arms — geometric-prior and whitened (achievable-Λ) — run in paired fashion at all five coded grid points; pairing is certified per segment by bitwise-equal classical error vectors."</em>（M1 后的协议事实。）</li>
+<li><em class="en">"Cliff metrics are pre-registered: horizontal FER-cliff shift at FER=10⁻¹ and 10⁻² with frame-bootstrap CIs, and the dB gap to the perfect-CSI reference at FER=10⁻²."</em></li>
+</ul>
+<h4 style="color:var(--live)">GREEN-after-finals（结构今天写死，数字明早填——填前整句不出现于论文）</h4>
+<ul>
+<li><em class="en">"The scored-exchange deployment shifts the FER cliff left by X dB at FER=10⁻¹ (X′ at 10⁻²; 800 paired frames per point, CI excluding 0)."</em></li>
+<li><em class="en">"At FER=10⁻², the receiver operates Y dB from the perfect-CSI reference."</em></li>
+<li>二选一（预注册，两个都可发表）：<em class="en">"the whitened score contributes a further δ dB of cliff shift over the geometric prior"</em> <b>或</b> <em class="en">"on the cliff the deployment dominates; whitening remains an uncoded-region mechanism effect."</em></li>
+</ul>
+<h4 style="color:var(--warn)">YELLOW（内部 / rebuttal 可用，不入正文）</h4>
+<ul>
+<li><em class="en">"At SNR 8, coded BER improves ≈4.8× over classical (260 frames, tightening with n)."</em>——终值前只作内部趋势句；<em class="en">"the pre-registered 0.2 dB abstract threshold is on track to be crossed by a wide margin"</em> 同级。</li>
+<li>SNR7 的一切数字：等终表，旧 −34% 已 superseded。</li>
+</ul>
+<h4 style="color:var(--dead)">RED（现阶段或永久）</h4>
+<ul>
+<li><span class="kill">"the advantage survives channel coding"</span>——直到五点终表落盘且句中臂身份正确。</li>
+<li><span class="kill">任何 SNR15 coded 数字或比率</span>（永久：0/0）。</li>
+<li><span class="kill">"the whitening advantage yields the 4.8×"</span>（箭头代数违规：4.8× 的白化含量为零）；对偶禁句：<span class="kill">"whitening does not survive coding"</span>（差值未读，不得反向宣判）。</li>
+<li><span class="kill">"near-optimal (coded or uncoded) performance"</span>（永久：PCSI gap 2.6× 为实测）。</li>
+<li><span class="kill">用 4 帧 FER、或用 interim 值写 firm 句</span>（含在摘要预填 X/δ 的铅笔值）。</li>
+</ul>
+<!-- ============================ §5 ============================ -->
+<h2 id="s5">§5 · Systems / Literature delta 更新</h2>
+
+<div class="box3">
+<b class="k">Asked</b> LMMSE / Cao / PCSI / serial 各解锁什么句子。<br>
+<b class="k">Unasked</b> 哪些「一致性」是真复现、哪些只是同一估计量在不同 n 的快照（3.06→3.02 属后者）；以及 PCSI 4.1× 这种「对自己不利」的数如何反而变成论文资产。<br>
+<b class="k">Mechanism</b> delta 硬度公式不变：同帧配对 × 公平性可辩护 × 原始件可查。
+</div>
+
+<table>
+<tr><th>对象</th><th>v3 状态</th><th>解锁/改写的句子</th><th>硬化前置</th></tr>
+<tr><td><b>LMMSE-SP ≈ 0.444</b></td><td>500/800 稳定（v2 时 0.446）</td><td>结构不可行三腿之一：<em class="en">"dense linear MMSE over the Q≈N SP grid collapses to chance (BER 0.444)"</em>——只作 regime 论证，表一行不入图；<span class="kill">"we beat LMMSE" 仍禁</span></td><td>800f + npz</td></tr>
+<tr class="hl"><td><b>Cao re-OMP ≈ 3×</b></td><td>3.02×@500f（与 3.06×@370f 为<b>同跑两快照的收敛</b>，非两次测量——论文只报终值一列，禁写成 "reproduced twice"）</td><td><em class="en">"3× lower BER than the closest published SP-AFDM receiver under byte-identical frames"</em>——systems 矛的主句</td><td>800f + npz + <b>公平性附录</b>（dual-protocol 第二列 + 支撑翻转率 dump，明天机器空可排）。缺附录时该句降级为 "our reproduction of [Cao]"，矛变钝（§8 攻击预演）</td></tr>
+<tr class="hl"><td><b>PCSI gap 4.13× / 残差 2.6×</b></td><td>uncoded 出数（interim 500/800）；coded 接力今晚</td><td>防 overclaim 的写法（把不利数变资产）：<em class="en">"the joint receiver closes ≈one-third of the log-BER gap to perfect CSI; the remaining 2.6× resides in support/gain estimation — where candidate scoring is already information-saturated (genie parity) — delimiting both the value and the ceiling of score-side refinement."</em> 一句话同时：给天花板、答 "why not learning"、指 future-work 矢量。<span class="kill">"near-optimal" 永禁</span></td><td>800f + npz；coded dB-gap@10⁻² 待今晚数</td></tr>
+<tr><td><b>serial floor（今晚 ~23:00）</b></td><td>protocol-scheduled，<span class="filecite">outputs_e2_serial_floor_cpu</span></td><td>落地后解锁 floor 叙述（措辞今天锁定、数字明早填）：<em class="en">"removing the joint iteration lifts BER from 1.67e-2 to [S]; the exchange loop thus recovers [·]% of the serial→PCSI log-gap"</em>——注意 v1 旧 seed 的 ~4e-2 <b>不得预填</b></td><td>落地 + 设备规则（<span class="mono">_cpu</span> 段 vs GPU 六臂：默认水平对照；要配对须段内 CPU classical 锚，§6）</td></tr>
+<tr><td>其余行（Λ 血统 / SP-OTFS / EP 系 / coded 口径先例 [v2-1..4]）</td><td>不变</td><td>—</td><td>—</td></tr>
+</table>
+
+<!-- ============================ §6 ============================ -->
+<h2 id="s6">§6 · Hygiene &amp; Reproducibility v3 — 从检查单到机制</h2>
+
+<div class="box3">
+<b class="k">Asked</b> 指纹落地后还要什么。<br>
+<b class="k">Unasked</b> 前瞻机制与历史存量的边界在哪（有指纹 ≠ 历史文件有指纹）；以及 C1 的验收标准被设备一致性问题改写成什么——这是对 v2 行动清单的方法论修正，不是延期借口。<br>
+<b class="k">Mechanism</b> 可审计性 = 身份（谁跑的哪份代码）× 可重放（能否再产同一比特）× 边界（哪些对比合法）。三者分别由指纹、device-matched 回放、配对规则承担。
+</div>
+
+<h4>6.1 指纹机制 — 今后每个 <span class="filecite">results.json</span> 的最小 schema</h4>
+<p class="mono" style="font-size:12.3px;line-height:1.9">harness_id · git_sha(+dirty) · seed · frame_protocol_hash · arm · <b>scorer_id</b>(geom|ach|head|covhead|—) · detector_qualname · detector_sha256 · device(gpu|cpu)+dtype(+torch/cuda 版本与 determinism 标志) · n_frames · complete? · anchor_hash(classical 误差向量) · metric 定义 · superseded_by(可空)</p>
+<p class="small">已生效字段（作者报）：qualname + 源文件 sha256。上表其余字段中 device/dtype 与 anchor_hash 为本轮新增强制项（C1 教训与 serial-<span class="mono">_cpu</span> 段直接催生）。</p>
+
+<h4>6.2 历史无指纹 runs 的处理</h4>
+<p>不回填、不改写旧文件（回填即造假）。处理法：打 <span class="tag tE">pre-fingerprint</span> 类标；其绑定声明维持 asserted + 旁证（torch-ref≡classical、E2 水平复现）；<b>补救仪器 = C1 device-matched 回放</b>——对代表性归档 shard 重放通过后，该类标整体升级为 replay-verified，无需逐文件处理。</p>
+
+<h4>6.3 C1 验收标准（改写后）</h4>
+<ul>
+<li><b>主路径 device-matched bit-exact</b>：GPU↔GPU、登记 dtype / kernel / determinism 设置，repo-only checkout 重放归档 shard（建议 <span class="filecite">gateA_s15firm</span> 子集）→ 逐帧误差向量逐位 diff。等 GPU 修复，与 E6 同批（~1 天）。</li>
+<li><b>禁 CPU-only gate</b>：原始 firm 为 GPU 产出，CPU 浮点差异会在边际判决上翻比特 ⇒ CPU 逐位失败<b>无信息</b>；<span class="kill">禁止将其解读为「算法不可复现」</span>。</li>
+<li><b>备用容差路径</b>（仅当匹配设备长期不可得）：先在<b>新鲜对照帧</b>上实测 CPU↔GPU 翻转率基线，再要求回放差异 ≤ 该基线，且成品标注 <em class="en">tolerance-replay</em> 而非 <em class="en">bit-exact</em>——两个词在论文里不可互换。</li>
+</ul>
+
+<h4>6.4 配对边界（维持并前向适用）</h4>
+<p>跨 harness / 跨帧派生禁配对（同 seed ≠ 同帧）不变。<b>新推论（设备维）</b>：跨设备段默认只作水平对照；<span class="filecite">outputs_e2_serial_floor_cpu</span> 若要与 GPU 六臂做配对统计，必须段内附跑 CPU classical 锚并通过逐位检验（大概率不过——那就老实用水平对照，floor 句本来就是水平句）。</p>
+
+<h4>6.5 bundle-v2 目录契约（审计者接收面）</h4>
+<p class="mono" style="font-size:12.3px;line-height:1.9">bundle-v2/<br>├ 03_raw_results/e2_800f/{classical,torchref,f2p_ach,lmmse,cao,pcsi}/ &nbsp;npz + results.json(指纹全字段)<br>├ 03_raw_results/e1_coded/{snr7..snr11}/{classical,f2p_geom,f2p_ach,pcsi}/ &nbsp;同上 + FER 表<br>├ 03_raw_results/e2_serial_floor_cpu/ &nbsp;(device 字段=cpu，锚政策注记)<br>├ smoke/ &nbsp;锚逐位相等日志 + PCSI 可加性日志<br>├ superseded/ &nbsp;370f/500f/260f 等 interim 快照（保留，标 superseded_by）<br>└ MANIFEST.sha256 + recipes/（含 detector 指纹与 determinism 设置）</p>
+
+<!-- ============================ §7 ============================ -->
+<h2 id="s7">§7 · Contribution triage v3（A/B/C/D）</h2>
+
+<div class="box3">
+<b class="k">Asked</b> 分级与第一名。<br>
+<b class="k">Unasked</b> 本轮各贡献的账本增量：systems +多（但全 interim/在途）；theory 的<b>数字</b> +0、<b>解释精度</b> +1（PCSI×genie 合成出「残差在估计侧」这一新推论）；learning +0。第一名的切换开关是否已到日期。<br>
+<b class="k">Mechanism</b> 分级只认「机制链 × 证据等级 × 缺口」，不认势头。
+</div>
+
+<table>
+<tr><th>贡献</th><th>Bin</th><th>机制链（增量部分）</th><th>本轮账本</th><th>还缺</th></tr>
+<tr class="hl"><td><b>Systems：OMP-once + scored exchange 接收机 + 同帧外部基线 + oracle 梯子</b></td><td><span class="tag tA">A</span>（firm-track，今晚起转 firm 轨道）</td><td>支撑冻结挡干扰于选择环外 → Cao 3.02× / LMMSE 0.444 / PCSI 梯子（4.13×→2.6×）/ serial 今晚补 floor 端点</td><td>+PCSI 出数、+零漂移、+serial 排定、+coded 悬崖强信号（SNR8 4.8×@260f）</td><td>今晚终值 + npz；Cao 公平性附录；OMP-(P+K)（不 gate）</td></tr>
+<tr><td><b>Theory：Λ 因式分解 + achievable 插件白化</b></td><td><span class="tag tA">A</span>（维持）</td><td><b>新推论（v1 genie × v3 PCSI 合成）</b>：scorer 饱和 + 残差 2.6× 在 CE 侧 ⇒ Λ 的价值与天花板同时被界定——解释精度上升，delta 数字不变</td><td>数字 +0；叙事 +1（须按 §3 措辞纪律写）</td><td>coded 白化差值（今晚两列）；E4 可选</td></tr>
+<tr><td><b>Mechanism：ρ-律 / intDopp / null 套件</b></td><td><span class="tag tA">A</span>（维持）</td><td>不变；定义域仍 uncoded SNR13–15，悬崖区外推待网格</td><td>+0</td><td>—</td></tr>
+<tr><td><b>Learning：三级 null</b></td><td><span class="tag tA">A</span>（负结果，维持）</td><td>不变；且获得新护法：scorer 饱和论证使「学习打分头」失去理论空间</td><td>+0（无新臂）</td><td>唯一复活通道仍 v1 §13-E8</td></tr>
+<tr><td><b>Coded 悬崖面</b></td><td><span class="tag tI">protocol-complete-track</span>（今晚转 firm 候选）</td><td>SNR8 4.8×（部署，箭头代数）+ 白化差值待读 + PCSI-gap 待读</td><td>+260f 强信号、+双臂纠错、+PCSI 接力</td><td>五点终表；差值两列</td></tr>
+<tr><td>「coded 工作点错位 5 dB」</td><td><span class="tag tC">C</span>（不变：related-discussion + F3 图）</td><td>教科书行为</td><td>+0</td><td>—</td></tr>
+</table>
+<p><b>第一名（只许一个）</b>：今天（v3-pre-final）仍是 <b>achievable-Λ 机制包</b>——全 firm、无 interim 成分。<b>切换开关不变、日期已到眼前</b>：今晚终值 + bundle-v2 落地并通过审计重算之时，第一名换 <b>systems 接收机</b>（矛），Λ 退居甲。学习保持 null/附录，无回潮理由——本轮反而多了一条不回潮的理论理由（scorer 饱和）。</p>
+
+<!-- ============================ §8 ============================ -->
+<h2 id="s8">§8 · Gate to write / Gate to submit</h2>
+
+<div class="box3">
+<b class="k">Asked</b> 现在写什么、等什么。<br>
+<b class="k">Unasked</b> 「明早终值一到是否立即 submit-track」的诚实答案（不是）；以及 Cao 公平性附录缺席时的最惨审稿攻击原文预演。<br>
+<b class="k">Mechanism</b> 写作 gate 只看协议事实与 v1-firm 数据；投稿 gate 还要原始件重算、公平性附录、复现声明三件。
+</div>
+
+<h4>表 1 · 现在可写进草稿并<b>锁死</b>的句子</h4>
+<table>
+<tr><th>范围</th><th>依据</th></tr>
+<tr><td>§I–§V 全部；§VI-uncoded 全部（Gate 阶梯、ρ-律、intDopp、selfsupp、学习对照，v1 数字）</td><td>v1-firm</td></tr>
+<tr><td>§VI-coded 的<b>协议散文</b>：五点网格、双臂设计、锚逐位证明、货币规则、预注册判读（照 §3.2/§4 GREEN-now 三句）</td><td>M1 后协议事实</td></tr>
+<tr><td>PCSI 梯子的句<b>骨架</b>（[X]/[Y]/[S] 括号占位）+「scorer 饱和 vs 接收机天花板」措辞纪律段</td><td>§3.1 合成推论（数字待 800f 定稿）</td></tr>
+<tr><td>复杂度/runtime（v1 primary）；limitations；E1 postmortem 一段（repro 附录）</td><td>v1 + §2</td></tr>
+</table>
+
+<h4>表 2 · 必须等的句子（按到期日）</h4>
+<table>
+<tr><th>句子</th><th>等什么</th><th>到期</th></tr>
+<tr><td>一切 coded 数字句（悬崖平移 X dB、SNR7/8 终值、白化 δ 或其否定、dB-gap@10⁻²）</td><td>coded 800f 三组终表 + PCSI 接力</td><td class="n">今晚/明晨</td></tr>
+<tr><td>E2 六臂终值句 + serial floor 句</td><td>E2 800f + serial 落地</td><td class="n">今晚 ~23:00</td></tr>
+<tr><td>Cao 硬 delta 的摘要级措辞（"3× than closest published…"）</td><td>公平性附录（dual-protocol 第二列 + 翻转率 dump）</td><td class="n">明天（机器空）</td></tr>
+<tr><td>Reproducibility statement（"replay-verified from repository"）+ E6 计时表</td><td>C1 device-matched 回放 + E6（GPU）</td><td class="n">~1 天（外部依赖）</td></tr>
+</table>
+
+<p><b>明早终值一到 = submit-track？——不是。</b>终值把状态从 write-now 推到 <b>numbers-locked draft</b>；submit-track 还差三件：① bundle-v2 落地后的<b>审计重算过</b>（v1 协议逐帧，数小时）；② Cao 公平性附录（缺它矛是钝的）；③ C1 回放 + E6（复现声明与计时表）。现实排期：终值后 <b>+2–3 天</b>到 submit-track——比 v2 的两周大幅压缩（压缩的主因正是 M1 纠错：最贵的一项「补臂」原来不存在）。</p>
+
+<div class="deadbox"><b>攻击预演（若 Cao dual-protocol 与翻转率 dump 缺席）</b>：<em>“The only hard external comparison is against the authors' own re-implementation of [Cao], configured by the authors, with no evidence it was run at its recommended settings and no internal evidence for the claimed re-OMP instability mechanism. Absent this, the 3× figure is a strawman artifact; remove that column and the systems contribution reduces to beating a structurally mismatched linear baseline and the authors' own ablations.”</em>——一段话把矛打回 mechanism-only。这就是公平性附录虽不改任何数字、却实质 gate 投稿（以当前 systems-lead 框架）的原因。</div>
+
+<!-- ============================ §9 ============================ -->
+<h2 id="s9">§9 · 给作者的 v3 收数/简报协议 — 防第三次误判</h2>
+
+<div class="box3">
+<b class="k">Asked</b> 简报该带什么。<br>
+<b class="k">Unasked</b> 协议要同时约束两端：作者端（字段完整性）与审计端（缺席只生成问句）。M1/M2 的成本证明了这不是文书洁癖：一个缺字段让 v2 把「已在跑」判成「要新跑」。<br>
+<b class="k">Mechanism</b> 简报 = 结果的运输层；运输层丢字段 ⇒ 接收端只能做最坏假设或错误假设，两者都贵。
+</div>
+
+<p><b>每条实验简报强制自带（与 §6.1 schema 同源）</b>：① harness 名 + seed + 帧派生协议哈希；② <b>每臂 scorer 身份</b>（geom/ach/head/covhead/—）；③ 配对锚状态（classical 误差向量逐位相等：已验/未验 + hash）；④ detector qualname + sha256；⑤ <b>n_frames + complete? 标志</b>（interim 必带 supersede 指针）；⑥ 主指标 + CI 协议（帧 bootstrap 参数）；⑦ 禁止跨文件对比清单（本表不得与哪些表配对）；⑧ device/dtype。<b>臂清单完整性条款</b>：简报必须列出在跑的<b>全部</b>臂（含未出数者，标 ETA）——「没有数字」是状态，不是不存在。<b>审计端对偶条款</b>：not-in-briefing ≠ not-run；缺席只允许生成问句。</p>
+
+<!-- ============================ §10 ============================ -->
+<h2 id="s10">§10 · Final Advisor Memo v3（一页）</h2>
+
+<div class="pill">
+<p><b>0. unasked decisive question</b>：M1 纠错后，科学侧的未决只剩<b>一对数</b>——悬崖上 geom vs achievable 的两列终表（白化有没有 coded 表达；两个答案都可发表）；投稿侧的未决只剩<b>一份附录</b>——Cao 公平性。其余全是记账与到期日。</p>
+<p><b>1. one-sentence contribution now（pre-final 版）</b>：<em class="en">"A complexity-preserving OMP-once + scored-exchange SP-AFDM receiver that closes ≈one-third of the log-gap to perfect CSI, is 3× ahead of the closest published SP-AFDM baseline under byte-identical frames, and whose whitened score is information-saturated given the estimate — with its coded-cliff expression landing tonight."</em></p>
+<p><b>2. what this is not</b>：不是 near-optimal（2.6× 余量是实测，大声说出来）；不是学习论文；今晚之前不是 coded 性能论文；不是 "beat LMMSE" 论文；4.8× 不是白化战绩。</p>
+<p><b>3. three hardest evidences（各带机制）</b>：① E2 零漂移梯子 + PCSI 地板（ensemble 稳定性 + 残差三段排除法：检测器非瓶颈、打分饱和 ⇒ 残差在 CE 侧）；② SNR8 coded ÷4.8 @260f 收紧（部署效应在译码阈值附近被非线性放大——方向观察，理论不建）；③ v1 gate 链（同壳 −347 errs、0.980 CI、ρ-律——本轮未再测，引用标 v1）。</p>
+<p><b>4. most dangerous overclaim still alive</b>：<b>终值前夜的预填诱惑</b>——把今晚预期的 X dB/δ 铅笔进摘要（连括号占位都要空着数字）。第二名：<span class="kill">"near-optimal"</span>（现在是可证伪且已被证伪的措辞）。第三名：4.8× 滑成白化/学习战绩。</p>
+<p><b>5. write now or wait for X（优先级）</b>：现在写表 1 全部；<b>P0</b>=今晚自动（coded 三组 800f、E2 800f、serial、PCSI-coded）→ 明早填数；<b>P1</b>=bundle-v2 + 审计重算；<b>P2</b>=Cao 公平性附录（明天，机器空）；<b>P3</b>=C1 device-matched + E6（等 GPU，~1 天）；<b>P4</b>=OMP-(P+K)/E3/E4/E5（不 gate）。submit-track = 终值 + P1 + P2 + P3 ≈ 2–3 天。</p>
+<p><b>6. single surviving innovation</b>：不变——<b>achievable-Λ</b>。本轮它的故事更完整了：不只是「有效的白化分数」，而是「已证饱和的白化分数 + 已定价的天花板」——一个知道自己边界的构造比一个吹大的构造更像 TCOM 的理论贡献。</p>
+<p><b>7. which v2 conclusion I reversed because it was a briefing error, not science</b>：<b>M1</b>——「coded 白化归因缺臂、需补实验」：臂自始在跑，我从简报缺席推断了实验缺失，违反了我此后自立的规则（not-in-briefing ≠ not-run）；<b>M2</b> 同因（serial 未砍）。<b>没有被翻案的</b>：coded 白化 claim 的冻结本身、全部 RED 句、interim 禁引——那些是科学侧的保守，今天依旧正确。</p>
+</div>
+
+<hr>
+<p class="small">v3 自检清单：☑ v3-pre-final 声明在顶（无终表，不预填）；☑ M1/M2 标为 v2 briefing-incomplete 事实错误，未说成「作者没做」；☑ 4.8× 全文只归部署（箭头代数），白化差值标 identity-known/contrast-value-pending；☑ PCSI 4.1×/2.6× 全文禁 "near-optimal"，并转写为 scorer-饱和/CE-残差叙事；☑ C1 改 device-matched，CPU 失败判无信息；☑ 学习零回潮；☑ 作者一句话的判定已给（两个消除中 coded 归因臂为「工具消除、价值待读」，PCSI 为「uncoded 已出、coded 在途」，机制化判定成立但限前瞻；「全部具备转 firm 条件」需加 Cao 公平性与 C1 两个非数字 gate）；☑ 输出为完整单文件 HTML。本报告与今晚终值冲突处，以终值为准（superseded-interim 机制）。</p>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,453 @@
+{
+ "_argv": [
+  "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/zport_gates.py",
+  "--stage",
+  "merge"
+ ],
+ "_code_md5": {
+  "gen_fixed": "9a3a987e0a1aaecde33018da5f38c74c",
+  "p1_driver": "e8594ebfe04f490a86fc16ebd5069cd2",
+  "zport_driver": "b3afaef479de5d14b5bca5588a981e8a",
+  "zport_gates": "aec4fa7822ebbbdf8bf2466b15470aaf",
+  "zport_rx": "36f96af43c0961f17db12771fa27f80c"
+ },
+ "_config": {
+  "environment": {
+   "cuda_visible_devices": "",
+   "hostname": "liunxgpu",
+   "machine": "x86_64",
+   "matplotlib": "3.7.1",
+   "numpy": "1.26.4",
+   "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+   "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]",
+   "scipy": "1.10.1",
+   "thread_environment": {
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+   },
+   "torch": "2.5.1+cu121",
+   "torch_binding_authority": "receiver context build; verified before first receiver run",
+   "torch_cuda_available": false,
+   "torch_num_interop_threads": 1,
+   "torch_num_threads": 1,
+   "torch_pre_context_num_interop_threads": 64,
+   "torch_pre_context_num_threads": 1
+  },
+  "p1_domain": 1413698118,
+  "p1_entropy": "2261fde33dab09d163b6dd926ef8d521e5d44fdda771d356f02efabfee96eb23",
+  "source_md5": {
+   "afdm_sp_joint_unrolled.afdm_baselines": "a63a4c0668633c3bfc5f1543f7d49449",
+   "afdm_sp_joint_unrolled.afdm_env": "7e8da04165de5ee0c2e85230d485d32d",
+   "afdm_sp_joint_unrolled.afdm_layers": "d5494f60a5049dfcb4a62555933c70f9",
+   "afdm_sp_joint_unrolled.afdm_models": "b4bfb56226c5fe4070b4e6e23d8f708b",
+   "afdm_sp_joint_unrolled.afdm_trainer": "9da66875462f174b6cc90f708540f276",
+   "afdm_sp_joint_unrolled.budgeted_frame_store": "e1602e697ac49291fcc1a96c0efe4dd7",
+   "afdm_sp_joint_unrolled.budgeted_job_queue": "37590acdf663dbf5d8c754a87cad23e0",
+   "afdm_sp_joint_unrolled.budgeted_support_diagnostics": "c1f4b976a2f6a9aea10e6f13d56f0489",
+   "afdm_sp_joint_unrolled.budgeted_support_eval": "5f1a77ccad9a02a7d6ecbd257c776e1c",
+   "afdm_sp_joint_unrolled.cao_baseline.cao_isp_receiver": "a5c38382b9cb5e842df8c94032a4be94",
+   "afdm_sp_joint_unrolled.classical_joint_unrolled": "6e0f1097e67a2f1d9bb58b98e9b0b310",
+   "afdm_sp_joint_unrolled.decision_bound": "0ca02c25d20c654be62841856557c3c4",
+   "afdm_sp_joint_unrolled.decision_gateA": "5792ae90c60ee9e1dbc9df39c29b8f93",
+   "afdm_sp_joint_unrolled.decision_harvest": "d233368f13ef76a447ce6dff6f44fb0f",
+   "afdm_sp_joint_unrolled.decision_metrics": "4a32dad597e34bf7169378aac65c8bf1",
+   "afdm_sp_joint_unrolled.decision_review": "e82db37d132ef4ceb5d1ae3020096521",
+   "afdm_sp_joint_unrolled.direction_data": "8e75c0e4a6c1efcb3d8cd0944b500724",
+   "afdm_sp_joint_unrolled.direction_physical": "d04369d03551ac17d837feca70f185f5",
+   "afdm_sp_joint_unrolled.direction_physical_receiver": "2ac879e4dd28b115d0865bf09cf50363",
+   "afdm_sp_joint_unrolled.direction_receiver": "58b5da6ee67a008b0e6bf61172442ae3",
+   "afdm_sp_joint_unrolled.direction_structure": "73bd874a6df948111ae1584e15cbf2af",
+   "afdm_sp_joint_unrolled.drce_baseline.drce_receiver": "6bb4fb50aa2635a2db558f4ec390ea39",
+   "afdm_sp_joint_unrolled.e1_ldpc": "5a44682768d2285cbbd8c5d24563022a",
+   "afdm_sp_joint_unrolled.e1_ldpc_coded_eval": "255e0970d24cfbb832475724d2e3890a",
+   "afdm_sp_joint_unrolled.eval_classical_joint_unrolled": "4e8e778bd64f62554a20c00c45dd739d",
+   "afdm_sp_joint_unrolled.lmmse_baseline.lmmse_receiver": "98b4aea2d6c5a03020d5e3c6955f0392",
+   "afdm_sp_joint_unrolled.loop9_cache_features": "8dcefb486914eb0cff786689af36e5c6",
+   "afdm_sp_joint_unrolled.mp_detect_bp_torch": "701bc5b730bc616f1f66917ba20b9ae5",
+   "afdm_sp_joint_unrolled.paired_learned_eval": "2f8d6574bae3cdc677d888640612298d",
+   "afdm_sp_joint_unrolled.pbigabp_baseline.pbigabp_receiver": "aa863751c868c3f9f9b150f64f2d9021",
+   "afdm_sp_joint_unrolled.pbigabp_baseline.pbigabp_receiver_v2": "bd8840eced9787e43c645a7e49984c9d",
+   "afdm_sp_joint_unrolled.physical_stride": "f2eb41ffb1ce897309c6febb5f3d133d",
+   "afdm_sp_joint_unrolled.run_classical_baselines_python": "e4ba5ebe8d40d0bd5726091fc66a055d",
+   "afdm_sp_joint_unrolled.supplement_baselines": "b76afa0c10647f29cdeaf9fd999613b3",
+   "afdm_sp_joint_unrolled.supplement_feedback": "620feae6afe7b5b968b1df4fda2cc0d4",
+   "afdm_sp_joint_unrolled.supplement_feedback_schedule": "db0e591c812a525434e2e44567fba157",
+   "afdm_sp_joint_unrolled.supplement_g1": "5965bb0eeadad2bccc4e41b82c9291a4",
+   "afdm_sp_joint_unrolled.supplement_messages": "0faa9467458dfbf5c43c68e04ef7ea63",
+   "afdm_sp_joint_unrolled.supplement_pilots": "f2c9a6cb50e1139e58a696dda1ec8c35",
+   "afdm_sp_joint_unrolled.system_config": "a93487aa0219b3a63b1c0250501af46f",
+   "afdm_sp_joint_unrolled.v3_initial": "b0e020b6e5491316ef925de914c2fbe2",
+   "arms": "610e73307c3b1028626ef704933b4b99",
+   "audit_io": "0892e7d699f6910ffea22e57a52fed28",
+   "bilinear": "5392061840bcc94064142366bbe1261d",
+   "compact_state": "f53731554196e52b75332db564ef1b02",
+   "evidence": "346694ed3c52082f3825494a5fb43a6f",
+   "f1": "1459e8a2e9f68ff0ceab7cc4239b52f2",
+   "gen_fixed": "9a3a987e0a1aaecde33018da5f38c74c",
+   "geometry_reopen": "a6de0ff1238faeff21d767dd10b084de",
+   "geometry_validation": "b576a04dea5cbfc10cc61d748ebe8fbc",
+   "interventions": "82d47057b3e18b631cae01c3b9b17291",
+   "keep_slots": "e0bb1e7fa036384dd6dc304f756ab24d",
+   "messages": "5e29ddc722ce448229beeb437ade093b",
+   "native_f1": "e1f8b0f857b1580fa4e03f5e8f3e1799",
+   "native_twofft": "d47af1373b2f0052e6de078de40711ba",
+   "offgrid": "147e04762f6aaf341ac23c5c03b60056",
+   "p1_driver": "e8594ebfe04f490a86fc16ebd5069cd2",
+   "physical": "aa8ad5c843f82792d7d0f6e5c09ac0a3",
+   "receiver": "228411ca9751eecfca2f794ace909dfd",
+   "run_frozen_i1_smoke": "1c300f23e57f8acece8446dd55fa2ef7",
+   "run_reopening": "3e35d03080ce21e50c13e1b4326f973d",
+   "run_validation": "3bf475ab8e15d855e7bfbefd387bfdac",
+   "structured_ep": "19194ff3dbd3ddda4923cf247ba92c9a",
+   "twofft": "cdbdf40eabf43c1e02b52d25062a594d",
+   "zport_driver": "b3afaef479de5d14b5bca5588a981e8a",
+   "zport_rx": "36f96af43c0961f17db12771fa27f80c"
+  },
+  "stage_files": {
+   "g1.json": "db72498b71c0a16671bbade1d19c3d51",
+   "g2_G.json": "13ed41220310263f7380d3596145c02a",
+   "g2_U.json": "5c808e6a3902899b56ca18bf350ff258",
+   "g3.json": "b2db93abfd2ed4d6756f3cbe05354d71",
+   "g4.json": "81603ae3bc76cebeb43008fe2dd89bfa",
+   "g5_G.json": "d6302ccc8cb323b72b23f230a897ed07",
+   "g5_U.json": "1fd37a366610b273671488032fa38873",
+   "timing.json": "bb1c1232882a768d01ba6bbd8faa334a"
+  }
+ },
+ "gates": {
+  "ZP_G1": {
+   "operator": {
+    "fractional_off_grid": {
+     "channels": 20,
+     "max_error_vs_cpp_propagation": 8.692969222021255e-13,
+     "max_error_vs_physical_matrix": 1.4693792631400886e-15,
+     "passed": true
+    },
+    "fractional_on_grid": {
+     "channels": 20,
+     "max_error_vs_cpp_propagation": 7.852927779296033e-13,
+     "max_error_vs_physical_matrix": 1.936348561041552e-15,
+     "passed": true
+    },
+    "integer_grid": {
+     "channels": 20,
+     "max_error_vs_cpp_propagation": 8.046622826438893e-13,
+     "max_error_vs_physical_matrix": 1.123236577609161e-13,
+     "passed": true
+    }
+   },
+   "passed": true,
+   "truncation": {
+    "G": {
+     "frames": 200,
+     "max": 0.04444952216485908,
+     "mean": 0.027412646012471363,
+     "median": 0.029143364057323908,
+     "min": 0.004915199367413684,
+     "p90": 0.038730390068757385,
+     "p99": 0.04375193827712094
+    },
+    "U": {
+     "frames": 200,
+     "max": 0.038365222523902544,
+     "mean": 0.016118828722131405,
+     "median": 0.014813236866835063,
+     "min": 0.0014824936069003144,
+     "p90": 0.027495252830767248,
+     "p99": 0.0357735733219011
+    }
+   }
+  },
+  "ZP_G2": {
+   "passed": true,
+   "receiver_sigma2": 1e-10,
+   "summary": {
+    "G/adapted_true_paths/delta0.1": {
+     "cells": 40,
+     "decoded": 40,
+     "mean_mp_iterations": 19.75
+    },
+    "G/adapted_true_paths/delta0.9": {
+     "cells": 40,
+     "decoded": 40,
+     "mean_mp_iterations": 4.15
+    },
+    "G/faithful_integer_channel/delta0.1": {
+     "cells": 40,
+     "decoded": 40,
+     "mean_mp_iterations": 18.85
+    },
+    "G/faithful_integer_channel/delta0.9": {
+     "cells": 40,
+     "decoded": 40,
+     "mean_mp_iterations": 4.15
+    },
+    "U/adapted_true_paths/delta0.1": {
+     "cells": 40,
+     "decoded": 40,
+     "mean_mp_iterations": 19.5
+    },
+    "U/adapted_true_paths/delta0.9": {
+     "cells": 40,
+     "decoded": 40,
+     "mean_mp_iterations": 4.25
+    },
+    "U/faithful_integer_channel/delta0.1": {
+     "cells": 40,
+     "decoded": 40,
+     "mean_mp_iterations": 19.1
+    },
+    "U/faithful_integer_channel/delta0.9": {
+     "cells": 40,
+     "decoded": 40,
+     "mean_mp_iterations": 4.2
+    }
+   }
+  },
+  "ZP_G3": {
+   "cells": 64,
+   "compared_keys": [
+    "channel_seed",
+    "physical_gains_sha256",
+    "info_sha256",
+    "noise_sha256",
+    "truth_l",
+    "truth_k",
+    "truth_g2",
+    "n_paths",
+    "n_distinct_delays",
+    "gen_redraws",
+    "gen_flags"
+   ],
+   "mismatching_cells": 0,
+   "passed": true
+  },
+  "ZP_G4": {
+   "mismatching_rows": 0,
+   "passed": true,
+   "rows_a": 16,
+   "rows_b": 16,
+   "rows_md5": {
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/zport_gates/g4_a/rows_shard000.jsonl": "d33a5edec44c26fc83853fe25253eac2",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tcom_reference_frame_20261015/out/zport_gates/g4_b/rows_shard000.jsonl": "7b2428bb68ca29b8d6d43d459fc82a34"
+   },
+   "same_keys": true,
+   "stage": "g4cmp",
+   "variants": [
+    "Za01",
+    "Za09",
+    "Zf01",
+    "Zf09",
+    "Zo01",
+    "Zo09",
+    "Zt"
+   ]
+  },
+  "ZP_G5": {
+   "cells_total": 160,
+   "criterion": "A3: Z-OMP selection recovers >= 7 of the 8 true delays on average over the 20 noiseless frames of the scenario (decode outcome is informational)",
+   "decode_failures": [
+    {
+     "delta_new": 0.9,
+     "frame": 2,
+     "info_errors": 122,
+     "mp_iterations": 4,
+     "n_true_delays_hit": 7,
+     "rho": 0.3,
+     "scenario": "U"
+    }
+   ],
+   "decoded_total": 159,
+   "passed": true,
+   "scenario_mean": {
+    "G": 7.5375,
+    "U": 7.45
+   },
+   "summary": {
+    "G/rho0.3/delta0.1": {
+     "cells": 20,
+     "decoded": 20,
+     "mean_mp_iterations": 18.65,
+     "mean_true_delays_hit": 7.4
+    },
+    "G/rho0.3/delta0.9": {
+     "cells": 20,
+     "decoded": 20,
+     "mean_mp_iterations": 5.35,
+     "mean_true_delays_hit": 7.45
+    },
+    "G/rho0.5/delta0.1": {
+     "cells": 20,
+     "decoded": 20,
+     "mean_mp_iterations": 19.7,
+     "mean_true_delays_hit": 7.7
+    },
+    "G/rho0.5/delta0.9": {
+     "cells": 20,
+     "decoded": 20,
+     "mean_mp_iterations": 5.7,
+     "mean_true_delays_hit": 7.6
+    },
+    "U/rho0.3/delta0.1": {
+     "cells": 20,
+     "decoded": 20,
+     "mean_mp_iterations": 17.9,
+     "mean_true_delays_hit": 7.25
+    },
+    "U/rho0.3/delta0.9": {
+     "cells": 20,
+     "decoded": 19,
+     "mean_mp_iterations": 5.7,
+     "mean_true_delays_hit": 7.35
+    },
+    "U/rho0.5/delta0.1": {
+     "cells": 20,
+     "decoded": 20,
+     "mean_mp_iterations": 17.55,
+     "mean_true_delays_hit": 7.6
+    },
+    "U/rho0.5/delta0.9": {
+     "cells": 20,
+     "decoded": 20,
+     "mean_mp_iterations": 4.95,
+     "mean_true_delays_hit": 7.6
+    }
+   }
+  },
+  "all_pass": true,
+  "dropped_variants": {
+   "reason": "I4 budget rule: projection with Z-turbo exceeds the 22 core-hour budget; frame count kept",
+   "run_variants": [
+    "Zf01",
+    "Zf09",
+    "Za01",
+    "Za09",
+    "Zo01",
+    "Zo09"
+   ],
+   "variants": [
+    "Zt"
+   ]
+  },
+  "stage_code_md5_equals_current": true,
+  "timing": {
+   "loadavg_after": [
+    2.15,
+    1.61,
+    0.88
+   ],
+   "loadavg_before": [
+    2.97,
+    1.67,
+    0.87
+   ],
+   "projection": {
+    "all_variants_incl_Zt": {
+     "contention": 1.5,
+     "loaded_core_hours": 26.527355280607782,
+     "quiet_core_hours": 17.68490352040519,
+     "shards": 30,
+     "wall_hours_at_shards": 0.8842451760202594,
+     "within_budget": false
+    },
+    "budget_core_hours": 22.0,
+    "drop_rule": "I4: if the projection exceeds the remaining budget, drop Z-turbo first and keep the frame count",
+    "generation_seconds_per_frame_scenario_rho": 0.09865034563699737,
+    "without_Zt": {
+     "contention": 1.5,
+     "loaded_core_hours": 21.89512252555384,
+     "quiet_core_hours": 14.596748350369227,
+     "shards": 30,
+     "wall_hours_at_shards": 0.7298374175184613,
+     "within_budget": true
+    }
+   },
+   "summary": {
+    "500": {
+     "fer": {
+      "Za01": 1.0,
+      "Za09": 1.0,
+      "Zf01": 1.0,
+      "Zf09": 1.0,
+      "Zo01": 1.0,
+      "Zo09": 1.0,
+      "Zt": 1.0
+     },
+     "mean_mp_iterations": {
+      "Za01": 18.75,
+      "Za09": 14.25,
+      "Zf01": 20.0,
+      "Zf09": 12.25,
+      "Zo01": 20.0,
+      "Zo09": 8.25,
+      "Zt": 20.0
+     },
+     "mean_true_delays_hit": {
+      "Za01": 2.5,
+      "Za09": 2.5,
+      "Zf01": 4.875,
+      "Zf09": 4.625,
+      "Zo01": 6.5,
+      "Zo09": 6.5,
+      "Zt": 2.625
+     },
+     "n": 8,
+     "seconds_mean": {
+      "Za01": 0.3628928250982426,
+      "Za09": 0.24851886712713167,
+      "Zf01": 0.09198331664083526,
+      "Zf09": 0.06198265525745228,
+      "Zo01": 0.6644011220196262,
+      "Zo09": 0.25303595821605995,
+      "Zt": 0.6154035698855296
+     },
+     "wall_mean": 2.0500577461207286,
+     "zt_round2_seconds_mean": 0.3668847027583979
+    },
+    "700": {
+     "fer": {
+      "Za01": 1.0,
+      "Za09": 1.0,
+      "Zf01": 1.0,
+      "Zf09": 1.0,
+      "Zo01": 0.875,
+      "Zo09": 1.0,
+      "Zt": 1.0
+     },
+     "mean_mp_iterations": {
+      "Za01": 17.75,
+      "Za09": 14.75,
+      "Zf01": 20.0,
+      "Zf09": 10.875,
+      "Zo01": 20.0,
+      "Zo09": 8.125,
+      "Zt": 17.75
+     },
+     "mean_true_delays_hit": {
+      "Za01": 2.75,
+      "Za09": 2.625,
+      "Zf01": 4.875,
+      "Zf09": 4.625,
+      "Zo01": 6.75,
+      "Zo09": 6.625,
+      "Zt": 2.625
+     },
+     "n": 8,
+     "seconds_mean": {
+      "Za01": 0.33258875407045707,
+      "Za09": 0.272530124115292,
+      "Zf01": 0.08752478210953996,
+      "Zf09": 0.05811384116532281,
+      "Zo01": 0.5767916885670274,
+      "Zo09": 0.2610222687362693,
+      "Zt": 0.6048063893103972
+     },
+     "wall_mean": 1.9213705444708467,
+     "zt_round2_seconds_mean": 0.3322762651951052
+    }
+   }
+  }
+ }
+}

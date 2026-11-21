@@ -1,0 +1,92 @@
+experiments/tf_mm_gamma_20261018/mm_agg.py:6: CI      cluster bootstrap over clusters (scenario, frame) (SNR merged), 20000 resamples, seed 20261018, percentile 95% CI
+experiments/dpss_paired_screen_20261111_v2/screen.py:169: counts = np.vstack((np.ones(n, int), rng.multinomial(n, np.full(n, 1 / n), size=10000)))
+experiments/cstate_score_update_20261111/replay.py:103: draws = rng.multinomial(len(frames), np.full(len(frames), 1/len(frames)), size=10000)
+experiments/tf_e3b_offgrid_20261017/e3b_agg.py:5: Unit = key (scenario, rho .3, SNR 6..11 dB, frame 4000..4199), 2400 keys, unconditional FER.  Cluster for the bootstrap = (scenario, frame); 20000 resamples,
+experiments/tf_e3_sbl_20261017/e3_agg.py:6: Cluster for the bootstrap = (scenario, rho, frame); 20000 resamples, seed 20261017, percentile 95% CI.
+experiments/f0_round_budget_20261118/screen.py:21: FRAMES = range(18000,18160)
+experiments/f0_round_budget_20261118/analyze.py:68: boot=np.random.default_rng(20261118).multinomial(n,np.full(n,1/n),size=10000).astype(float)
+experiments/dpss_paired_screen_20261111/screen.py:150: counts = np.vstack((np.ones(n, int), rng.multinomial(n, np.full(n, 1 / n), size=10000)))
+experiments/sbl_freeze_replay_20261020/aggregate_restart.py:16: SEED, N_BOOT = 20261022, 10000
+experiments/sbl_freeze_replay_20261020/test_fresh_cohort.py:90: row=process(fixture(),dict(scenario='U',rho_permille=300,snr_centi_db=700,frame=9100))
+experiments/sbl_freeze_replay_20261020/test_aggregate_fresh_cohort.py:76: rows=fixture();gate=producer.process(producer.fixture(),dict(scenario='U',rho_permille=300,snr_centi_db=700,frame=9100))
+experiments/sbl_freeze_replay_20261020/aggregate_fresh_cohort.py:16: SEED,N_BOOT=20261028,10000
+experiments/sbl_freeze_replay_20261020/aggregate_gamma_ablation.py:16: SEED, N_BOOT = 20261027, 10000
+experiments/sbl_freeze_replay_20261020/aggregate_gamma_ablation.py:84: if any((r['frame']-9100)%12 != shard for r in selected): raise ValueError('shard key ownership')
+experiments/sbl_freeze_replay_20261020/aggregate.py:11: FRAMES = range(9100, 9150)
+experiments/sbl_freeze_replay_20261020/aggregate.py:14: SEED, N_BOOT = 20261021, 10000
+experiments/sbl_freeze_replay_20261020/test_aggregate_gamma_ablation.py:16: if gate and b['frame']!=9100:continue
+experiments/sbl_freeze_replay_20261020/test_aggregate_gamma_ablation.py:47: frame_delta=np.array([.1 if f%2==0 else .05 for f in range(9100,9150)])
+experiments/sbl_freeze_replay_20261020/test_aggregate_gamma_ablation.py:95: selected=[r for r in rows if (r['frame']-9100)%12==i]
+experiments/sbl_freeze_replay_20261020/gram_cohort.py:20: FRAMES = range(9100, 9150)
+experiments/sbl_freeze_replay_20261020/gram_cohort.py:229: config = dict(shard=args.shard, nshard=12, frames=[9100, 9150], variants=VARIANTS, modes=MODES,
+experiments/sbl_freeze_replay_20261020/gram_cohort.py:244: for frame in ([9100] if args.gate_only else list(FRAMES)[args.shard::12]):
+experiments/sbl_freeze_replay_20261020/replay.py:27: FRAMES = range(9100, 9150)
+experiments/sbl_freeze_replay_20261020/replay.py:174: if args.nshard != 12 or not 0 <= args.shard < 12 or args.frame_offset != 9100 or args.frames != 50:
+experiments/sbl_freeze_replay_20261020/replay.py:194: cfg = dict(_argv=argv, _config=dict(shard=args.shard,nshard=12,frames=[9100,9150],grid=GRID,
+experiments/sbl_freeze_replay_20261020/replay.py:208: gate=(args.shard==0 and frame==9100 and key[0]=='U' and key[2]==700))
+experiments/sbl_freeze_replay_20261020/replay.py:223: p.add_argument('--frame-offset',type=int,default=9100)
+experiments/sbl_freeze_replay_20261020/test_aggregate_gram_cohort.py:17: for frame in range(9100, 9150):
+experiments/sbl_freeze_replay_20261020/test_aggregate_gram_cohort.py:97: selected=[r for r in self.rows if (r['frame']-9100)%12==i]
+experiments/sbl_freeze_replay_20261020/aggregate_uniform_gamma.py:18: SEED, N_BOOT = 20261029, 10000
+experiments/sbl_freeze_replay_20261020/aggregate_uniform_gamma.py:117: if any((r['frame']-9100)%12 != shard for r in selected): raise ValueError('shard key ownership')
+experiments/sbl_freeze_replay_20261020/aggregate_uniform_gamma.py:132: sums[frame-9100] += value; counts[frame-9100] += 1
+experiments/sbl_freeze_replay_20261020/uniform_gamma.py:238: for frame in ([9100] if args.gate_only else list(cohort.FRAMES)[args.shard::12]):
+experiments/sbl_freeze_replay_20261020/aggregate_gram_cohort.py:24: SEED,N_BOOT=20261026,10000
+experiments/sbl_freeze_replay_20261020/test_aggregate.py:43: got=a.paired([(1,1.),(1,1.),(2,0.)],[1,2],n_boot=10000,seed=2)
+experiments/sbl_freeze_replay_20261020/test_aggregate_restart.py:24: parity = frame == 9100 and scenario == 'U' and snr == 700
+experiments/sbl_freeze_replay_20261020/test_aggregate_restart.py:138: got = a.base.paired([(1, 1.), (1, 1.), (2, 0.)], [1, 2], n_boot=10000, seed=a.SEED)
+experiments/sbl_freeze_replay_20261020/test_trajectory_analysis.py:25: old_pilot5_replay=True, observer_parity=frame == 9100 and scenario == 'U' and snr == 700,
+experiments/sbl_freeze_replay_20261020/gamma_ablation.py:179: for frame in ([9100] if args.gate_only else list(cohort.FRAMES)[args.shard::12]):
+experiments/sbl_freeze_replay_20261020/trajectory_analysis.py:18: SEED, N_BOOT = 20261023, 10000
+experiments/sbl_freeze_replay_20261020/trajectory_analysis.py:20: FRAMES = list(range(9100, 9150))
+experiments/dpss_p1_pilot_20261110/run.py:119: resample = rng.integers(0, NFRAMES, size=(10000, NFRAMES))
+experiments/tcom_genie_support_20261016/gs_cstate_agg.py:4: FER (frames 0..1999): crossing differences at 1e-2 with p2b_agg.crossing_calibration (20000 weights), as protocol section 3 H-S3.
+experiments/cstate_first_step_attribution/report.py:112: draws = rng.multinomial(len(frames), np.full(len(frames), 1 / len(frames)), size=10000)
+experiments/cstate_first_step_attribution/report.py:163: 'The 10,000-draw physical-frame bootstrap uses seed 71626.', '']
+experiments/tcom_reference_frame_20261015/launch_zport.sh:48: "$PY" -B z_agg.py --rows "$OUT" --p1 "$CODE/out/p1" --out "$OUT/analysis" --frames 1000 --boot 20000 > "$OUT/logs/analysis.log" 2>&1 \
+experiments/tcom_reference_frame_20261015/p2b_agg.py:9: Paired frame bootstrap (default B = 20000; the frame is the resampling unit, channel and noise are shared by SP and EP arms) of the
+experiments/tcom_reference_frame_20261015/z_agg.py:4: python -B z_agg.py --rows DIR [DIR ...] --p1 DIR --out DIR [--frames 1000] [--boot 20000] [--seed N]
+experiments/tcom_reference_frame_20261015/z_agg.py:9: interpolation (p1_agg.crossing, zero-FER floor 0.5/n, censored crossings clipped to the grid edge and flagged), frame-block bootstrap (B 20000, one shared set of weights for every
+experiments/tcom_reference_frame_20261015/z_agg.py:185: def analyze(port_rows, p1_b, frames=1000, B=20000, seed=20261017):
+experiments/tcom_reference_frame_20261015/s0_gates.py:627: p.add_argument('--mc-frames-frozen', type=int, default=40000)
+experiments/tcom_reference_frame_20261015/launch_s0.sh:36: run b --stage b --mc-frames 100000 --mc-frames-frozen 40000 &
+experiments/tf_cstate_prospective_20260923/launch_once.py:215: '--seconds', '10800'], env, 10860)
+experiments/tf_cstate_prospective_20260923/launch_once.py:223: '--seconds', '10800'], env, 10860)
+experiments/tf_cstate_prospective_20260923/launch_once.py:249: *analysis_args, '--out', str(root/'analysis')], env, 10800)
+experiments/tf_cstate_prospective_20260923/launch_once.py:255: '--out', str(root/'verification')], env, 10800)
+experiments/tf_cstate_prospective_20260923/run_prospective.py:444: parser.add_argument('--seconds',type=float,default=10800)
+experiments/tf_cstate_prospective_20260923/generate_population.py:280: parser.add_argument('--seconds',type=float,default=10800)
+experiments/tf_cstate_prospective_20260923/retry_failed_analysis.py:52: timeout=10800, check=False)
+experiments/tf_cstate_prospective_20260923/retry_failed_analysis.py:56: raise TimeoutError(f'{name} exceeded 10800 seconds') from error
+experiments/sbl_joint_detector_20261019/sj_agg.py:2: """PILOT 5 aggregation (exploratory; predictions P11-P13).  Frame-cluster bootstrap (clusters = frames 9100..9299; sm_agg.boot_weights, 2000 resamples), percentile 95% CI.
+experiments/sbl_joint_detector_20261019/sj_driver.py:10: pilot5  the slice: P1 stream, rho .3, scenarios U and G, SNR 7.0 and 8.0 dB, frames 9100..9299 (one row per key; row = the E-3 row + row['joint'])
+experiments/sbl_joint_detector_20261019/sj_driver.py:35: FRAMES = (9100, 9300)                                  # P1-stream free (frame_audit.py, 2026-10-19)
+experiments/sbl_joint_detector_20261019/launch_sj.sh:4: #   MODE=pilot5  frames 9100..9299, rho .3, U+G, 7/8 dB (NSHARD default 40) -> $OUT, then sj_agg.py
+experiments/tf_gso_20261018/test_gso_agg.py:184: self.assertEqual((agg.N_BOOT, agg.SEED, lib.N_KEYS, lib.N_FRAMES), (20000, 20261018, 1200, 100))
+experiments/tf_cstate_e1_20261017/e1_agg.py:7: CIs: cluster bootstrap (cluster = (scenario, rho, frame), 20000 resamples, seed 20261017, percentile), ratios computed per resample.
+experiments/tf_cstate_e2_20261017/e2_driver.py:307: raise ValueError('C smoke frames must be >= 9000 (disjoint from calibration 5000..5099 and main 0..999)')
+experiments/tf_cstate_e2_20261017/e2_agg.py:7: C (Jakes-4 same-delay clusters).  Cluster for the bootstrap = (family, scenario, rho, frame); 20000 resamples, seed 20261017, percentile CI.
+experiments/tf_cstate_e2_20261017/launch_e2.sh:4: #                   units each (R: P1 frames 0..19 at 5.0/6.0/7.0 dB; C: frames 9000.. at a provisional 10 dB, SMOKE ONLY), all 8 arms
+experiments/tf_cstate_e2_20261017/launch_e2.sh:6: #   MODE=run_R      family R main run: P1 frames 3000..3999, all 32000 keys get F0, triggered keys get the 8 arms -> out/main_R
+experiments/tf_cstate_e2_20261017/launch_e2.sh:37: python e2_driver.py --mode run --family C --smoke --smoke-snr 10 --frame-offset 9000 --frames 12 --max-triggered 12 --out out/smoke_C > out/smoke_C/shard000.log 2>&1 &
+experiments/generator_snr_audit_20261019/audit.py:198: max_rays_per_tap=int(max(c_rays)), spacing_reference_frames=20000)
+experiments/generator_snr_audit_20261019/audit.py:503: C_operator_frames=50, law_frames_per_scenario=2000, reference_frames_per_scenario=20000,
+experiments/headroom_ladder_20261008/c1apb_lib.py:629: return dict(q_cal=q, q_plan=inflated, n_req=req, n_c=min(10000, max(4000, req)), power_capped=req > 10000)
+experiments/headroom_ladder_20261008/c1apb_stage2.py:592: effective_costs={str(M): dict(P=cp+calp/M, B=cb+calb/M) for M in (1000, 10000, 100000)},
+experiments/headroom_ladder_20261008/c1apb_stage2.py:594: B=cb+(shared+fitsearch)/M) for M in (1000, 10000, 100000)})
+experiments/headroom_ladder_20261008/c1_t1_exit.py:76: jin = np.array([d['coded'][i]['J_chan'] for i in range(len(qd))])  # 3000-9000 frame channel-LLR MI
+experiments/headroom_ladder_20261008/c1_t0_diag.py:304: for lo in np.round(np.arange(0.30, 0.9001, BIN_W), 2):
+experiments/tf_split_prosp_20261018/sp_agg.py:6: frame is ONE cluster; 200 clusters per family); 20000 multinomial resamples, seed 20261018, percentile 95% CI.  Contrasts are bootstrapped as per-row paired differences
+experiments/tf_split_prosp_20261018/test_sp.py:48: old_frames = set(range(0, 2100)) | set(range(3000, 4400)) | set(range(5000, 5100)) | set(range(6000, 6100)) | set(range(8000, 8600)) | set(range(9000, 9012))
+experiments/dpss_block_rescue_20261110/run.py:108: resample=np.random.default_rng(20261110).integers(0,FRAMES,(10000,FRAMES))
+experiments/dpss_p1_narrow_20261110/run.py:108: resamples = rng.integers(0, NFRAMES, (10000, NFRAMES))
+experiments/sbl_three_mode_20261020/aggregate.py:14: SEED, N_BOOT = 20261020, 10000
+experiments/sbl_three_mode_20261020/aggregate.py:15: FRAMES = range(9100, 9150)
+experiments/sbl_three_mode_20261020/test_aggregate.py:26: got = a.paired_effect(values, [1, 2], n_boot=10000, seed=2)
+experiments/sbl_three_mode_20261020/driver.py:27: FRAMES = range(9100, 9150)
+experiments/sbl_three_mode_20261020/driver.py:191: if args.nshard != 12 or not 0 <= args.shard < 12 or args.frames != 50 or args.frame_offset != 9100:
+experiments/sbl_three_mode_20261020/driver.py:192: raise ValueError('registered cohort requires 12 shards, frames 9100..9149')
+experiments/sbl_three_mode_20261020/driver.py:217: cfg = dict(_argv=argv, _config=dict(shard=args.shard, nshard=args.nshard, frames=[9100, 9150], grid=GRID,
+experiments/sbl_three_mode_20261020/driver.py:234: parity=(args.shard == 0 and frame == 9100 and key[0] == 'U' and key[2] == 700))
+experiments/sbl_three_mode_20261020/driver.py:247: p.add_argument('--frame-offset', type=int, default=9100)
+Scanned 677 driver/launcher files

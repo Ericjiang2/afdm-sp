@@ -1,0 +1,604 @@
+Joint Sparse Graph for Enhanced MIMO-AFDM Receiver Design
+Report GitHub Issue
+×
+Title:
+Content selection saved. Describe the issue below:
+Description:
+Submit without GitHub
+Submit in GitHub
+arXiv is now an independent nonprofit!
+Learn more
+×
+Back to arXiv
+Why HTML?
+Report Issue
+Back to Abstract
+Download PDF
+Abstract
+I Introduction
+I-A Background
+I-B Related Works
+I-C Motivations and Contributions
+I-D Organization
+I-E Notation
+II MIMO-AFDM Communication Model
+II-A  SISO-AFDM Communication Model
+II-A1 AFDM modulation
+II-A2 Channel
+II-A3 AFDM demodulation
+II-A4 The I/O relation
+II-B Frameworks of MIMO-AFDM Schemes
+III  Variational Inference and Graphical Model
+III-A Variational Inference
+III-B Joint Factor Representation in MIMO-AFDM
+III-C BP-JSG
+III-D EP-JSG
+III-D1 Updating of VNs
+III-D2 Updating of FNs and CNs
+III-D3 Extrinsic and prior LLRs exchange
+IV The proposed E-JSG
+IV-A The Proposed E-JSG
+IV-A1 Linear encoding-inspired VI graph design
+IV-A2 Update of BVNs to CNs and FNs
+IV-A3 Update of CNs and FNs to BVNs
+IV-B Sparse Channel Based on eSNR
+License: CC BY-SA 4.0
+arXiv:2503.19143v1 [eess.SP] 24 Mar 2025
+Joint Sparse Graph for Enhanced MIMO-AFDM Receiver Design
+Qu Luo
+Jing Zhu
+Zilong Liu
+Yanqun Tang
+Pei Xiao
+Gaojie Chen
+Jia Shi
+††thanks:
+Qu Luo, Jing Zhu, Pei Xiao and Gaojie Chen are with the 5G & 6G Innovation Centre, University of Surrey, U. K. (email: {q.u.luo, j.zhu, p.xiao, gaojie.chen }@surrey.ac.uk).
+Zilong Liu is with the School of Computer Science and Electronics Engineering, University of Essex, U. K. (email:  zilong.liu@essex.ac.uk).
+Yanqun Tang is with the School of Electronics and Communication Engineering, Sun Yat-sen University, China (email: tangyq8@mail.sysu.edu.cn).
+Jia Shi is with the School of Telecommunications Engineering, Xidian University, Xi’an, China (email: jiashi@xidian.edu.cn).
+Abstract
+Affine frequency division multiplexing (AFDM) is a promising chirp-assisted multicarrier waveform for future high-mobility communications. This paper is devoted to enhanced receiver design for multiple-input–multiple-output AFDM (MIMO-AFDM) systems. Firstly, we introduce a unified variational inference (VI) approach to approximate the target posterior distribution, under which the belief propagation (BP) and expectation propagation (EP)-based algorithms are derived. As both VI-based detection and low-density parity-check (LDPC) decoding can be expressed by bipartite graphs in MIMO-AFDM systems, we construct a joint sparse graph (JSG) by merging the graphs of these two for low-complexity receiver design. Then, based on this graph model, we present the detailed message propagation of the proposed JSG. Additionally, we propose an enhanced JSG (E-JSG) receiver based on the linear constellation encoding model. The proposed E-JSG eliminates the need for interleavers, de-interleavers, and log-likelihood ratio transformations, thus leading to concurrent detection and decoding  over the integrated sparse graph. To further reduce detection complexity, we introduce a sparse channel method by approaximating multiple graph edges with insignificant channel coefficients into a single edge on the VI graph. Simulation results show the superiority of the proposed receivers in terms of computational complexity, detection and decoding latency, and error rate performance compared to the conventional ones.
+Index Terms: Affine frequency division multiplexing (AFDM), multiple-input–multiple-output AFDM (MIMO-AFDM), variational inference (VI), joint sparse graph, low complexity detection and decoding.
+I Introduction
+I-A Background
+Next generation wireless systems and standards e.g., beyond 5G, 6G are envisioned to provide a wide range of data services, including ultra-reliable, high-rate, and low-latency communications in  highly dynamic environments, such as vehicle-to-everything, unmanned aerial vehicles, high-speed trains, and low-earth-orbit satellite systems, etc. [Toward, 9779322]. In these scenarios, one often needs to deal with the rapidly time-varying channels [otfsHIGH, zhou2023overview].
+The legacy multicarrier systems primarily rely on orthogonal frequency division multiplexing (OFDM), thanks to its advantages (e.g., efficient hardware implementation, capability of intersymbol interference mitigation) in linear time-invariant channels [BroadbandOFDM]. Nevertheless, OFDM is sensitive to carrier frequency offsets and Doppler shifts/spreads in rapidly time-varying channels and hence may suffer from drastically degraded error performances [otfsHIGH].
+Extensive efforts have been dedicated to designing novel modulation waveforms to support reliable communications in high mobility channels. For example, orthogonal time–frequency space (OTFS) modulation [otfsHIGH, RavitejaOTFS] and orthogonal chirp division multiplexing (OCDM) [OrthogonalcdmOuyang, OCDMPerformance] have attracted substantial research attention. The former modulates the information symbols in the delay-Doppler domain instead of the conventional time–frequency domain. By doing so, one can effectively convert a time-variant channel into a two-dimensional (2D) quasi-static channel in delay-Doppler domain [otfsHIGH, YuanOTFS1, RavitejaOTFS].
+In contrast, OCDM, building upon the discrete Fresnel transform (DFnT), modulates the information symbols using a class of orthogonal chirp subcarriers (SCs) [OrthogonalcdmOuyang].
+Both OTFS and OCDM have demonstrated superior error performances over OFDM [Haifocdm, AFDMTWCBemani].
+However, the 2D structure of OTFS requires radical change of the transceivers (compared to that of OFDM), whilst it suffers from large overhead for sending pilots and multiuser signals [AFDMTWCBemani]. OCDM, on the other hand, may not be able to achieve optimal performance when its chirp rate does not fit the specific delay-Doppler profile of the channel [AFDMTWCBemani].
+Recently, Affine frequency division multiplexing (AFDM) is another appealing solution for efficient and reliable communications over high-mobility channels [AFDMTWCBemani]. Similar to OCDM, information symbols in AFDM are multiplexed on a number of orthogonal chirp SCs through the discrete
+affine Fourier transform (DAFT) [ErsegheAFDM]. By appropriately adjusting the chirp rate based on the delay-Doppler profile of the channel, AFDM enables a separable and quasi-static channel representation, thereby achieving full diversity over doubly selective channels [AFDMTWCBemani]. Since the DAFT employed in AFDM is a generalization of many other transforms, such as the discrete Fourier transform (DFT) and DFnT, AFDM generalizes OFDM and OCDM as special cases.
+More importantly, AFDM enjoys a high compatibility to the legacy OFDM as DAFT can be efficiently implemented through fast Fourier transform (FFT) with additional two one-tap filters [BemaniAFDM_conf1]. These advantages make AFDM as a promising candidate multicarrier waveform for the next generation
+wireless systems [NiAFDMSens, savaux2023dft].
+I-B Related Works
+AFDM has attracted a plethora of research attempts from various aspects, such as system impairments [BemaniAFDM_conf1, tang2023time], channel estimation [YinChannel, yin2022channel], signal detection [bemani2022low, wu2023message], and intergrated sensing and communications [zhu2023low, ni2022afdm, IntegratedAFDM].
+The authors in [BemaniAFDM_conf1] evaluated the performance of AFDM over high-mobility scenarios and in high-frequency bands. It is shown that AFDM is robust to the impairments such as carrier frequency offset and phase noise. The time and frequency offset estimations for AFDM synchronization
+have been studied in [tang2023time].
+In [YinChannel], both single pilot and multiple pilots aided channel estimation schemes for AFDM were considered. In [yin2022channel], an embedded pilot-aided channel estimation scheme for AFDM with multiple input and multiple output (MIMO), called MIMO-AFDM, was investigated. Moreover, a low complexity iterative decision feedback equalizer based on weighted maximal ratio combining scheme was introduced in [bemani2022low] for efficient symbol detection by exploiting the channel sparsity in AFDM. A generalized message passing algorithm (MPA)-based detection scheme was developed in [wu2023message]. However, the complexity of the MPA detector grows exponentially as the number of multipaths increases. By fully exploiting its  inherent chirp nature of AFDM, it has also been applied for integrated sensing and communications (ISAC). In particular, a low complexity algorithm based on matched filtering was developed in [zhu2023low] for estimating high resolution target range with the AFDM waveform. In [ni2022afdm], an AFDM-based ISAC system was introduced, which utilizes a time-domain parameter estimation scheme. Very recently, [IntegratedAFDM] proposed an AFDM-based ISAC system using only chirp subcarrier. It shows that sensing with one chirp subcarrier allows simple self-interference cancellation,
+thus avoiding the need for expensive full duplex methods.
+AFDM has also been integrated with code-domain non-orthogonal multiple access or modulation to achieve higher spectrum efficiency and enhanced reliability [luo2023afdm, tao2023affine, zhu2023design]. Specifically, [luo2023afdm] and [10683521] studied the AFDM-empowered sparse code multiple access (SCMA) for massive connectivity over high mobility communications. In comparison to OFDM-SCMA, AFDM-SCMA exhibits significantly improved error performance. In addition, [tao2023affine, zhu2023design] proposed index modulation (IM)-empowered AFDM systems, which was shown to outperform its OFDM-IM counterpart.
+I-C Motivations and Contributions
+The aforementioned works have shown the advantages of AFDM in high-mobility communications due to its ability to achieve full diversity [AFDMTWCBemani, BemaniAFDM_conf1, luo2023afdm, tao2023affine, zhu2023design]. However, the full diversity can only be attained with a sophisticated receiver that implements the optimal maximum a posteriori (MAP) detection [MaximumdIVERSITY], such as MPA and sphere decoder. In addition, it should be noted that existing works on AFDM generally focused on uncoded systems and little has  been reported on the coded AFDM system performances. Recently, [OCDMPerformance] compared the uncoded and coded BER performances of OCDM and OFDM by employing a minimum mean square error (MMSE) detector and a rate-$1/3$ convolutional code. It was shown in [OCDMPerformance] that OCDM achieves better uncoded BER performance but similar coded BER performance compared to OFDM. This is reasonable due to the frequency diversity attained by coded OFDM. The above observations can be readily extended to AFDM systems due to its generic chirp nature.
+This also implies that enhanced  detection and decoding in AFDM should be carefully designed by considering its inherent features for fully exploiting the diversity gain. In addition, while there is extensive literature on efficient iterative receiver design, such as the Turbo iterative structure [EnhancingLUo, hanzo2007turbo] and orthogonal approximate message passing design [liu2024capacity, luo2023afdm], developing more advanced and low-complexity AFDM receiver remains largely unexplored.
+On the other hand, the amalgamation of MIMO and AFDM, i.e., MIMO-AFDM, can be leveraged to achieve higher spectrum efficiency and lower error rate. Although the channel estimation of MIMO-AFDM was studied in [YinChannel], the efficient receiver design in MIMO-AFDM is a largely open research topic.
+Against the above background and research gaps, this paper aims to develop novel low-complexity joint detection and decoding schemes fully exploiting the system diversity in MIMO-AFDM systems. Specifically, we formulate the MIMO-AFDM detection as a Bayesian inference problem for computing the marginal posterior distribution [Zhaoofts].  We advocate the use of variational inference (VI) [Advancesvi] as an approximate inference algorithm in probabilistic models. The principle of VI is to approximate the target posterior distribution using a simple distribution, thereby transforming an intractable inference problem into a tractable one [VIchen, WeijieVI]. Our second key innovation is to represent the joint distribution of the transmitted and received signal in MIMO-AFDM as a sparse factor graph, referred to as the VI graph. By adopting low-density parity check (LDPC) codes as the channel code [WenJSG], we merge the VI graph and the relevant LDPC factor graph into a joint sparse graph
+(JSG).
+The main contributions of this paper are summarized as follows:
+•
+We formulate MIMO-AFDM detection as a Bayesian inference problem for computing the marginal posterior distribution. Specifically, we introduce a unified VI approach to approximate the target posterior distribution, upon which the belief propagation (BP) and expectation propagation (EP)-based algorithms can be derived.
+Subsequently, both BP-JSG and EP-JSG are employed for highly efficient message propagation.
+•
+Inspired by the linear constellation encoding model, we introduce an enhanced JSG (E-JSG) to eliminate the use of interleavers, de-interleavers, symbol-to-bit, and bit-to-symbol log-likelihood ratio (LLR) transformations. As such, one can merge the detection and decoding for E-JSG by efficiently passing the belief messages over the integrated sparse graph. In addition, for reduced receiver processing, we propose a sparse channel method. The main idea of this approach is to approximate multiple graph edges with insignificant channel coefficients into a single edge on the VI graph.
+•
+We present extensive numerical results to demonstrate the superiority of the proposed JSG receivers in terms of lower computational complexity and reduced detection and decoding latency compared to conventional MMSE and turbo-like receivers. Furthermore, the proposed JSG receivers can exploit multipath diversity and Doppler diversity in MIMO-AFDM systems more efficiently, giving rise to improved coded BER performance compared to conventional receivers.
+I-D Organization
+This paper is organized as follows: Section II describes the system model of MIMO-AFDM. The proposed VI-JSG is presented in Section III, covering the principles of VI, joint factor representation of MIMO-AFDM, and the message passing in VI-JSG. Section IV introduces the proposed enhanced VI-JSG and the complexity reduction in the JSG. The simulation results are presented and discussed
+in Section . Section  concludes the paper.
+I-E Notation
+The $n$-dimensional complex, real and binary vector spaces are denoted as $\mathbb{C}^{n}$, $\mathbb{R}^{n}$ and $\mathbb{B}^{n}$, respectively. Similarly, $\mathbb{C}^{k\times n}$, $\mathbb{R}^{k\times n}$ and $\mathbb{B}^{k\times n}$ denote the $(k\times n)$-dimensional complex, real and binary matrix spaces, respectively.
+$\mathcal{CN}(0,1)$ denotes the
+complex Gaussian distribution with zero-mean and unit-variance. ${{\mathbf{I}}_{n}}$ denotes an $n\times n$-dimensional identity matrix. $\text{diag}(\mathbf{x})$ gives a diagonal matrix with the diagonal vector of $\mathbf{x}$. $(\cdot)^{\mathcal{T}}$ and $(\cdot)^{\mathcal{H}}$ denote the transpose and the Hermitian transpose operation, respectively.
+II MIMO-AFDM Communication Model
+This section introduces the MIMO-AFDM signal model. Specifically, we start by introducing the AFDM modulation, channel, demodulation and input-output (I/O) relation in the single-input and single-output AFDM (SISO-AFDM) system, which is shown in Fig. 1. Subsequently, we extend the SISO-AFDM to the MIMO-AFDM case.
+II-A SISO-AFDM Communication Model
+This section presents the signal model of a SISO-AFDM system, as shown in Fig. 1.
+II-A1 AFDM modulation
+Denoted  $\mathbf{x}_{\text{SISO}}\in\mathbb{C}^{N\times 1}$ by the transmitted vector in the DAFT domain. Then the modulated symbol is obtained by taking the IDAFT of  $\mathbf{x}_{\text{SISO}}$, i.e.,
+[S2.E1]
+$\small s_{n}=\sum_{m=0}^{N-1}x_{m}\varphi_{n}(m),n=0,1,\ldots,N-1,$[S2.E1.m1]
+(1)
+where $\varphi_{n}(m)$ is the AFT kernel at the $m$th SC and associated to the $n$th modulated symbol. The AFT kernel of Type-A in [AFDMTWCBemani] is considered, i.e., $\varphi_{n}(m)={1\over\sqrt{N}}e^{j2\pi(c_{1}n^{2}+c_{2}m^{2}+{nm\over N})},$
+where $c_{1}\geq 0$ and $c_{2}\geq 0$ are the AFDM parameters. Note that (1) can be written in the matrix form as
+$\mathbf{s}=\Lambda_{c_{1}}^{\mathcal{H}}\mathbf{F}^{\mathcal{H}}\Lambda_{c_{2}}^{\mathcal{H}}\mathbf{x}_{\text{SISO}}\equiv\mathbf{A}^{\mathcal{H}}\mathbf{x}_{\text{SISO}},$
+where $\mathbf{A}\equiv\Lambda_{c_{2}}\mathbf{F}\Lambda_{c_{1}}$ is the DAFT matrix, $\Lambda_{c}=\text{diag}\left(e^{-j2\pi cn^{2}},n=0,1,\ldots,N-1\right)$, $\mathbf{F}$ is the DFT matrix with its element at the $m$th column and the $n$th row given by $e^{-j2\pi mn/N}/\sqrt{N}$.
+Fig. 1:  Example of SISO-AFDM communication model.
+Then, a chirp-periodic prefix (CPP) is applied to the transmitted signal [AFDMTWCBemani]. The CCP with length $N_{\text{CPP}}$ is given by
+[S2.E2]
+$\small s_{n}=s_{N+n}e^{-j2\pi c_{1}(N^{2}+2Nn)},n=-N_{\text{CPP}},\cdots,-1.$[S2.E2.m1]
+(2)
+II-A2 Channel
+We consider a doubly selective channel with the channel response at time $n$ and delay $d$ given by
+[S2.E3]
+$\small g_{n,d}=\sum_{p=1}^{P}h_{p}e^{-j\frac{2\pi}{N}\nu_{p}n}\delta(d-d_{p}),$[S2.E3.m1]
+(3)
+where $\delta(\cdot)$ denotes the Dirac delta function, $P$ is the number of paths, and $h_{p}$, $\nu_{p}$ and $d_{p}$ are the channel gain, Doppler shift and the integer delay of the $p$th path, respectively. Note that $\nu_{p}$ is normalized with respect to the SC spacing and can be expressed as $\nu_{p}=\alpha_{p}+\beta_{p}$, where $\alpha_{p}\in[-\alpha_{\max},\alpha_{\max}]$ and $\beta_{p}\in(-\frac{1}{2},\frac{1}{2}]$ denote the integer and fractional parts of $\nu_{i}$, respectively, and $\alpha_{\max}$ is the maximum integer Doppler.
+II-A3 AFDM demodulation
+The received signal in the time domain after discarding the CPP can be expressed as
+[S2.E4]
+$\small\widetilde{r}_{n}=\sum_{d=0}^{\infty}s_{n-d}g_{n,d}+\widetilde{w}_{n},$[S2.E4.m1]
+(4)
+where $w_{n}\sim\mathcal{CN}(0,N_{0})$ is the additive Gaussian noise. After discarding the CPP, (4) can be re-written in the matrix form as
+$\widetilde{\mathbf{r}}=\sum_{p=1}^{P}{\widetilde{{\mathbf{H}}}_{p}}\mathbf{s}+\widetilde{\mathbf{w}},$
+where $\widetilde{\mathbf{w}}$ is the noise vector in the time domain, ${\widetilde{{\mathbf{H}}}_{p}}=h_{p}\mathbf{\Gamma}_{\text{CPP}_{p}}\mathbf{\Delta}_{\nu_{p}}\mathbf{\Pi}^{d_{p}}$ is the time domain channel matrix of the $p$th path, $\Delta_{\nu_{p}}=\text{diag}(e^{-j\frac{2\pi}{N}\nu_{p}},n=0,1,\ldots,N-1)$ models the Doppler effect,
+$\mathbf{\Pi}={\left[{\begin{array}[]{ cccc}0&\cdots&0&1\\
+1&\cdots&0&0\\
+\vdots&\ddots&\ddots&\vdots\\
+0&\cdots&1&0\end{array}}\right]_{N\times N}}$ denotes the forward cyclic-shift matrix, and
+$\mathbf{\Gamma}_{\text{CPP}_{p}}=\text{diag}\left(\left\{\begin{matrix}e^{-j2\pi c_{1}(N^{2}-2N(d_{p}-n))},&n<d_{p},\\
+1,&n\geq d_{p},\end{matrix}\right.\right)$ denotes the effective CCP matrix.
+Finally, the received signal in the DAFT domain is obtained by applying the DAFT transform, i.e.,
+[S2.E5]
+$\small\mathbf{r}=\Lambda_{c_{2}}\mathbf{F}\Lambda_{c_{1}}\mathbf{\widetilde{r}}\equiv\mathbf{A}\mathbf{\widetilde{r}}.$[S2.E5.m1]
+(5)
+II-A4 The I/O relation
+Substituting (1), (3) and (4) into (5), yields the I/O relation in the time domain as
+[S2.E6]
+[S2.E6X]
+$\displaystyle r_{n}=\frac{1}{N}\sum_{m=0}^{N-1}\sum_{p=1}^{P}$[S2.E6X.m2]
+$\displaystyle h_{p}\eta(d_{p},n,m)\gamma(d_{p},\nu_{p},n,m)x_{m}+w_{n},$[S2.E6X.m3]
+(6)
+where
+[S2.E7]
+[S2.E7.1]
+$\displaystyle\eta(d_{p},n,m)={e^{j\frac{{2\pi}}{N}\left({N{c_{1}}d_{p}^{2}-m{d_{p}}+N{c_{2}}\left({{m^{2}}-{n^{2}}}\right)}\right)}},$[S2.E7.1.m1]
+(7a)
+[S2.E7.2]
+$\displaystyle\gamma(d_{p},\nu_{p},n,m)=\frac{e^{-j2\pi(n-m+\text{Ind}_{p}+\beta_{p})}-1}{e^{\frac{-j2\pi}{N}(n-m+\text{Ind}_{p}+\beta_{p})}-1},$[S2.E7.2.m1]
+(7b)
+and $\text{Ind}_{p}=(\alpha_{p}+2Nc_{1}d_{p})_{N}$. Note that the I/O relation in the DAFT domain can also be written in the matrix form, i.e.,
+[S2.E8]
+[S2.E8X]
+$\displaystyle{\mathbf{r}}$[S2.E8X.m2]
+$\displaystyle=\sum\limits_{p=1}^{P}{{h_{p}}}\underbrace{{{\mathbf{\Lambda}}_{{c_{2}}}}{\mathbf{F}}{{\mathbf{\Lambda}}_{{c_{1}}}}{{\mathbf{\Gamma}}_{{\mathbf{CP}}{{\mathbf{P}}_{p}}}}{{\mathbf{\Delta}}_{{f_{p}}}}{{\mathbf{\Pi}}^{{d_{p}}}}{\mathbf{\Lambda}}_{{c_{1}}}^{H}{{\mathbf{F}}^{H}}{\mathbf{\Lambda}}_{{c_{2}}}^{H}}_{\overline{{\mathbf{H}}}_{p}}{\mathbf{x}_{\text{SISO}}}+{\mathbf{w}_{\text{SISO}}}$[S2.E8X.m3]
+(8)
+[S2.E8Xa]
+$\displaystyle={{\mathbf{H}_{\text{SISO}}}}{\mathbf{x}_{\text{SISO}}}+{\mathbf{w}_{\text{SISO}}},$[S2.E8Xa.m2]
+where ${\mathbf{H}_{\text{SISO}}}=\sum\nolimits_{p=1}^{P}{{h_{p}}}{\overline{{\mathbf{H}}}_{p}}$ is the effective channel matrix and ${\mathbf{w}_{\text{SISO}}}$ is the noise vector with the same distribution of ${\widetilde{\mathbf{w}}}$. It can be shown that the element of ${\overline{{\mathbf{H}}}_{p}}$ at the $n$th row and the $m$th column is
+[S2.E9]
+$\small\begin{array}[]{l}{\overline{{\mathbf{H}}}_{p}}[n,m]=\eta(d_{p},n,m)\gamma(d_{p},\nu_{p},n,m).\end{array}$[S2.E9.m1]
+(9)
+(a) MIMO-AFDM of Scenario 1.
+(b) MIMO-AFDM of Scenario 2.
+Fig. 2:  System model of MIMO-AFDM.
+In AFDM systems, the parameters $c_{1}$ and $c_{2}$ can be adjusted so that the non-zero elements of matrix ${\overline{{\mathbf{H}}}_{p}}$ in each path do not overlap within ${{\mathbf{H}}_{\text{SISO}}}$, resulting in a comprehensive delay-Doppler channel representation.
+II-B Frameworks of MIMO-AFDM Schemes
+We consider a MIMO system where the transmitter is equipped with $N_{t}$ transmit antennas (TAs) and the BS is equipped with $N_{r}$ receive antennas (RAs). Denoted $\mathbf{H}^{(r,t)}\in\mathbb{C}^{N\times N}$ by the effective channel matrix from the $t$th TA to the $r$th RA. Then the received signal at the $r$th RA can be expressed as
+[S2.E10]
+$\small\mathbf{y}_{r}=\sum_{t=1}^{N_{t}}\mathbf{H}^{(r,t)}\mathbf{x}_{t}+\mathbf{w}_{r},$[S2.E10.m1]
+(10)
+where $\mathbf{x}_{t}\in\mathbb{C}^{N\times 1}$ denotes the transmitted data at the $t$th TA and $\mathbf{w}_{r}\in\mathbb{C}^{N\times 1}$ denotes the noise vector with $\mathcal{CN}(0,N_{0})$ entries. By staking the received signal of $N_{r}$ RAs, we have
+[S2.E11]
+$\mathbf{y}=\mathbf{H}\mathbf{x}+\mathbf{w},$[S2.E11.m1]
+(11)
+where $\mathbf{y}\equiv\left[\mathbf{y}_{1}^{\mathcal{T}},\mathbf{y}_{2}^{\mathcal{T}},\ldots,\mathbf{y}_{N_{r}}^{\mathcal{T}}\right]^{\mathcal{T}}\in\mathbb{C}^{NN_{r}\times 1}$, $\mathbf{x}\equiv\left[\mathbf{x}_{1}^{\mathcal{T}},\mathbf{x}_{2}^{\mathcal{T}},\ldots,\mathbf{x}_{N_{t}}^{\mathcal{T}}\right]^{\mathcal{T}}\in\mathbb{C}^{NN_{t}\times 1}$, $\mathbf{w}\equiv\left[\mathbf{w}_{1}^{\mathcal{T}},\mathbf{w}_{2}^{\mathcal{T}},\ldots,\mathbf{w}_{N_{r}}^{\mathcal{T}}\right]^{\mathcal{T}}\in\mathbb{C}^{NN_{r}\times 1}$, and
+[S2.E12]
+[S2.E12X]
+$\displaystyle\mathbf{H}\equiv\left[{\begin{matrix}\mathbf{H}^{(1,1)}&\mathbf{H}^{(1,2)}&\cdots&\mathbf{H}^{(1,N_{t})}\\
+\mathbf{H}^{(2,1)}&\mathbf{H}^{(2,2)}&\cdots&\mathbf{H}^{(2,N_{t})}\\
+\vdots&\vdots&\ddots&\vdots\\
+\mathbf{H}^{(N_{r},1)}&\mathbf{H}^{(N_{r},2)}&\cdots&\mathbf{H}^{(N_{r},N_{t})}\end{matrix}}\right]\in\mathbb{C}^{NN_{r}\times NN_{t}}.$[S2.E12X.m2]
+(12)
+Considering the relationship between signals transmitted on different TAs and resource utilization strategies, the MIMO-AFDM frameworks can be categorized into the following two scenarios with the signal mode shown in Fig. 2.
+1) Scenario 1 (Multiplexing): As shown in 2(a), the coded bits are split into $N_{t}$ streams. the $n_{t}$th stream is then modulated before transmission over the $n_{t}$th antenna.
+2) Scenario 2 (Diversity): As shown in 2(b), the coded bits are directly modulated with an AFDM modulator. All the $N_{t}$ TAs transmit the same modulated signal for diversity enhancement.
+III Variational Inference and Graphical Model
+In this section, we first present the VI framework [Advancesvi] and the proposed JSG representation in MIMO-AFDM. Then, we detail the message propagation process over the JSG based on VI principles.
+III-A Variational Inference
+Given the received observation $\mathbf{y}$, the goal is to
+infer the transmitted signal $\mathbf{x}$. The optimum detection is MAP, which is given by
+[S3.E13]
+$\small\hat{\mathbf{x}}=\mathop{\mathrm{\arg\!\max}}_{{x_{m}\in{\mathcal{X},\forall m}}}\hskip 9.24994ptp({\mathbf{x}}\,|\,{\mathbf{y}}),$[S3.E13.m1]
+(13)
+where $\mathcal{X}$ denotes the constellation alphabet. Solving (13) requires a computational complexity order of $|\mathcal{X}|^{NN_{t}}$ and $|\mathcal{X}|^{N}$ for Scenarios 1 and 2, respectively, which increases exponentially with $N$ or $N_{t}$. The joint probability of the transmitted vector $\mathbf{x}$ and received signal $\mathbf{y}$ can be expressed as: $p\left({\mathbf{x},\mathbf{y}}\right)=p\left({\mathbf{x}}\right)p\left({\mathbf{y}|\mathbf{x}}\right)$, where $p\left({\mathbf{x}}\right)$ denotes the prior probability of $\mathbf{x}$ and $p\left({\mathbf{y}|\mathbf{x}}\right)$ is the likelihood probability. From Bayes’ rule, the a posterior probability of $\mathbf{x}$ is  given by [Advancesvi]
+[S3.E14]
+$p\left({\mathbf{x}|\mathbf{y}}\right)=\frac{p\left({\mathbf{x}}\right)p\left({\mathbf{y}|\mathbf{x}}\right)}{p\left({\mathbf{y}}\right)}\propto p\left({\mathbf{x}}\right)p\left({\mathbf{y}|\mathbf{x}}\right).$[S3.E14.m1]
+(14)
+The marginal posterior probability is calculated as $p\left({{x}_{m}|\mathbf{y}}\right)=\sum_{\sim{x}_{m}}p\left({\mathbf{x}|\mathbf{y}}\right)$ which serves as the soft information output for the channel decoder, where $\sum_{\sim{x}_{m}}$ denotes the summation over all the arguments except $x_{m}$. Unfortunately, the direct calculation of $p\left({{x}_{m}|\mathbf{y}}\right)$ incurs high computational complexity. As an approximation approach, the VI technique can be employed for efficient compute (14). The  core idea  of VI is to find a distribution $q(\mathbf{x}|\mathbf{y})$ from a tractable distribution family $Q$, serving as an optimized approximation of the target posterior distribution $p(\mathbf{x}|\mathbf{y})$. As such, the inference problem in (14) can be transformed to a tractable optimization problem.
+The widely used optimization metrics in VI are the exclusive Kullback-Leibler (KL) divergence $\text{KL}(p|q)$ and inclusive KL divergence $\text{KL}(q|p)$, which measure the similarity between two distributions. The $\text{KL}(p|q)$ and $\text{KL}(q|p)$ are respectively defined as [Advancesvi]
+[S3.E15]
+[S3.E15X]
+$\displaystyle\text{KL}(q|p)=$[S3.E15X.m2]
+$\displaystyle\sum_{\mathbf{x}}q\left({\mathbf{x}|\mathbf{y}}\right)\log\frac{q\left({\mathbf{x}|\mathbf{y}}\right)}{p\left({\mathbf{x}|\mathbf{y}}\right)},$[S3.E15X.m3]
+(15)
+[S3.E15Xa]
+$\displaystyle\text{KL}(p|q)=$[S3.E15Xa.m2]
+$\displaystyle\sum_{\mathbf{x}}p\left({\mathbf{x}|\mathbf{y}}\right)\log\frac{p\left({\mathbf{x}|\mathbf{y}}\right)}{q\left({\mathbf{x}|\mathbf{y}}\right)}.$[S3.E15Xa.m3]
+Note that the KL divergence is non-negative.
+Moreover, it is neither symmetric nor a distance metric, i.e., $\text{KL}(p|q)\neq\text{KL}(q|p)$. $\text{KL}(q|p)$ divergence emphasizes assignment of low probability mass of $q$ to the location where $p$ is very small. In other words, $\text{KL}(q|p)$ has the propriety of “mode-seeking” or “zero-forcing” as it forces $q$ to concentrate on one of the local maximum values of $p$. Conversely, $\text{KL}(p|q)$ divergence emphasizes assignment of high probability mass of $q$ to the location where $p$ has positive mass. Namely, $\text{KL}(p|q)$ metric has the property of mean-seeking or mass covering, meaning that $q$ tends to fit the mean value of $p$.
+In a nutshell, the VI framework provides a unified structure to design detection algorithms by taking $\text{KL}(q|p)$ and $\text{KL}(p|q)$ into consideration. In addition, the VI framework can also be described by using a powerful probabilistic graphical model known as a factor graph. This graphical representation is the key for low-complexity algorithm design, which will be discussed in the sequel.
+(a) An example of the channel matrix $\mathbf{H}_{p}$ with $k_{\nu}=2$.
+(b) The corresponding factor representation of $\mathbf{H}_{p}$
+Fig. 3: An example of a channel matrix and its corresponding factor graph representation.
+III-B Joint Factor Representation in MIMO-AFDM
+Recall (9), for each path, $\eta(d_{p},n,m)$ has unit energy, and one has [AFDMTWCBemani]
+[S3.E16]
+[S3.E16X]
+$\displaystyle\left|{\overline{\mathbf{H}}_{p}}[n,m]\right|$[S3.E16X.m2]
+$\displaystyle=\left|\frac{1}{N}\gamma(d_{p},\nu_{p},n,m)\right|=\left|\frac{\sin{(N\theta)}}{N\sin{(\theta)}}\right|$[S3.E16X.m3]
+(16)
+[S3.E16Xa]
+$\displaystyle\underset{\leq}{(\text{i})}\frac{N-1}{N}\left|{{\cos(\theta)}}\right|+\frac{1}{N},$[S3.E16Xa.m2]
+where $\theta\triangleq\frac{\pi}{N}(n-m+\mathrm{Ind}_{p}+\beta_{p})$, ${\overline{\mathbf{H}}_{p}}[n,m]$ denotes the entry at the $n$th row and $m$th column of ${\overline{\mathbf{H}}_{p}}$,
+and the detailed derivation of $(\text{i})$ is given by the Equations (35) and (36) of [AFDMTWCBemani]. The above bounds hold tight as $N$ increases. It is noted that
+$\gamma(d_{p},\nu_{p},n,m)$ achieves the peak energy at $m=(n+\text{Ind}_{p})_{N}$, and the elements in ${\overline{\mathbf{H}}_{p}}[n,m]$
+become insignificant as $m$ moves away from $(n+\text{Ind}_{p})_{N}$.
+To better present the message passing over the VI graph, we first assume that those insignificant elements in ${\overline{\mathbf{H}}_{p}}[n,m]$ are zeros when $m$ falls outside of $[n+\text{Ind}_{p}-\nu_{v},n+\text{Ind}_{p}+\nu_{v}]$. Namely,
+[S3.E17]
+$\small\begin{aligned} &{\overline{\mathbf{H}}_{p}}[n,m]=\left\{\begin{matrix}{\overline{\mathbf{H}}_{p}}[n,m],&\noindent\hbox{}\hfill{{\hbox{$\begin{array}[c]{@{}c@{}}{{\left({n+{{\operatorname{Ind}}_{p}}}-k_{\nu}\right)}_{N}}\leq m\\
+\leq{{\left({n+{{\operatorname{Ind}}_{p}}}+k_{\nu}\right)}_{N}}\end{array}$}}}\hfill\hbox{}\\
+0,&{{\text{ otherwise }}}\end{matrix}\right.\end{aligned}.$[S3.E17.m1]
+(17)
+In Subsection IV-B, we will present the proposed sparse channel scheme to address these insignificant elements and determine $k_{\nu}$.
+A factor graph is a bipartite graph representing the factorization of a joint distribution function $p(\mathbf{x},\mathbf{y})$. Fig. 3(a) shows an example of ${\overline{\mathbf{H}}_{p}}$ in a SISO-AFDM system with $N=16$ and $k_{\nu}=2$. Consider the one-path channel in Fig. 3(a), the factor graph is shown in Fig. 3(b). Each AFDM variable node (AVN) is connected to $2k_{\nu}+1$ function nodes (FNs) and each FN is also occupied by $2k_{\nu}+1$ AVNs. For simplicity, denote $x_{m}^{t}$ as the transmitted symbol at the $m$th SC of the $t$th TA. Consider the MIMO-AFDM of Scenario $1$, the joint distribution $p(\mathbf{x},\mathbf{y})$ can be factorized as
+[S3.E18]
+[S3.E18X]
+$\displaystyle p(\mathbf{y},\mathbf{x})=$[S3.E18X.m2]
+$\displaystyle p(\mathbf{y}|\mathbf{x})p(\mathbf{x})$[S3.E18X.m3]
+(18)
+[S3.E18Xa]
+$\displaystyle=$[S3.E18Xa.m2]
+$\displaystyle\prod_{t=1}^{N_{t}}\prod_{m=1}^{N}p(x_{m}^{t})\prod_{r=1}^{N_{r}}\prod_{n=1}^{N}p(y^{r}_{n}|\mathbf{x}),$[S3.E18Xa.m3]
+where $p\left({y_{n}^{r}|\mathbf{x}}\right)=\mathit{\mathcal{CN}}\left({y_{n}^{r};\sum_{t}\sum_{m}h_{n,m}^{r,t}x_{m}^{t},N_{0}}\right)$, $h_{n,m}^{r,t}$ denotes the channel coefficient from the $m$th SC of the $t$th TA to the $n$th SC of the $r$th RA, and $p(x_{m}^{t})$ denotes the prior probability of $x_{m}^{t}$. The factor graph can be designed to contain $NN_{t}$ AVNs $x_{m}^{t}$ and $N_{r}N$ likelihood FNs $f_{n}^{r}$.
+The LDPC codes can also be represented by a bipartite graph called Tanner graph with the belief messages passing over the LDPC VNs (LVNs) and LDPC check nodes (CNs). In this paper, we propose to design the JSG-based receiver by merging the VI factor graph and the LDPC graph into an integrated one. As a result, the belief messages are exchanged iteratively on a JSG. Fig. 4 shows an example of the JSG for the MIMO-AFDM of Scenario $1$. The AVNs and FNs represent the transmit layers and the likelihood function $p(y^{r}_{n}|\mathbf{x})$.
+The set of AVN indices sharing the $n$th FN of the $r$th RA is denoted as $F(n,r)=\left\{{(m,t):h_{n,m}^{r,t}\neq 0}\right\}$, whereas the set of FN indices sharing the $m$th VN is denoted by $V(m,t)=\left\{{n,r:h_{n,m}^{r,t}\neq 0}\right\}$. In addition, the cardinalities of $V(m,t)$ and $F(n,r)$ are denoted as $|V(m,t)|=d_{f}$ and $|F(n,r)|=d_{v}$, respectively.
+In this paper, we first consider the MIMO-AFDM in Scenario $1$, and the results can be readily extended to Scenario $2$.
+Fig. 4:  Factor graph representation of the proposed JSG.
+III-C BP-JSG
+In this subsection, we first consider the optimization metric as the exclusive KL divergence, i.e., $\text{KL}(p|q)$. It is well known that the $\log(\cdot)$ partition function $\log p({\mathbf{y}})$ can be decomposed as [Factorbp]
+[S3.E19]
+[S3.E19X]
+$\displaystyle\log$[S3.E19X.m2]
+$\displaystyle p({\mathbf{y}})=\sum_{\mathbf{x}}q(\mathbf{x})\log\left(\frac{p(\mathbf{x},\mathbf{y})}{q(\mathbf{x})}\times\frac{q(\mathbf{x})}{p(\mathbf{x}|\mathbf{y})}\right)$[S3.E19X.m3]
+(19)
+[S3.E19Xa]
+$\displaystyle=\underbrace{\sum_{\mathbf{x}}q\left({\mathbf{x}}\right)\log p\left({\mathbf{x},\mathbf{y}}\right)-\sum_{\mathbf{x}}q\left({\mathbf{x}}\right)\log q\left({\mathbf{x}}\right)}_{\mathscr{L_{\mathrm{ELBO}}}}+\text{KL}(q|p),$[S3.E19Xa.m2]
+where ${\mathscr{L_{\mathrm{ELBO}}}}$ is the evidence lower bound (ELBO). Namely, ${\mathscr{L_{\mathrm{ELBO}}}}=\log p({\mathbf{y}})-\text{KL}(q|p)$. As a result, instead of minimizing $\text{KL}(p|q)$, one can maximize ${\mathscr{L_{\mathrm{ELBO}}}}$. To solve this problem, we resort to the Bethe approximation for maximizing ${\mathscr{L_{\mathrm{ELBO}}}}$. It is shown that the stationary points of the Bethe approximation to the ${\mathscr{L_{\mathrm{ELBO}}}}$ are equivalent to the fixed points of the standard BP algorithm [Factorbp, VIchen, meng2015expectation]. Denote $L_{v_{m}^{t}\rightarrow f_{n}^{r}}^{l}({x}_{m}^{t})$ and $L_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l}({x}_{m}^{t})$ as the LLR propagated from VN $v_{m}^{t}$ to FN $f_{n}^{r}$ and FN $f_{n}^{r}$ to VN $v_{m}^{t}$at the $l$th iteration, respectively. The iterative messages exchanged between FNs and AVNs are computed as
+[S3.E20]
+[S3.E20X]
+$\displaystyle L_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l}({x}_{m}^{t})=$[S3.E20X.m2]
+$\displaystyle\max_{\forall{x}_{m\prime}^{t\prime},{x}_{m\prime}^{t\prime}\neq{x}_{m}^{t}}-\frac{1}{2N_{0}}\left|y_{k}-\sum\limits_{{m,t\in F(n,r)}}h_{n,m}^{r,t}x_{m}^{t}\right|^{2}$[S3.E20X.m3]
+(20)
+[S3.E20Xa]
+$\displaystyle+\sum_{m,t\in F(n,r)}L_{v_{m}^{t}\rightarrow f_{n}^{r}}^{t}({x}_{m}^{t}),$[S3.E20Xa.m2]
+where
+[S3.E21]
+$\small L_{v_{m}^{t}\rightarrow f_{n}^{r}}^{t}({x}_{m}^{t})=\sum_{n,r\in V(m,t)\backslash\{n,r\}}I_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l-1}({x}_{m}^{t}),$[S3.E21.m1]
+(21)
+where $n,r\in V(m,t)\backslash\{n,r\}$ represents removing the FN $f_{n}^{r}$ from the set $V(m,t)$.
+The message propagation within the LDPC graph and between the LDPC and VI graph will be discussed along with the proposed EP-JSG.
+III-D EP-JSG
+In BP-JSG, (20)-(21) require global searches over the joint space of all symbols, which is a discrete set. Consequently, the computational complexity of BP-JSG is exponential, i.e., $\mathcal{O}\left(M^{Pk_{\nu}}\right)$. As $M$, $P$, and $k_{\nu}$ increase, BP-JSG becomes impractical in real-world systems, especially in scenarios with high mobility and rich scattering environments as $P$ and $k_{\nu}$ typically have large values. Instead of using $\text{KL}(q|p)$, we resort to the inclusive $\text{KL}(p|q)$ as the optimization metric. The objective is to find a distribution family $q(\mathbf{x})$ that minimizes $\text{KL}(p|q)$. Although global optimization is intractable, it can be iteratively solved using the well-known EP algorithm [EPT, VIchen, meng2015expectation]. Denote $I_{v_{m}^{t}\rightarrow f_{n}^{r}}^{l}({x}_{m}^{t})$ and $I_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l}({x}_{m}^{t})$ as the belief messages propagated from VN $v_{m}^{t}$ to FN $f_{n}^{r}$ and $f_{n}^{r}$ to $v_{m}^{t}$ at the $l$th iteration, respectively. According to the EP principles, the message update rule can be expressed as [EPT]
+[S3.E22]
+$\small I_{v_{m}^{t}\rightarrow f_{n}^{r}}^{l}({x}_{m}^{t})\propto\frac{\text{Proj}_{\Phi}(q_{0}^{~l}({x}_{m}^{t}))}{I_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l-1}({x}_{m}^{t})},$[S3.E22.m1]
+(22)
+[S3.E23]
+$I_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l}({x}_{m}^{t})\propto\frac{\text{Proj}_{\Phi}(q_{n,{r}}^{t}({x}_{m}^{t}))}{I_{v_{m}^{t}\rightarrow f_{n}^{r}}^{l}({x}_{m}^{t})},$[S3.E23.m1]
+(23)
+where $\text{Proj}_{\Phi}(p)=\arg\min\limits_{q\in\Phi}\text{KL}(p|q)$ denotes the projection of a particular distribution $p$ into some distribution set $\phi$ for the given metric of $\text{KL}(p|q)$, and
+[S3.E24]
+$q_{0}^{~l}({x}_{m}^{t})\propto p_{0}({x}_{m}^{t})\prod_{r=1}^{N_{r}}\prod_{n,r\in V(m,t)}I_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l}({x}_{m}^{t}),$[S3.E24.m1]
+(24)
+[S3.E25]
+$\small q_{n,{r}}^{t}({x}_{m}^{t})\propto\sum_{{x}_{m\prime}^{t\prime}\neq{x}_{m}^{t}}p(y_{n}^{r}|{x}_{m\prime}^{t\prime})\prod_{m\prime,t\prime\in F(n,r)\backslash\{m,t\}}I_{v_{m}^{t}\rightarrow f_{n}^{r}}^{t}({x}_{m}^{t}).$[S3.E25.m1]
+(25)
+The above procedure can be understood as the messages propagation over the VI graph depicted in Fig. 4.
+It treats the messages exchanged between VNs and FNs as continuous random variables and approximates the true distribution with a Gaussian distribution, characterized by its mean and variance. This approach enables signal detection to be transformed into the computation of mean and variance, avoiding the need to traverse all symbols. Specifically, we have
+[S3.E26]
+[S3.E26.1]
+$\displaystyle\text{Proj}_{\Phi}(q_{0}^{~l}({x}_{m}^{t}))\propto$[S3.E26.1.m1]
+$\displaystyle\mathcal{CN}({\mu_{m,t}^{l},\xi_{m,t}^{l}}),$[S3.E26.1.m2]
+(26a)
+[S3.E26.2]
+$\displaystyle I_{v_{m}^{t}\rightarrow f_{n}^{r}}^{l}(x_{m}^{t})\propto$[S3.E26.2.m1]
+$\displaystyle\mathcal{CN}({\mu_{m,t\rightarrow n,r}^{l},\xi_{m,t\rightarrow n,r}^{l}}),$[S3.E26.2.m2]
+(26b)
+[S3.E26.3]
+$\displaystyle I_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l}(x_{m}^{t})\propto$[S3.E26.3.m1]
+$\displaystyle\mathcal{CN}({\mu_{n,r\rightarrow m,t}^{l},\xi_{n,r\rightarrow m,t}^{t}}).$[S3.E26.3.m2]
+(26c)
+Now, we introduce the detailed message propagation in the proposed JSG.
+III-D1 Updating of VNs
+In the separate graph case, VNs only gather information from one type of nodes (FNs or CNs). However, in the JSG, the updating of VNs in JSG involves the information from both sub-graphs. Let $L_{\alpha_{i}\rightarrow\beta_{j}}$ be $L_{\beta_{j}\rightarrow\alpha_{i}}$ by the LLR updating from the LVN $\alpha_{i}$ to the CN $\beta_{j}$, and the $\beta_{j}$ to the $\alpha_{i}$, respectively. Then, the updated $L_{\alpha_{i}\rightarrow\beta_{j}}$ is given by
+[S3.E27]
+$\small L_{\alpha_{i}\rightarrow\beta_{j}}=L^{a,{\mathrm{LDPC}}}_{\alpha_{i}}+\sum_{j^{\prime}\in\eta_{i}\setminus j}L_{\beta_{j^{\prime}}\rightarrow\alpha_{i}},$[S3.E27.m1]
+(27)
+where $L^{a,{\mathrm{LDPC}}}_{\alpha_{i}}$ denotes the a prior LLR updated from VI graph at the LVN $\alpha_{i}$, and $\eta_{i}$ denotes the set of CNs connected to LVN $\alpha_{i}$.
+Denote $L^{a,{\mathrm{VI}}}(x_{m}^{t})$ as the a prior LLR updated from LDPC graph to AVN $x_{m}^{t}$. The AVN nodes gather the LLR information from both the LDPC graph and FNs as follows
+[S3.E28]
+$\small Lq(x_{m}^{t}|\mathbf{y})=L^{a,{\mathrm{VI}}}(x_{m}^{t})+{\sum_{(n,r)\in V(m,t)}L_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l}(x_{m}^{t})}.$[S3.E28.m1]
+(28)
+Then, based on (28), the a posterior belief probability for AVN $x_{m}^{t}$ can be calculated as
+[S3.E29]
+$\small p(x_{m}^{t}\mid\mathbf{y})=\frac{\exp\left(Lq(x_{m}^{t}|\mathbf{y})\right)}{{1+\exp\left(Lq(x_{m}^{t}|\mathbf{y})\right)}}.$[S3.E29.m1]
+(29)
+Accordingly, the mean and variance of AVN $x_{m}^{t}$ can be expressed as
+[S3.E30]
+[S3.E30X]
+$\displaystyle\mu_{m,t}^{l}=$[S3.E30X.m2]
+$\displaystyle\sum_{a_{m}^{t}\in\mathcal{X}}p(x_{m}^{t}=a_{m}^{t}\mid\mathbf{y})a_{m}^{t},$[S3.E30X.m3]
+(30)
+[S3.E30Xa]
+$\displaystyle\xi_{m,t}^{l}=$[S3.E30Xa.m2]
+$\displaystyle\sum_{a_{m}^{t}\in\mathcal{X}}p(x_{m}^{t}=a_{m}^{t}\mid\mathbf{y}){\left|{a_{m}^{t}-\mu_{m,t}^{l}}\right|}^{2}.$[S3.E30Xa.m3]
+Upon obtaining the mean $\mu_{m,t}^{l}$ and variance $\xi_{m,t}^{l}$, by substituting (26a)-(26c) into (22), one has the mean and variance passing from VNs to FNs respectively as follows
+[S3.E31]
+[S3.E31X]
+$\displaystyle\xi_{m,t\rightarrow n,r}^{l}=$[S3.E31X.m2]
+$\displaystyle\left({\frac{1}{\xi_{m,t}^{l}}-\frac{1}{\xi_{n,r\rightarrow m,t}^{l-1}}}\right)^{-1},$[S3.E31X.m3]
+(31)
+[S3.E31Xa]
+$\displaystyle\mu_{m,t\rightarrow n,r}^{l}=$[S3.E31Xa.m2]
+$\displaystyle\xi_{m,t\rightarrow n,r}^{l}\left({\frac{\mu_{m,t}^{l}}{\xi_{m,t}^{l}}-\frac{\mu_{n,r\rightarrow m,t}^{l-1}}{\xi_{n,r\rightarrow m,t}^{l-1}}}\right).$[S3.E31Xa.m3]
+III-D2 Updating of FNs and CNs
+The LLR of the CN $\beta_{j}$ is updated as
+[S3.E32]
+$\small L_{\beta_{j}\rightarrow\alpha_{i}}=\gamma^{-1}\left(\sum_{i^{\prime}\in\phi_{j}\setminus i}\gamma\left(L_{\alpha_{i^{\prime}}\rightarrow\beta_{j}}\right)\right),$[S3.E32.m1]
+(32)
+where $\phi_{j}\setminus i$ is the set of VNs (excluding $\alpha_{i}$) that connect to the CN $\beta_{j}$, and $\gamma(x)$ and $\gamma^{-1}(x)$ are respectively defined as
+[S3.E33]
+[S3.E33X]
+$\displaystyle\gamma(x)$[S3.E33X.m2]
+$\displaystyle=\text{sign}(x)\times\left(-\log\tan{|x|\over 2}\right),$[S3.E33X.m3]
+(33)
+[S3.E33Xa]
+$\displaystyle\gamma^{-1}(x)$[S3.E33Xa.m2]
+$\displaystyle=(-1)^{\text{sign}(x)}\times\left(-\log\tan{|x|\over 2}\right),$[S3.E33Xa.m3]
+where $\text{sign}(x)$ denotes the the sign of $x$.
+On the FN side, the calculation of $\mu_{n,r\rightarrow m,t}^{l}$ and $\xi_{n,r\rightarrow m,t}^{l}$ plays a crucial role in the convergence of expectation propagation. The received signal $y_{n}^{r}$ is considered as the sum of transmitted signals from all layers plus the noise. Namely, we have
+[S3.E34]
+$\small x_{m}^{t}=\frac{1}{h_{n,m}^{r,t}}\Bigg({y^{r}_{n}-\sum_{\begin{subarray}{c}i,j\in F(n,r),\\
+i\neq m,j\neq t\end{subarray}}h_{n,i}^{r,j}x_{i}^{j}+\omega^{r}_{n}}\Bigg).$[S3.E34.m1]
+(34)
+Then, based on (26a)-(26c) and (25), the message in the reverse direction becomes
+[S3.E35]
+$\small\mu_{n,r\rightarrow m,t}^{l}=\frac{y_{n}^{r}-Z_{n,r\rightarrow m,t}^{l}}{h_{n,m}^{r,t}},\;\xi_{n,r\rightarrow m,t}^{l}=\frac{N_{0}+B_{n,r\rightarrow m,t}^{l}}{\left|h_{n,m}^{r,t}\right|^{2}},$[S3.E35.m1]
+(35)
+where
+[S3.E36]
+[S3.E36X]
+$\displaystyle Z_{n,r\rightarrow m,t}^{l}=$[S3.E36X.m2]
+$\displaystyle\sum_{\begin{subarray}{c}i,j\in F(n,r),\\
+i\neq m,j\neq t\end{subarray}}h_{n,i}^{r,j}\mu_{i,j\rightarrow n,r}^{l-1},$[S3.E36X.m3]
+(36)
+[S3.E36Xa]
+$\displaystyle B_{n,r\rightarrow m,t}^{l}=$[S3.E36Xa.m2]
+$\displaystyle\sum_{\begin{subarray}{c}i,j\in F(n,r),\\
+i\neq m,j\neq t\end{subarray}}|h_{n,i}^{r,j}|^{2}\xi_{i,j\rightarrow n,r}^{l-1}.$[S3.E36Xa.m3]
+Finally, the posterior probabilities of transmitted symbol in LLR domain is given by
+[S3.E37]
+$\small L_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l}(a_{m}^{t})=\frac{-\left|{a_{m}^{t}-\mu_{n,r\rightarrow m,t}^{l}}\right|^{2}}{\xi_{n,r\rightarrow m,t}^{l}},\;\forall a_{m}^{t}\in\mathcal{X}.$[S3.E37.m1]
+(37)
+III-D3 Extrinsic and prior LLRs exchange
+The output extrinsic information of the VI detector are utilized as the a priori LLRs for the LDPC decoder. Specifically, the extrinsic information at the AVN $x_{m}^{t}$ is calculated as
+[S3.E38]
+$\small L^{e,VI}_{m,t}(a_{m}^{t})=\sum_{r=1}^{N_{r}}\sum_{n=1}^{N}L_{f_{n}^{r}\rightarrow v_{m}^{t}}^{l}(a_{m}^{t}).$[S3.E38.m1]
+(38)
+Denote $\mathbf{c}_{m,t}=\{c_{m,t}^{i}|i=1,2,\ldots,\log_{2}M\}\in\mathbb{B}^{\log_{2}M\times 1}$ as the corresponding bits of the symbol $a_{m}^{t}$. Then, $L^{e,VI}_{m,t}(a_{m}^{t})$ is further demapped to the bit-level LLRs, which can be expressed as
+[S3.E39]
+[S3.E39X]
+$\displaystyle L^{e,VI}_{m,t}(c_{m,t}^{i})=$[S3.E39X.m2]
+$\displaystyle\mathrm{log}\frac{\sum_{\forall\mathbf{c}_{m,t}:c_{m,t}^{i}=0}\exp(L^{e,VI}_{m,t}(a_{m}^{t}))}{\sum_{\forall\mathbf{c}_{m,t}:c_{m,t}^{i}=1}\exp(L^{e,VI}_{m,t}(a_{m}^{t}))}.$[S3.E39X.m3]
+(39)
+Let $L^{e,VI}_{m,t}(\mathbf{c})$ denote the extrinsic bit LLRs from $N_{t}$ transmit antennas. $L^{e,VI}_{m,t}(\mathbf{c})$ is further deinterleaved as the a priori LLRs input to the LDPC decoder, i.e.,
+[S3.E40]
+$\small L^{a,{\mathrm{LDPC}}}(\boldsymbol{\alpha})={\Pi^{-1}}\left(L^{e,VI}_{m,t}(\mathbf{c})\right).$[S3.E40.m1]
+(40)
+At the LVN side, it gathers information from CNs by
+[S3.E41]
+$\small{L}^{e,\text{LDPC}}(\alpha_{i})=\sum_{j\in\eta_{i}}L_{\beta_{j}\rightarrow\alpha_{i}}.$[S3.E41.m1]
+(41)
+After interleaving, the resultant LLR can be expressed as
+[S3.E42]
+$\small{L}^{a,\text{VI}}(\mathbf{c})=\Pi({L}^{e,\text{LDPC}}(\boldsymbol{\alpha})).$[S3.E42.m1]
+(42)
+To pass the belief messages from LVNs to AVNs, one needs to transform bit LLRs to symbol LLRs. Specifically, the a priori  symbol-level LLRs can be calculated as
+[S3.E43]
+[S3.E43X]
+$\displaystyle L^{a,{\mathrm{VI}}}(x_{m}^{t})$[S3.E43X.m2]
+$\displaystyle=\sum_{i=1}^{\log_{2}(M)}\log\frac{\exp\left(-\Psi_{\mathcal{X}}[i]{L}^{a,\text{VI}}_{\boldsymbol{\alpha}}(c_{m,t}^{i}))\right)}{{1+\exp\left({L}^{a,\text{VI}}_{\boldsymbol{\alpha}}(c_{m,t}^{i}))\right)}},$[S3.E43X.m3]
+(43)
+where $\Psi_{\mathcal{X}}[i]\in\{0,1\}$ denotes the labeling value of the $i$th bit of $\mathcal{X}$.
+Remark 1: The proposed JSG allows belief messages from the LDPC
+and VI graphs to propagate in a joint manner. In addition, the
+AVNs (FNs) and LVNs (CNs) are able to update messages
+simultaneously, leading to faster convergence with fewer iterations.
+IV The proposed E-JSG
+Note that messages in the VI graph are updated at the symbol level, whereas messages in the LDPC graph are updated on a per-bit basis. This mismatch between symbol-level message updates in the VI graph and bit-level updates in the LDPC graph results in inefficient message propagation. Furthermore, the computation of bit-to-symbol and symbol-to-bit LLRs introduces higher computational complexity.
+To address these challenges, we propose an E-JSG, which enables message updating on a per-bit basis. Moreover, to further reduce computational complexity, we introduce a sparse channel method based on the eSNR,  which helps eliminate unnecessary message propagation over the E-JSG.
+Fig. 5:  Factor representation of the proposed E-JSG.
+IV-A The Proposed E-JSG
+IV-A1 Linear encoding-inspired VI graph design
+Let us consider the linear encoding for a modulation process in the following way [SCMAE2E2]
+[S4.E44]
+${x}=\mathbf{g}\mathbf{u},$[S4.E44.m1]
+(44)
+where $\mathbf{g}=[{g}_{1},{g}_{2},\ldots,{g}_{\log_{2}M}]$ denotes the constellation generator vector and $\mathbf{u}=[u_{1},u_{2},\ldots,u_{\log_{2}\,\,M}]^{T}\in\{1,-1\}^{\log_{2}\,\,M}$ stands for the instantaneous input binary message vector. By including all the $\mathbf{u}$’s according to its corresponding integer values in ascending order, we obtain a $\log_{2}M\times M$ matrix $\mathbf{U}$. For example, when $M=4$, we have
+[S4.E45]
+$\small\mathbf{U}=\left[{\begin{matrix}-+-+\\
+--++\end{matrix}}\right],$[S4.E45.m1]
+(45)
+where “$+$” and “$-$” denote $+1$ and $-1$, respectively. Hence, the
+signal model of (10) can be rewritten as
+[S4.E46]
+[S4.E46X]
+$\displaystyle\mathbf{y}_{r}=$[S4.E46X.m2]
+$\displaystyle\sum_{t=1}^{N_{t}}\mathbf{H}^{(r,t)}\mathbf{G}\mathbf{u}_{t}+\mathbf{w}_{r}=\sum_{t=1}^{N_{t}}\overline{\mathbf{H}}^{(r,t)}\mathbf{u}_{t}+\mathbf{w}_{r},$[S4.E46X.m3]
+(46)
+where $\mathbf{u}_{t}\in\{1,-1\}^{N\log_{2}M\times 1}$ denotes the instantaneous input binary message vector of an AFDM symbol at the $t$th TA, $\mathbf{G}=\big[\underbrace{\mathbf{g}^{\mathcal{T}},\cdots,\mathbf{g}^{\mathcal{T}}}_{N}\big]^{\mathcal{T}}\in\mathbb{C}^{N\times N\log_{2}M}$ denotes the linear encoding matrix, and $\overline{\mathbf{H}}^{(r,t)}=\mathbf{H}^{(r,t)}\mathbf{G}$ denotes the combined channel matrix. By utilizing (46), the VI graph designed only contains bit VNs (BVNs) instead of the symbol VN. Hereafter, the VNs in the E-JSG are referred to as the BVNs. As a result, the LLR calculation for bit to symbol is no longer required and the interleaver (deinterleaver) can also be eliminated. Fig. 5 shows an example of a folded view of the proposed E-JSG, where $M=4$ is considered. Based on the JSG framework introduced in Section III, both FNs and CNs are able to update their messages concurrently. Subsequently, the BVNs of VI and LDPC subgraphs simultaneously update the mean and variance, and LLR to FNs and CNs, respectively. Therefore, it is reasonable to place FNs (rectangles) and CNs (triangles) on one side, while drawing BVNs (circles) on the other side. Note that one circle contains $\log_{2}M$ BVNs.
+Algorithm 1  Message Propagation in the Proposed E-JSG
+1:
+Initialize : $L_{\beta_{j}\rightarrow\alpha_{i}}=0$, $L_{f_{n}^{r}\rightarrow\alpha_{i}}=0$, $L_{\alpha_{i}\rightarrow\beta_{j}}=0$, $L_{\alpha_{i}\rightarrow f_{n}^{r}}=0$, $\mu_{n,r\rightarrow i}^{0}=0$, $\xi_{n,r\rightarrow i}^{0}=10$, $\mu_{i\rightarrow n,r}^{0}=0$, $\xi_{i\rightarrow n,r}^{0}=10$, and $\forall i,\forall j,\forall n,\forall r$.
+2:
+for $l=1:L_{t}$ do
+3:
+Step 1 : BVNs update
+4:
+Update $L_{\alpha_{i}\rightarrow\beta_{j}}$ based on (47)
+5:
+Update $L_{\alpha_{i}}$ based on (48)
+6:
+Update the mean and variance at the BVN, i.e., $\xi_{i\rightarrow n,r}^{l}$ and $\mu_{i\rightarrow n,r}^{l}$, according to (50)
+7:
+Step 2 : FNs and CNs update
+8:
+Update $L_{\beta_{j}\rightarrow\alpha_{i}}$ according to (32)
+9:
+Update $\mu_{n,r\rightarrow i}^{l}$ and $\xi_{n,r\rightarrow i}^{l}$ according to (51)
+10:
+Update $L_{f_{n}^{r}\rightarrow\alpha_{i}}$ according to (53)
+11:
+end for
+12:
+Output : $L_{\alpha_{i}}$
+In the following, we present the message propagation in the proposed E-JSG.
+IV-A2 Update of BVNs to CNs and FNs
+The updating of $i$th BVN $\alpha_{i}$ to the $j$th CN $\beta_{j}$ can be calculated as
+[S4.E47]
+$\small L_{\alpha_{i}\rightarrow\beta_{j}}=\sum_{(r,n)\in V(i)}L_{f_{n}^{r}\rightarrow\alpha_{i}}+\sum_{j^{\prime}\in\eta_{i}\setminus j}L_{\beta_{j^{\prime}}\rightarrow\alpha_{i}},$[S4.E47.m1]
+(47)
+where $V(i)$ is the set of FNs connected to the $i$th BVN. Similarly, to update the BVNs to FNs, the BVNs gather the information from both sides, i.e.,
+[S4.E48]
+$\small L_{\alpha_{i}}=\sum_{(r,n)\in V(i)}L_{f_{n}^{r}\rightarrow\alpha_{i}}+\sum_{i\in\phi_{j}}L_{\alpha_{i}\rightarrow\beta_{j}}.$[S4.E48.m1]
+(48)
+In this paper, we consider $M=4$ with $\mathbf{g}=[1,-1j]$. Then, the calculation of mean and variance of the $i$th BVN can be simplified as
+[S4.E49]
+[S4.E49X]
+$\displaystyle\mu_{i}^{l}$[S4.E49X.m2]
+$\displaystyle=1-2p(\alpha_{i}^{l}=-1|\mathbf{y})=\frac{1-\exp\left(L_{\alpha_{i}}\right)}{{1+\exp\left(L_{\alpha_{i}}\right)}},$[S4.E49X.m3]
+(49)
+[S4.E49Xa]
+$\displaystyle\xi_{i}^{l}$[S4.E49Xa.m2]
+$\displaystyle=\sum_{a_{i}\in\{-1,1\}}p(\alpha_{i}^{l}=a_{i}\mid\mathbf{y}){\left|{a_{i}-\alpha_{i}^{l}}\right|}^{2}=\alpha_{i}^{l}(\alpha_{i}^{l}-1)^{2}.$[S4.E49Xa.m3]
+One has the the mean and variance passing from VNs to FNs respectively as follows
+[S4.E50]
+[S4.E50X]
+$\displaystyle\xi_{i\rightarrow n,r}^{l}=$[S4.E50X.m2]
+$\displaystyle\left({\frac{1}{\xi_{i}^{l}}-\frac{1}{\xi_{n,r\rightarrow i}^{l-1}}}\right)^{-1},$[S4.E50X.m3]
+(50)
+[S4.E50Xa]
+$\displaystyle\mu_{i\rightarrow n,r}^{l}=$[S4.E50Xa.m2]
+$\displaystyle\xi_{i\rightarrow n,r}^{l}\left({\frac{\mu_{i}^{l}}{\xi_{i}^{l}}-\frac{\mu_{n,r\rightarrow i}^{l-1}}{\xi_{n,r\rightarrow i}^{l-1}}}\right).$[S4.E50Xa.m3]
+IV-A3 Update of CNs and FNs to BVNs
+The update for CNs are the same as that in (32) and (33). For the mean and variance update in the opposite direction, similar to (26a)-(26c) and (25), we have
+[S4.E51]
+$\small\mu_{n,r\rightarrow i}^{l}=\frac{y_{n}^{r}-\overline{Z}_{n,r\rightarrow i}^{l}}{\overline{h}_{n,r}^{i}},\;\xi_{n,r\rightarrow i}^{l}=\frac{N_{0}+\overline{B}_{n,r\rightarrow i}^{l}}{\big|\overline{h}_{n,r}^{i}\big|^{2}},$[S4.E51.m1]
+(51)
+where $\overline{h}_{n,r}^{i}$ is the effective channel coefficient from the $i$th BVN to the FN $f_{n}^{r}$ as specified in (46), and
+[S4.E52]
+[S4.E52X]
+$\displaystyle\overline{Z}_{n,r\rightarrow i}^{l}=$[S4.E52X.m2]
+$\displaystyle\sum_{\begin{subarray}{c}i\prime\in\overline{F}(n,r),\\
+i\prime\neq i\end{subarray}}\overline{h}^{i\prime}_{n,r}\mu_{i\prime\rightarrow n,r}^{l-1},$[S4.E52X.m3]
+(52)
+[S4.E52Xa]
+$\displaystyle\overline{B}_{n,r\rightarrow i}^{l}=$[S4.E52Xa.m2]
+$\displaystyle\sum_{\begin{subarray}{c}i\prime\in\overline{F}(n,r),\\
+i\prime\neq i\end{subarray}}|\overline{h}^{i\prime}_{n,r}|^{2}\xi_{i\prime\rightarrow n,r}^{l-1}.$[S4.E52Xa.m3]
+Finally, the posterior probabilities of the transmitted symbol in LLR domain is given by
+[S4.E53]
+[S4.E53X]
+$\displaystyle L_{f_{n}^{r}\rightarrow\alpha_{i}}$[S4.E53X.m2]
+$\displaystyle=\frac{-\left|{1+\mu_{n,r\rightarrow i}^{l}}\right|^{2}+\left|{1-\mu_{n,r\rightarrow i}^{l}}\right|^{2}}{\xi_{n,r\rightarrow i}^{l}}=-\frac{4\mu_{n,r\rightarrow i}^{l}}{\xi_{n,r\rightarrow i}^{l}}.$[S4.E53X.m3]
+(53)
+The overall message propagation of the proposed E-JSG is summarized in Algorithm (1).
+IV-B Sparse Channel Based on eSNR
+In the proposed JSG and E-JSG, the computational complexity depends crucially on the degree at each FN, which is determined by $P$ and $\kappa_{\nu}$. Specifically, the degree at each FN of E-JSG is upper bounded by $P\kappa_{\nu}\log_{2}(M)$.  In general, $P$ and $\kappa_{\nu}$ tend to be relatively large, particularly in rich scattering scenarios and when fractional Doppler shift is significant. To reduce the computational complexity of the JSG and E-JSG, one possible approach is to reduce the number of edges of the VI graph,  i.e., select a small value of $\kappa_{\nu}$ for each ${\overline{\mathbf{H}}_{p}}$, thereby reducing unnecessary message propagation. This is reasonable as some of the non-zero elements in ${\mathbf{H}}$ has very small amplitude, the message propagating over the corresponding edges may not significantly improve the error rate performance.  To this end, we propose a sparse channel method based on eSNR to determine the nonzero elements for message passing, which is equivalent to determine $k_{\nu}$, and to approximate multiple graph edges with
+insignificant channel coefficients as a single edge on the VI
+graph.
+Fig. 6:  An example
+of the selected entries, highlighted by the red lines, for message propagation of a two-path channel.
+Denote the set of non-zero channel coefficients at the FN $f_{n}^{r}$ as $\mathcal{D}(n,r)$, and let $D=|\mathcal{D}(n,r)|$ return the cardinalities of $\mathcal{D}(n,r)$. Then, we sort the $D$ non-zero channel coefficients in descending
+order and choose the $D_{\text{L}}$ largest terms, denoted as $D_{\text{L}}(n,r)$, for message propagation over the VI graph. We further denote $D_{\text{S}}(n,r)$ as the remaining terms. Then, the edges corresponding to the $D_{\text{S}}(n,r)$ are approximated as a single edge. Consequently, the means and variance in (51) and (52) are computed respectively as follows
+[S4.E54]
+[S4.E54X]
+$\displaystyle\overline{Z}_{n,r\rightarrow i}^{l}=$[S4.E54X.m2]
+$\displaystyle\sum_{\begin{subarray}{c}i\prime\in D_{\text{L}}(n,r),\\
+i\prime\neq i\end{subarray}}\overline{h}^{i\prime}_{n,r}\mu_{i\prime\rightarrow n,r}^{l-1}+\mu_{\text{S}\rightarrow n,r}^{l-1}\sum_{\begin{subarray}{c}i\prime\in D_{\text{S}}(n,r)\end{subarray}}\overline{h}^{i\prime}_{n,r},$[S4.E54X.m3]
+(54)
+[S4.E54Xa]
+$\displaystyle\overline{B}_{n,r\rightarrow i}^{l}=$[S4.E54Xa.m2]
+$\displaystyle\sum_{\begin{subarray}{c}i\prime\in D_{\text{L}}(n,r),\\
+i\prime\neq i\end{subarray}}|\overline{h}^{i\prime}_{n,r}|^{2}\xi_{i\prime\rightarrow n,r}^{l-1}+\xi_{\text{S}\rightarrow n,r}^{l-1}\sum_{\begin{subarray}{c}i\prime\in D_{\text{S}}(n,r)\end{subarray}}|\overline{h}^{i\prime}_{n,r}|^{2}.$[S4.E54Xa.m3]
+By approximating the insignificant edges as a single edge, it allows more efficient message passing. In what follows,  we present the selection of $D_{\text{L}}(n,r)$ based on eSNR.
+We first define the elements at the $n$th row and $m=(n+s)_{N}$th column of ${\mathbf{H}}^{(r,t)}$ as the elements in its $s$th cyclic-shift, where $0\leq s\leq N-1$. To maintain a regular structure of E-JSG, as per equation (10), all elements at the $s$th cyclic-shift are either added to  $D_{\text{L}}(n,r)$ or $D_{\text{S}}(n,r)$ for approximation.
+It should be noted that for each ${{\overline{\mathbf{H}}}_{p}}$, we have $|{{\overline{\mathbf{H}}}_{p}}[n,m]|=|{{\overline{\mathbf{H}}}_{p}}[n\prime,m\prime]|$, where $m=(n+s)_{N}$, $m\prime=(n\prime+s)_{N}$, and $0\leq s\leq N-1$. However, this may not hold for ${\mathbf{H}}^{(r,t)}$ as the phase of ${{\overline{\mathbf{H}}}_{p}}$ changes along with the positions of $m=(n+s)_{N}$, leading to $|{\mathbf{H}}^{(r,t)}[n,m]|\neq|{\mathbf{H}}^{(r,t)}[n\prime,m\prime]|$ when the fractional Doppler and multipath  exist.
+Hence, we define the average channel gain at the $s$th cyclic-shift as $G_{s}=\frac{1}{N}\sum_{n=1}^{N}|{\mathbf{H}}^{(r,t)}[n,(n\prime+s)_{N}]|^{2}$. The elements at the $s$th cyclic-shift is added into $D_{\text{L}}(n,r)$ for message propagation if and only if the eSNR of the $s$th cyclic-shift is larger than a threshold, i.e,
+[S4.E55]
+$\small\text{eSNR}_{s}\equiv 10\log\frac{G_{s}}{N_{0}}\geq\text{eSNR}_{\text{th}},0\leq s\leq N-1,$[S4.E55.m1]
+(55)
+where $\text{eSNR}_{\text{th}}$ denotes the threshold, and $\text{eSNR}_{s}$ denotes the eSNR at the $s$th cyclic-shift. Fig. 6 shows an example of the selected entries for message propagation of a two-path channel with $N=16$. The elements at the $s=0,4,5$ and $6$ cyclic-shifts are added to $D_{\text{L}}(n,r)$ for message propagation.
+TABLE I: Computational complexity
+Algorithm
+Real-valued multiplications
+Real-valued addition
+Exponentials
+$\text{Log}(\cdot)$
+De-interleaving,
+interleaving ?
+MMSE
+$6N^{3}+2N^{2}+2N$
+-
+$2N_{V}(\log_{2}M+M)$
+$2N_{V}\log_{2}M$
+Yes
+BP-JSG
+$4\sum_{n=1}^{N_{\text{F }}}{d_{f}^{n}}M^{d_{f}^{n}}$
+$2\Big(\sum_{n=1}^{N_{\text{F }}}M^{d_{f}^{n}}+$
+$N_{\text{V}}(Md_{v}^{\text{ave}}+3\log_{2}M-1)\Big)$
+$2N_{V}(\log_{2}M+M)$
+$2N_{V}\log_{2}M$
+Yes
+EP-JSG
+Experimental support, please
+view the build logs
+for errors. Generated by
+L
+A
+T
+E
+xml
+.
+Instructions for reporting errors
+We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+methods listed below:
+Click the "Report Issue" (
+) button, located in the page header.
+Tip: You can select the relevant text first, to include it in your report.
+Our team has already identified the following issues. We appreciate your time reviewing and reporting rendering errors we
+may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+all.
+Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a list of packages that need conversion, and welcome developer contributions.
+We gratefully acknowledge support from
+our major funders,
+member institutions, ,
+and all contributors.
+About
+·
+Help
+·
+Contact
+·
+Subscribe
+·
+Copyright
+·
+Privacy
+·
+Accessibility
+·
+Operational Status (opens in new tab)
+Major funding support from

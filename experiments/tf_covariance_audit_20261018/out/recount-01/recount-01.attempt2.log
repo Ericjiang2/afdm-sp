@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_covariance_audit_20261018/recount.py", line 272, in load_campaign
+    r = project_row(json.loads(line), campaign)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_covariance_audit_20261018/recount.py", line 214, in project_row
+    out['fallbacks'] = {a: bool(row['arms'][a]['numerical_fallback']) for a in arms} if trigger else {}
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_covariance_audit_20261018/recount.py", line 214, in <dictcomp>
+    out['fallbacks'] = {a: bool(row['arms'][a]['numerical_fallback']) for a in arms} if trigger else {}
+KeyError: 'numerical_fallback'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_covariance_audit_20261018/recount.py", line 541, in <module>
+    main()
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_covariance_audit_20261018/recount.py", line 516, in main
+    records, integrity = load_campaign(project, campaign, inputs)
+  File "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_covariance_audit_20261018/recount.py", line 278, in load_campaign
+    raise ValueError(f'{p}:{line_no}: {error}') from error
+ValueError: /data/guoyikun/00inbox/AFDM-channel-estimation/experiments/tf_cstate_e1_20261017/out/main/rows_shard000.jsonl.gz:1: 'numerical_fallback'
+EXIT=1

@@ -7,3 +7,5 @@
 剩余6327F分24批，最多两路接收并发；每批最多16块、1800秒内部期限，队列4小时派发期限，预留磁盘/GPU资源。远程队列7项合同测试通过。pilot-queue-launch-v1.log 仅证明启动，不能证明剩余实验完成。CSV P-02 保持进行中。
 
 三导频在该单块7dB均错帧，在8/9dB均正确，不构成导频收益结论。独立确认、全部块功率统计、Pmatched配置选择和正式完整成本仍待执行。
+
+Pmatched的记录保存运行时baseline_eligible，但未保存terminal refit的完整诊断。资格解释只能绑定冻结源码和该运行标记，不能冒充独立重算优化轨迹；group运行时收敛与bounded-param固定有界搜索的资格含义不同。详见pilot-qualification-observability-v1.md。原始错误数、配对、功率和完整F计时仍可审计。

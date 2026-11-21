@@ -1,0 +1,10 @@
+{
+ "_argv": ["launch_a1.sh", "MODE=gate"],
+ "_config": {"amendment": "A1 post hoc", "gate_frames": 20, "cap_core_hours": 10},
+ "gates": {
+  "A1-G1": {"rows": 640, "note": "re-run GS-set decoded_sha256 == main-run GS-set, asserted per row in gs_cstate.gsc_row; 640 smoke rows written, no assertion error", "pass": true},
+  "A1-G2": {"cells": 640, "matched": 640, "triggered": 169, "note": "continue_cstate on production F0 state reproduces P1 ledger B decoded_sha256", "pass": true},
+  "A1-G3": {"mean_row_seconds": 0.3489, "projected_core_hours": 6.20, "cap": 10, "pass": true}
+ },
+ "all_pass": true
+}

@@ -200,6 +200,25 @@ paper-tmlcn/figures/system_block/
 !afdm_sp_joint_unrolled/outputs_e1_ldpc_ach/results.json
 !afdm_sp_joint_unrolled/outputs_e1_ldpc_pcsi/
 !afdm_sp_joint_unrolled/outputs_e1_ldpc_pcsi/results.json
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/
+afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/*
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/results.json
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/observed_seal.json
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/run.log
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/verification.json
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/diagnostic_run.log
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/diagnostic_exit_code
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/diagnostic_v1/
+afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/diagnostic_v1/*
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/diagnostic_v1/diagnostic_results.json
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/diagnostic_v1/solver_benchmark.json
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/diagnostic_v1/trajectory_seal.json
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/diagnostic_v1/daft_check.json
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/timing20_run.log
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/timing20_exit_code
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/timing20_v1/
+afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/timing20_v1/*
+!afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/timing20_v1/timing_results.json
 !afdm_sp_joint_unrolled/outputs_e2_baselines_s15s20_cpu/
 !afdm_sp_joint_unrolled/outputs_e2_baselines_s15s20_cpu/results.json
 !afdm_sp_joint_unrolled/outputs_e2_serial_floor_cpu/
@@ -1154,3 +1173,158 @@ afdm_sp_joint_unrolled/outputs_acquisition_n128_20261007/**
 # headroom ladder 2026-10-08: full-run row shards stay remote (md5 in task notes)
 experiments/headroom_ladder_20261008/out/**/rows_shard*.jsonl
 experiments/headroom_ladder_20261008/out/**/results_shard*.json
+
+# --- 2026-10-14 repo cleanup (user decision: commit text records only; bulk evidence stays on disk, untracked) ---
+# Mission run trees: keep human-readable records (md/csv/html) only.
+.mission/**
+!.mission/**/
+!.mission/**/*.md
+!.mission/**/*.csv
+!.mission/**/*.html
+# Remote stage/harvest trees under outputs_* (provenance is in each REMOTE_INVENTORY / harvest record).
+afdm_sp_joint_unrolled/outputs_*/**/execution/
+afdm_sp_joint_unrolled/outputs_*/*harvest*/
+afdm_sp_joint_unrolled/outputs_*/detector-qualification-*/
+afdm_sp_joint_unrolled/outputs_*/**/runs/
+# Trellis per-frame runtime dumps.
+.trellis/tasks/**/runtime/
+# Binary bundles / documents / editor leftovers.
+*.zip
+*.gz
+*.tgz
+*.so
+*.pdf
+*.docx
+.~lock*
+*.tmp
+fyp_new_short/.obsidian/
+# Single files > 1 MB left after the rules above (kept on disk).
+.mission/20261003_10-41-29-afdm-structured-inference-exploration/literature/1211.5608.html
+.mission/20261003_10-41-29-afdm-structured-inference-exploration/literature/1508.07575v2.html
+.trellis/tasks/09-06-bottleneck-diagnostics/research/analysis-matrix-v1/bottleneck-table.json
+.trellis/tasks/09-06-minimal-repair-mechanism/research/entrances-analysis.json
+afdm_sp_joint_unrolled/outputs_comprehensive_supplement_20260909/baseline-detailed-inventory-v7.json
+afdm_sp_joint_unrolled/outputs_unified_exploration_20260914/evidence/a02-metrics-v2.json
+afdm_sp_joint_unrolled/outputs_unified_exploration_20260914/evidence/a02-metrics-v3.json
+afdm_sp_joint_unrolled/outputs_unified_exploration_20260914/evidence/a04-development-00-15-v1-metrics.json
+afdm_sp_joint_unrolled/outputs_unified_exploration_20260914/evidence/a04-development-16-31-v1-metrics.json
+afdm_sp_joint_unrolled/outputs_unified_exploration_20260914/evidence/a04-development-32-47-v1-metrics.json
+afdm_sp_joint_unrolled/outputs_unified_exploration_20260914/evidence/a04-development-48-63-v1-metrics.json
+issues/2026-09-06_13-47-38-afdm-plan-v2/evidence/gain192-reference.json
+results/sp_afdm_pd1q_part_b_20260921/remote_inventory.json
+results/tf_cgr_offline_mechanism_20260923_preassert/transport.json
+results/tf_cgr_offline_mechanism_20260923_preliminary/transport.json
+# Unrelated toy page (LLM drawing test), not a research record.
+pelican-bike.html
+# Embedded git snapshots of dispatched sources (own .git; never gitlinks).
+.mission/**/dispatch/*-source-*/
+.mission/**/dispatch/receiver-import*/
+.mission/**/dispatch/snapshot-*/
+# Third-party agent tool state (permission allowlist may embed credentials).
+.commandcode/
+# E-3c: small evidence is versioned; raw per-key rows stay on deinlab.
+experiments/tf_e3c_shrink_20261018/out/**
+!experiments/tf_e3c_shrink_20261018/out/**/
+!experiments/tf_e3c_shrink_20261018/out/**/summary.json
+!experiments/tf_e3c_shrink_20261018/out/**/config_shard000.json
+!experiments/tf_e3c_shrink_20261018/out/**/unit.json
+!experiments/tf_e3c_shrink_20261018/out/**/gates.json
+!experiments/tf_e3c_shrink_20261018/out/**/FREEZE.json
+!experiments/tf_e3c_shrink_20261018/out/**/budget.json
+!experiments/tf_e3c_shrink_20261018/out/**/*.log
+!experiments/tf_e3c_shrink_20261018/out/**/STATUS
+!experiments/tf_e3c_shrink_20261018/out/**/RAW_SHA256.txt
+!experiments/tf_e3c_shrink_20261018/out/**/COMPRESSED_SHA256.txt
+!experiments/tf_e3c_shrink_20261018/out/**/REMOTE_ROWS_MD5.txt
+
+# Bounded three-mode SBL pilot: small evidence only; raw trajectories stay remote.
+!afdm_sp_joint_unrolled/outputs_sbl_three_mode_20261020/
+!afdm_sp_joint_unrolled/outputs_sbl_three_mode_20261020/**/
+!afdm_sp_joint_unrolled/outputs_sbl_three_mode_20261020/**/summary.json
+!afdm_sp_joint_unrolled/outputs_sbl_three_mode_20261020/**/gates.json
+!afdm_sp_joint_unrolled/outputs_sbl_three_mode_20261020/**/gate.json
+!afdm_sp_joint_unrolled/outputs_sbl_three_mode_20261020/**/config_shard*.json
+!afdm_sp_joint_unrolled/outputs_sbl_three_mode_20261020/**/STATUS.txt
+!afdm_sp_joint_unrolled/outputs_sbl_three_mode_20261020/**/RAW_SHA256.txt
+!afdm_sp_joint_unrolled/outputs_sbl_three_mode_20261020/**/run.log
+!afdm_sp_joint_unrolled/outputs_sbl_three_mode_20261020/**/verification.json
+
+# Two-control final-gain replay: small evidence only, original rows stay remote.
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/**/
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/**/summary.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/**/gate.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/**/config_shard*.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/**/STATUS.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/**/RAW_SHA256.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/**/run.log
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/**/verification.json
+
+# Small offline trajectory readout; no raw receiver row copies.
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/trajectory_analysis1/*.png
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/trajectory_analysis1/*.svg
+
+# Two-case representation probe configuration/failure receipts.
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/representation_probe1/config.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/representation_probe1/failure.json
+
+# Matched soft-Gram minimal gate receipts.
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gram_block_gate1/config.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gram_block_gate1/failure.json
+
+# Same-case all-step LLR observability completion.
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gram_block_gate2/config.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gram_block_gate2/failure.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gram_block_gate2/llr_gate.json
+
+# Actual-support matched cohort: compact metadata/logs only; raw rows stay remote.
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gram_cohort1/config_gate.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gram_cohort1/*.log
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gram_cohort1/SHARD_EXIT_CODES.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gram_cohort1/PRODUCING_COMMIT.txt
+
+
+# Gamma-only matched ablation: small evidence; raw rows remain remote.
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gamma_ablation1/config_gate.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gamma_ablation1/*.log
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gamma_ablation1/SHARD_EXIT_CODES.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gamma_ablation1/PRODUCING_COMMIT.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gamma_ablation1/gate.jsonl
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/gamma_ablation1/EXIT_CODE.txt
+
+
+# Prospective same-model fresh-frame cohort: compact evidence only.
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/fresh_cohort1/config_gate.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/fresh_cohort1/*.log
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/fresh_cohort1/SHARD_EXIT_CODES.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/fresh_cohort1/PRODUCING_COMMIT.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/fresh_cohort1/EXIT_CODE.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/fresh_cohort1/generations_*.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/fresh_cohort1/gate_attempt.jsonl
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/fresh_cohort1/gate_failure.json
+
+# Uniform-symbol-variance Gamma: compact evidence only; main raw stays remote.
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/uniform_gamma1/config_gate.json
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/uniform_gamma1/*.log
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/uniform_gamma1/SHARD_EXIT_CODES.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/uniform_gamma1/PRODUCING_COMMIT.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/uniform_gamma1/gate.jsonl
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/uniform_gamma1/EXIT_CODE.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/uniform_gamma1/CHAIN_WALL_SECONDS.txt
+!afdm_sp_joint_unrolled/outputs_sbl_freeze_replay_20261020/uniform_gamma1/CHAIN_RESOURCE.txt
+
+# Compact receipts from the deinlab block and CSTATE screens.
+!afdm_sp_joint_unrolled/outputs_dpss_paired_screen_20261111_v2/
+afdm_sp_joint_unrolled/outputs_dpss_paired_screen_20261111_v2/**
+!afdm_sp_joint_unrolled/outputs_dpss_paired_screen_20261111_v2/summary.json
+!afdm_sp_joint_unrolled/outputs_dpss_paired_screen_20261111_v2/gate.json
+!afdm_sp_joint_unrolled/outputs_dpss_paired_screen_20261111_v2/verification.json
+!afdm_sp_joint_unrolled/outputs_dpss_paired_screen_20261111_v2/run.log
+!afdm_sp_joint_unrolled/outputs_dpss_paired_screen_20261111_v2/*.txt
+!afdm_sp_joint_unrolled/outputs_cstate_score_update_20261111/
+afdm_sp_joint_unrolled/outputs_cstate_score_update_20261111/**
+!afdm_sp_joint_unrolled/outputs_cstate_score_update_20261111/summary.json
+!afdm_sp_joint_unrolled/outputs_cstate_score_update_20261111/gate.jsonl
+!afdm_sp_joint_unrolled/outputs_cstate_score_update_20261111/verification.json
+!afdm_sp_joint_unrolled/outputs_cstate_score_update_20261111/run.log
+!afdm_sp_joint_unrolled/outputs_cstate_score_update_20261111/*.txt
