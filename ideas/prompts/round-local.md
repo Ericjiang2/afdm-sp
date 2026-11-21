@@ -13,11 +13,11 @@
 每个循环：
 1. 你自己深想一个 idea（协议第 1 步），同时在后台并行让 Gemini（默认 agy 的 Neon，备用 `carbon-idea`）和 Astra 各独立深想一个。按 Model roles 分配：Gemini 拿跨领域类比、方法迁移、玩具设定或锚点 D；Astra 拿推导型的题，给它指定锚点；你自己定题定调。Gemini 出题位每个循环固定一个，不受下面"子 agent 只在三种情况下开"的限制，但算进本轮 40 个深想预算。外部输出不是 DROPPED 的，用 `python3 ~/projects/personal-ai-workflow/skills/idea-funnel/scripts/funnel.py new ideas --runner l --generator <模型> --title ... --anchor ...` 建卡并原样填入；自己的卡 `--generator` 写你的模型名。DROPPED 的记进 runs.md。
 2. 每攒 5 张做一次统一筛选（协议第 3 步）：先导入云端已推送的卡（`~/projects/personal-ai-workflow/skills/idea-funnel/scripts/import_branch.sh /Users/guoyikun/Downloads/share/claode_birain/afdm-sp-mirror/repo.git funnel/<日期>-c ideas`，分支还不存在就跳过）；你两两比较排一次；再把在筛卡片一次性交给 Hydrogen 做两两比较排序（多数卡是 Gemini 出的就改用 Sol）。分歧大的都留下。
-3. L1 查新可交给 Gemini Neon；L2 推导和估算交给 Astra；L2 小检验 ≤ 1 CPU 核时，可以 ssh deinlab，必须遵守项目 CLAUDE.md 的远程规则（不写 /tmp、tmux 用 g_ 前缀、conda AFDM）。不启动长仿真，不用 GPU。
+3. L1 查新可交给 Gemini Neon；L2 推导和估算交给 Astra；L2 小检验 ≤ 1 CPU 核时，可以 ssh deinlab，必须遵守项目 CLAUDE.md 的远程规则（不写 /tmp、tmux 用 g_ 前缀、conda AFDM）。不启动长仿真，不用 GPU。 L2 先挑 `next_cost` 写着"需本地仿真"或"需 deinlab"的卡（多是云端停放下来的），再做别的；判别性的检验能用仿真就用仿真。
 4. 放行：Claude 或 Gemini 出的候选卡交 Astra，GPT 出的交 Claude（devin -p）；同一评审的候选合成一次调用。按协议记录评审者、模型和结论。进 L3 的卡，把"白话与类比"一节交 Hydrogen 改写成更白的话（只改这一节，事实不变）。
 5. 运行 `funnel.py board ideas`，只 `git commit` 本项目的 `ideas/`（不 push）。
 
-预算与节奏：本轮最多 40 个深想 idea 或 8 小时，先到为准，外部模型出的也算在内（Eric 可改这一行）。停止条件按 FUNNEL.md：10 张彼此不同的 L3 / 预算 / 转向 4 次仍无产出且满 4 小时。这一轮要连续跑几个小时：不要中途停下来汇报、总结或征求确认，每次筛选完立刻开始下一个循环；卡住时按下面的"转向"做，不要停。
+预算与节奏：本轮以时间为主，8 小时（Eric 可改这一行）；安全阀 60 个通过深度核查的深想。深度核查：每张卡要有用本项目数字的推导或估算（公式与代入）、至少 3 篇真正打开过的最接近工作（带链接或编号）及差别、一个具名的最便宜致命检验；不过的打回重做、不计数。不要追求数量：上一轮 40 个"深想"只用了 16 分钟，那不是深想。每次筛选后先深挖最好的分支：两两排序前 2 名各长一张子卡（换一个条件、推广、回应最强反对意见或借别的领域的方法）再开新根；全轮至少约 40% 的深想是子卡；有承接关系的卡一律写 `parent:`。停止条件按 FUNNEL.md。这一轮要连续跑几个小时：不要中途停下来汇报、总结或征求确认，每次筛选完立刻开始下一个循环；卡住时按下面的"转向"做，不要停。
 出题方法与第一性原理：
 - 开轮前：先读 `~/projects/personal-ai-workflow/skills/idea-funnel/METHODS.md`（工具箱，不是清单，也可以用自己的方法）。在打开 `ideas/ABSTRACTION.md` 之前，先自己做一遍第一性原理拆解（METHODS.md §F：代号底下物理和数学上在做什么、分几层、每层缺什么、属于哪类抽象问题、别的领域谁在解、哪些前提可疑），写进 `ideas/abstractions/l-<日期>.md`；然后再读 ABSTRACTION.md——它是 Claude 一个人画的参考地图，每行标了可靠程度，可能错——把你不同意的地方和理由追加到你的文件里。每个深想 idea 按你自己的拆解说它打哪一层、属于哪类抽象问题，看别的领域怎么处理同类问题；第一行筛选记录写 `方法：<编号或 自己的>`；建卡时用 `--track core|adjacent|explore|pit`，FUNNEL.md 的赛道比例是大致目标，不是配额，每 5 个里 1 个自由选题。
 - 每个循环开始先做约 10 分钟灵感阅读：从 ABSTRACTION.md §3 的领域轮换里挑 3–5 篇近期论文（其中 1 篇来自远一点的领域）略读，把火花和它对应的开放问题记进 runs.md。这是为了找灵感，不是查新。

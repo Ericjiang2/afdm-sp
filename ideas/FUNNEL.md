@@ -18,8 +18,10 @@
 - stall_limit: 8；max_pivots: 4；min_hours: 4（连续 8 个深想没有新 L2 候选就"转向"——换抽象层次、换领域、换赛道、换开放问题——而不是停；转向 4 次仍无产出、且已跑满 4 小时才停）
 - 赛道比例（大致目标，不是配额）：core 约 50%（本项目问题）、adjacent 约 25%（同类抽象问题在别的系统或波形上）、explore 约 15%（项目之外、在 Eric 物理层与信号处理能力内，按能否独立成 Trans 论文评价）、pit 约 10%（质疑本项目的前提，见 ABSTRACTION.md §5）；每 5 个里 1 个是自由选题
 - screen_every: 5；l2_per_screen: 3
-- round_budget: 每个 runner 每轮最多 40 个深想 idea 或 8 小时（先到为准；外部模型替本地出的也算）。粗估每个深想 idea 2–5 美元，一轮每边约 80–200 美元，未实测；Eric 改 prompts 里那一行即可调。
+- round_budget：以时间为主——每个 runner 每轮 8 小时；安全阀 max_deep_ideas 60（只数通过深度核查的深想）。深度核查：卡里要有用本项目数字的推导或估算（公式与代入）、至少 3 篇真正打开过的最接近工作（带链接或编号）及差别、一个具名的最便宜致命检验；不过的打回重做、不计数。
+- 先深挖最好的分支：每次筛选后，两两排序前 2 名各长一张子卡再开新根；全轮至少约 40% 的深想是子卡；有承接关系的卡必须写 `parent:`。
 - cloud_target: 15（云端不能放行，攒够 15 张 L2 候选就停，交本地放行）
+- 仿真：云端（M4 Pro）和本地都能跑接收机（阶段 A–A4 管线，2026-11-21 起代码已进 vault 与镜像）；L2 单次 ≤ 1 CPU 核时；超出的停放，写明 `需 deinlab：<内容、估计核时>`。
 - 子 agent（只限本地 devin）：max_idea_workers 10（`.devin/agents/idea-worker.md`，Fusion：Claude Fable 5.2 high + SWE-2 high（与主会话同一套，助手免费）），max_lit_workers 10（`.devin/agents/lit-reader.md`，SWE-2 high）；只在协议列的条件下开，同时最多 2 个，不嵌套；前 4 个工人出的 idea 全死就停用。
 - l2_cap: 30 分钟 agent 时间，≤ 1 CPU 核时，不用 GPU，只用已有代码
 - 跨模型放行：Claude 系生成时用 `codex exec --sandbox read-only -m gpt-6.2-sol`（提示走 stdin）或 `devin -p --model <GPT 系模型>`，每次筛选一次批量调用
