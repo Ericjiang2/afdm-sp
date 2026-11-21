@@ -43,9 +43,20 @@ the older quick-batch mode; cards from it are screened like L1 cards.)
 ## A round
 
 A round ends when `target_ready` mutually distinct cards (default 10) are at L3 — children of one root count once unless
-the gate judged them distinct problems (the "yield" of IDEAgent: the largest set of mutually diverse ideas above the bar) — or the round budget in `FUNNEL.md` is spent, or
-`stall_limit` deep ideas in a row (default 8) have produced no new L2 candidate — whichever comes first. Then stop and
-report. Before starting, read `FUNNEL.md`, every existing card (killed ones included, so nothing is proposed twice) and
+the gate judged them distinct problems (the "yield" of IDEAgent: the largest set of mutually diverse ideas above the bar) — or the round budget in `FUNNEL.md` is spent (deep ideas or hours), or
+`stall_limit` deep ideas in a row (default 8) have produced no new L2 candidate after widening (below) — whichever comes
+first. A runner that cannot run the gate (e.g. a cloud runner) stops instead at `cloud_target` gate candidates (default
+15), since its cards cannot reach L3 on their own. Then stop and report.
+
+Run without pausing: a round is meant to run for hours. Do not stop to report, summarise or ask for confirmation; after
+each screening start the next cycle at once. Commit after every screening (a cloud runner also pushes) so the work
+survives an interrupted session. End only on a stop condition.
+
+Widen before counting a stall: when the assigned anchors and lenses seem used up, do not stop. In order: (a) switch to
+the other lenses and anchors; (b) grow children of every L1 or L2 survivor and parked card, one stated change each;
+(c) harvest anchors from the limitations and future-work sections of 10–20 recent papers in the area; (d) revisit killed
+cards for a clearly different angle (a new child, not a revival). Only deep ideas that still produce nothing after these
+count toward `stall_limit`. Before starting, read `FUNNEL.md`, every existing card (killed ones included, so nothing is proposed twice) and
 the must-read files it lists, and state the round budget.
 
 Loop until the round ends:
