@@ -18,15 +18,18 @@
 - stall_limit: 8；max_pivots: 4；min_hours: 4（连续 8 个深想没有新 L2 候选就"转向"——换抽象层次、换领域、换赛道、换开放问题——而不是停；转向 4 次仍无产出、且已跑满 4 小时才停）
 - 赛道比例（大致目标，不是配额）：core 约 50%（本项目问题）、adjacent 约 25%（同类抽象问题在别的系统或波形上）、explore 约 15%（项目之外、在 Eric 物理层与信号处理能力内，按能否独立成 Trans 论文评价）、pit 约 10%（质疑本项目的前提，见 ABSTRACTION.md §5）；每 5 个里 1 个是自由选题
 - screen_every: 5；l2_per_screen: 3
-- round_budget: 每个 runner 每轮最多 40 个深想 idea 或 8 小时（先到为准；外部模型替本地出的也算）。粗估每个深想 idea 2–5 美元，一轮每边约 80–200 美元，未实测；Eric 改 prompts 里那一行即可调。
+- round_budget：以时间为主——每个 runner 每轮 8 小时；安全阀 max_deep_ideas 60（只数通过深度核查的深想）。深度核查：卡里要有用本项目数字的推导或估算（公式与代入）、至少 3 篇真正打开过的最接近工作（带链接或编号）及差别、一个具名的最便宜致命检验；不过的打回重做、不计数。
+- 先深挖最好的分支：每次筛选后，两两排序前 2 名各长一张子卡再开新根；全轮至少约 40% 的深想是子卡；有承接关系的卡必须写 `parent:`。
 - cloud_target: 15（云端不能放行，攒够 15 张 L2 候选就停，交本地放行）
+- 仿真：云端（M4 Pro）和本地都能跑接收机（阶段 A–A4 管线，2026-11-21 起代码已进 vault 与镜像）；L2 单次 ≤ 1 CPU 核时；超出的停放，写明 `需 deinlab：<内容、估计核时>`。
+- 子 agent（只限本地 devin）：max_idea_workers 10（`.devin/agents/idea-worker.md`，Fusion：Claude Fable 5.2 high + SWE-2 high（与主会话同一套，助手免费）），max_lit_workers 10（`.devin/agents/lit-reader.md`，SWE-2 high）；只在协议列的条件下开，同时最多 2 个，不嵌套；前 4 个工人出的 idea 全死就停用。
 - l2_cap: 30 分钟 agent 时间，≤ 1 CPU 核时，不用 GPU，只用已有代码
 - 跨模型放行：Claude 系生成时用 `codex exec --sandbox read-only -m gpt-6.2-sol`（提示走 stdin）或 `devin -p --model <GPT 系模型>`，每次筛选一次批量调用
 
 ## 在哪里跑（本地与云端并行）
 - runner：本地 `l`（启动提示 [prompts/round-local.md](prompts/round-local.md)），云端 `c`（[prompts/round-cloud.md](prompts/round-cloud.md)）。
 - 分工：本地不限锚点和视角，优先做云端做不了的（ssh deinlab 的检验、调外部模型、本机 skills），并负责已有待办卡（I-20261121-02、08、09、10）；本地每个循环还让 Gemini Neon 与 Astra 各独立深想一个（[prompts/external-idea.md](prompts/external-idea.md)）。云端不能调外部模型、不能上 deinlab、没有本机 skills：先做锚点 A、D 和方法迁移、矛盾结论视角，用完后放宽到全部锚点（B 可读仓库里的已有读数）和全部视角。重复的在统一筛选里合并；出题时两边互不看对方未筛选的卡。
-- 模型分工：按协议的 Model roles 表——本地主 runner Claude Opus 5.5（定题定调）；Gemini 4 Neon 出跨领域类比和世界知识类题、做查新；GPT-6.2 Astra 出推导型题、做 L2 推导与放行审计；Gemini 4 Hydrogen 做两两比较初排和 L3 卡白话。云端 runner 用 GPT 系（`--model gpt-6-2-astra-high`）。
+- 模型分工：按协议的 Model roles 表——本地主 runner Fusion Claude Fable 5.2 high + SWE-2 high（定题定调）；Gemini 出跨领域类比和世界知识类题（本地默认 Devin 子 agent `carbon-idea`，Gemini 4 Carbon high，与云端的 Neon 错开；想再加一票 Neon 时用 agy）、做查新；GPT-6.2 Astra 出推导型题、做 L2 推导与放行审计；Gemini 4 Hydrogen 做两两比较初排和 L3 卡白话。云端 runner 用 Gemini 4 Neon（云端模型列表里没有 Carbon；不用 Fusion 自动调配，因为看不出背后是哪家模型、放行无法按家族交叉），不开子 agent。
 - 跨模型放行只在本地做：每张卡交给和它的 `generator` 不同家族的评审（Claude 出的交 `codex exec --sandbox read-only -m gpt-6.2-sol`，GPT 出的交 `devin -p --model claude-opus-5-5-high`）。
 - cloud_repo：现有镜像 `Ericjiang2/afdm-sp` 的 `funnel/*` 分支（云端只写 `ideas/`；Eric 11-21 同意，镜像推送由 Claude 负责）。
 - 镜像跟 vault `main`（11-21 起）；每轮开始前由 Claude 运行 `sync.sh`。同步时协议和脚本会复制到镜像的 `.sync/idea-funnel/`，云端从那里读。

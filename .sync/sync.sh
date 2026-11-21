@@ -22,7 +22,10 @@ rm -rf .claude .codex .agents
 find . -type f \( -iname '*.npz' -o -iname '*.npy' -o -iname '*.pt' -o -iname '*.pth' \
   -o -iname '*.ckpt' -o -iname '*.mat' -o -iname '*.pkl' -o -iname '*.pickle' -o -iname '*.h5' \
   -o -iname '*.gz' -o -iname '*.tgz' -o -iname '*.zip' -o -iname '*.tar' -o -iname '*.7z' \
-  -o -iname '*.fig' \) -print0 | xargs -0 rm -f
+  -o -iname '*.fig' \) \
+  ! -path './experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/07_checkpoint/frozen-c2rel-checkpoint.pt' \
+  ! -path './experiments/sp_afdm_frozen_reviewed_20260921/upstream/spafdm_receiver_handoff/afdm_sp_joint_unrolled/e1_ldpc_code_n2048_dv3_dc6_seed20260726.npz' \
+  -print0 | xargs -0 rm -f   # keep the two small receiver inputs so the cloud runner can run the pipeline
 # Size cap (GitHub warns >50MB, rejects >100MB).
 find . -type f -size +50M -print0 | xargs -0 rm -f
 

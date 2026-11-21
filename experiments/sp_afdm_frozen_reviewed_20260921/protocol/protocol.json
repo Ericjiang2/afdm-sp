@@ -1,0 +1,144 @@
+{
+  "version": "SPAFDM-FREEZE-20260920-v1",
+  "primary_scope": {
+    "N": 1024,
+    "rho": 0.5,
+    "code_n": 2048,
+    "code_k": 1024,
+    "code_seed": 20260726,
+    "delay_cap": 102,
+    "k_cap": 2,
+    "physical_paths": 8,
+    "prefix": "full declared CPP",
+    "geometry": "full fractional Doppler, integer delays",
+    "gain_normalization": "unchanged upstream generation"
+  },
+  "primary_receiver": {
+    "front": "formal I1",
+    "checkpoint": 1,
+    "outer_iterations": 10,
+    "outer_BP": 12,
+    "refit": "once after final outer detector, before single final decoder",
+    "ce_q": "latest detector APP with retained LDPC extrinsic",
+    "ce_mode": "soft",
+    "gain_ridge": "thermal variance times identity",
+    "path_cap": 8,
+    "one_path_per_observed_delay": true,
+    "doppler_interval": "initial center +/-0.75, clipped to [-3,3]",
+    "refit_coordinate_passes": 2,
+    "scalar_evaluation_cap": 16,
+    "scalar_xatol": 0.002,
+    "proper_gaussian_weak_approx": true,
+    "weak_moments": "exact frozen diagonal-q row variance",
+    "retained_check_prior": true,
+    "temperature": 1,
+    "thermal_noise": true,
+    "main_graph": "variance-ranked complete cyclic diagonals"
+  },
+  "development_cells": [
+    {
+      "id": 0,
+      "snr_db": 5
+    },
+    {
+      "id": 1,
+      "snr_db": 6
+    },
+    {
+      "id": 2,
+      "snr_db": 7
+    },
+    {
+      "id": 3,
+      "snr_db": 8
+    },
+    {
+      "id": 4,
+      "snr_db": 9
+    }
+  ],
+  "development_frames_per_cell": 32,
+  "confirmation_frames_per_cell": 4096,
+  "namespace": [
+    20260920,
+    480017
+  ],
+  "phase_codes": {
+    "warmup": 0,
+    "development": 1,
+    "confirmation": 2
+  },
+  "component_seed": "SeedSequence([20260920,480017,phase,cell_id,frame_id,component_id]); no reuse across cells/phases",
+  "primary_deadline_multiplier": 1.5,
+  "secondary_deadline_multipliers": [
+    1.0,
+    1.25,
+    1.5,
+    2.0
+  ],
+  "reference_runtime_arm": "I1_BP12_r0",
+  "primary_tests": 2,
+  "significance": 0.05,
+  "multiplicity": "Holm over two primary cell comparisons",
+  "failed_or_missing_output": "count as error; no frame deletion",
+  "practical_target": "at least 20% relative FER reduction at primary deadline; effect size threshold specified before confirmation, not an IEEE requirement",
+  "minimum_evidence": "one primary cell Holm-significant paired improvement, practical target, and no >0.01 absolute FER degradation in the other under the conservative one-sided 95% exact-binomial union bound specified in LOCAL_PROTOCOL.md; otherwise no positive receiver claim",
+  "stop_rules": [
+    "no method/config/source changes after lock",
+    "no early stopping by observed wins or error counts",
+    "no pooled independent counting of paired arms",
+    "scope transfer is separate exploratory work unless separately preregistered"
+  ],
+  "ablations": [
+    "ABL_mean",
+    "ABL_scalar",
+    "ABL_fresh_APP",
+    "ABL_no_weak_variance",
+    "ABL_raw_truncation",
+    "ABL_magnitude",
+    "ABL_reset_prior",
+    "ABL_noncircular"
+  ],
+  "hardware_rules": [
+    "single exclusive timing process",
+    "BLAS/Torch thread count fixed and saved",
+    "warm every selected configuration before measurement",
+    "generation/disk writes outside receiver timer",
+    "FFT/refit/proposal/LDPC/conversions inside timer",
+    "native comparators do not pay an I1 warm start",
+    "do not compare portable Python timings to external published GPU curves"
+  ],
+  "additional_transfer_scope": "Runner supports second same-length LDPC seed, rho variation by exact observation/data-unit rescaling to Pd=.5, physical path counts and same-delay collisions. Fractional delays/pulse mismatch and a different N are outside this frozen implementation. Transfer cells require explicit registration in the lock; they are not pooled with primary confirmation.",
+  "transfer_cells": [
+    {
+      "id": 10,
+      "snr_db": 7,
+      "rho": 0.2
+    },
+    {
+      "id": 11,
+      "snr_db": 7,
+      "rho": 0.7
+    },
+    {
+      "id": 12,
+      "snr_db": 7,
+      "code_seed": 20260921
+    },
+    {
+      "id": 13,
+      "snr_db": 7,
+      "paths": 4
+    },
+    {
+      "id": 14,
+      "snr_db": 7,
+      "paths": 12
+    },
+    {
+      "id": 15,
+      "snr_db": 7,
+      "same_delay_collision": true
+    }
+  ]
+}
