@@ -59,6 +59,8 @@ Eric 原话要点（逐条）：模型知不知道前沿公开的出 idea 方法
 - 赛道 core / adjacent / explore / pit，加五分之一自由选题；pit 卡过放行后作为"前提检查"单独交 Eric。
 - 每个循环先灵感阅读；每次死亡写教训；每次筛选写反思并照做；停滞不再是停止理由，而是"转向"（换层次、换领域、换赛道、换开放问题），转向 4 次且满 4 小时才停；L3 候选由异族模型独立复算关键数字（照 Anthropic 的独立重证）。
 
+- 放行评审改派（Eric 11-21 21:20）：GPT 出的卡原来交 Claude Opus 5.5 放行，这是 14:23 只有 Claude/GPT 两家时的写法，14:59 写模型表时被顺手填成 Opus、没有理由，加入 Gemini 后也没重审。现改为交 Gemini Neon，并与第 7 步查新合成一次 agy 调用：Neon 与 GPT、与 Claude runner 都不同家族，不占 Claude 额度，也不在 app 侧栏留会话；Gemini 出的卡反过来两步都交 Astra。代价：评审质量依赖 Gemini（11-21 的 Neon 审查扎实，但有一处说过头），关键数字仍由 runner 抽查。agy 非交互调用用默认模式加 `--sandbox`（本账号没有 `--mode auto`；实测能跑 skill 的 Python）。
+
 ## 维护成本与退出条件
 
 - 维护：几乎为零（一个 skill、两个模板、一个无依赖脚本）。

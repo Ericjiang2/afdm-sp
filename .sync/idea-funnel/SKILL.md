@@ -140,12 +140,13 @@ Each cycle:
    real systems and by how much. Only (1) moves on to the gate as is; (2) is killed or parked with the reason; (3)
    becomes a child that addresses the block. A fill-in prompt lives in the project's `prompts/novelty-importance.md`.
 8. **Cross-model gate**, one batched call per reviewer family for the candidates of this screening: send each card to a
-   reviewer of a family different from its `generator` (e.g. `codex exec --sandbox read-only -m <model>` with the prompt
-   on stdin, or `devin -p --model <GPT model>`, from a Claude-family generator; Claude from a GPT-family generator),
-   asking per card for the strongest objection, whether the anchor and closest-work notes hold, and PASS / KILL /
-   REVISE. Record reviewer, model and verdict in the card. PASS → L3 (a `pit` card at L3 is a decision for Eric, shown in
-   its own board section); KILL → killed; REVISE → child card or back to L2. With no second family available, leave
-   candidates at L2 with `next_cost: cross-model review`.
+   reviewer of a family different from its `generator` (from a Claude-family generator: `codex exec --sandbox read-only
+   -m <model>` with the prompt on stdin, or `devin -p --model <GPT model>`; from a GPT-family generator: Gemini 4 Neon via agy, together with the step-7 review), asking per card for the strongest objection, whether the anchor and closest-work notes hold, and PASS / KILL /
+   REVISE. Cards whose checks finish mid-cycle wait for the next screening instead of getting a call of their own (on
+   2026-11-21 each such call rebuilt a ~44k-token prefix and read 0.56–1.7M cached tokens). Record reviewer, model and verdict in the card. PASS →
+   L3 (a `pit` card at L3 is a decision for Eric, shown in its own board section); KILL → killed; REVISE → child card or
+   back to L2. With no second family available, leave candidates at L2 with `next_cost: cross-model review`. When step 7
+   and the gate go to the same reviewer (see Model roles), send them as one call with the gate questions appended.
 9. Run `board`; append progress to the round's line in `runs.md`; commit; continue.
 
 **Pivot** when `stall_limit` deep ideas in a row produce no new L2 candidate. Do not stop. Write a pivot note in
@@ -186,14 +187,14 @@ other than the card's generator:
 
 | Step | Default | Why |
 |---|---|---|
-| Main runner: choosing problems, framing, the story | Claude Opus 5.5 high (or Fable) | sets direction and tone |
+| Main runner: choosing problems, framing, the story | Claude (Eric's local runner: Fable 5.2 Fusion high) | sets direction and tone |
 | Generator: cross-domain analogies, world knowledge (method-transfer, toy-setting, anchor D) | Gemini 4 Neon high | Eric 2026-11-21: Gemini is the most inventive, with the broadest world knowledge |
 | Generator: derivation-heavy ideas (GPT family vote) | GPT-6.2 Astra high | rigorous mathematics (about-eric §6); weaker at choosing direction, so it gets an assigned anchor |
 | L1 novelty search | Gemini 4 Neon high, or the runner | broad literature knowledge; Gemini found prior work the others missed on 2026-11-21 ("data as pilot") |
 | L2 derivation, estimate, hole-finding | GPT-6.2 Astra high | rigour and auditing |
 | L2 small code runs | the runner, or GPT-6.2 Sol | cheap execution |
 | Pairwise ranking pass (volume) | Gemini 4 Hydrogen high; GPT-6.2 Sol when most cards are Gemini's | cheap; the ranking is advisory (judges match experts about 73%) |
-| Cross-model gate | Claude or Gemini cards → GPT-6.2 Astra high; GPT cards → Claude Opus 5.5 high | auditing strength, family crossing |
+| Novelty review (step 7) + gate (step 8) | Claude cards → Neon (step 7) then Astra (gate); GPT cards → Gemini 4 Neon high, both steps in one call; Gemini cards → GPT-6.2 Astra high, both steps in one call; unknown family → Astra and Neon, both must pass | literature breadth (Gemini), auditing (Astra), family crossing; Eric 2026-11-21 moved GPT cards from Opus to Neon |
 | 白话与类比 on L3 cards (the ones Eric reads) | Gemini 4 Hydrogen high | plain language is a Gemini strength and Hydrogen is cheaper |
 
 Reasoning effort: high by default; xhigh only for a judgement-heavy call that could swing the round.

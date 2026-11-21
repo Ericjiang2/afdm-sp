@@ -8,15 +8,15 @@
 - Astra 出题：`printf '%s' "$P" | codex --search exec --sandbox read-only -m gpt-6.2-astra -`
 - Astra 推导或审计、Sol 跑小代码：`codex exec --sandbox read-only -m <gpt-6.2-astra|gpt-6.2-sol> -`（提示走 stdin）
 - Hydrogen 两两比较或白话：`~/.local/bin/agy -p "<提示>" --model gemini-4-hydrogen-high --mode plan --output-format json --print-timeout 0`（同上：没给正文就按 `conversation_id` 接着要）
-- Claude 评审 GPT 出的卡：`devin -p --model claude-opus-5-5-high "<提示>"`
+- 查新审查（第 7 步）与放行（第 8 步）交 Neon：`~/.local/bin/agy -p "$R" --model gemini-4-neon-high --sandbox --add-dir ~/.claude/skills --output-format json --print-timeout 0`（R 为按 `ideas/prompts/novelty-importance.md` 填好的提示；默认模式加 `--sandbox` 才能跑 paper-search 的 Python，本账号没有 `--mode auto`；一次十几分钟，放后台；没给正文就按 `conversation_id` 接着要）
 
 每个循环：
 1. 你自己深想一个 idea（协议第 1 步），同时在后台并行让 Gemini（默认 `carbon-idea`，可另加 agy 的 Neon）和 Astra 各独立深想一个。按 Model roles 分配：Gemini 拿跨领域类比、方法迁移、玩具设定或锚点 D；Astra 拿推导型的题，给它指定锚点；你自己定题定调。Gemini 出题位每个循环固定一个，不受下面"子 agent 只在三种情况下开"的限制，但算进本轮 40 个深想预算。外部输出不是 DROPPED 的，用 `python3 ~/projects/personal-ai-workflow/skills/idea-funnel/scripts/funnel.py new ideas --runner l --generator <模型> --title ... --anchor ...` 建卡并原样填入；自己的卡 `--generator` 写你的模型名。DROPPED 的记进 runs.md。
 2. 每攒 5 张做一次统一筛选（协议第 3 步）：先导入云端已推送的卡（`~/projects/personal-ai-workflow/skills/idea-funnel/scripts/import_branch.sh /Users/guoyikun/Downloads/share/claode_birain/afdm-sp-mirror/repo.git funnel/<日期>-c ideas`，分支还不存在就跳过）；你两两比较排一次；再把在筛卡片一次性交给 Hydrogen 做两两比较排序（多数卡是 Gemini 出的就改用 Sol）。分歧大的都留下。
 3. L1 查新可交给 Gemini Neon；L2 推导和估算交给 Astra；L2 小检验 ≤ 5 CPU 核时（Eric 11-21 17:15 放大），可以 ssh deinlab，必须遵守项目 CLAUDE.md 的远程规则（不写 /tmp、tmux 用 g_ 前缀、conda AFDM）。不启动长仿真，不用 GPU。 L2 先挑 `next_cost` 写着"需本地仿真"或"需 deinlab"的卡（多是云端停放下来的），再做别的；判别性的检验能用仿真就用仿真。
 - 仿真检验的四条纪律（第一次跨家族盲审把带仿真的卡全部打回，都是犯了这几条）：跑之前写好判据和门限；不在报告用的同一批帧上挑门限（留出帧或换新帧确认）；对照要和论断的设定一致（如真时延的论断对真时延臂）；说"这类帧受益"时，要在同一批帧上也跑另一种做法，排除"它们本来就容易"；样本小时给区间。
-- 放行之前加一步"查新 + 为什么没人做"审查（协议第 7 步）：候选卡批量交给和出题者不同家族的模型（默认 Gemini），跨领域找 ≥5 篇最接近工作，剥掉术语用一个日常类比说清；若没人做过，判定是 (1) 没人发现、(2) 发现了但不重要、(3) 发现了但做不了，并给证据和真实系统里的影响量级。只有 (1) 进放行；(2) 淘汰或停放；(3) 长子卡。模板见 `ideas/prompts/novelty-importance.md`（改成当轮的卡片）。
-4. 放行：Claude 或 Gemini 出的候选卡交 Astra，GPT 出的交 Claude（devin -p）；同一评审的候选合成一次调用。按协议记录评审者、模型和结论。进 L3 的卡，把"白话与类比"一节交 Hydrogen 改写成更白的话（只改这一节，事实不变）。
+- 放行之前加一步"查新 + 为什么没人做"审查（协议第 7 步）：候选卡批量交给和出题者不同家族的模型（你和 Astra 出的卡交 Neon，Gemini 出的卡交 Astra），跨领域找 ≥5 篇最接近工作，剥掉术语用一个日常类比说清；若没人做过，判定是 (1) 没人发现、(2) 发现了但不重要、(3) 发现了但做不了，并给证据和真实系统里的影响量级。只有 (1) 进放行；(2) 淘汰或停放；(3) 长子卡。模板见 `ideas/prompts/novelty-importance.md`（改成当轮的卡片）。
+4. 放行：你自己出的卡交 Astra；Astra 出的卡交 Neon，和第 7 步合成一次 agy 调用（模板最后一节"放行"）；Gemini（Carbon、Neon）出的卡两步都交 Astra，合成一次 codex 调用；出题家族不明的卡 Astra 和 Neon 都要过。不再调用 Claude 放行。放行只在统一筛选时做：本次筛选里交同一评审的卡合成一次调用，不要一张卡准备好就单独调一次（11-21 本地第一轮单张调用 6 次，每次新会话先建约 4.4 万 token 的固定开头缓存）；循环中途补测完的卡留到下次筛选。Astra 不可用（如 Codex 额度用完）时，等它的卡留在 L2，`next_cost` 写 cross-model review。按协议记录评审者、模型和结论。进 L3 的卡，把"白话与类比"一节交 Hydrogen 改写成更白的话（只改这一节，事实不变）。
 5. 运行 `funnel.py board ideas`，只 `git commit` 本项目的 `ideas/`（不 push）。
 
 预算与节奏：本轮以时间为主，8 小时（Eric 可改这一行）；安全阀 60 个通过深度核查的深想。深度核查：每张卡要有用本项目数字的推导或估算（公式与代入）、至少 3 篇真正打开过的最接近工作（带链接或编号）及差别、一个具名的最便宜致命检验；不过的打回重做、不计数。不要追求数量：上一轮 40 个"深想"只用了 16 分钟，那不是深想。每次筛选后先深挖最好的分支：两两排序前 2 名各长一张子卡（换一个条件、推广、回应最强反对意见或借别的领域的方法）再开新根；全轮至少约 40% 的深想是子卡；有承接关系的卡一律写 `parent:`。停止条件按 FUNNEL.md。这一轮要连续跑几个小时：不要中途停下来汇报、总结或征求确认，每次筛选完立刻开始下一个循环；卡住时按下面的"转向"做，不要停。
