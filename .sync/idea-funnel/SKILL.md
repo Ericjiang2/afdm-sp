@@ -31,9 +31,10 @@ Design reasons and sources: [DESIGN.md](DESIGN.md) (read only when changing this
 
 | Layer | What | Cap per idea | Who decides |
 |---|---|---|---|
-| L1 深想 | One idea thought through with full effort: derivation or estimate, closest works, 去壳, cheapest decisive check | full effort, about an hour of agent time | AI: write the card or drop the draft |
-| L2 便宜证据 | One decisive cheap check, at least one facing outside the project | about 30 minutes agent time, at most 1 CPU core-hour, no GPU, existing code only | AI: kill / candidate / park |
-| 放行 | Cross-model gate on L2 candidates | one batched call per screening | other-family reviewer: pass / kill / revise |
+| L1 深想 | One idea thought through with full effort: derivation + ≤30 s NumPy sanity probe, closest works, 去壳, cheapest decisive check | full effort, about an hour of agent time | AI: write the card or drop the draft |
+| 查新初筛 | Cross-family novelty (by math form) + intrinsic-value vs prior-art screen before L2 | one batched call per screening | other-family reviewer: (1) to L2 / (2) kill or park / (3) gap child |
+| L2 便宜证据 | One decisive cheap check on novelty survivors (oracle upper-bound first when constructible) | about 30 minutes agent time, ≤1 CPU core-hour (unless `FUNNEL.md` overrides) | AI: kill / candidate / park |
+| 放行 | Cross-model gate auditing L2 evidence, baselines and discipline | one batched call per screening | other-family reviewer: pass / kill / revise |
 | L3 值得长仿真 | Ready for Eric: worth a long simulation | Eric | Eric: 继续 / 停 / 改 |
 | L4 正式研究 | A Trellis task with a frozen protocol (outside the funnel) | per task | Eric |
 
@@ -101,9 +102,12 @@ Each cycle:
 2. **Think one idea through (L1).** Pick track, anchor and lens; use any method from METHODS that helps, or your own,
    and write `方法：<id 或 自己的>` in the first 筛选记录 line. Name the layer the idea attacks and its abstract problem
    class from your own decomposition, and look at how other fields with the same class handle it (G12). Then work it like a research conversation, not a list item: state the
-   problem precisely; derive the key relation or an estimate with this project's numbers (formula and substitution);
+   problem precisely; derive the key relation or an estimate with this project's numbers (formula and substitution), and
+   verify degrees of freedom, dimensionless effect size and the simplest sane baseline under default (not cherry-picked)
+   parameters with a ≤30 s read-only `/opt/anaconda3/bin/python -c` NumPy probe (import project transforms when
+   applicable; never guess closed-form gains by eye, and write no project files);
    search the 3–5 closest works (`scoop-check`, `paper-search`, `literature-search`, `comm-lit-review` or plain web
-   search) and say how each differs; write the three 去壳 sentences; name the cheapest check that could kill it; set
+   search) by abstract mathematical form as well as domain terms and say how each differs; write the three 去壳 sentences; name the cheapest check that could kill it; set
    `value` (3 = would change a design decision across a subfield, 2 = changes one system's design or a standard
    parameter, 1 = incremental) and `next_cost`. Before dropping it, name its smallest plausible repair (G15). Only then
    create the card (`layer: L1`, `generator:` the model that did the thinking, `track:`). If it still dies (already
@@ -111,35 +115,45 @@ Each cycle:
    title and reason to `runs.md` as a dropped draft.
 3. **Learn from every death.** For each dropped draft or killed card, write one lesson line in `runs.md`: why it died,
    which assumption failed, and what that suggests trying instead.
-4. **Grow the tree.** Children are the main way to go deep, and they do not wait for the gate. Write a child
-   (`funnel.py new --parent <id>`) when a card passes L2, gets REVISE, is picked for deepening at screening (step 5), or
-   the derivation suggests a sharper or more general version. A child states its one change from the parent in its
-   first 筛选记录 line (change one condition, generalise, attack the strongest objection, or bring a method from another
-   field). Whenever one idea builds on another, record it as `parent:`, even if the link was only noticed afterwards.
-   Kill a parent when a child subsumes it.
-   A child that only changes a parameter value counts as a child only when the parameter is decisive: before running,
-   it states why (the parent's claim predicts the outcome changes across it, e.g. a threshold, a crossover or a
-   dose-response) and writes that prediction. Otherwise the run is an extra line in the parent's 筛选记录 and does not
-   count toward `child_share`. On one branch, at most two parameter-only children in a row; the next child changes the
-   question (condition, generalisation, strongest objection, outside method) or the branch stops (Eric 2026-11-21, after
-   cloud round 5 spent 45 deep ideas varying parameters around two cards).
-5. **Screen together and reflect** every `screen_every` new cards (default 5). Rank all active cards by pairwise
+4. **Grow the tree (gap-driven only, no child quota).** Write a child (`funnel.py new --parent <id>`) only when a
+   card's review (step 6 or step 8) or L2 check explicitly names an open gap whose resolution would change a design
+   decision. Never spawn children to fill a percentage quota (natural generalisations of a parent theorem and extra
+   control arms belong as an added line in the parent's 筛选记录, not as new cards). A child states its one decisive
+   change from the parent in its first 筛选记录 line (attack the named objection, remove a blocking hidden cost, or
+   bring a non-trivial structure from another field). Whenever one idea builds on another, record it as `parent:`. Kill
+   a parent when a child subsumes it. A child that only varies a parameter is allowed only when the parent's claim
+   predicts a threshold or reversal across it (written before running), and at most two in a row on one branch (Eric
+   2026-11-21 / 11-22).
+5. **Screen together and reflect** every `screen_every` new cards (default 5). Rank all active L1 cards by pairwise
    comparison ("which of these two is more worth a long simulation, and why"), once by the runner and once in one
    batched call by a judge from a family other than most of the cards' generators; where the two rankings disagree
    strongly, keep both cards (the best LLM judges match expert pairwise preference only about 73% of the time, worst on
    feasibility: Ideation Arena, EMNLP 2026). Run the depth audit (above) and send failing cards back. Kill
-   duplicates and dominated cards; pick at most `l2_per_screen` (default 3) for L2, keeping variety. Then deepen
-   best-first: the top `deepen_per_screen` cards of the ranking (default 2) each get one child before any new root is
-   started; across the round at least `child_share` of deep ideas (default 40%) are children. Then write a reflection line in `runs.md`: death reasons counted; which tracks,
+   duplicates and dominated cards; pick at most `l2_per_screen` (default 3) top cards, keeping variety, to enter step 6
+   (cross-family novelty & importance pre-screen); spawn children only on parents with a concrete named gap (step 4).
+   Then write a reflection line in `runs.md`: death reasons counted; which tracks,
    methods and layers were used and which produced survivors; whether a failure pattern from METHODS §X is showing; and
    an explicit decision for the next cycles (track, method, layer or field). Act on it.
-6. **L2 cheap evidence** within the cap: a readout of existing data, an estimate or bound, a small run of existing code,
-   or reading the closest 5–10 papers in full to confirm the gap. At least one check per card faces outside the project
-   (literature, standard or real-system evidence): internal simulations alone favour problems we created ourselves. For
-   a gate candidate, have a model of another family re-derive its key number independently. Use the cap: a check that
-   only reads files and does arithmetic is fine when it is decisive, but when the decisive check is a simulation, run
-   it. A runner that cannot run the project's simulations (e.g. a cloud runner without the receiver's environment)
-   parks the card with `next_cost: 需本地仿真：<what, estimated cost>`; local runners take such cards first in their L2.
+6. **Novelty and why-unsolved pre-screen (before L2 simulation)**, batched per reviewer family for the candidates picked
+   at step 5 (by a model of another family than the generator; Claude/GPT cards → Gemini 4 Neon; Gemini cards → GPT-6.2
+   Sol or Claude so Astra quota is saved for step 8): search ≥5 closest works across fields by **abstract mathematical
+   operator/structure**, not scenario keywords; score **intrinsic importance** ("if nobody had done this before, would
+   it merit a strong Transactions paper?") separately from **prior-art occupancy** (a high-intrinsic-value card killed
+   by prior art is noted as a positive taste reference and its diagnostic numbers harvested, without running L2);
+   restate the claim in plain words with one everyday analogy, calling out common practice disguised in jargon; then, if
+   unoccupied, decide why — (1) nobody noticed, (2) noticed but unimportant in real systems (e.g. default protocol
+   parameters or a 5-minute 1D parameter sweep already avoid it), or (3) noticed but blocked or carrying a hidden system
+   cost — with evidence and real-system effect size. Only (1) advances to step 7 (L2 simulation); (2) is killed or
+   parked immediately (saving L2 compute; in AFDM round 3, 12 of 27 kills died at novelty after an hour of L2 work);
+   (3) becomes a gap child only if net headroom remains clear. Template: `prompts/novelty-importance.md`.
+7. **L2 cheap evidence** on step-6 survivors, within the cap (`FUNNEL.md` may override CPU/GPU caps, e.g. ≤15 min
+   lightweight training on `deinlab` for model-driven neural/unfolding cards): **run an oracle (white-box truth) upper-
+   bound check first whenever constructible** — if gifting exact auxiliary truth still fails to beat the cost or the
+   simplest sane baseline under same total energy/duration, kill at once without patching (re-verify only when strict
+   theory strongly contradicts the data, indicating an implementation bug; Eric 2026-11-22). Otherwise run a readout of
+   existing data, an estimate/bound, or a small simulation. For a gate candidate, have another family re-derive its key
+   number independently. A runner without the project's simulation environment parks the card with `next_cost:
+   需本地仿真：<what, estimated cost>`.
    A simulation check follows four rules (first blind cross-family review, 2026-11-21, sent every simulated card back for
    breaking one of them): write the decision rule and any threshold before running; never pick a threshold on the same
    frames you report (hold frames out, or confirm on fresh frames); compare against the reference that matches the
@@ -147,22 +161,15 @@ Each cycle:
    alternative action on the same cases to rule out "they were easy anyway". Report counts with an interval when the
    sample is small.
    Result: kill, park with the heavier check and its cost, or gate candidate.
-7. **Novelty and why-unsolved review** before the gate, for each gate candidate (batch them), by a model of another
-   family than the generator (Gemini by default: broad world knowledge): search for the closest work across fields
-   (not only the project's waveform), at least five works with one line each; restate the claim in plain words with
-   one everyday analogy, and say so if it reduces to common practice; then, if nobody has done it, decide why — (1)
-   nobody noticed, (2) noticed but unimportant in real systems (for example a small pilot margin avoids it), or (3)
-   noticed but blocked or with a hidden cost — with evidence, and estimate what design decision it would change in
-   real systems and by how much. Only (1) moves on to the gate as is; (2) is killed or parked with the reason; (3)
-   becomes a child that addresses the block. A fill-in prompt lives in the project's `prompts/novelty-importance.md`.
-8. **Cross-model gate**, one batched call per reviewer family for the candidates of this screening: send each card to a
-   reviewer of a family different from its `generator` (from a Claude-family generator: `codex exec --sandbox read-only
-   -m <model>` with the prompt on stdin, or `devin -p --model <GPT model>`; from a GPT-family generator: Gemini 4 Neon via agy, together with the step-7 review), asking per card for the strongest objection, whether the anchor and closest-work notes hold, and PASS / KILL /
-   REVISE. Cards whose checks finish mid-cycle wait for the next screening instead of getting a call of their own (on
-   2026-11-21 each such call rebuilt a ~44k-token prefix and read 0.56–1.7M cached tokens). Record reviewer, model and verdict in the card. PASS →
-   L3 (a `pit` card at L3 is a decision for Eric, shown in its own board section); KILL → killed; REVISE → child card or
-   back to L2. With no second family available, follow the out-of-quota rule above (skip, mark 未审核, optional same-family fallback). When step 7
-   and the gate go to the same reviewer (see Model roles), send them as one call with the gate questions appended.
+8. **Cross-model gate**, one batched call per reviewer family for step-7 survivors: send each card and its L2 scripts/
+   numbers to a reviewer of a family different from its `generator` (Claude cards → `codex exec --sandbox read-only -m
+   gpt-6.2-astra`; GPT cards → Gemini 4 Neon via agy; Gemini cards → `gpt-6.2-astra`, fallback Claude then Neon), asking
+   per card for the strongest objection, whether baselines, attribution and the four simulation rules hold, and PASS /
+   KILL / REVISE. Cards finishing mid-cycle wait for the next screening batch. Record reviewer, model and verdict in the
+   card. PASS → L3 (a `pit` premise check reports a one-line boundary note to Eric rather than masquerading as a new
+   algorithm idea); KILL → killed; REVISE → gap child or back to L2. With no second family available, follow the out-of-
+   quota rule above. (If a card's L2 was already pure arithmetic completed before step 6, steps 6 and 8 may merge into
+   one call.)
 9. Run `board`; append progress to the round's line in `runs.md`; commit; continue.
 
 **Pivot** when `stall_limit` deep ideas in a row produce no new L2 candidate. Do not stop. Write a pivot note in
@@ -188,10 +195,10 @@ long contexts, and ideas written next to all earlier ideas drift toward them. Tw
   `runs.md` (profile, purpose, outcome) so the next round can judge whether they paid.
 
 External generators (ARIS `idea-creator` Phase 2: generators of different families fail differently, so take the
-union). A runner that can call other models — `codex --search exec --sandbox read-only -m gpt-6.2-astra` (prompt on stdin),
-`~/.local/bin/agy -p "<prompt>" --model gemini-4-neon-high --mode plan --add-dir <skill dir>` (read-only; slow, minutes per
-call; use `--output-format json` and, if the response has no final result, ask again with `--conversation <id>` — plan
-mode sometimes stops after reading files), `devin -p --model <id>` — should, each cycle, have one or two of them think an idea
+union). A runner that can call other models — `codex --search exec --sandbox read-only -m gpt-6.2-sol` (prompt on stdin),
+`~/.local/bin/agy -p "<prompt>" --model gemini-4-neon-high --sandbox --add-dir <skill dir>` (sandboxed: may run a ≤30 s
+`/opt/anaconda3/bin/python -c` NumPy probe to stdout, never writing project files; use `--output-format json` and, if the
+response has no final result, ask again with `--conversation <id>`), `devin -p --model <id>` — should, each cycle, have one or two of them think an idea
 through independently, in parallel with its own, using the fill-in prompt in the project's funnel folder
 (`prompts/external-idea.md`). Each result that is not DROPPED becomes a card with `generator:` set to that model; never
 pre-filter a card for looking weak, the joint screening decides. While generating, runners and external generators read
@@ -204,13 +211,14 @@ other than the card's generator:
 | Step | Default | Why |
 |---|---|---|
 | Main runner: choosing problems, framing, the story | Claude (Eric's local runner: Fable 5.2 Fusion high) | sets direction and tone |
-| Generator: cross-domain analogies, world knowledge (method-transfer, toy-setting, anchor D) | Gemini 4 Neon high | Eric 2026-11-21: Gemini is the most inventive, with the broadest world knowledge |
-| Generator: derivation-heavy ideas (GPT family vote) | GPT-6.2 Sol high; Astra high only when the idea needs rigorous derivation (a bound, closed form, asymptotics) | Eric 2026-11-21: Astra is costly and not every idea needs it (its 5 cards in the first local round reached no L3); GPT models are rigorous but weaker at choosing direction (about-eric §6), so the slot gets an assigned anchor |
-| L1 novelty search | Gemini 4 Neon high, or the runner | broad literature knowledge; Gemini found prior work the others missed on 2026-11-21 ("data as pilot") |
-| L2 derivation, estimate, hole-finding | GPT-6.2 Astra high | rigour and auditing |
-| L2 small code runs | the runner, or GPT-6.2 Sol | cheap execution |
+| Generator: cross-domain analogies, world knowledge (method-transfer, toy-setting, anchor D) | Gemini 4 Neon / Carbon high | Eric 2026-11-21: Gemini is the most inventive, with the broadest world knowledge |
+| Generator: derivation-heavy ideas (GPT family vote) | GPT-6.2 Sol high; Astra high only when the idea needs rigorous derivation (a bound, closed form, asymptotics) | Eric 2026-11-21: Astra is costly and not every idea needs it; GPT models get an assigned anchor |
+| L1 novelty search | Gemini 4 Neon high, or the runner | broad literature knowledge |
+| Step 6 pre-L2 novelty + intrinsic-value screen | Claude / GPT cards → Gemini 4 Neon high; Gemini cards → GPT-6.2 Sol high (or Claude) | catches prior art and trivial-sweep non-problems before spending L2 compute; saves Astra quota for step 8 |
+| Step 7 L2 derivation, estimate, hole-finding | GPT-6.2 Astra high | rigour and auditing |
+| Step 7 L2 small code runs | the runner, or GPT-6.2 Sol | cheap execution |
 | Pairwise ranking pass (volume) | Gemini 4 Hydrogen high; GPT-6.2 Sol when most cards are Gemini's | cheap; the ranking is advisory (judges match experts about 73%) |
-| Novelty review (step 7) + gate (step 8) | Claude cards → Neon (step 7) then Astra (gate); GPT cards → Gemini 4 Neon high, both steps in one call; Gemini cards → GPT-6.2 Astra high, both steps in one call; unknown family → Astra and Neon, both must pass | literature breadth (Gemini), auditing (Astra), family crossing; Eric 2026-11-21 moved GPT cards from Opus to Neon |
+| Step 8 post-L2 gate | Claude cards → GPT-6.2 Astra high; GPT cards → Gemini 4 Neon high; Gemini cards → GPT-6.2 Astra high (fallback Claude, then Neon); unknown family → Astra and Neon | cross-family audit of L2 scripts, baselines and attribution |
 | 白话与类比 on L3 cards (the ones Eric reads) | Gemini 4 Hydrogen high | plain language is a Gemini strength and Hydrogen is cheaper |
 
 Reasoning effort: high by default; xhigh only for a judgement-heavy call that could swing the round.

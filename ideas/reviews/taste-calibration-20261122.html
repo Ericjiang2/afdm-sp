@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Idea 漏斗第一轮人类品味校准单（2026-11-22）</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --border: #dfe3e8;
+    --text: #1f2328;
+    --muted: #59636e;
+    --accent: #0969da;
+    --accent-bg: #ddf4ff;
+    --green: #1a7f37;
+    --green-bg: #dafbe1;
+    --amber: #9a6700;
+    --amber-bg: #fff8c5;
+    --red: #cf222e;
+    --red-bg: #ffebe9;
+    --purple: #8250df;
+    --purple-bg: #fbefff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding-bottom: 80px;
+  }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+  }
+  .topbar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .progress-text { font-size: 14px; font-weight: 600; color: var(--text); }
+  .progress-sub { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+  .top-actions { display: flex; gap: 8px; align-items: center; }
+  .btn {
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.12s ease;
+  }
+  .btn:hover { background: #f3f4f6; }
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: #0757b8; }
+  .btn-success {
+    background: var(--green) !important;
+    border-color: var(--green) !important;
+    color: #fff !important;
+  }
+  .container { max-width: 960px; margin: 20px auto; padding: 0 16px; }
+  .guide-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 22px;
+  }
+  .guide-box h1 { margin: 0 0 8px; font-size: 20px; }
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .guide-step {
+    background: #f8fafc;
+    border: 1px solid #eef1f5;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 13.5px;
+  }
+  .guide-step strong { display: block; margin-bottom: 4px; color: var(--accent); }
+  .hard-rule-banner {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: var(--red-bg);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--red);
+  }
+  .group-header {
+    margin: 28px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border);
+  }
+  .group-header h2 { margin: 0; font-size: 17px; }
+  .group-header p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+  .idea-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .idea-card.reviewed {
+    border-color: #8cc5ff;
+    box-shadow: 0 1px 4px rgba(9, 105, 218, 0.08);
+  }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .card-title { font-size: 16px; font-weight: 700; margin: 0; }
+  .card-id {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    background: #f3f4f6;
+    padding: 2px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .rows { font-size: 14px; margin: 0; padding: 0; list-style: none; }
+  .rows li { margin-bottom: 6px; }
+  .row-label {
+    font-weight: 600;
+    color: #374151;
+  }
+  .verdict-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 4px;
+    margin-right: 4px;
+  }
+  .v-l3 { background: var(--green-bg); color: var(--green); }
+  .v-park { background: var(--amber-bg); color: var(--amber); }
+  .v-kill { background: var(--red-bg); color: var(--red); }
+  .question-highlight {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: #f8fafc;
+    border-left: 3px solid var(--purple);
+    border-radius: 4px;
+    font-size: 13.8px;
+  }
+  .question-highlight strong { color: var(--purple); }
+  .controls {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .control-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .control-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--muted);
+    min-width: 72px;
+  }
+  .pill {
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    padding: 5px 11px;
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.1s ease;
+  }
+  .pill:hover { border-color: #9ca3af; background: #f9fafb; }
+  .pill.active-do { background: var(--green-bg); border-color: var(--green); color: var(--green); font-weight: 600; }
+  .pill.active-pivot { background: var(--purple-bg); border-color: var(--purple); color: var(--purple); font-weight: 600; }
+  .pill.active-note { background: var(--amber-bg); border-color: var(--amber); color: var(--amber); font-weight: 600; }
+  .pill.active-drop { background: var(--red-bg); border-color: var(--red); color: var(--red); font-weight: 600; }
+  .pill.active-agree { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .pill.active-hard { background: #1f2328; border-color: #1f2328; color: #fff; font-weight: 600; }
+  .pill.active-soft { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .chip {
+    border: 1px dashed #cbd5e1;
+    background: #f8fafc;
+    color: #334155;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    cursor: pointer;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); background: #f0f9ff; }
+  .note-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13.5px;
+    font-family: inherit;
+  }
+  .note-input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.15);
+  }
+  .summary-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-top: 28px;
+  }
+  .summary-panel h3 { margin: 0 0 10px; font-size: 16px; }
+  textarea {
+    width: 100%;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #f8fafc;
+    resize: vertical;
+  }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: #f1f5f9;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 0.92em;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>
+      <span class="progress-text" id="progressText">已审 0 / 13 张</span>
+      <span class="progress-sub">自动保存在本地浏览器 · 没感觉的卡可跳过（默认同意 AI）</span>
+    </div>
+    <div class="top-actions">
+      <button class="btn" id="resetBtn" type="button">清空重填</button>
+      <button class="btn btn-primary" id="copyTopBtn" type="button">一键复制审核回复</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="guide-box">
+    <h1>第一轮人类品味校准单（13 张同规格简报）</h1>
+    <div style="font-size:13.5px;color:var(--muted);">
+      目标不是考你细节推导，而是用具体正负样本摸清<strong>你的硬边界</strong>、<strong>你喜欢的题目长相</strong>，以及<strong>哪里该让 AI 拿证据说服你</strong>。
+    </div>
+    <div class="guide-grid">
+      <div class="guide-step">
+        <strong>① 不用逐字精读、不用每张都填</strong>
+        先扫每张紫框里的<strong>「请你判」</strong>。有明确好恶或纠结的卡点一下态度；完全没感觉的直接跳过，复制时会自动归入「其余暂同意 AI」。
+      </div>
+      <div class="guide-step">
+        <strong>② 关键区分「硬」与「软」</strong>
+        <strong>硬（确定）</strong>＝你的研究边界或台上讲不顺（如不做雷达、不想碰某方向），AI 直接写成禁令；<strong>软（存疑）</strong>＝你直觉喜欢或怀疑错杀，但拿不准先例或收益账，下一轮 AI 拿原论文公式或算式跟你正面交锋。
+      </div>
+      <div class="guide-step">
+        <strong>③ 理由半句就够（可点快捷胶囊）</strong>
+        每张卡底下给了两个正反快捷胶囊，点一下就能填入输入框，也可以自己改两个字或写半句直觉（例如“代数干净想做，但怕碰撞场景太偏”）。填完点右上角<strong>一键复制</strong>发回对话即可。
+      </div>
+    </div>
+    <div class="hard-rule-banner">
+      <strong>已锁定硬边界 #1：</strong>不做雷达与目标感知（<code>I-20261122-g14</code> 已跳过审核，后续漏斗封掉雷达/感知分支；本页全部为通信、信道估计与编码题目）。
+    </div>
+  </div>
+
+  <div id="cardsRoot"></div>
+
+  <div class="summary-panel">
+    <h3>补充总体直觉 / 其他硬边界（可选）</h3>
+    <input type="text" id="globalNote" class="note-input" placeholder="例如：现稿只想尽快收尾投出，新主线更想找 1 个干净信号处理结构题……" style="margin-bottom:16px;">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+      <h3 style="margin:0;">生成的审核回复预览（粘贴回 agy 对话即可）</h3>
+      <button class="btn btn-primary" id="copyBottomBtn" type="button">一键复制审核回复</button>
+    </div>
+    <textarea id="outputPreview" rows="15" readonly></textarea>
+  </div>
+</div>
+
+<script>
+const GROUPS = [
+  {
+    title: "第一组：L3 方法与跨波形主线候选",
+    desc: "测你核心的「什么叫好通信论文」：相图定界 vs 编码匹配 vs 无线参数估计边界",
+    items: [
+      {
+        num: 1, id: "I-20261121-l09", vType: "v-l3", vTag: "L3（前提栏）",
+        title: "跨波形公平算总账：SP-AFDM 相比单载波、OFDM、OTFS 到底多出什么",
+        problem: "以往论文总拿 SP-AFDM 去欺负“多块短前缀 OFDM”或“塞不下保护带的嵌入导频”；如果给带循环前缀的单载波（SP-SC-CP）和单块 OFDM 配上同等净码率与同级别迭代接收机，AFDM 还有真优势吗？",
+        numbers: "完美信道下，AFDM 比单块 OFDM 赢约 <strong>0.7 dB</strong>，但比单载波在过渡区只赢 <strong>0.1–0.2 dB</strong>（无限长渐近门槛差 <strong>0.00 dB</strong>）；计入功放限幅（峰均比代价）后 AFDM 反比单载波多要 <strong>1.3 dB</strong>；理论上只有在“同一到达时间有多条不同速度散射径（同延多普勒簇）”时，AFDM 才净赢单载波 <strong>0.8–1.0 dB</strong>（未知信道端到端对比还差 1–2 天实测）。",
+        structure: "三波形精确对角恒等式——高斯容量与平均均方误差严格酉不变，波形唯一改变的是“跨符号信噪比波动方差”：单载波天生免疫跨时延衰落，只怕同延时间闪烁；AFDM 同时抹平两者，但付出了高峰均比和分数多普勒稠密矩阵代价。",
+        verdict: "Astra 两次审查放行，认为代数分解干净，终结了不公平基线争论。",
+        ask: "你觉得这种“用精确恒等式划清四类波形适用相图（甚至证明多数水声稀疏场景下单载波更好）”的论文够不够劲、想不想写？还是你更想要“正面造一个新接收算法赢别人”？",
+        chips: ["划清四波形相图够劲，想写", "负结果偏多不够劲，更想造正向新算法"]
+      },
+      {
+        num: 2, id: "I-20261121-l02", vType: "v-l3", vTag: "L3",
+        title: "自举悬崖是外码与内环错配：按检测器上升斜坡配不规则 LDPC",
+        problem: "现用 (3,6) 规则 LDPC 像高档位起步的汽车，首轮检测器输出信息量不到 0.577 就直接熄火；但叠加导频检测器随译码反馈提升极陡（从 0.375 爬到 0.729，曲线下面积 0.586 > 码率 0.5），换成贴合这条斜坡的不规则 LDPC 能否直接跨过启动悬崖？",
+        numbers: "在实测内环传递曲线上搜了 975 种码率 1/2 度分布，出现反直觉反转——白噪声下公认最优的不规则码放到叠加导频上反比老规则码差 <strong>0.5–0.7 dB</strong>；白噪声下门槛高达 0.62 的“差码”因紧贴斜坡，启动门限反比规则码低 <strong>1.1–1.45 dB</strong>（6.5 dB 处规则码 10 轮误帧率 85%，新码第 5 轮过线）。",
+        structure: "信息论面积定理决定可达码率只看曲线下面积、不看起点；叠加导频内环因“译码同时修信道并消导频干扰”斜率极陡，使白噪声陡台阶码与内环严重失配。",
+        verdict: "Astra 三审放行；风险是目前基于传递曲线与配对注入，尚未造码长 2048 实体校验矩阵跑端到端帧内误差相关验证（需 1–2 天），且平衰落叠加导频配码已有先例（Ma 等 JSAC 2017）。",
+        ask: "它有统一原理且反直觉（白噪声好码变坏码），但落在信道编码度分布设计上——站在组会台上讲编码匹配，你觉得顺手可控，还是偏离你熟悉的信号处理太远？",
+        chips: ["原理统一且反直觉，组会能讲顺", "偏信道编码度分布设计，离信号处理太远"]
+      },
+      {
+        num: 3, id: "I-20261122-l14", vType: "v-l3", vTag: "L3（explore）",
+        title: "未知频偏下移动天线测角的对称折返律与栅瓣墙",
+        problem: "单根天线在短滑轨上移动拼虚拟阵列测来波方向；2025 年最新静态最优轨迹是单向冲过去，但只要收发有一点未知载波频偏或目标移动，单向移动的相位匀速旋转与频偏一模一样，慢速区彻底失明。",
+        numbers: "改为对称 V/U 形往返使空间路径与匀速频偏正交，20 dB 下测角精度比单向好 <strong>9.7–12.5 dB</strong>，比最朴素的整周期余弦往返好 <strong>1.7–2.2 dB</strong>（滑轨够走三趟时收窄至 0.9 dB）；高速久停两端会冒出假方向峰（栅瓣），需按信噪比截断驻留。",
+        structure: "消去未知频偏后的有效信息严格由“轨迹减去线性趋势后的残余方差”控制，评审已补齐任意连续轨迹全局上界证明（V/U 形取等）。",
+        verdict: "数学闭环极干净，但周期零均值版本的常数在逼近论里是经典值。",
+        ask: "【精准测边界】这题没有雷达杂波，但落脚点是无线终端测向（AoA 估计）而非通信译码。你的边界是“只拒绝雷达，接受无线参数估计/移动天线”，还是“凡是不落回通信收发与译码的一律不做”？",
+        chips: ["只拒雷达，无线测向/移动天线可接受", "凡是不落回通信收发与译码的一律不做"]
+      }
+    ]
+  },
+  {
+    title: "第二组：L3 水声仿真物理前提与修法",
+    desc: "测你对「改前提立新篇 vs 工程补丁 vs 现稿写两句局限交代」的态度",
+    items: [
+      {
+        num: 4, id: "I-20261121-c06 + c08", vType: "v-l3", vTag: "双卡 L3",
+        title: "连续分数时延暴跌与相邻抽头共享多普勒",
+        problem: "现仿真假设所有回波恰好落在采样刻度正中心（整数时延）；换成真实连续时延后，一条回波摊到相邻 2–3 个抽头上，现接收机把它们当独立路径各自猜多普勒，弱旁瓣抽头猜错拖垮整帧。",
+        numbers: "600 帧实测，换成连续时延后完整接收机暴跌 <strong>> 2.0 dB</strong>（找径名额从 8 放宽到 16 依然亏 > 2 dB）；<code>c08</code> 让同一组相邻抽头共享 1 个多普勒，单径误差从 0.085 降回 <strong>0.031–0.049 频格</strong>（<code>g15</code> 补测提醒：冻结检测器上还需配 6 抽头簇软增益才能大幅拉回误帧率）。",
+        structure: "分数时延径在离散网格上不稀疏，但多个泄漏抽头共享同一个物理多普勒，参数自由度并没变大。",
+        verdict: "揭穿了现稿最大物理失配，又给了比二维连续网格搜索轻得多的结构修法。",
+        ask: "对现稿和下一篇，你倾向于 (a) 现稿明写“限整数时延”，把“连续时延簇共享多普勒 + 软增益”立为下一篇核心主线，还是 (b) 这只是工程补丁，不够独立成篇？",
+        chips: ["现稿声明限整数时延，把连续时延簇立为下篇主线", "只是工程补丁，不够独立成篇"]
+      },
+      {
+        num: 5, id: "I-20261121-c12", vType: "v-l3", vTag: "L3（pit）",
+        title: "宽带时间伸缩 vs 窄带频移近似",
+        problem: "水声带宽占载频 1/3，船速 2 m/s 时整帧信号首尾会被压缩错开 1.33 个采样点，现仿真只加频移没做时间伸缩。",
+        numbers: "不做公共重采样时模型残差高达 −4.4 dB；做完公共速度重采样后（水声标准前端），剩 0.5 m/s 径间速度差，1,000 帧实测（<code>l08</code>）证实其对误帧率的伤害严格等价于加同功率白噪声（约 <strong>0.26–0.5 dB</strong>），记进噪声方差即可。",
+        structure: "去公共速度后的残余时间伸缩误差按 (Δa·BT)² 二次增长，数学上等价于经典的采样时钟频偏公式。",
+        verdict: "作为独立创新不够新，但决定了现稿怎么向水声审稿人交代窄带假设。",
+        ask: "这张直接定性为“现稿写两句话交代（假设已完成公共重采样，残余代价 ≤ 0.5 dB），不再投入实验”，你同意吗？",
+        chips: ["同意：现稿写两句交代，不再投实验", "不同意，值得继续深挖"]
+      },
+      {
+        num: 6, id: "I-20261121-c14", vType: "v-l3", vTag: "L3（pit）",
+        title: "水声包固有前导拆时延与多普勒",
+        problem: "真实水声数据包开头本来就有同步用的线性调频前导（甚至首尾双标记），直接从前导白拿多径到达时间，让叠加导频只专心估多普勒，省掉 25.9% 的找错位置失败。",
+        numbers: "若前导原本就必须发（沉没成本），白拿时延净赚 <strong>0.55 dB</strong>（若有首尾双标记估多普勒，叠加导频可降到 10%，净赚 <strong>0.5–1.0 dB</strong>）；但若专门为此额外新加前后导，按同总能量和时长折算刚好<strong>打平或净亏</strong>。",
+        structure: "短前导时延分辨率够（1/B）但多普勒分辨率差；长帧叠加导频正好反过来，两者天然互补。",
+        verdict: "工程上极实在，但两端放标记属突发通信常规做法，没有单独的数学新定理。",
+        ask: "这种“工程上真管用、账算得很明白，但机制像系统级合理分工而非深奥定理”的点子，在你眼里算好贡献还是太工程平庸？",
+        chips: ["工程真管用且账清楚，算好贡献", "像系统级合理分工而非深定理，偏工程平庸"]
+      },
+      {
+        num: 7, id: "I-20261121-c25", vType: "v-l3", vTag: "L3（pit）",
+        title: "水平千米链路几何多普勒差远小于现仿真",
+        problem: "现仿真给 8 条回波独立随机抽速度（频差标准差 0.51 频格），但 2 公里水平浅海链路各反射角很平，几何算出的径间频差只有 0.003–0.023 频格（仅海面反射径有 0.05–0.16 频格）。",
+        numbers: "径间频差 ≤ 0.1 频格时，第 0 轮全路径合估 1 个共同多普勒比逐径估误差小一半以上且零失败；只有短距陡角链路或强海况才真需要逐径独立估多普勒。",
+        structure: "同一刚体平台运动的投影角余弦差在远距浅海是二阶小量 (H/R)²。",
+        verdict: "直接影响现稿场景定位（必须声明面向短距陡角/多运动体/强海面散射，否则审稿人一句“重采样完各径同速”就能釜底抽薪）。",
+        ask: "你认不认可把这类“救命的场景边界校准”算作漏斗的重要产出，还是你只关心能发新论文的正向算法卡？",
+        chips: ["认可：救命的场景边界校准很有价值，进现稿注记", "只关心正向新算法"]
+      }
+    ]
+  },
+  {
+    title: "第三组（象限 II 边界）：问题漂亮但因“撞先例 / 超预算”被停或杀",
+    desc: "测 AI 有没有错杀，以及怎样做「留题换招 / 认知资产回收」",
+    items: [
+      {
+        num: 8, id: "I-20261122-l09", vType: "v-park", vTag: "L2 停放",
+        title: "免授权接入两用户撞同一前导不丢包：平行四边形跨径拆信道",
+        problem: "海量节点免授权接入时常有两个用户抽中同一个前导口令发生碰撞；单天线只看到两套回声混在一起（16 条径不知哪条归甲、哪条归乙），传统做法只能整包丢弃。",
+        numbers: "四步实测跑通——码率 1/4 等功率碰撞下，两包同时译对率达 <strong>89%</strong>（已知真归属上界 93%，几何聚类与串行硬译均为 <strong>0%</strong>）；但为让相干译码启动不得不加一段后导（包长增加 17.8%）。",
+        structure: "碰撞前导给出和向量 g_A + g_B，碰撞数据段跨径相关给出外积和 g_A g_A^H + g_B g_B^H，两边单独都不可辨识，代入平行四边形恒等式相减恰好消掉交叉项，一次 16×16 小矩阵特征分解闭式拆开两用户信道。",
+        verdict: "Astra 认可双用户恢复做实、代数漂亮；停放是因为加后导使全网未碰撞包也多付 17.8% 长度，10% 碰撞率下填不平总吞吐账（除非原本就有前后导），补跑全网吞吐对照需半天编码。",
+        ask: "【关键品味探针】这张卡代数结构极干净（平行四边形恒等式破盲模糊），死在系统级开销账上。你喜不喜欢这种味道的题？想不想复活它（限定在本来就有双端导频的突发系统里），还是觉得单天线免授权接入离你太远？",
+        chips: ["喜欢这种干净代数味，限定双端导频系统复活它", "代数虽巧，但单天线免授权接入离我太远"]
+      },
+      {
+        num: 9, id: "I-20261121-01", vType: "v-park", vTag: "停放（判不单做）",
+        title: "叠加导频比例按首轮平均信噪比定，看不见第 0 轮捕获悬崖",
+        problem: "文献求最优导频占比 ρ 都按“首轮平均信噪比最大”算（像按省电算夜车车灯亮度），看不见导频低过临界点时第 0 轮直接找丢路径冲下悬崖的全局门限效应。",
+        numbers: "现接收机最优在 ρ = 0.25（4.95 dB），给真第 0 轮后最优移到 ρ ≤ 0.10（3.45 dB），中间横着 <strong>1.5 dB</strong> 悬崖落差；但如果接收机本身不改，光换一条选 ρ 的理论公式，工程师扫一遍 ρ 也能停在 0.25（多留 5% 只亏 0.18 dB），净收益为 <strong>0 dB</strong>。",
+        structure: "局部二阶指标（SINR/CRB）看不见非局部大偏差（捕获离群值），需用全局界（Ziv–Zakai 界）刻画。",
+        verdict: "Neon 查出用 ZZB 替代 CRB 分功率在定位/OFDM 已有先例，且指出“只解释为什么不能把 ρ 调低、却不把那 1.5 dB 拿回来”改变不了工程决定。",
+        ask: "这是你首轮就关注的核心痛点。AI 判“只画门限不救回 1.5 dB 不值得单发论文”，你被说服了吗？还是觉得应该留住这个痛点、专门悬赏能拿回这 1.5 dB 的新前端？",
+        chips: ["被 AI 说服：光画界拿不回 1.5 dB 不单发", "留题换招：锁死这个痛点，悬赏能拿回 1.5 dB 的新前端"]
+      },
+      {
+        num: 10, id: "I-20261122-l15", vType: "v-kill", vTag: "淘汰",
+        title: "给“不知道信道”算信息总账：理论最多付 0.84 dB，找位置只值 0.24 dB",
+        problem: "所有论文都跟“已知完美信道”比，但不知道信道天生就得付信息税；把 8 条径的增益（56 bit）、多普勒（38 bit）、位置（38 bit）折成比特账本，看到底哪一项被现接收机多付了冤枉钱。",
+        numbers: "信息账算出总共最多付 <strong>0.84 dB</strong>（其中找 8 个位置只值 <strong>0.24 dB</strong>），而现接收机实际付了 <strong>1.62 dB</strong>——光是拿出 25% 功率发导频就直接花掉 <strong>1.25 dB</strong>，比整本信息账还贵！",
+        structure: "互信息链式法则 I(X;Y) ≥ I(X;Y|θ) − I(θ;Y|X)。",
+        verdict: "Neon 指出稀疏信道扣支撑熵在 Kannu–Schniter (TIT 2011) 已有，且把遍历互信息差直接加到有限长误帧率上口径不严格，给不出新算法。",
+        ask: "AI 杀它作为“独立新论文”是对的，但这种一针见血算清“奖池一共多大、冤枉钱花在哪”的账本，你希不希望漏斗在淘汰时单独摘进你的“主线动机与认知资产库”，而不是直接埋进废卡堆？",
+        chips: ["同意杀论文，但把这类信息账单摘进主线动机资产库", "口径不严直接淘汰，不必单摘"]
+      }
+    ]
+  },
+  {
+    title: "第四组（象限 III 边界）：局部没人做且构思巧，但因“账算亏 / 窗太窄”被杀",
+    desc: "测 AI 杀鸡肋的刀法准不准，以及你的「最小收益门槛」与「参数宽度底线」",
+    items: [
+      {
+        num: 11, id: "I-20261121-l03", vType: "v-kill", vTag: "L2 淘汰",
+        title: "非均匀保护 LDPC 造“零开销虚拟导频”",
+        problem: "总码率 1/2 不变，让帧里 20% 的符号穿厚盔甲（码率 0.30）在第 0 轮顶着模糊信道先译出来；因为 AFDM 单符号铺满全帧，这 20% 符号立刻变成第 1 轮的全帧免费导频，拉剩下 80% 符号（码率 0.55）过河。",
+        numbers: "L2 直接做了一个极宽容的上限测试——第 0 轮起<strong>白送</strong>估计器 20% 全对真符号（还不扣 80% 载荷升码率那 <strong>0.65 dB</strong> 成本），结果误帧率只降两成（省不到 <strong>0.5 dB</strong>），收入抵不上成本，总账倒亏。",
+        structure: "链式法则守恒——前 20% 降码率省的门槛，后 80% 升码率全要连本带利还回去；且 20% 已知符号只把未知数据自干扰从 0.85 降到 0.68，不够质变。",
+        verdict: "一个 0.5 核时的上限注入实验直接证伪了直觉上很美的故事。",
+        ask: "这张卡最能体现“故事极美 vs 算账倒亏”。看完这个淘汰过程，你认不认同这种“先做白送真值上限测试、算不过账立刻一刀毙命”的做法？",
+        chips: ["认同这种刀法：白送真值都算不过账就一刀毙命", "觉得上限测试条件有问题，还有别的救法"]
+      },
+      {
+        num: 12, id: "I-20261122-l01", vType: "v-kill", vTag: "L1 淘汰",
+        title: "连续时延近邻双径“看不清就不伤自举”对偶与第 1 轮外信息拆径",
+        problem: "第 0 轮导频太弱分不清紧挨着的两条回波？恰好可证：凡是第 0 轮弱到看不清的双径，暂时并成一条径对首轮译码的信噪比伤害必 < 0.2–0.6 dB；等第 1 轮译出大半数据后信噪比翻 8 倍再拆开，且只喂 LDPC 纯校验外信息防“自我证实”。",
+        numbers: "未跑重仿真即淘汰——因为它只管“无前导且恰好出现近邻双径”的那部分帧，卡片自己算出的全帧信噪比改善上限仅 <strong>0.20 dB</strong>。",
+        structure: "广义似然比非中心参数与首轮未建模干扰受同一个算子残差能量 E_unmod 控制（无死区同源对偶）。",
+        verdict: "双评委一致认为：数学对偶虽巧，但净余量上限仅 0.2 dB，且用外信息不用全后验在 Turbo 接收机里属常规做法，依附于 #4 不值得单列。",
+        ask: "像这种数学结构很漂亮（无死区同源对偶），但工程总收益上限只有 0.2 dB 的点子，你觉得杀了可惜（适合写成 #4 论文里的一个漂亮引理），还是就该干脆杀掉？",
+        chips: ["结构漂亮杀了可惜，适合收进 #4 论文当引理", "上限只有 0.2 dB，干脆杀掉不留恋"]
+      },
+      {
+        num: 13, id: "I-20261121-l05", vType: "v-park", vTag: "降档停放（价值 1）",
+        title: "5G 窄带终端双频带跳频按 ABAB (1/4, 3/4) 加权消漂移拼首径",
+        problem: "5G 简化终端分四次轮流听高低两个频带拼宽带测距，常规 ABBA 等权平均消除不了多径演化的二阶弯曲；改成 ABAB 配 (1/4, 3/4) 权重恰好让两带时间一阶矩和二阶矩同时相等。",
+        numbers: "在卡片挑的有利点（跳间隔 1 ms、频差 125 Hz）首径误差降 <strong>58.7%</strong>；但补扫 45 个工况后发现，在 5G 标准短跳时序（0.143 ms）下改善最高仅 <strong>8%</strong>，慢速区反而因不等权放大了 1.25 倍噪声方差而变差。",
+        structure: "二项式去漂移滤波系数使泰勒展开消到三阶小量 sin³(x/2)。",
+        verdict: "只在脱离标准默认时序的窄参数窗有效。",
+        ask: "【参数宽度底线】这种“公式干净，但在标准协议默认参数下没收益、只有拉长 5 倍跳间隔才赢 58%”的卡，在你这里是一律毙掉，还是只要物理场景找得到对应慢速硬件就能留？",
+        chips: ["标准默认参数没收益就一律毙掉", "只要物理上找得到对应慢速硬件场景就能留"]
+      }
+    ]
+  }
+];
+
+const DECISIONS = [
+  { key: "想做", cls: "active-do" },
+  { key: "留题换招", cls: "active-pivot" },
+  { key: "只当现稿注记", cls: "active-note" },
+  { key: "不做", cls: "active-drop" },
+  { key: "同意AI裁决", cls: "active-agree" }
+];
+
+const CONFIDENCES = [
+  { key: "硬（确定）", cls: "active-hard" },
+  { key: "软（存疑，拿证据交锋）", cls: "active-soft" }
+];
+
+const STORAGE_KEY = "afdm_funnel_taste_calibration_20261122_v1";
+const ALL_ITEMS = GROUPS.flatMap(g => g.items);
+
+let state = { cards: {}, globalNote: "" };
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) state = Object.assign(state, JSON.parse(saved));
+} catch (_) {}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {}
+  updateSummary();
+}
+
+function getCardState(num) {
+  if (!state.cards[num]) state.cards[num] = { decision: "", confidence: "", note: "" };
+  return state.cards[num];
+}
+
+function isReviewed(cs) {
+  return Boolean(cs && (cs.decision || cs.confidence || (cs.note && cs.note.trim())));
+}
+
+function render() {
+  const root = document.getElementById("cardsRoot");
+  root.innerHTML = "";
+
+  GROUPS.forEach(group => {
+    const gh = document.createElement("div");
+    gh.className = "group-header";
+    gh.innerHTML = `<h2>${group.title}</h2><p>${group.desc}</p>`;
+    root.appendChild(gh);
+
+    group.items.forEach(item => {
+      const cs = getCardState(item.num);
+      const card = document.createElement("div");
+      card.className = "idea-card" + (isReviewed(cs) ? " reviewed" : "");
+      card.id = `card-${item.num}`;
+
+      card.innerHTML = `
+        <div class="card-head">
+          <h3 class="card-title">#${item.num} ${item.title}</h3>
+          <span class="card-id">${item.id}</span>
+        </div>
+        <ul class="rows">
+          <li><span class="row-label">问题与直觉：</span>${item.problem}</li>
+          <li><span class="row-label">实测与基线账：</span>${item.numbers}</li>
+          <li><span class="row-label">底下结构：</span>${item.structure}</li>
+          <li><span class="row-label">AI 裁决：</span><span class="verdict-badge ${item.vType}">${item.vTag}</span>${item.verdict}</li>
+        </ul>
+        <div class="question-highlight">
+          <strong>请你判：</strong>${item.ask}
+        </div>
+        <div class="controls">
+          <div class="control-row" data-role="decisions">
+            <span class="control-label">你的态度：</span>
+          </div>
+          <div class="control-row" data-role="confidences">
+            <span class="control-label">底气高低：</span>
+          </div>
+          <div class="control-row" data-role="chips">
+            <span class="control-label">快捷理由：</span>
+          </div>
+          <div class="control-row">
+            <input type="text" class="note-input" placeholder="写半句你的直觉理由或疑问（点上方快捷胶囊可自动填入，可随时修改）" value="">
+          </div>
+        </div>
+      `;
+
+      const decRow = card.querySelector('[data-role="decisions"]');
+      DECISIONS.forEach(d => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "pill" + (cs.decision === d.key ? ` ${d.cls}` : "");
+        b.textContent = d.key;
+        b.onclick = () => {
+          cs.decision = cs.decision === d.key ? "" : d.key;
+          render();
+          saveState();
+        };
+        decRow.appendChild(b);
+      });
+
+      const confRow = card.querySelector('[data-role="confidences"]');
+      CONFIDENCES.forEach(c => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "pill" + (cs.confidence === c.key ? ` ${c.cls}` : "");
+        b.textContent = c.key;
+        b.onclick = () => {
+          cs.confidence = cs.confidence === c.key ? "" : c.key;
+          render();
+          saveState();
+        };
+        confRow.appendChild(b);
+      });
+
+      const chipRow = card.querySelector('[data-role="chips"]');
+      const noteInput = card.querySelector(".note-input");
+      noteInput.value = cs.note || "";
+      noteInput.oninput = (e) => {
+        cs.note = e.target.value;
+        card.classList.toggle("reviewed", isReviewed(cs));
+        saveState();
+      };
+
+      item.chips.forEach(text => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip";
+        chip.textContent = "+ " + text;
+        chip.onclick = () => {
+          cs.note = cs.note && cs.note.trim() ? `${cs.note.trim()}；${text}` : text;
+          noteInput.value = cs.note;
+          card.classList.add("reviewed");
+          saveState();
+        };
+        chipRow.appendChild(chip);
+      });
+
+      root.appendChild(card);
+    });
+  });
+
+  document.getElementById("globalNote").value = state.globalNote || "";
+  updateSummary();
+}
+
+function buildReplyText() {
+  const lines = ["### 第一轮人类品味校准批示（2026-11-22）", ""];
+  lines.push("- **已锁定硬边界**：不做雷达与目标感知（`g14` 不审，封掉雷达/感知分支）");
+  if (state.globalNote && state.globalNote.trim()) {
+    lines.push(`- **总体直觉 / 补充边界**：${state.globalNote.trim()}`);
+  }
+  lines.push("");
+
+  const untouched = [];
+  let reviewedCount = 0;
+
+  ALL_ITEMS.forEach(item => {
+    const cs = state.cards[item.num];
+    if (!isReviewed(cs)) {
+      untouched.push(`#${item.num}(${item.id})`);
+      return;
+    }
+    reviewedCount++;
+    const dec = cs.decision || "待定";
+    const conf = cs.confidence || "未标软硬";
+    const note = (cs.note || "").trim() || "（无补充备注）";
+    lines.push(`- **#${item.num}** \`${item.id}\`：${dec} ｜ ${conf} ｜ ${note}`);
+  });
+
+  if (untouched.length > 0) {
+    lines.push("");
+    lines.push(`- **未单独表态（暂同意 AI 当前裁决）**：${untouched.join("、")}`);
+  }
+
+  document.getElementById("progressText").textContent = `已审 ${reviewedCount} / 13 张`;
+  return lines.join("\n");
+}
+
+function updateSummary() {
+  document.getElementById("outputPreview").value = buildReplyText();
+}
+
+async function copyReply(btn) {
+  const text = buildReplyText();
+  const ta = document.getElementById("outputPreview");
+  let ok = false;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    } catch (_) {}
+  }
+  if (!ok) {
+    ta.focus();
+    ta.select();
+    ok = document.execCommand("copy");
+  }
+  const orig = btn.textContent;
+  btn.textContent = ok ? "已复制到剪贴板！" : "请全选下方文本框手动复制";
+  if (ok) btn.classList.add("btn-success");
+  setTimeout(() => {
+    btn.textContent = orig;
+    btn.classList.remove("btn-success");
+  }, 1800);
+}
+
+document.getElementById("globalNote").addEventListener("input", (e) => {
+  state.globalNote = e.target.value;
+  saveState();
+});
+document.getElementById("copyTopBtn").addEventListener("click", function() { copyReply(this); });
+document.getElementById("copyBottomBtn").addEventListener("click", function() { copyReply(this); });
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (!confirm("确定要清空当前已填写的所有批示吗？")) return;
+  state = { cards: {}, globalNote: "" };
+  saveState();
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
