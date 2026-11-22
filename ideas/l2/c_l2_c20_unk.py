@@ -24,7 +24,7 @@ def job(args):
             om = dict(obs, sigma2=s2 * mm); d, arr, syn, s = b13.f0(C, om, 'none'); err[f'mis{mm:g}'] = fin(C, om, truth, d, arr, syn)
             k = float(np.clip(1 / s[0], .1, 10.)); ks[f'{mm:g}'] = k; d2, arr2, syn2, _ = b13.f0(C, om, 'none', k=k)
             err[f'calF{mm:g}'] = fin(C, om, truth, d2, arr2, syn2); err[f'calFA{mm:g}'] = fin(C, dict(obs, sigma2=s2 * mm * k), truth, d2, arr2, syn2)
-            if DB: err[f'calFD{mm:g}'] = err[f'calF{mm:g}'] if DB[0] <= k <= DB[1] else err[f'calFA{mm:g}']
+            if DB: err[f'calFD{mm:g}'] = err[f'calF{mm:g}'] if DB[0] <= k <= DB[1] else err[f'calFA{mm:g}']; err[f'calDD{mm:g}'] = err[f'mis{mm:g}'] if DB[0] <= k <= DB[1] else err[f'calFA{mm:g}']   # batch 3: dead zone on the whole chain
         rows.append(dict(frame=frame, scenario=s_, snr=snr, err=err, k=ks))
     return rows
 
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     rng = np.random.default_rng(20261122); idx = rng.integers(0, n, (2000, n)); ci = lambda d: [float(d.mean())] + np.percentile(d[idx].mean(1), [2.5, 97.5]).tolist()
     off = [f'{x:g}' for x in MS if x != 1.]; avg = lambda a: np.mean([F[a + x] for x in off], 0); res = dict(n=n, rho=RHO, snrs=SNRS, fer={k: float(v.mean()) for k, v in F.items()},
         k_median={x: float(np.median([r['k'][x] for r in rows])) for x in rows[0]['k']})
-    for a_ in ('calF', 'calFA') + (('calFD',) if DB else ()):
+    for a_ in ('calF', 'calFA') + (('calFD', 'calDD') if DB else ()):
         num, den = avg('mis') - avg(a_), avg('mis') - F['mis1']; b = num[idx].mean(1) / np.maximum(den[idx].mean(1), 1e-9)
         res[a_] = dict(recovered=[float(num.mean() / max(den.mean(), 1e-9))] + np.percentile(b, [2.5, 97.5]).tolist(), at1_minus_base=ci(F[a_ + '1'] - F['mis1']),
                        avg_fer=float(avg(a_).mean()))
