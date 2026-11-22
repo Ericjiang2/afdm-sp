@@ -72,12 +72,13 @@
 - 为什么分两个目录：`g` 不经审批运行，本仓库里又有很多与本项目无关、尚未提交的改动；它的 git 操作只影响自己的 worktree，两边的暂存区和锁文件也互不干扰。
 - 算力：本机是 MacBook Air，散热一般，本地只做几秒钟就算完的估算。稍微重一点的（接收机仿真、多帧蒙特卡洛、超过约 1 分钟 CPU）两边都放 deinlab，遵守项目 CLAUDE.md 的远程规则；两边合计给整机留约 16 核；tmux 会话 `l` 用 `g_funnel_l*`，`g` 用 `g_funnel_g*`；`g` 的 L2 文件名带 `g_` 前缀，避免在 deinlab 上撞名。云端 `c` 不碰 deinlab，L2 全在自己的 M4 Pro 上跑（调度见 round-cloud.md）。
 - 模型分工按协议的 Model roles 表，另加 Eric 11-22 的两条：Gemini 订阅额度用不完，所以多用 Gemini；不论哪边，任何外部模型没额度都改由 Gemini 兜底，runner 不停。
-  - `l`（Claude 家族，Fusion Claude Fable 5.2）的外部出题：Gemini 用 agy（Neon、Carbon 轮换，不再用按量计费的 Devin 子 agent `carbon-idea`），GPT 默认 Sol，要严格推导时换 Astra。
-  - `g`（Gemini 家族）的外部出题：GPT 和 Claude 轮流；检验时的外部意见用 Astra 或 Claude；两者都用不了时改用 agy 的 Neon（同家族，在卡里注明）。
-  - 其他角色：Astra 做 L2 推导；Gemini 4 Hydrogen 做两两比较初排和 L3 卡的白话改写；多数卡是 Gemini 出的时，排序改用 Sol。
+  - 模型分工（第 5 轮起，Eric 11-22）：**只有 Astra 能独立出题，Sol 不出题**；Sol 做一般评审与推导（第 6 步 Gemini 卡查新、第 7 步 L2 推导与估算、第 8 步 pit 卡放行、排序），够用；Astra 少用，只用在重要处——出题（每个 runner 隔一个循环一次、每轮至多 4 次）、第 8 步非 pit 卡升 L3 的终审、以及决定结论的严格推导（界、闭式解）且 Sol 给不出确定答案时。
+  - `l`（Claude 家族，Fusion Claude Fable 5.2）的出题：**自己的出题位每个循环都要出**，先于导入、放行和跑检验做，不能拿 pit 跟进或补读数顶替（第 4 轮 14 个循环只出了 2 张，被把关的活挤掉了）；上下文拥挤时交 `idea-worker`，仍算自己的出题位。外部出题：Gemini 用 agy（Neon 为主、Carbon 轮换）；GPT 只用 Astra（隔一个循环一次）。
+  - `g`（Gemini 家族）的外部出题：Astra（隔一个单数循环一次）与 Claude opus 轮流，其余位改调 Claude opus；检验时的外部意见用 Sol 或 Claude；两者都用不了时改用 agy 的 Neon（同家族，在卡里注明）。g 自己的题建卡前要过两道关卡（先去壳、查原领域；标题禁术语），见 round-agy.md。
+  - 其他角色：Gemini 4 Hydrogen 做两两比较初排和 L3 卡的白话改写；多数卡是 Gemini 出的时，排序改用 Sol。
 - 第 6 步查新初筛与第 8 步跨模型放行分工（11-22 修订四）：
   - **第 6 步（L2 前查新与固有重要性初筛）**：Claude 卡和 GPT 卡批量交 agy Neon；Gemini 卡（含 `g` 卡）批量交 `gpt-6.2-sol`（或 Claude），省下 Astra 额度；判 `(1a)` 或 `(1b)` 进第 7 步 L2 仿真。
-  - **第 8 步（L2 后终审放行，只由 `l` 在统一筛选时做）**：GPT 卡交 Neon；Claude 卡和 Gemini 卡（含全部已交出的 `g` 卡）交 Astra（Astra 不可用时改交 Claude，两者都不可用才用 Neon 同族兜底）；家族不明的卡 Astra 和 Neon 都要过。用 agy Neon 做兜底评审不限次数（覆盖协议里"每次筛选最多 2 次"），仍要批量；同家族的兜底评审只能 KILL 或 REVISE，不能升 L3。云端第 1–3 轮的卡写 `generator: devin`（31 张，全是 `c` 开头），和第 5 轮的 `fusion-auto` 一样是 Fusion 自动调配的，看不出家族；没有 `generator` 的早期卡（01–11 等）是 Claude 出的。
+  - **第 8 步（L2 后终审放行，只由 `l` 在统一筛选时做）**：GPT 卡交 Neon；Claude 卡和 Gemini 卡（含全部已交出的 `g` 卡）里，非 pit 卡交 Astra（要升 L3、会交给 Eric，属重要处），pit 卡交 Sol；Astra 与 Sol 不可用时互为替补，都不可用才交 Claude opus（Claude 卡不能交 Claude）或 Neon 同族兜底；家族不明的卡按同一规则过 Astra 或 Sol，再加 Neon。用 agy Neon 做兜底评审不限次数（覆盖协议里"每次筛选最多 2 次"），仍要批量；同家族的兜底评审只能 KILL 或 REVISE，不能升 L3。云端第 1–3 轮的卡写 `generator: devin`（31 张，全是 `c` 开头），和第 5 轮的 `fusion-auto` 一样是 Fusion 自动调配的，看不出家族；没有 `generator` 的早期卡（01–11 等）是 Claude 出的。
 - cloud_repo：现有镜像 `Ericjiang2/afdm-sp` 的 `funnel/*` 分支（云端只写 `ideas/`；Eric 11-21 同意，镜像推送由 Claude 负责）。
 - 镜像跟 vault `main`（11-21 起）；每轮开始前由 Claude 运行 `sync.sh`。同步时协议和脚本会复制到镜像的 `.sync/idea-funnel/`，云端从那里读。
 - 只能在本地做的：ssh deinlab 的任何运行；跨模型放行；Eric 的批示与转 Trellis 任务。

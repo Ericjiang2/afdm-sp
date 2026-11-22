@@ -193,8 +193,9 @@ Each cycle:
    sample is small.
    Result: kill, park with the heavier check and its cost, or gate candidate.
 8. **Cross-model gate**, one batched call per reviewer family for step-7 survivors: send each card and its L2 scripts/
-   numbers to a reviewer of a family different from its `generator` (Claude cards → `codex exec --sandbox read-only -m
-   gpt-6.2-astra`; GPT cards → Gemini 4 Neon via agy; Gemini cards → `gpt-6.2-astra`, fallback Claude then Neon), asking
+   numbers to a reviewer of a family different from its `generator` (Claude and Gemini cards → `codex exec --sandbox read-only -m
+   gpt-6.2-astra` if the card is not `pit` (it would reach L3 and the owner), `gpt-6.2-sol` if it is `pit`, the two
+   standing in for each other, then Claude (not for Claude cards) or Neon; GPT cards → Gemini 4 Neon via agy), asking
    per card for the strongest objection, whether baselines, attribution and the four simulation rules hold, and PASS /
    KILL / REVISE. Cards finishing mid-cycle wait for the next screening batch. Record reviewer, model and verdict in the
    card. PASS → L3 (a `pit` premise check reports a one-line boundary note to Eric rather than masquerading as a new
@@ -243,13 +244,13 @@ other than the card's generator:
 |---|---|---|
 | Main runner: choosing problems, framing, the story | Claude (Eric's local runner: Fable 5.2 Fusion high) | sets direction and tone |
 | Generator: cross-domain analogies, world knowledge (method-transfer, toy-setting, anchor D) | Gemini 4 Neon / Carbon high | Eric 2026-11-21: Gemini is the most inventive, with the broadest world knowledge |
-| Generator: derivation-heavy ideas (GPT family vote) | GPT-6.2 Sol high; Astra high only when the idea needs rigorous derivation (a bound, closed form, asymptotics) | Eric 2026-11-21: Astra is costly and not every idea needs it; GPT models get an assigned anchor |
+| Generator: derivation-heavy ideas (GPT family vote) | GPT-6.2 Astra high only, at most every other cycle and 4 per runner per round; Sol does not generate | Eric 2026-11-22: only Astra generates independently (Sol: 10 ideas in rounds 3–4, none survived); GPT models get an assigned anchor |
 | L1 novelty search | Gemini 4 Neon high, or the runner | broad literature knowledge |
 | Step 6 pre-L2 novelty + intrinsic-value screen | Claude / GPT cards → Gemini 4 Neon high; Gemini cards → GPT-6.2 Sol high (or Claude) | catches prior art and trivial-sweep non-problems before spending L2 compute; saves Astra quota for step 8 |
-| Step 7 L2 derivation, estimate, hole-finding | GPT-6.2 Astra high | rigour and auditing |
+| Step 7 L2 derivation, estimate, hole-finding | GPT-6.2 Sol high; Astra only when a verdict hinges on a rigorous derivation Sol cannot settle | Eric 2026-11-22: Sol is enough for routine review and derivation; save Astra for what matters |
 | Step 7 L2 small code runs | the runner, or GPT-6.2 Sol | cheap execution |
 | Pairwise ranking pass (volume) | Gemini 4 Hydrogen high; GPT-6.2 Sol when most cards are Gemini's | cheap; the ranking is advisory (judges match experts about 73%) |
-| Step 8 post-L2 gate | Claude cards → GPT-6.2 Astra high; GPT cards → Gemini 4 Neon high; Gemini cards → GPT-6.2 Astra high (fallback Claude, then Neon); unknown family → Astra and Neon | cross-family audit of L2 scripts, baselines and attribution |
+| Step 8 post-L2 gate | Claude and Gemini cards → GPT-6.2 Astra high if not `pit`, GPT-6.2 Sol high if `pit` (each other's fallback, then Claude for non-Claude cards, then Neon); GPT cards → Gemini 4 Neon high; unknown family → the same GPT choice plus Neon | cross-family audit of L2 scripts, baselines and attribution; Astra only where a card may reach the owner |
 | 白话与类比 on L3 cards (the ones Eric reads) | Gemini 4 Hydrogen high | plain language is a Gemini strength and Hydrogen is cheaper |
 
 Reasoning effort: high by default; xhigh only for a judgement-heavy call that could swing the round.

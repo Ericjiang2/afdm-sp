@@ -22,12 +22,15 @@
    - 侧重：严守 `FUNNEL.md`「品味与边界」（不做雷达/感知、不做 AoA 测向；积极覆盖物理结构驱动的「通信 + 神经网络 / 深度展开」赛道与 `ABSTRACTION.md` §4 头号悬赏靶）。
 
 5. 出题位（每个循环）：你自己深想一个，外部出题者 GPT 和 Claude 轮流。
-   - 单数循环用 GPT：默认 Sol，题目要严格推导时换 Astra，命令见 round-local.md（`--sandbox read-only` 下可跑 ≤ 30 秒 `/opt/anaconda3/bin/python -c` 标准输出探针，不写文件）。
+   - 单数循环用 GPT：只用 Astra，隔一个单数循环一次（第 1、5、9…个循环），每轮至多 4 次；其余单数循环改调 Claude（同下）。Sol 不出题。命令见 round-local.md（`--sandbox read-only` 下可跑 ≤ 30 秒 `/opt/anaconda3/bin/python -c` 标准输出探针，不写文件）。
    - 双数循环用 Claude：`printf '%s' "$P" | claude -p --no-session-persistence --model opus --effort high --allowedTools "Read,Grep,Glob,WebSearch,WebFetch,Bash(/opt/anaconda3/bin/python:*)"`，`P` 照 round-local.md 用 `external-idea.md` 填好。Claude 用的是 Eric 的订阅额度，每个循环最多调一次。必须带 `--model opus`：不带时默认走 Fable 5.2，这个账号没有它的额度（第 4 轮报 `Fable 5.2 requires usage credits`）。建卡时 `--generator claude-opus-5.5`。
    - 不调 Gemini 出题，因为你自己就是 Gemini。
+   - **你自己的题建卡前过两道关卡**（第 5 轮起，Eric 11-22。第 3–4 轮你最有野心的卡——g22、g23、g24 都被判"固有重要性：高"——全死在"核心招数在原领域早已是标准做法"，满篇术语把这一点盖住了；反思写了两轮也没改掉，所以改成建卡前的关卡）：
+     1. 先去壳、查原领域：展开深想之前，先写三句不带术语的白话，加一句"这是 F 领域的 M 方法"（或"找不到可对应的已知方法"），只把这两样交 Sol（`codex --search exec --sandbox read-only -m gpt-6.2-sol -`，限 5 分钟），问"M 在 F 领域是否已是标准做法、是否已被用到通信或时延–多普勒波形上"。判已有就丢弃并写一行教训，过了才深想、建卡。
+     2. 标题禁术语：标题要让学过信号处理的外行一读就懂，不堆别的领域的名词（如黎曼环面、Hodge、格拉斯曼弦、李代数测地）；这类词只在正文里带一句白话解释后出现。
 
 6. 外部意见与 Gemini 兜底：
-   - 检验时需要外部意见（L2 推导、核对数字、挑刺），用 Astra 或 Claude，不用 Gemini。
+   - 检验时需要外部意见（L2 推导、核对数字、挑刺），用 Sol 或 Claude，不用 Gemini；只有决定结论的严格推导且 Sol 给不出确定答案时才用 Astra。
    - 没额度时不要停。GPT 和 Claude 都用不了时，出题位改为多调一次 agy 的 Neon（同家族，在卡里注明），检验意见也改用 agy 的 Neon；在 `runs-g.md` 的 `待审` 清单里记一条。
    - 只有你自己的额度用完才结束本轮。
 
