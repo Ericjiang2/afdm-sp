@@ -2,13 +2,14 @@
 project F0 turbo loop, learned on training frames and tested on unseen frames.  Patches module globals of ctx.native
 during F0 only (A1 branch untouched); repository code is not modified.
   python c_l2_c08_iface.py train --out out_c08   ;   python c_l2_c08_iface.py test --out out_c08"""
-import argparse, json, sys
+import argparse, json, os, sys
 from multiprocessing import get_context
 from pathlib import Path
 import numpy as np
 EXP = Path(__file__).resolve().parents[2] / 'experiments/data_pilot_fer_20261121'; sys.path.insert(0, str(EXP))
 import stageA
-RHO, SNRS, SCEN, WORKERS = 100, (550, 650), ('U', 'G'), 5
+RHO = int(os.environ.get('C08_RHO', 100)); SNRS = tuple(int(x) for x in os.environ.get('C08_SNRS', '550,650').split(','))
+SCEN, WORKERS = ('U', 'G'), 5
 TRAIN, TEST = range(41460, 41560), range(41560, 41760)
 BASE = dict(a0=1., a1=1., b0=1., c0=1., m0=50)
 GRID = dict(a0=(.6, .8, 1.25), a1=(.6, .8, 1.25), b0=(.6, .8, 1.25), c0=(.6, .8, 1.25), m0=(5, 10, 20))
