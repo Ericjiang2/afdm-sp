@@ -10,6 +10,8 @@ RHO, SNRS, SCEN, WORKERS = m.RHO, m.SNRS, m.SCEN, 5
 FRAMES = range(*(int(x) for x in os.environ.get('C11_FRAMES', '42360,42560').split(',')))
 ONE = dict(a0=1., a1=1., b0=1., c0=1., m0=50)
 ARMS = dict(base=(ONE, 1.), learned=(e.ORDER[0], 1.), sig167=(ONE, 1 / .6), sig250=(ONE, 2.5), sig167_m5=(dict(ONE, m0=5), 1 / .6))
+if os.environ.get('C11_KS'):        # follow-up sweep: base + sigma^2 inflation factors only
+    ARMS = dict(base=(ONE, 1.), **{f'sig{k}': (ONE, float(k)) for k in os.environ['C11_KS'].split(',')})
 
 
 def arm(C, obs, truth, th, k):
@@ -38,7 +40,12 @@ if __name__ == '__main__':
             for r in rows:
                 print(json.dumps(r), file=fh, flush=True)
     rows = [json.loads(x) for x in open(out / 'rows.jsonl')]; n = len(rows); F = {nm: np.array([r['err'][nm] > 0 for r in rows], float) for nm in ARMS}
-    rng = np.random.default_rng(20261122); idx = rng.integers(0, n, (2000, n)); best = min(('sig167', 'sig250', 'sig167_m5'), key=lambda q: F[q].mean())
+    rng = np.random.default_rng(20261122); idx = rng.integers(0, n, (2000, n))
+    if os.environ.get('C11_KS'):
+        res = dict(n=n, rho=RHO, snrs=SNRS, fer={nm: float(F[nm].mean()) for nm in ARMS}, by_snr={str(q): {nm: float(F[nm][[r['snr'] == q for r in rows]].mean()) for nm in ARMS} for q in SNRS},
+                   diff_vs_base={nm: [float((F['base'] - F[nm]).mean())] + np.percentile((F['base'] - F[nm])[idx].mean(1), [2.5, 97.5]).tolist() for nm in ARMS if nm != 'base'})
+        json.dump(res, open(out / 'summary.json', 'w'), indent=1); print(json.dumps(res)); sys.exit()
+    best = min(('sig167', 'sig250', 'sig167_m5'), key=lambda q: F[q].mean())
     d = F[best] - F['learned']
     res = dict(n=n, rho=RHO, snrs=SNRS, fer={nm: float(F[nm].mean()) for nm in ARMS}, best_sigma_arm=best, diff_best_sigma_minus_learned=float(d.mean()),
                ci=np.percentile(d[idx].mean(1), [2.5, 97.5]).tolist())
