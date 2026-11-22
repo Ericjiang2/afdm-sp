@@ -1,4 +1,4 @@
-"""L2 runner c, card I-20261122-c28: LDPC inner iterations in the FIRST coded round of the main chain (feedback round): 50 (ref) vs
+"""L2 runner c, card I-20261122-c27: LDPC inner iterations in the FIRST coded round of the main chain (feedback round): 50 (ref) vs
 10 vs 5; the last round keeps 50.  rho=.10, with detector noise x1 (uncalibrated) and x2.5 (c11).  A1 untouched, nominal sigma2."""
 import argparse, json, os, sys
 from multiprocessing import get_context
@@ -7,7 +7,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).parent))
 import c_l2_c08_iface as m_
 RHO, SNRS, WORKERS, SCEN = m_.RHO, m_.SNRS, 5, ('U', 'G'); ITS = (50, 10, 5); KS = (1., 2.5)
-FRAMES = range(*(int(x) for x in os.environ.get('C28_FRAMES', '46760,46960').split(',')))
+FRAMES = range(*(int(x) for x in os.environ.get('C27_FRAMES', '46760,46960').split(',')))
 
 def chain(C, obs, truth, it0, K):
     st, ctx = C['stage3'], C['ctx']; nat = ctx.native; od = nat.decoder_messages; n = [0]
@@ -28,7 +28,7 @@ def job(args):
     return rows
 
 if __name__ == '__main__':
-    ap = argparse.ArgumentParser(); ap.add_argument('--out', default='out_c28'); ap.add_argument('--smoke', action='store_true'); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument('--out', default='out_c27'); ap.add_argument('--smoke', action='store_true'); a = ap.parse_args()
     if a.smoke:
         with get_context('spawn').Pool(5) as p: R = sum(p.map(job, [(f, s) for f in range(41000, 41010) for s in SCEN]), [])
         for snr in SNRS: print(snr, {k: float(np.mean([r['err'][k] > 0 for r in R if r['snr'] == snr])) for k in R[0]['err']}, 'syn', {k: float(np.mean([r['syn'][k] for r in R if r['snr'] == snr])) for k in R[0]['syn']})
