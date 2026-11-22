@@ -16,7 +16,7 @@
 
 4. 你做协议第 1–7 步（11-22 修订四：查新前置 + 取消 40% 子卡硬配额）：
    - 深想（含 ≤ 30 秒 `/opt/anaconda3/bin/python -c` 只读 NumPy 探针核对默认工况量级与最朴素基线，禁止盲写闭式增益）、L1 深度核查；每攒 5 张做一次只含自己 `g` 卡的筛选，两两排序交 Sol；子卡仅在评审或实测点名未解缺口时才长，无比例配额。
-   - **第 6 步（L2 前异族查新与原版直套初筛）**：筛选挑出的 `g` 卡在写 L2 仿真前先批量做异族查新（你自己出的 Gemini 卡交 `codex --search exec --sandbox read-only -m gpt-6.2-sol -` 或 `claude -p`，省下 Astra 额度；GPT/Claude 外部出的 `g` 卡交 agy Neon，模板见 `ideas/prompts/novelty-importance.md`），判 `(1a)`（算子未占）或 `(1b)`（过 `naive_port` 崩盘/降阶/反号检验的非平凡适配）的卡进第 7 步写 L2 脚本上 `deinlab`（L2 优先跑白送真值上限探针，算不过账一刀毙命）。
+   - **第 6 步（L2 前异族查新与原版直套初筛）**：筛选挑出的 `g` 卡在写 L2 仿真前先批量做异族查新（你自己出的 Gemini 卡交 `codex --search exec --sandbox read-only -m gpt-6.2-sol -` 或 `claude -p --model opus`，省下 Astra 额度；GPT/Claude 外部出的 `g` 卡交 agy Neon，模板见 `ideas/prompts/novelty-importance.md`），判 `(1a)`（算子未占）或 `(1b)`（过 `naive_port` 崩盘/降阶/反号检验的非平凡适配）的卡进第 7 步写 L2 脚本上 `deinlab`（L2 优先跑白送真值上限探针，算不过账一刀毙命）。
    - 统一筛选、第 8 步跨家族终审放行、升 L3、`funnel.py board`，这些都归 `l`，你不做。
    - 卡做完第 7 步 L2、可以送终审放行时，把 L2 结果写好，`next_cost` 写 `cross-model review`，提交；`l` 会在它的统一筛选时导入并跑第 8 步放行。之后你不再改这张卡。
    - 侧重：严守 `FUNNEL.md`「品味与边界」（不做雷达/感知、不做 AoA 测向；积极覆盖物理结构驱动的「通信 + 神经网络 / 深度展开」赛道与 `ABSTRACTION.md` §4 头号悬赏靶）。
