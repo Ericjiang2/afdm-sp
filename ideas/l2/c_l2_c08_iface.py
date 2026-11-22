@@ -10,7 +10,7 @@ EXP = Path(__file__).resolve().parents[2] / 'experiments/data_pilot_fer_20261121
 import stageA
 RHO = int(os.environ.get('C08_RHO', 100)); SNRS = tuple(int(x) for x in os.environ.get('C08_SNRS', '550,650').split(','))
 SCEN, WORKERS = ('U', 'G'), 5
-TRAIN, TEST = range(41460, 41560), range(41560, 41760)
+TRAIN = range(41460, 41560); TEST = range(*(int(x) for x in os.environ.get('C08_TEST', '41560,41760').split(',')))
 BASE = dict(a0=1., a1=1., b0=1., c0=1., m0=50)
 GRID = dict(a0=(.6, .8, 1.25), a1=(.6, .8, 1.25), b0=(.6, .8, 1.25), c0=(.6, .8, 1.25), m0=(5, 10, 20))
 
@@ -98,5 +98,7 @@ if __name__ == '__main__':
         rng = np.random.default_rng(20261122); idx = rng.integers(0, len(rows), (2000, len(rows)))
         res = dict(n=len(rows), learned=th, fer_base=A.mean(), fer_learned=B.mean(), diff=float((A - B).mean()),
                    ci=np.percentile((A[idx] - B[idx]).mean(1), [2.5, 97.5]).tolist(),
-                   f0_base=fer(rows, 'base', 'f0').mean(), f0_learned=fer(rows, 'learned', 'f0').mean())
+                   f0_base=fer(rows, 'base', 'f0').mean(), f0_learned=fer(rows, 'learned', 'f0').mean(),
+                   by_snr={str(q): dict(n=int(sum(r['snr'] == q for r in rows)), base=float(A[[r['snr'] == q for r in rows]].mean()),
+                                        learned=float(B[[r['snr'] == q for r in rows]].mean())) for q in SNRS})
         json.dump(res, open(out / 'test_summary.json', 'w'), indent=1); print(json.dumps(res))
