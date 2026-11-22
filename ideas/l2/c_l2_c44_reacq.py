@@ -47,7 +47,7 @@ def job(args):
         for c in (12, 16):
             if not E[-1][1]: break
             E.append(capped(C, c, lambda: w.run(C, obs, t, K)))
-        err['ens3'] = pick(E); err['reacq_ens'] = pick(R[:2] + E[1:2]); err['oracle'] = w.run(C, obs, t, K, (tl, tk))[0] if base[1] else base[0]
+        err['ens3'] = pick(E); err['ladder'] = pick(R + E[1:]); err['reacq_ens'] = pick(R[:2] + E[1:2]); err['oracle'] = w.run(C, obs, t, K, (tl, tk))[0] if base[1] else base[0]
         rawh, obsh, th = st.observed(ctx, bh, 250, snr); err['hard'] = w.run(C, obsh, th, 1.)[0]
         rows.append(dict(frame=frame, scenario=s_, snr=snr, err=err, fsyn=int(base[1]), und=int(sum(x[0] > 0 and not x[1] for x in R + E[1:])), q=q))
     return rows
@@ -68,5 +68,5 @@ if __name__ == '__main__':
     rng = np.random.default_rng(20261122); idx = rng.integers(0, n, (2000, n)); ci = lambda d: [float(d.mean())] + np.percentile(d[idx].mean(1), [2.5, 97.5]).tolist()
     res = dict(n=n, rho=RHO, K=K, snrs=SNRS, thr=THR, maxp=MAXP, fer={k: float(v.mean()) for k, v in F.items()}, fer_by_snr={str(s): {k: float(np.mean(v[[r['snr'] == s for r in rows]])) for k, v in F.items()} for s in SNRS},
                undetected=int(sum(r['und'] for r in rows)), q={k: float(np.mean([r['q'][k] for r in rows if k in r['q']])) for k in ('hit0', 'hit1', 'n1', 'hit2', 'n2') if any(k in r['q'] for r in rows)},
-               base_minus={k: ci(F['base'] - F[k]) for k in ('reacq', 'reacq2', 'ens3', 'reacq_ens')}, ens3_minus_reacq2=ci(F['ens3'] - F['reacq2']), hard_minus={k: ci(F['hard'] - F[k]) for k in ('reacq', 'reacq2', 'reacq_ens')})
+               base_minus={k: ci(F['base'] - F[k]) for k in ('reacq', 'reacq2', 'ens3', 'reacq_ens')}, ens3_minus_reacq2=ci(F['ens3'] - F['reacq2']), hard_minus={k: ci(F['hard'] - F[k]) for k in ('reacq', 'reacq2', 'reacq_ens', 'ladder')})
     json.dump(res, open(out / 'summary.json', 'w'), indent=1); print(json.dumps(res))
