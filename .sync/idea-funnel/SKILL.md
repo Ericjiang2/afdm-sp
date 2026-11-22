@@ -90,22 +90,40 @@ Tracks, so the round does not circle inside one pit (rough targets for the round
 - **adjacent** (about 25%): the same abstract problem class in another system or waveform (`ABSTRACTION.md` §3).
 - **explore** (about 15%): outside the project but within the owner's reach (for Eric: physical-layer signal processing,
   estimation, coding); judged by its value as a standalone Transactions paper.
-- **pit** (about 10%): questions the project's own premises (`ABSTRACTION.md` §5): if the pit is bad, this is how the
-  funnel finds out.
+- **pit** (at most about 10%): questions the premises of the problem itself (`ABSTRACTION.md` §5: the channel model,
+  the problem setting, whether the claimed bottleneck is real): if the pit is bad, this is how the funnel finds out.
+  Auditing the manuscript (claims stronger than evidence, unfair comparison tables, attribution sentences) is paper
+  self-review, not an idea: hand it to a paper-audit task, not a card. The reflection rule "do more of what produced
+  survivors" never raises the pit share, because premise checks pass review more easily than new ideas. A pit L3 does
+  not count toward `target_ready` or any idea tally. A pit card gets no free pass at step 6: no paper can contain our
+  own code, so its novelty question is instead "does the field already treat this premise as a known convention or
+  known caveat?" (for example per-frame channel normalisation, or fixed-gain detectors in benchmarks); if yes, KILL. It
+  must also name, before any check, which design decision or direction (not a sentence in the paper) flips if the
+  premise is wrong, with a pre-registered size threshold; a premise that changes only wording or a headline's size
+  is a paper-audit note, not a card.
 One idea in five is a wildcard: the generator chooses its own method, anchor and track.
 
 Each cycle:
 
-1. **Inspiration read** (about 10 minutes): skim 3–5 recent papers from the field rotation in `ABSTRACTION.md` §3, one
-   of them from a far field; note in `runs.md` the sparks and which open problem (§4) each bears on (METHODS M1). This
-   is reading for ideas, not checking novelty.
+1. **Inspiration / deep read** (about 10 minutes): if the funnel folder has a domain landscape map (e.g.
+   `AFDM_LANDSCAPE.md`, used as a reference map, never an exclusive whitelist), consult it and read 1–2 core papers on
+   the target subproblem in full (plus an occasional far-field paper from `ABSTRACTION.md` §3) rather than shallowly
+   skimming random preprints; otherwise skim 3–5 recent papers from `ABSTRACTION.md` §3. Note in `runs.md` where a
+   direct port stalls, the sparks and which open problem (§4) each bears on (METHODS M1). This is reading for ideas, not
+   checking novelty.
 2. **Think one idea through (L1).** Pick track, anchor and lens; use any method from METHODS that helps, or your own,
    and write `方法：<id 或 自己的>` in the first 筛选记录 line. Name the layer the idea attacks and its abstract problem
    class from your own decomposition, and look at how other fields with the same class handle it (G12). Then work it like a research conversation, not a list item: state the
    problem precisely; derive the key relation or an estimate with this project's numbers (formula and substitution), and
-   verify degrees of freedom, dimensionless effect size and the simplest sane baseline under default (not cherry-picked)
-   parameters with a ≤30 s read-only `/opt/anaconda3/bin/python -c` NumPy probe (import project transforms when
-   applicable; never guess closed-form gains by eye, and write no project files);
+   verify degrees of freedom, dimensionless effect size and the simplest sane baseline across 2–3 valid operating points
+   (not a single greenhouse point, nor artificial 5× extremes) with a ≤30 s read-only `/opt/anaconda3/bin/python -c`
+   NumPy probe (import project transforms when applicable; never guess closed-form gains by eye, and write no project
+   files). Align the probe metric with the mechanism so short probes do not false-kill coupled ideas: use mutual
+   information (MI/GMI, e.g. ≥0.05 bit/sym) or EXIT threshold rather than raw uncoded MSE for soft-output/coding loops,
+   and bound-tightening (≥1 dB) or a closed-form regime-flip boundary for bound/diagnostic cards. When an analogous
+   method already exists in another waveform/system, include a `naive_port` arm (direct basis/model substitution) in the
+   probe; when claiming a waveform-unique structural advantage, run a matched-parameter reference waveform (e.g. OFDM/OTFS)
+   and drop only if both accuracy (including tail/MI) and complexity order are identical (unitary equivalence);
    search the 3–5 closest works (`scoop-check`, `paper-search`, `literature-search`, `comm-lit-review` or plain web
    search) by abstract mathematical form as well as domain terms and say how each differs; write the three 去壳 sentences; name the cheapest check that could kill it; set
    `value` (3 = would change a design decision across a subfield, 2 = changes one system's design or a standard
@@ -140,12 +158,25 @@ Each cycle:
    operator/structure**, not scenario keywords; score **intrinsic importance** ("if nobody had done this before, would
    it merit a strong Transactions paper?") separately from **prior-art occupancy** (a high-intrinsic-value card killed
    by prior art is noted as a positive taste reference and its diagnostic numbers harvested, without running L2);
-   restate the claim in plain words with one everyday analogy, calling out common practice disguised in jargon; then, if
-   unoccupied, decide why — (1) nobody noticed, (2) noticed but unimportant in real systems (e.g. default protocol
-   parameters or a 5-minute 1D parameter sweep already avoid it), or (3) noticed but blocked or carrying a hidden system
-   cost — with evidence and real-system effect size. Only (1) advances to step 7 (L2 simulation); (2) is killed or
-   parked immediately (saving L2 compute; in AFDM round 3, 12 of 27 kills died at novelty after an hour of L2 work);
-   (3) becomes a gap child only if net headroom remains clear. Template: `prompts/novelty-importance.md`.
+   restate the claim in plain words with one everyday analogy, calling out common practice disguised in jargon; then:
+   - If the abstract operator is **unoccupied**, decide why — **(1a)** nobody noticed, **(2)** noticed but unimportant in
+     real systems (e.g. default protocol parameters or a 5-minute 1D parameter sweep already avoid it), or **(3)** noticed
+     but blocked or carrying a hidden system cost — with evidence and real-system effect size.
+   - If the operator **has prior art in another waveform/regime** (e.g. flat fading, OFDM, integer-grid OTFS) **but not in
+     the target setting**, do not auto-kill by operator name alone: apply the **Direct-Port (`naive_port`) Test**. Classify
+     as **(1b) non-trivial adaptation** when the L1 probe shows that directly porting the strongest prior-art baseline
+     (with its standard companion parts, across a valid standard/physical operating range) either (i) breaks down by
+     ≥0.8 dB (or ≥0.05 bit/sym MI) due to target-specific structure, (ii) suffers a complexity-order blow-up that the
+     proposed structure removes at matched accuracy, or (iii) exhibits a quantitative ranking or design-rule reversal
+     relative to the source regime (e.g. `21-l02`); otherwise classify as **(2) trivial port ("硬套")**. Bound/diagnostic
+     cards pass as **(1a)/(1b)** when they tighten a known bound by ≥1 dB or establish a closed-form regime-flip boundary.
+   - **Anti-false-kill symmetry**: when a card provides executed `naive_port` / MI / complexity numbers, the reviewer may
+     NOT kill it before L2 with a hand-waving "adapting from X looks straightforward"; to kill at step 6, the reviewer
+     must either cite prior art that already solved the same obstacle in an isomorphic setting or name the concrete
+     standard component omitted from `naive_port` (when uncertain, advance to step 7 L2).
+   Only **(1a)** and **(1b)** (collectively `(1)`) advance to step 7 (L2 simulation); **(2)** is killed or parked
+   immediately (saving L2 compute; in AFDM round 3, 12 of 27 kills died at novelty after an hour of L2 work); **(3)**
+   becomes a gap child only if net headroom remains clear. Template: `prompts/novelty-importance.md`.
 7. **L2 cheap evidence** on step-6 survivors, within the cap (`FUNNEL.md` may override CPU/GPU caps, e.g. ≤15 min
    lightweight training on `deinlab` for model-driven neural/unfolding cards): **run an oracle (white-box truth) upper-
    bound check first whenever constructible** — if gifting exact auxiliary truth still fails to beat the cost or the
@@ -167,7 +198,7 @@ Each cycle:
    per card for the strongest objection, whether baselines, attribution and the four simulation rules hold, and PASS /
    KILL / REVISE. Cards finishing mid-cycle wait for the next screening batch. Record reviewer, model and verdict in the
    card. PASS → L3 (a `pit` premise check reports a one-line boundary note to Eric rather than masquerading as a new
-   algorithm idea); KILL → killed; REVISE → gap child or back to L2. With no second family available, follow the out-of-
+   algorithm idea, and is not counted as an idea L3); KILL → killed; REVISE → gap child or back to L2. With no second family available, follow the out-of-
    quota rule above. (If a card's L2 was already pure arithmetic completed before step 6, steps 6 and 8 may merge into
    one call.)
 9. Run `board`; append progress to the round's line in `runs.md`; commit; continue.
