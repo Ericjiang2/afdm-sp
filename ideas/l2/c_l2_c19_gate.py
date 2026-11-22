@@ -12,6 +12,8 @@ import c_l2_c13_blind as b13
 import c_l2_c16_resid as b16
 WORKERS, SCEN = 5, ('U', 'G'); GRID = (1., 1.5, 2., 2.5, 3.2, 4.)
 CASES = ((100, (550, 650)), (250, (450, 500)))
+if os.environ.get('C19_CASES'):   # e.g. '150:450,500;200:450,500'
+    CASES = tuple((int(c.split(':')[0]), tuple(int(x) for x in c.split(':')[1].split(','))) for c in os.environ['C19_CASES'].split(';'))
 TRAIN = range(41460, 41560); TEST = range(*(int(x) for x in os.environ.get('C19_TEST', '43960,44160').split(',')))
 snap = lambda k: GRID[int(np.argmin([abs(np.log(k / g)) for g in GRID]))]
 gate = lambda w, ks, r: snap(float(np.exp(w[0] + w[1] * np.log(ks) + w[2] * np.log(max(r, 1e-3)))))
