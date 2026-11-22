@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).parent))
 import c_l2_c08_iface as m_
-SNRS, WORKERS, SCEN = m_.SNRS, 5, ('U', 'G'); RHO2 = int(os.environ.get('C31_RHO2', 100)); K2 = float(os.environ.get('C31_K2', 2.5)); DRIFT = float(os.environ.get('C31_DRIFT', .2))
+SNRS, WORKERS, SCEN = m_.SNRS, 5, ('U', 'G'); RHO2 = int(os.environ.get('C31_RHO2', 100)); K2 = float(os.environ.get('C31_K2', 2.5)); DRIFT = float(os.environ.get('C31_DRIFT', .2)); RHO1 = int(os.environ.get('C31_RHO1', 250)); K1 = float(os.environ.get('C31_K1', 1.))
 FRAMES = range(*(int(x) for x in os.environ.get('C31_FRAMES', '47960,48160').split(','))); OFF = 500000
 
 def tw_(C): return sys.modules[C['ctx'].native.scalar_joint.__module__]
@@ -38,12 +38,12 @@ def run(C, obs, truth, K, geom=None):
     return int(st.e1.gd.score(ctx, d['decoded'], truth)), int(ctx.hd.syndrome_weight(ctx, d["decoded"]) > 0), arr, int(syn > 0)
 
 def job(args):
-    frame, s_ = args; C = m_.stageA.setup(); st, ctx = C['stage3'], C['ctx']; b2 = st.inputs(ctx, frame, s_, RHO2); b1 = st.inputs(ctx, frame + OFF, s_, 250); rows = []
+    frame, s_ = args; C = m_.stageA.setup(); st, ctx = C['stage3'], C['ctx']; b2 = st.inputs(ctx, frame, s_, RHO2); b1 = st.inputs(ctx, frame + OFF, s_, RHO1); rows = []
     for snr in SNRS:
-        raw2, obs2, t2 = st.observed(ctx, b2, RHO2, snr); raw1, obs1, t1 = st.observed(ctx, b1, 250, snr); rng = np.random.default_rng([20261122, 31, frame, snr, 0 if s_ == 'U' else 1])
+        raw2, obs2, t2 = st.observed(ctx, b2, RHO2, snr); raw1, obs1, t1 = st.observed(ctx, b1, RHO1, snr); rng = np.random.default_rng([20261122, 31, frame, snr, 0 if s_ == 'U' else 1])
         l2, k2, g2 = np.asarray(t2['l_i']).astype(int), np.asarray(t2['k_real'], float), np.asarray(t2['g_i'], complex)
         o1 = resynth(C, raw1, obs1, t1, l2, k2 - rng.uniform(-DRIFT, DRIFT, len(l2)), np.abs(g2) * np.exp(2j * np.pi * rng.random(len(l2))))
-        e1, f1, a1, _ = run(C, o1, t1, 1.); geom = (a1['r1_delays'], a1['r1_dopplers']); err, ms = {}, {}
+        e1, f1, a1, _ = run(C, o1, t1, K1); geom = (a1['r1_delays'], a1['r1_dopplers']); err, ms = {}, {}
         err['cold'], _, _, ms['cold'] = run(C, obs2, t2, K2); err['warm'], _, _, ms['warm'] = run(C, obs2, t2, K2, geom); err['warm_ok'] = err['cold'] if f1 else err['warm']
         err['oracle'], _, _, ms['oracle'] = run(C, obs2, t2, K2, (l2, k2))
         rows.append(dict(frame=frame, scenario=s_, snr=snr, err=err, main_fail=ms, f1_err=e1, f1_fsyn=f1))
@@ -65,5 +65,6 @@ if __name__ == '__main__':
     res = dict(n=n, rho2=RHO2, snrs=SNRS, K2=K2, drift=DRIFT, fer={k: float(v.mean()) for k, v in F.items()}, fer_by_snr={str(s): {k: float(np.mean([r['err'][k] > 0 for r in rows if r['snr'] == s])) for k in F} for s in SNRS},
                frame1_fer=float(np.mean([r['f1_err'] > 0 for r in rows])), frame1_fer_by_snr={str(s): float(np.mean([r['f1_err'] > 0 for r in rows if r['snr'] == s])) for s in SNRS},
                main_fail={k: float(np.mean([r['main_fail'][k] for r in rows])) for k in rows[0]['main_fail']}, cold_minus={k: ci(F['cold'] - F[k]) for k in F if k != 'cold'},
+               rho1=RHO1, K1=K1, frame1_minus_warm=ci(np.array([r['f1_err'] > 0 for r in rows], float) - F['warm']),
                frame1_minus_warm_ok=ci(np.array([r['f1_err'] > 0 for r in rows], float) - F['warm_ok']))
     json.dump(res, open(out / 'summary.json', 'w'), indent=1); print(json.dumps(res))
