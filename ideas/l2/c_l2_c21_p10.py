@@ -7,6 +7,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).parent))
 import c_l2_c08_iface as m_
 import c_l2_c13_blind as b13
+import c_l2_c16_resid as b16
+import c_l2_c19_gate as g19
+W = (.2, .25, 1.)   # frozen c19 weights
 RHO, SNRS, WORKERS, SCEN = m_.RHO, m_.SNRS, 5, ('U', 'G'); P = int(os.environ.get('C21_P', 10))
 FRAMES = range(*(int(x) for x in os.environ.get('C21_FRAMES', '44360,44560').split(',')))
 KS = tuple(float(x) for x in os.environ.get('C21_KS', '1.5,2.5').split(','))
@@ -18,8 +21,9 @@ def job(args):
         raw, obs, truth = st.observed(ctx, base, RHO, snr); err = {}
         d, arr, syn, s = b13.f0(C, obs, 'none'); err['base'] = b13.finish(C, obs, truth, d, arr, syn); k = float(np.clip(1 / s[0], 1., 10.))
         err['blind'] = err['base'] if k == 1. else b13.finish(C, obs, truth, *b13.f0(C, obs, 'none', k=k)[:3])
+        kg = g19.gate(W, k, float(b16.resid_factor(ctx, obs, arr)[1])); err['gate'] = err['base'] if kg == 1. else b13.finish(C, obs, truth, *b13.f0(C, obs, 'none', k=kg)[:3])
         for kk in KS: err[f'sig{kk:g}'] = b13.finish(C, obs, truth, *b13.f0(C, obs, 'none', k=kk)[:3])
-        rows.append(dict(frame=frame, scenario=s_, snr=snr, err=err, k=k, P=int(len(np.asarray(base[0]['params']['l_i'])))))
+        rows.append(dict(frame=frame, scenario=s_, snr=snr, err=err, k=k, kg=kg, P=int(len(np.asarray(base[0]['params']['l_i'])))))
     return rows
 
 if __name__ == '__main__':
