@@ -1,0 +1,676 @@
+{
+  "card_id": "I-20261125-h02",
+  "run_type": "modified_eval_and_controls_unseen_seed_test",
+  "run_label_zh": "修正评测与单因子对照后的新种子检验",
+  "python_executable": "/home/guoyikun/.conda/envs/AFDM/bin/python",
+  "workers": 8,
+  "elapsed_sec": 407.69,
+  "smoke_mode": false,
+  "liu26_wmmse_iters": 20,
+  "seed_bases": {
+    "z0": 500000,
+    "z1": 600000,
+    "s2": 700000
+  },
+  "red_line_1_invariants": {
+    "max_cpp_operator_rel_err": 4.769183505911061e-16,
+    "liu26_fig1a_wmmse_sum_rate_trajectory_bps_hz": [
+      6.2182,
+      9.414,
+      10.6457,
+      10.881,
+      11.049,
+      11.1858
+    ]
+  },
+  "hygiene": {
+    "z0_max_baseline_ser": 0.009398370726495728,
+    "z0_all_below_1pct": true,
+    "prop_z1_val_pfa_blind": 0.028125,
+    "p2_radar_val_pfa_blind": {
+      "Prop_BeamMatchedDualISAC_AFDM": 0.028125,
+      "Prop_SameWave_Short8xQ2_AFDM": 0.065625,
+      "ExtrapBlockRZF_Short8xQ2_AFDM": 0.053125
+    },
+    "pfa_hygiene_ok": true,
+    "p1_hw_checks": {
+      "did_all3_bonf_hw_ok": true,
+      "did_all9_pairs_bonf_hw_ok": true,
+      "geom_all3_bonf_log_hw_ok": true,
+      "cross_snr_2db_all3_bonf_hw_ok": true
+    },
+    "p2_hw_checks": {
+      "rivals_hw_ok": true,
+      "pure_aging_full16_hw_ok": true,
+      "blind_pd_hw_ok": true,
+      "blind_pd_samewave_hw_ok": true,
+      "rec_aonly_hw_ok": true,
+      "rec_bonly_hw_ok": true,
+      "aonly_gap_hw_ok": true,
+      "bonly_gap_hw_ok": true,
+      "nocomm_gap_hw_ok": true,
+      "norad_gap_hw_ok": true
+    }
+  },
+  "z0_static_28dB": {
+    "ser": {
+      "Prop_BeamMatchedDualISAC_AFDM": {
+        "mean": 0.0003672542735042735,
+        "se": 0.00021344820891358796,
+        "ci95_low": -5.1104215966358895e-05,
+        "ci95_high": 0.0007856127629749059,
+        "ci95_half_width": 0.0004183584894706324
+      },
+      "Oracle_TrueEffH_AFDM": {
+        "mean": 7.51201923076923e-05,
+        "se": 4.7391326899810655e-05,
+        "ci95_low": -1.776680841593659e-05,
+        "ci95_high": 0.0001680071930313212,
+        "ci95_half_width": 9.288700072362889e-05
+      },
+      "Oracle_TrueEffH_OFDM_Comb": {
+        "mean": 0.004765958867521368,
+        "se": 0.000893511557096315,
+        "ci95_low": 0.0030146762156125907,
+        "ci95_high": 0.006517241519430145,
+        "ci95_half_width": 0.0017512826519087772
+      },
+      "OFDM_Comb_JointWLS_DualISAC": {
+        "mean": 0.006268362713675213,
+        "se": 0.0011215855344555196,
+        "ci95_low": 0.004070055066142395,
+        "ci95_high": 0.008466670361208031,
+        "ci95_half_width": 0.002198307647532818
+      },
+      "OFDM_HillClimb_JointWLS_ISAC": {
+        "mean": 0.009331597222222222,
+        "se": 0.0016795436867337921,
+        "ci95_low": 0.006039691596223989,
+        "ci95_high": 0.012623502848220454,
+        "ci95_half_width": 0.0032919056259982328
+      },
+      "OFDM_ExtrapBlockRZF": {
+        "mean": 0.0,
+        "se": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "ci95_half_width": 0.0
+      },
+      "Liu26_PerBinWMMSE_Aged_AFDM": {
+        "mean": 0.006059695512820513,
+        "se": 0.0018123876017590408,
+        "ci95_low": 0.002507415813372793,
+        "ci95_high": 0.009611975212268233,
+        "ci95_half_width": 0.00355227969944772
+      },
+      "ExtrapBlockRZF_Aged_AFDM": {
+        "mean": 0.0014105902777777775,
+        "se": 0.000709399898027226,
+        "ci95_low": 2.0166477644414536e-05,
+        "ci95_high": 0.0028010140779111403,
+        "ci95_half_width": 0.001390423800133363
+      },
+      "ExtrapBlockRZF_UnagedQ0_AFDM": {
+        "mean": 0.0012019230769230768,
+        "se": 0.0007582612303969705,
+        "ci95_low": -0.0002842689346549854,
+        "ci95_high": 0.002688115088501139,
+        "ci95_half_width": 0.0014861920115780622
+      },
+      "ExtrapBlockRZF_UnagedFull16_AFDM": {
+        "mean": 0.0014105902777777775,
+        "se": 0.000709399898027226,
+        "ci95_low": 2.0166477644414536e-05,
+        "ci95_high": 0.0028010140779111403,
+        "ci95_half_width": 0.001390423800133363
+      },
+      "ExtrapBlockRZF_Short8xQ2_AFDM": {
+        "mean": 0.0014105902777777775,
+        "se": 0.000709399898027226,
+        "ci95_low": 2.0166477644414536e-05,
+        "ci95_high": 0.0028010140779111403,
+        "ci95_half_width": 0.001390423800133363
+      },
+      "DDAM_CleanFullEq_AFDM": {
+        "mean": 0.009398370726495728,
+        "se": 0.002024561922982173,
+        "ci95_low": 0.005430229357450669,
+        "ci95_high": 0.013366512095540788,
+        "ci95_half_width": 0.003968141369045059
+      },
+      "Abl_Aonly_PathNull_NoTrack_AFDM": {
+        "mean": 0.00025040064102564106,
+        "se": 0.00013821828646249802,
+        "ci95_low": -2.050720044085506e-05,
+        "ci95_high": 0.0005213084824921372,
+        "ci95_half_width": 0.0002709078414664961
+      },
+      "Abl_Bonly_MRT_WithTrack_AFDM": {
+        "mean": 0.15901275373931623,
+        "se": 0.008451699630658182,
+        "ci95_low": 0.1424474224632262,
+        "ci95_high": 0.17557808501540625,
+        "ci95_half_width": 0.016565331276090035
+      },
+      "Abl_NoCommNull_KeepRadNull_AFDM": {
+        "mean": 0.03414630074786325,
+        "se": 0.0036935611385286097,
+        "ci95_low": 0.026906920916347173,
+        "ci95_high": 0.04138568057937932,
+        "ci95_half_width": 0.007239379831516075
+      },
+      "Abl_KeepCommNull_NoRadNull_AFDM": {
+        "mean": 0.10212172809829059,
+        "se": 0.006238113715411327,
+        "ci95_low": 0.08989502521608439,
+        "ci95_high": 0.1143484309804968,
+        "ci95_half_width": 0.012226702882206201
+      }
+    },
+    "radar": {
+      "Prop_BeamMatchedDualISAC_AFDM": {
+        "win_pd": 1.0,
+        "val_pfa_win": 0.03333333333333333,
+        "loc_blind_pd": 1.0,
+        "val_pfa_blind": 0.041666666666666664,
+        "proj_keep_db": -0.03269781783666532,
+        "calls": {
+          "cal": 120,
+          "val": 120,
+          "pos": 64
+        }
+      },
+      "Prop_SameWave_Short8xQ2_AFDM": {
+        "win_pd": 1.0,
+        "val_pfa_win": 0.041666666666666664,
+        "loc_blind_pd": 0.140625,
+        "val_pfa_blind": 0.041666666666666664,
+        "proj_keep_db": -5.761383199266072,
+        "calls": {
+          "cal": 120,
+          "val": 120,
+          "pos": 64
+        }
+      },
+      "OFDM_Comb_JointWLS_DualISAC": {
+        "win_pd": 1.0,
+        "val_pfa_win": 0.09166666666666666,
+        "loc_blind_pd": 1.0,
+        "val_pfa_blind": 0.06666666666666667,
+        "proj_keep_db": -0.03239118994257638,
+        "calls": {
+          "cal": 120,
+          "val": 120,
+          "pos": 64
+        }
+      },
+      "ExtrapBlockRZF_Short8xQ2_AFDM": {
+        "win_pd": 1.0,
+        "val_pfa_win": 0.125,
+        "loc_blind_pd": 0.0,
+        "val_pfa_blind": 0.041666666666666664,
+        "proj_keep_db": -5.751995965336672,
+        "calls": {
+          "cal": 120,
+          "val": 120,
+          "pos": 64
+        }
+      }
+    },
+    "primary_ofdm_prelocked": "OFDM_Comb_JointWLS_DualISAC"
+  },
+  "z1_dynamic_28dB": {
+    "ser": {
+      "Prop_BeamMatchedDualISAC_AFDM": {
+        "mean": 0.0300684799382716,
+        "se": 0.001058994667032325,
+        "ci95_low": 0.027992850390888245,
+        "ci95_high": 0.03214410948565496,
+        "ci95_half_width": 0.002075629547383357
+      },
+      "Oracle_TrueEffH_AFDM": {
+        "mean": 5.008012820512821e-05,
+        "se": 1.5817299880912543e-05,
+        "ci95_low": 1.9078220438539624e-05,
+        "ci95_high": 8.10820359717168e-05,
+        "ci95_half_width": 3.1001907766588586e-05
+      },
+      "Oracle_TrueEffH_OFDM_Comb": {
+        "mean": 0.0006213645536562203,
+        "se": 6.935598368105954e-05,
+        "ci95_low": 0.00048542682564134355,
+        "ci95_high": 0.000757302281671097,
+        "ci95_half_width": 0.0001359377280148767
+      },
+      "OFDM_Comb_JointWLS_DualISAC": {
+        "mean": 0.17466650344254508,
+        "se": 0.0028536188885282237,
+        "ci95_low": 0.16907341042102977,
+        "ci95_high": 0.1802595964640604,
+        "ci95_half_width": 0.0055930930215153185
+      },
+      "OFDM_HillClimb_JointWLS_ISAC": {
+        "mean": 0.36210158475783477,
+        "se": 0.00436238915873178,
+        "ci95_low": 0.35355130200672047,
+        "ci95_high": 0.3706518675089491,
+        "ci95_half_width": 0.008550282751114288
+      },
+      "OFDM_ExtrapBlockRZF": {
+        "mean": 0.6935374376780626,
+        "se": 0.004277586287135263,
+        "ci95_low": 0.6851533685552775,
+        "ci95_high": 0.7019215068008477,
+        "ci95_half_width": 0.008384069122785116
+      },
+      "Liu26_PerBinWMMSE_Aged_AFDM": {
+        "mean": 0.7150329415954416,
+        "se": 0.004715356291361541,
+        "ci95_low": 0.705790843264373,
+        "ci95_high": 0.7242750399265102,
+        "ci95_half_width": 0.009242098331068621
+      },
+      "ExtrapBlockRZF_Aged_AFDM": {
+        "mean": 0.7069143963675214,
+        "se": 0.004154925939252795,
+        "ci95_low": 0.6987707415265859,
+        "ci95_high": 0.7150580512084569,
+        "ci95_half_width": 0.008143654840935478
+      },
+      "ExtrapBlockRZF_UnagedQ0_AFDM": {
+        "mean": 0.338230056980057,
+        "se": 0.008727633277583526,
+        "ci95_low": 0.32112389575599326,
+        "ci95_high": 0.3553362182041207,
+        "ci95_half_width": 0.01710616122406371
+      },
+      "ExtrapBlockRZF_UnagedFull16_AFDM": {
+        "mean": 0.3334742996201329,
+        "se": 0.005419501866148128,
+        "ci95_low": 0.3228520759624826,
+        "ci95_high": 0.34409652327778323,
+        "ci95_half_width": 0.010622223657650332
+      },
+      "ExtrapBlockRZF_Short8xQ2_AFDM": {
+        "mean": 0.41210010090218424,
+        "se": 0.005616199199623164,
+        "ci95_low": 0.40109235047092284,
+        "ci95_high": 0.42310785133344564,
+        "ci95_half_width": 0.011007750431261402
+      },
+      "DDAM_CleanFullEq_AFDM": {
+        "mean": 0.5271452843067426,
+        "se": 0.005502215875684352,
+        "ci95_low": 0.5163609411904012,
+        "ci95_high": 0.5379296274230839,
+        "ci95_half_width": 0.010784343116341329
+      },
+      "Abl_Aonly_PathNull_NoTrack_AFDM": {
+        "mean": 0.8696822323124407,
+        "se": 0.0008816206697778712,
+        "ci95_low": 0.8679542557996761,
+        "ci95_high": 0.8714102088252053,
+        "ci95_half_width": 0.0017279765127646276
+      },
+      "Abl_Bonly_MRT_WithTrack_AFDM": {
+        "mean": 0.20250919990503324,
+        "se": 0.002833812336421551,
+        "ci95_low": 0.19695492772564702,
+        "ci95_high": 0.20806347208441947,
+        "ci95_half_width": 0.00555427217938624
+      },
+      "Abl_NoCommNull_KeepRadNull_AFDM": {
+        "mean": 0.09350887345679013,
+        "se": 0.0021539765786792666,
+        "ci95_low": 0.08928707936257876,
+        "ci95_high": 0.09773066755100149,
+        "ci95_half_width": 0.004221794094211363
+      },
+      "Abl_KeepCommNull_NoRadNull_AFDM": {
+        "mean": 0.1546233232431149,
+        "se": 0.0021773449921172416,
+        "ci95_low": 0.1503557270585651,
+        "ci95_high": 0.1588909194276647,
+        "ci95_half_width": 0.004267596184549793
+      },
+      "Prop_BeamMatchedDualISAC_AFDM_26dB": {
+        "mean": 0.032142168209876545,
+        "se": 0.0010960573306066717,
+        "ci95_low": 0.02999389584188747,
+        "ci95_high": 0.03429044057786562,
+        "ci95_half_width": 0.0021482723679890764
+      }
+    },
+    "radar": {
+      "Prop_BeamMatchedDualISAC_AFDM": {
+        "win_pd": 1.0,
+        "val_pfa_win": 0.05625,
+        "loc_blind_pd": 1.0,
+        "val_pfa_blind": 0.028125,
+        "proj_keep_db": -0.7435845210025649,
+        "calls": {
+          "cal": 320,
+          "val": 320,
+          "pos": 288
+        }
+      },
+      "Prop_SameWave_Short8xQ2_AFDM": {
+        "win_pd": 0.06944444444444445,
+        "val_pfa_win": 0.046875,
+        "loc_blind_pd": 0.0,
+        "val_pfa_blind": 0.065625,
+        "proj_keep_db": -55.151675091910604,
+        "calls": {
+          "cal": 320,
+          "val": 320,
+          "pos": 288
+        }
+      },
+      "OFDM_Comb_JointWLS_DualISAC": {
+        "win_pd": 1.0,
+        "val_pfa_win": 0.0375,
+        "loc_blind_pd": 1.0,
+        "val_pfa_blind": 0.03125,
+        "proj_keep_db": -0.7488964973280741,
+        "calls": {
+          "cal": 320,
+          "val": 320,
+          "pos": 288
+        }
+      },
+      "ExtrapBlockRZF_Short8xQ2_AFDM": {
+        "win_pd": 0.04861111111111111,
+        "val_pfa_win": 0.05,
+        "loc_blind_pd": 0.0,
+        "val_pfa_blind": 0.053125,
+        "proj_keep_db": -53.007941453520644,
+        "calls": {
+          "cal": 320,
+          "val": 320,
+          "pos": 288
+        }
+      }
+    },
+    "primary_ofdm_prelocked": "OFDM_Comb_JointWLS_DualISAC"
+  },
+  "primary_criteria": {
+    "P1": {
+      "pass": true,
+      "bonferroni_z_m3": 2.3939797998185104,
+      "bonferroni_z_m9": 2.772921294608663,
+      "did_ser_by_fixed_ofdm": {
+        "OFDM_Comb_JointWLS_DualISAC": {
+          "mean": 0.13869691506410256,
+          "se": 0.0026280575398996424,
+          "ci95_low": 0.13354592228589926,
+          "ci95_half_width": 0.005150992778203299,
+          "bonf95_low": 0.13240539840082208,
+          "bonf95_half_width": 0.006291516663280473,
+          "max_hw_25pct": 0.02,
+          "threshold": 0.08
+        },
+        "OFDM_HillClimb_JointWLS_ISAC": {
+          "mean": 0.32306876187084516,
+          "se": 0.004200982744863792,
+          "ci95_low": 0.31483483569091214,
+          "ci95_half_width": 0.008233926179933033,
+          "bonf95_low": 0.31301169404025514,
+          "bonf95_half_width": 0.010057067830590037,
+          "max_hw_25pct": 0.02,
+          "threshold": 0.08
+        },
+        "OFDM_ExtrapBlockRZF": {
+          "mean": 0.6638362120132953,
+          "se": 0.004111127430347342,
+          "ci95_low": 0.6557784022498145,
+          "ci95_half_width": 0.00805780976348079,
+          "bonf95_low": 0.653994255990564,
+          "bonf95_half_width": 0.009841956022731317,
+          "max_hw_25pct": 0.02,
+          "threshold": 0.08
+        }
+      },
+      "worst_cross_arm_did": {
+        "worst_pair": "OFDM_Comb_JointWLS_DualISAC__minus__OFDM_HillClimb_JointWLS_ISAC",
+        "mean": 0.13563368055555555,
+        "se": 0.0028827280727990855,
+        "ci95_low": 0.12998353353286934,
+        "ci95_half_width": 0.005650147022686207,
+        "bonf95_low": 0.12764010249592478,
+        "bonf95_half_width": 0.007993578059630777,
+        "max_hw_25pct": 0.02,
+        "threshold": 0.08
+      },
+      "geom_ratio_by_fixed_ofdm_28dB": {
+        "OFDM_Comb_JointWLS_DualISAC": {
+          "geom_mean": 7.111334341870368,
+          "ci95_low": 6.519913684573394,
+          "ci95_high": 7.756402702311817,
+          "log_half_width": 0.08682876006769173,
+          "bonf95_low": 6.395762513842518,
+          "bonf95_log_half_width": 0.1060542334925215,
+          "max_log_hw_25pct": 0.22314355131420974,
+          "threshold": 3.2
+        },
+        "OFDM_HillClimb_JointWLS_ISAC": {
+          "geom_mean": 15.02260625036856,
+          "ci95_low": 13.75078454694367,
+          "ci95_high": 16.412059819799385,
+          "log_half_width": 0.08846026950533838,
+          "bonf95_low": 13.48407232376341,
+          "bonf95_log_half_width": 0.10804698891953135,
+          "max_log_hw_25pct": 0.22314355131420974,
+          "threshold": 3.2
+        },
+        "OFDM_ExtrapBlockRZF": {
+          "geom_mean": 29.28779386038096,
+          "ci95_low": 26.528192241924497,
+          "ci95_high": 32.334463705090414,
+          "log_half_width": 0.09896281174675743,
+          "bonf95_low": 25.953224279475197,
+          "bonf95_log_half_width": 0.1208749858443772,
+          "max_log_hw_25pct": 0.22314355131420974,
+          "threshold": 3.2
+        }
+      },
+      "cross_snr_2db_by_fixed_ofdm": {
+        "OFDM_Comb_JointWLS_DualISAC": {
+          "mean": 0.14252433523266855,
+          "se": 0.0024210610552222395,
+          "ci95_low": 0.13777905556443296,
+          "ci95_high": 0.14726961490090415,
+          "ci95_half_width": 0.004745279668235589,
+          "bonf95_low": 0.13672836397233923,
+          "bonf95_half_width": 0.005795971260329329,
+          "max_hw_25pct": 0.0125,
+          "threshold": 0.05
+        },
+        "OFDM_HillClimb_JointWLS_ISAC": {
+          "mean": 0.32995941654795824,
+          "se": 0.003895589364867134,
+          "ci95_low": 0.32232406139281866,
+          "ci95_high": 0.3375947717030978,
+          "ci95_half_width": 0.0076353551551395825,
+          "bonf95_low": 0.3206334543000785,
+          "bonf95_half_width": 0.00932596224787974,
+          "max_hw_25pct": 0.0125,
+          "threshold": 0.05
+        },
+        "OFDM_ExtrapBlockRZF": {
+          "mean": 0.661395269468186,
+          "se": 0.004100655845916836,
+          "ci95_low": 0.6533579840101891,
+          "ci95_high": 0.669432554926183,
+          "ci95_half_width": 0.008037285457996998,
+          "bonf95_low": 0.6515783822070534,
+          "bonf95_half_width": 0.009816887261132591,
+          "max_hw_25pct": 0.0125,
+          "threshold": 0.05
+        }
+      }
+    },
+    "P2": {
+      "pass": true,
+      "rival_afdm_ser_diffs": {
+        "Liu26_PerBinWMMSE_Aged_AFDM": {
+          "mean": 0.68496446165717,
+          "se": 0.00462277692429311,
+          "ci95_low": 0.6759038188855555,
+          "ci95_high": 0.6940251044287844,
+          "ci95_half_width": 0.009060642771614495
+        },
+        "ExtrapBlockRZF_Aged_AFDM": {
+          "mean": 0.6768459164292497,
+          "se": 0.004054399474323319,
+          "ci95_low": 0.668899293459576,
+          "ci95_high": 0.6847925393989235,
+          "ci95_half_width": 0.007946622969673705
+        },
+        "DDAM_CleanFullEq_AFDM": {
+          "mean": 0.497076804368471,
+          "se": 0.00524236217629588,
+          "ci95_low": 0.4868017745029311,
+          "ci95_high": 0.507351834234011,
+          "ci95_half_width": 0.010275029865539924
+        }
+      },
+      "pure_aging_full16_aged_minus_unaged": {
+        "mean": 0.37344009674738843,
+        "se": 0.005186651846045122,
+        "ci95_low": 0.36327425912913996,
+        "ci95_high": 0.3836059343656369,
+        "ci95_half_width": 0.010165837618248437,
+        "max_hw_25pct": 0.05,
+        "threshold": 0.2
+      },
+      "loc_blind_pd_diff_q16_minus_short8xq2": {
+        "mean": 1.0,
+        "ci95_low": 0.9813849503423808,
+        "ci95_high": 1.0,
+        "ci95_half_width": 0.018615049657619176,
+        "max_hw_25pct": 0.1375,
+        "threshold": 0.55
+      },
+      "loc_blind_pd_diff_q16_minus_samewave_short8xq2": {
+        "mean": 1.0,
+        "ci95_low": 0.9813849503423808,
+        "ci95_high": 1.0,
+        "ci95_half_width": 0.018615049657619176,
+        "max_hw_25pct": 0.1375,
+        "threshold": 0.55
+      },
+      "ablation_recovery_aonly": {
+        "mean": -0.2404798965229973,
+        "ci95_low": -0.25555948115071575,
+        "ci95_high": -0.22563828558820226,
+        "ci95_half_width": 0.014960597781256746,
+        "max_hw_25pct": 0.05,
+        "threshold_upper": 0.8
+      },
+      "ablation_recovery_bonly_mrt": {
+        "mean": 0.7452289867146051,
+        "ci95_low": 0.7363273119400618,
+        "ci95_high": 0.7540542255974617,
+        "ci95_half_width": 0.008863456828699934,
+        "max_hw_25pct": 0.05,
+        "threshold_upper": 0.8
+      },
+      "aonly_minus_prop_ser": {
+        "mean": 0.839613752374169,
+        "se": 0.0013002394525194751,
+        "ci95_low": 0.8370652830472308,
+        "ci95_high": 0.8421622217011072,
+        "ci95_half_width": 0.0025484693269381712,
+        "max_hw_25pct": 0.02,
+        "threshold": 0.08
+      },
+      "bonly_minus_prop_ser": {
+        "mean": 0.17244071996676164,
+        "se": 0.002741606861373096,
+        "ci95_low": 0.16706717051847036,
+        "ci95_high": 0.1778142694150529,
+        "ci95_half_width": 0.005373549448291268,
+        "max_hw_25pct": 0.02,
+        "threshold": 0.08
+      },
+      "single_submech_nocomm_keep_radnull_minus_prop_ser": {
+        "mean": 0.06344039351851852,
+        "se": 0.0018426784120075881,
+        "ci95_low": 0.05982874383098365,
+        "ci95_high": 0.06705204320605339,
+        "ci95_half_width": 0.0036116496875348725,
+        "max_hw_25pct": 0.01,
+        "threshold": 0.04
+      },
+      "single_submech_keep_commnull_noradnull_minus_prop_ser": {
+        "mean": 0.12455484330484329,
+        "se": 0.0019385275522588788,
+        "ci95_low": 0.12075532930241589,
+        "ci95_high": 0.12835435730727068,
+        "ci95_half_width": 0.0037995140024274024,
+        "max_hw_25pct": 0.02,
+        "threshold": 0.08
+      }
+    }
+  },
+  "scope_readouts": {
+    "pure_aging_isolation_z1": {
+      "ExtrapBlockRZF_UnagedQ0_AFDM": {
+        "mean": 0.338230056980057,
+        "se": 0.008727633277583526,
+        "ci95_low": 0.32112389575599326,
+        "ci95_high": 0.3553362182041207,
+        "ci95_half_width": 0.01710616122406371
+      },
+      "ExtrapBlockRZF_UnagedFull16_AFDM": {
+        "mean": 0.3334742996201329,
+        "se": 0.005419501866148128,
+        "ci95_low": 0.3228520759624826,
+        "ci95_high": 0.34409652327778323,
+        "ci95_half_width": 0.010622223657650332
+      },
+      "ExtrapBlockRZF_Aged_AFDM": {
+        "mean": 0.7069143963675214,
+        "se": 0.004154925939252795,
+        "ci95_low": 0.6987707415265859,
+        "ci95_high": 0.7150580512084569,
+        "ci95_half_width": 0.008143654840935478
+      },
+      "Prop_BeamMatchedDualISAC_AFDM": {
+        "mean": 0.0300684799382716,
+        "se": 0.001058994667032325,
+        "ci95_low": 0.027992850390888245,
+        "ci95_high": 0.03214410948565496,
+        "ci95_half_width": 0.002075629547383357
+      }
+    },
+    "nt16_k4_snr26dB": {
+      "Prop_BeamMatchedDualISAC_AFDM": {
+        "mean": 0.03839476495726496,
+        "se": 0.0021059627833688297,
+        "ci95_low": 0.03426707790186205,
+        "ci95_high": 0.04252245201266787,
+        "ci95_half_width": 0.004127687055402906
+      },
+      "OFDM_Comb_JointWLS_DualISAC": {
+        "mean": 0.17560596955128205,
+        "se": 0.006248816828651389,
+        "ci95_low": 0.16335828856712534,
+        "ci95_high": 0.18785365053543876,
+        "ci95_half_width": 0.012247680984156722
+      },
+      "ExtrapBlockRZF_Aged_AFDM": {
+        "mean": 0.659405048076923,
+        "se": 0.01098309354122803,
+        "ci95_low": 0.6378781847361161,
+        "ci95_high": 0.6809319114177299,
+        "ci95_half_width": 0.02152686334080694
+      }
+    }
+  },
+  "verdicts": {
+    "P1": true,
+    "P2": true,
+    "PASS_PRIMARY": true
+  }
+}

@@ -1,0 +1,2116 @@
+{
+  "meta": {
+    "card": "I-20261125-m03",
+    "parent": "I-20261125-m02",
+    "test_type": "modified_method_new_seed_test",
+    "label_zh": "\u4fee\u6539\u65b9\u6cd5\u540e\u7684\u65b0\u79cd\u5b50\u68c0\u9a8c",
+    "group": "[\u653e\u5bbdTWC]",
+    "track": "[\u8f68A-\u7eaf\u901a\u4fe1]",
+    "seed_base": 2027100001,
+    "bound_seed_base": 2027200001,
+    "smoke": false,
+    "n_workers": 8,
+    "python": "/home/guoyikun/.conda/envs/AFDM/bin/python",
+    "timestamp": "2026-11-25 13:17:42"
+  },
+  "startup_gates": {
+    "fd_jacobian_rel_err": 8.419558741612349e-10,
+    "leak_n512_obs72_db": -28.613472299801316,
+    "leak_n512_full_guard_db": -8.719335375110937,
+    "leak_n256_obs38_db": -28.86426309744993,
+    "leak_n256_full_guard_db": -8.705893543218906
+  },
+  "analytical_lumped_bound": {
+    "L12_3path_N512": {
+      "n_mc": 400,
+      "bound_ch_seed": 2027200002,
+      "bound_mc_seed": 2027200003,
+      "ana_cov_db": -24.06462550401765,
+      "ana_jensen_db": -24.07406576007795,
+      "mc_indep_db": -24.01988497041493,
+      "mc_indep_db_fieller_ci95": [
+        -24.09366467125073,
+        -23.94712038755122
+      ],
+      "mc_indep_db_halfwidth": 0.07327214184975439,
+      "mc_samplewise_genie_db": -27.047911886880428,
+      "err_cov_db": 0.04474053360271668,
+      "err_cov_ci95_upper_db": 0.11750511646642892,
+      "err_jensen_db": 0.054180789663020874,
+      "indep_to_genie_ratio": 2.008180250334966
+    },
+    "L16_3path_N512": {
+      "n_mc": 400,
+      "bound_ch_seed": 2027210002,
+      "bound_mc_seed": 2027210003,
+      "ana_cov_db": -22.795207934551044,
+      "ana_jensen_db": -22.809680714222175,
+      "mc_indep_db": -22.77432878778893,
+      "mc_indep_db_fieller_ci95": [
+        -22.865007454799297,
+        -22.68524082524219
+      ],
+      "mc_indep_db_halfwidth": 0.08988331477855382,
+      "mc_samplewise_genie_db": -25.820710823639423,
+      "err_cov_db": 0.020879146762112555,
+      "err_cov_ci95_upper_db": 0.10996710930885456,
+      "err_jensen_db": 0.03535192643324385,
+      "indep_to_genie_ratio": 2.016685629385323
+    },
+    "L8_4path_N256": {
+      "n_mc": 400,
+      "bound_ch_seed": 2027220002,
+      "bound_mc_seed": 2027220003,
+      "ana_cov_db": -25.95169720492317,
+      "ana_jensen_db": -25.95816418469827,
+      "mc_indep_db": -25.913671335935625,
+      "mc_indep_db_fieller_ci95": [
+        -26.0051586809306,
+        -25.823688092652752
+      ],
+      "mc_indep_db_halfwidth": 0.09073529413892345,
+      "mc_samplewise_genie_db": -28.961139918292194,
+      "err_cov_db": 0.03802586898754612,
+      "err_cov_ci95_upper_db": 0.12800911227041922,
+      "err_jensen_db": 0.04449284876264606,
+      "indep_to_genie_ratio": 2.017190240184196
+    }
+  },
+  "regimes": {
+    "R0_ZeroPN_30dB": {
+      "n_frames": 24,
+      "n_data_syms": 358,
+      "means": {
+        "AFDM_Uncomp": 0.0,
+        "AFDM_Xu_LumpPCA_Sym6": 0.0,
+        "AFDM_Gavert_Guard_1Step": 0.0,
+        "AFDM_EP_CPE_GN6": 0.0,
+        "AFDM_EP_Dual_Sym6": 0.0,
+        "AFDM_Gavert_Comb_CovDIC6": 0.0,
+        "AFDM_LumpOrac_Indep": 0.0,
+        "AFDM_DualOrac": 0.0
+      },
+      "lock_loss_gt5pct": {
+        "AFDM_Uncomp": 0.0,
+        "AFDM_Xu_LumpPCA_Sym6": 0.0,
+        "AFDM_Gavert_Guard_1Step": 0.0,
+        "AFDM_EP_CPE_GN6": 0.0,
+        "AFDM_EP_Dual_Sym6": 0.0,
+        "AFDM_Gavert_Comb_CovDIC6": 0.0,
+        "AFDM_LumpOrac_Indep": 0.0,
+        "AFDM_DualOrac": 0.0
+      },
+      "paired_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_DualOrac": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        }
+      },
+      "paired_ll_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_DualOrac": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "paired_ratio_vs_ref": {
+        "AFDM_Uncomp": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_EP_CPE_GN6": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_LumpOrac_Indep": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_DualOrac": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        }
+      },
+      "energy_ratio_mean": 0.99896525999078,
+      "energy_ratio_std": 0.008200691746609898,
+      "max_base_energy_diff": 1.1368683772161603e-13,
+      "elapsed_s": 14.0
+    },
+    "R0_SingleFrame_ZeroPN": {
+      "n_frames": 12,
+      "n_data_syms": 358,
+      "means": {
+        "AFDM_Uncomp": 0.0,
+        "AFDM_Xu_LumpPCA_Sym6": 0.0,
+        "AFDM_Gavert_Guard_1Step": 0.0,
+        "AFDM_EP_CPE_GN6": 0.0,
+        "AFDM_EP_Dual_Sym6": 0.0,
+        "AFDM_EP_Dual_Sym6_NoCMSep": 0.0,
+        "AFDM_Gavert_Comb_CovDIC6": 0.4688081936685288,
+        "AFDM_LumpOrac_Indep": 0.0,
+        "AFDM_DualOrac": 0.0
+      },
+      "lock_loss_gt5pct": {
+        "AFDM_Uncomp": 0.0,
+        "AFDM_Xu_LumpPCA_Sym6": 0.0,
+        "AFDM_Gavert_Guard_1Step": 0.0,
+        "AFDM_EP_CPE_GN6": 0.0,
+        "AFDM_EP_Dual_Sym6": 0.0,
+        "AFDM_EP_Dual_Sym6_NoCMSep": 0.0,
+        "AFDM_Gavert_Comb_CovDIC6": 0.9166666666666666,
+        "AFDM_LumpOrac_Indep": 0.0,
+        "AFDM_DualOrac": 0.0
+      },
+      "paired_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_EP_Dual_Sym6_NoCMSep": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.4688081936685288,
+          "ci95": 0.15828704007144184,
+          "ci95_lo": 0.310521153597087
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_DualOrac": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        }
+      },
+      "paired_ll_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_Dual_Sym6_NoCMSep": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.9166666666666666,
+          "ci95_hw": 0.1834154300069124,
+          "ci95": [
+            0.7332512366597542,
+            1.100082096673579
+          ]
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_DualOrac": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "paired_ratio_vs_ref": {
+        "AFDM_Uncomp": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_EP_CPE_GN6": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_EP_Dual_Sym6_NoCMSep": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "ratio": null,
+          "ratio_is_inf": true,
+          "ratio_indeterminate": false,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": true,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": true,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.0,
+          "rival_mean_ci95_lo": 0.310521153597087
+        },
+        "AFDM_LumpOrac_Indep": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        },
+        "AFDM_DualOrac": {
+          "ratio": null,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": true,
+          "fieller_lo": null,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        }
+      },
+      "energy_ratio_mean": 0.9990952451625117,
+      "energy_ratio_std": 0.008354792130815013,
+      "max_base_energy_diff": 1.1368683772161603e-13,
+      "elapsed_s": 10.7
+    },
+    "R1_N512_30dB_2e3": {
+      "n_frames": 60,
+      "n_data_syms": 358,
+      "means": {
+        "AFDM_Uncomp": 0.8860335195530726,
+        "AFDM_Xu_LumpPCA_Sym6": 0.012849162011173183,
+        "AFDM_Gavert_Guard_1Step": 0.04785847299813781,
+        "AFDM_EP_CPE_GN6": 0.00037243947858472997,
+        "AFDM_EP_Dual_Sym6": 0.00037243947858472997,
+        "AFDM_Gavert_Comb_CovDIC6": 0.26084729981378024,
+        "AFDM_LumpOrac_Indep": 0.006331471135940412,
+        "AFDM_DualOrac": 0.0
+      },
+      "lock_loss_gt5pct": {
+        "AFDM_Uncomp": 1.0,
+        "AFDM_Xu_LumpPCA_Sym6": 0.016666666666666666,
+        "AFDM_Gavert_Guard_1Step": 0.23333333333333334,
+        "AFDM_EP_CPE_GN6": 0.0,
+        "AFDM_EP_Dual_Sym6": 0.0,
+        "AFDM_Gavert_Comb_CovDIC6": 0.75,
+        "AFDM_LumpOrac_Indep": 0.0,
+        "AFDM_DualOrac": 0.0
+      },
+      "paired_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.885661080074488,
+          "ci95": 0.02437541250016842,
+          "ci95_lo": 0.8612856675743196
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.012476722532588453,
+          "ci95": 0.003314625562490138,
+          "ci95_lo": 0.009162096970098316
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.04748603351955307,
+          "ci95": 0.02423057172077077,
+          "ci95_lo": 0.023255461798782302
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.2604748603351955,
+          "ci95": 0.058292818852018494,
+          "ci95_lo": 0.20218204148317703
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.005959031657355681,
+          "ci95": 0.0023484335313475485,
+          "ci95_lo": 0.0036105981260081328
+        },
+        "AFDM_DualOrac": {
+          "mean": -0.00037243947858472997,
+          "ci95": 0.00036302773603443054,
+          "ci95_lo": -0.0007354672146191605
+        }
+      },
+      "paired_ll_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 1.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ]
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.016666666666666666,
+          "ci95_hw": 0.033349922950803496,
+          "ci95": [
+            -0.01668325628413683,
+            0.05001658961747016
+          ]
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.23333333333333334,
+          "ci95_hw": 0.11018228197185506,
+          "ci95": [
+            0.12315105136147828,
+            0.34351561530518837
+          ]
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.75,
+          "ci95_hw": 0.11280301704077324,
+          "ci95": [
+            0.6371969829592268,
+            0.8628030170407732
+          ]
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_DualOrac": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "paired_ratio_vs_ref": {
+        "AFDM_Uncomp": {
+          "ratio": 2379.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 1203.8117948581319,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 94141.17329843165,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.97510657251168,
+          "rival_mean_ci95_lo": 0.8616606656875816
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "ratio": 34.5,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 16.76081847084536,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 1327.17845267268,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.980514266675099,
+          "rival_mean_ci95_lo": 0.009514010063878899
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "ratio": 128.50000000000003,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 45.60266114264133,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 5402.950050953795,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 1.1495205173539387,
+          "rival_mean_ci95_lo": 0.02367330085944343
+        },
+        "AFDM_EP_CPE_GN6": {
+          "ratio": 1.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.999999723589181,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 1.0000002764108955,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 5.774067171771637e-08,
+          "rival_mean_ci95_lo": 9.411742550299428e-06
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "ratio": 700.375,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 323.6790232342738,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 28855.447816440854,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 1.0387335311417771,
+          "rival_mean_ci95_lo": 0.20262151626420638
+        },
+        "AFDM_LumpOrac_Indep": {
+          "ratio": 17.000000000000007,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 7.561981932415444,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 661.3577750970605,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 1.0247454196228722,
+          "rival_mean_ci95_lo": 0.003992828540136856
+        },
+        "AFDM_DualOrac": {
+          "ratio": 0.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.0,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 0.0,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        }
+      },
+      "energy_ratio_mean": 0.9992292490189324,
+      "energy_ratio_std": 0.010972921525007754,
+      "max_base_energy_diff": 1.1368683772161603e-13,
+      "elapsed_s": 36.6
+    },
+    "R2_N512_30dB_3e3": {
+      "n_frames": 400,
+      "n_data_syms": 358,
+      "means": {
+        "AFDM_Uncomp": 0.9161662011173184,
+        "AFDM_Xu_LumpPCA_Sym6": 0.06475558659217877,
+        "AFDM_Gavert_Guard_1Step": 0.1190572625698324,
+        "AFDM_EP_CPE_GN6": 0.0019762569832402236,
+        "AFDM_EP_Dual_Sym6": 0.0018924581005586593,
+        "AFDM_Gavert_Comb_CovDIC6": 0.37010474860335196,
+        "AFDM_LumpOrac_Indep": 0.03001396648044693,
+        "AFDM_DualOrac": 0.0
+      },
+      "lock_loss_gt5pct": {
+        "AFDM_Uncomp": 1.0,
+        "AFDM_Xu_LumpPCA_Sym6": 0.5875,
+        "AFDM_Gavert_Guard_1Step": 0.59,
+        "AFDM_EP_CPE_GN6": 0.0,
+        "AFDM_EP_Dual_Sym6": 0.0,
+        "AFDM_Gavert_Comb_CovDIC6": 0.9675,
+        "AFDM_LumpOrac_Indep": 0.18,
+        "AFDM_DualOrac": 0.0
+      },
+      "paired_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.9142737430167597,
+          "ci95": 0.007509343986075582,
+          "ci95_lo": 0.9067643990306841
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.06286312849162011,
+          "ci95": 0.003829019884837471,
+          "ci95_lo": 0.05903410860678264
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.11716480446927374,
+          "ci95": 0.012367288016139708,
+          "ci95_lo": 0.10479751645313404
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 8.379888268156425e-05,
+          "ci95": 0.00014781619680462226,
+          "ci95_lo": -6.401731412305802e-05
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.3682122905027933,
+          "ci95": 0.019853301487024362,
+          "ci95_lo": 0.34835898901576895
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.028121508379888267,
+          "ci95": 0.002426547791076826,
+          "ci95_lo": 0.02569496058881144
+        },
+        "AFDM_DualOrac": {
+          "mean": -0.0018924581005586593,
+          "ci95": 0.0002907466764834056,
+          "ci95_lo": -0.002183204777042065
+        }
+      },
+      "paired_ll_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 1.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ]
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.5875,
+          "ci95_hw": 0.04845034978333871,
+          "ci95": [
+            0.5390496502166613,
+            0.6359503497833388
+          ]
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.59,
+          "ci95_hw": 0.048405971305035114,
+          "ci95": [
+            0.5415940286949649,
+            0.6384059713050351
+          ]
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.9675,
+          "ci95_hw": 0.017452119262890278,
+          "ci95": [
+            0.9500478807371098,
+            0.9849521192628903
+          ]
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.18,
+          "ci95_hw": 0.03781152413502919,
+          "ci95": [
+            0.1421884758649708,
+            0.2178115241350292
+          ]
+        },
+        "AFDM_DualOrac": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "paired_ratio_vs_ref": {
+        "AFDM_Uncomp": {
+          "ratio": 484.1143911439114,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 419.51775090440344,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 572.1242059038321,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.15389893900369922,
+          "rival_mean_ci95_lo": 0.908664140125054
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "ratio": 34.21771217712177,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 29.690546128772116,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 40.242815303532495,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.15081953087427652,
+          "rival_mean_ci95_lo": 0.06086664429499028,
+          "threshold_M": 10.0,
+          "linearized_diff_mean": 0.04583100558659218,
+          "linearized_diff_ci95_lo": 0.041575760616345984,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "ratio": 62.911439114391136,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 52.39862089376093,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 76.5262913259811,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.18790984031386093,
+          "rival_mean_ci95_lo": 0.10670193364773817,
+          "threshold_M": 5.0,
+          "linearized_diff_mean": 0.10959497206703911,
+          "linearized_diff_ci95_lo": 0.09711205871013666,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_EP_CPE_GN6": {
+          "ratio": 1.044280442804428,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.9659081215999461,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 1.1243754323427317,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.07496870084003596,
+          "rival_mean_ci95_lo": 0.0016478583015834055
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "ratio": 195.56826568265683,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 167.05213510015116,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 233.81392293671044,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.16685955363711913,
+          "rival_mean_ci95_lo": 0.3502777365941925,
+          "threshold_M": 5.0,
+          "linearized_diff_mean": 0.36064245810055867,
+          "linearized_diff_ci95_lo": 0.3406420343194053,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_LumpOrac_Indep": {
+          "ratio": 15.859778597785978,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 13.497515113435961,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 18.9609423824104,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.16863297430114307,
+          "rival_mean_ci95_lo": 0.027584741094239335,
+          "threshold_M": 4.0,
+          "linearized_diff_mean": 0.022444134078212292,
+          "linearized_diff_ci95_lo": 0.01982429966413824,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_DualOrac": {
+          "ratio": 0.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.0,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 0.0,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        }
+      },
+      "energy_ratio_mean": 1.0005575668322293,
+      "energy_ratio_std": 0.00901525135068446,
+      "max_base_energy_diff": 2.2737367544323206e-13,
+      "elapsed_s": 238.9
+    },
+    "R3_N512_45dB_3e3_Floor": {
+      "n_frames": 200,
+      "n_data_syms": 358,
+      "means": {
+        "AFDM_Uncomp": 0.9002094972067041,
+        "AFDM_Xu_LumpPCA_Sym6": 0.038226256983240225,
+        "AFDM_Gavert_Guard_1Step": 0.0869972067039106,
+        "AFDM_EP_CPE_GN6": 0.00013966480446927373,
+        "AFDM_EP_Dual_Sym6": 0.00013966480446927373,
+        "AFDM_Gavert_Comb_CovDIC6": 0.34326815642458103,
+        "OFDM_c1=0_SingleKnob_Sym6": 0.23064245810055867,
+        "OFDM_c1=0_SameMask_Sym6": 0.23060055865921786,
+        "OFDM_c1=0_DualOrac": 0.004036312849162012,
+        "AFDM_LumpOrac_Indep": 0.015600558659217875,
+        "AFDM_DualOrac": 0.0
+      },
+      "lock_loss_gt5pct": {
+        "AFDM_Uncomp": 1.0,
+        "AFDM_Xu_LumpPCA_Sym6": 0.295,
+        "AFDM_Gavert_Guard_1Step": 0.445,
+        "AFDM_EP_CPE_GN6": 0.0,
+        "AFDM_EP_Dual_Sym6": 0.0,
+        "AFDM_Gavert_Comb_CovDIC6": 0.925,
+        "OFDM_c1=0_SingleKnob_Sym6": 0.845,
+        "OFDM_c1=0_SameMask_Sym6": 0.83,
+        "OFDM_c1=0_DualOrac": 0.0,
+        "AFDM_LumpOrac_Indep": 0.03,
+        "AFDM_DualOrac": 0.0
+      },
+      "paired_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.9000698324022346,
+          "ci95": 0.01160678097112873,
+          "ci95_lo": 0.8884630514311058
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.03808659217877095,
+          "ci95": 0.00411500228243444,
+          "ci95_lo": 0.033971589896336515
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.08685754189944134,
+          "ci95": 0.01606145448676007,
+          "ci95_lo": 0.07079608741268127
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.3431284916201118,
+          "ci95": 0.028953809966970827,
+          "ci95_lo": 0.31417468165314094
+        },
+        "OFDM_c1=0_SingleKnob_Sym6": {
+          "mean": 0.23050279329608941,
+          "ci95": 0.03454543791272311,
+          "ci95_lo": 0.1959573553833663
+        },
+        "OFDM_c1=0_SameMask_Sym6": {
+          "mean": 0.2304608938547486,
+          "ci95": 0.03441466142541222,
+          "ci95_lo": 0.1960462324293364
+        },
+        "OFDM_c1=0_DualOrac": {
+          "mean": 0.003896648044692737,
+          "ci95": 0.000894592035840127,
+          "ci95_lo": 0.00300205600885261
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.015460893854748603,
+          "ci95": 0.002045734451397086,
+          "ci95_lo": 0.013415159403351518
+        },
+        "AFDM_DualOrac": {
+          "mean": -0.00013966480446927373,
+          "ci95": 9.363143893693977e-05,
+          "ci95_lo": -0.0002332962434062135
+        }
+      },
+      "paired_ll_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 1.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ]
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.295,
+          "ci95_hw": 0.06374943917639048,
+          "ci95": [
+            0.2312505608236095,
+            0.35874943917639046
+          ]
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.445,
+          "ci95_hw": 0.06947000003072326,
+          "ci95": [
+            0.3755299999692767,
+            0.5144700000307233
+          ]
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.925,
+          "ci95_hw": 0.03681902637830421,
+          "ci95": [
+            0.8881809736216958,
+            0.9618190263783043
+          ]
+        },
+        "OFDM_c1=0_SingleKnob_Sym6": {
+          "mean": 0.845,
+          "ci95_hw": 0.050590037994372554,
+          "ci95": [
+            0.7944099620056274,
+            0.8955900379943725
+          ]
+        },
+        "OFDM_c1=0_SameMask_Sym6": {
+          "mean": 0.83,
+          "ci95_hw": 0.052509067874980914,
+          "ci95": [
+            0.7774909321250191,
+            0.8825090678749808
+          ]
+        },
+        "OFDM_c1=0_DualOrac": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.03,
+          "ci95_hw": 0.023846096466482943,
+          "ci95": [
+            0.006153903533517056,
+            0.053846096466482946
+          ]
+        },
+        "AFDM_DualOrac": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "paired_ratio_vs_ref": {
+        "AFDM_Uncomp": {
+          "ratio": 6445.500000000002,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 3859.7832932122274,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 19546.614227707218,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.6700253489862248,
+          "rival_mean_ci95_lo": 0.8885994655261324
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "ratio": 273.70000000000005,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 163.08265560676583,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 824.6215766038996,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.66924473994927,
+          "rival_mean_ci95_lo": 0.03410377709738484,
+          "threshold_M": 10.0,
+          "linearized_diff_mean": 0.03682960893854748,
+          "linearized_diff_ci95_lo": 0.03268619364038672,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "ratio": 622.9,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 357.05418695539214,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 1906.4968222249186,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.6958476375554442,
+          "rival_mean_ci95_lo": 0.07093628381827823,
+          "threshold_M": 10.0,
+          "linearized_diff_mean": 0.08560055865921788,
+          "linearized_diff_ci95_lo": 0.06950978418964218,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_EP_CPE_GN6": {
+          "ratio": 1.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.9999999110705521,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 1.000000088929456,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 6.652186059895452e-08,
+          "rival_mean_ci95_lo": 4.603336553233396e-05
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "ratio": 2457.8,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 1451.6322257626043,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 7504.647124042992,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.6803023883473343,
+          "rival_mean_ci95_lo": 0.31431968258839327,
+          "threshold_M": 10.0,
+          "linearized_diff_mean": 0.3418715083798883,
+          "linearized_diff_ci95_lo": 0.31285611771895205,
+          "pass_ci95_lower_bound": true
+        },
+        "OFDM_c1=0_SingleKnob_Sym6": {
+          "ratio": 1651.4,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 973.1095749367105,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 4975.973660879488,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.6747249998488681,
+          "rival_mean_ci95_lo": 0.1960893955744791
+        },
+        "OFDM_c1=0_SameMask_Sym6": {
+          "ratio": 1651.1,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 972.5196057571329,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 4978.007990974728,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.6752287578774111,
+          "rival_mean_ci95_lo": 0.19617863897081755
+        },
+        "OFDM_c1=0_DualOrac": {
+          "ratio": 28.900000000000006,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 15.935574163309113,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 90.67354269811695,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.7265797912644074,
+          "rival_mean_ci95_lo": 0.0031565000253392602
+        },
+        "AFDM_LumpOrac_Indep": {
+          "ratio": 111.7,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 66.43682546227407,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 335.19169492118795,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.6681181739063625,
+          "rival_mean_ci95_lo": 0.013546122800244607,
+          "threshold_M": 4.0,
+          "linearized_diff_mean": 0.015041899441340783,
+          "linearized_diff_ci95_lo": 0.012996612213855393,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_DualOrac": {
+          "ratio": 0.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.0,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 0.0,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        }
+      },
+      "energy_ratio_mean": 0.9991915077207402,
+      "energy_ratio_std": 0.009852514500971006,
+      "max_base_energy_diff": 1.1368683772161603e-13,
+      "elapsed_s": 173.3
+    },
+    "R4_SingleFrameBlind_3e3": {
+      "n_frames": 920,
+      "n_data_syms": 358,
+      "means": {
+        "AFDM_Uncomp": 0.7378916686907943,
+        "AFDM_Xu_LumpPCA_Sym6": 0.06532973038620354,
+        "AFDM_Gavert_Guard_1Step": 0.018378066553315524,
+        "AFDM_EP_CPE_GN6": 0.002061573961622541,
+        "AFDM_EP_Dual_Sym6": 0.002061573961622541,
+        "AFDM_EP_Dual_Sym6_NoCMSep": 0.026833859606509594,
+        "AFDM_Gavert_Comb_CovDIC6": 0.5919935632742287,
+        "AFDM_LumpOrac_Indep": 0.029247631770706824,
+        "AFDM_DualOrac": 0.0
+      },
+      "lock_loss_gt5pct": {
+        "AFDM_Uncomp": 1.0,
+        "AFDM_Xu_LumpPCA_Sym6": 0.6021739130434782,
+        "AFDM_Gavert_Guard_1Step": 0.10543478260869565,
+        "AFDM_EP_CPE_GN6": 0.0010869565217391304,
+        "AFDM_EP_Dual_Sym6": 0.0010869565217391304,
+        "AFDM_EP_Dual_Sym6_NoCMSep": 0.09565217391304348,
+        "AFDM_Gavert_Comb_CovDIC6": 1.0,
+        "AFDM_LumpOrac_Indep": 0.1673913043478261,
+        "AFDM_DualOrac": 0.0
+      },
+      "paired_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.7358300947291718,
+          "ci95": 0.008827284640237354,
+          "ci95_lo": 0.7270028100889345
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.06326815642458102,
+          "ci95": 0.002474268507205546,
+          "ci95_lo": 0.06079388791737547
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.01631649259169298,
+          "ci95": 0.003234297853909903,
+          "ci95_lo": 0.013082194737783078
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_EP_Dual_Sym6_NoCMSep": {
+          "mean": 0.02477228564488705,
+          "ci95": 0.005656311483135958,
+          "ci95_lo": 0.019115974161751093
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.5899319893126063,
+          "ci95": 0.010534115480688241,
+          "ci95_lo": 0.579397873831918
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.027186057809084285,
+          "ci95": 0.0016179126959524246,
+          "ci95_lo": 0.025568145113131862
+        },
+        "AFDM_DualOrac": {
+          "mean": -0.002061573961622541,
+          "ci95": 0.0002783561943055312,
+          "ci95_lo": -0.002339930155928072
+        }
+      },
+      "paired_ll_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.9989130434782608,
+          "ci95_hw": 0.0021332050992602064,
+          "ci95": [
+            0.9967798383790006,
+            1.0010462485775211
+          ]
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.6010869565217392,
+          "ci95_hw": 0.03170081701134581,
+          "ci95": [
+            0.5693861395103933,
+            0.632787773533085
+          ]
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.10434782608695652,
+          "ci95_hw": 0.019791288965969277,
+          "ci95": [
+            0.08455653712098724,
+            0.1241391150529258
+          ]
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_Dual_Sym6_NoCMSep": {
+          "mean": 0.09456521739130434,
+          "ci95_hw": 0.018943358769720104,
+          "ci95": [
+            0.07562185862158424,
+            0.11350857616102444
+          ]
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.9989130434782608,
+          "ci95_hw": 0.0021332050992602064,
+          "ci95": [
+            0.9967798383790006,
+            1.0010462485775211
+          ]
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.16630434782608697,
+          "ci95_hw": 0.02429386362399091,
+          "ci95": [
+            0.14201048420209605,
+            0.19059821145007788
+          ]
+        },
+        "AFDM_DualOrac": {
+          "mean": -0.0010869565217391304,
+          "ci95_hw": 0.0021332050992602064,
+          "ci95": [
+            -0.003220161620999337,
+            0.001046248577521076
+          ]
+        }
+      },
+      "paired_ratio_vs_ref": {
+        "AFDM_Uncomp": {
+          "ratio": 357.92636229749627,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 315.08344034654175,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 414.08580430441026,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.1357881792555097,
+          "rival_mean_ci95_lo": 0.7290743722482504
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "ratio": 31.68924889543446,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 28.006490373286173,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 36.46747010760966,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.13116335601468013,
+          "rival_mean_ci95_lo": 0.06280301454467613,
+          "threshold_M": 4.0,
+          "linearized_diff_mean": 0.05708343453971338,
+          "linearized_diff_ci95_lo": 0.05458045115934126,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "ratio": 8.91458026509573,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 7.141666501257024,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 10.98047987370083,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.21271701553210978,
+          "rival_mean_ci95_lo": 0.01513120217500424
+        },
+        "AFDM_EP_CPE_GN6": {
+          "ratio": 1.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.9999999807341619,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 1.0000000192658387,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 1.0011086132730105e-08,
+          "rival_mean_ci95_lo": 0.0017832177673170095
+        },
+        "AFDM_EP_Dual_Sym6_NoCMSep": {
+          "ratio": 13.016200294550808,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 10.023248457509261,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 16.449277428160062,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.24401253680959398,
+          "rival_mean_ci95_lo": 0.021168442118857864,
+          "threshold_M": 1.0,
+          "linearized_diff_mean": 0.024772285644887055,
+          "linearized_diff_ci95_lo": 0.019115974161751096,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "ratio": 287.1561119293077,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 252.3900051471054,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 332.672993533824,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.13726219325486147,
+          "rival_mean_ci95_lo": 0.5814802228159712
+        },
+        "AFDM_LumpOrac_Indep": {
+          "ratio": 14.18703976435935,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 12.411997846211865,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 16.46616438801523,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.14047572288123716,
+          "rival_mean_ci95_lo": 0.027624269035972197
+        },
+        "AFDM_DualOrac": {
+          "ratio": 0.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.0,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 0.0,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        }
+      },
+      "energy_ratio_mean": 0.9999322543651485,
+      "energy_ratio_std": 0.009534754422425266,
+      "max_base_energy_diff": 2.2737367544323206e-13,
+      "elapsed_s": 667.7
+    },
+    "R5_PNTrain_30dB_3e3": {
+      "n_frames": 180,
+      "n_data_syms": 358,
+      "means": {
+        "AFDM_Uncomp": 0.9410614525139664,
+        "AFDM_Xu_LumpPCA_Sym6": 0.09236499068901302,
+        "AFDM_Gavert_Guard_1Step": 0.2357852265673495,
+        "AFDM_EP_CPE_GN6": 0.010474860335195532,
+        "AFDM_EP_Dual_Sym6": 0.00521415270018622,
+        "AFDM_Gavert_Comb_CovDIC6": 0.4713842333954065,
+        "AFDM_LumpOrac_Indep": 0.02917442582247052,
+        "AFDM_DualOrac": 0.0
+      },
+      "lock_loss_gt5pct": {
+        "AFDM_Uncomp": 1.0,
+        "AFDM_Xu_LumpPCA_Sym6": 0.8055555555555556,
+        "AFDM_Gavert_Guard_1Step": 0.8722222222222222,
+        "AFDM_EP_CPE_GN6": 0.044444444444444446,
+        "AFDM_EP_Dual_Sym6": 0.016666666666666666,
+        "AFDM_Gavert_Comb_CovDIC6": 0.9888888888888889,
+        "AFDM_LumpOrac_Indep": 0.1388888888888889,
+        "AFDM_DualOrac": 0.0
+      },
+      "paired_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.93584729981378,
+          "ci95": 0.009473927057114619,
+          "ci95_lo": 0.9263733727566654
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.08715083798882683,
+          "ci95": 0.006769991093281735,
+          "ci95_lo": 0.0803808468955451
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.23057107386716325,
+          "ci95": 0.02265024850301195,
+          "ci95_lo": 0.2079208253641513
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0052607076350093115,
+          "ci95": 0.0054074093342152225,
+          "ci95_lo": -0.000146701699205911
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.46617008069522037,
+          "ci95": 0.029172490867751744,
+          "ci95_lo": 0.4369975898274686
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.0239602731222843,
+          "ci95": 0.003802798451844911,
+          "ci95_lo": 0.02015747467043939
+        },
+        "AFDM_DualOrac": {
+          "mean": -0.00521415270018622,
+          "ci95": 0.002280825905437266,
+          "ci95_lo": -0.0074949786056234865
+        }
+      },
+      "paired_ll_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.9833333333333333,
+          "ci95_hw": 0.018881763416668838,
+          "ci95": [
+            0.9644515699166645,
+            1.002215096750002
+          ]
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.7888888888888889,
+          "ci95_hw": 0.06019095884309553,
+          "ci95": [
+            0.7286979300457933,
+            0.8490798477319844
+          ]
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.8555555555555555,
+          "ci95_hw": 0.051849231722640526,
+          "ci95": [
+            0.803706323832915,
+            0.9074047872781961
+          ]
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.027777777777777776,
+          "ci95_hw": 0.024238141566666885,
+          "ci95": [
+            0.0035396362111108914,
+            0.05201591934444466
+          ]
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.9722222222222222,
+          "ci95_hw": 0.024238141566666885,
+          "ci95": [
+            0.9479840806555553,
+            0.9964603637888891
+          ]
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": 0.12222222222222222,
+          "ci95_hw": 0.05530789744792028,
+          "ci95": [
+            0.06691432477430194,
+            0.17753011967014248
+          ]
+        },
+        "AFDM_DualOrac": {
+          "mean": -0.016666666666666666,
+          "ci95_hw": 0.018881763416668838,
+          "ci95": [
+            -0.035548430083335504,
+            0.002215096750002171
+          ]
+        }
+      },
+      "paired_ratio_vs_ref": {
+        "AFDM_Uncomp": {
+          "ratio": 180.48214285714283,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 125.53811400580996,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 320.8396797868526,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.437547854910368,
+          "rival_mean_ci95_lo": 0.9318682673221409
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "ratio": 17.714285714285708,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 12.687215499588467,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 30.381407485300414,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.40509275966877034,
+          "rival_mean_ci95_lo": 0.08481729403608941,
+          "threshold_M": 5.0,
+          "linearized_diff_mean": 0.06629422718808194,
+          "linearized_diff_ci95_lo": 0.05603087811598917,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "ratio": 45.220238095238095,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 31.48399293904688,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 79.55893074357168,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.4318915707804998,
+          "rival_mean_ci95_lo": 0.21286430466091888
+        },
+        "AFDM_EP_CPE_GN6": {
+          "ratio": 2.0089285714285716,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.971173977370125,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 3.469490403970068,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.5510924844972354,
+          "rival_mean_ci95_lo": 0.00450460396239364
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "ratio": 90.40476190476188,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 63.02077990087682,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 159.751057216186,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.43346127464976353,
+          "rival_mean_ci95_lo": 0.44199235348235155,
+          "threshold_M": 5.0,
+          "linearized_diff_mean": 0.44531346989447546,
+          "linearized_diff_ci95_lo": 0.4152521320322014,
+          "pass_ci95_lower_bound": true
+        },
+        "AFDM_LumpOrac_Indep": {
+          "ratio": 5.595238095238096,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 3.8619096838121667,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 9.894404254594695,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.4387282997440866,
+          "rival_mean_ci95_lo": 0.025848268626836198
+        },
+        "AFDM_DualOrac": {
+          "ratio": 0.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.0,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 0.0,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        }
+      },
+      "energy_ratio_mean": 0.9989891626936555,
+      "energy_ratio_std": 0.009447231492234786,
+      "max_base_energy_diff": 2.2737367544323206e-13,
+      "elapsed_s": 115.3
+    },
+    "R6_Rand4_N256_30dB_3e3": {
+      "n_frames": 60,
+      "n_data_syms": 160,
+      "means": {
+        "AFDM_Uncomp": 0.86375,
+        "AFDM_Xu_LumpPCA_Sym6": 0.015416666666666667,
+        "AFDM_Gavert_Guard_1Step": 0.06447916666666668,
+        "AFDM_EP_CPE_GN6": 0.014583333333333335,
+        "AFDM_EP_Dual_Sym6": 0.014583333333333335,
+        "AFDM_Gavert_Comb_CovDIC6": 0.13697916666666668,
+        "AFDM_LumpOrac_Indep": 0.001979166666666667,
+        "AFDM_DualOrac": 0.0
+      },
+      "lock_loss_gt5pct": {
+        "AFDM_Uncomp": 1.0,
+        "AFDM_Xu_LumpPCA_Sym6": 0.06666666666666667,
+        "AFDM_Gavert_Guard_1Step": 0.31666666666666665,
+        "AFDM_EP_CPE_GN6": 0.06666666666666667,
+        "AFDM_EP_Dual_Sym6": 0.06666666666666667,
+        "AFDM_Gavert_Comb_CovDIC6": 0.5333333333333333,
+        "AFDM_LumpOrac_Indep": 0.0,
+        "AFDM_DualOrac": 0.0
+      },
+      "paired_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.8491666666666667,
+          "ci95": 0.02651715233024047,
+          "ci95_lo": 0.8226495143364263
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.0008333333333333334,
+          "ci95": 0.00811077022127019,
+          "ci95_lo": -0.007277436887936856
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.049895833333333334,
+          "ci95": 0.021317008959813165,
+          "ci95_lo": 0.02857882437352017
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95": 0.0,
+          "ci95_lo": 0.0
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.12239583333333333,
+          "ci95": 0.037212758646839136,
+          "ci95_lo": 0.08518307468649419
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": -0.012604166666666668,
+          "ci95": 0.011556926413439566,
+          "ci95_lo": -0.024161093080106236
+        },
+        "AFDM_DualOrac": {
+          "mean": -0.014583333333333335,
+          "ci95": 0.01166035417881342,
+          "ci95_lo": -0.026243687512146757
+        }
+      },
+      "paired_ll_diff_vs_ref": {
+        "AFDM_Uncomp": {
+          "mean": 0.9333333333333333,
+          "ci95_hw": 0.06498196475016307,
+          "ci95": [
+            0.8683513685831703,
+            0.9983152980834964
+          ]
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.08237967598382821,
+          "ci95": [
+            -0.08237967598382821,
+            0.08237967598382821
+          ]
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "mean": 0.25,
+          "ci95_hw": 0.11280301704077324,
+          "ci95": [
+            0.13719698295922678,
+            0.3628030170407732
+          ]
+        },
+        "AFDM_EP_CPE_GN6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_EP_Dual_Sym6": {
+          "mean": 0.0,
+          "ci95_hw": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "mean": 0.4666666666666667,
+          "ci95_hw": 0.12996392950032618,
+          "ci95": [
+            0.33670273716634047,
+            0.5966305961669929
+          ]
+        },
+        "AFDM_LumpOrac_Indep": {
+          "mean": -0.06666666666666667,
+          "ci95_hw": 0.06498196475016307,
+          "ci95": [
+            -0.13164863141682975,
+            -0.001684701916503592
+          ]
+        },
+        "AFDM_DualOrac": {
+          "mean": -0.06666666666666667,
+          "ci95_hw": 0.06498196475016307,
+          "ci95": [
+            -0.13164863141682975,
+            -0.001684701916503592
+          ]
+        }
+      },
+      "paired_ratio_vs_ref": {
+        "AFDM_Uncomp": {
+          "ratio": 59.22857142857142,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 33.10549853118653,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 293.5042471684864,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.793255256130237,
+          "rival_mean_ci95_lo": 0.8371840179987611
+        },
+        "AFDM_Xu_LumpPCA_Sym6": {
+          "ratio": 1.057142857142857,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.6369419502077169,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 3.3371609431425657,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.5560738141773028,
+          "rival_mean_ci95_lo": 0.0067783180826903495
+        },
+        "AFDM_Gavert_Guard_1Step": {
+          "ratio": 4.421428571428572,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 2.5906922450257857,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 17.678843730852407,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.6691880853097739,
+          "rival_mean_ci95_lo": 0.03909763195983415
+        },
+        "AFDM_EP_CPE_GN6": {
+          "ratio": 1.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.0,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": null,
+          "fieller_hi_is_inf": true,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.0,
+          "rival_mean_ci95_lo": 0.0029229791545199134
+        },
+        "AFDM_Gavert_Comb_CovDIC6": {
+          "ratio": 9.392857142857142,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 5.299144021347919,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 42.22655143851265,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.7412920556867586,
+          "rival_mean_ci95_lo": 0.09699958499441998
+        },
+        "AFDM_LumpOrac_Indep": {
+          "ratio": 0.1357142857142857,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.060051455002435375,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 0.6490798959331032,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": 0.8721628802451042,
+          "rival_mean_ci95_lo": 0.001016309845399121
+        },
+        "AFDM_DualOrac": {
+          "ratio": 0.0,
+          "ratio_is_inf": false,
+          "ratio_indeterminate": false,
+          "fieller_lo": 0.0,
+          "fieller_lo_is_inf": false,
+          "fieller_hi": 0.0,
+          "fieller_hi_is_inf": false,
+          "fieller_is_disjoint": false,
+          "fieller_disjoint_set": null,
+          "log_hw_delta": null,
+          "rival_mean_ci95_lo": 0.0
+        }
+      },
+      "energy_ratio_mean": 1.000293816013601,
+      "energy_ratio_std": 0.01761909870252585,
+      "max_base_energy_diff": 5.684341886080802e-14,
+      "elapsed_s": 6.2
+    }
+  },
+  "verdicts": {
+    "GATES_OK": true,
+    "P1_R2": true,
+    "P1_R3": true,
+    "P1_R4_XU_4X": true,
+    "P1_R4_CMSEP_MECH": true,
+    "P1_R4": true,
+    "P1_R5": true,
+    "P1_FLOOR_AND_LOCKLOSS_BREAK": true,
+    "P2_BOUNDS_UNDER_0P5DB": true,
+    "P2_BEATS_LUMP_ORAC": true,
+    "P2_ANALYTICAL_FLOOR_BOUND": true,
+    "PASS_PRIMARY": true
+  },
+  "total_elapsed_s": 1263.5
+}

@@ -1,0 +1,20 @@
+You are an independent area-chair adjudicator. A hostile reviewer wrote the rejection memo below against an idea card that passed a cheap L2 simulation. You are NOT the defender. Fresh, zero-context adjudication from the files alone.
+
+Files (absolute paths, read-only):
+- Card: /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/cards/I-20261125-h02.md
+- Round-11 run (failed only a rival hygiene gate): /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/PREDICTIONS_h_r11_h02.md, /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/h_l2_r11_h02.py, /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/out_h_r11_h02/summary_h_r11_h02.json
+- Round-12 run under review (modified evaluation, fresh seeds, passed): /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/PREDICTIONS_h_r12_h02_conf.md, /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/h_l2_r12_h02_conf.py, /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/out_h_r12_h02/summary_h_r12_h02_conf.json
+- Pre-L2 Sol audits of the round-12 run: /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/reviews/r12-sol-prel2-h02-conf-20261125.md and the -v2/-v3/-v4 files beside it
+- Funnel rules: /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/FUNNEL.md, /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/prompts/round-agy-extra.md, /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/prompts/round-12.md
+
+## Rejection memo
+> Reject. The card’s central premise is that refreshing the communication channel every two blocks destroys the radar coherence needed to localize the target. The simulator preserves that coherence in the echoes and discards it in the receiver. Every target and clutter return has one complex gain and a Doppler phase that advances across all 16 blocks, including the boundaries where the rival refreshes its channel estimate. The echo model contains no phase reset at those boundaries. (`I-20261125-h02.md:17`; `h_l2_r12_h02_conf.py:702–706,988–1009`.)
+> 
+> The short-window receiver fits clutter independently in each two-block segment, restarting its phase index at zero. It then squares each segment’s complex correlation before summing the eight powers, discarding the relative phase available for localization. On identical transmitted samples and echoes, this processing retains −55.15 dB of target-template energy and localizes 0 of 288 targets. Joint processing retains −0.74 dB and localizes all 288. (`h_l2_r12_h02_conf.py:611–650`; `summary_h_r12_h02_conf.json:345–367`.)
+> 
+> The decisive missing comparison is the refreshed rival’s own echoes processed coherently across all 16 blocks using its known transmitted waveform. The code already constructs those echoes, then assigns that rival exclusively to two-block processing. The reported 100-to-zero gap establishes the cost of the imposed receiver rule. It supplies no evidence that refreshing the communication channel requires that rule. (`h_l2_r12_h02_conf.py:988–1009`.)
+## Task
+Decompose the memo into 3-7 atomic rejection points. For each, open the source and data, then output:
+### Point P_n: <label>
+Attack claim (~30 words) / Verdict: answered_by_evidence | partially_answered | still_unresolved / Evidence (file:line or JSON key, ~50 words) / Severity if unresolved: critical | major | minor / Cheapest fix or decisive test (one sentence).
+Then: counts per verdict; a one-paragraph net assessment; and a final line "STEP8: PASS | REVISE | KILL" where PASS means the card may go to Eric as an L3 candidate, REVISE means one named decisive test must run first, KILL means the claim does not survive. Do not minimise. Output in Simplified Chinese except labels, file paths and code identifiers.

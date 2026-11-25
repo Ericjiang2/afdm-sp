@@ -1,0 +1,91 @@
+# Pre-Registration for `I-20261125-h02` — 修正评测与单因子对照后的新种子检验 (`[高要求] [轨B-ISAC]` · Round 12)
+
+- **Card ID**: `I-20261125-h02` (`跨块信道老化下路径解耦MIMO-AFDM通感预编码`)
+- **Run Label (`Eric 2026-11-25 批复 A1(a)`)**: **修正评测与单因子对照后的新种子检验** (`modified_eval_and_controls_unseen_seed_test` — NOT labelled as an unmodified-script confirmatory run because inherited Round-11 statistical/projection/single-factor-control items `1–7` from `r12-sol-prel2-h02-conf-20261125.md` and `r12-sol-prel2-h02-v2-20261125.md` are fixed in the evaluation harness; **zero** lines of the proposed method `Prop_BeamMatchedDualISAC_AFDM` are changed, **zero** numerical thresholds are loosened, and every evaluation edit strictly tightens the test so that `PASS_PRIMARY_R12 => PASS_PRIMARY_R11` holds identically on every input array).
+- **Terminal Rule (`round-12.md` §2 & `Eric 11-25 A1`)**: If `verdicts.PASS_PRIMARY == true`, set `status: active, next_cost: cross-model review` (recording「修正评测与单因子对照后的新种子检验通过」on the card and in `runs-h.md`); if `verdicts.PASS_PRIMARY == false` after running on `deinlab`, immediately set `status: killed` with zero further rescue; if `Sol` `GO` / `GO_WITH_NONBLOCKING` is not obtained before `T+1:50`, keep `status: parked` and list remaining items in `next_cost` for Claude merge.
+- **Prior Run Preserved Intact**: `ideas/l2/PREDICTIONS_h_r11_h02.md`, `ideas/l2/h_l2_r11_h02.py`, and `ideas/l2/out_h_r11_h02/summary_h_r11_h02.json` remain untouched as frozen Round-11 evidence.
+- **Ledgers**: **Floor-Breaking (`破壁账`, protocol bar: `≥ 1.0 dB` SNR win or `≥ 1` decade floor reduction at matched zero added overhead)** + **Cross-Layer / ISAC Inversion (`跨层/通感倒挂账`, protocol bar: `≥ 0.8 dB` win over standalone-optimal / uncoupled cascade while preserving radar detection)**
+- **Script & Output**: `ideas/l2/h_l2_r12_h02_conf.py` → `ideas/l2/out_h_r12_h02/summary_h_r12_h02_conf.json` (remote execution in `/data/guoyikun/tmp/funnel_h_r12/`, standard `"w"` write mode to isolated Round-12 path).
+- **Execution Environment**: `deinlab`, `conda activate AFDM` (`/home/guoyikun/.conda/envs/AFDM/bin/python`), `OMP_NUM_THREADS=1`, `multiprocessing.Pool(8)` (`8` CPU workers strictly `≤ 8` core cap).
+- **Strict Zero-Overlap Unseen Test Seeds (`SEED_BASE_Z0 = 500000`, `SEED_BASE_Z1 = 600000`, `SEED_BASE_S2 = 700000`)**:
+  - Round 11 (`h_l2_r11_h02.py`) consumed `200000..240063` (`Z0`), `300000..340143` (`Z1`), and `440000..440047` (`S2`) (plus `+1000000` for `rng_s1`: `1200000..1440047`). Because a mechanical `+100000` shift to `(300000, 400000, 500000)` would collide with Round-11 `Z1` (`300000..340063`) and `S2` (`440000..440047`), Round 12 starts `+100000` past Round 11's max seed block `400000`: **`500000 / 600000 / 700000`** (`500000..540063` for `Z0`, `600000..640287` for `Z1` with `N_pos_Z1 = 288`, `740000..740047` for `S2`; `2,560` formal primary + `rng_s1` seeds in `[500000, 800000) ∪ [1500000, 1800000)`, zero overlap with all dev seeds `<= 199999` and Round-11 seeds enforced by runtime `assert`; `--smoke` uses `800000 / 900000 / 950000`).
+
+---
+
+## 1. Transparent Audit Fixes vs `h_l2_r11_h02.py` (Zero Change to `Prop`, Strictly Dominating Verdict `R12 => R11`)
+
+Per `Eric 11-25 A1(a)`, `r12-sol-prel2-h02-conf-20261125.md`, and `r12-sol-prel2-h02-v2-20261125.md`:
+- **Baseline Iteration Convergence (`round-12.md` §2)**: `Liu26_PerBinWMMSE_Aged_AFDM` WMMSE iterations increased from `4` to `20` (`solve_liu26_cpi_perbin_wmmse_extrap`).
+- **Group A — Core Statistical, Projection & File-Write Fixes (`Sol` Call-1 #1, #2, #6, #7 + Call-2 #1)**:
+  1. **Fix #1 (Exact Newcombe 1998 Method 10 Paired Binary CI)**: In `newcombe_paired_binary_ci95`, apply the `0.5 * n` continuity subtraction `max(num - 0.5 * n, 0.0)` **only** when `num = ad - bc > 0` (leaving `num <= 0` unshrunk per Newcombe 1998, *Stat. Med.* 17:2635–2650, p. 2639). For every contingency table, `ci95_low_R12 <= ci95_low_R11` and `ci95_half_width_R12 >= ci95_half_width_R11`.
+  2. **Fix #2 (Exact SVD Clutter Subspace Orthonormal Basis)**: In `unified_pure_blue_rd_score`, replace unpivoted `np.linalg.qr(B_clut)` diagonal filtering with exact SVD `Ub_s, sv_b, _ = np.linalg.svd(B_clut, full_matrices=False); Qb = Ub_s[:, sv_b > 1e-6 * max(float(sv_b[0]), 1e-12)]`, capturing 100% of clutter singular directions above `1e-6 * sigma_max` for both `Q=16` and `Q=2`.
+  3. **Fix #6 (Per-Family Simultaneous Bonferroni Fixed-Rival `P1` with All-3-Rival Half-Width Gates & All-9 Cross-Arm `DiD` Pairs)**: Evaluate **every fixed OFDM candidate** `rv in {"OFDM_Comb_JointWLS_DualISAC", "OFDM_HillClimb_JointWLS_ISAC", "OFDM_ExtrapBlockRZF"}` (`M = 3`, within-family two-sided 95% Bonferroni multiplier `z_bonf3 = 2.393980 > 1.96`) AND **every cross-arm pair `(rv1, rv0) in OFDM_RIVALS × OFDM_RIVALS`** (`M = 9` pairs, within-family two-sided 95% Bonferroni multiplier **`z_bonf9 = 2.772921 > z_bonf3 > 1.96`**, i.e., `alpha = 0.05 / 9` two-sided), enforcing BOTH within-family simultaneous Bonferroni lower bounds (`>= 0.080` at `z_bonf9` on all 9 `DiD` pairs, `>= 3.20` at `z_bonf3` on all 3 `geom_ratio`, `>= 0.050` at `z_bonf3` on all 3 `cross_snr_2db`) **AND** Bonferroni `25%` half-width gates across **all 9 `DiD` pairs (`z_bonf9 * se <= 0.020`), all 3 `geom_ratio` log-ratios (`z_bonf3 * se_log <= min(0.25*ln(3.20), ln(1.25))`), and all 3 `cross_snr_2db` contrasts (`z_bonf3 * se <= 0.0125`)**! Dynamic sample size is set to **`N_pos_Z1 = 288`** (`36 × 8` workers).
+  4. **Fix #7 (Standard `"w"` Output Write Mode)**: Restore `open(args.out, "w", encoding="utf-8")` matching `h_l2_r11_h02.py`.
+- **Group B — Single-Factor Paired Controls & Exact Attribution Interventions (`Sol` Call-1 #3, #4, #5 + Call-2 #2 & Non-blocking)**:
+  5. **Fix #3 (Pure Single-Factor CPI-Length Radar Control `Prop_SameWave_Short8xQ2_AFDM`)**: Score `Prop_BeamMatchedDualISAC_AFDM`'s **exact same transmitted waveform `S_tot_cpi` and radar echoes `Y_rad_cpi`** with `sub_cpi_len = 2` (`8×(Q=2)`) across all `cal`, `val`, and `pos` scenes (with independent equal-`Pfa = 0.05` calibration and `val_pfa_blind in [0.015, 0.095]` hygiene gate), and **`AND`-gate** `Newcombe_CI95_lower(LocBlindPd(Prop_Q16) - LocBlindPd(Prop_SameWave_Short8xQ2)) >= 0.55` (`hw <= 0.1375`) into `P2` alongside `ExtrapBlockRZF_Short8xQ2_AFDM`.
+  6. **Fix #4 (Single-Submechanism BS Spatial Nulling Ablations alongside Full `B-only`)**: Clarify that `Abl_Bonly_MRT_WithTrack_AFDM` (`null_inter_user=False, null_radar_users=False`) removes **full BS spatial user-path decoupling `A = (A1_comm_whitening, A2_radar_user_nulling)`** while keeping per-block pilot tracking `B` (`recovery < 0.80`), **AND** add two pure single-submechanism ablations **`AND`-gated into `P2`**:
+     - `Abl_NoCommNull_KeepRadNull_AFDM` (`null_inter_user=False, null_radar_users=True`: removes ONLY inter-user communication whitening `A1`), gated at `CI95_lower(SER_NoCommNull_KeepRadNull - SER_Prop) >= 0.040` (`hw <= 0.0100`);
+     - `Abl_KeepCommNull_NoRadNull_AFDM` (`null_inter_user=True, null_radar_users=False`: removes ONLY radar-beam user nulling `A2`), gated at `CI95_lower(SER_KeepCommNull_NoRadNull - SER_Prop) >= 0.080` (`hw <= 0.0200`).
+  7. **Fix #5 (Exact `beta_std` in `Oracle_TrueEffH_*` & Full-16-Block Paired Unaged CSI Control `ExtrapBlockRZF_UnagedFull16_AFDM`)**:
+     - Pass exact transmitted data scale `beta_std * H_true_u[:, Dt]` in `Oracle_TrueEffH_AFDM` and `Oracle_TrueEffH_OFDM_Comb`.
+     - Add `ExtrapBlockRZF_UnagedFull16_AFDM`, calling `stage1_real_uplink_sounding` with identical uplink thermal noise draw `default_rng(seed_i + 1000000)` and per-block estimated `sig2_cur` at `sound_block_idx = q - 1` (constant CSI age `dt_steps = 1` across all 16 blocks `q = 0..15`, paired on identical channel, payload `d_pay`, and downlink noise `noise_u`), **`AND`-gated** at `CI95_lower(SER_ExtrapAged - SER_ExtrapUnagedFull16) >= 0.200` (`hw <= 0.0500`) in `P2` + included in `z0_all_below_1pct`.
+  8. **Non-blocking Wording Fixes**: (i) State strictly that the 16 dynamic dev scenes (`160000..160015`) establish only that increasing `Liu26` from 4 to 20 WMMSE iterations leaves its dynamic `Z=1` SER at `0.7299` (vs `0.7430`), whereas pure CSI-age attribution is tested by `ExtrapBlockRZF_Aged_AFDM - ExtrapBlockRZF_UnagedFull16_AFDM`; (ii) state accurately in §4.2 that if a single-mechanism ablation or same-wave short-CPI control fails its `P2` gate, `H_alt1` is **not ruled out** and `P2` evaluates to `false`.
+
+- **Explicit Signaling & Zero-Side-Info Contract (Unchanged)**:
+  - All blind arms execute **100% pure UE-local reception** from `yk` and public frame constants alone (`ZERO` BS-side `est_s1`, `W_beams`, `beta_std`, or `sig2_ul_hat` passed to UE), with the sole explicit pre-registered generosity exception of `U_rx_liu[q][k]` granted to adversary `Liu26_PerBinWMMSE_Aged_AFDM`. Exact expected block energy $\mathbb{E}_{d_{\text{pay}}}[\|\mathbf{S}_{\text{tot}}[q]\|_F^2] \equiv P_{\text{tot}} = 64.0$ holds across all arms.
+
+---
+
+## 2. Exact-Codepath Independent Dev-Set Dispersion Calibration & Sample Size Justification (Red Line 5)
+
+All dispersion and projected half-width numbers below are measured by calling **`h_l2_r12_h02_conf.run_regime_pool` directly** (`~/.cache/idea-funnel/afdm-20261125-h-r12/dev_exact_path_calibration.py` → `dev_exact_path_calibration.json`) on `N_dev_Z0 = 40` static scenes (`seed_base = 110000`, `pos 150000..150039`) and `N_dev_Z1 = 40` dynamic scenes (`seed_base = 120000`, `pos 160000..160039`, `cal 120000..120079`, `val 140000..140079`), strictly disjoint from `[500000, 800000)`.
+
+Chosen formal sample sizes: **`N_pos_Z0 = 64`** (`N_cal_Z0 = N_val_Z0 = 120`), **`N_pos_Z1 = 288`** (`N_cal_Z1 = N_val_Z1 = 320`), **`N_pos_S2 = 48`**.
+
+1. **20-Round `Liu26` & All 9 Clean Static Arms (`N_dev_Z0 = 40`, `150000..150039`)**:
+   - `Liu26_PerBinWMMSE_Aged_AFDM`: `Z=0 SER = 0.00462 ± 0.00386` (monotone objective across `40/40` scenes; `95% CI [0.00076, 0.00848] < 0.010`); all other 8 clean static arms (`Prop 0.00004`, `OFDM_Comb 0.00375`, `OFDM_HillClimb 0.00728`, `OFDM_Extrap 0.00000`, `ExtrapAged 0.00092`, `ExtrapUnagedFull16 0.00092`, `DDAM 0.00660`, `Abl_Aonly 0.00009`) are strictly `< 0.010`.
+2. **`P1` Exact-Codepath Dispersion Across ALL 3 Fixed OFDM Rivals (`z_bonf3 = 2.393980`) & ALL 9 Cross-Arm `DiD` Pairs (`z_bonf9 = 2.772921`) Projected to `(N_pos_Z0 = 64, N_pos_Z1 = 288)`**:
+   - `OFDM_Comb_JointWLS_DualISAC`: `sd_z0 = 0.00485`, `sd_z1 = 0.03662`, `sd_log = 0.6929`, `sd_cs2db = 0.03175` → projected Bonferroni half-widths at `(64, 288)`: `did_bonf3_hw = 0.00537 ≤ 0.0200`, `geom_bonf3_log_hw = 0.0977 ≤ 0.2231`, **`cs2db_bonf3_hw = 0.00448 ≤ 0.0125`** (`ci95_hw = 0.00367`).
+   - `OFDM_HillClimb_JointWLS_ISAC`: `sd_z0 = 0.00845`, `sd_z1 = 0.05687`, `sd_log = 0.7357`, `sd_cs2db = 0.05257` → projected Bonferroni half-widths at `(64, 288)`: `did_bonf3_hw = 0.00841 ≤ 0.0200`, `geom_bonf3_log_hw = 0.1038 ≤ 0.2231`, **`cs2db_bonf3_hw = 0.00742 ≤ 0.0125`** (`ci95_hw = 0.00607`).
+   - `OFDM_ExtrapBlockRZF`: `sd_z0 = 0.00025`, `sd_z1 = 0.07398`, `sd_log = 0.7652`, `sd_cs2db = 0.07335` → projected Bonferroni half-widths at `(64, 288)`: `did_bonf3_hw = 0.01044 ≤ 0.0200`, `geom_bonf3_log_hw = 0.1079 ≤ 0.2231`, **`cs2db_bonf3_hw = 0.01035 ≤ 0.0125`** (`ci95_hw = 0.00847`).
+   - **All 9 Cross-Arm `DiD(rv1, rv0)` Pairs (`M = 9`, `z_bonf9 = 2.772921`)**: projected `z_bonf9` half-width ranges from `0.00598` (`OFDM_Comb - OFDM_Extrap`) to **`0.01244`** (`OFDM_Extrap - OFDM_HillClimb`), **every single pair strictly `≤ 0.0200`**.
+3. **`P2` Exact-Codepath Dispersion (Projected to `N_pos_Z1 = 288`)**:
+   - **Full-16-Block Paired CSI-Aging Contrast (`ExtrapAged - ExtrapUnagedFull16` via exact `h_l2_r12_h02_conf.py` path)**: dev `mean = +0.37567`, paired `sd = 0.07525` (`dev N=40 hw = 0.02332`) → projected `ci95_half_width` at `N = 288` is **`0.00869 ≤ 0.25 * 0.200 = 0.0500`**.
+   - **Single-Submechanism Ablations**: `Abl_NoCommNull_KeepRadNull - Prop` has dev `mean = +0.06297`, paired `sd = 0.02601` → projected `hw@288 = 0.00300 ≤ 0.25 * 0.040 = 0.0100`; `Abl_KeepCommNull_NoRadNull - Prop` has dev `mean = +0.11972`, paired `sd = 0.04502` → projected `hw@288 = 0.00520 ≤ 0.25 * 0.080 = 0.0200`.
+   - **Rival AFDM Aging/DDAM Contrasts**: paired `sd = 0.0851 / 0.0805 / 0.0974` → projected `hw@288 = 0.00982 / 0.00929 / 0.01124 ≤ 0.25 * 0.150 = 0.0375`.
+   - **SVD Radar `LocBlindPd` (`1.000` vs `0.000` on both `ExtrapShort8xQ2` and `Prop_SameWave_Short8xQ2`)**: exact Newcombe Method 10 Wilson half-width at `N = 288` is **`0.0189 ≤ 0.25 * 0.55 = 0.1375`**.
+   - **Full Two-Way Ablations (`Abl_Aonly`, `Abl_Bonly_MRT`)**: bootstrap recovery half-widths at `N = 288` are `≤ 0.015 ≤ 0.050`; SER-gap half-widths `≤ 0.006 ≤ 0.020`.
+
+---
+
+## 3. Primary Verdicts (`PASS_PRIMARY` — Strictly Dominating Round 11 on Every Input)
+
+`verdicts.PASS_PRIMARY` is `true` **if and only if BOTH `P1` and `P2` hold**, including:
+- **Static Hygiene Gate**: All 9 full-CPI clean communication arms `{Prop, OFDM_Comb, OFDM_HillClimb, OFDM_Extrap, Liu26, ExtrapAged, ExtrapUnagedFull16, DDAM, Abl_Aonly}` satisfy `Z=0` static mean `SER < 0.010`;
+- **Radar Equal-`Pfa` Hygiene Gate**: `Prop_BeamMatchedDualISAC_AFDM`, `Prop_SameWave_Short8xQ2_AFDM`, and `ExtrapBlockRZF_Short8xQ2_AFDM` ALL satisfy empirical `val_Pfa_blind in [0.015, 0.095]` on `N_val_Z1 = 320` at `Pfa_target = 0.05`;
+- **Red Line 5 Precision Gate**: **Every** primary criterion's realized half-width (using within-family Bonferroni `z_bonf9 = 2.772921` for the 9-pair `DiD` family, `z_bonf3 = 2.393980` for each 3-rival `P1` family, and `95%` in `P2`) is `<= 25%` of its threshold distance.
+
+1. **`P1` (`[高要求]` Per-Family Simultaneous Bonferroni Fixed-Rival & All-9-Pair Cross-Waveform `2×2 DiD` + `≥ 2.0 dB` Advantage across ALL 3 Equal-Overhead `OFDM` Candidates)**:
+   Let `OFDM_RIVALS = {"OFDM_Comb_JointWLS_DualISAC", "OFDM_HillClimb_JointWLS_ISAC", "OFDM_ExtrapBlockRZF"}`, `z_bonf3 = 2.393980` (`M = 3` two-sided 95% Bonferroni within each 3-rival sub-family), and `z_bonf9 = 2.772921` (`M = 9` two-sided 95% Bonferroni across the 9-pair `DiD` sub-family; note `P1` is an intersection-union `AND` across its sub-clauses):
+   - **Within-Family Simultaneous All-9-Pair & Fixed-Arm `2×2 DiD` (`z_bonf9 = 2.772921` on all 9 pairs, `z_bonf3 = 2.393980` on 3 fixed-arm diagonals)**: For **EVERY** pair `(rv1, rv0) in OFDM_RIVALS × OFDM_RIVALS`, `mean - z_bonf9 * se >= 0.080` **AND** `z_bonf9 * se <= 0.020` (which strictly implies `z_bonf3` on all 3 fixed-arm `rv1 == rv0` diagonals), **AND**
+   - **Within-Family Simultaneous Fixed-Arm Geometric Ratio at `28 dB` (`M = 3`, `z_bonf3 = 2.393980`)**: For **EVERY** `rv in OFDM_RIVALS`, `exp(mean_log - z_bonf3 * se_log) >= 3.20` **AND** `z_bonf3 * se_log <= min(0.25 * ln(3.20), ln(1.25))`, **AND**
+   - **Within-Family Simultaneous `+2.0 dB` Cross-SNR Headroom (`M = 3`, `z_bonf3 = 2.393980`)**: For **EVERY** `rv in OFDM_RIVALS`, `mean - z_bonf3 * se >= 0.050` **AND** `z_bonf3 * se <= 0.0125`.
+
+2. **`P2` (ISAC Coherent-CPI Deadlock Resolution, Single-Factor CPI & Aging Controls, & Full + Single-Submechanism `A ⇄ B` Coupling Necessity)**:
+   - **Rival AFDM Baselines**: `CI95_lower(SER_rival_28dB - SER_Prop_AFDM_28dB) >= 0.150` **AND** `ci95_half_width <= 0.0375` for EVERY `rival in {Liu26_PerBinWMMSE_Aged_AFDM, ExtrapBlockRZF_Aged_AFDM, DDAM_CleanFullEq_AFDM}`, **AND**
+   - **Pure 16-Block Paired CSI-Aging Isolation**: `CI95_lower(SER_ExtrapAged_28dB - SER_ExtrapUnagedFull16_28dB) >= 0.200` **AND** `ci95_half_width <= 0.0500`, **AND**
+   - **System & Pure Single-Factor `Q=16` vs `8×(Q=2)` SVD Clutter-Projected Radar `LocBlindPd`**: Exact Newcombe Method 10 `CI95_lower(LocBlindPd_Prop_Q16 - LocBlindPd_ExtrapShort8xQ2) >= 0.55` (`ci95_half_width <= 0.1375`) **AND** `CI95_lower(LocBlindPd_Prop_Q16 - LocBlindPd_Prop_SameWave_Short8xQ2) >= 0.55` (`ci95_half_width <= 0.1375`), **AND**
+   - **Full Two-Way (`A-only` / `B-only`) & Pure Single-Submechanism (`A1` / `A2`) Spatial-Tracking Ablations**:
+     - `CI95_upper(recovery_Aonly) < 0.80` (`hw <= 0.050`), `CI95_upper(recovery_Bonly_MRT) < 0.80` (`hw <= 0.050`), `CI95_lower(SER_Aonly - SER_Prop) >= 0.080` (`hw <= 0.020`), `CI95_lower(SER_Bonly_MRT - SER_Prop) >= 0.080` (`hw <= 0.020`), **AND**
+     - `CI95_lower(SER_NoCommNull_KeepRadNull - SER_Prop) >= 0.040` (`hw <= 0.0100`) **AND** `CI95_lower(SER_KeepCommNull_NoRadNull - SER_Prop) >= 0.080` (`hw <= 0.0200`).
+
+---
+
+## 4. Diagnostic Readouts (`SCOPE_READOUTS`) & Research-Checkpoint Audit
+
+1. **Diagnostic Readouts**: (i) Exact-`beta_std` `Oracle_TrueEffH_AFDM` vs `Oracle_TrueEffH_OFDM_Comb` `SER` at `Z=0` and `Z=1`; (ii) `ExtrapBlockRZF_UnagedQ0_AFDM`, `ExtrapBlockRZF_UnagedFull16_AFDM`, `ExtrapBlockRZF_Aged_AFDM`, and `Prop`; (iii) `proj_keep_db` across `Prop(Q=16)`, `Prop_SameWave_Short8xQ2`, `OFDM_Comb(Q=16)`, and `ExtrapShort8xQ2`; (iv) `Nt = 16, K = 4, Pk = 3` (`SNR = 26 dB, N_pos = 48`).
+2. **Competing Hypotheses & Premortem (`research-checkpoint` §1)**:
+   - `H_main` (20-iter `Liu26` converges `< 1%` statically while failing dynamically; `ExtrapAged - ExtrapUnagedFull16 >= 0.20` isolates 16-block phase aging; `Prop` wins via joint `(A1, A2)` spatial decoupling + `B` affine pilot tracking, and 16-block coherent CPI prevents 2-block SVD clutter projection target cancellation): predicts `PASS_PRIMARY = true`.
+   - `H_alt1` (Either `A1` inter-user whitening or `A2` radar user-nulling is redundant, or `Q=2` radar loss came from `ExtrapBlockRZF` waveform rather than `sub_cpi_len=2` projection): `H_alt1` is ruled out only if `Abl_NoCommNull_KeepRadNull`, `Abl_KeepCommNull_NoRadNull`, and `Prop_SameWave_Short8xQ2` all clear their `P2` gates; if any of them fails its gate, `H_alt1` is **not ruled out** and the script sets `P2 = false` (`PASS_PRIMARY = false`).
+   - `H_alt2` (3-arm radar `val_Pfa_blind in [0.015, 0.095]` or all-3 Bonferroni `P1` fails on unseen `500000..740287` seeds): any miss yields `PASS_PRIMARY = false` and immediate `killed`.
+   - **Pre-Run Subjective Predictions**: `P(z0_all_below_1pct) = 0.96`, `P(pfa_hygiene_ok_all3) = 0.96`, `P(P1_all3_bonf_at_288) = 0.99`, `P(P2_with_single_factor_controls_at_288) = 0.95` → **`P(PASS_PRIMARY == true) = 0.87`**.
