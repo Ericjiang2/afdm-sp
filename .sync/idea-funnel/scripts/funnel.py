@@ -6,7 +6,7 @@
   python3 funnel.py board <funnel dir>                                (validate cards, rewrite BOARD.md; exit 1 on errors)
   python3 funnel.py import <funnel dir> --src <cards dir from elsewhere>   (copy cards, keep local eric: marks)
 """
-import argparse, datetime, re, sys
+import argparse, datetime, json, re, sys
 from pathlib import Path
 
 SKILL = Path(__file__).resolve().parent.parent
@@ -20,6 +20,14 @@ SECTIONS = ('## 问题（一句话）', '## 白话与类比', '## 锚点（出�
 
 def today():
     return datetime.date.today().isoformat()
+
+
+def _check_title(title):
+    t = title.strip()
+    cjk = len(re.findall(r'[\u4e00-\u9fff]', t))
+    if len(t) > 32 or cjk > 26:
+        return f'title too long (len={len(t)}<=32, cjk={cjk}<=26): write plain Chinese ("场景+改什么+解决什么") without jargon piles'
+    return ''
 
 
 def parse(path):
@@ -40,6 +48,29 @@ def parse(path):
         errors.append(f'parent {meta["parent"]} not found')
     if meta.get('id') and meta['id'] != path.stem:
         errors.append(f'id {meta["id"]} does not match file name')
+    if meta.get('status') == 'active' and meta.get('layer') in ('L0', 'L1', 'L2'):
+        terr = _check_title(meta.get('title', ''))
+        if terr:
+            errors.append(terr)
+    if meta.get('status') == 'active' and meta.get('layer') == 'L2' and 'cross-model review' in meta.get('next_cost', '') and meta.get('track') != 'pit':
+        funnel_dir = path.parent.parent
+        jpaths = re.findall(r'(?:ideas/)?l2/[A-Za-z0-9_./-]+\.json', text.split('## 筛选记录', 1)[-1])
+        spaths = [p for p in jpaths if 'summary' in Path(p).name] or jpaths
+        if not spaths:
+            errors.append('cross-model review blocked: no ideas/l2/.../*.json result file cited in ## 筛选记录')
+        else:
+            rel = spaths[-1]
+            cand = (funnel_dir.parent / rel) if rel.startswith('ideas/') else (funnel_dir / rel)
+            if not cand.is_file():
+                errors.append(f'cross-model review blocked: cited JSON {rel} not found')
+            else:
+                try:
+                    v = (json.loads(cand.read_text(encoding='utf-8')).get('verdicts') or {})
+                except Exception as exc:
+                    errors.append(f'cross-model review blocked: invalid JSON in {cand.name} ({exc})')
+                    v = None
+                if v is not None and v.get('PASS_PRIMARY') is not True:
+                    errors.append(f"cross-model review blocked: {cand.name} verdicts.PASS_PRIMARY={v.get('PASS_PRIMARY')!r} (must be true; set status to killed or parked)")
     return meta, text, errors
 
 
@@ -65,6 +96,9 @@ def init(d, project):
 
 
 def new(d, title, anchor, parent='', runner='', generator='', track=''):
+    terr = _check_title(title)
+    if terr:
+        sys.exit(terr)
     stamp = datetime.date.today().strftime('%Y%m%d')
     tpl = (SKILL / 'templates/card.md').read_text(encoding='utf-8')
     for n in range(1, 1000):

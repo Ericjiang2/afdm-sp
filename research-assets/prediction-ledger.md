@@ -5,6 +5,33 @@
 - 标注 `retrospective` 的条目是事后补记，概率为重构值，不计入校准分。
 
 
+### 2026-11-23 (before six-point C1 CRC closed-loop acceptance)
+
+| # | Study | Forecast | p | Source | Outcome | Brier |
+|---|---|---|---|---|---|---|
+| ML6 | CRC on the original C1 matched graph | Short-report closure passes | .80 | [Frozen protocol](../.trellis/tasks/11-22-matched-ldpc-kill-test/PREDICTIONS_CRC_CLOSED_LOOP.md) | Yes | .0400 |
+| ML7 | CRC on the original C1 matched graph | Receive-SNR point or bound meets 0.8 dB | .35 | [Frozen protocol](../.trellis/tasks/11-22-matched-ldpc-kill-test/PREDICTIONS_CRC_CLOSED_LOOP.md) | Yes, 0.9375 dB point gain | .4225 |
+
+### 2026-11-23 (before the first-round forest-code input swap)
+
+| # | Study | Forecast | p | Source | Outcome | Brier |
+|---|---|---|---|---|---|---|
+| ML4 | Forest LDPC added failures | Incoming log-loss is WORSE | .25 | [Frozen predictions](../.trellis/tasks/11-22-matched-ldpc-kill-test/PREDICTIONS_FOREST_INPUT.md) | Yes | .5625 |
+| ML5 | Forest LDPC added failures | Held-input gap is WORSE under both sources | .40 | [Frozen predictions](../.trellis/tasks/11-22-matched-ldpc-kill-test/PREDICTIONS_FOREST_INPUT.md) | No | .1600 |
+
+### 2026-11-23 (before the two-point forest-code C1 replay)
+
+| # | Study | Forecast | p | Source | Outcome | Brier |
+|---|---|---|---|---|---|---|
+| ML3 | Forest LDPC on C1 | Two-point 0.8 dB gate | PASS .30, BELOW .60, UNRESOLVED .10 | [Frozen predictions](../.trellis/tasks/11-22-matched-ldpc-kill-test/PREDICTIONS_FOREST_MINIMAL.md) | BELOW | .2600 |
+
+### 2026-11-22 (before the matched-LDPC C1 kill test)
+
+| # | Study | Forecast | p | Source | Outcome | Brier |
+|---|---|---|---|---|---|---|
+| ML1 | Matched LDPC on C1 | Primary L28 decision, conditional on a resolved verdict | KILL .45, MIDDLE .30, CONTINUE .25 | [Frozen predictions](../.trellis/tasks/11-22-matched-ldpc-kill-test/PREDICTIONS.md#forecasts) | MIDDLE | .7550 |
+| ML2 | Matched LDPC on C1 | Matched beats AWGN on primary L28 crossing | .65 | [Frozen predictions](../.trellis/tasks/11-22-matched-ldpc-kill-test/PREDICTIONS.md#forecasts) | Yes, by 1.4833 dB | .1225 |
+
 ### 2026-11-18 (before the Stage 3 CODELAY run)
 
 | # | Date | Study | Forecast | p | Source | Outcome | Score | Brier |
@@ -682,3 +709,78 @@ Readout [STAGEA4_READOUT.md](../experiments/data_pilot_fer_20261121/STAGEA4_READ
 | TC-2c | Claude | T2 PASS | .90 | Occurred. Brier 0.01 |
 
 Readout [READOUT.md](../experiments/tail_check_20261121/READOUT.md). Claude's descriptive expectation (delay arm fixes > .7 of tail keys) missed on the pooled value (.29, dominated by rho .05); .97-1.00 at rho .10-.20.
+
+
+### 2026-11-24 — Huang-2010-style steelman (CD vs global OMP HG vs Γ=0 Z, scored)
+
+Forecasts frozen before main execution in [PROTOCOL.md §6](../experiments/huang_steelman_20261124/PROTOCOL.md) (`4772365c`; Claude's four entries carried unchanged from [DRAFT](../.trellis/tasks/09-22-tf-production-gap-audit/research/huang-steelman-prereg-DRAFT-20261124.md)). 62,400 keys / 18,009 archived F0 triggers on `rho_sweep_20261119` frames `5400–5799`, full 6-$\rho$ grid, `HG` recipe `B0-p2-s0.5`, `HGint` retained; 9.84 core-hours cumulative (within 12.0 core-hour cap).
+
+| ID | Author | Forecast | Probability | Outcome |
+|---|---|---|---|---|
+| HS-C1 | Claude | Q2 (`min HG − min CD`): `CD_AHEAD` / `CD_SLIGHT` / `EQUIVALENT` / `HG_AHEAD` / `INCONCLUSIVE` | .30 / .15 / .30 / .15 / .10 | `HG_AHEAD` occurred (−0.6533 dB, 98.33% proj CI [−0.9668, −0.1936]). Multiclass Brier 0.9350 |
+| HS-C2 | Claude | Q3 (`min Z − min CD`): `Z_EQUIVALENT` / `CD_NEEDED` / `Z_BETTER` / `Z_INCONCLUSIVE` | .65 / .15 / .05 / .15 | `Z_EQUIVALENT` occurred (+0.0501 dB, 98.33% proj CI [−0.2141, +0.3270]). Multiclass Brier 0.1700 |
+| HS-C3 | Claude | Quiet per-trigger median latency: `CD` < `HG` | .75 | Occurred (`CD` 158.76 ms < `HG` 523.49 ms; `HG/CD` median ratio 3.310×). Brier 0.0625 |
+| HS-C4 | Claude | Optimal $\rho$ (point argmin): `HG` < `CD` | .35 | Occurred (`HG` 0.20 < `CD` 0.30). Brier 0.4225 |
+| HS-G1 | agy (Gemini 4 Neon) | Q2 (`min HG − min CD`): `CD_AHEAD` / `CD_SLIGHT` / `EQUIVALENT` / `HG_AHEAD` / `INCONCLUSIVE` | .25 / .15 / .35 / .15 / .10 | `HG_AHEAD` occurred (−0.6533 dB, 98.33% proj CI [−0.9668, −0.1936]). Multiclass Brier 0.9400 |
+| HS-G2 | agy (Gemini 4 Neon) | Q3 (`min Z − min CD`): `Z_EQUIVALENT` / `CD_NEEDED` / `Z_BETTER` / `Z_INCONCLUSIVE` | .70 / .15 / .05 / .10 | `Z_EQUIVALENT` occurred (+0.0501 dB, 98.33% proj CI [−0.2141, +0.3270]). Multiclass Brier 0.1250 |
+| HS-G3 | agy (Gemini 4 Neon) | Quiet per-trigger median latency: `CD` < `HG` | .80 | Occurred (`CD` 158.76 ms < `HG` 523.49 ms; `HG/CD` median ratio 3.310×). Brier 0.0400 |
+| HS-G4 | agy (Gemini 4 Neon) | Optimal $\rho$ (point argmin): `HG` < `CD` | .25 | Occurred (`HG` 0.20 < `CD` 0.30). Brier 0.5625 |
+
+Readout [READOUT.md](../experiments/huang_steelman_20261124/READOUT.md) · [RESULTS.md](../experiments/huang_steelman_20261124/out/RESULTS.md). Both forecasters strongly underestimated global OMP (`HS-C1`/`HS-G1` assigned only .15 to `HG_AHEAD` and .35/.25 to `HG` shifting optimal $\rho$ down) and calibrated well on `Z_EQUIVALENT` and `CD` < `HG` latency. Note also the secondary surprise: coarse integer-grid 2-pass `HGint` beat `CD` by −0.5587 dB [−0.8494, −0.2677] at 1.066× median per-trigger latency (168.34 vs 158.76 ms).
+
+
+### 2026-11-24 — Same-frame decisive check: HG vs round-0 Doppler headroom & two-pass CD (scored)
+
+Forecasts committed before running `experiments/sameframe_hg_20261124/sameframe.py` ([PROTOCOL.md](../experiments/sameframe_hg_20261124/PROTOCOL.md), freeze `918a2474`). Part 1 evaluates `HG`/`HGint` on `stageA` frames `41000–41399` ($\rho \in \{100,150,200,250\}$) paired against archived `stageA`/`stageA2`/`stageA3` (`s100` primary, 95% paired frame bootstrap, 2000 draws, seed `20261124`). Part 2 evaluates two-pass `CD2` (`max_edits=2`) and `CD2e8` (`max_edits=8`) on `rho_sweep_20261119` frames `5400–5799` (18,009 triggers, 98.33% 36-pair projected CI). Total runtime: 10.87 core-hours (cap 16.0 h).
+
+| ID | Author | Forecast | Probability | Outcome |
+|---|---|---|---|---|
+| SF-C1 | Claude | P1 (`min HG − min s100`): `DOPPLER-LINE` / `INCONCLUSIVE` / `WRITE-A` | .35 / .40 / .25 | `INCONCLUSIVE` occurred (+0.7333 dB, 95% CI [+0.4549, +1.0396]). Multiclass Brier 0.5450 |
+| SF-C2 | Claude | P2 (`min CD2 − min HG`): `STILL_BEHIND` / `MIXED` / `CATCHES_UP` | .65 / .25 / .10 | `CATCHES_UP` occurred (−0.1246 dB, 98.33% proj CI [−0.5520, +0.0822]). Multiclass Brier 1.2950 |
+| SF-G1 | agy (Gemini 4 Neon) | P1 (`min HG − min s100`): `DOPPLER-LINE` / `INCONCLUSIVE` / `WRITE-A` | .25 / .45 / .30 | `INCONCLUSIVE` occurred (+0.7333 dB, 95% CI [+0.4549, +1.0396]). Multiclass Brier 0.4550 |
+| SF-G2 | agy (Gemini 4 Neon) | P2 (`min CD2 − min HG`): `STILL_BEHIND` / `MIXED` / `CATCHES_UP` | .45 / .45 / .10 | `CATCHES_UP` occurred (−0.1246 dB, 98.33% proj CI [−0.5520, +0.0822]). Multiclass Brier 1.2150 |
+| SF-G3 | agy (Gemini 4 Neon) | P2 (`min CD2e8 − min HG`): `STILL_BEHIND` / `MIXED` / `CATCHES_UP` | .20 / .45 / .35 | `CATCHES_UP` occurred (−0.1851 dB, 98.33% proj CI [−0.5810, −0.0121]). Multiclass Brier 0.6650 |
+
+Readout [READOUT.md](../experiments/sameframe_hg_20261124/READOUT.md) · [RESULTS.md](../experiments/sameframe_hg_20261124/out/RESULTS.md). Both forecasters strongly underestimated two-pass `CD2` (only .10 on `CATCHES_UP`): matching continuation passes (4 total rounds) closed the entire prior `CD` vs `HG` gap and put `CD2` numerically ahead of `HG` (−0.125 dB, 242 vs 86 paired rescues) and ahead of `HGint` (−0.219 dB [−0.521, −0.012]). On P1, both forecasters calibrated well on `INCONCLUSIVE`.
+
+
+### 2026-11-25 — Low-pilot round-0 Doppler headroom after CD2 & quiet dual-panel timing (scored)
+
+Forecasts committed before running `experiments/sameframe_cd2_20261125/sameframe_cd2.py` ([PROTOCOL.md](../experiments/sameframe_cd2_20261125/PROTOCOL.md), freeze `e3bf93f6`). Part A ran `CD2` + `CD2e8` on `stageA` frames `41000–41399` ($\rho \in \{100,150,200,250\}$), joint paired frame bootstrap (`2000` draws, seed `20261125`, 95% percentile CI) for `P1' = min CD2 (100..250) − min s100 (100..200)`. Part B ran quiet single-core timing (`CD`, `CD2`, `CD2e8`, `HG`, `HGint`) on CPU 0 (0.0% util) at $(\rho=.20, 4.5\text{ dB})$ and $(\rho=.30, 5.0\text{ dB})$. Total runtime: `3.25` core-hours (cap `6.0 h`).
+
+| ID | Author | Forecast | Probability | Outcome |
+|---|---|---|---|---|
+| CD2-C1 | Claude | `P1'` (`min CD2 − min s100`): `DOPPLER-LINE` / `INCONCLUSIVE` / `STOP-LINE` (point ~0.6 dB) | .25 / .50 / .25 | `INCONCLUSIVE` occurred (+0.5765 dB, 95% CI [+0.3168, +0.8372]). Multiclass Brier 0.3750 |
+| CD2-C2 | Claude | Quiet timing ($\rho=.20, 4.5\text{ dB}$): `CD2` mean per-trigger time < `HG` mean time | .80 | Occurred (`CD2` 189.02 ms < `HG` 639.99 ms; also at $\rho=.30, 5.0\text{ dB}$: 172.80 vs 572.38 ms). Brier 0.0400 |
+| CD2-G1 | agy (Gemini 4 Neon) | `P1'` (`min CD2 − min s100`): `DOPPLER-LINE` / `INCONCLUSIVE` / `STOP-LINE` | .20 / .65 / .15 | `INCONCLUSIVE` occurred (+0.5765 dB, 95% CI [+0.3168, +0.8372]). Multiclass Brier 0.1850 |
+| CD2-G2 | agy (Gemini 4 Neon) | Quiet timing ($\rho=.20, 4.5\text{ dB}$): `CD2` mean per-trigger time < `HG` mean time | .90 | Occurred (`CD2` 189.02 ms < `HG` 639.99 ms; also faster than `HGint` 199.05 ms). Brier 0.0100 |
+
+Readout [READOUT.md](../experiments/sameframe_cd2_20261125/READOUT.md) · [RESULTS.md](../experiments/sameframe_cd2_20261125/out/RESULTS.md). Both forecasters calibrated well across both `P1'` and timing. Notably, `CD2` strictly beat both `HG` (−0.1569 dB [−0.2976, −0.0137]) and `HGint` (−0.2121 dB [−0.3588, −0.0622]) on the fresh `41000–41399` cohort while running faster than both (`189.0` vs `640.0` / `199.1 ms` at $\rho=.20, 4.5\text{ dB}$).
+
+
+### 2026-11-25 — data-pilot-fer stage A5, semi-blind round-0 Doppler proxy check (scored)
+
+Forecasts committed before running `experiments/data_pilot_fer_20261121/stageA5.py` ([STAGEA5_PROTOCOL.md](../experiments/data_pilot_fer_20261121/STAGEA5_PROTOCOL.md), freeze `75530d4d`). Given true delays $l_i$, evaluates `PW` (pilot-only, data as white noise), `SB` (semi-blind Gaussian ML, exact-gradient joint L-BFGS-B from `PW`), and `KD` (known-data ceiling) on frames `41000–41099` × U/G (200 draws; paired 100-frame cluster bootstrap, `2000` draws, seed `20261125`), $\rho \in \{100,150,200\}$, SNR = `400` (4 dB; G4 selected `[400]` under 6.0 core-h cap; actual `1.97` core-hours). Primary $E = \min_{\rho \in \{.10, .15\}} \overline{M}_{\mathrm{SB}}(4\text{ dB})$: `PASS` if CI upper $\le 0.08$ bin, `FAIL` if CI lower $> 0.08$, else `BORDERLINE`.
+
+| ID | Author | Forecast | Probability | Outcome |
+|---|---|---|---|---|
+| A5-C1 | Claude | Primary verdict: `PASS` / `BORDERLINE` / `FAIL` | .30 / .35 / .35 | `PASS` occurred (`0.0430` bin at $\rho=.15$, 95% CI `[0.0408, 0.0455]`). Multiclass Brier 0.7350 |
+| A5-C2 | Claude | 4 dB, $\rho=.10$ `SB` efficiency (`SB mean / SB-CRB`) in `[1.3, 2.5]` | .60 | Occurred (`1.3245` = `0.0527 / 0.0398`). Score 1, Brier 0.1600 |
+| A5-G1 | agy (Gemini 4 Neon) | Primary verdict: `PASS` / `BORDERLINE` / `FAIL` | .40 / .30 / .30 | `PASS` occurred (`0.0430` bin at $\rho=.15$, 95% CI `[0.0408, 0.0455]`). Multiclass Brier 0.5400 |
+| A5-G2 | agy (Gemini 4 Neon) | 4 dB, $\rho=.10$ `SB` efficiency (`SB mean / SB-CRB`) in `[1.3, 2.5]` | .55 | Occurred (`1.3245` = `0.0527 / 0.0398`). Score 1, Brier 0.2025 |
+
+Readout [STAGEA5_READOUT.md](../experiments/data_pilot_fer_20261121/STAGEA5_READOUT.md) · [RESULTS.md](../experiments/data_pilot_fer_20261121/out/stageA5/RESULTS.md). Both forecasters expected a harder finite-sample efficiency penalty at 4 dB and placed only .30/.40 on `PASS`; in fact exact-gradient joint `SB` hit `1.32× / 1.17× / 1.09×` of `SB-CRB` (`0.0527 / 0.0430 / 0.0376` bin), passing well below `0.08` bin at both $\rho = 0.10$ and $0.15$. Both efficiency-band forecasts (`A5-C2`, `A5-G2`) hit (`1.3245 ∈ [1.3, 2.5]`).
+
+
+### 2026-11-25 — data-pilot-fer stage A6, end-to-end FER ceiling of semi-blind round-0 Doppler (scored)
+
+Forecasts committed before running `experiments/data_pilot_fer_20261121/stageA6.py` ([STAGEA6_PROTOCOL.md](../experiments/data_pilot_fer_20261121/STAGEA6_PROTOCOL.md), freeze `c8c2e5fe`). Given true delays $l_i$, evaluates `SBdop` (`stageA5.estimate_sb`) and `PWdop` (`stageA5.estimate_pw`) via `stageA2.f0_true(..., 'ls')` + `A1` on frames `41000–41399` × U/G, $\rho \in \{100, 150\}$, SNR grid `[300, 400, 450, 500]` (6,400 keys; 4-SNR option 1 approved by Eric before freeze under 40.0 core-h cap; actual `26.01` core-hours), paired against frozen `CD2` (`sameframe_cd2_20261125`) and `stageA2`/`stageA3` archives (`2000` joint physical-frame bootstrap draws, seed `20261125`, 95% CI). Primary $D = \min_{\rho \in \{100..250\}} C_{\mathrm{CD2}} - \min_{\rho \in \{100,150\}} C_{\mathrm{SBdop}}$: `GO` if CI lower $\ge 0.5$ dB, `STOP` if CI upper $< 0.3$ dB, else `ERIC`.
+
+| ID | Author | Forecast | Probability | Outcome |
+|---|---|---|---|---|
+| A6-C1 | Claude | Primary verdict: `GO` / `ERIC` / `STOP` | .45 / .45 / .10 | `STOP` occurred (`+0.0386 dB`, 95% CI `[-0.1890, +0.2327]`). Multiclass Brier 1.2150 |
+| A6-C2 | Claude | `SBdop` best 1% FER crossing in `[3.50, 3.80] dB` | .55 | Did not occur (`4.3769 dB` at $\rho=.15$, 95% CI `[4.1737, 4.5615]`). Score 0, Brier 0.3025 |
+| A6-G1 | agy (Gemini 4 Neon) | Primary verdict: `GO` / `ERIC` / `STOP` | .50 / .42 / .08 | `STOP` occurred (`+0.0386 dB`, 95% CI `[-0.1890, +0.2327]`). Multiclass Brier 1.2728 |
+| A6-G2 | agy (Gemini 4 Neon) | `SBdop` best 1% FER crossing in `[3.50, 3.80] dB` | .60 | Did not occur (`4.3769 dB` at $\rho=.15$, 95% CI `[4.1737, 4.5615]`). Score 0, Brier 0.3600 |
+
+Readout [STAGEA6_READOUT.md](../experiments/data_pilot_fer_20261121/STAGEA6_READOUT.md) · [RESULTS.md](../experiments/data_pilot_fer_20261121/out/stageA6/RESULTS.md). Major miss by both forecasters (both gave `STOP` only .08–.10 and extrapolated directly from Stage A5's capped mean `0.043` bin $\approx$ `s050`): in the actual receiver, 100% (`38/38`) of high-SNR (`4.5–5.0 dB`) `SBdop` final failures had gross `2–4.4` bin sidelobe-jump outliers inherited from `PW` (masked by A5's `0.375` cap and unrecoverable by local L-BFGS-B or round-1 `time_refine`), leaving `SBdop` `+0.92 dB` worse than `s050` and tied with `PWdop` (`4.3501 dB`) and `CD2` (`4.4156 dB`).

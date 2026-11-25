@@ -1,0 +1,497 @@
+{
+  "_argv": [
+    "ideas/l2/g_r6_rev_g04_impulsive_blind.py",
+    "run",
+    "--workers",
+    "24",
+    "--out",
+    "ideas/l2/out_g_r6_rev"
+  ],
+  "_config": {
+    "card": "I-20261123-g04",
+    "revision": "Round 6 Step-7 controlled blind + true-H attribution slice",
+    "mixed_dev_seeds": [
+      82900,
+      83020
+    ],
+    "test_seeds": [
+      83100,
+      83500
+    ],
+    "grid": "64x8",
+    "snr_db": 11.5,
+    "cp_samples": 8,
+    "total_samples": 520,
+    "blind_zero_sigma2_zero_label": true,
+    "workers": 24,
+    "wall_seconds": 418.84
+  },
+  "unified_blind_dev_selected": {
+    "Comb_OFDM_MaskProj": {
+      "rp": 0.14,
+      "c_T": 3.3,
+      "reg_mult": 0.07
+    },
+    "Spread_OTFS_MaskProj": {
+      "rp": 0.14,
+      "c_T": 2.4,
+      "reg_mult": 0.07
+    },
+    "EP_OTFS_Imp_MaskProj": {
+      "rp": 0.08,
+      "c_T": 2.4,
+      "reg_mult": 0.07
+    },
+    "EP_OTFS_SF_PCP_MaskProj": {
+      "rp": 0.14,
+      "c_T": 2.1,
+      "reg_mult": 0.07
+    },
+    "EP_AFDM_Unblanked": {
+      "rp": 0.14,
+      "c_T": 2.1,
+      "reg_mult": 0.07
+    },
+    "EP_AFDM_NaiveZhidkov": {
+      "rp": 0.14,
+      "c_T": 2.4,
+      "reg_mult": 0.07
+    },
+    "EP_AFDM_MaskProj_0Iter": {
+      "rp": 0.14,
+      "c_T": 2.1,
+      "reg_mult": 0.035
+    },
+    "EP_AFDM_MaskProj_1Iter": {
+      "rp": 0.14,
+      "c_T": 2.1,
+      "reg_mult": 0.07
+    }
+  },
+  "cells": {
+    "clean": {
+      "n_frames": 400,
+      "fer": {
+        "Comb_OFDM_MaskProj": 0.9575,
+        "Spread_OTFS_MaskProj": 0.2025,
+        "EP_OTFS_Imp_MaskProj": 0.135,
+        "EP_OTFS_SF_PCP_MaskProj": 0.16,
+        "EP_AFDM_Unblanked": 0.0675,
+        "EP_AFDM_NaiveZhidkov": 0.085,
+        "EP_AFDM_MaskProj_0Iter": 0.0875,
+        "EP_AFDM_MaskProj_1Iter": 0.075,
+        "TrueH_Unblanked_AFDM": 0.04,
+        "TrueH_Unblanked_OTFS": 0.0425,
+        "TrueH_SameImpMask_AFDM": 0.04,
+        "TrueH_SameImpMask_OTFS": 0.0425,
+        "TrueH_SharedBlindMask_AFDM": 0.045,
+        "TrueH_SharedBlindMask_OTFS": 0.0725
+      },
+      "err_counts": {
+        "Comb_OFDM_MaskProj": 383,
+        "Spread_OTFS_MaskProj": 81,
+        "EP_OTFS_Imp_MaskProj": 54,
+        "EP_OTFS_SF_PCP_MaskProj": 64,
+        "EP_AFDM_Unblanked": 27,
+        "EP_AFDM_NaiveZhidkov": 34,
+        "EP_AFDM_MaskProj_0Iter": 35,
+        "EP_AFDM_MaskProj_1Iter": 30,
+        "TrueH_Unblanked_AFDM": 16,
+        "TrueH_Unblanked_OTFS": 17,
+        "TrueH_SameImpMask_AFDM": 16,
+        "TrueH_SameImpMask_OTFS": 17,
+        "TrueH_SharedBlindMask_AFDM": 18,
+        "TrueH_SharedBlindMask_OTFS": 29
+      },
+      "gmi": {
+        "Comb_OFDM_MaskProj": -5.384488945622342,
+        "Spread_OTFS_MaskProj": 1.119534092705585,
+        "EP_OTFS_Imp_MaskProj": 1.1424913001126529,
+        "EP_OTFS_SF_PCP_MaskProj": 1.2470164195204805,
+        "EP_AFDM_Unblanked": 1.349276670045687,
+        "EP_AFDM_NaiveZhidkov": 1.314611714947131,
+        "EP_AFDM_MaskProj_0Iter": 1.3118472378877715,
+        "EP_AFDM_MaskProj_1Iter": 1.3159236103672975,
+        "TrueH_Unblanked_AFDM": 1.3896839804602439,
+        "TrueH_Unblanked_OTFS": 1.3905683353893579,
+        "TrueH_SameImpMask_AFDM": 1.3896839804602439,
+        "TrueH_SameImpMask_OTFS": 1.3905683353893579
+      },
+      "chan_nmse_db": {
+        "Comb_OFDM_MaskProj": 5.52525876471555,
+        "Spread_OTFS_MaskProj": -6.980146501386558,
+        "EP_OTFS_Imp_MaskProj": -14.565551933084244,
+        "EP_OTFS_SF_PCP_MaskProj": -14.769055109307473,
+        "EP_AFDM_Unblanked": -16.984280035407053,
+        "EP_AFDM_NaiveZhidkov": -16.20944264169351,
+        "EP_AFDM_MaskProj_0Iter": -15.314608994888285,
+        "EP_AFDM_MaskProj_1Iter": -15.333387396719042
+      },
+      "erased_frac": {
+        "Comb_OFDM_MaskProj": 9.765625e-06,
+        "Spread_OTFS_MaskProj": 0.002333984375,
+        "EP_OTFS_Imp_MaskProj": 0.0100537109375,
+        "EP_OTFS_SF_PCP_MaskProj": 0.0127392578125,
+        "EP_AFDM_Unblanked": 0.0,
+        "EP_AFDM_NaiveZhidkov": 0.00298828125,
+        "EP_AFDM_MaskProj_0Iter": 0.011103515625,
+        "EP_AFDM_MaskProj_1Iter": 0.011103515625
+      },
+      "tx_cp_energy_mean": {
+        "Comb_OFDM_MaskProj": 520.3269927151077,
+        "Spread_OTFS_MaskProj": 519.9362445156376,
+        "EP_OTFS_Imp_MaskProj": 519.8389727122108,
+        "EP_OTFS_SF_PCP_MaskProj": 519.8494744918493,
+        "EP_AFDM_Unblanked": 520.0635603912244,
+        "EP_AFDM_NaiveZhidkov": 520.0635603912244,
+        "EP_AFDM_MaskProj_0Iter": 520.0635603912244,
+        "EP_AFDM_MaskProj_1Iter": 520.0635603912244
+      },
+      "sinr_p10_db": {
+        "Comb_OFDM_MaskProj": 5.8232636837916285,
+        "Spread_OTFS_MaskProj": 3.4278589578843355,
+        "EP_OTFS_Imp_MaskProj": 5.8046338962128115,
+        "EP_OTFS_SF_PCP_MaskProj": 5.169832872688935,
+        "EP_AFDM_Unblanked": 5.997244974524396,
+        "EP_AFDM_NaiveZhidkov": 5.605083817406869,
+        "EP_AFDM_MaskProj_0Iter": 5.841803696480409,
+        "EP_AFDM_MaskProj_1Iter": 5.02050598533534,
+        "TrueH_Unblanked_AFDM": 7.950216694561755,
+        "TrueH_Unblanked_OTFS": 7.960009043909349,
+        "TrueH_SameImpMask_AFDM": 7.950216694561755,
+        "TrueH_SameImpMask_OTFS": 7.960009043909349
+      }
+    },
+    "bg": {
+      "n_frames": 400,
+      "fer": {
+        "Comb_OFDM_MaskProj": 1.0,
+        "Spread_OTFS_MaskProj": 0.4625,
+        "EP_OTFS_Imp_MaskProj": 0.385,
+        "EP_OTFS_SF_PCP_MaskProj": 0.34,
+        "EP_AFDM_Unblanked": 0.9125,
+        "EP_AFDM_NaiveZhidkov": 0.215,
+        "EP_AFDM_MaskProj_0Iter": 0.16,
+        "EP_AFDM_MaskProj_1Iter": 0.145,
+        "TrueH_Unblanked_AFDM": 0.04,
+        "TrueH_Unblanked_OTFS": 0.0425,
+        "TrueH_SameImpMask_AFDM": 0.0575,
+        "TrueH_SameImpMask_OTFS": 0.0475,
+        "TrueH_SharedBlindMask_AFDM": 0.0625,
+        "TrueH_SharedBlindMask_OTFS": 0.08
+      },
+      "err_counts": {
+        "Comb_OFDM_MaskProj": 400,
+        "Spread_OTFS_MaskProj": 185,
+        "EP_OTFS_Imp_MaskProj": 154,
+        "EP_OTFS_SF_PCP_MaskProj": 136,
+        "EP_AFDM_Unblanked": 365,
+        "EP_AFDM_NaiveZhidkov": 86,
+        "EP_AFDM_MaskProj_0Iter": 64,
+        "EP_AFDM_MaskProj_1Iter": 58,
+        "TrueH_Unblanked_AFDM": 16,
+        "TrueH_Unblanked_OTFS": 17,
+        "TrueH_SameImpMask_AFDM": 23,
+        "TrueH_SameImpMask_OTFS": 19,
+        "TrueH_SharedBlindMask_AFDM": 25,
+        "TrueH_SharedBlindMask_OTFS": 32
+      },
+      "gmi": {
+        "Comb_OFDM_MaskProj": -15.992538383508458,
+        "Spread_OTFS_MaskProj": 1.0245706154616376,
+        "EP_OTFS_Imp_MaskProj": 0.9889197562498723,
+        "EP_OTFS_SF_PCP_MaskProj": 1.0846627232970762,
+        "EP_AFDM_Unblanked": 0.44117063852999405,
+        "EP_AFDM_NaiveZhidkov": 1.158048357210301,
+        "EP_AFDM_MaskProj_0Iter": 1.2123355848064548,
+        "EP_AFDM_MaskProj_1Iter": 1.221764059474111,
+        "TrueH_Unblanked_AFDM": 1.3896839804602439,
+        "TrueH_Unblanked_OTFS": 1.3905683353893579,
+        "TrueH_SameImpMask_AFDM": 1.372036709261302,
+        "TrueH_SameImpMask_OTFS": 1.3509104699181882
+      },
+      "chan_nmse_db": {
+        "Comb_OFDM_MaskProj": 19.689114884716084,
+        "Spread_OTFS_MaskProj": -6.893518229133751,
+        "EP_OTFS_Imp_MaskProj": -12.179783262840436,
+        "EP_OTFS_SF_PCP_MaskProj": -13.190662743410794,
+        "EP_AFDM_Unblanked": -7.618518500195904,
+        "EP_AFDM_NaiveZhidkov": -13.65828075882332,
+        "EP_AFDM_MaskProj_0Iter": -13.612665412390163,
+        "EP_AFDM_MaskProj_1Iter": -13.704941166200852
+      },
+      "erased_frac": {
+        "Comb_OFDM_MaskProj": 0.02,
+        "Spread_OTFS_MaskProj": 0.03013671875,
+        "EP_OTFS_Imp_MaskProj": 0.036279296875,
+        "EP_OTFS_SF_PCP_MaskProj": 0.040810546875,
+        "EP_AFDM_Unblanked": 0.0,
+        "EP_AFDM_NaiveZhidkov": 0.030498046875,
+        "EP_AFDM_MaskProj_0Iter": 0.0395263671875,
+        "EP_AFDM_MaskProj_1Iter": 0.0395263671875
+      },
+      "tx_cp_energy_mean": {
+        "Comb_OFDM_MaskProj": 520.3269927151077,
+        "Spread_OTFS_MaskProj": 519.9362445156376,
+        "EP_OTFS_Imp_MaskProj": 519.8389727122108,
+        "EP_OTFS_SF_PCP_MaskProj": 519.8494744918493,
+        "EP_AFDM_Unblanked": 520.0635603912244,
+        "EP_AFDM_NaiveZhidkov": 520.0635603912244,
+        "EP_AFDM_MaskProj_0Iter": 520.0635603912244,
+        "EP_AFDM_MaskProj_1Iter": 520.0635603912244
+      },
+      "sinr_p10_db": {
+        "Comb_OFDM_MaskProj": 15.710171123041937,
+        "Spread_OTFS_MaskProj": 1.8396126603410017,
+        "EP_OTFS_Imp_MaskProj": 4.411209982839985,
+        "EP_OTFS_SF_PCP_MaskProj": 3.892390381147568,
+        "EP_AFDM_Unblanked": 1.4598973239695971,
+        "EP_AFDM_NaiveZhidkov": 4.273989553021736,
+        "EP_AFDM_MaskProj_0Iter": 4.6883641522648665,
+        "EP_AFDM_MaskProj_1Iter": 4.08762538945624,
+        "TrueH_Unblanked_AFDM": 7.950216694561755,
+        "TrueH_Unblanked_OTFS": 7.960009043909349,
+        "TrueH_SameImpMask_AFDM": 7.404394630574734,
+        "TrueH_SameImpMask_OTFS": 5.6045418454853095
+      }
+    },
+    "mca": {
+      "n_frames": 400,
+      "fer": {
+        "Comb_OFDM_MaskProj": 0.995,
+        "Spread_OTFS_MaskProj": 0.5325,
+        "EP_OTFS_Imp_MaskProj": 0.4875,
+        "EP_OTFS_SF_PCP_MaskProj": 0.3625,
+        "EP_AFDM_Unblanked": 0.8875,
+        "EP_AFDM_NaiveZhidkov": 0.3025,
+        "EP_AFDM_MaskProj_0Iter": 0.21,
+        "EP_AFDM_MaskProj_1Iter": 0.17,
+        "TrueH_Unblanked_AFDM": 0.04,
+        "TrueH_Unblanked_OTFS": 0.0425,
+        "TrueH_SameImpMask_AFDM": 0.0525,
+        "TrueH_SameImpMask_OTFS": 0.0575,
+        "TrueH_SharedBlindMask_AFDM": 0.0575,
+        "TrueH_SharedBlindMask_OTFS": 0.0825
+      },
+      "err_counts": {
+        "Comb_OFDM_MaskProj": 398,
+        "Spread_OTFS_MaskProj": 213,
+        "EP_OTFS_Imp_MaskProj": 195,
+        "EP_OTFS_SF_PCP_MaskProj": 145,
+        "EP_AFDM_Unblanked": 355,
+        "EP_AFDM_NaiveZhidkov": 121,
+        "EP_AFDM_MaskProj_0Iter": 84,
+        "EP_AFDM_MaskProj_1Iter": 68,
+        "TrueH_Unblanked_AFDM": 16,
+        "TrueH_Unblanked_OTFS": 17,
+        "TrueH_SameImpMask_AFDM": 21,
+        "TrueH_SameImpMask_OTFS": 23,
+        "TrueH_SharedBlindMask_AFDM": 23,
+        "TrueH_SharedBlindMask_OTFS": 33
+      },
+      "gmi": {
+        "Comb_OFDM_MaskProj": -15.446062208461717,
+        "Spread_OTFS_MaskProj": 1.0015288225225603,
+        "EP_OTFS_Imp_MaskProj": 0.9822319614452755,
+        "EP_OTFS_SF_PCP_MaskProj": 1.0544711250944325,
+        "EP_AFDM_Unblanked": 0.48072077765901006,
+        "EP_AFDM_NaiveZhidkov": 1.1279587694306195,
+        "EP_AFDM_MaskProj_0Iter": 1.1863949103468534,
+        "EP_AFDM_MaskProj_1Iter": 1.1987873337761288,
+        "TrueH_Unblanked_AFDM": 1.3896839804602439,
+        "TrueH_Unblanked_OTFS": 1.3905683353893579,
+        "TrueH_SameImpMask_AFDM": 1.3703507166808533,
+        "TrueH_SameImpMask_OTFS": 1.3462175527803757
+      },
+      "chan_nmse_db": {
+        "Comb_OFDM_MaskProj": 18.988852038058898,
+        "Spread_OTFS_MaskProj": -6.818211525039601,
+        "EP_OTFS_Imp_MaskProj": -11.711336869952461,
+        "EP_OTFS_SF_PCP_MaskProj": -12.879805206374217,
+        "EP_AFDM_Unblanked": -7.87032813897932,
+        "EP_AFDM_NaiveZhidkov": -13.312267957310276,
+        "EP_AFDM_MaskProj_0Iter": -13.40168224984142,
+        "EP_AFDM_MaskProj_1Iter": -13.525659129974429
+      },
+      "erased_frac": {
+        "Comb_OFDM_MaskProj": 0.019892578125,
+        "Spread_OTFS_MaskProj": 0.0305224609375,
+        "EP_OTFS_Imp_MaskProj": 0.0373828125,
+        "EP_OTFS_SF_PCP_MaskProj": 0.04212890625,
+        "EP_AFDM_Unblanked": 0.0,
+        "EP_AFDM_NaiveZhidkov": 0.0311376953125,
+        "EP_AFDM_MaskProj_0Iter": 0.04072265625,
+        "EP_AFDM_MaskProj_1Iter": 0.04072265625
+      },
+      "tx_cp_energy_mean": {
+        "Comb_OFDM_MaskProj": 520.3269927151077,
+        "Spread_OTFS_MaskProj": 519.9362445156376,
+        "EP_OTFS_Imp_MaskProj": 519.8389727122108,
+        "EP_OTFS_SF_PCP_MaskProj": 519.8494744918493,
+        "EP_AFDM_Unblanked": 520.0635603912244,
+        "EP_AFDM_NaiveZhidkov": 520.0635603912244,
+        "EP_AFDM_MaskProj_0Iter": 520.0635603912244,
+        "EP_AFDM_MaskProj_1Iter": 520.0635603912244
+      },
+      "sinr_p10_db": {
+        "Comb_OFDM_MaskProj": 15.189653755647248,
+        "Spread_OTFS_MaskProj": 1.7576878762261965,
+        "EP_OTFS_Imp_MaskProj": 4.280103997108422,
+        "EP_OTFS_SF_PCP_MaskProj": 3.7910043123216983,
+        "EP_AFDM_Unblanked": 1.5064135337406486,
+        "EP_AFDM_NaiveZhidkov": 4.118543887542826,
+        "EP_AFDM_MaskProj_0Iter": 4.559957395925204,
+        "EP_AFDM_MaskProj_1Iter": 4.004181853700892,
+        "TrueH_Unblanked_AFDM": 7.950216694561755,
+        "TrueH_Unblanked_OTFS": 7.960009043909349,
+        "TrueH_SameImpMask_AFDM": 7.361720365431193,
+        "TrueH_SameImpMask_OTFS": 5.498495982442612
+      }
+    }
+  },
+  "practical_contrasts_opp_minus_afdm1": {
+    "bg": {
+      "Comb_OFDM_MaskProj": {
+        "point": 0.855,
+        "ci95": [
+          0.82,
+          0.8875
+        ]
+      },
+      "Spread_OTFS_MaskProj": {
+        "point": 0.3175,
+        "ci95": [
+          0.27,
+          0.3625
+        ]
+      },
+      "EP_OTFS_Imp_MaskProj": {
+        "point": 0.24,
+        "ci95": [
+          0.1975,
+          0.285
+        ]
+      },
+      "EP_OTFS_SF_PCP_MaskProj": {
+        "point": 0.195,
+        "ci95": [
+          0.155,
+          0.2375
+        ]
+      },
+      "EP_AFDM_Unblanked": {
+        "point": 0.7675,
+        "ci95": [
+          0.7275,
+          0.81
+        ]
+      },
+      "EP_AFDM_NaiveZhidkov": {
+        "point": 0.07,
+        "ci95": [
+          0.0375,
+          0.1025
+        ]
+      }
+    },
+    "mca": {
+      "Comb_OFDM_MaskProj": {
+        "point": 0.825,
+        "ci95": [
+          0.7875,
+          0.8625
+        ]
+      },
+      "Spread_OTFS_MaskProj": {
+        "point": 0.3625,
+        "ci95": [
+          0.3125,
+          0.41
+        ]
+      },
+      "EP_OTFS_Imp_MaskProj": {
+        "point": 0.3175,
+        "ci95": [
+          0.27,
+          0.3675
+        ]
+      },
+      "EP_OTFS_SF_PCP_MaskProj": {
+        "point": 0.1925,
+        "ci95": [
+          0.15,
+          0.2375
+        ]
+      },
+      "EP_AFDM_Unblanked": {
+        "point": 0.7175,
+        "ci95": [
+          0.6725,
+          0.76
+        ]
+      },
+      "EP_AFDM_NaiveZhidkov": {
+        "point": 0.1325,
+        "ci95": [
+          0.0975,
+          0.17
+        ]
+      }
+    }
+  },
+  "trueH_same_imp_mask_excess_fer_otfs_minus_afdm": {
+    "bg": {
+      "point": -0.0125,
+      "ci95": [
+        -0.0275,
+        0.0025
+      ]
+    },
+    "mca": {
+      "point": 0.0025,
+      "ci95": [
+        -0.0125,
+        0.0175
+      ]
+    }
+  },
+  "scope_readouts": {
+    "G04_S1_afdm0iter_beats_pcp": {
+      "bg": {
+        "point": 0.18,
+        "ci95": [
+          0.1375,
+          0.2225
+        ]
+      },
+      "mca": {
+        "point": 0.1525,
+        "ci95": [
+          0.11,
+          0.1975
+        ]
+      }
+    },
+    "G04_S2_trueH_shared_blind_mask_excess_fer": {
+      "bg": {
+        "point": 0.015,
+        "ci95": [
+          -0.005,
+          0.035
+        ]
+      },
+      "mca": {
+        "point": 0.0225,
+        "ci95": [
+          0.0025,
+          0.045
+        ]
+      }
+    }
+  },
+  "verdicts": {
+    "G04_P1_blind_cp520_practical_advantage": false,
+    "G04_P2_trueH_same_mask_data_attribution": false,
+    "PASS_PRIMARY": false
+  }
+}

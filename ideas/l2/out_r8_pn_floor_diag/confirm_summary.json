@@ -1,0 +1,247 @@
+{
+ "_argv": [
+  "l2_r8_pn_margin.py",
+  "fconfirm",
+  "--out",
+  "out_r8_pn_floor_diag",
+  "--workers",
+  "8",
+  "--max-core-hours",
+  "6.0"
+ ],
+ "_read_argv": [
+  "l2_r8_pn_margin.py",
+  "fconfirm",
+  "--out",
+  "out_r8_pn_floor_diag",
+  "--workers",
+  "8",
+  "--max-core-hours",
+  "6.0"
+ ],
+ "_config": {
+  "frames": [
+   55000,
+   55299
+  ],
+  "n_frames_per_scenario": 300,
+  "scenarios": [
+   "U",
+   "G"
+  ],
+  "rho": 300,
+  "snrs": [
+   1000,
+   1100,
+   1200
+  ],
+  "sigma2": 0.0164,
+  "arms": [
+   "BEST",
+   "BESTGA",
+   "S_PLUS"
+  ],
+  "seed": 20261124,
+  "constants_file": "r8_pn_margin_constants.json",
+  "constants": {
+   "mode": "kf",
+   "src": "app",
+   "infl": 3.0,
+   "omode": "kf",
+   "a0": 0.06,
+   "a1": 0.2,
+   "ao": 0.25,
+   "kap": [
+    0.1,
+    0.05
+   ]
+  }
+ },
+ "keys": 1800,
+ "core_hours": 1.136752943611111,
+ "wall_seconds": 524.0749237537384,
+ "fer": {
+  "U": {
+   "BEST": {
+    "frames": 300,
+    "snrs": [
+     1000,
+     1100,
+     1200
+    ],
+    "errors": [
+     3,
+     2,
+     0
+    ],
+    "fer": [
+     0.01,
+     0.006666666666666667,
+     0.0
+    ]
+   },
+   "BESTGA": {
+    "frames": 300,
+    "snrs": [
+     1000,
+     1100,
+     1200
+    ],
+    "errors": [
+     0,
+     0,
+     0
+    ],
+    "fer": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "S_PLUS": {
+    "frames": 300,
+    "snrs": [
+     1000,
+     1100,
+     1200
+    ],
+    "errors": [
+     0,
+     0,
+     0
+    ],
+    "fer": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "G": {
+   "BEST": {
+    "frames": 300,
+    "snrs": [
+     1000,
+     1100,
+     1200
+    ],
+    "errors": [
+     8,
+     8,
+     7
+    ],
+    "fer": [
+     0.02666666666666667,
+     0.02666666666666667,
+     0.023333333333333334
+    ]
+   },
+   "BESTGA": {
+    "frames": 300,
+    "snrs": [
+     1000,
+     1100,
+     1200
+    ],
+    "errors": [
+     0,
+     0,
+     0
+    ],
+    "fer": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "S_PLUS": {
+    "frames": 300,
+    "snrs": [
+     1000,
+     1100,
+     1200
+    ],
+    "errors": [
+     0,
+     0,
+     0
+    ],
+    "fer": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  }
+ },
+ "paired": {
+  "U": {
+   "1000": {
+    "best_err_splus_ok": [
+     55106,
+     55208,
+     55275
+    ],
+    "best_ok_splus_err": [],
+    "both_err": []
+   },
+   "1100": {
+    "best_err_splus_ok": [
+     55106,
+     55208
+    ],
+    "best_ok_splus_err": [],
+    "both_err": []
+   },
+   "1200": {
+    "best_err_splus_ok": [],
+    "best_ok_splus_err": [],
+    "both_err": []
+   }
+  },
+  "G": {
+   "1000": {
+    "best_err_splus_ok": [
+     55126,
+     55173,
+     55190,
+     55199,
+     55202,
+     55212,
+     55240,
+     55246
+    ],
+    "best_ok_splus_err": [],
+    "both_err": []
+   },
+   "1100": {
+    "best_err_splus_ok": [
+     55126,
+     55190,
+     55196,
+     55199,
+     55202,
+     55212,
+     55240,
+     55246
+    ],
+    "best_ok_splus_err": [],
+    "both_err": []
+   },
+   "1200": {
+    "best_err_splus_ok": [
+     55084,
+     55126,
+     55190,
+     55199,
+     55212,
+     55240,
+     55246
+    ],
+    "best_ok_splus_err": [],
+    "both_err": []
+   }
+  }
+ },
+ "verdict": "CLOSED_IMPL"
+}

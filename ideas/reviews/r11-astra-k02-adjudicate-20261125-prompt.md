@@ -1,0 +1,20 @@
+You are an independent area-chair adjudicator. A hostile reviewer wrote the rejection memo below against an idea card that passed a cheap L2 simulation. You are NOT the defender. Fresh, zero-context adjudication from the files alone.
+
+Files (absolute paths, read-only):
+- Card: /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/cards/I-20261125-k02.md (child of /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/cards/I-20261125-k01.md)
+- First L2 run (failed): /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/PREDICTIONS_k_r11_k02.md, /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/k_l2_r11_k02.py, /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/out_k_r11_k02/summary_k_r11_k02.json
+- Confirmatory L2 run (passed, the one under review): /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/PREDICTIONS_k_r11_k02_conf.md, /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/k_l2_r11_k02_conf.py, /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/out_k_r11_k02/summary_k_r11_k02_conf.json
+- Parent evidence: /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/l2/out_k_r10_k01/summary_k_r10_k01_pfa.json
+- Funnel rules (group [高要求], rival rule, red lines 4-5 on post-hoc changes): /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/FUNNEL.md and /Users/guoyikun/Downloads/share/claode_birain/my-vault/00_Inbox/AFDM-channel-estimation/ideas/prompts/round-agy-extra.md
+
+## Rejection memo
+> **Reject.** The 200/200 versus 0/200 localization result establishes that the tested receivers differ. The claim that only ridge-matched AFDM can recover the unknown payload depends on a control the study never ran (`I-20261125-k02.md:22,66`).
+> 
+> The parent OFDM receiver, initialized with privileged channel information, achieved **0.41% symbol error**. That measurement precedes target detection, so changing from a window to a full-map search cannot explain its deterioration to **19.62%** in the confirmatory run (`summary_k_r10_k01_pfa.json:416–424`, `summary_k_r11_k02_conf.json:622–634`). Two implementation choices matter. The parent fits the geometry-derived curved clutter ridge. The child fits the noiseless clutter return to a straight-ridge model (`k_l2_r10_k01.py:149–150`, `k_l2_r11_k02_conf.py:128–133,689–699`). The child then sends those symbol estimates directly to a single clutter projection and scores the result. Both ridge-matched AFDM and ordinary block-pilot OFDM receive the additional full-burst symbol update and second projection that the genie arm skips (`k_l2_r11_k02_conf.py:557–571,677–702`).
+> 
+> With the payload supplied, OFDM localizes **200/200** targets (`summary_k_r11_k02_conf.json:558–570`). The decisive comparison is therefore the parent’s successful OFDM initialization followed by the child’s complete receiver, scored on the same full map. Its absence leaves the reported zero attributable to the tested receiver configuration and defeats the claim of an AFDM-specific acquisition limit.
+## Task
+Decompose the memo into 3-7 atomic rejection points. For each, open the source and data, then output:
+### Point P_n: <label>
+Attack claim (~30 words) / Verdict: answered_by_evidence | partially_answered | still_unresolved / Evidence (file:line or JSON key, ~50 words) / Severity if unresolved: critical | major | minor / Cheapest fix or decisive test (one sentence).
+Then: counts per verdict; a one-paragraph net assessment; and a final line "STEP8: PASS | REVISE | KILL" where PASS means the card may go to Eric as an L3 candidate, REVISE means one named decisive test must run first, KILL means the claim does not survive. Do not minimise. Output in Simplified Chinese except labels, file paths and code identifiers.

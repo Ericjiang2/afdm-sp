@@ -1,0 +1,514 @@
+{
+  "_argv": [
+    "ideas/l2/g_r6_rev_g02_reconfig_ctrl.py",
+    "run",
+    "--workers",
+    "24",
+    "--out",
+    "ideas/l2/out_g_r6_rev"
+  ],
+  "_config": {
+    "card": "I-20261123-g02",
+    "revision": "Round 6 Step-7 single-factor switch + SwapHC150/4k/128k head-on comparison",
+    "eiv_rhs_sign_preserved": true,
+    "dev_seeds": [
+      85900,
+      85940
+    ],
+    "test_seeds": [
+      86000,
+      86300
+    ],
+    "workers": 24,
+    "wall_seconds": 341.95
+  },
+  "layout_properties": {
+    "Q4": {
+      "SwapHC150": {
+        "min_pos_var": 338.3125,
+        "directed_cov": 16,
+        "mirror_cov": 16
+      },
+      "SwapHC4000": {
+        "min_pos_var": 340.96484375,
+        "directed_cov": 16,
+        "mirror_cov": 16
+      },
+      "SwapHC128k": {
+        "min_pos_var": 341.0,
+        "directed_cov": 16,
+        "mirror_cov": 16
+      },
+      "Balanced_DB": {
+        "min_pos_var": 339.25,
+        "directed_cov": 16,
+        "mirror_cov": 16
+      }
+    },
+    "Q8": {
+      "SwapHC150": {
+        "min_pos_var": 225.609375,
+        "directed_cov": 49,
+        "mirror_cov": 64
+      },
+      "SwapHC4000": {
+        "min_pos_var": 336.359375,
+        "directed_cov": 48,
+        "mirror_cov": 64
+      },
+      "SwapHC128k": {
+        "min_pos_var": 339.359375,
+        "directed_cov": 48,
+        "mirror_cov": 64
+      },
+      "Balanced_DB": {
+        "min_pos_var": 297.359375,
+        "directed_cov": 63,
+        "mirror_cov": 64
+      }
+    },
+    "Q8_SwapHC128k_seeds612_616": [
+      {
+        "min_pos_var": 339.359375,
+        "directed_cov": 48,
+        "mirror_cov": 64
+      },
+      {
+        "min_pos_var": 340.109375,
+        "directed_cov": 44,
+        "mirror_cov": 64
+      },
+      {
+        "min_pos_var": 340.109375,
+        "directed_cov": 47,
+        "mirror_cov": 64
+      },
+      {
+        "min_pos_var": 340.1875,
+        "directed_cov": 43,
+        "mirror_cov": 64
+      },
+      {
+        "min_pos_var": 339.25,
+        "directed_cov": 44,
+        "mirror_cov": 64
+      }
+    ]
+  },
+  "dev_selected_reg_c": {
+    "Q4_1NN": {
+      "Blocks_MC": 0.35,
+      "Inter_MC": 1.0,
+      "EqualMom_TM_MC": 1.0,
+      "BalancedRand_MC": 0.35,
+      "RecipLowDim_Balanced": 1.0,
+      "SwapHC150_MC": 1.0,
+      "SwapHC4000_MC": 1.0,
+      "SwapHC128k_MC": 1.0,
+      "Balanced_DB_MC": 1.0
+    },
+    "Q8_full": {
+      "Blocks_MC": 1.0,
+      "Inter_MC": 1.0,
+      "EqualMom_TM_MC": 1.0,
+      "BalancedRand_MC": 1.0,
+      "RecipLowDim_Balanced": 1.0,
+      "SwapHC150_MC": 1.0,
+      "SwapHC4000_MC": 1.0,
+      "SwapHC128k_MC": 1.0,
+      "Balanced_DB_MC": 1.0
+    },
+    "Q4_asym": {
+      "Blocks_MC": 0.6,
+      "Inter_MC": 1.0,
+      "EqualMom_TM_MC": 0.1,
+      "BalancedRand_MC": 1.0,
+      "SwapHC150_MC": 1.0,
+      "SwapHC4000_MC": 1.0,
+      "SwapHC128k_MC": 1.0,
+      "Balanced_DB_MC": 1.0
+    }
+  },
+  "cells": {
+    "Q4_snr20_C0_singlefactor": {
+      "n_scenarios": 300,
+      "nmse_db": {
+        "Blocks_MC": -23.415660768915746,
+        "Inter_Unc": -23.504282577135744,
+        "Inter_MC": -23.550518369705888,
+        "EqualMom_TM_MC": -23.55984889641465,
+        "BalancedRand_MC": -23.0036258161438,
+        "RecipLowDim_Balanced": -23.456042589508932,
+        "SwapHC150_MC": -23.11225112942056,
+        "SwapHC4000_MC": -23.13366797282133,
+        "SwapHC128k_MC": -22.998127647251707,
+        "Balanced_DB_MC": -23.098474179084207
+      },
+      "sum_rate_bps_hz": {
+        "PerfectCSI": 40.274805231549436,
+        "Blocks_MC": 31.529341890281465,
+        "Inter_Unc": 32.062003519505176,
+        "Inter_MC": 32.34027401341625,
+        "EqualMom_TM_MC": 32.005409897773085,
+        "BalancedRand_MC": 31.320381185248777,
+        "RecipLowDim_Balanced": 32.02876598487594,
+        "SwapHC150_MC": 31.546027737524213,
+        "SwapHC4000_MC": 31.708778108177484,
+        "SwapHC128k_MC": 31.49728276124257,
+        "Balanced_DB_MC": 31.679446248238467
+      },
+      "smin_median": {
+        "BalancedRand": 0.15907948699236926,
+        "SwapHC150": 0.16732806636932498,
+        "SwapHC4000": 0.16575852305617367,
+        "SwapHC128k": 0.16545925631918212,
+        "Balanced_DB": 0.15941131279625387
+      }
+    },
+    "Q4_snr20_MC1NN_singlefactor": {
+      "n_scenarios": 300,
+      "nmse_db": {
+        "Blocks_MC": -19.52922981082618,
+        "Inter_Unc": -9.790243380832496,
+        "Inter_MC": -11.238529726682051,
+        "EqualMom_TM_MC": -11.403866697132623,
+        "BalancedRand_MC": -22.11032768400102,
+        "RecipLowDim_Balanced": -13.153765131016089,
+        "SwapHC150_MC": -22.320247129147987,
+        "SwapHC4000_MC": -22.33833312784801,
+        "SwapHC128k_MC": -22.225129026464895,
+        "Balanced_DB_MC": -21.85517170774775
+      },
+      "sum_rate_bps_hz": {
+        "PerfectCSI": 40.161221170972915,
+        "Blocks_MC": 21.39264218014137,
+        "Inter_Unc": 10.935479374300666,
+        "Inter_MC": 13.00769632776546,
+        "EqualMom_TM_MC": 15.812033422924506,
+        "BalancedRand_MC": 30.33142494856854,
+        "RecipLowDim_Balanced": 16.411097138440322,
+        "SwapHC150_MC": 30.44233584206059,
+        "SwapHC4000_MC": 30.596034431807578,
+        "SwapHC128k_MC": 30.32547991756146,
+        "Balanced_DB_MC": 29.74515921286563
+      },
+      "smin_median": {
+        "BalancedRand": 0.16319719271554206,
+        "SwapHC150": 0.1716659218478214,
+        "SwapHC4000": 0.16999946115682044,
+        "SwapHC128k": 0.16876339370049145,
+        "Balanced_DB": 0.16236591576049222
+      }
+    },
+    "Q4_snr20_MC1NN_2NN": {
+      "n_scenarios": 300,
+      "nmse_db": {
+        "Blocks_MC": -18.19577259359129,
+        "Inter_Unc": -9.371508731907934,
+        "Inter_MC": -10.63027787570078,
+        "EqualMom_TM_MC": -10.93536232915346,
+        "BalancedRand_MC": -18.789275853038475,
+        "RecipLowDim_Balanced": -12.599966841271558,
+        "SwapHC150_MC": -18.96449958348034,
+        "SwapHC4000_MC": -19.156974034953084,
+        "SwapHC128k_MC": -18.79508748268172,
+        "Balanced_DB_MC": -17.70251852890549
+      },
+      "sum_rate_bps_hz": {
+        "PerfectCSI": 40.13919304991686,
+        "Blocks_MC": 18.951346390331164,
+        "Inter_Unc": 10.446509922930264,
+        "Inter_MC": 12.119303435433912,
+        "EqualMom_TM_MC": 14.420660110619385,
+        "BalancedRand_MC": 24.037298139123727,
+        "RecipLowDim_Balanced": 15.23661945992701,
+        "SwapHC150_MC": 24.299026559375278,
+        "SwapHC4000_MC": 24.739716464977253,
+        "SwapHC128k_MC": 24.138006769703168,
+        "Balanced_DB_MC": 22.626758497063012
+      },
+      "smin_median": {
+        "BalancedRand": 0.16397437574284474,
+        "SwapHC150": 0.17300105491212348,
+        "SwapHC4000": 0.1714967640952685,
+        "SwapHC128k": 0.16931517718742722,
+        "Balanced_DB": 0.16351123063396827
+      }
+    },
+    "Q8_snr20_MC_pair": {
+      "n_scenarios": 300,
+      "nmse_db": {
+        "Blocks_MC": -15.370564129376197,
+        "Inter_Unc": -9.900476963366822,
+        "Inter_MC": -10.771990647630629,
+        "EqualMom_TM_MC": -10.97897645278553,
+        "BalancedRand_MC": -15.291298811170758,
+        "RecipLowDim_Balanced": -11.008582418214655,
+        "SwapHC150_MC": -16.18337702149917,
+        "SwapHC4000_MC": -15.795589267756732,
+        "SwapHC128k_MC": -15.571276229366504,
+        "Balanced_DB_MC": -16.834558571880454
+      },
+      "sum_rate_bps_hz": {
+        "PerfectCSI": 33.791371108499554,
+        "Blocks_MC": 14.787625559739293,
+        "Inter_Unc": 10.818190003201716,
+        "Inter_MC": 12.553874897854918,
+        "EqualMom_TM_MC": 12.661461832880807,
+        "BalancedRand_MC": 17.60448798335882,
+        "RecipLowDim_Balanced": 12.082319131436403,
+        "SwapHC150_MC": 19.008927539956264,
+        "SwapHC4000_MC": 18.493526503919753,
+        "SwapHC128k_MC": 18.19499320161182,
+        "Balanced_DB_MC": 19.662334194677758
+      },
+      "smin_median": {
+        "BalancedRand": 8.422546534358654e-34,
+        "SwapHC150": 0.041789977175048496,
+        "SwapHC4000": 0.04713218617804921,
+        "SwapHC128k": 0.04309646365697587,
+        "Balanced_DB": 0.07500251206766194
+      }
+    },
+    "Q8_snr20_MC_rank1_recip": {
+      "n_scenarios": 200,
+      "nmse_db": {
+        "Blocks_MC": -13.254361153712411,
+        "Inter_Unc": -9.09566101659845,
+        "Inter_MC": -9.597442808231992,
+        "EqualMom_TM_MC": -9.86354660161872,
+        "BalancedRand_MC": -13.283383078132776,
+        "RecipLowDim_Balanced": -9.649194380149652,
+        "SwapHC150_MC": -14.080617925175961,
+        "SwapHC4000_MC": -12.81132158860675,
+        "SwapHC128k_MC": -12.489009552537656,
+        "Balanced_DB_MC": -14.331948697603838
+      },
+      "sum_rate_bps_hz": {
+        "PerfectCSI": 33.92311157527339,
+        "Blocks_MC": 14.665652193350818,
+        "Inter_Unc": 13.24445582264686,
+        "Inter_MC": 13.827690411740482,
+        "EqualMom_TM_MC": 14.111796100890336,
+        "BalancedRand_MC": 17.3678146560565,
+        "RecipLowDim_Balanced": 14.766737305067009,
+        "SwapHC150_MC": 17.327081261562448,
+        "SwapHC4000_MC": 16.833990635495876,
+        "SwapHC128k_MC": 17.14734902845138,
+        "Balanced_DB_MC": 17.70131365112887
+      },
+      "smin_median": {
+        "BalancedRand": 7.769083033864917e-34,
+        "SwapHC150": 0.04172225460247809,
+        "SwapHC4000": 0.046256780552751495,
+        "SwapHC128k": 0.04154808617291651,
+        "Balanced_DB": 0.074967957732634
+      }
+    },
+    "Q4_snr20_MC_asym_dir": {
+      "n_scenarios": 200,
+      "nmse_db": {
+        "Blocks_MC": -17.80853661122891,
+        "Inter_Unc": -9.907091400976585,
+        "Inter_MC": -11.238680124707761,
+        "EqualMom_TM_MC": -11.403275850169269,
+        "BalancedRand_MC": -21.20694022320793,
+        "SwapHC150_MC": -22.147591006819383,
+        "SwapHC4000_MC": -22.06548424739081,
+        "SwapHC128k_MC": -21.763011754701598,
+        "Balanced_DB_MC": -21.62349949225876
+      },
+      "sum_rate_bps_hz": {
+        "PerfectCSI": 40.762784440849785,
+        "Blocks_MC": 19.986518763113413,
+        "Inter_Unc": 11.284537978909901,
+        "Inter_MC": 13.40046003763347,
+        "EqualMom_TM_MC": 15.429363999641696,
+        "BalancedRand_MC": 29.73060353480405,
+        "SwapHC150_MC": 30.2469025178725,
+        "SwapHC4000_MC": 30.217384554313885,
+        "SwapHC128k_MC": 29.593040920921876,
+        "Balanced_DB_MC": 29.510940944970777
+      },
+      "smin_median": {
+        "BalancedRand": 0.08936769812705894,
+        "SwapHC150": 0.0992736268526748,
+        "SwapHC4000": 0.09671058309371652,
+        "SwapHC128k": 0.09480727282729659,
+        "Balanced_DB": 0.08549749183170277
+      }
+    }
+  },
+  "contrasts": {
+    "c0_inter_beats_blocks_db": {
+      "point": 0.13485760079014214,
+      "ci95": [
+        0.0766259622879206,
+        0.19779464608630679
+      ]
+    },
+    "c0_tm_beats_blocks_db": {
+      "point": 0.14418812749890303,
+      "ci95": [
+        0.0818070697614188,
+        0.20589052322401047
+      ]
+    },
+    "mc1nn_inter_beats_blocks_db": {
+      "point": -8.29070008414413,
+      "ci95": [
+        -8.613548286534062,
+        -7.93339285988871
+      ]
+    },
+    "mc1nn_tm_beats_blocks_db": {
+      "point": -8.125363113693556,
+      "ci95": [
+        -8.45983295823945,
+        -7.776498682810184
+      ]
+    },
+    "q4_db_beats_unc_db": {
+      "point": 12.064928326915256,
+      "ci95": [
+        11.764118661963419,
+        12.371377095049546
+      ]
+    },
+    "q4_db_beats_inter_db": {
+      "point": 10.616641981065701,
+      "ci95": [
+        10.303553301711275,
+        10.93488960038047
+      ]
+    },
+    "q4_rate_gain_over_unc": {
+      "point": 18.809679838564964,
+      "ci95": [
+        17.717153401720452,
+        19.942812177221654
+      ]
+    },
+    "q4_rate_gain_over_inter": {
+      "point": 16.73746288510017,
+      "ci95": [
+        15.692143211225401,
+        17.79199336205595
+      ]
+    },
+    "q8_db_beats_rand_db": {
+      "point": 1.5432597607096923,
+      "ci95": [
+        1.222439392529058,
+        1.863484819475965
+      ]
+    },
+    "q8_hc128k_beats_rand_db": {
+      "point": 0.2799774181957448,
+      "ci95": [
+        -0.08212013204369582,
+        0.6395361403506757
+      ]
+    },
+    "q8_hc4k_beats_rand_db": {
+      "point": 0.50429045658597,
+      "ci95": [
+        0.15384367211549302,
+        0.8615217268527029
+      ]
+    },
+    "q8_hc150_beats_rand_db": {
+      "point": 0.8920782103284074,
+      "ci95": [
+        0.5405867272456709,
+        1.2365610525149413
+      ]
+    },
+    "q8_db_minus_hc128k_db": {
+      "point": 1.263282342513948,
+      "ci95": [
+        1.0157259438288186,
+        1.5102330760631888
+      ]
+    },
+    "q8_db_minus_hc4k_db": {
+      "point": 1.038969304123722,
+      "ci95": [
+        0.7944664137223659,
+        1.2828812556540992
+      ]
+    },
+    "q8_db_minus_hc150_db": {
+      "point": 0.6511815503812856,
+      "ci95": [
+        0.4388676654917796,
+        0.8698401982396347
+      ]
+    },
+    "q8_rate_db_minus_rand": {
+      "point": 2.057846211318937,
+      "ci95": [
+        1.4306102110656183,
+        2.706527812044511
+      ]
+    },
+    "q8_rate_hc128k_minus_rand": {
+      "point": 0.5905052182529971,
+      "ci95": [
+        -0.049739108925158135,
+        1.2681857074182419
+      ]
+    },
+    "q8_rate_hc4k_minus_rand": {
+      "point": 0.8890385205609296,
+      "ci95": [
+        0.2566600931586776,
+        1.5540285209176006
+      ]
+    },
+    "q8_rate_db_minus_hc128k": {
+      "point": 1.4673409930659405,
+      "ci95": [
+        0.9061060422490849,
+        2.018854919975855
+      ]
+    },
+    "q8_rate_db_minus_hc4k": {
+      "point": 1.168807690758008,
+      "ci95": [
+        0.5986679329501587,
+        1.7228269220253671
+      ]
+    }
+  },
+  "scope_readouts": {
+    "G02_S1_debruijn_sequence_exclusive": false,
+    "G02_S2a_rank1_recip_beats_db_db": {
+      "point": -4.682754317454187,
+      "ci95": [
+        -5.859695526761996,
+        -3.2817801926534274
+      ]
+    },
+    "G02_S2b_q4_asym_dir_db_minus_hc128k_db": {
+      "point": -0.13951226244283588,
+      "ci95": [
+        -0.3633440265999315,
+        0.06459585924272833
+      ]
+    },
+    "G02_S2b_q4_asym_dir_db_minus_hc4k_db": {
+      "point": -0.4419847551320514,
+      "ci95": [
+        -0.6605982593120125,
+        -0.23680014837468194
+      ]
+    }
+  },
+  "verdicts": {
+    "G02_P1_q4_singlefactor_reversal": false,
+    "G02_P2_q8_coverage_necessity_over_random": false,
+    "PASS_PRIMARY": false,
+    "claim_routing": "FAIL_PRIMARY"
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "_argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/huang_steelman_20261124/timing.py",
+    "--out",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/huang_steelman_20261124/out",
+    "--freeze-commit",
+    "4772365c61afe29c8c01815e39c41263cc9cb182"
+  ],
+  "_config": {
+    "freeze_commit": "4772365c61afe29c8c01815e39c41263cc9cb182",
+    "python_executable": "/home/guoyikun/.conda/envs/AFDM/bin/python",
+    "threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "CUDA_VISIBLE_DEVICES": ""
+    },
+    "hg_recipe": "B0-p2-s0.5",
+    "include_hgint": true,
+    "panel": "rho=0.30, 5.0 dB, first 50 U + first 50 G triggered keys + 25 U + 25 G untriggered F0 keys",
+    "timing_boundary": "decision-ready (after syndrome check, before truth scoring/hashing/match)",
+    "keys": 100,
+    "untriggered_f0_keys": 50,
+    "timing_rows_path": "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/huang_steelman_20261124/out/raw/timing_rows.jsonl",
+    "timing_rows_md5": "1f0a69e2d7f80e8a22f159b180fb23b4"
+  },
+  "cpu": {
+    "idle_cpu": 0,
+    "measured_utilization_pct": 0.0,
+    "load": [
+      2.705078125,
+      3.826171875,
+      5.935546875
+    ]
+  },
+  "end_load": [
+    1.26318359375,
+    2.69091796875,
+    5.140625
+  ],
+  "wall_seconds": 171.80052283406258,
+  "hg_pass1_stop_count": 91,
+  "f0": {
+    "n": 100,
+    "mean": 0.26959486183710396,
+    "median": 0.26969237020239234,
+    "p95": 0.2750675637274981
+  },
+  "f0_untriggered": {
+    "U": {
+      "n": 25,
+      "mean": 0.262297901250422,
+      "median": 0.2632818818092346,
+      "p95": 0.2679013777524233
+    },
+    "G": {
+      "n": 25,
+      "mean": 0.26282339319586756,
+      "median": 0.26318408362567425,
+      "p95": 0.2724154956638813
+    }
+  },
+  "branches": {
+    "CD": {
+      "n": 100,
+      "mean": 0.15900970939546824,
+      "median": 0.15876049548387527,
+      "p95": 0.1662768351379782
+    },
+    "Z": {
+      "n": 100,
+      "mean": 0.15915351104922593,
+      "median": 0.15838347701355815,
+      "p95": 0.16571958363056183
+    },
+    "HG": {
+      "n": 100,
+      "mean": 0.5716191398259253,
+      "median": 0.5234893285669386,
+      "p95": 1.0554226119071246
+    },
+    "HG1": {
+      "n": 100,
+      "mean": 0.5242435434274375,
+      "median": 0.523484873585403,
+      "p95": 0.5354836315847933
+    },
+    "HGint": {
+      "n": 100,
+      "mean": 0.18860774618573486,
+      "median": 0.16833789506927133,
+      "p95": 0.3414643366355449
+    }
+  },
+  "relative_to_cd": {
+    "Z": {
+      "ratio_of_means": 1.0009043576917687,
+      "median_paired_ratio": 1.002690605313639,
+      "cd_faster_fraction": 0.55
+    },
+    "HG": {
+      "ratio_of_means": 3.5948694076552807,
+      "median_paired_ratio": 3.3097540635899954,
+      "cd_faster_fraction": 1.0
+    },
+    "HG1": {
+      "ratio_of_means": 3.29692787579158,
+      "median_paired_ratio": 3.294729079549149,
+      "cd_faster_fraction": 1.0
+    },
+    "HGint": {
+      "ratio_of_means": 1.186139808083381,
+      "median_paired_ratio": 1.0657906639015846,
+      "cd_faster_fraction": 1.0
+    }
+  },
+  "triggered_full_frame": {
+    "CD": {
+      "n": 100,
+      "mean": 0.4286045712325722,
+      "median": 0.42823015432804823,
+      "p95": 0.439141474571079
+    },
+    "Z": {
+      "n": 100,
+      "mean": 0.4287483728863299,
+      "median": 0.4285039631649852,
+      "p95": 0.4387167449109256
+    },
+    "HG": {
+      "n": 100,
+      "mean": 0.8412140016630292,
+      "median": 0.793030854780227,
+      "p95": 1.3253977980464697
+    },
+    "HG1": {
+      "n": 100,
+      "mean": 0.7938384052645415,
+      "median": 0.7926328796893358,
+      "p95": 0.8079202935099602
+    },
+    "HGint": {
+      "n": 100,
+      "mean": 0.45820260802283885,
+      "median": 0.4392326916567981,
+      "p95": 0.609197336435318
+    }
+  },
+  "trigger_rate_rho300_5db_by_scenario": {
+    "U": 0.22,
+    "G": 0.275
+  },
+  "amortized_full_frame_mean_by_scenario": {
+    "U": {
+      "CD": 0.29898216300942004,
+      "Z": 0.29897515068985525,
+      "HG": 0.3831669095464051,
+      "HG1": 0.37852937608882786,
+      "HGint": 0.3025519471410662
+    },
+    "G": {
+      "CD": 0.3082922242023051,
+      "Z": 0.30838008051132787,
+      "HG": 0.4299964777678251,
+      "HG1": 0.40973681657062844,
+      "HGint": 0.3201089142723941
+    }
+  },
+  "amortized_full_frame_mean_seconds": {
+    "CD": 0.3036371936058626,
+    "Z": 0.3036776156005916,
+    "HG": 0.4065816936571151,
+    "HG1": 0.39413309632972815,
+    "HGint": 0.31133043070673017
+  }
+}

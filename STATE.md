@@ -22,6 +22,13 @@
 - 11-20 MIXED8（真双径）：Γ = 0 无幻影、双径占位等效，FER 等效未成立（+1.00 pp，INCONCLUSIVE），[res-20261120-02](research-assets/res-20261120-02.md)（draft）；文献检查：分数 Doppler 支撑搜索里无人用对角模型（[lit](.trellis/tasks/11-20-gamma0-exchange/research/lit-diag-soft-variance-20261120.md)）。
 - 11-20 MIXED8 重复检验（2,400 新帧）：Γ = 0 的 FER 与 CODELAY 在 ±1.5 pp 内等效，但 CODELAY 保留真近距双径更好（−1.54 pp），[res-20261120-03](research-assets/res-20261120-03.md)（draft）。三腿合起来待 Eric 定贡献框架。
 - 11-20 **Eric 定论文路线**（采纳 Astra 版）：现稿以"译码失败后继续迭代还是重搜、各需多少时间"为中心，协方差陷阱降为一节，撤"精确协方差不可替代"；原目标另给两周只看低导频漏径（[分歧表与决定](.trellis/tasks/09-22-tf-production-gap-audit/research/retrospective-20261120/divergence.md)）。依据：kill-argument（[报告](.trellis/tasks/11-20-gamma0-exchange/research/kill-argument/KILL_ARGUMENT.md)）、L1 查新（[Gemini](.trellis/tasks/11-20-gamma0-exchange/research/novelty-gemini-20261120.md)：已知部件的新组合）、四份根因分析与 Astra 两步评估。
+- 11-24 Huang-2010 式两遍全局重找径对照（冻结 `4772365c`，帧 5400–5799）：`HG_AHEAD`——两遍全局 OMP 最优 4.45 dB（ρ = .20）比局部交换 CD 最优 5.10（ρ = .30）好 0.65 [0.19, 0.97] dB，粗字典版耗时仅 1.07×；Γ = 0 与 CD 等效（+0.05）。现稿"局部交换胜过全局重找"不成立；CD 未给两遍外环（不对称未测）。路线待 Eric 定（[读数](experiments/huang_steelman_20261124/READOUT.md)；[路线分歧表](.trellis/tasks/09-22-tf-production-gap-audit/research/route-after-huang-divergence-20261124.md)：两方都否定现稿主张，Neon 默认写诚实系统论文，Claude 先做同帧检验再定）。
+- 11-25 同帧检验（冻结 `918a24747`，10.9 核时）：**更正上一条**——轮数对齐后两遍 CD 追平 HG（−0.12 [−0.55, +0.08]，`CATCHES_UP`；换 8 条版 −0.19 [−0.58, −0.01]），"局部交换不如全局重找"不成立，HG 的 0.65 dB 来自多一轮；耗时未测。低导频帧上 HG 之后第 0 轮多普勒余量 0.73 [0.45, 1.04] dB（0.08 bin 口径，`INCONCLUSIVE`，下界差 0.05 未过 0.5），0.04 bin 口径 1.12 dB；对两遍 CD 的余量未测（[读数](experiments/sameframe_hg_20261124/READOUT.md)）。
+- 11-25 两遍 CD 同帧复核（冻结 `e3bf93f64`，3.25 核时）：低导频帧上 CD2 最优 4.42 dB（ρ = .20）≈ 真时延上限、好于 HG 0.16 dB；之后第 0 轮多普勒余量 0.58 [0.32, 0.84] dB（0.08 bin，`INCONCLUSIVE`），0.04 bin 口径 0.96 dB。静默计时 ρ = .20：CD2 每次触发均值 189 ms，HG 640 ms（3.4×），粗字典 HGint 199 ms（[读数](experiments/sameframe_cd2_20261125/READOUT.md)）。
+- 11-25 A5 半盲第 0 轮多普勒代理检验（冻结 `75530d4d2`，1.97 核时）：给真时延，4 dB 下半盲误差 0.043 [0.041, 0.046] bin（ρ = .15，`PASS`，≤ 0.08），为下界 1.17×；但每键约 10.6 s（CD2 的 ~55×），弱径离群 19–23%。下一步 A6（Eric 11-25）：真时延 + SB 多普勒同帧跑 FER 对 CD2，下界 ≥ 0.5 dB 才测未知时延（[读数](experiments/data_pilot_fer_20261121/STAGEA5_READOUT.md)）。
+- 11-25 A6 端到端检验（冻结 `c8c2e5fe0`，26 核时）：真时延 + SB 多普勒对 CD2 仅 +0.04 [−0.19, +0.23] dB，`STOP`——**第 0 轮多普勒线按预注册停**，转写主线论文。A5 的截顶均值掩盖了 17–24% 的 2–4 bin 跳瓣离群径，1% FER 由这些尾部帧决定（[读数](experiments/data_pilot_fer_20261121/STAGEA6_READOUT.md)）。
+- 11-25 漏斗第十轮（g/h/k/m 四 runner）收尾：k01（运动平台斜杂波脊匹配 c1，通感）过 L2，Astra 第 8 步 `REVISE`（检测率不是等虚警比较，需固定窗口复验）；h01 Sol `REVISE`；m01、g01 `KILL`（[k01 终审](ideas/reviews/r10-astra-k01-killarg-20261125.md)、[h01/m01 查新](ideas/reviews/r10-sol-step6-h01-m01-20261125.md)）。
+- 11-25 漏斗第十一轮收尾：g01（多用户 MIMO-AFDM 导频窗白化）、k02（双基地整帧杂波盲检测）过 L2，Astra 第 8 步都 `REVISE`——整机收益成立，机制归因各缺一个配对对照（g01 只删两窗间协方差；k02 父卡特权前端接子卡后端）；m03、h02 未过、交 Eric 定 a/b/c；k03、m04、g02 停 L1（[g01 终审](ideas/reviews/r11-astra-g01-killarg-20261125.md)、[k02 终审](ideas/reviews/r11-astra-k02-killarg-20261125.md)）。
 - 11-20 低导频漏径线**按停止条件 3 停**（Eric 选零成本探针后停；11-20 验收归档）：ρ = .15 的 CD4 失败帧残留弱径（中位 0.19σ²）、多搜找回 0/19；ρ = .30 失败帧不缺路径（0.012σ²），syndrome 已能预测（AUC .81）。[第一步读数](.trellis/tasks/archive/2026-11/11-20-low-pilot-missed-path/research/step1-readout-20261120.md)、[探针](.trellis/tasks/archive/2026-11/11-20-low-pilot-missed-path/research/visible-probe-readout-20261120.md)；台账已记，任务待 Eric 验收归档。
 - 11-20 候选一（"有反馈时导频只管捕获"）第 0 步计算**未通过**冻结判读：首轮单次匹配滤波下 ZC 导频旁瓣主导弱径检测（80%），预言了不存在的崩塌；**Eric 11-21 停**，已记否定台账（[读数](experiments/pilot_acquisition_calc_20261120/READOUT.md)）。
 - 11-20 外部候选三（Stein 闭合估噪）零成本读数：合并判据**成立**（σ̂²/σ² 中位 0.94），但偏差随 SNR 从 0.78 升到 2.66，只在 5.0–5.5 dB 校准；能否收回 1.64 dB 需端到端检验，待 Eric 定（[读数](experiments/stein_sigma2_readout_20261120/READOUT.md)）。
@@ -111,7 +118,10 @@
 
 ## 入口与证据地图
 
+- 11-23 C1 配码加 CRC 六点真闭环验收通过，漏斗卡已 `promoted`，短快报线收官封存。[验收读数](.trellis/tasks/11-22-matched-ldpc-kill-test/notes.md#2026-11-23-six-point-closed-loop-crc-acceptance)
+
 **近期探索与任务入口（未全部落卡；写理论、定位或开新实验前先过一遍）**
+- 11-24 idea 漏斗第 8 轮（runner `l`，26 个草稿 0 张卡）与相位噪声余量生死检（预注册判定 `PASS_PRIMARY = false`；漏斗是否收官待 Eric 定）：[运行记录](ideas/runs.md)「本地第 8 轮」段末、[预注册](ideas/l2/PREDICTIONS_r8_pn_margin.md)、`ideas/l2/out_r8_pn_margin/summary.json`。
 - 11-10/11 DPSS 块/窄块路线（Fable 第 5–9 轮读数，簇信道候选 C）：`experiments/dpss_shrink_pilot_20261110/`、`experiments/dpss_p1_pilot_20261110/`、`experiments/dpss_p1_narrow_20261110/`、`experiments/dpss_cluster_narrow_20261110/`、`experiments/dpss_block_rescue_20261110/`、`experiments/dpss_j4_width_20261110/`、`experiments/dpss_paired_screen_20261111/`。
 - 11-09 固定信道 OAMP/LDPC 筛查（否定）：[记录](.trellis/tasks/09-22-tf-production-gap-audit/research/oamp-ldpc-screen-20261109.md)、`experiments/oamp_ldpc_20261109/`、输出 `afdm_sp_joint_unrolled/outputs_oamp_ldpc_20261109/`。
 - 11-18 经典 F0 外层轮数预算与早停帕累托（探索性，未落卡）：[RESULTS](experiments/f0_round_budget_20261118/out/RESULTS.md)。
