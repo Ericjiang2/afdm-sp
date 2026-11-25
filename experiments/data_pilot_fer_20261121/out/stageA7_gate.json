@@ -1,0 +1,106 @@
+{
+  "_argv": [
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/data_pilot_fer_20261121/stageA7.py",
+    "gate",
+    "--out",
+    "/data/guoyikun/00inbox/AFDM-channel-estimation/experiments/data_pilot_fer_20261121/out/stageA7_gate.json",
+    "--workers",
+    "16"
+  ],
+  "_config": {
+    "python_executable": "/home/guoyikun/.conda/envs/AFDM/bin/python",
+    "threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "CUDA_VISIBLE_DEVICES": ""
+    },
+    "workers": 16,
+    "own_md5": {
+      "STAGEA7_PROTOCOL.md": "2fdb65f63720f3d51e31350a07095b0a",
+      "stageA7.py": "1d6d6021d0e2bf36f1a368e8cc4e687a",
+      "test_stageA7.py": "cff426ae775021056c6098b91cd08f8f",
+      "stageA7_launch.sh": "2a76388cfcc9ad89ff760318ce334262"
+    },
+    "pinned_code_md5": {
+      "data_pilot_fer_20261121/stageA.py": "17be1c3e75e07fb9a4dec1b3774c54aa",
+      "data_pilot_fer_20261121/stageA2.py": "01a72e6942ec39de99c0e788b3b5b0a9",
+      "data_pilot_fer_20261121/stageA3.py": "305645c21bf13b1bc35ec300aa1bcbb2",
+      "data_pilot_fer_20261121/stageA5.py": "073b76973298fbd58ecb0ef38953c97d",
+      "data_pilot_fer_20261121/stageA6.py": "e7e42f0f941613d997c4f71b01b09777",
+      "sameframe_hg_20261124/sameframe.py": "01197778b2ec3cf7f37719ca3b192152",
+      "huang_steelman_20261124/hs_arms.py": "a43f2934c085bde1b69f929fddf06bf6",
+      "huang_steelman_20261124/hs_analysis.py": "864b8b7510872c33dc60fc725c57a45d"
+    },
+    "archive_shards_verified": {
+      "stageA2": 80,
+      "stageA6": 32
+    },
+    "dev_snr_only": 400
+  },
+  "all_passed": true,
+  "G1": {
+    "passed": true,
+    "rows": [
+      {
+        "case": "41000_U_100",
+        "dnll_only": 2.2737367544323206e-13,
+        "dnll_grad": 4.547473508864641e-13,
+        "max_dgrad": 1.7053025658242404e-13,
+        "passed": true
+      },
+      {
+        "case": "41001_G_150",
+        "dnll_only": 2.2737367544323206e-13,
+        "dnll_grad": 2.2737367544323206e-13,
+        "max_dgrad": 1.4210854715202004e-13,
+        "passed": true
+      },
+      {
+        "case": "41002_U_150",
+        "dnll_only": 4.547473508864641e-13,
+        "dnll_grad": 0.0,
+        "max_dgrad": 1.7053025658242404e-13,
+        "passed": true
+      },
+      {
+        "case": "41003_G_100",
+        "dnll_only": 4.547473508864641e-13,
+        "dnll_grad": 2.2737367544323206e-13,
+        "max_dgrad": 9.237055564881302e-14,
+        "passed": true
+      },
+      {
+        "case": "synthetic_codelay",
+        "dnll_only": 2.2737367544323206e-13,
+        "dnll_grad": 0.0,
+        "max_dgrad": 5.684341886080802e-14,
+        "passed": true
+      }
+    ]
+  },
+  "G2": {
+    "passed": true,
+    "truth_invariance_max_diff": 0.0,
+    "max_a6_sb_replay_diff": 0.0
+  },
+  "G3": {
+    "passed": true,
+    "nll_nonworse_fail": 8,
+    "nll_nonworse_ctrl": 8,
+    "dev_fail_rescued": 7,
+    "dev_ctrl_kept_ok": 8
+  },
+  "G4": {
+    "passed": true,
+    "mean_diag_cpu_sec": 19.097431268,
+    "expected_conf_keys": 38,
+    "projected_hours_with_margin": 0.32705919573311115,
+    "stage_budget_cap_hours": 1.0
+  },
+  "gate_cpu_hours": 0.09887467065083333,
+  "gate_wall_seconds": 62.50066409725696
+}

@@ -784,3 +784,41 @@ Forecasts committed before running `experiments/data_pilot_fer_20261121/stageA6.
 | A6-G2 | agy (Gemini 4 Neon) | `SBdop` best 1% FER crossing in `[3.50, 3.80] dB` | .60 | Did not occur (`4.3769 dB` at $\rho=.15$, 95% CI `[4.1737, 4.5615]`). Score 0, Brier 0.3600 |
 
 Readout [STAGEA6_READOUT.md](../experiments/data_pilot_fer_20261121/STAGEA6_READOUT.md) · [RESULTS.md](../experiments/data_pilot_fer_20261121/out/stageA6/RESULTS.md). Major miss by both forecasters (both gave `STOP` only .08–.10 and extrapolated directly from Stage A5's capped mean `0.043` bin $\approx$ `s050`): in the actual receiver, 100% (`38/38`) of high-SNR (`4.5–5.0 dB`) `SBdop` final failures had gross `2–4.4` bin sidelobe-jump outliers inherited from `PW` (masked by A5's `0.375` cap and unrecoverable by local L-BFGS-B or round-1 `time_refine`), leaving `SBdop` `+0.92 dB` worse than `s050` and tied with `PWdop` (`4.3501 dB`) and `CD2` (`4.4156 dB`).
+
+
+### 2026-11-25 — data-pilot-fer stage A7, decisive diagnosis of round-0 semi-blind Doppler sidelobe lock (scored)
+
+Forecasts committed before running `experiments/data_pilot_fer_20261121/stageA7.py` on the unseen 38 confirmation keys ([STAGEA7_PROTOCOL.md](../experiments/data_pilot_fer_20261121/STAGEA7_PROTOCOL.md), freeze `161de2e5`). Dev exploration used strictly `4.0 dB` (`snr == 400`, 69 failures + 24 controls; `snr in {450, 500}` untouched prior to freeze). Evaluates exact `stageA5` Gaussian semi-blind NLL (`f_SB`: truth-basin box vs A6 `SB`), truth-free global semi-blind search `SBGdop` over identical bounds `[-3, 3]^P x [-10, 10]^{2P}` (`f_SBG_rescue`), known-data profile NLL (`f_KD`), and coded valid-LDPC ML (`f_code`) on the 38 Stage A6 `4.5–5.0 dB` `SBdop` final failures (`2000` physical-frame ratio cluster bootstrap draws, seed `20261125`; actual `0.29` core-hours). Claude's prior was fixed in the task brief before dev exploration; agy's forecast was informed by the `4.0 dB` dev readout (`68/69` `SB` prefers truth, `63/69` `SBGdop` rescued) before touching `4.5–5.0 dB`.
+
+| ID | Author | Forecast | Probability | Outcome |
+|---|---|---|---|---|
+| A7-C1 | Claude | Primary diagnosis verdict: `SEARCH` / `MODEL` / `INFO` / `UNCLEAR` | .35 / .35 / .10 / .20 | `SEARCH` occurred (`f_SB = 38/38`, `f_SBG_rescue = 38/38`, 95% CI `[100%, 100%]`). Multiclass Brier 0.5950 |
+| A7-G1 | agy (Gemini 4 Neon, dev-informed) | Primary diagnosis verdict: `SEARCH` / `MODEL` / `INFO` / `UNCLEAR` | .80 / .05 / .03 / .12 | `SEARCH` occurred (`38/38` `SB` prefers truth by +25.4..+140.0 nats; `38/38` rescued). Multiclass Brier 0.0578 |
+| A7-G2 | agy (Gemini 4 Neon, dev-informed) | Confirmation truth-free rescue share $f_{\mathrm{SBG\text{-}rescue}} \ge 0.75$ ($\ge 29/38$) | .75 | Occurred (`38/38 = 100.00%`). Score 1, Brier 0.0625 |
+
+Readout [STAGEA7_READOUT.md](../experiments/data_pilot_fer_20261121/STAGEA7_READOUT.md) · [RESULTS.md](../experiments/data_pilot_fer_20261121/out/stageA7/RESULTS.md). Decisive `38/38` (`100%`) confirmation of `SEARCH`: on every single high-SNR Stage A6 failure, the unmodified Gaussian semi-blind likelihood preferred the truth basin over A6's `PW`-seeded sidelobe by `+25.44` to `+139.98` nats (median `+74.32` nats), and truth-free global search `SBGdop` rescued `38/38` frames to zero bit errors.
+
+
+### 2026-11-25 — data-pilot-fer stage A8, full-frame 1% FER recovery of global semi-blind round-0 Doppler vs CD2 (scored)
+
+Forecasts committed before running `experiments/data_pilot_fer_20261121/stageA8.py` ([STAGEA8_PROTOCOL.md](../experiments/data_pilot_fer_20261121/STAGEA8_PROTOCOL.md), freeze `856e6401`). Directly reuses frozen `stageA7.estimate_sb_global` (true delays $l_i$, zero truth peeking, identical Gaussian semi-blind NLL and domain `[-3, 3]^P x [-10, 10]^{2P}`) on all Stage A6 frames `41000–41399` × U/G, $\rho \in \{100, 150\}$, full 4-SNR grid `[300, 400, 450, 500]` (`6,400` keys; actual `5.90` core-hours, cumulative task total `7.03 / 10.0` core-hours), paired against verified frozen archives (`CD2`, `SBdop`, `PWdop`, `s050`, `s100`, `ldop`; `2000` joint physical-frame bootstrap draws, seed `20261125`). Primary $D = \min_{\rho \in \{100..250\}} C_{\mathrm{CD2}} - \min_{\rho \in \{100,150\}} C_{\mathrm{SBGdop}}$: `GO` (worth continuing) iff 95% CI lower bound $\ge 0.50\text{ dB}$, else `STOP`.
+
+| ID | Author | Forecast | Probability | Outcome |
+|---|---|---|---|---|
+| A8-G1 | agy (Gemini 4 Neon) | Primary verdict `GO` ($\mathrm{LB}_{95}(D) \ge 0.50\text{ dB}$) | .78 | Occurred (`GO`: `+0.9492 dB`, 95% CI `[+0.8063, +1.0254]`). Score 1, Brier 0.0484 |
+| A8-G2 | agy (Gemini 4 Neon) | `SBGdop` best 1% FER crossing $\le 3.75\text{ dB}$ | .75 | Occurred (`3.4664 dB` at $\rho=.10$, `0/800` errors at `4.0 dB`). Score 1, Brier 0.0625 |
+| A8-G3 | agy (Gemini 4 Neon) | Direct global-vs-local search gain `min SBdop − min SBGdop` 95% CI lower bound $\ge 0.50\text{ dB}$ | .75 | Occurred (`+0.9106 dB`, 95% CI `[+0.7086, +1.0957]`). Score 1, Brier 0.0625 |
+
+Readout [STAGEA8_READOUT.md](../experiments/data_pilot_fer_20261121/STAGEA8_READOUT.md) · [RESULTS.md](../experiments/data_pilot_fer_20261121/out/stageA8/RESULTS.md). Full recovery confirmed (`GO`): truth-free global semi-blind search `SBGdop` reached `3.4664 dB` at $\rho = 0.10$ (`0/2,400` errors across `4.0–5.0 dB`; `+306` rescued vs `-8` regressed across all `6,400` keys), beating `CD2` by `+0.9492 dB` `[+0.8063, +1.0254]` (`98.5%` of the `+0.9638 dB` true-Doppler `ldop` ceiling) at `4.67×` lower per-key CPU cost than Stage A6 `SB`. *(Audit note: because `(300, 400, 450, 500)` lacks grid points inside `(3.0, 4.0) dB`, `3.4664 dB` and the `+0.0145 dB` residual rely on `stageA2.crossing`'s `10^{-4}` zero-floor at `4.0 dB`; Stage A8b below tests `[3.50, 3.75] dB` directly.)*
+
+
+### 2026-11-25 — data-pilot-fer stage A8b, `3.50 / 3.75 dB` densified 1% FER verification vs zero-floor interpolation (scored)
+
+Forecasts committed before running `experiments/data_pilot_fer_20261121/stageA8b.py` ([STAGEA8B_PROTOCOL.md](../experiments/data_pilot_fer_20261121/STAGEA8B_PROTOCOL.md), freeze `7481d3c8`, Sol static review [stageA7_A8_A8b_sol_review.md](../experiments/data_pilot_fer_20261121/out/stageA7_A8_A8b_sol_review.md)). Evaluates frozen `SBGdop` (`stageA7.estimate_sb_global`, zero hyperparameter changes) and archived-definition `ldop` on frames `41000–41399` × U/G at $\rho = 100$, new SNRs `[350, 375]` (`1,600` keys; merged 6-SNR grid `[300, 350, 375, 400, 450, 500]`; actual `1.85` core-hours, cumulative task total `8.90 / 10.0` core-hours), paired against verified frozen `CD2` (`2,000` joint physical-frame bootstrap draws, seed `20261125`). Primary $D_{\mathrm{dens}} = \min_{\rho \in \{100..250\}} C_{\mathrm{CD2}} - \min_{\rho \in \{100,150\}} C_{\mathrm{SBGdop\_dens}}$: `GO` iff 95% CI lower bound $\ge 0.50\text{ dB}$, else `STOP`.
+
+| ID | Author | Forecast | Probability | Outcome |
+|---|---|---|---|---|
+| A8B-R1 | agy (reviewer, pre-3.5/3.75 dB) | Primary densified verdict `GO` ($\mathrm{LB}_{95}(D_{\mathrm{dens}}) \ge 0.50\text{ dB}$) | .72 | Occurred (`GO`: `+0.7045 dB`, 95% CI `[+0.5615, +0.7977]`; Haldane floor `+0.7023 [+0.5814, +0.7986]`). Score 1, Brier 0.0784 |
+| A8B-R2 | agy (reviewer, pre-3.5/3.75 dB) | Densified gap $C_{\mathrm{SBGdop\_dens}}(100) - C_{\mathrm{ldop\_dens}}(100) > 0.05\text{ dB}$ (Stage A8's `+0.0145 dB` underestimated true gap due to `4.0 dB` `10^{-4}` floor) | .70 | Occurred (`+0.1395 dB`, 95% CI `[+0.0603, +0.2072]`; `SBGdop_dens = 3.7111` vs `ldop_dens = 3.5716 dB`). Score 1, Brier 0.0900 |
+
+Readout [STAGEA8B_READOUT.md](../experiments/data_pilot_fer_20261121/STAGEA8B_READOUT.md) · [RESULTS.md](../experiments/data_pilot_fer_20261121/out/stageA8b/RESULTS.md). Both audit forecasts hit: measuring `3.50 dB` (`6.25%` `SBGdop` FER vs `2.50%` `ldop` FER) and `3.75 dB` (`1.12%` vs `0.12%`) directly proved that Stage A8's `3.4664 dB` crossing and `+0.0145 dB` (`98.5%`) residual were `10^{-4}` zero-floor underestimates (`3.7111 dB` actual crossing, `+0.1395 dB` true gap to `ldop_dens`, `83.5%` recovery of the `+0.8440 dB` `CD2 − ldop_dens(100)` headroom), while decisively confirming `GO` without zero-floor dependence (`+0.7045 dB`, 95% CI `[+0.5615, +0.7977] >= 0.50 dB`).

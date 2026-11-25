@@ -4,19 +4,23 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 REPO=/Users/guoyikun/Downloads/share/claode_birain/afdm-sp-mirror/repo.git
-WT_G=/Users/guoyikun/Downloads/share/claode_birain/afdm-funnel-g/00_Inbox/AFDM-channel-estimation
+WT_BASE=/Users/guoyikun/Downloads/share/claode_birain
 SK="$HOME/projects/personal-ai-workflow/skills/idea-funnel/scripts"
 
-if [ -d "$WT_G/ideas/cards" ] && ls "$WT_G"/ideas/cards/I-*-g[0-9]*.md >/dev/null 2>&1; then
-  TMP_G=$(mktemp -d)
-  trap 'rm -rf "$TMP_G"' EXIT
-  cp "$WT_G"/ideas/cards/I-*-g[0-9]*.md "$TMP_G"/
-  echo "== worktree-g (runner g)"
-  python3 "$SK/funnel.py" import ideas --src "$TMP_G" | grep -v '^BOARD.md' || true
-  if [ -f "$WT_G/ideas/runs-g.md" ]; then
-    echo "   g 最近一行运行记录：$(tail -n 1 "$WT_G/ideas/runs-g.md" | cut -c1-240)"
+TMP_IMP=$(mktemp -d)
+trap 'rm -rf "$TMP_IMP"' EXIT
+for r in g h k m; do
+  WT_R="$WT_BASE/afdm-funnel-$r/00_Inbox/AFDM-channel-estimation"
+  if [ -d "$WT_R/ideas/cards" ] && ls "$WT_R"/ideas/cards/I-*-${r}[0-9]*.md >/dev/null 2>&1; then
+    mkdir -p "$TMP_IMP/$r"
+    cp "$WT_R"/ideas/cards/I-*-${r}[0-9]*.md "$TMP_IMP/$r"/
+    echo "== worktree-$r (runner $r)"
+    python3 "$SK/funnel.py" import ideas --src "$TMP_IMP/$r" | grep -v '^BOARD.md' || true
+    if [ -f "$WT_R/ideas/runs-$r.md" ]; then
+      echo "   $r 最近一行运行记录：$(tail -n 1 "$WT_R/ideas/runs-$r.md" | cut -c1-240)"
+    fi
   fi
-fi
+done
 
 if [ -d "$REPO" ]; then
   for b in $(git --git-dir="$REPO" ls-remote --heads origin 'funnel/*' 2>/dev/null | awk '{print $2}' | sed 's#^refs/heads/##'); do
@@ -48,10 +52,15 @@ for p in cards:
         jpaths = re.findall(r"(?:ideas/)?l2/[A-Za-z0-9_./-]*summary[A-Za-z0-9_./-]*\.json", txt.split("## 筛选记录", 1)[-1])
         verdict_str = "no-json"
         for rel in reversed(jpaths):
-            cand = Path(rel) if rel.startswith("ideas/") else (Path("ideas") / rel)
-            if cand.is_file():
-                v = (json.loads(cand.read_text(encoding="utf-8")).get("verdicts") or {}).get("PASS_PRIMARY")
-                verdict_str = f"{cand.name}:PASS_PRIMARY={v}"
+            sub = rel if rel.startswith("ideas/") else f"ideas/{rel}"
+            r_tag = re.search(r"-([ghkm])\d+$", f["id"])
+            cands = [Path(sub)]
+            if r_tag:
+                cands.append(Path(f"/Users/guoyikun/Downloads/share/claode_birain/afdm-funnel-{r_tag.group(1)}/00_Inbox/AFDM-channel-estimation") / sub)
+            hit = next((c for c in cands if c.is_file()), None)
+            if hit is not None:
+                v = (json.loads(hit.read_text(encoding="utf-8")).get("verdicts") or {}).get("PASS_PRIMARY")
+                verdict_str = f"{hit.name}:PASS_PRIMARY={v}"
                 break
         cmr.append(f"  - {f['id']} [{f['track']}|{f['generator']}] ({verdict_str}): {f['title']}")
     if p.stem.startswith(f"I-{latest_stamp}-") and f["status"] == "active" and f["layer"] in ("L1", "L2", "L3"):
