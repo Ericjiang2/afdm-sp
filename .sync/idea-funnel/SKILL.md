@@ -121,26 +121,23 @@ threshold. The thresholds below are the only place these numbers live:
   complexity order or ≥10× measured speed-up on the same machine, language and thread count. Truncating iterations or
   dropping terms does not count. When either side runs on a GPU, the rival is batched and vectorised on the same device,
   and per-frame multiply-accumulate counts are reported next to wall time.
-- **Floor-breaking** (e.g. Nazer–Gastpar TIT 2011): in a setting where the strongest existing combination sits on an
-  error floor (FER stays ≥ 1e-2 across ≥5 dB of SNR) or loses lock, remove the floor (FER one decade lower at the same
-  SNR) or win ≥1.0 dB, with no added pilot, guard or preamble overhead.
-- **Cross-layer inversion** (e.g. ten Brink TCOM 2004, `21-l02`): a component that is better when tested alone loses
+- **Floor-breaking**: in a setting where the strongest existing combination sits on an
+  error/sidelobe floor (FER stays ≥ 1e-2 across ≥5 dB of SNR), loses lock, or hits an interference/aliasing-limited ceiling, remove the floor (FER one decade lower at the same
+  SNR, or unlock a positive high-SNR slope / ≥3.0 dB gain at target outage/BLER where baselines saturate), with no added pilot, guard or preamble overhead.
+- **Cross-layer inversion**: a component that is better when tested alone loses
   ≥0.5 dB inside the closed loop, and the loop-matched design beats the best standalone-optimal combination by ≥0.8 dB
   (≥0.05 bit/sym MI for coupled cards).
-- **Overhead / hardware / prior** (e.g. Alamouti JSAC 1998): at equal FER (within 0.2 dB), remove ≥15% of pilot, guard
-  or prefix overhead; or run on cheaper hardware (fewer ADC bits, saturated PA) within 0.5 dB; or drop an unrealistic
+- **Overhead / hardware / prior**: at equal FER (within 0.2 dB), remove ≥15% of pilot, guard
+  or prefix overhead; or achieve the same diversity order / target reliability on cheaper hardware (fewer RF chains/RX antennas, fewer ADC bits, constant-envelope / saturated PA, allowing a bounded known array-gain or quantization offset when removing hardware, or within 0.5 dB at fixed hardware); or drop an unrealistic
   prior (known path count, known noise variance, known Doppler spread) within 0.5 dB of the receiver given that prior,
   where the strongest existing prior-free method loses ≥1 dB.
-- **Boundary law / tight bound** (e.g. Hassibi–Hochwald TIT 2003): either a closed-form criterion with zero fitted
-  parameters, pre-registered and then tested on parameter points not used to derive it (the predicted flip lands within
-  20% (or 1 dB) and the two sides differ by ≥1 dB in total swing), or a bound that tightens the best known one by ≥30%
-  (or ≥1 dB). Anti-fake locks (Eric 2026-11-24): the final formula or criterion matches Monte Carlo at ≥3 finite,
-  realistic settings (several paths, fractional dispersion) within 0.5 dB, flip point within 20% — asymptotic or
-  single-path derivations may be steps, but a result that holds only there is not a card; a claimed lower bound is not
-  crossed by any of ≥2 legal estimators or detectors tested, and a small-scale numerical optimum (exhaustive or
-  high-precision search) comes within 1.5 dB of it.
+- **Boundary law / tight bound**: (i) a closed-form criterion with zero fitted
+  parameters, pre-registered and tested on parameter points not used to derive it (predicted flip within
+  20% or 1 dB, total swing ≥1 dB); (ii) a bound that tightens the best known one by ≥30% (or ≥1 dB); or (iii) a **proved necessary/sufficient feasibility or impossibility boundary, degrees-of-freedom / multiplexing law, or diversity-order transition** (zero fitted parameters) that **forces a discrete transceiver, frame, or resource-allocation change** — never a descriptive performance-curve approximation that leaves transceiver design unchanged, never a 5-minute 1D/2D empirical sweep surrogate, and never an unbandlimited/discontinuous pulse artifact that vanishes under realistic bandlimiting. Anti-fake locks (Eric 2026-11-24): the proved law, criterion or bound must hold on finite-length Monte Carlo across ≥3 realistic settings (multi-path, realistic bandlimiting, fractional dispersion; numeric bounds within 0.5 dB, regime/feasibility boundary within 20%) — asymptotic or
+  single-path derivations may be steps, but a result whose advantage or phenomenon exists only as $N\to\infty$ or on a single path is not a card; a claimed lower bound is not
+  crossed by any of ≥2 legal estimators or detectors tested, and a small-scale numerical optimum comes within 1.5 dB of it.
 - **Performance**: ≥0.8 dB over the strongest matched-harness baseline (≥1.0 dB for neural/unfolding cards; ≥0.05 bit/sym
-  MI for soft-output loops; or domain-specific high-SNR slope / multi-objective trade-off bars explicitly defined in `FUNNEL.md`).
+  MI for soft-output loops; or a proved diversity-order increase $\Delta d \ge 1$ under matched end-to-end bandwidth/energy; or domain-specific multi-objective trade-off bars in `FUNNEL.md`).
 
 Neural attribution (black-box and end-to-end networks, Eric 2026-11-24): pre-register three arms. (1) A genie-channel
 ceiling (classical near-optimal detection given the true channel) sizes the pool — the unknown channel or mismatch must
@@ -151,9 +148,7 @@ claim narrows to that module and is re-validated once on fresh seeds before any 
 keep its advantage over a continuous SNR range, random Doppler spreads and at least one power-delay profile or mismatch
 level not seen in training. Physics-driven unfolding cards keep the channel-MSE-supervised ablation instead.
 
-Public-pain check (all ledgers): the obstacle must appear in published settings (≥2 independent groups by default, or
-grounded in published failure figures / complexity tables / explicit open models under the cited paper's own parameters
-when specified in `FUNNEL.md`; cite paper and section or figure). A problem that exists only inside this project's receiver, its private interface
+Public-pain check (all ledgers): the obstacle must appear in published settings prior to the proposal — either ≥2 independent groups' published figures/tables/open models, **or** a standard physical/protocol condition (Anchor C) applied directly to published standard system parameters without stretching parameters, provided textbook zero-order calibrations (e.g. scalar AGC, standard CP energy accounting) do not already close or trivialize it (cite paper and section/figure/table). A problem that exists only inside this project's receiver, its private interface
 constants or its own simulator setup is not a card, however clean it looks.
 
 Each cycle:
@@ -273,10 +268,10 @@ Each cycle:
    sample is small.
    Result: kill, park with the heavier check and its cost, or gate candidate.
    - **Two-tier pre-registration (`PREDICTIONS_*.md`) — four iron rules**:
-     1. *Starting-line & known-channel attribution*: cross-waveform cards MUST include and inspect **first** both a **known-channel (`True-H`) arm** (if tied, scope claim strictly to channel estimation, never data detection/erasure) and an **unimpaired (`clean` / `C=0`) blind arm**; subtract any unimpaired baseline gap via Difference-in-Differences **`DiD = (err_base - err_new)|_impaired - (err_base - err_new)|_clean >= margin`** (and bound clean false-alarm loss against the unmodified same-waveform receiver — never use two-sided `|clean_diff| <= c` bombs nor blind one-sided passes that hide baseline offsets).
+     1. *Starting-line, known-channel & matched-control headline*: cross-waveform cards MUST include and inspect **first** both a **known-channel (`True-H`) arm** (if tied, scope claim strictly to channel estimation, never data detection/erasure) and an **unimpaired (`clean` / `C=0`) blind arm**; subtract any unimpaired baseline gap via Difference-in-Differences **`DiD = (err_base - err_new)|_impaired - (err_base - err_new)|_clean >= margin`** (and bound clean false-alarm loss against the unmodified same-waveform receiver — never use two-sided `|clean_diff| <= c` bombs nor blind one-sided passes that hide baseline offsets). **Headline numbers** in the card's opening problem sentence and 去壳 §2 MUST always be reported against the **same-channel, same-prior simplest sane control** (e.g., a full-block multipath baseline rather than an omitted-path per-bin approximation), never inflating headlines against a crippled strawman.
      2. *Dev-calibrated thresholds, never below the card's ledger*: measure physical ceilings/floors and per-dB error slopes (and, for compute cards, same-machine runtimes of the fastest same-accuracy rival) on dev/smoke seeds before freezing constants (never guess `+2.0 dB` under a `-23.5 dB` perturbation ceiling); the primary threshold is at least the card's ledger threshold (Value ledgers above) — never water it down.
      3. *Explicit hypothesis & broken-baseline hygiene*: every `PASS_PRIMARY` clause (≤2 clauses) states *which hypothesis it tests* and *what failing it means*, separating rival baselines (`New - Rival >= margin`) from positive instances of a sufficiency law (any failing instance refutes the law); secondary slices go into `SCOPE_READOUTS`; remove or fix broken baselines (`NMSE > 0 dB` or `FER > 50%` on unimpaired data).
-     4. *`PASS_PRIMARY == false` never enters Step 8*: when `verdicts.PASS_PRIMARY` in `summary*.json` is `false`, the runner MUST set `status: killed` or `status: parked` (enforced by `funnel.py board` inspecting `summary*.json`, and verified directly in `summary*.json` at Step 8 merge) — never narrow the title on the same seeds and mark `cross-model review` (salvaging a real sub-effect that still meets the card's ledger threshold requires a fresh pre-registration on unseen seeds `+10000`, at most once).
+     4. *`PASS_PRIMARY == false` never enters Step 8, and narrowing never bypasses scope or fresh-seed gates*: when `verdicts.PASS_PRIMARY` in `summary*.json` is `false`, the runner MUST set `status: killed` or `status: parked` (enforced by `funnel.py board` inspecting `summary*.json`, and verified directly in `summary*.json` at Step 8 merge) — never narrow the title or downgrade the rubric tier on the same seeds and mark `cross-model review`. Salvaging a real sub-effect requires (a) respecting all hard scope boundaries in `FUNNEL.md` (e.g., never stripping communication metrics from an ISAC card into pure passive radar), and (b) a fresh pre-registration on unseen seeds (`+10000`) clearing an open ledger, at most once.
    - **Pre-run static script & Steelman baseline audit (≤3 min, before any >2 min `deinlab` / M4 Pro run)**: pass the smoke-tested L2
      script and `PREDICTIONS_*.md` to a cross-family read-only reviewer (`gpt-6.2-sol`, `Claude Opus`, or `agy Neon`) checking five items:
      (i) **Matched-harness published & naive-cascade baselines present** — does the script include the strongest **published** baseline in the target setting and the unmodified `naive_port` / `A → B` cascade, all equipped with **matched outer harness, iteration/retry budget, and textbook zero-order calibrations** (never an unpublished cross-paper `A ⇄ B` interface hybrid newly invented by the runner or reviewer; single-pass/uncoded claims use single-pass/uncoded baselines), plus single-stage / coarse-stride checks on multi-stage speed claims and equal-net-throughput baselines on overhead-saving claims? Add missing ones before running;
@@ -288,11 +283,13 @@ Each cycle:
    numbers to a reviewer of a family different from its `generator` (Claude and Gemini cards → `codex exec --sandbox read-only -m
    gpt-6.2-astra` if the card is not `pit` (it would reach L3 and the owner), `gpt-6.2-sol` if it is `pit`, the two
    standing in for each other, then Claude (not for Claude cards) or Neon; GPT cards → Gemini 4 Neon via agy). For every
-   non-`pit` candidate, require two explicit beats in the same review: **Beat 1 — ≤200-word Hostile Rejection Memo** (the
+   non-`pit` candidate, require two explicit beats: **Beat 1 — ≤200-word Hostile Rejection Memo** (the
    sharpest reviewer-2 kill case attacking novelty, unrun cheap baselines, and attribution leaks) followed by **Beat 2 —
-   Code & Executed-Data Audit** (checking source lines, RNG pairing, numerical invariants, and the four simulation rules
-   without inventing unexecuted numbers), ending in `VERDICT: PASS / KILL / REVISE`. Cards finishing mid-cycle wait for the next screening batch. Record reviewer, model and verdict in the
-   card. PASS → L3 (a `pit` premise check reports a one-line boundary note to Eric rather than masquerading as a new
+   Code, Executed-Data & Residual-Value Audit** (checking source lines, RNG pairing, numerical invariants, the four simulation rules,
+   and whether the evidence-consistent residual claim still clears an open ledger over the matched-information control, without inventing unexecuted numbers), ending in `VERDICT: PASS / KILL / REVISE` (plus `WORTH_DOING_AFTER_NARROWING: YES / NO` whenever the card narrowed its claim, dropped a sub-claim, or downgraded its rubric tier; `NO` blocks `L3` promotion and `target_ready` counting even if wording matches data).
+   - **`REVIEWER_BIAS_GUARD` (zero-coaching adjudication)**: when Beat 1 and Beat 2 run in separate sessions, the Beat-2 prompt may contain **only** the read-only file paths, the Beat-1 rejection memo verbatim, and the neutral output schema. Never inject executor defenses, parenthetical baseline excuses, scope-narrowing escape hatches, or softened definitions of `PASS` ("pass with wording edits") into the prompt; any `major` or `critical` `still_unresolved` point on a retained claim precludes `PASS`.
+   Cards finishing mid-cycle wait for the next screening batch. Record reviewer, model and verdict in the
+   card. PASS (with `WORTH_DOING_AFTER_NARROWING: YES` when narrowed) → L3 (a `pit` premise check reports a one-line boundary note to Eric rather than masquerading as a new
    algorithm idea, and is not counted as an idea L3); KILL → killed; REVISE → gap child or back to L2. With no second family available, follow the out-of-
    quota rule above. (If a card's L2 was already pure arithmetic completed before step 6, steps 6 and 8 may merge into
    one call.)
@@ -350,7 +347,7 @@ other than the card's generator:
 | Step 8 post-L2 gate | Claude and Gemini cards → GPT-6.2 Astra high if not `pit`, GPT-6.2 Sol high if `pit` (each other's fallback, then Claude for non-Claude cards, then Neon); GPT cards → Gemini 4 Neon high; unknown family → the same GPT choice plus Neon | cross-family audit of L2 scripts, baselines and attribution; Astra only where a card may reach the owner |
 | 白话与类比 on L3 cards (the ones Eric reads) | Gemini 4 Hydrogen high | plain language is a Gemini strength and Hydrogen is cheaper |
 
-Reasoning effort: high by default; xhigh only for a judgement-heavy call that could swing the round.
+Reasoning effort & `Carbon` vs `Neon (xhigh)` (Eric 2026-11-27, capability-first ignoring price): `Carbon` is the heavy pre-training flagship (slower decode, broader prior/invariant capacity) — prefer `Carbon (high)` when framing open-ended problems, building physical models, deriving first-pass closed-form theorems, or writing tightly coupled math operators without a fast external verifier; `Neon` is the high-throughput agentic model — prefer `Neon (xhigh)` when iterating against a locked fast verifier (`H-*.py --mode dev`, finite-difference gradient checks, unit tests), eliminating tail cases, bug-hunting, or driving multi-tool pipelines where more real closed-loop runs per wall-clock hour plus deep explicit branch search win.
 
 Anchors (every card needs at least one, with its source): **A** a limitation or open gap triangulated across ≥2 recent
 papers — or 1 recent paper plus an executed ≥0.8 dB probe — found with a search tool in this round, never from memory or

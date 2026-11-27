@@ -1,14 +1,17 @@
 """
-Round-11 [放宽TWC] [轨B-ISAC] L2 Experiment Script for I-20261125-m04 (v7, post-Sol Call 15/15 exact order-stat & Beta-Binomial harmonization):
+Round-12 [放宽TWC] [轨B-ISAC] L2 Experiment Script for I-20261125-m04 (v11, post-Round-12 Sol v10 audit):
 Self-Referenced Grassmannian Guard-Nullspace AFDM-ISAC
 (Solving Ma et al., arXiv:2606.25572 Sec. III/VI compressed-guard unknown-data open problem).
 
 Zero global id()-keyed caches; strictly disjoint seeds between --smoke (2028000000+) and full L2 (2030000000+);
 fail-fast startup gates (sys.exit(2) on failure); exact Y. Luo Sec. IV posterior cross-covariance term & blind
-noiseless recovery; exact order-statistic threshold X_(b) (b = n_cal + 1 - a, a = round(p * (n_cal + 1))) and
-exact finite-sample Beta-Binomial predictive interval validation uniformly across NOMP startup gate and EVERY arm
-in R1/R2/R3a/R3b/R0; genuine rank-deficient non-zero Hd stress test (rank 52 < 104); symmetric 1-factor ablations;
-exact CPP-inclusive expected TX energy (138.0/frame) & zero-coupling (4.45e-13) R3c with strict BLER crossing.
+noiseless recovery; exact order-statistic threshold X_(b) (b = n_cal + 1 - a, a = max(1, round(p * (n_cal + 1)))) and
+exact finite-sample Beta-Binomial predictive interval validation uniformly across NOMP startup gate, EVERY arm
+in R1/R2/R3a (25 FWER-controlled checks), R3b, and in-distribution R0 (Pc=2); exact Clopper-Pearson 95% CIs for
+single-arm proportions and Hoeffding-exact stratified R0 order-accuracy lower bound; asymptotic Tango (1998)
+paired score 95% CIs for paired Hit-Pd / BLER differences; genuine rank-deficient non-zero Hd stress test;
+single-mechanism same-frontend nullspace controls with matched detector amplitude init; exact CPP-inclusive
+expected TX energy (138.0/frame) & zero-coupling (4.45e-13) R3c with Red-Line-5-sized CIs (n_bler_fr=840).
 """
 import os
 for _k in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
@@ -25,7 +28,7 @@ import time
 from multiprocessing import Pool
 import numpy as np
 from scipy.linalg import qr, cho_factor, cho_solve
-from scipy.stats import betabinom as betabinom_dist
+from scipy.stats import betabinom as betabinom_dist, beta as beta_dist
 
 NOMP_CFAR_NCAL = 80000
 
@@ -40,7 +43,7 @@ def exact_order_stat_params(n_cal, pfa_target):
 
 
 def exact_order_stat_threshold(cal_vals, pfa_target):
-    """Exact 1-indexed order-statistic threshold X_(b) with b = n_cal + 1 - a, a = round(p * (n_cal + 1))."""
+    """Exact 1-indexed order-statistic threshold X_(b) with b = n_cal + 1 - a, a = max(1, round(p * (n_cal + 1)))."""
     arr = np.asarray(cal_vals, dtype=np.float64)
     a, b = exact_order_stat_params(len(arr), pfa_target)
     thr = float(np.partition(arr, b - 1)[b - 1])
@@ -111,7 +114,7 @@ def orth_nullspace_NG(H, data_mask, G):
     return Q[:, -G:]
 
 
-def isotropic_mf_map(r_res, xp, A, Ah, l_grid, nu_grid):
+def isotropic_mf_map(r_res, xp, A, Ah, l_grid, nu_grid, return_amp=False):
     N = len(r_res)
     n = np.arange(N)
     m_freq = np.fft.fftfreq(N) * N
@@ -119,10 +122,15 @@ def isotropic_mf_map(r_res, xp, A, Ah, l_grid, nu_grid):
     r_t = Ah @ r_res
     E_nu = np.exp(-1j * 2.0 * np.pi * np.outer(n, nu_grid) / N)
     sc = np.zeros((len(l_grid), len(nu_grid)))
+    hm = np.zeros((len(l_grid), len(nu_grid)), dtype=complex) if return_amp else None
     for il, lv in enumerate(l_grid):
         s_del = np.fft.ifft(np.exp(-1j * 2.0 * np.pi * lv * m_freq / N) * s_pf)
-        sc[il, :] = (np.abs((r_t.conj() * s_del) @ E_nu) ** 2) / (float(np.sum(np.abs(s_del) ** 2)) + 1e-12)
-    return sc
+        inn = (r_t.conj() * s_del) @ E_nu
+        den = float(np.sum(np.abs(s_del) ** 2)) + 1e-12
+        sc[il, :] = (np.abs(inn) ** 2) / den
+        if return_amp:
+            hm[il, :] = np.conj(inn) / den
+    return (sc, hm) if return_amp else sc
 
 
 def nomp_joint_refinement(y, xp, A, Ah, hs, ls, nus, n_cyc=2, n_newt=3, step_cap=0.25, win_idx=None, tol=1e-13):
@@ -451,14 +459,87 @@ def wilson_ci(k, n, z=1.959963984540054):
     return [float(max(0.0, ctr - rad)), float(min(1.0, ctr + rad))]
 
 
+def clopper_pearson_ci(k, n, alpha=0.05):
+    """Exact finite-sample two-sided Clopper-Pearson 1-alpha binomial CI (guaranteed >= 1-alpha coverage everywhere).
+    For equal-weight stratified Bernoulli sums with H0: mean(p_c) <= p0 and k > n*p0 + 1, Hoeffding (1956, Thm 4)
+    proves the homogeneous binomial tail strictly upper-bounds every stratified distribution, so lo >= p0 guarantees
+    exact finite-sample Type-I error <= alpha/2 uniformly over ALL stratified (p_0, ..., p_{C-1})!
+    """
+    if n <= 0:
+        return [0.0, 1.0]
+    lo = 0.0 if k <= 0 else float(beta_dist.ppf(alpha / 2.0, k, n - k + 1))
+    hi = 1.0 if k >= n else float(beta_dist.ppf(1.0 - alpha / 2.0, k + 1, n - k))
+    return [lo, hi]
+
+
 def paired_diff_ci(a_bool, b_bool, z=1.959963984540054):
-    d = np.asarray(a_bool, dtype=float) - np.asarray(b_bool, dtype=float)
-    n = len(d)
-    mean_d = float(np.mean(d))
-    if n <= 1:
-        return mean_d, [mean_d, mean_d]
-    se = float(np.std(d, ddof=1)) / math.sqrt(n)
-    return mean_d, [float(mean_d - z * se), float(mean_d + z * se)]
+    """Asymptotic Tango (1998) / Agresti-Min (2005) paired score 95% CI for p1 - p2 = (n10 - n01) / n.
+    Non-degenerate at boundaries (e.g., 180/180 yields [0.958, 1.0], NEVER [1.0, 1.0]); note: asymptotic score
+    interval (not claiming exact finite-sample unconditional coverage).
+    """
+    a = np.asarray(a_bool, dtype=bool)
+    b = np.asarray(b_bool, dtype=bool)
+    n = len(a)
+    if n <= 0:
+        return 0.0, [-1.0, 1.0]
+    n10 = int(np.sum(a & (~b)))
+    n01 = int(np.sum((~a) & b))
+    d_hat = (n10 - n01) / float(n)
+
+    def _score_z(delta):
+        if delta <= -1.0:
+            return float("inf") if d_hat > -1.0 else 0.0
+        if delta >= 1.0:
+            return float("-inf") if d_hat < 1.0 else 0.0
+        A_q = 2.0 * n
+        B_q = -(n10 + n01) + (2.0 * n - n10 + n01) * delta
+        C_q = -n01 * delta * (1.0 - delta)
+        disc = max(B_q * B_q - 4.0 * A_q * C_q, 0.0)
+        q01 = (-B_q + math.sqrt(disc)) / (2.0 * A_q)
+        var_d = max((2.0 * q01 + delta * (1.0 - delta)) / float(n), 1e-18)
+        return (d_hat - delta) / math.sqrt(var_d)
+
+    if d_hat <= -1.0:
+        lo = -1.0
+    else:
+        l_b, r_b = -1.0, d_hat
+        for _ in range(70):
+            mid = 0.5 * (l_b + r_b)
+            if _score_z(mid) > z:
+                l_b = mid
+            else:
+                r_b = mid
+        lo = 0.5 * (l_b + r_b)
+
+    if d_hat >= 1.0:
+        hi = 1.0
+    else:
+        l_b, r_b = d_hat, 1.0
+        for _ in range(70):
+            mid = 0.5 * (l_b + r_b)
+            if _score_z(mid) < -z:
+                r_b = mid
+            else:
+                l_b = mid
+        hi = 0.5 * (l_b + r_b)
+    return float(d_hat), [float(lo), float(hi)]
+
+
+def stratified_wilson_ci(ks, ns, z=1.959963984540054):
+    """Stratified Newcombe-Wilson 95% CI for equal-weight stratified accuracy (sum_c w_c * k_c / n_c)."""
+    tot_n = sum(ns)
+    if tot_n <= 0:
+        return 0.0, [0.0, 1.0]
+    ws = [n_c / float(tot_n) for n_c in ns]
+    ps = [k_c / float(max(n_c, 1)) for k_c, n_c in zip(ks, ns)]
+    p_hat = sum(w * p for w, p in zip(ws, ps))
+    lo_sq = 0.0
+    hi_sq = 0.0
+    for w, p, k_c, n_c in zip(ws, ps, ks, ns):
+        l_c, u_c = wilson_ci(k_c, n_c, z=z)
+        lo_sq += (w * (p - l_c)) ** 2
+        hi_sq += (w * (u_c - p)) ** 2
+    return float(p_hat), [float(max(0.0, p_hat - math.sqrt(lo_sq))), float(min(1.0, p_hat + math.sqrt(hi_sq)))]
 
 
 # ==============================================================================
@@ -723,7 +804,7 @@ def _calibrate_nomp_cfar_mult_cached(xp_bytes, Ah_bytes, l_bytes, nu_bytes, N, p
 
 
 def calibrate_nomp_cfar_mult(xp, Ah, l_grid, nu_grid, pfa_cfar=1e-3, n_trials=NOMP_CFAR_NCAL, cal_seed=918273645):
-    """Exact order-statistic OS-CFAR multiplier X_(b) (b = n_cal + 1 - a, a = round(p * (n_cal + 1)))
+    """Exact order-statistic OS-CFAR multiplier X_(b) (b = n_cal + 1 - a, a = max(1, round(p * (n_cal + 1))))
     calibrated on public (xp, Ah, l_grid, nu_grid) under white complex Gaussian noise w ~ CN(0, I_N),
     matching the exact dense-grid peak divided by integer-grid median noise estimate (zero simulator
     truth; value-keyed cache by immutable array bytes, zero id()-reuse hazard).
@@ -960,6 +1041,99 @@ def rx_a_only_nullpilot(y, cfg):
     l_e, nu_e, h_e = float(l_grid[ic]), float(nu_grid[jc]), complex(hm[ic, jc])
     if len(hp) > 0:
         # Symmetric post-detection target refinement (identical budget to Ours)
+        h3, l3, n3, _ = refine_orth_null_gn(
+            y, xp, data_mask, G, A, Ah,
+            list(hp) + [h_e], list(lp) + [l_e], list(np_) + [nu_e], n_it=5, Ah_f=Ah_f
+        )
+        h_e, l_e, nu_e = complex(h3[-1]), float(l3[-1]), float(n3[-1])
+    return {"stat": float(sc_fin[ic, jc]), "l_est": l_e, "nu_est": nu_e, "h_est": h_e,
+            "pc_hat": len(hp), "clut": (hp, lp, np_)}
+
+
+def rx_nompfront_sameback(y, cfg):
+    """Single-mechanism paired ablation (NoNG_ClutterOnly): removes Grassmannian N_G ONLY from clutter
+    estimation (replaces with _blind_nomp_clutter), keeping IDENTICAL step 2-4 backend (LS x_ref +
+    orth_null_score_map + refine_orth_null_gn) as Ours_GrassNull.
+    """
+    N, G, data_mask, xp, A, Ah = cfg["N"], cfg["G"], cfg["data_mask"], cfg["xp"], cfg["A"], cfg["Ah"]
+    Ah_f = cfg.get("Ah_f", None)
+    l_grid, nu_grid = cfg["l_grid"], cfg["nu_grid"]
+    hp, lp, np_, _ = _blind_nomp_clutter(y, cfg)
+    H_c = build_H_eff(N, A, Ah, hp, lp, np_, Ah_f=Ah_f) if len(hp) > 0 else np.zeros((N, N), dtype=complex)
+    sc, hm = orth_null_score_map(y, xp, data_mask, G, H_c, A, Ah, l_grid, nu_grid, use_self_ref=True)
+    sc_fin = _apply_clut_mask_and_norm(sc, l_grid, nu_grid, lp, np_, cfg["clut_mask_dl"], cfg["clut_mask_dnu"])
+    ic, jc = np.unravel_index(np.argmax(sc_fin), sc_fin.shape)
+    l_e, nu_e, h_e = float(l_grid[ic]), float(nu_grid[jc]), complex(hm[ic, jc])
+    if len(hp) > 0:
+        h3, l3, n3, _ = refine_orth_null_gn(
+            y, xp, data_mask, G, A, Ah,
+            list(hp) + [h_e], list(lp) + [l_e], list(np_) + [nu_e], n_it=5, Ah_f=Ah_f
+        )
+        h_e, l_e, nu_e = complex(h3[-1]), float(l3[-1]), float(n3[-1])
+    return {"stat": float(sc_fin[ic, jc]), "l_est": l_e, "nu_est": nu_e, "h_est": h_e,
+            "pc_hat": len(hp), "clut": (hp, lp, np_)}
+
+
+def rx_samefront_noproj_det(y, cfg):
+    """Single-mechanism paired ablation (SameFront_LS_IsoMF): IDENTICAL Grassmann clutter H_c +
+    IDENTICAL LS x_ref + IDENTICAL MF/GLRT peak amplitude init + IDENTICAL post-detection refine_orth_null_gn,
+    removing ONLY explicit N_G template projection/normalization in the detector scoring map (uses
+    isotropic_mf_map on y - H_c x_ref, which retains implicit residual projection P_N = I - Hd Hd^+).
+    """
+    N, G, data_mask, xp, A, Ah = cfg["N"], cfg["G"], cfg["data_mask"], cfg["xp"], cfg["A"], cfg["Ah"]
+    Ah_f = cfg.get("Ah_f", None)
+    l_grid, nu_grid = cfg["l_grid"], cfg["nu_grid"]
+    hp, lp, np_, _ = _blind_grassmann_clutter(y, cfg, use_self_ref_for_peel=True)
+    if len(hp) == 0:
+        x_ref = xp.copy()
+        r_sub = y.copy()
+    else:
+        H_c = build_H_eff(N, A, Ah, hp, lp, np_, Ah_f=Ah_f)
+        Hd = H_c[:, data_mask]
+        r_full = y - H_c @ xp
+        xd_hat, _, _, _ = np.linalg.lstsq(Hd, r_full, rcond=1e-6)
+        x_ref = xp.copy()
+        x_ref[data_mask] = xd_hat
+        r_sub = y - H_c @ x_ref
+    sc, hm = isotropic_mf_map(r_sub, x_ref, A, Ah, l_grid, nu_grid, return_amp=True)
+    sc_fin = _apply_clut_mask_and_norm(sc, l_grid, nu_grid, lp, np_, cfg["clut_mask_dl"], cfg["clut_mask_dnu"])
+    ic, jc = np.unravel_index(np.argmax(sc_fin), sc_fin.shape)
+    l_e, nu_e, h_e = float(l_grid[ic]), float(nu_grid[jc]), complex(hm[ic, jc])
+    if len(hp) > 0:
+        h3, l3, n3, _ = refine_orth_null_gn(
+            y, xp, data_mask, G, A, Ah,
+            list(hp) + [h_e], list(lp) + [l_e], list(np_) + [nu_e], n_it=5, Ah_f=Ah_f
+        )
+        h_e, l_e, nu_e = complex(h3[-1]), float(l3[-1]), float(n3[-1])
+    return {"stat": float(sc_fin[ic, jc]), "l_est": l_e, "nu_est": nu_e, "h_est": h_e,
+            "pc_hat": len(hp), "clut": (hp, lp, np_)}
+
+
+def rx_samefront_nodatasub_det(y, cfg):
+    """Single-mechanism paired ablation (SameFront_NoProjRes): IDENTICAL Grassmann clutter H_c +
+    IDENTICAL LS x_ref + IDENTICAL MF/GLRT peak amplitude init + IDENTICAL post-detection refine_orth_null_gn,
+    removing nullspace projection of the detection residual (runs isotropic_mf_map on y - H_c xp directly with x_ref).
+    """
+    N, G, data_mask, xp, A, Ah = cfg["N"], cfg["G"], cfg["data_mask"], cfg["xp"], cfg["A"], cfg["Ah"]
+    Ah_f = cfg.get("Ah_f", None)
+    l_grid, nu_grid = cfg["l_grid"], cfg["nu_grid"]
+    hp, lp, np_, _ = _blind_grassmann_clutter(y, cfg, use_self_ref_for_peel=True)
+    if len(hp) == 0:
+        x_ref = xp.copy()
+        r_sub = y.copy()
+    else:
+        H_c = build_H_eff(N, A, Ah, hp, lp, np_, Ah_f=Ah_f)
+        Hd = H_c[:, data_mask]
+        r_full = y - H_c @ xp
+        xd_hat, _, _, _ = np.linalg.lstsq(Hd, r_full, rcond=1e-6)
+        x_ref = xp.copy()
+        x_ref[data_mask] = xd_hat
+        r_sub = r_full
+    sc, hm = isotropic_mf_map(r_sub, x_ref, A, Ah, l_grid, nu_grid, return_amp=True)
+    sc_fin = _apply_clut_mask_and_norm(sc, l_grid, nu_grid, lp, np_, cfg["clut_mask_dl"], cfg["clut_mask_dnu"])
+    ic, jc = np.unravel_index(np.argmax(sc_fin), sc_fin.shape)
+    l_e, nu_e, h_e = float(l_grid[ic]), float(nu_grid[jc]), complex(hm[ic, jc])
+    if len(hp) > 0:
         h3, l3, n3, _ = refine_orth_null_gn(
             y, xp, data_mask, G, A, Ah,
             list(hp) + [h_e], list(lp) + [l_e], list(np_) + [nu_e], n_it=5, Ah_f=Ah_f
@@ -1482,6 +1656,9 @@ def _worker_nr1_frame(task):
         "B_only_NoNullspace": lambda yy, cc: rx_b_only_nonullspace(yy, cc, use_ls_diag=False),
         "B_only_NOMP_LS_Diag": lambda yy, cc: rx_b_only_nonullspace(yy, cc, use_ls_diag=True),
         "B_only_TikhonovDet_Diag": rx_b_tikhonov_det_diag,
+        "NoNG_ClutterOnly": rx_nompfront_sameback,
+        "SameFront_LS_IsoMF": rx_samefront_noproj_det,
+        "SameFront_NoProjRes": rx_samefront_nodatasub_det,
         "Ours_GrassNull": rx_ours_grassnull,
     }
     for arm in arms_to_run:
@@ -1568,8 +1745,9 @@ def _worker_fixed_crb_trial(seed):
 
 def _worker_equal_throughput_frame(task):
     """Paired blind-CE & oracle-CE coded BLER + blind sensing for EXACT 206 net info bits / 138 samples:
-    - N=128, L_cpp=10 (total 138 samples), exact per-frame realized TX energy INCLUDING CPP normalized to
-      ||P_cpp @ A^H @ (xp + xd)||_2^2 == 138.0 across ALL 3 systems!
+    - N=128, L_cpp=10 (total 138 samples), exact expected TX energy INCLUDING CPP equal to
+      E[||P_cpp @ A^H @ (xp + xd)||_2^2] == 138.0 across ALL 3 systems via public PHY bit-scrambling
+      (per-frame realized e_tx_realized logged without xd-dependent pilot rescaling).
     - Zero-coupling full-guard Bemani geometry (l_c=[1,3], l_t=5, nu_c=[0,0], nu_t in {-1,+1}, verified
       ||H[p_win, D_76]||_F = 4.45e-13 < 1e-12; ALL estimators remain strictly continuous & blind!).
     - Identical 1-pass symmetric DF CE polish + soft-LLR Viterbi decoder applied to BOTH Ours_G24 and Std_G76.
@@ -1641,7 +1819,7 @@ def _worker_equal_throughput_frame(task):
             "N": N, "G": G, "guard_idx": guard_idx, "data_mask": data_mask, "xp": xp,
             "A": A, "Ah": Ah, "Ah_f": Ah_f, "l_grid": l_grid, "nu_grid": nu_grid,
             "clut_mask_dl": 0.9, "clut_mask_dnu": 0.8, "max_clut": 3,
-            "tau_p1": 14.0, "stop_ratio_J": 0.25, "stop_ratio_h": 0.25, "constellation": None,
+            "tau_p1": 15.0, "stop_ratio_J": 0.25, "stop_ratio_h": 0.25, "constellation": None,
         }
         if is_ours:
             hp, lp, np_, J_c = _blind_grassmann_clutter(y, cfg, use_self_ref_for_peel=True, n_it=6)
@@ -1795,7 +1973,7 @@ def aggregate_regime(cal_res, ver_res, h1_res, arms, pfa_nom=0.02, primary_arm="
         hits_by_arm[arm] = h1_det
         n_det = int(np.sum(h1_det))
         hit_pd = n_det / max(len(h1_res), 1)
-        pd_ci = wilson_ci(n_det, len(h1_res))
+        pd_ci = clopper_pearson_ci(n_det, len(h1_res))
 
         has_est = (len(h1_res) > 0 and "dl" in h1_res[0]["arms"][arm])
         entry = {
@@ -1824,9 +2002,22 @@ def aggregate_regime(cal_res, ver_res, h1_res, arms, pfa_nom=0.02, primary_arm="
             entry["h_mag_var"] = float(np.var(dhs, ddof=1)) if n_det > 1 else 0.0
             entry["h_mag_mse"] = float(np.mean(dhs ** 2))
             entry["h_mag_rmse"] = float(np.sqrt(np.mean(dhs ** 2)))
+            if n_det > 1:
+                rng_b = np.random.default_rng(1234567 + n_det)
+                idx_b = rng_b.integers(0, n_det, size=(2000, n_det))
+                rl_b = np.sqrt(np.mean(dls[idx_b] ** 2, axis=1))
+                rn_b = np.sqrt(np.mean(dnus[idx_b] ** 2, axis=1))
+                entry["rmse_l_ci95"] = [float(np.quantile(rl_b, 0.025)), float(np.quantile(rl_b, 0.975))]
+                entry["rmse_nu_ci95"] = [float(np.quantile(rn_b, 0.025)), float(np.quantile(rn_b, 0.975))]
+                se_hb = float(np.std(dhs, ddof=1)) / math.sqrt(n_det)
+                z95 = 1.959963984540054
+                entry["h_mag_bias_ci95"] = [float(entry["h_mag_bias"] - z95 * se_hb), float(entry["h_mag_bias"] + z95 * se_hb)]
+            else:
+                entry["rmse_l_ci95"] = None; entry["rmse_nu_ci95"] = None; entry["h_mag_bias_ci95"] = None
         else:
             entry["rmse_l"] = None; entry["rmse_nu"] = None
-            entry["h_mag_bias"] = None; entry["h_mag_var"] = None
+            entry["rmse_l_ci95"] = None; entry["rmse_nu_ci95"] = None
+            entry["h_mag_bias"] = None; entry["h_mag_bias_ci95"] = None; entry["h_mag_var"] = None
             entry["h_mag_mse"] = None; entry["h_mag_rmse"] = None
         out["arms"][arm] = entry
 
@@ -1837,12 +2028,15 @@ def aggregate_regime(cal_res, ver_res, h1_res, arms, pfa_nom=0.02, primary_arm="
                 continue
             md, ci = paired_diff_ci(hits_by_arm[primary_arm], hits_by_arm[arm])
             out["paired_diff_vs_ours"][arm] = {"diff_pd": md, "ci95": ci}
+    if "SameFront_LS_IsoMF" in hits_by_arm and "SameFront_NoProjRes" in hits_by_arm:
+        md_sf, ci_sf = paired_diff_ci(hits_by_arm["SameFront_LS_IsoMF"], hits_by_arm["SameFront_NoProjRes"])
+        out["paired_diff_samefront_ls_vs_noprojres"] = {"diff_pd": md_sf, "ci95": ci_sf}
 
     if h1_res and "crb" in h1_res[0] and primary_arm in hits_by_arm:
         det_crbs = [r["crb"] for r, ok in zip(h1_res, hits_by_arm[primary_arm]) if ok]
         all_crbs = [r["crb"] for r in h1_res]
         src = det_crbs if det_crbs else all_crbs
-        out["matched_geometry_bounds"] = {
+        mgb = {
             "n_frames": len(src),
             "ma_crb_h_rmse": float(np.sqrt(np.mean([c["crb_h_std"] ** 2 for c in src]))),
             "ma_crb_l_rmse": float(np.sqrt(np.mean([c["crb_l_std"] ** 2 for c in src]))),
@@ -1850,11 +2044,25 @@ def aggregate_regime(cal_res, ver_res, h1_res, arms, pfa_nom=0.02, primary_arm="
             "ma_mcrb1_h_rmse": float(np.sqrt(np.mean([c["mcrb1_h_std"] ** 2 for c in src]))),
             "ma_mcrb1_l_rmse": float(np.sqrt(np.mean([c["mcrb1_l_std"] ** 2 for c in src]))),
             "ma_mcrb1_nu_rmse": float(np.sqrt(np.mean([c["mcrb1_nu_std"] ** 2 for c in src]))),
+            "rmse_l_to_crb_ci95": None,
+            "rmse_nu_to_crb_ci95": None,
         }
+        if len(det_crbs) > 1 and "dl" in h1_res[0]["arms"][primary_arm]:
+            dls_p = np.array([r["arms"][primary_arm]["dl"] for r, ok in zip(h1_res, hits_by_arm[primary_arm]) if ok], dtype=float)
+            dnus_p = np.array([r["arms"][primary_arm]["dnu"] for r, ok in zip(h1_res, hits_by_arm[primary_arm]) if ok], dtype=float)
+            cl_p = np.array([c["crb_l_std"] for c in det_crbs], dtype=float)
+            cn_p = np.array([c["crb_nu_std"] for c in det_crbs], dtype=float)
+            rng_p = np.random.default_rng(7654321 + len(det_crbs))
+            idx_p = rng_p.integers(0, len(det_crbs), size=(2000, len(det_crbs)))
+            rat_l = np.sqrt(np.mean(dls_p[idx_p] ** 2, axis=1)) / np.sqrt(np.mean(cl_p[idx_p] ** 2, axis=1))
+            rat_n = np.sqrt(np.mean(dnus_p[idx_p] ** 2, axis=1)) / np.sqrt(np.mean(cn_p[idx_p] ** 2, axis=1))
+            mgb["rmse_l_to_crb_ci95"] = [float(np.quantile(rat_l, 0.025)), float(np.quantile(rat_l, 0.975))]
+            mgb["rmse_nu_to_crb_ci95"] = [float(np.quantile(rat_n, 0.025)), float(np.quantile(rat_n, 0.975))]
+        out["matched_geometry_bounds"] = mgb
     return out, thresholds
 
 
-def run_r4_analytical_scnr_bound(seed_base, n_mc=400):
+def run_r4_analytical_scnr_bound(seed_base, n_mc=600):
     settings = [
         {"name": "S1_N128_G24_2path_25dB", "N": 128, "G": 24, "two_Nc1": 7, "snr_db": 25.0,
          "hc": [0.8 * np.exp(1j * 0.5), 0.6 * np.exp(1j * 2.1)], "lc": [1.2, 3.1], "nuc": [0.1, -0.15],
@@ -1868,6 +2076,8 @@ def run_r4_analytical_scnr_bound(seed_base, n_mc=400):
     ]
     results = []
     max_err = 0.0
+    max_err_ci95_upper = 0.0
+    z95 = 1.959963984540054
     for idx, s in enumerate(settings):
         N, G = s["N"], s["G"]
         c1 = s["two_Nc1"] / (2.0 * N)
@@ -1886,22 +2096,30 @@ def run_r4_analytical_scnr_bound(seed_base, n_mc=400):
         dat_gain = float(np.sum(np.abs((NG.conj().T @ B_t)[:, data_mask]) ** 2))
         scnr_ana = (abs(s["ht"]) ** 2 / sig_n2) * (pil_gain + dat_gain)
         rng = np.random.default_rng(seed_base + 400001 + idx * 1000)
-        mc_acc = 0.0
+        mc_vals = np.empty(n_mc, dtype=float)
         Nd = int(data_mask.sum())
-        for _ in range(n_mc):
+        for im in range(n_mc):
             xd = np.zeros(N, dtype=complex)
             xd[data_mask] = (rng.standard_normal(Nd) + 1j * rng.standard_normal(Nd)) / math.sqrt(2.0)
             s_n = s["ht"] * (NG.conj().T @ (B_t @ (xp + xd)))
-            mc_acc += float(np.sum(np.abs(s_n) ** 2)) / sig_n2
-        scnr_mc = mc_acc / n_mc
+            mc_vals[im] = float(np.sum(np.abs(s_n) ** 2)) / sig_n2
+        scnr_mc = float(np.mean(mc_vals))
+        se_mc = float(np.std(mc_vals, ddof=1)) / math.sqrt(n_mc) if n_mc > 1 else 0.0
+        mc_lo = max(scnr_mc - z95 * se_mc, 1e-12)
+        mc_hi = scnr_mc + z95 * se_mc
         ana_db = 10.0 * math.log10(scnr_ana)
         mc_db = 10.0 * math.log10(scnr_mc)
+        mc_db_ci95 = [10.0 * math.log10(mc_lo), 10.0 * math.log10(mc_hi)]
         err_db = abs(ana_db - mc_db)
+        err_ci95_upper = max(abs(ana_db - mc_db_ci95[0]), abs(ana_db - mc_db_ci95[1]))
         max_err = max(max_err, err_db)
+        max_err_ci95_upper = max(max_err_ci95_upper, err_ci95_upper)
         results.append({
-            "name": s["name"], "N": N, "G": G,
+            "name": s["name"], "N": N, "G": G, "n_mc": n_mc,
             "pil_gain": pil_gain, "data_gain": dat_gain, "data_gain_frac": dat_gain / G,
-            "ana_db": ana_db, "mc_db": mc_db, "err_db": err_db,
+            "ana_db": ana_db, "mc_db": mc_db, "mc_db_ci95": mc_db_ci95,
+            "mc_db_halfwidth": 0.5 * (mc_db_ci95[1] - mc_db_ci95[0]),
+            "err_db": err_db, "err_ci95_upper_db": err_ci95_upper,
         })
 
     N = 128; G = 24; c2 = 1.0 / (2.0 * np.pi * N)
@@ -1918,7 +2136,7 @@ def run_r4_analytical_scnr_bound(seed_base, n_mc=400):
             NG = orth_nullspace_NG(Hc, dm, G)
             dg = float(np.sum(np.abs((NG.conj().T @ Bt)[:, dm]) ** 2))
             diag_2x2.append({"nu_t": nut, "layout": lbl, "data_gain": dg, "frac_of_G": dg / G})
-    return {"settings": results, "max_err_db": max_err, "contig_comb_2x2_diag": diag_2x2}
+    return {"settings": results, "max_err_db": max_err, "max_err_ci95_upper_db": max_err_ci95_upper, "contig_comb_2x2_diag": diag_2x2}
 
 
 # ==============================================================================
@@ -1938,6 +2156,48 @@ def strict_interp_snr_at_bler(curve, key, target):
             frac = (ly0 - lt) / max(ly0 - ly1, 1e-9)
             return float(xs[i] + frac * (xs[i + 1] - xs[i]))
     return None
+
+
+def paired_bler_gain_bootstrap_ci(bler_raw, snrs, key_ours, key_rival, target, n_boot=2000, seed=98765):
+    """Paired per-SNR frame-level bootstrap 95% CI for SNR crossing gain (snr_rival - snr_ours).
+    Zero survivor bias: any resample where either curve fails strict monotonic crossing is conservatively
+    assigned -inf in the lower-tail quantile; returns None for ci95 if the lower 2.5% quantile is -inf.
+    """
+    rng = np.random.default_rng(seed)
+    snrs_f = [float(s) for s in snrs]
+    by_snr_o = {}
+    by_snr_r = {}
+    for s in snrs_f:
+        rows = [r for r in bler_raw if r["snr_db"] == s]
+        by_snr_o[s] = np.array([r[key_ours] for r in rows], dtype=float)
+        by_snr_r[s] = np.array([r[key_rival] for r in rows], dtype=float)
+    n_fr = len(by_snr_o[snrs_f[0]])
+    gains = np.full(n_boot, -np.inf, dtype=float)
+    n_valid = 0
+    for b in range(n_boot):
+        curve = []
+        for s in snrs_f:
+            idx = rng.integers(0, n_fr, n_fr)
+            curve.append({"snr_db": s, "o": float(by_snr_o[s][idx].mean()), "r": float(by_snr_r[s][idx].mean())})
+        so = strict_interp_snr_at_bler(curve, "o", target)
+        sr = strict_interp_snr_at_bler(curve, "r", target)
+        if so is not None and sr is not None:
+            gains[b] = sr - so
+            n_valid += 1
+    gs = np.sort(gains)
+    def _safe_q(arr_sorted, q):
+        pos = q * (len(arr_sorted) - 1)
+        i0 = int(math.floor(pos))
+        i1 = int(math.ceil(pos))
+        v0, v1 = float(arr_sorted[i0]), float(arr_sorted[i1])
+        if not (math.isfinite(v0) and math.isfinite(v1)):
+            return -np.inf
+        return v0 + (pos - i0) * (v1 - v0)
+    lo = _safe_q(gs, 0.025)
+    hi = _safe_q(gs, 0.975)
+    if not (math.isfinite(lo) and math.isfinite(hi)):
+        return {"ci95": None, "halfwidth_db": None, "n_boot": n_boot, "n_valid": n_valid}
+    return {"ci95": [lo, hi], "halfwidth_db": 0.5 * (hi - lo), "n_boot": n_boot, "n_valid": n_valid}
 
 
 # ==============================================================================
@@ -1990,27 +2250,30 @@ def main():
         n_cal_r3a, n_ver_r3a, n_h1_r3a = 15, 15, 15
         n_cal_r3b, n_ver_r3b, n_h1_r3b = 8, 8, 8
         n_bler_fr = 15
+        n_bler_boot = 200
         bler_snrs = [10, 12, 14, 16, 18, 20, 22]
         n_mc_r4 = 100
         n_ofdm_cal, n_ofdm_h1 = 10, 10
         n_wood = 6
     else:
-        n_cal_r1, n_ver_r1, n_h1_r1 = 150, 150, 120
-        n_cal_r2, n_ver_r2, n_h1_r2 = 150, 150, 120
-        n_null_s = 90
+        n_cal_r1, n_ver_r1, n_h1_r1 = 200, 200, 180
+        n_cal_r2, n_ver_r2, n_h1_r2 = 200, 200, 240
+        n_null_s = 100
         n_fixed_crb = 60
-        n_cal_r3a, n_ver_r3a, n_h1_r3a = 120, 120, 100
+        n_cal_r3a, n_ver_r3a, n_h1_r3a = 200, 200, 180
         n_cal_r3b, n_ver_r3b, n_h1_r3b = 60, 60, 50
-        n_bler_fr = 120
+        n_bler_fr = 840
+        n_bler_boot = 2000
         bler_snrs = [10, 12, 14, 16, 18, 20, 22]
-        n_mc_r4 = 400
+        n_mc_r4 = 600
         n_ofdm_cal, n_ofdm_h1 = 80, 60
         n_wood = 30
 
     arms_main = ["Ma_SeqMF", "Luo_GESBL", "NOMP_DirPort", "A_only_NullPilot",
-                 "B_only_NoNullspace", "B_only_NOMP_LS_Diag", "B_only_TikhonovDet_Diag", "Ours_GrassNull"]
+                 "B_only_NoNullspace", "B_only_NOMP_LS_Diag", "B_only_TikhonovDet_Diag",
+                 "NoNG_ClutterOnly", "SameFront_LS_IsoMF", "SameFront_NoProjRes", "Ours_GrassNull"]
     arms_r3a = ["Luo_GESBL", "NOMP_DirPort", "Ours_GrassNull"]
-    fwer_primary_arms = len(arms_main) + len(arms_main) + len(arms_r3a)  # 8 + 8 + 3 = 19 arm-regime checks
+    fwer_primary_arms = len(arms_main) + len(arms_main) + len(arms_r3a)  # 11 + 11 + 3 = 25 arm-regime checks
 
     # R1
     r1_cal = run_pool(_worker_nr1_frame, [(SEED_BASE + 100001 + i, "R1", 1, False, 0.10, 25.0, "gauss", arms_main, 7, False) for i in range(n_cal_r1)])
@@ -2065,26 +2328,37 @@ def main():
             stats = np.array([r["arms"][arm]["stat"] for r in res_s], dtype=float)
             k_fa = int(np.sum(stats > tau))
             ci = wilson_ci(k_fa, n_null_s)
-            st_entry["arms"][arm] = {
+            arm_entry = {
                 "k_fa_at_r2_tau": k_fa,
                 "pfa_at_r2_tau": float(k_fa / n_null_s),
                 "pfa_ci95": ci,
-                "pfa_bb_fwer3_bounds_k": [k_lo_r0, k_hi_r0],
-                "pfa_bb_pass": bool(k_lo_r0 <= k_fa <= k_hi_r0),
             }
+            if pc_t == 2:
+                # Same distribution as R2 (Pc=2) calibration set: exact Beta-Binomial predictive interval applies
+                arm_entry["pfa_bb_fwer3_bounds_k"] = [k_lo_r0, k_hi_r0]
+                arm_entry["pfa_bb_pass"] = bool(k_lo_r0 <= k_fa <= k_hi_r0)
+            else:
+                arm_entry["distribution_note"] = "out-of-distribution reference against R2 (Pc=2) threshold; exact iid Beta-Binomial pass label not applied"
+            st_entry["arms"][arm] = arm_entry
         for r in res_s:
             ph = min(int(r["arms"]["Ours_GrassNull"]["pc_hat"]), 3)
             conf_mat[pc_t][ph] += 1
         r0_strata[f"Pc={pc_t}"] = st_entry
     tot_ord = sum(sum(row) for row in conf_mat)
     exact_ord = sum(conf_mat[i][i] for i in range(3))
+    ord_ks = [conf_mat[i][i] for i in range(3)]
+    ord_ns = [sum(conf_mat[i]) for i in range(3)]
+    ord_acc_strat, ord_acc_strat_ci = stratified_wilson_ci(ord_ks, ord_ns)
+    ord_acc_cp_ci = clopper_pearson_ci(exact_ord, tot_ord)
     R0 = {
         "strata_using_r2_tau": r0_strata,
         "blind_order_confusion_matrix_rows_true012_cols_est0123": conf_mat,
         "blind_order_exact_acc": float(exact_ord / max(tot_ord, 1)),
+        "blind_order_exact_acc_cp_ci95": ord_acc_cp_ci,
+        "blind_order_exact_acc_strat_wilson_diag_ci95": ord_acc_strat_ci,
         "blind_order_per_class_acc": {f"Pc={i}": float(conf_mat[i][i] / max(sum(conf_mat[i]), 1)) for i in range(3)},
     }
-    print(f"[R0] Blind order exact acc={R0['blind_order_exact_acc']*100:.1f}% | conf={conf_mat}", flush=True)
+    print(f"[R0] Blind order exact acc={R0['blind_order_exact_acc']*100:.1f}% (exact CP 95% CI=[{ord_acc_cp_ci[0]*100:.1f}%, {ord_acc_cp_ci[1]*100:.1f}%]) | conf={conf_mat}", flush=True)
 
     # R3a: Cooperative 64-QAM (Nr=1, 24 dB)
     r3a_cal = run_pool(_worker_nr1_frame, [(SEED_BASE + 300001 + i, "R3a", 2, False, 0.125, 24.0, "64qam", arms_r3a, 7, False) for i in range(n_cal_r3a)])
@@ -2107,7 +2381,7 @@ def main():
         print(f"[R3b {sub_name}] Ours_Nr8={agg_m['arms']['Ours_GrassNull_Nr8']['hit_pd']*100:.1f}% | "
               f"Luo_Nr8={agg_m['arms']['Luo_GESBL_Nr8']['hit_pd']*100:.1f}%", flush=True)
 
-    # R3c: Equal-Net-Throughput Coded BLER & Sensing (exact 206 net info bits / 138 samples, realized E_tx==138.0 incl CPP!)
+    # R3c: Equal-Net-Throughput Coded BLER & Sensing (exact 206 net info bits / 138 samples, expected E_tx==138.0 incl CPP!)
     bler_tasks = [(SEED_BASE + 500001 + si * 1000 + f, float(snr)) for si, snr in enumerate(bler_snrs) for f in range(n_bler_fr)]
     bler_raw = run_pool(_worker_equal_throughput_frame, bler_tasks)
     bler_curve = []
@@ -2129,29 +2403,61 @@ def main():
             "std_g76_ep76_raw_hit": float(np.mean([r["g76_ep76_hit"] for r in rows])),
         })
 
-    def _summarize_bler_crossings(target):
+    def _summarize_bler_crossings(target, boot_seed_off):
         o_b = strict_interp_snr_at_bler(bler_curve, "ours_g24_16qam_r12_bler_blind", target)
         g24_b = strict_interp_snr_at_bler(bler_curve, "std_g76_64qam_r23_ep24_bler_blind", target)
         g76_b = strict_interp_snr_at_bler(bler_curve, "std_g76_64qam_r23_ep76_bler_blind", target)
         o_or = strict_interp_snr_at_bler(bler_curve, "ours_g24_16qam_r12_bler_oracle", target)
         g24_or = strict_interp_snr_at_bler(bler_curve, "std_g76_64qam_r23_ep24_bler_oracle", target)
         g76_or = strict_interp_snr_at_bler(bler_curve, "std_g76_64qam_r23_ep76_bler_oracle", target)
+        b_ci24 = paired_bler_gain_bootstrap_ci(bler_raw, bler_snrs, "ours_err_blind", "g76_ep24_err_blind", target, n_boot=n_bler_boot, seed=SEED_BASE + boot_seed_off + 1)
+        b_ci76 = paired_bler_gain_bootstrap_ci(bler_raw, bler_snrs, "ours_err_blind", "g76_ep76_err_blind", target, n_boot=n_bler_boot, seed=SEED_BASE + boot_seed_off + 2)
+        o_ci24 = paired_bler_gain_bootstrap_ci(bler_raw, bler_snrs, "ours_err_oracle", "g76_ep24_err_oracle", target, n_boot=n_bler_boot, seed=SEED_BASE + boot_seed_off + 3)
+        o_ci76 = paired_bler_gain_bootstrap_ci(bler_raw, bler_snrs, "ours_err_oracle", "g76_ep76_err_oracle", target, n_boot=n_bler_boot, seed=SEED_BASE + boot_seed_off + 4)
         return {
             "target_bler": target,
             "blind_ce": {
                 "snr_ours_db": o_b, "snr_g76_ep24_db": g24_b, "snr_g76_ep76_db": g76_b,
                 "gain_vs_g76_ep24_db": (float(g24_b - o_b) if (o_b is not None and g24_b is not None) else None),
                 "gain_vs_g76_ep76_db": (float(g76_b - o_b) if (o_b is not None and g76_b is not None) else None),
+                "gain_vs_g76_ep24_boot": b_ci24,
+                "gain_vs_g76_ep76_boot": b_ci76,
             },
             "oracle_ce": {
                 "snr_ours_db": o_or, "snr_g76_ep24_db": g24_or, "snr_g76_ep76_db": g76_or,
                 "gain_vs_g76_ep24_db": (float(g24_or - o_or) if (o_or is not None and g24_or is not None) else None),
                 "gain_vs_g76_ep76_db": (float(g76_or - o_or) if (o_or is not None and g76_or is not None) else None),
+                "gain_vs_g76_ep24_boot": o_ci24,
+                "gain_vs_g76_ep76_boot": o_ci76,
             },
         }
 
-    cross_10 = _summarize_bler_crossings(0.10)
-    cross_05 = _summarize_bler_crossings(0.05)
+    cross_10 = _summarize_bler_crossings(0.10, 810000)
+    cross_05 = _summarize_bler_crossings(0.05, 820000)
+
+    # Red Line #5 sensitive fixed-SNR blind-CE BLER paired checks (eliminates floor-slope SNR-inversion variance blow-up
+    # while strictly preserving high-SNR floor-free testing at 16, 18, 20, 22 dB!)
+    rows_14 = [r for r in bler_raw if r["snr_db"] == 14.0]
+    b14_o = np.array([r["ours_err_blind"] for r in rows_14], dtype=bool)
+    b14_24 = np.array([r["g76_ep24_err_blind"] for r in rows_14], dtype=bool)
+    b14_76 = np.array([r["g76_ep76_err_blind"] for r in rows_14], dtype=bool)
+    d14_24, ci14_24 = paired_diff_ci(b14_24, b14_o)
+    d14_76, ci14_76 = paired_diff_ci(b14_76, b14_o)
+    high_snr_blind_cp = {}
+    for s_chk in (16.0, 18.0, 20.0, 22.0):
+        rs_c = [r for r in bler_raw if r["snr_db"] == s_chk]
+        k_err = int(sum(r["ours_err_blind"] for r in rs_c))
+        high_snr_blind_cp[f"snr_{int(s_chk)}dB"] = {
+            "n_err": k_err, "n_frames": len(rs_c),
+            "bler": float(k_err / max(len(rs_c), 1)),
+            "clopper_pearson_ci95": clopper_pearson_ci(k_err, len(rs_c)),
+        }
+    blind_grid_ci = {
+        "snr14_paired_bler_reduction_vs_ep24": {"diff_bler": d14_24, "tango_score_ci95": ci14_24},
+        "snr14_paired_bler_reduction_vs_ep76": {"diff_bler": d14_76, "tango_score_ci95": ci14_76},
+        "high_snr_ours_blind_bler_cp": high_snr_blind_cp,
+    }
+
     R3c = {
         "protocol": {
             "N": 128, "L_cpp": 10, "total_samples": 138,
@@ -2160,11 +2466,14 @@ def main():
             "net_info_bits_per_frame": 206, "tail_bits": 2, "net_spectral_eff_bps_hz": 206.0 / 138.0,
             "fec": "(7,5)_8 K=3 terminated conv code + soft-LLR Viterbi + symmetric 1-pass DF CE polish",
             "geometry": "Zero-coupling Bemani full-guard (l_c=[1,3], l_t=5, ||H[p_win, D_76]||_F=4.45e-13)",
+            "scoring_grid": "R3c-specific 31x33 grid (l in [0.2, 6.2], nu in [-2.0, 2.0]), clutter mask |dl|<0.9 & |dnu|<0.8",
+            "ce_gates": "tau_p1=15.0 (shared with R0-R3b); target included in joint CE iff len(clut) > 0 and masked peak > 10.0 (symmetric across Ours_G24 and Std_G76)",
             "ours": "G=24 (104 data bins), Gray 16-QAM, rate-1/2 (416 coded bits), Ep=24, Ed=104",
             "std_ep24": "G=76 (52 data bins), Gray 64-QAM, punctured rate-2/3 (312 coded bits), Ep=24, Ed=104",
             "std_ep76": "G=76 (52 data bins), Gray 64-QAM, punctured rate-2/3 (312 coded bits), Ep=76, Ed=52",
         },
         "curve": bler_curve,
+        "blind_grid_ci": blind_grid_ci,
         "crossing_bler10": cross_10,
         "crossing_bler05": cross_05,
     }
@@ -2207,54 +2516,59 @@ def main():
     r2_ours = R2["arms"]["Ours_GrassNull"]
     r3a_ours = R3a["arms"]["Ours_GrassNull"]
 
-    # Exact Beta-Binomial predictive interval P_fa gate for EVERY arm uniformly across R1 (8 arms), R2 (8 arms), R3a (3 arms) = 19 checks
+    # Exact Beta-Binomial predictive interval P_fa gate for EVERY arm uniformly across R1 (11 arms), R2 (11 arms), R3a (3 arms) = 25 checks
+    # + Exact Clopper-Pearson 95% CI lower bound >= 0.85 for R0 blind clutter-order exact accuracy (Hoeffding 1956 Thm 4:
+    #   exact finite-sample Type-I error <= 2.5% uniformly over ALL stratified (p_0, p_1, p_2) with mean <= 0.85!)
     pfa_ok = bool(
         all(arm_d["pfa_bb_pass"] for reg in (R1, R2, R3a) for arm_d in reg["arms"].values())
-        and R0["blind_order_exact_acc"] >= 0.85
+        and R0["blind_order_exact_acc_cp_ci95"][0] >= 0.85
     )
     GATES_ALL = bool(gates["GATES_OK"] and pfa_ok)
 
+    # Red Line #5: ALL primary criteria judged by 95% CI bounds (exact Clopper-Pearson single-arm / asymptotic Tango paired score / paired bootstrap)
+    gated_rivals_r1r2 = (
+        "Ma_SeqMF", "Luo_GESBL", "NOMP_DirPort",
+        "A_only_NullPilot", "B_only_NoNullspace", "NoNG_ClutterOnly", "SameFront_NoProjRes",
+    )
+    gated_abl_lt80 = ("A_only_NullPilot", "B_only_NoNullspace", "NoNG_ClutterOnly", "SameFront_NoProjRes")
+
     P1_R1 = bool(
-        r1_ours["hit_pd"] >= 0.85
-        and R1["arms"]["A_only_NullPilot"]["hit_pd"] < 0.80
-        and R1["arms"]["B_only_NoNullspace"]["hit_pd"] < 0.80
-        and all(
-            R1["paired_diff_vs_ours"][k]["diff_pd"] >= 0.50 and R1["paired_diff_vs_ours"][k]["ci95"][0] > 0.0
-            for k in ("Ma_SeqMF", "Luo_GESBL", "NOMP_DirPort", "A_only_NullPilot", "B_only_NoNullspace")
-        )
+        r1_ours["hit_pd_ci95"][0] >= 0.85
+        and all(R1["arms"][k]["hit_pd_ci95"][1] < 0.80 for k in gated_abl_lt80)
+        and all(R1["paired_diff_vs_ours"][k]["ci95"][0] >= 0.50 for k in gated_rivals_r1r2)
+        and (R1["paired_diff_samefront_ls_vs_noprojres"]["ci95"][0] >= 0.50)
     )
 
     crb_r2 = R2["matched_geometry_bounds"]
     P1_R2 = bool(
-        r2_ours["hit_pd"] >= 0.75
-        and R2["arms"]["A_only_NullPilot"]["hit_pd"] < 0.80
-        and R2["arms"]["B_only_NoNullspace"]["hit_pd"] < 0.80
-        and all(
-            R2["paired_diff_vs_ours"][k]["diff_pd"] >= 0.45 and R2["paired_diff_vs_ours"][k]["ci95"][0] > 0.0
-            for k in ("Ma_SeqMF", "Luo_GESBL", "NOMP_DirPort", "A_only_NullPilot", "B_only_NoNullspace")
-        )
-        and (r2_ours["rmse_l"] is not None and r2_ours["rmse_l"] <= 2.5 * crb_r2["ma_crb_l_rmse"])
-        and (r2_ours["rmse_nu"] is not None and r2_ours["rmse_nu"] <= 2.5 * crb_r2["ma_crb_nu_rmse"])
-        and (r2_ours["h_mag_bias"] is not None and abs(r2_ours["h_mag_bias"]) < 0.02)
+        r2_ours["hit_pd_ci95"][0] >= 0.75
+        and all(R2["arms"][k]["hit_pd_ci95"][1] < 0.80 for k in gated_abl_lt80)
+        and all(R2["paired_diff_vs_ours"][k]["ci95"][0] >= 0.45 for k in gated_rivals_r1r2)
+        and (R2["paired_diff_samefront_ls_vs_noprojres"]["ci95"][0] >= 0.45)
+        and (crb_r2["rmse_l_to_crb_ci95"] is not None and crb_r2["rmse_l_to_crb_ci95"][1] <= 2.5)
+        and (crb_r2["rmse_nu_to_crb_ci95"] is not None and crb_r2["rmse_nu_to_crb_ci95"][1] <= 2.5)
+        and (r2_ours["h_mag_bias_ci95"] is not None and max(abs(r2_ours["h_mag_bias_ci95"][0]), abs(r2_ours["h_mag_bias_ci95"][1])) < 0.02)
     )
 
-    gb24 = cross_10["blind_ce"]["gain_vs_g76_ep24_db"]
-    gb76 = cross_10["blind_ce"]["gain_vs_g76_ep76_db"]
     go24 = cross_05["oracle_ce"]["gain_vs_g76_ep24_db"]
     go76 = cross_05["oracle_ce"]["gain_vs_g76_ep76_db"]
+    go24_ci = cross_05["oracle_ce"]["gain_vs_g76_ep24_boot"]["ci95"]
+    go76_ci = cross_05["oracle_ce"]["gain_vs_g76_ep76_boot"]["ci95"]
+    r3c_blind_ok = bool(
+        blind_grid_ci["snr14_paired_bler_reduction_vs_ep24"]["tango_score_ci95"][0] >= 0.20
+        and blind_grid_ci["snr14_paired_bler_reduction_vs_ep76"]["tango_score_ci95"][0] >= 0.40
+        and all(high_snr_blind_cp[f"snr_{s}dB"]["clopper_pearson_ci95"][1] <= 0.10 for s in (16, 18, 20, 22))
+    )
     P1_R3 = bool(
-        r3a_ours["hit_pd"] >= 0.60
-        and R3a["paired_diff_vs_ours"]["Luo_GESBL"]["diff_pd"] >= 0.35
-        and R3a["paired_diff_vs_ours"]["Luo_GESBL"]["ci95"][0] > 0.0
-        and R3a["paired_diff_vs_ours"]["NOMP_DirPort"]["diff_pd"] >= 0.35
-        and R3a["paired_diff_vs_ours"]["NOMP_DirPort"]["ci95"][0] > 0.0
-        and (gb24 is not None and gb24 >= 1.5)
-        and (gb76 is not None and gb76 >= 2.5)
-        and (go24 is not None and go24 >= 3.0)
-        and (go76 is not None and go76 >= 5.0)
+        r3a_ours["hit_pd_ci95"][0] >= 0.60
+        and R3a["paired_diff_vs_ours"]["Luo_GESBL"]["ci95"][0] >= 0.35
+        and R3a["paired_diff_vs_ours"]["NOMP_DirPort"]["ci95"][0] >= 0.35
+        and r3c_blind_ok
+        and (go24 is not None and go24_ci is not None and go24_ci[0] >= 3.0)
+        and (go76 is not None and go76_ci is not None and go76_ci[0] >= 5.0)
     )
 
-    P2_R4 = bool(R4["max_err_db"] <= 0.50)
+    P2_R4 = bool(R4["max_err_ci95_upper_db"] <= 0.50)
 
     PASS_PRIMARY = bool(GATES_ALL and P1_R1 and P1_R2 and P1_R3 and P2_R4)
 

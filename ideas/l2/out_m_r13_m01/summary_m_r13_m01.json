@@ -1,0 +1,150 @@
+{
+  "script": "l2_m_r13_m01_wideband_iqi.py",
+  "python": "/home/guoyikun/.conda/envs/AFDM/bin/python",
+  "smoke": false,
+  "elapsed_s": 20.777790335938334,
+  "throughput_accounting": {
+    "N": 256,
+    "Nd": 161,
+    "guard_plus_pilot": 95,
+    "xp_pow": 50.0,
+    "L_cpp": 8,
+    "K_burst": 4,
+    "prop_net_sym_per_cu": 0.6098484848484849,
+    "huang_net_sym_per_cu": 0.48787878787878786,
+    "narasimhan_net_sym_per_cu": 0.4065656565656566,
+    "prop_eq_net_thru_sym_per_cu": 0.48863636363636365,
+    "prop_spectral_eff_gain_vs_huang": 1.25,
+    "nar_two_preambles_cpp_energy": 44.420649211574,
+    "huang_excess_eb_db": 1.1505023853257,
+    "narasimhan_excess_eb_db_with_prefix": 2.146553681721344
+  },
+  "verdicts": {
+    "GATES_OK": false,
+    "P1_Rivals": false,
+    "P1_FloorPersists_5dB": false,
+    "P2_SingleMech": false,
+    "PASS_PRIMARY": false
+  },
+  "gates": {
+    "GATES_OK": false,
+    "G_PhysBudget": {
+      "err_dual_chirp": 2.8145794034508337e-14,
+      "err_lin_op": 2.0271006231988933e-16,
+      "err_huang_noiseless": 7.339916481807764e-16,
+      "per_path_checks": [
+        {
+          "l": 0,
+          "nu": 0.0,
+          "bin": 0,
+          "in_guard_mask": true,
+          "off_bin_leak": 3.6301886802600534e-16
+        },
+        {
+          "l": 1,
+          "nu": 1.0,
+          "bin": 244,
+          "in_guard_mask": true,
+          "off_bin_leak": 2.5785686807482805e-13
+        },
+        {
+          "l": 3,
+          "nu": -2.0,
+          "bin": 225,
+          "in_guard_mask": true,
+          "off_bin_leak": 2.5521670568641845e-13
+        }
+      ],
+      "causal_noise_cov_relerr": 0.05217759334749713,
+      "causal_noise_seam_entry": 0.0,
+      "err_causal_inv_impulse_n8": 5.120000000000002e-07,
+      "err_causal_inv_impulse_end": 1.1579208923731789e-179,
+      "err_causal_inv_bem_fit": 0.0052704418131380455,
+      "err_bem_impulse_frob": 3.757313430972595e-07,
+      "err_prefine_impulse_frob": 6.680813400999404e-07,
+      "err_prefine_bem_fit": 0.006643758935156448,
+      "err_lu4_interior": 0.0014128913550083572,
+      "err_lu4_boundary": 0.0207202927852205,
+      "pass": true
+    },
+    "G_c1_Zero_NonTrivial": {
+      "afdm_trueH": {
+        "d_perp": 60,
+        "rank_psi": 8,
+        "cond": 9.245123309399654,
+        "min_sv": 0.6964463407392516,
+        "qr_orth_err": 5.319510545296993e-15
+      },
+      "ofdm_c1_zero_trueH": {
+        "d_perp": 90,
+        "rank_psi": 5,
+        "cond": 1480477388773443.2,
+        "min_sv": 1.2717516598130492e-18,
+        "qr_orth_err": 5.715585991724919e-15
+      },
+      "afdm_blind_estH": {
+        "d_perp": 60,
+        "rank_psi": 8,
+        "cond": 8.73190994081699,
+        "min_sv": 1.4433686158761134
+      },
+      "pass": true
+    },
+    "G_R1_Huang_Fig4": {
+      "n_trials": 24,
+      "fig2_k_nmse_iter1": 0.00036967622383700453,
+      "fig2_k_nmse_iter5": 5.0526347808078356e-05,
+      "fig3_ber_iter1": 0.06680474333983107,
+      "fig3_ber_iter5": 0.03423489278752436,
+      "fig4_ber_nocomp": 0.08845029239766082,
+      "fig4_ber_huang_comp": 0.03423489278752436,
+      "fig4_ber_no_iqimb": 0.03256985055230669,
+      "pass": true
+    },
+    "G_R1_Narasimhan_OFDM": {
+      "n_trials": 16,
+      "ser_static_16qam30_strong13": 0.007568359375,
+      "h_nmse_static_db": -32.92047720042507,
+      "ser_mobile005_qpsk25_strong13": 0.01806640625,
+      "ser_mobile005_16qam30_D2": 0.06689453125,
+      "ser_mobile005_16qam30_D0_noslope": 0.084228515625,
+      "fullband_2x2_nmse_mobile_db": -20.172016738619586,
+      "offdiag_2x2_nmse_mobile_db": -17.950257874560258,
+      "pass": false
+    },
+    "G_ZeroIQI_Health": {
+      "prop_full": {
+        "ser": 0.0,
+        "h_nmse_db": -37.56749793638206,
+        "pass": true
+      },
+      "prop_u0_only": {
+        "ser": 0.0,
+        "h_nmse_db": -37.56749793638206,
+        "pass": true
+      },
+      "zero_u0_same_sig2": {
+        "ser": 0.0,
+        "h_nmse_db": -37.567481918514645,
+        "pass": true
+      },
+      "huang_blind": {
+        "ser": 0.0,
+        "h_nmse_db": -22.489547274768388,
+        "pass": true
+      },
+      "flat_same": {
+        "ser": 0.0,
+        "h_nmse_db": -37.5364337142054,
+        "pass": true
+      },
+      "narasimhan_ofdm_zero": {
+        "ser": 0.0017578125,
+        "h_nmse_db": -29.98335804760391,
+        "pass": true
+      },
+      "diag_narasimhan_afdm_zero_ser": 0.6663819875776397,
+      "pass": true
+    }
+  }
+}

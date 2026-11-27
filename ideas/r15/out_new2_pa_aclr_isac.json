@@ -1,0 +1,147 @@
+{
+  "problem": "m_new2_MemoryPA_ACLR_ISAC",
+  "anchors": [
+    "Gourar arXiv:2609.14030",
+    "Sui IEEE TCOM 2026 (10.1109/tcomm.2026.3701879)",
+    "Mirabella IEEE JSAC 2026 (10.1109/jsac.2026.3751260)"
+  ],
+  "seed_base": 202611265500,
+  "smoke": false,
+  "pa_operating_points_at_aclr_m33dB": {
+    "AFDM": {
+      "pub_ibo_db": 10.25,
+      "pub_prad_db": -10.24,
+      "pub_aclr_db": -33.15,
+      "icf_ibo_db": 9.5,
+      "icf_clip": 0.68,
+      "icf_prad_db": -9.61,
+      "icf_aclr_db": -33.06,
+      "ila_dpd_prad_db": -5.38,
+      "ila_dpd_aclr_db": -36.44,
+      "dpd_prad_db": -4.37
+    },
+    "OFDM": {
+      "pub_ibo_db": 10.25,
+      "pub_prad_db": -10.27,
+      "pub_aclr_db": -33.01,
+      "icf_ibo_db": 9.5,
+      "icf_clip": 0.68,
+      "icf_prad_db": -9.68,
+      "icf_aclr_db": -33.19,
+      "ila_dpd_prad_db": -5.81,
+      "ila_dpd_aclr_db": -37.33,
+      "dpd_prad_db": -4.82
+    },
+    "DFTsOFDM_SC": {
+      "pub_ibo_db": 9.0,
+      "pub_prad_db": -9.08,
+      "pub_aclr_db": -33.04,
+      "icf_ibo_db": 8.5,
+      "icf_clip": 0.92,
+      "icf_prad_db": -8.59,
+      "icf_aclr_db": -33.13,
+      "ila_dpd_prad_db": -3.98,
+      "ila_dpd_aclr_db": -35.23,
+      "dpd_prad_db": -3.29
+    },
+    "OTFS": {
+      "pub_ibo_db": 10.5,
+      "pub_prad_db": -10.49,
+      "pub_aclr_db": -33.04,
+      "icf_ibo_db": 9.5,
+      "icf_clip": 0.68,
+      "icf_prad_db": -9.73,
+      "icf_aclr_db": -33.13,
+      "ila_dpd_prad_db": -5.87,
+      "ila_dpd_aclr_db": -37.31,
+      "dpd_prad_db": -4.87
+    }
+  },
+  "params": {
+    "comm_snr_psat_db": 33.0,
+    "rad_snr_psat_db": 22.0,
+    "tgt_rel_db": -37.0,
+    "n_h0": 100,
+    "n_h1": 80
+  },
+  "arms": {
+    "Pub_AFDM_Bussgang_LinRef": {
+      "comm_mean_ser": 0.12903645833333333,
+      "comm_ser_ci95_hw": 0.017679860551619134,
+      "radar_wt_pd": 0.0125,
+      "radar_hits": 1,
+      "n_scenes": 80
+    },
+    "Steelman_A_AFDM_ICF_MPDAR_PARef": {
+      "comm_mean_ser": 0.02578125,
+      "comm_ser_ci95_hw": 0.007926301017547243,
+      "radar_wt_pd": 0.075,
+      "radar_hits": 6,
+      "n_scenes": 80
+    },
+    "PubPlus_AFDM_ICF_NoPARef": {
+      "comm_mean_ser": 0.02578125,
+      "comm_ser_ci95_hw": 0.007926301017547243,
+      "radar_wt_pd": 0.0375,
+      "radar_hits": 3,
+      "n_scenes": 80
+    },
+    "Steelman_A_AFDM_Bistatic_DARRef": {
+      "comm_mean_ser": 0.02578125,
+      "comm_ser_ci95_hw": 0.007926301017547243,
+      "radar_wt_pd": 0.0125,
+      "radar_hits": 1,
+      "n_scenes": 80
+    },
+    "Steelman_A_AFDM_ILADPD_PARef": {
+      "comm_mean_ser": 0.020703125,
+      "comm_ser_ci95_hw": 0.0064217543728829415,
+      "radar_wt_pd": 0.325,
+      "radar_hits": 26,
+      "n_scenes": 80
+    },
+    "Steelman_S_OFDM_ICF_MPDAR_PARef": {
+      "comm_mean_ser": 0.04971354166666666,
+      "comm_ser_ci95_hw": 0.007083910486977013,
+      "radar_wt_pd": 0.1,
+      "radar_hits": 8,
+      "n_scenes": 80
+    },
+    "Steelman_S_DFTsOFDM_SC_ICF_MPDAR_PARef": {
+      "comm_mean_ser": 0.016901041666666665,
+      "comm_ser_ci95_hw": 0.005921668546856621,
+      "radar_wt_pd": 0.15,
+      "radar_hits": 12,
+      "n_scenes": 80
+    },
+    "Steelman_S_DFTsOFDM_SC_ILADPD_PARef": {
+      "comm_mean_ser": 0.06122395833333334,
+      "comm_ser_ci95_hw": 0.0050267695124455005,
+      "radar_wt_pd": 0.6375,
+      "radar_hits": 51,
+      "n_scenes": 80
+    },
+    "Steelman_S_OTFS_ICF_MPDAR_PARef": {
+      "comm_mean_ser": 0.010729166666666666,
+      "comm_ser_ci95_hw": 0.00353862291833246,
+      "radar_wt_pd": 0.0375,
+      "radar_hits": 3,
+      "n_scenes": 80
+    },
+    "Oracle_AFDM_GenieDPD_ExactRef": {
+      "comm_mean_ser": 0.002395833333333334,
+      "comm_ser_ci95_hw": 0.002261796699926056,
+      "radar_wt_pd": 0.5625,
+      "radar_hits": 45,
+      "n_scenes": 80
+    },
+    "Oracle_DFTsOFDM_GenieDPD": {
+      "comm_mean_ser": 0.0019791666666666664,
+      "comm_ser_ci95_hw": 0.0016981009286798955,
+      "radar_wt_pd": 0.7125,
+      "radar_hits": 57,
+      "n_scenes": 80
+    }
+  },
+  "total_elapsed_s": 44.21
+}

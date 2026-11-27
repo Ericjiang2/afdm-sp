@@ -91,8 +91,6 @@ def _inconclusive_card_routing():
         "status": "INCONCLUSIVE_NOT_FORMAL_OR_PRECISION_FAILED",
         "literal_3win_single_cov13_note": "NO_ACTION_UNTIL_VALID_FORMAL",
         "direct_gls_precision_13_claim": "NO_ACTION_UNTIL_VALID_FORMAL",
-        "right_guard_2win_cov_conditioning_claim": "NO_ACTION_UNTIL_VALID_FORMAL",
-        "all_interwindow_3win_cov_claim": "NO_ACTION_UNTIL_VALID_FORMAL",
         "card_wraparound_narrative_action": "NO_ACTION_UNTIL_VALID_FORMAL",
         "intra_window_single_factor_3x": "NO_ACTION_UNTIL_VALID_FORMAL",
         "same_pulse_whole_receiver_checks": "NO_ACTION_UNTIL_VALID_FORMAL",
@@ -111,7 +109,6 @@ class CutScenarioEnv(base_g01.ScenarioEnv):
         self.cut_diag_stats = {"literal_calls": 0, "literal_floored": 0, "literal_head_rel_dist": []}
 
     def check_raw_zero13_min_eig(self, paths_dict, s2_fixed, use_pulse=True, d_bins=None):
-        # Directly inspects pre-projection zero-(1,3) Hermitian matrix on a specified paths_dict (called once per frame on full arm):
         G_all = self._build_leakage_matrix(paths_dict, use_pulse=use_pulse, d_bins=d_bins)
         M_tot = self.M_O * self.Nbs
         GG = G_all @ G_all.conj().T
@@ -123,10 +120,8 @@ class CutScenarioEnv(base_g01.ScenarioEnv):
         ev = np.linalg.eigvalsh(S4.reshape((M_tot, M_tot), order="F"))
         return float(ev[0])
 
-    def build_whitener(self, paths_dict, s2_fixed, use_pulse=True, cov_mode="full", d_bins=None):
-        if cov_mode in ("none", "diag_power", "no_cross_daft", "full"):
-            return super().build_whitener(paths_dict, s2_fixed, use_pulse=use_pulse, cov_mode=cov_mode, d_bins=d_bins)
-
+    def _build_cov_matrix(self, paths_dict, s2_fixed, cov_mode, use_pulse=True, d_bins=None):
+        # Constructs the exact target SPD covariance matrix for primary/supporting cut modes (preserving intra-window blocks bit-exact).
         G_all = self._build_leakage_matrix(paths_dict, use_pulse=use_pulse, d_bins=d_bins)
         if G_all is None:
             return None, None
@@ -136,7 +131,53 @@ class CutScenarioEnv(base_g01.ScenarioEnv):
         S4 = Sf.reshape((self.M_O, self.Nbs, self.M_O, self.Nbs), order="F")
         he, rs = self.w_head_end, self.w_rguard_start
 
+        if cov_mode == "cut_chordal_prec0":
+            # Primary single-link (W_head <-> W_rguard) SPD disconnection:
+            # Preserves S11 (W_head), S33 (W_rguard), S22 (W_mid), S12, and S23 entrywise bit-exact (0.0 diff),
+            # removing ONLY direct GLS precision coupling (Cinv)_{13} = (Cinv)_{31} = 0.
+            S12 = Sf[np.ix_(self.idx_head, self.idx_mid)]
+            S22 = Sf[np.ix_(self.idx_mid, self.idx_mid)]
+            S23 = Sf[np.ix_(self.idx_mid, self.idx_rguard)]
+            S13_ch = S12 @ np.linalg.solve(S22, S23)
+            Mc = Sf.copy()
+            Mc[np.ix_(self.idx_head, self.idx_rguard)] = S13_ch
+            Mc[np.ix_(self.idx_rguard, self.idx_head)] = S13_ch.conj().T
+            return Mc, Sf
+
+        if cov_mode == "cut_3blk_windows":
+            Sc = np.zeros_like(S4)
+            Sc[:he, :, :he, :] = S4[:he, :, :he, :]
+            Sc[he:rs, :, he:rs, :] = S4[he:rs, :, he:rs, :]
+            Sc[rs:, :, rs:, :] = S4[rs:, :, rs:, :]
+            return Sc.reshape((M_tot, M_tot), order="F"), Sf
+
+        if cov_mode == "cut_2blk_rguard":
+            Sc = np.zeros_like(S4)
+            Sc[:rs, :, :rs, :] = S4[:rs, :, :rs, :]
+            Sc[rs:, :, rs:, :] = S4[rs:, :, rs:, :]
+            return Sc.reshape((M_tot, M_tot), order="F"), Sf
+
+        if cov_mode == "cut_2blk_head":
+            Sc = np.zeros_like(S4)
+            Sc[:he, :, :he, :] = S4[:he, :, :he, :]
+            Sc[he:, :, he:, :] = S4[he:, :, he:, :]
+            return Sc.reshape((M_tot, M_tot), order="F"), Sf
+
+        raise ValueError(f"Unknown cov_mode in _build_cov_matrix: {cov_mode}")
+
+    def build_whitener(self, paths_dict, s2_fixed, use_pulse=True, cov_mode="full", d_bins=None):
+        if cov_mode in ("none", "diag_power", "no_cross_daft", "full"):
+            return super().build_whitener(paths_dict, s2_fixed, use_pulse=use_pulse, cov_mode=cov_mode, d_bins=d_bins)
+
         if cov_mode == "cut_literal_psd":
+            G_all = self._build_leakage_matrix(paths_dict, use_pulse=use_pulse, d_bins=d_bins)
+            if G_all is None:
+                return None, None
+            M_tot = self.M_O * self.Nbs
+            GG = G_all @ G_all.conj().T
+            Sf = 0.5 * (GG + GG.conj().T) + s2_fixed * np.eye(M_tot)
+            S4 = Sf.reshape((self.M_O, self.Nbs, self.M_O, self.Nbs), order="F")
+            he, rs = self.w_head_end, self.w_rguard_start
             Sc = S4.copy()
             Sc[:he, :, rs:, :] = 0.0
             Sc[rs:, :, :he, :] = 0.0
@@ -158,47 +199,13 @@ class CutScenarioEnv(base_g01.ScenarioEnv):
             Cinv = (U * (isq ** 2)[None, :]) @ U.conj().T
             return Linv, Cinv
 
-        if cov_mode == "cut_chordal_prec0":
-            S12 = Sf[np.ix_(self.idx_head, self.idx_mid)]
-            S22 = Sf[np.ix_(self.idx_mid, self.idx_mid)]
-            S23 = Sf[np.ix_(self.idx_mid, self.idx_rguard)]
-            S13_ch = S12 @ np.linalg.solve(S22, S23)
-            Mc = Sf.copy()
-            Mc[np.ix_(self.idx_head, self.idx_rguard)] = S13_ch
-            Mc[np.ix_(self.idx_rguard, self.idx_head)] = S13_ch.conj().T
-            Lc = np.linalg.cholesky(Mc)
-            Linv = np.linalg.solve(Lc, np.eye(M_tot))
-            return Linv, Linv.conj().T @ Linv
-
-        if cov_mode == "cut_2blk_rguard":
-            Sc = np.zeros_like(S4)
-            Sc[:rs, :, :rs, :] = S4[:rs, :, :rs, :]
-            Sc[rs:, :, rs:, :] = S4[rs:, :, rs:, :]
-            M2 = Sc.reshape((M_tot, M_tot), order="F")
-            Lc = np.linalg.cholesky(M2)
-            Linv = np.linalg.solve(Lc, np.eye(M_tot))
-            return Linv, Linv.conj().T @ Linv
-
-        if cov_mode == "cut_2blk_head":
-            Sc = np.zeros_like(S4)
-            Sc[:he, :, :he, :] = S4[:he, :, :he, :]
-            Sc[he:, :, he:, :] = S4[he:, :, he:, :]
-            M2 = Sc.reshape((M_tot, M_tot), order="F")
-            Lc = np.linalg.cholesky(M2)
-            Linv = np.linalg.solve(Lc, np.eye(M_tot))
-            return Linv, Linv.conj().T @ Linv
-
-        if cov_mode == "cut_3blk_windows":
-            Sc = np.zeros_like(S4)
-            Sc[:he, :, :he, :] = S4[:he, :, :he, :]
-            Sc[he:rs, :, he:rs, :] = S4[he:rs, :, he:rs, :]
-            Sc[rs:, :, rs:, :] = S4[rs:, :, rs:, :]
-            M2 = Sc.reshape((M_tot, M_tot), order="F")
-            Lc = np.linalg.cholesky(M2)
-            Linv = np.linalg.solve(Lc, np.eye(M_tot))
-            return Linv, Linv.conj().T @ Linv
-
-        raise ValueError(f"Unknown cov_mode: {cov_mode}")
+        M_cov, _ = self._build_cov_matrix(paths_dict, s2_fixed, cov_mode, use_pulse=use_pulse, d_bins=d_bins)
+        if M_cov is None:
+            return None, None
+        M_tot = self.M_O * self.Nbs
+        Lc = np.linalg.cholesky(M_cov)
+        Linv = np.linalg.solve(Lc, np.eye(M_tot))
+        return Linv, Linv.conj().T @ Linv
 
     def run_same_pulse_arm(self, Y_rx, cov_mode, s2_common, d_bins=None, return_paths=False):
         if d_bins is None:
@@ -276,7 +283,7 @@ def verify_g01_seed_disjointness():
 
 
 def verify_cut_operator_invariants():
-    # Inspects ONLY the 4 exact-SPD primary operators + pre-projection raw zero-(1,3) matrix (cut_literal_psd completely excluded!).
+    # Inspects ONLY the primary SPD operators (cut_chordal_prec0, cut_3blk_windows) + pre-projection raw zero-(1,3) matrix.
     seed_ok = verify_g01_seed_disjointness()
     env = CutScenarioEnv(128, 3, 5, 3, [0], 16.0, 0.25)
     env_s2 = CutScenarioEnv(128, 4, 6, 3, [0, 1], 15.0, 0.25)
@@ -303,58 +310,42 @@ def verify_cut_operator_invariants():
         ]
     s2 = 1e-3
     M_tot = env.M_O * env.Nbs
-    G = env._build_leakage_matrix(paths, use_pulse=True)
-    GG = G @ G.conj().T
-    Sf = 0.5 * (GG + GG.conj().T) + s2 * np.eye(M_tot)
-    S4 = Sf.reshape((env.M_O, env.Nbs, env.M_O, env.Nbs), order="F")
     he, rs = env.w_head_end, env.w_rguard_start
 
     raw_zero13_min_eig = env.check_raw_zero13_min_eig(paths, s2, use_pulse=True)
     raw_zero13_synth_nonspd = bool(raw_zero13_min_eig < 0.0)
 
-    S12 = Sf[np.ix_(env.idx_head, env.idx_mid)]
-    S22 = Sf[np.ix_(env.idx_mid, env.idx_mid)]
-    S23 = Sf[np.ix_(env.idx_mid, env.idx_rguard)]
-    M_exp_chordal = Sf.copy()
-    S13_ch = S12 @ np.linalg.solve(S22, S23)
-    M_exp_chordal[np.ix_(env.idx_head, env.idx_rguard)] = S13_ch
-    M_exp_chordal[np.ix_(env.idx_rguard, env.idx_head)] = S13_ch.conj().T
-    S4_exp_ch = M_exp_chordal.reshape((env.M_O, env.Nbs, env.M_O, env.Nbs), order="F")
+    M_ch, Sf = env._build_cov_matrix(paths, s2, "cut_chordal_prec0", use_pulse=True)
+    M_3b, _ = env._build_cov_matrix(paths, s2, "cut_3blk_windows", use_pulse=True)
+    S4 = Sf.reshape((env.M_O, env.Nbs, env.M_O, env.Nbs), order="F")
+    S4_ch = M_ch.reshape((env.M_O, env.Nbs, env.M_O, env.Nbs), order="F")
+    S4_3b = M_3b.reshape((env.M_O, env.Nbs, env.M_O, env.Nbs), order="F")
+
+    # Entrywise (逐元) 0.0 difference check on W_head and W_rguard intra-window covariances in actual _build_cov_matrix outputs:
+    intra_head_rguard_entrywise_exact_err = float(
+        max(
+            np.max(np.abs(S4_ch[:he, :, :he, :] - S4[:he, :, :he, :])),
+            np.max(np.abs(S4_ch[rs:, :, rs:, :] - S4[rs:, :, rs:, :])),
+            np.max(np.abs(S4_3b[:he, :, :he, :] - S4[:he, :, :he, :])),
+            np.max(np.abs(S4_3b[rs:, :, rs:, :] - S4[rs:, :, rs:, :])),
+        )
+    )
     chordal_target_keep_exact_err = float(
         max(
-            np.max(np.abs(S4_exp_ch[:he, :, :he, :] - S4[:he, :, :he, :])),
-            np.max(np.abs(S4_exp_ch[he:rs, :, he:rs, :] - S4[he:rs, :, he:rs, :])),
-            np.max(np.abs(S4_exp_ch[rs:, :, rs:, :] - S4[rs:, :, rs:, :])),
-            np.max(np.abs(S4_exp_ch[:he, :, he:rs, :] - S4[:he, :, he:rs, :])),
-            np.max(np.abs(S4_exp_ch[he:rs, :, :he, :] - S4[he:rs, :, :he, :])),
-            np.max(np.abs(S4_exp_ch[he:rs, :, rs:, :] - S4[he:rs, :, rs:, :])),
-            np.max(np.abs(S4_exp_ch[rs:, :, he:rs, :] - S4[rs:, :, he:rs, :])),
-            np.max(np.abs(M_exp_chordal - M_exp_chordal.conj().T)),
+            np.max(np.abs(S4_ch[:he, :, :he, :] - S4[:he, :, :he, :])),
+            np.max(np.abs(S4_ch[he:rs, :, he:rs, :] - S4[he:rs, :, he:rs, :])),
+            np.max(np.abs(S4_ch[rs:, :, rs:, :] - S4[rs:, :, rs:, :])),
+            np.max(np.abs(S4_ch[:he, :, he:rs, :] - S4[:he, :, he:rs, :])),
+            np.max(np.abs(S4_ch[he:rs, :, :he, :] - S4[he:rs, :, :he, :])),
+            np.max(np.abs(S4_ch[he:rs, :, rs:, :] - S4[he:rs, :, rs:, :])),
+            np.max(np.abs(S4_ch[rs:, :, he:rs, :] - S4[rs:, :, he:rs, :])),
+            np.max(np.abs(M_ch - M_ch.conj().T)),
         )
     )
 
-    S4_2r = np.zeros_like(S4)
-    S4_2r[:rs, :, :rs, :] = S4[:rs, :, :rs, :]
-    S4_2r[rs:, :, rs:, :] = S4[rs:, :, rs:, :]
-    M_exp_2r = S4_2r.reshape((M_tot, M_tot), order="F")
-
-    S4_2h = np.zeros_like(S4)
-    S4_2h[:he, :, :he, :] = S4[:he, :, :he, :]
-    Sc_h_rest = S4[he:, :, he:, :]
-    S4_2h[he:, :, he:, :] = Sc_h_rest
-    M_exp_2h = S4_2h.reshape((M_tot, M_tot), order="F")
-
-    S4_3b = np.zeros_like(S4)
-    S4_3b[:he, :, :he, :] = S4[:he, :, :he, :]
-    S4_3b[he:rs, :, he:rs, :] = S4[he:rs, :, he:rs, :]
-    S4_3b[rs:, :, rs:, :] = S4[rs:, :, rs:, :]
-    M_exp_3b = S4_3b.reshape((M_tot, M_tot), order="F")
-
     expected_map = {
-        "cut_chordal_prec0": M_exp_chordal,
-        "cut_2blk_rguard": M_exp_2r,
-        "cut_2blk_head": M_exp_2h,
-        "cut_3blk_windows": M_exp_3b,
+        "cut_chordal_prec0": M_ch,
+        "cut_3blk_windows": M_3b,
     }
 
     inv_resids = {}
@@ -384,13 +375,9 @@ def verify_cut_operator_invariants():
     min_ref_blk_norm = float(min(ref_blk_norms.values()))
     kept_cov_spec = {
         "cut_chordal_prec0": [("1", "1"), ("2", "2"), ("3", "3"), ("1", "2"), ("2", "1"), ("2", "3"), ("3", "2")],
-        "cut_2blk_rguard": [("1", "1"), ("2", "2"), ("3", "3"), ("1", "2"), ("2", "1")],
-        "cut_2blk_head": [("1", "1"), ("2", "2"), ("3", "3"), ("2", "3"), ("3", "2")],
         "cut_3blk_windows": [("1", "1"), ("2", "2"), ("3", "3")],
     }
     zero_cov_spec = {
-        "cut_2blk_rguard": [("1", "3"), ("3", "1"), ("2", "3"), ("3", "2")],
-        "cut_2blk_head": [("1", "2"), ("2", "1"), ("1", "3"), ("3", "1")],
         "cut_3blk_windows": [("1", "2"), ("2", "1"), ("1", "3"), ("3", "1"), ("2", "3"), ("3", "2")],
     }
     kept_blk_own_errs = {}
@@ -433,8 +420,6 @@ def verify_cut_operator_invariants():
     min_cinv_norm = float(min(np.linalg.norm(actual_Cinvs[m_k]) for m_k in expected_map))
     prec_zero_errs = {
         "chordal_13": _combined_zero_prec_rel_err("cut_chordal_prec0", [("1", "3"), ("3", "1")]),
-        "rguard2_all_r": _combined_zero_prec_rel_err("cut_2blk_rguard", [("1", "3"), ("3", "1"), ("2", "3"), ("3", "2")]),
-        "head2_all_h": _combined_zero_prec_rel_err("cut_2blk_head", [("1", "2"), ("2", "1"), ("1", "3"), ("3", "1")]),
         "win3_all_off": _combined_zero_prec_rel_err(
             "cut_3blk_windows", [("1", "2"), ("2", "1"), ("1", "3"), ("3", "1"), ("2", "3"), ("3", "2")]
         ),
@@ -456,6 +441,7 @@ def verify_cut_operator_invariants():
         "windows_exact_ok": windows_exact_ok,
         "raw_zero13_synth_nonspd": raw_zero13_synth_nonspd,
         "raw_zero13_synth_min_eig": raw_zero13_min_eig,
+        "intra_head_rguard_entrywise_exact_err": intra_head_rguard_entrywise_exact_err,
         "min_ref_blk_norm": min_ref_blk_norm,
         "min_cinv_norm": min_cinv_norm,
         "min_h_base_norm": min_h_base_norm,
@@ -479,11 +465,15 @@ _CUT_ENV_CACHE = {}
 _PRIMARY_ARM_COV_MAP = {
     "full": "full",
     "cut_chordal_prec0": "cut_chordal_prec0",
-    "cut_2blk_rguard": "cut_2blk_rguard",
-    "cut_2blk_head": "cut_2blk_head",
     "cut_3blk_windows": "cut_3blk_windows",
     "spatial_only": "no_cross_daft",
     "a_only": "none",
+}
+
+_DIAG_ARM_COV_MAP = {
+    "cut_2blk_rguard": "cut_2blk_rguard",
+    "cut_2blk_head": "cut_2blk_head",
+    "cut_literal_psd": "cut_literal_psd",
 }
 
 
@@ -552,24 +542,25 @@ def run_cut_trial(task_tuple):
         out_err[ak] = eb
         out_nmse[ak] = float(np.mean(nl))
 
-    # Isolated descriptive composite diagnostic (cannot abort or alter primary verdicts):
-    lit_ok, lit_err, lit_nmse = True, 0, float("nan")
-    try:
-        H_lit, s2_lit = env.run_same_pulse_arm(Y_rx, "cut_literal_psd", s2_common=s2_common)
-        xh_lit = env.detect_unb_lmmse(Y_rx, H_lit, s2_lit)
-        eb_l, nl_l = 0, []
-        for u in env.weak_users:
-            nl_l.append(
-                float(
-                    np.linalg.norm(H_lit[u][:, :, env.data_bins] - H_true[u][:, :, env.data_bins]) ** 2
-                    / np.linalg.norm(H_true[u][:, :, env.data_bins]) ** 2
+    # Isolated supporting/composite diagnostics: EVERY exception is explicitly captured and persisted in output JSON (never silently swallowed!).
+    diag_res = {}
+    for dak, dmode in _DIAG_ARM_COV_MAP.items():
+        try:
+            H_d, s2_d = env.run_same_pulse_arm(Y_rx, dmode, s2_common=s2_common)
+            xh_d = env.detect_unb_lmmse(Y_rx, H_d, s2_d)
+            eb_d, nl_d = 0, []
+            for u in env.weak_users:
+                nl_d.append(
+                    float(
+                        np.linalg.norm(H_d[u][:, :, env.data_bins] - H_true[u][:, :, env.data_bins]) ** 2
+                        / np.linalg.norm(H_true[u][:, :, env.data_bins]) ** 2
+                    )
                 )
-            )
-            di = np.argmin(np.abs(xh_lit[u][:, None] - env.qam16[None, :]), axis=1)
-            eb_l += int(np.sum(env.qam_bits[di] != env.qam_bits[X_bits[u]]))
-        lit_err, lit_nmse = eb_l, float(np.mean(nl_l))
-    except Exception:
-        lit_ok = False
+                di = np.argmin(np.abs(xh_d[u][:, None] - env.qam16[None, :]), axis=1)
+                eb_d += int(np.sum(env.qam_bits[di] != env.qam_bits[X_bits[u]]))
+            diag_res[dak] = {"ok": True, "err": eb_d, "nmse": float(np.mean(nl_d)), "exc": None}
+        except Exception as exc:
+            diag_res[dak] = {"ok": False, "err": 0, "nmse": float("nan"), "exc": f"tr_id={tr_id}: {exc!r}"}
 
     xh_or = env.detect_unb_lmmse(Y_rx, H_true, sigma2_true)
     eb_or = 0
@@ -587,9 +578,7 @@ def run_cut_trial(task_tuple):
         "s2_err_db": s2_err_db,
         "full_raw_zero13_min_eig": full_final_raw_zero13_min_eig,
         "full_raw_zero13_nonspd": int(full_final_raw_zero13_min_eig <= 0.0),
-        "lit_ok": lit_ok,
-        "lit_err": lit_err,
-        "lit_nmse": lit_nmse,
+        "diag_res": diag_res,
         "lit_calls": env.cut_diag_stats["literal_calls"],
         "lit_floored": env.cut_diag_stats["literal_floored"],
         "lit_head_dist_mean": float(np.mean(env.cut_diag_stats["literal_head_rel_dist"])) if env.cut_diag_stats["literal_head_rel_dist"] else 0.0,
@@ -604,9 +593,6 @@ def summarize_scenario(d, seed_offset=0):
     nmse_diffs = {}
     primary_arms = [
         "cut_chordal_prec0",
-        "cut_2blk_rguard",
-        "cut_2blk_head",
-        "cut_3blk_windows",
         "spatial_only",
         "a_only",
     ]
@@ -621,16 +607,33 @@ def summarize_scenario(d, seed_offset=0):
         nm_db["spatial_only"] - nm_db["cut_3blk_windows"]
     )
 
-    if all(d["lit_ok"]):
-        lit_nm_db = 10.0 * np.log10(np.maximum(d["lit_nmse"], 1e-15))
-        desc_lit = {
-            "cut_literal_psd_over_full_BER": paired_ber_ratio_ci95_strict(d["lit_err"], ef["full"], seed=20261230 + seed_offset),
-            "cut_literal_psd_minus_full_NMSE_dB": base_g01.paired_diff_t_ci95(lit_nm_db - nm_db["full"]),
-            "floored_call_rate": float(sum(d["lit_floored"]) / max(sum(d["lit_calls"]), 1)),
-            "intra_head_rel_distortion_mean": float(np.mean(d["lit_head_dist"])),
+    descriptive_3blk_over_full = {
+        "BER_ratio_ci95": paired_ber_ratio_ci95_strict(ef["cut_3blk_windows"], ef["full"], seed=20261225 + seed_offset),
+        "NMSE_diff_dB_ci95": base_g01.paired_diff_t_ci95(nm_db["cut_3blk_windows"] - nm_db["full"]),
+    }
+
+    isolated_diagnostics = {}
+    for idg, dak in enumerate(("cut_2blk_rguard", "cut_2blk_head", "cut_literal_psd")):
+        dd = d["diag"][dak]
+        excs = [x for x in dd["exc"] if x is not None]
+        n_fail = int(sum(1 for ok in dd["ok"] if not ok))
+        entry = {
+            "diagnostic_failed_frames": n_fail,
+            "diagnostic_exceptions": excs,
         }
-    else:
-        desc_lit = {"diagnostic_failed_frames": int(sum(1 for ok in d["lit_ok"] if not ok))}
+        if n_fail == 0:
+            d_nm_db = 10.0 * np.log10(np.maximum(dd["nmse"], 1e-15))
+            entry["BER"] = float(sum(dd["err"]) / d["bits"])
+            entry["NMSE_agg_dB"] = float(10.0 * np.log10(np.mean(dd["nmse"])))
+            entry["over_full_BER_ci95"] = paired_ber_ratio_ci95_strict(dd["err"], ef["full"], seed=20261230 + seed_offset + idg)
+            entry["minus_full_NMSE_dB_ci95"] = base_g01.paired_diff_t_ci95(d_nm_db - nm_db["full"])
+        if dak == "cut_literal_psd":
+            ok_calls = [c for c, ok in zip(d["lit_calls"], dd["ok"]) if ok]
+            ok_floored = [fl for fl, ok in zip(d["lit_floored"], dd["ok"]) if ok]
+            ok_hdist = [hd for hd, ok in zip(d["lit_head_dist"], dd["ok"]) if ok]
+            entry["floored_call_rate"] = float(sum(ok_floored) / max(sum(ok_calls), 1)) if ok_calls else None
+            entry["intra_head_rel_distortion_mean"] = float(np.mean(ok_hdist)) if ok_hdist else None
+        isolated_diagnostics[dak] = entry
 
     return {
         "n_frames": d["n_frames"],
@@ -643,7 +646,8 @@ def summarize_scenario(d, seed_offset=0):
         "raw_zero13_min_eig_worst": float(min(d["full_raw_min_eig"])),
         "paired_ber_ratios_ci95": ratios,
         "paired_nmse_diffs_dB_ci95": nmse_diffs,
-        "descriptive_composite_literal_psd": desc_lit,
+        "descriptive_all_interwindow_3blk_over_full": descriptive_3blk_over_full,
+        "isolated_diagnostics": isolated_diagnostics,
     }
 
 
@@ -653,6 +657,17 @@ def main():
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--out", type=str, default="diag_g_r12_g01_cut.json")
     args = ap.parse_args()
+
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    out_abs = os.path.abspath(args.out)
+    out_real = os.path.realpath(out_abs)
+    out_base = os.path.basename(out_abs)
+    protected_r11 = os.path.realpath(os.path.join(script_dir, "summary_g_r11_g01.json"))
+    if out_base == "summary_g_r11_g01.json" or out_real == protected_r11:
+        raise ValueError(f"Refusing to overwrite frozen R11 verdict file: {args.out}")
+    if args.smoke and out_base == "diag_g_r12_g01_cut.json":
+        raise ValueError("Refusing to write --smoke output to formal filename diag_g_r12_g01_cut.json!")
+    os.makedirs(os.path.dirname(out_abs), exist_ok=True)
 
     t_start = time.time()
     rl1, inv, rl1_exc = {}, {}, None
@@ -664,6 +679,7 @@ def main():
             bool(inv.get("seed_disjointness_exact_ok", False))
             and bool(inv.get("windows_exact_ok", False))
             and bool(inv.get("raw_zero13_synth_nonspd", False))
+            and (inv.get("intra_head_rguard_entrywise_exact_err", 1.0) == 0.0)
             and (rl1["noiseless_integer_rel_err"] < 1e-12)
             and (rl1["ct_3block_kernel_match_err"] < 1e-12)
             and (rl1["yin24_table2_2x2_ber_perfect"] > 0.0)
@@ -693,6 +709,19 @@ def main():
             "redline1": rl1,
             "cut_invariants": inv,
             "redline1_exception": rl1_exc,
+            "diagnostic_failure_summary": {
+                "any_diagnostic_failed": True,
+                "total_failed_frames": 0,
+                "redline1_exception": rl1_exc,
+                "per_scenario_failed_frames": {
+                    "S1_primary_K3_Nbs5_NF16_SNR30": {},
+                    "S2_K4_Nbs6_NF15_SNR30": {},
+                },
+                "per_scenario_exceptions": {
+                    "S1_primary_K3_Nbs5_NF16_SNR30": {},
+                    "S2_K4_Nbs6_NF15_SNR30": {},
+                },
+            },
             "card_claim_routing": _inconclusive_card_routing(),
             "verdicts": {
                 "PASS_REDLINE1": False,
@@ -701,7 +730,7 @@ def main():
                 "PASS_PRIMARY": False,
             },
         }
-        with open(args.out, "w") as f:
+        with open(out_abs, "w") as f:
             json.dump(_json_safe(fail_s), f, indent=2, allow_nan=False)
         raise RuntimeError(f"Red-Line 1 or cut invariant check failed: {rl1} | {inv} | exc={rl1_exc}")
 
@@ -733,9 +762,7 @@ def main():
                 "s2_db": [],
                 "full_raw_nonspd": [],
                 "full_raw_min_eig": [],
-                "lit_ok": [],
-                "lit_err": [],
-                "lit_nmse": [],
+                "diag": {dak: {"ok": [], "err": [], "nmse": [], "exc": []} for dak in _DIAG_ARM_COV_MAP},
                 "lit_calls": [],
                 "lit_floored": [],
                 "lit_head_dist": [],
@@ -746,12 +773,14 @@ def main():
         d["s2_db"].append(r["s2_err_db"])
         d["full_raw_nonspd"].append(r["full_raw_zero13_nonspd"])
         d["full_raw_min_eig"].append(r["full_raw_zero13_min_eig"])
-        d["lit_ok"].append(r["lit_ok"])
-        d["lit_err"].append(r["lit_err"])
-        d["lit_nmse"].append(r["lit_nmse"])
         d["lit_calls"].append(r["lit_calls"])
         d["lit_floored"].append(r["lit_floored"])
         d["lit_head_dist"].append(r["lit_head_dist_mean"])
+        for dak, dv in r["diag_res"].items():
+            d["diag"][dak]["ok"].append(dv["ok"])
+            d["diag"][dak]["err"].append(dv["err"])
+            d["diag"][dak]["nmse"].append(dv["nmse"])
+            d["diag"][dak]["exc"].append(dv["exc"])
         for ak, ev in r["err"].items():
             d["err"][ak] = d["err"].get(ak, 0) + ev
             d["err_frames"].setdefault(ak, []).append(ev)
@@ -766,9 +795,6 @@ def main():
     cap_5x = cap_ratio_lhw(5.0)
     three_x_keys = [
         "cut_chordal_prec0_over_full_BER",
-        "cut_2blk_rguard_over_full_BER",
-        "cut_2blk_head_over_full_BER",
-        "cut_3blk_windows_over_full_BER",
         "spatial_only_over_full_BER",
         "spatial_only_over_cut_3blk_BER",
     ]
@@ -793,9 +819,6 @@ def main():
     three_state_s1["a_only_over_full_BER"] = classify_ci_vs_bar(r_s1["a_only_over_full_BER"], 5.0)
 
     v_chordal = bool(three_state_s1["cut_chordal_prec0_over_full_BER"] == "CONFIRMED_GE_BAR")
-    v_rguard2 = bool(three_state_s1["cut_2blk_rguard_over_full_BER"] == "CONFIRMED_GE_BAR")
-    v_head2 = bool(three_state_s1["cut_2blk_head_over_full_BER"] == "CONFIRMED_GE_BAR")
-    v_win3 = bool(three_state_s1["cut_3blk_windows_over_full_BER"] == "CONFIRMED_GE_BAR")
     v_intra_vs_spat = bool(three_state_s1["spatial_only_over_cut_3blk_BER"] == "CONFIRMED_GE_BAR")
     v_full_vs_spat = bool(three_state_s1["spatial_only_over_full_BER"] == "CONFIRMED_GE_BAR")
     v_full_vs_a = bool(three_state_s1["a_only_over_full_BER"] == "CONFIRMED_GE_BAR")
@@ -814,14 +837,15 @@ def main():
             return f"WITHDRAW_{tag}_UNPROVEN_STRADDLES_3X"
 
         ch_claim = _map_op_claim(three_state_s1["cut_chordal_prec0_over_full_BER"], "DIRECT_PREC13")
-        rg_claim = _map_op_claim(three_state_s1["cut_2blk_rguard_over_full_BER"], "RGUARD_2WIN_COV")
-        w3_claim = _map_op_claim(three_state_s1["cut_3blk_windows_over_full_BER"], "INTERWINDOW_3WIN")
 
-        wraparound_action = (
-            "WITHDRAW_WRAPAROUND_NARRATIVE_KEEP_VERIFIED_OPERATORS_ONLY"
-            if ((not v_chordal) and (not v_rguard2))
-            else "REPORT_ONLY_CONFIRMED_SPECIFIC_OPERATOR"
-        )
+        if v_chordal and v_cross_bin_gain:
+            wraparound_action = "SUSTAIN_DIRECT_PREC13_WRAPAROUND_AND_PRIMARY_CROSS_BIN_GAIN"
+        elif v_chordal and (not v_cross_bin_gain):
+            wraparound_action = "SUSTAIN_DIRECT_PREC13_ONLY_PRIMARY_CROSS_BIN_GATE_FAILED"
+        elif (not v_chordal) and v_cross_bin_gain:
+            wraparound_action = "WITHDRAW_WRAPAROUND_NARRATIVE_KEEP_INTRA_WINDOW_GAIN_ONLY"
+        else:
+            wraparound_action = "WITHDRAW_WRAPAROUND_PRIMARY_CROSS_BIN_GATE_FAILED_SEE_INTRA_FIELD"
         intra_map = {
             "CONFIRMED_GE_BAR": "CONFIRMED_GE_3X",
             "REFUTED_LT_BAR": "REFUTED_LT_3X",
@@ -834,8 +858,6 @@ def main():
                 "INFEASIBLE_NON_SPD_ON_3WIN_GLS" if (s1_sum["raw_zero13_nonspd_frame_rate"] > 0.0) else "FEASIBLE_ON_FORMAL"
             ),
             "direct_gls_precision_13_claim": ch_claim,
-            "right_guard_2win_cov_conditioning_claim": rg_claim,
-            "all_interwindow_3win_cov_claim": w3_claim,
             "card_wraparound_narrative_action": wraparound_action,
             "intra_window_single_factor_3x": intra_map[three_state_s1["spatial_only_over_cut_3blk_BER"]],
             "same_pulse_whole_receiver_checks": {
@@ -845,6 +867,25 @@ def main():
             },
             "r11_whole_receiver_pass_primary_preserved": True,
         }
+
+    s1_diag_fails = {dak: dv["diagnostic_failed_frames"] for dak, dv in s1_sum["isolated_diagnostics"].items()}
+    s2_diag_fails = {dak: dv["diagnostic_failed_frames"] for dak, dv in s2_sum["isolated_diagnostics"].items()}
+    s1_diag_excs = {dak: dv["diagnostic_exceptions"] for dak, dv in s1_sum["isolated_diagnostics"].items()}
+    s2_diag_excs = {dak: dv["diagnostic_exceptions"] for dak, dv in s2_sum["isolated_diagnostics"].items()}
+    tot_diag_fails = int(sum(s1_diag_fails.values()) + sum(s2_diag_fails.values()))
+    diag_fail_summary = {
+        "any_diagnostic_failed": bool((rl1_exc is not None) or (tot_diag_fails > 0)),
+        "total_failed_frames": tot_diag_fails,
+        "redline1_exception": rl1_exc,
+        "per_scenario_failed_frames": {
+            "S1_primary_K3_Nbs5_NF16_SNR30": s1_diag_fails,
+            "S2_K4_Nbs6_NF15_SNR30": s2_diag_fails,
+        },
+        "per_scenario_exceptions": {
+            "S1_primary_K3_Nbs5_NF16_SNR30": s1_diag_excs,
+            "S2_K4_Nbs6_NF15_SNR30": s2_diag_excs,
+        },
+    }
 
     summary = {
         "_argv": list(sys.argv),
@@ -869,6 +910,7 @@ def main():
         "wall_time_s": float(time.time() - t_start),
         "redline1": rl1,
         "cut_operator_invariants": inv,
+        "diagnostic_failure_summary": diag_fail_summary,
         "ci_precision_check_S1": {
             "any_observed_zero_undecidable": any_obs_zero_undecidable,
             "max_3x_gates_log_halfwidth": max_3x_lhw,
@@ -887,9 +929,6 @@ def main():
             "PASS_CI_PRECISION_25PCT": v_ci_prec,
             "PASS_VALID_FORMAL": v_valid_formal,
             "VERDICT_CHORDAL_DIRECT_PREC_3X": v_chordal,
-            "VERDICT_RGUARD_2BLK_COV_3X": v_rguard2,
-            "VERDICT_HEAD_2BLK_COV_3X": v_head2,
-            "VERDICT_ALL_INTERWINDOW_3BLK_3X": v_win3,
             "VERDICT_INTRA_WINDOW_OVER_SPATIAL_3X": v_intra_vs_spat,
             "VERDICT_FULL_OVER_SPATIAL_3X": v_full_vs_spat,
             "VERDICT_FULL_OVER_A_ONLY_5X": v_full_vs_a,
@@ -897,7 +936,7 @@ def main():
             "PASS_PRIMARY": pass_primary,
         },
     }
-    with open(args.out, "w") as f:
+    with open(out_abs, "w") as f:
         json.dump(_json_safe(summary), f, indent=2, allow_nan=False)
     print(json.dumps(summary["verdicts"], indent=2), flush=True)
     print("Card claim routing:", json.dumps(summary["card_claim_routing"]), flush=True)

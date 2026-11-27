@@ -1,0 +1,634 @@
+{
+  "_config": {
+    "problem_id": "G3_AFDM_FTN_vs_Orthogonal",
+    "smoke": false,
+    "n_scenes": 80,
+    "workers": 8,
+    "L_os": 20,
+    "T_frame_T0": 144
+  },
+  "wall_time_s": 399.060222864151,
+  "gram_and_bw99_check": {
+    "flat_whitening_gram_rel_err": 9.311178653064776e-07,
+    "bw99_orth_b030": 1.13037109375,
+    "bw99_ftn80_b030": 1.13525390625,
+    "bw99_ftn70_b030": 1.13037109375,
+    "bw99_tight_b005_step18": 1.01318359375
+  },
+  "snrs_EbN0_dB": [
+    2.0,
+    4.5,
+    7.0,
+    9.5,
+    12.0,
+    14.5
+  ],
+  "regimes": {
+    "Regime_A_alpha080": {
+      "BLER_curves": {
+        "pub_dai26_unwhitened_lmmse": [
+          1.0,
+          0.925,
+          0.8625,
+          0.7875,
+          0.65,
+          0.4625
+        ],
+        "sm_a1_ftn_whitened_ep_dd": [
+          0.9875,
+          0.8125,
+          0.7125,
+          0.5625,
+          0.375,
+          0.175
+        ],
+        "sm_s_scfde_ftn_dd": [
+          0.9875,
+          0.85,
+          0.7625,
+          0.6,
+          0.4125,
+          0.2625
+        ],
+        "sm_a2_orth_afdm_fixed_rrc": [
+          0.9875,
+          0.85,
+          0.7125,
+          0.5,
+          0.425,
+          0.1625
+        ],
+        "sm_a3_orth_afdm_tight_rrc": [
+          0.975,
+          0.9,
+          0.7375,
+          0.5875,
+          0.4125,
+          0.1875
+        ],
+        "sm_s_orth_scfde_dd": [
+          0.9875,
+          0.875,
+          0.775,
+          0.625,
+          0.425,
+          0.2625
+        ],
+        "sm_s_orth_otfs_dd": [
+          0.9875,
+          0.8375,
+          0.7,
+          0.5375,
+          0.35,
+          0.2
+        ],
+        "sm_s_orth_ofdm_dd": [
+          0.9875,
+          0.85,
+          0.725,
+          0.5875,
+          0.3875,
+          0.2125
+        ],
+        "oracle_ftn_genie_turbo_ep": [
+          0.775,
+          0.4625,
+          0.2,
+          0.0875,
+          0.0125,
+          0.0
+        ],
+        "oracle_orth_genie_turbo_ep": [
+          0.7875,
+          0.5,
+          0.225,
+          0.075,
+          0.0375,
+          0.0
+        ]
+      },
+      "best_oracle_arm": "oracle_ftn_genie_turbo_ep",
+      "BLER_gap_vs_FTN_Oracle_at_5e2_dB": {
+        "pub_dai26_unwhitened_lmmse": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a1_ftn_whitened_ep_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_scfde_ftn_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a2_orth_afdm_fixed_rrc": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a3_orth_afdm_tight_rrc": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_scfde_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_otfs_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_ofdm_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "oracle_ftn_genie_turbo_ep": {
+          "gap_dB": 0.0,
+          "snr_rival_dB": 10.21896406445989,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            0.0,
+            0.0
+          ],
+          "crossing_valid": true
+        },
+        "oracle_orth_genie_turbo_ep": {
+          "gap_dB": 0.7434421873430015,
+          "snr_rival_dB": 10.962406251802891,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            -1.2010016677012683,
+            2.4689226832658875
+          ],
+          "crossing_valid": true
+        }
+      },
+      "BLER_gap_vs_Best_Oracle_at_5e2_dB": {
+        "pub_dai26_unwhitened_lmmse": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a1_ftn_whitened_ep_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_scfde_ftn_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a2_orth_afdm_fixed_rrc": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a3_orth_afdm_tight_rrc": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_scfde_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_otfs_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_ofdm_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "oracle_ftn_genie_turbo_ep": {
+          "gap_dB": 0.0,
+          "snr_rival_dB": 10.21896406445989,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            0.0,
+            0.0
+          ],
+          "crossing_valid": true
+        },
+        "oracle_orth_genie_turbo_ep": {
+          "gap_dB": 0.7434421873430015,
+          "snr_rival_dB": 10.962406251802891,
+          "snr_oracle_dB": 10.21896406445989,
+          "ci95_dB": [
+            -1.2010016677012683,
+            2.4689226832658875
+          ],
+          "crossing_valid": true
+        }
+      },
+      "summary_headroom": {
+        "best_steelman_A_fixed_analog": "sm_a2_orth_afdm_fixed_rrc_lower_bound",
+        "headroom_vs_steelman_A_fixed_dB": 4.28103593554011,
+        "best_steelman_A_flex_pulse": "sm_a2_orth_afdm_fixed_rrc_lower_bound",
+        "headroom_vs_steelman_A_flex_dB": 4.28103593554011,
+        "best_steelman_all": "sm_a2_orth_afdm_fixed_rrc_lower_bound",
+        "headroom_vs_best_steelman_all_dB": 4.28103593554011
+      },
+      "verdict": "S_CANDIDATE"
+    },
+    "Regime_B_alpha070": {
+      "BLER_curves": {
+        "pub_dai26_unwhitened_lmmse": [
+          1.0,
+          0.9875,
+          0.9875,
+          0.95,
+          0.9,
+          0.75
+        ],
+        "sm_a1_ftn_whitened_ep_dd": [
+          1.0,
+          0.925,
+          0.825,
+          0.675,
+          0.4625,
+          0.2875
+        ],
+        "sm_s_scfde_ftn_dd": [
+          1.0,
+          0.9375,
+          0.85,
+          0.7375,
+          0.55,
+          0.35
+        ],
+        "sm_a2_orth_afdm_fixed_rrc": [
+          1.0,
+          0.9875,
+          0.9125,
+          0.8,
+          0.7625,
+          0.4625
+        ],
+        "sm_a3_orth_afdm_tight_rrc": [
+          1.0,
+          0.9875,
+          0.925,
+          0.8375,
+          0.75,
+          0.5875
+        ],
+        "sm_s_orth_scfde_dd": [
+          1.0,
+          0.9875,
+          0.925,
+          0.825,
+          0.75,
+          0.4875
+        ],
+        "sm_s_orth_otfs_dd": [
+          1.0,
+          0.975,
+          0.9,
+          0.8375,
+          0.7625,
+          0.575
+        ],
+        "sm_s_orth_ofdm_dd": [
+          1.0,
+          0.9625,
+          0.9375,
+          0.8,
+          0.7875,
+          0.5375
+        ],
+        "oracle_ftn_genie_turbo_ep": [
+          0.9125,
+          0.7,
+          0.3875,
+          0.1125,
+          0.05,
+          0.0
+        ],
+        "oracle_orth_genie_turbo_ep": [
+          0.9625,
+          0.85,
+          0.5875,
+          0.2875,
+          0.1125,
+          0.0375
+        ]
+      },
+      "best_oracle_arm": "oracle_ftn_genie_turbo_ep",
+      "BLER_gap_vs_FTN_Oracle_at_5e2_dB": {
+        "pub_dai26_unwhitened_lmmse": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a1_ftn_whitened_ep_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_scfde_ftn_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a2_orth_afdm_fixed_rrc": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a3_orth_afdm_tight_rrc": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_scfde_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_otfs_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_ofdm_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "oracle_ftn_genie_turbo_ep": {
+          "gap_dB": 0.0,
+          "snr_rival_dB": 12.0,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            0.0,
+            0.0
+          ],
+          "crossing_valid": true
+        },
+        "oracle_orth_genie_turbo_ep": {
+          "gap_dB": 1.845351232142713,
+          "snr_rival_dB": 13.845351232142713,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            0.7774317812164426,
+            3.4226756160713574
+          ],
+          "crossing_valid": true
+        }
+      },
+      "BLER_gap_vs_Best_Oracle_at_5e2_dB": {
+        "pub_dai26_unwhitened_lmmse": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a1_ftn_whitened_ep_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_scfde_ftn_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a2_orth_afdm_fixed_rrc": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_a3_orth_afdm_tight_rrc": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_scfde_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_otfs_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "sm_s_orth_ofdm_dd": {
+          "gap_dB": null,
+          "snr_rival_dB": null,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            null,
+            null
+          ],
+          "crossing_valid": false
+        },
+        "oracle_ftn_genie_turbo_ep": {
+          "gap_dB": 0.0,
+          "snr_rival_dB": 12.0,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            0.0,
+            0.0
+          ],
+          "crossing_valid": true
+        },
+        "oracle_orth_genie_turbo_ep": {
+          "gap_dB": 1.845351232142713,
+          "snr_rival_dB": 13.845351232142713,
+          "snr_oracle_dB": 12.0,
+          "ci95_dB": [
+            0.7774317812164426,
+            3.4226756160713574
+          ],
+          "crossing_valid": true
+        }
+      },
+      "summary_headroom": {
+        "best_steelman_A_fixed_analog": "sm_a1_ftn_whitened_ep_dd_lower_bound",
+        "headroom_vs_steelman_A_fixed_dB": 2.5,
+        "best_steelman_A_flex_pulse": "sm_a1_ftn_whitened_ep_dd_lower_bound",
+        "headroom_vs_steelman_A_flex_dB": 2.5,
+        "best_steelman_all": "sm_a1_ftn_whitened_ep_dd_lower_bound",
+        "headroom_vs_best_steelman_all_dB": 2.5
+      },
+      "verdict": "S_CANDIDATE"
+    }
+  },
+  "teardown_verdict": "S_CANDIDATE",
+  "_argv": [
+    "ideas/r15/td_g_g3_afdm_ftn.py",
+    "--workers",
+    "8",
+    "--n-scenes",
+    "80",
+    "--out",
+    "ideas/r15/out_g3_afdm_ftn.json"
+  ]
+}

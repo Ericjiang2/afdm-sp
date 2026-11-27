@@ -1,0 +1,148 @@
+{
+  "smoke": false,
+  "workers": 8,
+  "m01_horizontal_snr": {
+    "R2_Strong13_64QAM": {
+      "n_bursts": 60,
+      "mean_ser": {
+        "Anttila_DD6@32.0dB": 0.010300207039337475,
+        "Ours_PropFull@32.0dB": 0.00949792960662526,
+        "Oracle_PhysGold@32.0dB": 0.0,
+        "Anttila_DD6@33.0dB": 0.009472049689440994,
+        "Anttila_DD6@34.0dB": 0.009135610766045547,
+        "Anttila_DD6@35.0dB": 0.008566252587991718,
+        "Anttila_DD6@36.0dB": 0.008385093167701863
+      },
+      "lockout_gt1pct": {
+        "Anttila_DD6@32.0dB": 0.13333333333333333,
+        "Ours_PropFull@32.0dB": 0.06666666666666667,
+        "Oracle_PhysGold@32.0dB": 0.0,
+        "Anttila_DD6@33.0dB": 0.1,
+        "Anttila_DD6@34.0dB": 0.08333333333333333,
+        "Anttila_DD6@35.0dB": 0.08333333333333333,
+        "Anttila_DD6@36.0dB": 0.06666666666666667
+      }
+    },
+    "R3_ContDop_16QAM": {
+      "n_bursts": 48,
+      "mean_ser": {
+        "Anttila_DD6@28.0dB": 0.006405279503105589,
+        "Ours_PropFull@28.0dB": 0.00022644927536231884,
+        "Oracle_PhysGold@28.0dB": 0.0,
+        "Anttila_DD6@29.0dB": 0.006308229813664596,
+        "Anttila_DD6@30.0dB": 0.004820134575569357,
+        "Anttila_DD6@31.0dB": 0.004431935817805383
+      },
+      "lockout_gt1pct": {
+        "Anttila_DD6@28.0dB": 0.08333333333333333,
+        "Ours_PropFull@28.0dB": 0.0,
+        "Oracle_PhysGold@28.0dB": 0.0,
+        "Anttila_DD6@29.0dB": 0.08333333333333333,
+        "Anttila_DD6@30.0dB": 0.08333333333333333,
+        "Anttila_DD6@31.0dB": 0.0625
+      }
+    }
+  },
+  "m04_otfs_17x15_and_clutter_h0": {
+    "population_identifiability_otfs_17x15": {
+      "min_singular_value_6paths_plus_noise": 0.5239656090745831,
+      "cond_number": 30.724451651909025
+    },
+    "taus_pfa_1p5pct": {
+      "afdm_b": 14.838377941436462,
+      "afdm_w": 15.540779560772465,
+      "otfs_w": 16.814568452771564
+    },
+    "regimes": {
+      "H0_ClutterOnly_P1_0dB": {
+        "n_scenes": 80,
+        "arms": {
+          "AFDM_Ours_Banded": {
+            "wt_pd": 1.0,
+            "any_fa": 0.0125,
+            "mean_n_dets": 1.0125
+          },
+          "AFDM_FullWishart": {
+            "wt_pd": 1.0,
+            "any_fa": 0.025,
+            "mean_n_dets": 1.025
+          },
+          "OTFS_17x15_FullWishart": {
+            "wt_pd": 1.0,
+            "any_fa": 0.0,
+            "mean_n_dets": 1.0
+          }
+        }
+      },
+      "Reg1_P2_0_m13p5dB": {
+        "n_scenes": 80,
+        "arms": {
+          "AFDM_Ours_Banded": {
+            "wt_pd": 0.875,
+            "any_fa": 0.0125,
+            "mean_n_dets": 1.8875
+          },
+          "AFDM_FullWishart": {
+            "wt_pd": 1.0,
+            "any_fa": 0.0375,
+            "mean_n_dets": 2.0375
+          },
+          "OTFS_17x15_FullWishart": {
+            "wt_pd": 0.9875,
+            "any_fa": 0.0625,
+            "mean_n_dets": 2.05
+          }
+        }
+      },
+      "Reg2_P3_0_m5_m12p5dB": {
+        "n_scenes": 80,
+        "arms": {
+          "AFDM_Ours_Banded": {
+            "wt_pd": 0.85,
+            "any_fa": 0.0125,
+            "mean_n_dets": 2.8625
+          },
+          "AFDM_FullWishart": {
+            "wt_pd": 0.9875,
+            "any_fa": 0.025,
+            "mean_n_dets": 3.0125
+          },
+          "OTFS_17x15_FullWishart": {
+            "wt_pd": 0.975,
+            "any_fa": 0.0125,
+            "mean_n_dets": 2.9875
+          }
+        }
+      }
+    }
+  },
+  "m03_bell1994_ieks_equivalence": {
+    "Sep_R3_45dB_Floor": {
+      "n_frames": 40,
+      "mean_ser": {
+        "Ours_BandedGN_SubbandInit": 0.03205307262569832,
+        "Bell1994_ExactMarkovIEKS_SubbandInit": 0.03205307262569832,
+        "Bell1994_ExactMarkovIEKS_NoSubbandInit": 0.024371508379888267
+      },
+      "lock_loss_gt5pct": {
+        "Ours_BandedGN_SubbandInit": 0.175,
+        "Bell1994_ExactMarkovIEKS_SubbandInit": 0.175,
+        "Bell1994_ExactMarkovIEKS_NoSubbandInit": 0.175
+      }
+    },
+    "Sep_R4_30dB_SFBlind": {
+      "n_frames": 40,
+      "mean_ser": {
+        "Ours_BandedGN_SubbandInit": 0.1178072625698324,
+        "Bell1994_ExactMarkovIEKS_SubbandInit": 0.1178072625698324,
+        "Bell1994_ExactMarkovIEKS_NoSubbandInit": 0.12932960893854747
+      },
+      "lock_loss_gt5pct": {
+        "Ours_BandedGN_SubbandInit": 0.775,
+        "Bell1994_ExactMarkovIEKS_SubbandInit": 0.775,
+        "Bell1994_ExactMarkovIEKS_NoSubbandInit": 0.85
+      }
+    }
+  },
+  "total_elapsed_s": 616.78
+}
